@@ -1,0 +1,474 @@
+/* ==================== css styles =============== */
+
+* {margin:0; padding:0; box-sizing:border-box; outline:0; border:0; text-decoration: none; list-style:none;}
+img {max-width:100%;}
+body, html {font-size: 16px; font-family: 'Open Sans', sans-serif;}
+
+.container {margin:0 auto; max-width:1200px;} 
+.col-half {float:left; width:50%; padding:15px;}
+.col-third {float:left; width:33.333%; padding:15px;}
+.col-fourth {float:left; width:25%; padding:15px;}
+.text-center {text-align:center;}
+.text-right {text-align:right;}
+.pull-left {float:left !important;}
+.pull-right {float:right !important;}
+.display-inline {float:none !important; display:inline-block; }
+
+header {float:left; width:100%; padding: 20px 0 0 0;}
+.site-logo {
+    float: left;
+    max-width: 350px;
+    margin-bottom:15px;
+    padding-top:15px;
+}
+ 
+
+ 
+.site-login ul li a {float:left; padding:5px;}
+.nav-wrapper {
+    float: left;
+    width: 100%;
+    background: #79879a;
+}
+.float-right {
+    float: right;
+}
+.site-login ul li a i.fa {
+    display: inline-block;
+    height: 30px;
+    width: 30px;
+    border: 1px solid #eaeaea;
+    text-align: center;
+    line-height: 27px;
+    border-radius: 30px;
+    color: #333;
+}
+.site-nav {z-index:100;}
+.site-nav ul {margin:0;}
+.site-nav ul li a { float: left; padding: 0px 15px; color: #fff; height: 55px; line-height: 55px;}
+.loginBtn button {padding:10px; color:#fff; border:0; background:transparent; font-size: 23px; cursor: pointer; }
+.site-nav ul li a .fa {font-size: 28px; line-height:24px;}
+.site-login ul li a img {max-width:30px;}
+.col-half {float:left; width:50%;}
+.content-wrapper {float:left; width:100%; overflow: hidden;}
+.banner-heading h1 {font-size: 45px; color: #1d2b4c;  margin-top: 80px; padding: 10px 0px;}
+.banner-heading h3 { font-size: 22px; color: #5b6a87; padding:0px; margin-bottom:40px; font-weight: 400;}
+.banner-heading a{background-image: linear-gradient(270deg,#79879a,#aec6cf);box-shadow: 0 8px 16px rgba(174,198,207,.25); padding:10px 20px; color:#fff; }
+.banner-heading, .banner-img {
+    padding: 50px 0;
+}
+.page-section {
+    float: left;
+    width: 100%;
+}
+.page-section h1 {color:#1d2b4c; font-size:50px; padding:30px 0; margin-top: 50px; text-align: center;}
+.search-section {
+    float: left;
+    width: 100%;
+}
+.search-section h2 {color:#1d2b4c; font-size:26px; font-weight:400;}
+.searchInput {
+    float: left;
+    width: 100%;
+    max-width: 300px;
+    position: relative;
+    padding: 5px 45px 5px 10px;
+    border: 1px solid #dbdbdb;
+    margin: 20px 0;
+    border-radius: 5px;
+
+}
+.searchInput input {font-size:14px; float:left; width:100%;}
+.searchInput button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding:4px 14px;
+    font-size: 14px;
+    font-weight: 300;
+    background: transparent;
+}
+
+
+
+/* Style the tab */
+.tab {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+}
+
+/* Style the buttons that are used to open the tab content */
+.tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+  background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+  display: none;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-top: none;
+  padding-top:0;
+}
+
+.faq-tabs {
+    float: left;
+    width: 100%;
+    padding: 70px 0;
+    position: relative;
+    z-index:100;
+}
+.faq-tabs:after {position: absolute;right:-35%; height:350px; width:500px; content: ''; background:url(../images/home-bg-svg.svg) no-repeat center right; top:0%; z-index:99; background-size: auto 100%; }
+.tab-buttons {float:left; width:30%; background:#79879a; padding:15px; min-height: 150px;} 
+.tab-buttons button {float: left;width: 100%; color: #fff; background:transparent; font-size: 18px; margin:5px 0; text-align: left; cursor: pointer;}
+.contentArea { float: left; width: 70%; padding: 20px; padding-top:0; padding-top: 0; position: relative; z-index: 100;}
+.tabcontent {border:0;}
+ 
+
+#site-footer {float:left; width:100%; padding:50px 0 20px 0;background:#f5f5f5; position: relative; z-index: 100; }
+.newsletterCol h3 {float: left;width: 100%; margin:0 0 20px 0; font-size: 22px; color: #1d2b4c;}
+.newsletter {float:left; width: 100%;}
+.newsletter label { color: #919eb7;}
+.newsletter .newsletter-input {float: left;width: 100%; position: relative; padding-top: 10px; padding-right:200px; margin-top:15px;}
+.newsletter .newsletter-input input {float: left;width: 100%; padding:10px; height: 40px; font-size: 14px; color:#79879a; border:1px solid #c5d9e8; border-radius:2px;}
+.newsletter .newsletter-input button {position: absolute; right:0px; top:10px; height:40px; background:#eaeaea;  color:#79879a; cursor: pointer; text-align: center; font-size:15px; padding:10px; width:190px; margin-left:10px;}
+.newsletter .newsletter-input button:hover {color:#b88862;}
+.footer-logo { float: left; max-width: 200px; margin-top: 30px;}
+.footer-icons {display: inline-block; padding:10px; vertical-align: middle; max-width: 50%;}
+.social-icons {display: inline-block; width:auto; }
+.social-icons li {float:left; padding:10px;}
+.social-icons li a i{color:#888; font-size: 16px; height:40px; width:40px; display: inline-block; background:#f5f5f5; text-align: center; line-height:40px; border-radius:50%; border:1px solid #ccc;}
+.social-icons li a i.fa-twitter:hover {color:#41abe1;}
+.social-icons li a i.fa-facebook:hover {color:#3b5998;}
+.social-icons li a i.fa-instagram:hover {color:#c536a4;}
+.footer-list {display: inline-block;width:auto;}
+.footer-list li {float:left;}
+.footer-list li a{float:left; padding:10px; color:#5b6a87;}
+.col-row {float:left; width:100%;}
+p.footer-copyright {padding:10px; color:#5b6a87; font-size: 14px;}
+#site-footer .container {  max-width: 1600px; padding: 0px 30px;}
+.site-nav ul li.active a { background: #ccc;}
+.site-nav ul li a i { margin-top: 16px; display: inline-block;}
+.product-item h2 { color: #1d2b4c; font-size: 26px; padding: 15px 0; margin-top:100px; letter-spacing:0.5px;}
+.product-item p { color:#1d2b4c; font-size: 18px; padding:5px 0; margin:0; font-weight:300; letter-spacing:0.5px;}
+.btn-gray {background-image: linear-gradient(270deg,#79879a,#aec6cf); box-shadow: 0 8px 16px rgba(174,198,207,.25); padding:10px 20px; color:#fff; font-size:14px; letter-spacing:1px;}
+.product-item button { margin-top:20px; }
+.product-item a {display: inline-block; padding:8px 20px; font-size: 14px; text-transform: capitalize; outline: 0; line-height: 1.5; text-align: center; white-space: nowrap; border: 1px solid #c5d9e8; 
+	border-radius: 4px; background-color: #fff; transition: background .2s; letter-spacing:0.5px; margin-left:15px;}
+.product-item-img {vertical-align: middle; }	
+.product-item-img img {display: inline-block; border:5px solid #fff; box-shadow:0px 0px 20px rgba(0,0,0,0.2); max-width:400px; margin-top:40px; position: relative; z-index: 10;}
+.product-item-img .img-back{display: inline-block; position: relative; margin-top:40px;}
+.product-item-img .img-back img {margin-top:0;}
+.product-item-img .img-back:after {position: absolute; top:10px;   bottom: -20px;right:0px; left:10px; width: 104%; content: ''; background:#fff; box-shadow:0px 0px 15px rgba(0,0,0,0.08); z-index:9;}
+.mb-5 {margin-bottom:50px;}
+.menuToggle {float:left; padding:15px; font-size:20px; background: transparent; color:#fff; display: none;}
+.productDetail {}
+.productDetail h2 {float:left; width:100%; margin-bottom:10px; font-size: 26px;  color:#1d2b4c; margin-top:5px;}
+.productDetail p {font-size: 16px; color:#444; margin:0 0 20px 0; padding:0;}
+.productPurchase {float: left; width: 100%; margin-bottom: 20px; margin-top:30px;}
+.productPurchase button { padding:15px 30px; color:#fff; font-size: 18px; border-radius:5px; cursor:pointer; background-color:#0181f6; letter-spacing:2px; font-weight: 300; text-transform: uppercase; }
+.cardsIMages img{max-width: 150px;}
+.site-login li { float: left;}
+.site-login {width:100%;}
+.headerReview h4 i, .headerReview a small { color: #b88862;}
+.headerReview:hover h4 i, .headerReview:hover a small{ color:#f7982a;}
+
+/* 1. Ensure this sits above everything when visible */
+ 
+
+.loginModalContent .modal-header {
+   
+    border-bottom: 1px solid #79879a;
+}
+.loginModalContent .modal-header h2 {
+    font-size: 26px;
+    text-transform: uppercase;
+    color: #1d2b4c;
+    letter-spacing:0;
+}
+.loginModalContent .modal-header h2 i{
+	color:#79879a;
+	font-size: 30px;
+}
+.login-form h3 {
+    font-size: 18px;
+}
+.login-form {
+    display: block;
+    clear: both;
+}
+.loginWrap {
+
+    display: block;
+    clear: both;
+
+}
+.loginWrap h4 {
+
+    font-size: 16px;
+    font-weight: 400;
+    padding: 5px 0;
+    color: #777;
+}
+.signInForm {
+    display: block;
+    clear: both;
+
+}
+
+.signInForm .inputField {
+    display: block;
+    width: 100%;
+    margin-top:20px;
+}
+.signInForm .inputField label {
+	display: block;
+	clear: both;
+	font-size: 14px;
+	color:#79879a;
+}
+.signInForm .inputField input {
+	display: block;
+	width: 100%;
+	height: 40px; 
+	border-radius:3px;
+	padding: 0px 10px;
+	border:1px solid #dbdbdb;
+	margin-top:5px;
+	font-size: 14px;
+}
+
+.formSubmit button, .formSubmit input {
+
+    width: auto !important;
+    clear: none;
+    float: right;
+    margin-bottom: 20px;
+    height: auto !important;
+    border: 0 !important;
+    font-size: 14px;
+    padding: 10px 20px !important;
+    vertical-align: middle;
+    margin-top: 10px !important;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #777;
+    cursor: pointer;
+
+}
+
+.formSubmit input[type="submit"] {
+	background:#0181f6;
+	color:#fff;
+	margin-right: 15px;
+}
+
+.loginWrap span#switchForm {color:#b88862; cursor: pointer;}
+.productDetail {
+    margin-top: 30px;
+}
+#heroSlider .carousel-caption {
+    top: 0px;
+    left: 0px;
+    right: auto;
+    width: 100%;
+}
+
+#heroSlider .carousel-caption h5 {
+    font-size:55px;
+    font-weight: 600;
+    text-transform: capitalize;
+    letter-spacing:0.5px;
+    color:#0b324c;
+    margin-top:12%;
+    max-width: 600px
+}
+
+#heroSlider .carousel-caption p {
+    font-size:26px;
+    font-weight:300;     
+    letter-spacing: 1px;
+    color:#79879a;
+    margin-top:10px;
+    max-width: 600px;
+    text-shadow: 0px 0px 6px rgba(0,0,0,0.09);
+}
+
+#heroSlider .carousel-caption a {
+
+    display: inline-block;
+    padding: 10px 26px;
+    color: #fff;
+    background: #b88862;
+    font-weight: 300;
+    letter-spacing: 2px;
+    border-radius: 3px;
+    margin-top:20px;
+
+}
+.topHeader {float:left; width:100%; padding:4px 0; background: #e5e5e5;}
+.topHeader .site-login ul {margin:0; padding:0;}
+header#site-header {padding-top:0;}
+.topHeader .site-login ul li a img {max-width: 20px;}
+.site-login ul li h4 { float: left; font-size: 13px; margin-top: 9px; color: #111; letter-spacing: 1px;}
+.site-login ul li a {font-size: 13px; color:#444;}
+.site-login ul li a small {margin-right:10px; margin-top: 2px; font-size:13px; display: inline-block;}
+.site-login .searchInput { margin:22px 0 0 0; }
+ul.headerCart li a {  margin-top: 18px; margin-left: 20px;}
+.accordion-header, .accordion-header h2, .accordion-header button { float: left; width: 100%; text-align: left;  position: relative;  margin: 0;}
+.home-faq .card + .card { margin-top:10px; border-bottom:1px solid rgba(0,0,0,.125) }
+.home-faq .accordion > .card:not(:last-of-type) {border-bottom:1px solid rgba(0,0,0,.125); border-radius: .25rem !important; }
+.accordion-header button {padding:12px 20px; position: relative; background: #79879a; border-radius: 0px; color: #fff; font-weight: 300; }
+.accordion-header button.collapsed {background: #eaeaea; color:#79879a !important;}
+.accordion-header button:hover {color: #fff !important; background: #79879a;}
+.home-faq .card-body { color: #666; font-weight: 300; font-size: 15px;  letter-spacing: 0.5px;}
+.product-block {margin-bottom:50px;}
+.product-block .prodcutImage img { max-width: 300px; display: inline-block;}
+.product-block .proInfo {  padding-top:30px;}
+.product-block .proInfo h2 {font-size:20px; font-weight:600;}
+.product-block .proInfo p {font-size:14px; font-weight:300; color: #555;}
+.product-block .proInfo a {color:#b88862;} 
+.pageNewsletter {padding:100px 0; margin-top:30px; background:url(../images/slide-01.png) no-repeat center center #eaeaea; background-size:cover; background-attachment: fixed;}
+button:focus {outline:none !important;}
+}
+ 
+/* ========================================== style override ===================== */
+
+.sliderMain {float:left; width: 100%; margin-bottom:50px;}
+
+
+@media only screen and (max-width:1366px) {
+
+	.container {padding:0px 30px;}
+	.product-item h2 {margin-top:80px;}
+	.footer-icons {max-width:40%;} 
+	#site-footer {padding-bottom:20px;}
+	html, body, p.footer-copyright, .newsletter .newsletter-input button {font-size: 13px;}
+  #heroSlider .carousel-caption h5 {margin-top:5%;}
+  #heroSlider .carousel-caption h5 { font-size: 32px;}
+  #heroSlider .carousel-caption p { font-size: 20px;}
+
+
+}
+
+@media only screen and (max-width:1024px) {
+
+	.social-icons li a i { color: #fff; font-size: 16px; height: 40px; width: 40px; display: inline-block; background: #ccc; text-align: center; line-height: 40px;}
+	.social-icons li {padding:6px;}
+	
+	}
+
+
+@media only screen and (max-width:900px) {
+	#site-footer .col-fourth, #site-footer .col-half { width: 100%;}
+	.product-item-img img {max-width:86%;}
+	.product-item-img .img-back:after { width:90%;}
+	.product-item h2 { margin-top: 40px;}
+	.footer-logo { width:100%; max-width:100%; text-align: center; margin:0 0 0px 0;}
+	.footer-logo a {display: inline-block; float: none;}
+	.footer-logo img {max-width:300px;}
+	#site-footer .col-fourth.text-right { text-align: center;}
+	.social-icons { display: inline-block; float: none; margin: 30px; vertical-align: middle;}
+	.footer-nav {  float: left !important;}
+	.footerSub {float: left;width: 100%;  }
+	#site-footer{ padding-bottom:0;}
+	p.footer-copyright { padding: 20px 10px; opacity:0.5;}
+
+}	
+
+
+@media only screen and (max-width:840px) {
+	.product-item h2 { margin-top: 10px;}
+	.mb-5 { margin-bottom: 20px;}
+
+}
+
+
+
+@media only screen and (max-width:767px) {
+	.footer-nav {  width: 100%;}
+	.footer-subnav { width: 100%; text-align: center;}
+	.social-icons {margin:15px;}
+	.product-item-img {float:left !important; padding:0; width:100%; text-align: left;}
+	.product-item-img img {max-width:350px; max-height:350px;}
+	.product-item { float: left; width: 100%; padding: 0;}
+	.product-item-img .img-back:after { bottom:-8px; left:0px;}
+  .product-block .prodcutImage img { max-width:80%;}
+  #heroSlider .carousel-caption p { font-size: 14px; max-width: 300px; margin-top: 3px;}
+  #heroSlider .carousel-caption h5 { font-size: 22px; }
+  #heroSlider .carousel-caption a { padding: 6px 15px;}	 
+  .product-block .proInfo h2 { font-size: 16px;}
+  .product-block .proInfo p {font-size: 13px;}
+  .site-logo { width: 100%; text-align: center; max-width: 100%;}
+  .site-logo img {max-width: 300px;}
+  .site-login { width: 100%; text-align: center;}
+  .site-login .headerCart { float: none !important;  display: inline-block !important;}
+  .site-login .searchInput, ul.headerCart li a { margin-top: 0px;}
+  ul.headerCart li a { padding: 2px;}
+  .loginBtn { position: absolute; top: 0px; right: 0px;}
+  .loginBtn button {  padding: 0px; outline: none;}
+  .site-login.d-flex, .site-login.d-flex ul { display: block !important; text-align: center; width: 100%; float: left;}
+  .site-login.d-flex ul li {display: inline-block; float: none;}
+
+	}
+
+
+@media only screen and (max-width:575px) {
+	.newsletter .newsletter-input {padding-right:0px;}
+	.newsletter .newsletter-input button { position: static; margin-top: 10px; width: 100%; margin: 6px 0 0 0;}
+	.col-half {padding:0;}
+	.footer-list li a {padding:6px;}
+	.newsletterCol h3 {margin-bottom:8px;}
+	#site-footer {padding-top:30px;}
+	.col-half {width: 100%;}
+	.banner-heading h1, .banner-heading h3, .banner-heading a {float:left; clear:both;}
+	.banner-heading h1 {margin-top:20px;}
+	.tab-buttons { position: relative; z-index: 100; width: 100%; min-height: inherit; padding:0;}
+	.tab-buttons button {width: 50%; text-align: center; padding:13px 0; margin: 0;}
+	.tab-buttons button:hover {background: #50637c;}
+	.contentArea { width: 100%; padding: 0px; margin-top: 15px;}
+	.tabcontent {padding:0;}
+	.faq-tabs {padding:20px 0;}
+	 
+	.searchInput {max-width: 100%;}
+	.site-logo {margin-bottom:0px;}
+	.product-item-img img {max-width:100%;}
+	.modal-wrapper {left: 2%; width: 96%; margin-left: 0;}
+  #heroSlider .carousel-caption {padding:10px 0 0 0; text-align: center !important;}
+  #heroSlider .carousel-caption h5,  #heroSlider .carousel-caption p {max-width:100%; text-align: center; width: 100%; margin:5px 0; letter-spacing:0;}
+  #heroSlider .carousel-caption p {padding-left:10px; padding-right:10px; font-size: 13px;}
+  #heroSlider .carousel-caption h5 {font-size: 14px;}
+  #heroSlider .carousel-caption a { padding: 0px; margin-top: 0px; background: transparent; color: #b88862; letter-spacing: 0px; text-decoration: underline;}
+  .pageNewsletter { padding: 50px 0;}
+
+
+}	
+
+
+
+
+
+
+
+
+
+
+
+
