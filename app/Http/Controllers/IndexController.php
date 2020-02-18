@@ -5,11 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Slider;
 use App\Product;
-use App\FrequentlyAskedQuestion; 
+use App\FrequentlyAskedQuestion;  
 
 class IndexController extends Controller
 {
-    public function show()
+    public function sendData()
     {
     	$slides = Slider::where('is_active', '1')->get();
     	$product_listing = Product::where('status', '1')->get();
@@ -19,4 +19,4 @@ class IndexController extends Controller
     }
 
 }
-  
+   

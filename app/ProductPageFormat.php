@@ -1,0 +1,31 @@
+<?php
+
+namespace App;
+
+use Illuminate\Database\Eloquent\Model;
+
+class ProductPageFormat extends Model
+{
+    protected $table = 'ps_product_page_format';
+
+    /**
+     * The "type" of the auto-incrementing ID.
+     * 
+     * @var string
+     */
+    protected $keyType = 'integer';
+
+    /**
+     * @var array
+     */
+    protected $fillable = ['product_id', 'paper_weight_id', 'created_at', 'modified_at'];
+
+    public function psProduct()
+    {
+    	return $this->belongsToMany('App\Product');
+    }
+    public function psPageFormat()
+    {
+    	return $this->belongsToMany('App\ProductPageFormat');
+    }
+}

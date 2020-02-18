@@ -14,7 +14,7 @@
 						<h2>{{$listing->title_english}}</h2>	
 						<p>{{$listing->short_description_english}}</p>
 						 
-						<button class="btn-gray">To Order</button>
+						<a href="{{ route('check-out') }}" class="btn-gray">To Order</a>
 						<a href="{{ route('product-information') }}#{{$listing->title_english}}">product Info</a>
 					</div> 
 					
@@ -32,7 +32,7 @@
 						<h2>{{$listing->title_english}}</h2>	
 						<p>{{$listing->short_description_english}}</p>
 						 
-						<button class="btn-gray">To Order</button>
+						<a href="{{ route('check-out') }}" class="btn-gray">To Order</a>
 						<a href="{{ route('product-information') }}#{{$listing->title_english}}">product Info</a>
 					</div> 
 

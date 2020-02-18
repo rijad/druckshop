@@ -9,8 +9,8 @@
 					{!! $listing->description_english !!}
 
 					 <div class="productPurchase">
-				    <button class="btn-gray">To Order</button>
+				    <a href="{{ route('check-out') }}" class="btn-gray">To Order</a>
 					 </div>
 				</div>	
 
-				@endforeach
+				@endforeach 

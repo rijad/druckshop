@@ -35,4 +35,9 @@ class CoverColor extends Model
      */
     protected $fillable = ['color', 'surname', 'name_english', 'name_german', 'status', 'created_at', 'modified_at'];
 
+    public function psProduct()
+    {
+        return $this->belongsToMany('App\Product', 'ps_product_cover_color','color_id','product_id');
+    }
+
 }

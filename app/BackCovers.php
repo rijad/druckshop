@@ -29,10 +29,15 @@ class BackCovers extends Model
      * @var string
      */
     protected $keyType = 'integer';
-
+ 
     /**
      * @var array
      */
     protected $fillable = ['back_cover', 'surname', 'name_english', 'name_german', 'status', 'created_at', 'modified_at'];
+
+    public function psProduct()
+    {
+        return $this->belongsToMany('App\Product', 'ps_product_back_cover','back_cover_id','product_id');
+    }
 
 }

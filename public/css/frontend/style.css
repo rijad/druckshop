@@ -133,7 +133,7 @@ header {float:left; width:100%; padding: 20px 0 0 0;}
     width: 100%;
     padding: 70px 0;
     position: relative;
-    z-index:100;
+    z-index:100; 
 }
 .faq-tabs:after {position: absolute;right:-35%; height:350px; width:500px; content: ''; background:url(../images/home-bg-svg.svg) no-repeat center right; top:0%; z-index:99; background-size: auto 100%; }
 .tab-buttons {float:left; width:30%; background:#79879a; padding:15px; min-height: 150px;} 
@@ -349,6 +349,304 @@ ul.headerCart li a {  margin-top: 18px; margin-left: 20px;}
 button:focus {outline:none !important;}
 }
  
+/* ========================================== css added 10-02-2020 ===================== */
+
+ /* Style the form */
+.checkoutStepper #regForm {
+ 
+  margin: 100px auto;
+  padding: 40px;
+  width: 70%;
+  min-width: 300px;
+}
+
+/* Style the input fields */
+.checkoutStepper input, .checkoutStepper textarea, .checkoutStepper select {
+  padding: 10px;
+  width: 100%;
+  font-size: 17px;
+  font-family: Raleway;
+  border: 1px solid #aaaaaa;
+}
+
+.checkoutStepper textarea {
+  height:120px;
+  resize: none;
+}
+
+/* Mark input boxes that gets an error on validation: */
+.checkoutStepper input.invalid {
+  background-color: #ffdddd;
+}
+
+/* Hide all steps by default: */
+.checkoutStepper .tab {
+  display: none;
+  background: none;
+  border:0;
+
+}
+
+/* Make circles that indicate the steps of the form: */
+
+
+/* Mark the active step: */
+.checkoutStepper .step.active {
+  opacity: 1;
+}
+
+/* Mark the steps that are finished and valid: */
+.checkoutStepper .step.finish {
+ 
+} 
+
+
+
+.stepperBullets {
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+}
+
+.stepperBullets .step {
+    display: table-cell;
+    padding: 10px;
+    position: relative;
+    text-align: center;
+}
+.stepperBullets .step:after {position: absolute; top:50%; height:2px; margin-top:-1px; content:''; background: #eaeaea; z-index:9; left:0; width:100%;}
+
+.checkoutStepper .step span {display: inline-block; position: relative;z-index: 10; height: 40px; width: 40px; border-radius:50%; line-height: 40px; margin:30px 0; background:#fff; border:1px solid #eaeaea;}
+.checkoutStepper .step.active span {background:#fafafa; border-color:#ccc;}
+
+.stepperBullets .step.active:after {background:#ccc;}
+.stepperBullets .step.finish:after {background:none;}
+.stepperBullets .step.finish:after {background:#4CAF50;}
+
+.checkoutStepper .step.finish span {color:#4CAF50; border-color:#4CAF50;}
+ 
+
+ 
+.stepperBullets {
+    margin: 40px 0;
+}
+
+.checkoutStepper h1 {
+    font-size: 26px;
+}
+
+.checkoutBlock label {font-size: 13px; letter-spacing:1px;}
+
+.checkoutStepper .checkoutBlock .tab {
+    max-width: 450px;
+}
+
+.prodkt-info ul {
+    padding-left: 30px;
+    font-size: 14px;
+    margin-bottom:30px;
+}
+
+.servicePrice ul {
+    margin-left: 30px;
+    font-size: 14px;
+    padding:30px; box-shadow:0px 0px 30px rgba(0,0,0,0.08);
+}
+
+ /* Customize the label (the container) */
+.csCheckbtn {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  margin-bottom:10px;
+}
+
+/* Hide the browser's default checkbox */
+.csCheckbtn input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+}
+
+/* On mouse-over, add a grey background color */
+.csCheckbtn:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.csCheckbtn input:checked ~ .checkmark {
+  background-color: #2196F3;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.csCheckbtn input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.csCheckbtn .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+} 
+
+
+ /* Customize the label (the container) */
+.csRadiobtn {
+  float:left; 
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  margin-bottom:10px;
+}
+.csRadiobtn + .csRadiobtn { margin-left:15px;}
+
+/* Hide the browser's default radio button */
+.csRadiobtn input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom radio button */
+.csRadiobtn .checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+  border-radius: 50%;
+}
+
+/* On mouse-over, add a grey background color */
+.csRadiobtn:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the radio button is checked, add a blue background */
+.csRadiobtn input:checked ~ .checkmark {
+  background-color: #2196F3;
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.csRadiobtn .checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.csRadiobtn input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.csRadiobtn .checkmark:after {
+  top: 9px;
+  left: 9px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: white;
+} 
+
+.servicePrice ul li p { margin:0; }
+.servicePrice ul li big {font-weight: bold; font-size: 15px; margin-bottom:15px; display: block;}
+.stepperButtons {float:;left; width:100%; text-align:left; margin-top:30px;}
+.stepperButtons button {height:45px; width:150px; line-height:45px; border-radius:3px; background-image: linear-gradient(270deg,#79879a,#aec6cf);box-shadow: 0 8px 16px rgba(174,198,207,.25); color:#fff;}
+.checkoutBlock p {float:left; width:100%;}
+
+
+/*--------------------------------------- 13-02-2020 ---------------------------------*/
+
+.displayNone {display:none;}
+.displayBlock {display:block;}
+.formToolTip {
+    display: inline-block;
+    height: 16px;
+    width: 16px;
+    border: 1px solid #333;
+    line-height: 16px;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 10px;
+    margin-left: 5px;
+}
+
+/*--------------------------------------- 17-02-2020 ---------------------------------*/
+/*---------------------------------------Drog & Drop---------------------------------*/
+
+#drop_file_zone_cover_sheet {
+    background-color: #EEE; 
+    border: #999 5px dashed;
+    width: 290px; 
+    height: 200px;
+    padding: 8px;
+    font-size: 18px;
+    margin-top:80px;
+}
+#drop_file_zone_back_cover {
+    background-color: #EEE; 
+    border: #999 5px dashed;
+    width: 290px; 
+    height: 200px;
+    padding: 8px;
+    font-size: 18px;
+    margin-top:80px;
+}
+#drag_upload_file {
+  width:50%;
+  margin:0 auto;
+}
+#drag_upload_file p {
+  text-align: center;
+}
+#drag_upload_file #selectfile {
+  display: none;
+}
+
+
 /* ========================================== style override ===================== */
 
 .sliderMain {float:left; width: 100%; margin-bottom:50px;}
@@ -356,11 +654,11 @@ button:focus {outline:none !important;}
 
 @media only screen and (max-width:1366px) {
 
-	.container {padding:0px 30px;}
-	.product-item h2 {margin-top:80px;}
-	.footer-icons {max-width:40%;} 
-	#site-footer {padding-bottom:20px;}
-	html, body, p.footer-copyright, .newsletter .newsletter-input button {font-size: 13px;}
+  .container {padding:0px 30px;}
+  .product-item h2 {margin-top:80px;}
+  .footer-icons {max-width:40%;} 
+  #site-footer {padding-bottom:20px;}
+  html, body, p.footer-copyright, .newsletter .newsletter-input button {font-size: 13px;}
   #heroSlider .carousel-caption h5 {margin-top:5%;}
   #heroSlider .carousel-caption h5 { font-size: 32px;}
   #heroSlider .carousel-caption p { font-size: 20px;}
@@ -370,50 +668,50 @@ button:focus {outline:none !important;}
 
 @media only screen and (max-width:1024px) {
 
-	.social-icons li a i { color: #fff; font-size: 16px; height: 40px; width: 40px; display: inline-block; background: #ccc; text-align: center; line-height: 40px;}
-	.social-icons li {padding:6px;}
-	
-	}
+  .social-icons li a i { color: #fff; font-size: 16px; height: 40px; width: 40px; display: inline-block; background: #ccc; text-align: center; line-height: 40px;}
+  .social-icons li {padding:6px;}
+  
+  }
 
 
 @media only screen and (max-width:900px) {
-	#site-footer .col-fourth, #site-footer .col-half { width: 100%;}
-	.product-item-img img {max-width:86%;}
-	.product-item-img .img-back:after { width:90%;}
-	.product-item h2 { margin-top: 40px;}
-	.footer-logo { width:100%; max-width:100%; text-align: center; margin:0 0 0px 0;}
-	.footer-logo a {display: inline-block; float: none;}
-	.footer-logo img {max-width:300px;}
-	#site-footer .col-fourth.text-right { text-align: center;}
-	.social-icons { display: inline-block; float: none; margin: 30px; vertical-align: middle;}
-	.footer-nav {  float: left !important;}
-	.footerSub {float: left;width: 100%;  }
-	#site-footer{ padding-bottom:0;}
-	p.footer-copyright { padding: 20px 10px; opacity:0.5;}
+  #site-footer .col-fourth, #site-footer .col-half { width: 100%;}
+  .product-item-img img {max-width:86%;}
+  .product-item-img .img-back:after { width:90%;}
+  .product-item h2 { margin-top: 40px;}
+  .footer-logo { width:100%; max-width:100%; text-align: center; margin:0 0 0px 0;}
+  .footer-logo a {display: inline-block; float: none;}
+  .footer-logo img {max-width:300px;}
+  #site-footer .col-fourth.text-right { text-align: center;}
+  .social-icons { display: inline-block; float: none; margin: 30px; vertical-align: middle;}
+  .footer-nav {  float: left !important;}
+  .footerSub {float: left;width: 100%;  }
+  #site-footer{ padding-bottom:0;}
+  p.footer-copyright { padding: 20px 10px; opacity:0.5;}
 
-}	
+} 
 
 
 @media only screen and (max-width:840px) {
-	.product-item h2 { margin-top: 10px;}
-	.mb-5 { margin-bottom: 20px;}
+  .product-item h2 { margin-top: 10px;}
+  .mb-5 { margin-bottom: 20px;}
 
 }
 
 
 
 @media only screen and (max-width:767px) {
-	.footer-nav {  width: 100%;}
-	.footer-subnav { width: 100%; text-align: center;}
-	.social-icons {margin:15px;}
-	.product-item-img {float:left !important; padding:0; width:100%; text-align: left;}
-	.product-item-img img {max-width:350px; max-height:350px;}
-	.product-item { float: left; width: 100%; padding: 0;}
-	.product-item-img .img-back:after { bottom:-8px; left:0px;}
+  .footer-nav {  width: 100%;}
+  .footer-subnav { width: 100%; text-align: center;}
+  .social-icons {margin:15px;}
+  .product-item-img {float:left !important; padding:0; width:100%; text-align: left;}
+  .product-item-img img {max-width:350px; max-height:350px;}
+  .product-item { float: left; width: 100%; padding: 0;}
+  .product-item-img .img-back:after { bottom:-8px; left:0px;}
   .product-block .prodcutImage img { max-width:80%;}
   #heroSlider .carousel-caption p { font-size: 14px; max-width: 300px; margin-top: 3px;}
   #heroSlider .carousel-caption h5 { font-size: 22px; }
-  #heroSlider .carousel-caption a { padding: 6px 15px;}	 
+  #heroSlider .carousel-caption a { padding: 6px 15px;}  
   .product-block .proInfo h2 { font-size: 16px;}
   .product-block .proInfo p {font-size: 13px;}
   .site-logo { width: 100%; text-align: center; max-width: 100%;}
@@ -427,30 +725,30 @@ button:focus {outline:none !important;}
   .site-login.d-flex, .site-login.d-flex ul { display: block !important; text-align: center; width: 100%; float: left;}
   .site-login.d-flex ul li {display: inline-block; float: none;}
 
-	}
+  }
 
 
 @media only screen and (max-width:575px) {
-	.newsletter .newsletter-input {padding-right:0px;}
-	.newsletter .newsletter-input button { position: static; margin-top: 10px; width: 100%; margin: 6px 0 0 0;}
-	.col-half {padding:0;}
-	.footer-list li a {padding:6px;}
-	.newsletterCol h3 {margin-bottom:8px;}
-	#site-footer {padding-top:30px;}
-	.col-half {width: 100%;}
-	.banner-heading h1, .banner-heading h3, .banner-heading a {float:left; clear:both;}
-	.banner-heading h1 {margin-top:20px;}
-	.tab-buttons { position: relative; z-index: 100; width: 100%; min-height: inherit; padding:0;}
-	.tab-buttons button {width: 50%; text-align: center; padding:13px 0; margin: 0;}
-	.tab-buttons button:hover {background: #50637c;}
-	.contentArea { width: 100%; padding: 0px; margin-top: 15px;}
-	.tabcontent {padding:0;}
-	.faq-tabs {padding:20px 0;}
-	 
-	.searchInput {max-width: 100%;}
-	.site-logo {margin-bottom:0px;}
-	.product-item-img img {max-width:100%;}
-	.modal-wrapper {left: 2%; width: 96%; margin-left: 0;}
+  .newsletter .newsletter-input {padding-right:0px;}
+  .newsletter .newsletter-input button { position: static; margin-top: 10px; width: 100%; margin: 6px 0 0 0;}
+  .col-half {padding:0;}
+  .footer-list li a {padding:6px;}
+  .newsletterCol h3 {margin-bottom:8px;}
+  #site-footer {padding-top:30px;}
+  .col-half {width: 100%;}
+  .banner-heading h1, .banner-heading h3, .banner-heading a {float:left; clear:both;}
+  .banner-heading h1 {margin-top:20px;}
+  .tab-buttons { position: relative; z-index: 100; width: 100%; min-height: inherit; padding:0;}
+  .tab-buttons button {width: 50%; text-align: center; padding:13px 0; margin: 0;}
+  .tab-buttons button:hover {background: #50637c;}
+  .contentArea { width: 100%; padding: 0px; margin-top: 15px;}
+  .tabcontent {padding:0;}
+  .faq-tabs {padding:20px 0;}
+   
+  .searchInput {max-width: 100%;}
+  .site-logo {margin-bottom:0px;}
+  .product-item-img img {max-width:100%;}
+  .modal-wrapper {left: 2%; width: 96%; margin-left: 0;}
   #heroSlider .carousel-caption {padding:10px 0 0 0; text-align: center !important;}
   #heroSlider .carousel-caption h5,  #heroSlider .carousel-caption p {max-width:100%; text-align: center; width: 100%; margin:5px 0; letter-spacing:0;}
   #heroSlider .carousel-caption p {padding-left:10px; padding-right:10px; font-size: 13px;}
@@ -459,7 +757,9 @@ button:focus {outline:none !important;}
   .pageNewsletter { padding: 50px 0;}
 
 
-}	
+} 
+
+
 
 
 
