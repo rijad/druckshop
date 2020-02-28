@@ -86,4 +86,4 @@ class Product extends Model
         return $this->belongsToMany('App\ProductAttributes','ps_product_attribute_realationship','product_id','attribute_id');
     }
 } 
- 
+  

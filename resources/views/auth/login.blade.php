@@ -1,14 +1,18 @@
-@extends('layouts.app')
+@extends('layouts._master')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
+<div class="container"> 
+    <div class="row justify-content-center"> 
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">{{ __('Login') }}</div>
-
+ 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
+                    @if(Session::has("fail"))
+                    <span style="color:red;">{{Session::get("fail")}}</span>
+                    @endif
+
+                    <form method="POST" action="{{ route('user-login') }}">
                         @csrf
 
                         <div class="form-group row">

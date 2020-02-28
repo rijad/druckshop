@@ -1,17 +1,17 @@
 <?php
- 
+
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ProductAttributes extends Model
+class PageOptionsAttributes extends Model
 {
-    /**
+   /**
      * The table associated with the model.
      *  
      * @var string
      */ 
-    protected $table = 'ps_product_attributes';
+    protected $table = 'ps_page_options_attributes';
 
     /**
      * The "type" of the auto-incrementing ID.
@@ -19,15 +19,14 @@ class ProductAttributes extends Model
      * @var string
      */
     protected $keyType = 'integer';
-
+  
     /**
-     * @var array 
+     * @var array  
      */
     protected $fillable = ['attribute', 'created_at', 'modified_at'];
 
-    public function psProduct()
+    public function psPageOptions() 
     {
-        return $this->belongsToMany('App\Product', 'ps_product_attribute_realationship','attribute_id','product_id');
+        return $this->belongsToMany('App\PageOptions', 'ps_page_options_attribute_realationship','attribute_id','page_option_id');
     }
 }
- 

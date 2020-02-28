@@ -617,6 +617,26 @@ button:focus {outline:none !important;}
 /*--------------------------------------- 17-02-2020 ---------------------------------*/
 /*---------------------------------------Drog & Drop---------------------------------*/
 
+#upload_cd {
+    background-color: #EEE; 
+    border: #999 5px dashed;
+    width: 290px; 
+    height: 200px;
+    padding: 8px;
+    font-size: 18px;
+    margin-top:80px;
+}
+
+#upload_custom_logo {
+    background-color: #EEE; 
+    border: #999 5px dashed;
+    width: 290px; 
+    height: 200px;
+    padding: 8px;
+    font-size: 18px;
+    margin-top:80px;
+}
+
 #drop_file_zone_cover_sheet {
     background-color: #EEE; 
     border: #999 5px dashed;
@@ -626,6 +646,38 @@ button:focus {outline:none !important;}
     font-size: 18px;
     margin-top:80px;
 }
+
+#drop_file_din_A3 {
+    background-color: #EEE; 
+    border: #999 5px dashed;
+    width: 290px; 
+    height: 200px;
+    padding: 8px;
+    font-size: 18px;
+    margin-top:80px;
+}
+
+
+#drop_file_din_A2 {
+    background-color: #EEE; 
+    border: #999 5px dashed;
+    width: 290px; 
+    height: 200px;
+    padding: 8px;
+    font-size: 18px;
+    margin-top:80px;
+}
+
+#drop_file_zone_content {
+    background-color: #EEE; 
+    border: #999 5px dashed;
+    width: 290px; 
+    height: 200px;
+    padding: 8px;
+    font-size: 18px;
+    margin-top:80px;
+}
+
 #drop_file_zone_back_cover {
     background-color: #EEE; 
     border: #999 5px dashed;

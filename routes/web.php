@@ -60,16 +60,25 @@ Route::get('/checkout','CheckoutController@sendData')->name('check-out');
 // Route::get('/cover-sheet','CheckoutController@getCoverSheet')->name('cover-sheet');
 // Route::get('/back-cover','CheckoutController@getBackCover')->name('back-cover');
 Route::get('/get-relations','CheckoutController@getProductAttributes')->name('get-relations');
+Route::get('/get-relations-content','CheckoutController@getContentAttributes')->name('get-relations-content');
+
+
 Route::POST('/upload-file','UploadfileController@uploadFile')->name('upload-file');
-
-
-  
+Route::POST('/remove-file','UploadfileController@removeFile')->name('remove-file');
+      
 
 Route::get('/coming-soon', function () {
-    return view('coming-soon');
+    return view('coming-soon'); 
 })->name('coming-soon');
 
-Auth::routes();
+// Auth::routes();
 
 //Route::get('/home', 'HomeController@index')->name('home');
    
+ Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+Route::post('user-login','LoginController@authenticate')->name('user-login');
+Route::post('user-register','RegisterController@validateRegister')->name('user-register');
+Route::get('/user-logout','LoginController@logout')->name('user-logout');
+
