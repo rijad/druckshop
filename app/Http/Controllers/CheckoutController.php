@@ -179,7 +179,7 @@ class CheckoutController extends Controller
 
 			$back_covers = Product::find($id)->psBackCover()->get(['back_cover','ps_back_cover.id']);
 
-			if($call_by == 'self') {
+			if($call_by == 'self') { 
 				return$back_covers;
 			} else {
 				$response = returnResponse($back_covers,'200','Success');
