@@ -1,6 +1,6 @@
 
 
-<header id="site-header">
+<header id="site-header">   
 			<div class="topHeader">
 				<div class="container"> 
 					<div class="site-login d-flex">
@@ -14,6 +14,39 @@
 						<li><h4><strong><i class="fa fa-envelope"></i></strong> : </h4><a href="#"><small>sampleemail@gmail.com</small></a></li>
 												 
 					</ul>
+
+					<!-- Right Side Of Navbar -->
+                    <ul class="align-item-md-end">
+                        <!-- Authentication Links -->
+                        @guest
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                            </li>
+                            @if (Route::has('register'))
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                </li>
+                            @endif
+                        @else
+                            <li class="nav-item dropdown">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    {{ Auth::user()->name }} <span class="caret"></span>
+                                </a>
+
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('user-logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
+                                    </a>
+
+                                   {{--  <form id="logout-form" action="{{ route('user-logout') }}" method="POST" style="display: none;">
+                                        @csrf
+                                    </form> --}}
+                                </div>
+                            </li>
+                        @endguest 
+                    </ul>
 				</div>
 				</div>
 			</div>

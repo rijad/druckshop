@@ -7,7 +7,7 @@ use App\Product;
 
 class ProductInfoController extends Controller
 {
-     public function show()
+     public function sendData()
     {
     	$product_listing = Product::where('status', '1')->get();
         return view('/pages/front-end/product-info',compact('product_listing'));

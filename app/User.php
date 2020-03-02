@@ -11,13 +11,21 @@ class User extends Authenticatable
     use Notifiable;
 
     /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
+     * The table associated with the model.
+     * 
+     * @var string
      */
+    protected $table = 'users';
+
+    /**
+     * The "type" of the auto-incrementing ID.
+     * 
+     * @var string
+     */
+    
     protected $fillable = [
         'name', 'email', 'password',
-    ];
+    ]; 
 
     /**
      * The attributes that should be hidden for arrays.

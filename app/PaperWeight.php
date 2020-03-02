@@ -41,8 +41,13 @@ class PaperWeight extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function psLettersOfSpines()
+    public function psLettersOfSpines() 
     {
         return $this->hasMany('App\PsLettersOfSpine', 'paper_weight_id');
+    }
+
+    public function psPageOptions()
+    {
+        return $this->belongsToMany('App\PageOptions', 'ps_page_options_paper_weight','paper_weight_id','page_option_id');
     }
 }

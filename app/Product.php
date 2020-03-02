@@ -43,7 +43,7 @@ class Product extends Model
     {
         return $this->hasMany('App\PsOrder', 'product_id');
     }
-
+ 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -52,11 +52,38 @@ class Product extends Model
         return $this->hasMany('App\PsPayment', 'product_id');
     }
 
-    /**
+    /** 
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function psProductImages()
     {
         return $this->hasMany('App\PsProductImage', 'product_id');
     }
-}
+ 
+
+    public function psPageFormat()
+    {
+        return $this->belongsToMany('App\PageFormat','ps_product_page_format','product_id','paper_format');
+    }
+
+    public function psCoverColor() 
+    {
+        return $this->belongsToMany('App\CoverColor','ps_product_cover_color','product_id','color_id');
+    }
+
+    public function psCoverSheet()
+    {
+        return $this->belongsToMany('App\CoverSheet','ps_product_cover_sheet','product_id','cover_sheet_id');
+    }
+
+    public function psBackCover()
+    {
+        return $this->belongsToMany('App\BackCovers','ps_product_back_cover','product_id','back_cover_id');
+    }
+ 
+    public function psProductAttribute()
+    {
+        return $this->belongsToMany('App\ProductAttributes','ps_product_attribute_realationship','product_id','attribute_id');
+    }
+} 
+  
