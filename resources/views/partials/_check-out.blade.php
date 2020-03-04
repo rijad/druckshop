@@ -76,9 +76,6 @@
 									<div id="drop_file_zone_back_cover_sheet_info" class="displayNone"><label id="back_cover_file_name"></label>
 										<label id="back_cover_page_no"></label><label id="back_cover_del"></label></div>
 
-
-
-
 										{{--  <p><textarea></textarea></p>  --}}
 									{{-- <label>Back Sheet</label>
 									<p><select>
@@ -120,7 +117,7 @@
 
 									<div class="displayBlock" id="div-paper-weight">
 										<label>Paper Weight</label>
-										<p><select id="paper-weight"><option value="-1">Select</option></select></p>
+										<p><select id="paper-weight" onclick="displayPrice(this,'','');"><option value="-1">Select</option></select></p>
 									</div>
 
 									<div class="displayNone" id="div-mirror">
@@ -344,7 +341,7 @@
 
 														<div class="displayBlock" id="div-data-check">
 															<label>Data Check:</label>
-															<p><select><option value = "-1">Select</option>
+															<p><select id = "data_check" onclick="displayPrice('','',this);"><option value = "-1">Select</option>
 																@foreach ($data_check as $key=>$listing)
 																<option value="{{$listing->id}}">{{$listing->check_list}}</option>  
 																@endforeach
@@ -369,10 +366,10 @@
 													</div>
 													<div class="servicePrice">
 														<ul>
-															<li><p>Preis pro Auflage</p><big>0.00 €</big></li>
-															<li><p>Preis pro CD</p><big>0.00 €</big></li>
-															<li><p>Preis des Datenchecks</p><big>0.00 €</big></li>
-															<li><p>Gesamtpreis</p><big>0.00 €</big></li>
+															<li><p>Preis pro Auflage</p><span id="price_per_copy"><big>0.00 €</big></span></li>
+															<li><p>Preis pro CD</p><span id="price_per_cd"><big>0.00 €</big></span></li>
+															<li><p>Preis des Datenchecks</p><span id="price_of_data_check"><big>0.00 €</big></span></li>
+															<li><p>Gesamtpreis</p><span id="total"><big>0.00 €</big></span></li>
 														</ul>
 
 													</div>
@@ -418,8 +415,8 @@
 								  // ... and run a function that displays the correct step indicator:
 								  fixStepIndicator(n)
 								}
-
-								function nextPrev(n) {  //alert(n);
+ 
+								function nextPrev(n) { // alert(n);
 								  // This function will figure out which tab to display
 								  var x = document.getElementsByClassName("tab");
 
@@ -433,6 +430,7 @@
 								  if (currentTab >= x.length) {
 								    //...the form gets submitted:
 								    document.getElementById("regForm").submit();
+								    window.location.href = '/print-shop/cart';
 								    return false;
 								}
 								  // Otherwise, display the correct tab:

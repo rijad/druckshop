@@ -10,7 +10,7 @@
 		<div class="content-wrapper"> 
 			 @yield('slider') 
 			<div class="clearfix"></div> 
-			<div class="container">
+			<div class="container"> 
 					@yield('content')
 			</div><!-- container ends -->
 					@include('partials/_news-letter') 
