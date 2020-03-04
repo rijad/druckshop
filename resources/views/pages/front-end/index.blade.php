@@ -7,4 +7,4 @@
  
 @section('slider')
 @include('partials/_slider') 			
-@stop 
+@stop    

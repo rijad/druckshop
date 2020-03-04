@@ -810,12 +810,22 @@ button:focus {outline:none !important;}
 
 
 } 
+@media (min-width: 576px){
+.modal-dialog {
+    max-width: 650px;
+  }
+}
 
 
-
-
-
-
+label.csCheckbtn {display: inline-block;}
+div#drop_file_din_A3 {clear: both;}
+.modal .modal-dialog .modal-content .modal-header .modal-title {margin: 0 auto;}
+.modal .modal-dialog .modal-content .modal-header  button.close {position: absolute;right: 10px;top: 10px;padding:0 !important; margin: 0 !important;}
+.modal .modal-dialog .modal-content div#modal-body img {width: 100%;margin-bottom: 15px;}
+.modal-footer button.btn {width: 150px;line-height: 20px;border-radius: 3px;background-image: linear-gradient(270deg,#79879a,#aec6cf);box-shadow: 0 8px 16px rgba(174,198,207,.25);color: #fff;}
+.modal .modal-dialog .modal-content div#modal-body img {width: 32%;margin-bottom: 15px;padding: 5px;}
+div#modal-body {background: #d0d0d0;text-align: center;}
+@media (min-width: 576px){.modal-dialog {max-width: 650px!important;}}
 
 
 

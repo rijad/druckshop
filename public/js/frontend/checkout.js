@@ -168,8 +168,6 @@ function displayImage(path){
 
 function displayCDFields(value = ""){
 
-	alert(value);
-
 	if(value == "cd"){
 
 		document.getElementById('div-number-of-cds').className = "displayBlock";
@@ -201,4 +199,103 @@ function displayContentInput(option = ""){
 	}
 }
 
-  
+function displayProductAttributes(field_flag = "", values = ""){
+
+	value = $(values).find(":selected").text();
+	el = document.createElement('li');
+
+	if(field_flag == "1"){
+		if($("#prodkt-attrib li[value='Binding']").length > 0)
+		{
+			//alert($("#prodkt-attrib li[value='Binding']").text());
+			$("#prodkt-attrib li[value='Binding']").text("Binding: "+value);
+		}else{
+			el.innerHTML = "Binding: "+value;
+			el.setAttribute("value","Binding");
+		}
+
+	}else if(field_flag == "2"){
+		if($("#prodkt-attrib li[value='No of Copies']").length > 0)
+		{
+			$("#prodkt-attrib li[value='No of Copies']").text("No of Copies: "+values.value);
+		}else{	
+		el.innerHTML = "No of Copies: "+values.value;
+		el.setAttribute("value","No of Copies");
+		}
+	}else if(field_flag == "3"){
+		if($("#prodkt-attrib li[value='Page Format']").length > 0)
+		{
+			$("#prodkt-attrib li[value='Page Format']").text("Page Format: "+value);
+		}else{	
+		el.innerHTML = "Page Format: "+value;
+		el.setAttribute("value","Page Format");
+		}
+	}else if(field_flag == "4"){
+		if($("#prodkt-attrib li[value='Cover Color']").length > 0)
+		{
+			$("#prodkt-attrib li[value='Cover Color']").text("Cover Color: "+value);
+		}else{	
+		el.innerHTML = "Cover Color: "+value;
+		el.setAttribute("value","Cover Color");
+		}
+	}else if(field_flag == "5"){
+		if($("#prodkt-attrib li[value='Cover Sheet']").length > 0)
+		{
+			$("#prodkt-attrib li[value='Cover Sheet']").text("Cover Sheet: "+value);
+		}else{	
+		el.innerHTML = "Cover Sheet: "+value;
+		el.setAttribute("value","Cover Sheet");
+		}
+	}else if(field_flag == "6"){
+		if($("#prodkt-attrib li[value='Back Sheet']").length > 0)
+		{
+			$("#prodkt-attrib li[value='Back Sheet']").text("Back Sheet: "+value);
+		}else{	
+		el.innerHTML = "Back Sheet: "+value;
+		el.setAttribute("value","Back Sheet");
+		}
+	}
+
+	document.getElementById('prodkt-attrib').appendChild(el);
+}
+
+
+function displayPrice(paper_weight = "", nos_of_cds = "", data_check = ""){
+
+	//alert($(data_check).find(":selected").text());
+	
+	var stringArray = ""; var data_check_value = 0; var weight = 0; var no_of_pages = 0;
+    
+    if(paper_weight != ""){
+    	value = $(paper_weight).find(":selected").text();
+    	stringArray = value.split(/\b(\s)/);
+    	weight = stringArray[0];
+    	no_of_pages = document.getElementById('numbers-of-pages').value;
+    }
+	
+
+	if(nos_of_cds != ""){
+    	nos_of_cds = document.getElementById('numbers-of-cds').value;
+    }
+
+    if(data_check != ""){
+    	data_check_value = document.getElementById('data_check').value;
+    	 //alert(data_check_value);
+    } 
+
+	$.ajax({
+		url: '/print-shop/get-price',
+		type: 'GET', 
+		data: {'paper_weight': weight,'no_of_pages': no_of_pages ,'no_of_cds':nos_of_cds,'data_check':data_check_value},
+		success: function (response){
+			var data = JSON.parse(response); 
+			//console.log(data['data']['price_per_copy']);
+			document.getElementById('price_per_copy').innerHTML = data['data']['price_per_copy'] + "€" ;
+			document.getElementById('price_per_cd').innerHTML = data['data']['price_per_cd'] + "€" ;
+			document.getElementById('price_of_data_check').innerHTML = data['data']['price_data_check'] + "€" ;
+			document.getElementById('total').innerHTML = data['data']['total'] + "€" ;
+			
+		}
+	}); 
+
+}
