@@ -220,4 +220,22 @@ class CheckoutController extends Controller
 			return [];
 		}
 	}
+
+	public function getPrice(Request $request){
+		$price_per_copy = 1; $price_per_cd=1; $price_data_check=0; $total = 0;
+		$price_per_copy = ($request->paper_weight) * ($request->no_of_pages);
+		$price_per_cd = ($request->no_of_cds) * (2.50);
+		if($request->data_check == "1"){
+			$price_data_check = 1;
+		}else{
+			$price_data_check = 5;
+		}
+
+		$total = $price_per_copy+$price_per_cd+$price_data_check;
+
+		$data = compact('price_per_copy','price_per_cd','price_data_check','total');
+		$response = returnResponse($data,'200','Success');
+			print_r($response); exit;
+
+	}
 }

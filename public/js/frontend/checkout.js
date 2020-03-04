@@ -168,8 +168,6 @@ function displayImage(path){
 
 function displayCDFields(value = ""){
 
-	alert(value);
-
 	if(value == "cd"){
 
 		document.getElementById('div-number-of-cds').className = "displayBlock";
@@ -261,4 +259,43 @@ function displayProductAttributes(field_flag = "", values = ""){
 	document.getElementById('prodkt-attrib').appendChild(el);
 }
 
-  
+
+function displayPrice(paper_weight = "", nos_of_cds = "", data_check = ""){
+
+	//alert($(data_check).find(":selected").text());
+	
+	var stringArray = ""; var data_check_value = 0; var weight = 0; var no_of_pages = 0;
+    
+    if(paper_weight != ""){
+    	value = $(paper_weight).find(":selected").text();
+    	stringArray = value.split(/\b(\s)/);
+    	weight = stringArray[0];
+    	no_of_pages = document.getElementById('numbers-of-pages').value;
+    }
+	
+
+	if(nos_of_cds != ""){
+    	nos_of_cds = document.getElementById('numbers-of-cds').value;
+    }
+
+    if(data_check != ""){
+    	data_check_value = document.getElementById('data_check').value;
+    	 //alert(data_check_value);
+    } 
+
+	$.ajax({
+		url: '/print-shop/get-price',
+		type: 'GET', 
+		data: {'paper_weight': weight,'no_of_pages': no_of_pages ,'no_of_cds':nos_of_cds,'data_check':data_check_value},
+		success: function (response){
+			var data = JSON.parse(response); 
+			//console.log(data['data']['price_per_copy']);
+			document.getElementById('price_per_copy').innerHTML = data['data']['price_per_copy'] + "€" ;
+			document.getElementById('price_per_cd').innerHTML = data['data']['price_per_cd'] + "€" ;
+			document.getElementById('price_of_data_check').innerHTML = data['data']['price_data_check'] + "€" ;
+			document.getElementById('total').innerHTML = data['data']['total'] + "€" ;
+			
+		}
+	}); 
+
+}
