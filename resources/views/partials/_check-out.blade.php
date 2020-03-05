@@ -20,8 +20,8 @@
 							<!-- One "tab" for each step in the form: -->
 							<div class="tab" id="tab-fields">
 								<div class="displayBlock">
-									<label>Binding:</label>
-									<p><select onclick="displayFields(this.value);displayProductAttributes('1',this);">
+									<label>Binding*:</label>
+									<p><select id = "binding" onclick="displayFields(this.value);displayProductAttributes('1',this);">
 										<option value = "-1">Select</option>
 										@foreach ($product_listing as $key=>$listing)
 										<option value="{{$listing->id}}">{{$listing->title_english}}</option>  
@@ -33,43 +33,45 @@
 									<p><input name="no_of_copies" id="no-of-copies" placeholder="No of Copies" oninput="displayProductAttributes('2',this);"></p>
 								</div>
 								<div class="displayBlock" id="div-page-format">
-									<label>Page Format</label>
+									<label>Page Format*:</label>
 									<p><select onclick = "displayProductAttributes('3',this);" id="page-format"><option value="-1">Select</option></select></p>
 								</div>
 								<div class="displayNone" id="div-cover-color">
-									<label>Cover Color</label> 
+									<label>Cover Color*:</label> 
 									<p><select onclick = "displayProductAttributes('4',this);" id="cover-color"><option value="-1">Select</option></select></p>
 								</div>
 								<div class="displayNone" id="div-cover-sheet">
-									<label>Cover Sheet <div title="200 gm/m2 sheets" class="formToolTip">i</div></label>
-									<p><select onclick = "displayProductAttributes('5',this);" id="cover-sheet" onclick="uploadDisplay(this.id,this.value);"><option value="-1">Select</option></select></p>
+									<label>Cover Sheet*:<div title="200 gm/m2 sheets" class="formToolTip">i</div></label>
+									<p><select onclick = "displayProductAttributes('5',this);uploadDisplay(this.id,this.value);" id="cover-sheet"><option value="-1">Select</option></select></p>
 
-								</div>
+								</div> 
 
 								<div id="drop_file_zone_cover_sheet" ondrop="upload_file(event,this.id)" ondragover="return false" class="displayNone">
-									<div id="drag_upload_file">
+									<div id="drag_upload_file_cover_sheet">
 										<p>Drop file here</p>
 										<p>or</p>
 										<p><input type="button" value="Select File" onclick="file_explorer('drop_file_zone_cover_sheet');"></p>
-										<input type="file" id="selectfile" accept="application/pdf" />
+										<input class = "displayNone" type="file" id="selectfile" accept="application/pdf" value = "" />
+										<input class = "displayNone" type="hidden" id="selectfile_coversheet" value = "" />
 									</div>
 								</div>
-
+  
 								<div id="drop_file_zone_cover_sheet_info" class="displayNone"><label id="cover_sheet_file_name"></label>
 									<label id="cover_sheet_page_no"></label>
-									<label id="cover_sheet_del"></label></div>
+									</div>
 
 									<div class="displayNone" id="div-back-cover">
-										<label>Back Sheet<div title="200 gm/m2 sheets" class="formToolTip">i</div></label>
-										<p><select onclick = "displayProductAttributes('6',this);" id="back-cover" onclick="uploadDisplay(this.id,this.value);"><option value="-1">Select</option></select></p> 
+										<label>Back Sheet*:<div title="200 gm/m2 sheets" class="formToolTip">i</div></label>
+										<p><select onclick = "displayProductAttributes('6',this);uploadDisplay(this.id,this.value);" id="back-cover"><option value="-1">Select</option></select></p> 
 									</div>
 
 									<div id="drop_file_zone_back_cover" ondrop="upload_file(event,this.id)" ondragover="return false" class="displayNone">
-										<div id="drag_upload_file">
+										<div id="drag_upload_file_back_cover">
 											<p>Drop file here</p>
-											<p>or</p>
+											<p>or</p>  
 											<p><input type="button" value="Select File" onclick="file_explorer('drop_file_zone_back_cover');"></p>
-											<input type="file" id="selectfile" accept="application/pdf">
+											<input class = "displayNone" type="file" id="selectfile" accept="application/pdf" value = "" />
+											<input class = "displayNone" type="hidden" id="selectfile_backcover" value = "" />
 										</div>
 									</div>
 
@@ -106,8 +108,8 @@
 								</div>
 								<div class="tab">
 									<div class="displayBlock">
-										<label>Page Options:</label>
-										<p><select onclick="displayFieldsContent(this.value);">
+										<label>Side Options*:</label>
+										<p><select id = "page_options" onclick="displayFieldsContent(this.value);">
 											<option value = "-1">Select</option>
 											@foreach ($page_options as $key=>$listing)
 											<option value="{{$listing->id}}">{{$listing->name_english}}</option>  
@@ -116,17 +118,17 @@
 									</div>
 
 									<div class="displayBlock" id="div-paper-weight">
-										<label>Paper Weight</label>
+										<label>Paper Weight*:</label>
 										<p><select id="paper-weight" onclick="displayPrice(this,'','');"><option value="-1">Select</option></select></p>
 									</div>
 
 									<div class="displayNone" id="div-mirror">
-										<label>Mirror</label>
+										<label>Mirror*:</label>
 										<p><select id="mirror"><option value="-1">Select</option></select></p>
 									</div>
 
 									<div class="displayBlock" id="div-no-of-copies">
-										<label>No of Pages</label>
+										<label>No of Pages*:</label>
 										<p><input name="no_of_pages" id="no-of-pages" placeholder="No of Pages" oninput="this.className = ''"></p>
 									</div>
 
@@ -150,7 +152,7 @@
 										</div>
 
 										<div class="displayNone" id="div-page-numbers">
-											<label>Colored Page Numbers</label>
+											<label>Colored Page Numbers*:</label>
 											<p><input name="page_numbers" id="page-numbers" placeholder="Page Numbers" oninput="this.className = ''"></p>
 
 											<div class="displayBlock" id="div-A3-pages">
@@ -161,7 +163,7 @@
 											</div>
 
 											<div class="displayNone" id="div-number-of-pages">
-												<label>Number of Pages</label>
+												<label>Number of Pages*:</label>
 												<p><input name="number_of_pages" id="numbers-of-pages" placeholder="Number of Pages" oninput="this.className = ''" max="10"></p>
 											</div>
 											<div class="displayNone" id="div-pos-A3-pages">
@@ -188,7 +190,7 @@
 												</div>
 
 												<div class="displayNone" id="div-number-of-A2-pages">
-													<label>Number of Pages</label>
+													<label>Number of Pages*:</label>
 													<p><input name="number_of_A2_pages" id="numbers-of-A2-pages" placeholder="Number of Pages" oninput="this.className = ''" max="10"></p>
 												</div>
 
@@ -216,7 +218,7 @@
 												</div>
 
 												<div class="displayNone" id="div-template">
-													<label>Template</label>
+													<label>Template*:</label>
 													<p><select id="template" onchange="displayPopUp(this.value);"><option value="-1">Select</option><option value="Standardvorlage mit Logo">Standardvorlage mit Logo</option><option value="Standardvorlage ohne Logo">Standardvorlage ohne Logo</option><option value="Eigene Vorlage">Eigene Vorlage</option></select></p>
 												</div>
 
@@ -233,14 +235,14 @@
 													<label id="logo_page_no"></label><label id="logo_del"></label></div>
 
 													<div class="displayNone" id="div-template">
-														<label>Fonts</label>
+														<label>Fonts*:</label>
 														<p><select id="template"><option value="-1">Select</option><option value="Standardvorlage mit Logo">Standardvorlage mit Logo</option><option value="Standardvorlage ohne Logo">Standardvorlage ohne Logo</option><option value="Eigene Vorlage">Eigene Vorlage</option></select></p>
 													</div>	
 
 													<div class="displayNone" id="div-display-image"> </div>
 
 													<div class="displayNone" id="div-fonts">
-														<label>Fonts:</label>
+														<label>Fonts*:</label>
 														<p><select><option value = "-1">Select</option>
 															@foreach ($fonts as $key=>$listing)
 															<option value="{{$listing->font}}">{{$listing->font}}</option>  
@@ -249,7 +251,7 @@
 													</div>
 
 													<div class="displayNone" id="div-date-format">
-														<label>Date Format:</label>
+														<label>Date Format*:</label>
 														<p><select><option value = "-1">Select</option>
 															@foreach ($date_format as $key=>$listing)
 															<option value="{{$listing->surname}}">{{$listing->date_format}}</option>  
@@ -299,7 +301,7 @@
 													</div>
 
 													<div class="displayNone" id="div-number-of-cds">
-														<label>Number of CDs</label>
+														<label>Number of CDs*:</label>
 														<p><input name="number_of_cds" id="numbers-of-cds" placeholder="Number of CDs" oninput="this.className = ''"></p>
 													</div>
 
@@ -331,7 +333,7 @@
 
 
 														<div class="displayBlock" id="div-cd-bag">
-															<label>CD Bag:</label>
+															<label>CD Bag*:</label>
 															<p><select><option value = "-1">Select</option>
 																@foreach ($cd_bag as $key=>$listing)
 																<option value="{{$listing->id}}">{{$listing->bag}}</option>  
@@ -340,7 +342,7 @@
 														</div>
 
 														<div class="displayBlock" id="div-data-check">
-															<label>Data Check:</label>
+															<label>Data Check*:</label>
 															<p><select id = "data_check" onclick="displayPrice('','',this);"><option value = "-1">Select</option>
 																@foreach ($data_check as $key=>$listing)
 																<option value="{{$listing->id}}">{{$listing->check_list}}</option>  
@@ -389,84 +391,5 @@
 									</div><!-- content area ends -->
 								</div> 
 
-								<script src="{{ asset('public/js/frontend/checkout.js') }}" type="text/javascript" ></script>
-								<script src="{{ asset('public/js/frontend/dragdrop.js') }}" type="text/javascript" ></script>
-
-								<script type="text/javascript">
-
-								var currentTab = 0; // Current tab is set to be the first tab (0)
-								showTab(currentTab); // Display the current tab
-
-								function showTab(n) {
-								  // This function will display the specified tab of the form ...
-								  var x = document.getElementsByClassName("tab");
-								  x[n].style.display = "block";
-								  // ... and fix the Previous/Next buttons:
-								  if (n == 0) {
-								  	document.getElementById("prevBtn").style.display = "none";
-								  } else {
-								  	document.getElementById("prevBtn").style.display = "inline";
-								  }
-								  if (n == (x.length - 1)) {
-								  	document.getElementById("nextBtn").innerHTML = "Submit";
-								  } else {
-								  	document.getElementById("nextBtn").innerHTML = "Next";
-								  }
-								  // ... and run a function that displays the correct step indicator:
-								  fixStepIndicator(n)
-								}
- 
-								function nextPrev(n) { // alert(n);
-								  // This function will figure out which tab to display
-								  var x = document.getElementsByClassName("tab");
-
-								  // Exit the function if any field in the current tab is invalid:
-								  if (n == 1 && !validateForm()) return false;
-								  // Hide the current tab:
-								  x[currentTab].style.display = "none";
-								  // Increase or decrease the current tab by 1:
-								  currentTab = currentTab + n;   //alert(currentTab);
-								  // if you have reached the end of the form... :
-								  if (currentTab >= x.length) {
-								    //...the form gets submitted:
-								    document.getElementById("regForm").submit();
-								    window.location.href = '/print-shop/cart';
-								    return false;
-								}
-								  // Otherwise, display the correct tab:
-								  showTab(currentTab);
-								}
-
-								function validateForm() {
-								  // This function deals with validation of the form fields
-								  var x, y, i, valid = true;
-								  x = document.getElementsByClassName("tab");  //console.log(x);
-								  y = x[currentTab].getElementsByTagName("input"); //console.log(y);
-								  // A loop that checks every input field in the current tab:
-								  for (i = 0; i < y.length; i++) {  console.log(y[i].value);
-								    // If a field is empty...
-								  //   if (y[i].value == "") {  console.log("in");
-								  //     // add an "invalid" class to the field:
-								  //     y[i].className += " invalid";
-								  //     // and set the current valid status to false:
-								  //     valid = false;
-								  // }
-								}
-								  // If the valid status is true, mark the step as finished and valid:
-								  if (valid) { console.log("valid");
-								  document.getElementsByClassName("step")[currentTab].className += " finish";
-								}
-								  return valid; // return the valid status
-								}
-
-								function fixStepIndicator(n) {
-								  // This function removes the "active" class of all steps...
-								  var i, x = document.getElementsByClassName("step");
-								  for (i = 0; i < x.length; i++) {
-								  	x[i].className = x[i].className.replace(" active", "");
-								  }
-								  //... and adds the "active" class to the current step:
-								  x[n].className += " active";
-								}
-
-								</script>
+<script src="{{ asset('public/js/frontend/checkout.js') }}" type="text/javascript" ></script>
+<script src="{{ asset('public/js/frontend/dragdrop.js') }}" type="text/javascript" ></script>								
