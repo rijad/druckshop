@@ -299,3 +299,206 @@ function displayPrice(paper_weight = "", nos_of_cds = "", data_check = ""){
 	}); 
 
 }
+
+
+// -------     Code to handle checkout page pagination Starts----------- //
+
+	var currentTab = 0; // Current tab is set to be the first tab (0)
+	showTab(currentTab); // Display the current tab
+
+	function getValidatedFields(tab = ""){ alert(tab);
+
+		var valid = true;
+
+		if(tab == "1"){ 
+
+			binding = document.getElementById('binding').value;
+
+			// binding field is not selectec
+			if(binding == "-1"){
+				return false;
+			}else{
+				
+			if($("#no-of-copies").val() == ""){valid = false; return false;}
+
+			// binding field is selected
+				$product_attributes = getProductAttributes(binding);
+
+			// Get data for page format
+			if (typeof $product_attributes['page_format'] !== 'undefined' && $product_attributes['page_format'].length > 0) {
+				if($("#page-format").find(":selected").val() == "-1"){$("#page-format").addBack().addClass('invalid'); valid = false; return false;}
+			}else{valid = true; return true;}
+
+			//Get data for cover color
+			if (typeof $product_attributes['cover_color'] !== 'undefined' && $product_attributes['cover_color'].length > 0) {	
+				if($("#cover-color").find(":selected").val() == "-1"){$("#cover-color").addBack().addClass('invalid'); valid = false; return false;}	
+			}else{valid = true; return true;}
+
+
+			//Get data for cover sheet
+			if (typeof $product_attributes['cover_sheet'] !== 'undefined' && $product_attributes['cover_sheet'].length > 0) {	
+				if($("#cover-sheet").find(":selected").val() == "-1"){$("#cover-sheet").addBack().addClass('invalid'); valid = false; return false;}
+			}else{valid = true; return true;}
+
+
+			//Get data for back cover
+			if (typeof $product_attributes['back_cover'] !== 'undefined' && $product_attributes['back_cover'].length > 0) {	
+				if($("#back-cover").find(":selected").val() == "-1"){$("#back-cover").addBack().addClass('invalid'); valid = false; return false;}
+			}else{valid = true; return true;}
+
+			// input type file
+			 if($("#selectfile_coversheet").val() == ""){ alert($("#selectfile_coversheet").val()); $("#drop_file_zone_cover_sheet").addBack().addClass('invalid'); valid = false; return false;}else{valid = true;return true;}
+			 if($("#selectfile_backcover").val() == ""){alert($("#selectfile_backcover").val()); $("#drop_file_zone_back_cover").addBack().addClass('invalid'); valid = false; return false;}else{valid = true; return true;}
+
+
+			}// end of outer else
+
+		}else if(tab == "content"){
+
+			page_options = document.getElementById('page_options').value;
+
+				if(page_options == "-1"){
+					return false;
+				}else{
+
+					$content_attributes = getContentAttributes(page_options);
+
+					// Get data for paper weight
+					if (typeof $content_attributes['paper_weight'] !== 'undefined' && $content_attributes['paper_weight'].length > 0) {	
+						if($("#paper-weight").find(":selected").val() == "-1"){$("#paper-weight").addBack().addClass('invalid'); valid = false; return false;}
+					}else{valid = true; return true;}
+
+					
+
+					if(page_options == "1"){// unilaterally
+
+					}else if(page_options == "2"){// both sides
+
+						// Get data for mirror
+					if (typeof $content_attributes['mirror'] !== 'undefined' && $content_attributes['mirror'].length > 0) {		
+						if($("#mirror").find(":selected").val() == "-1"){$("#mirror").addBack().addClass('invalid'); valid = false; return false;}
+					}else{valid = true; return true;}
+
+					}
+					
+					
+					
+
+				}// end of else
+
+		} // end of tab 2 (content)
+
+		if (valid) { 
+			document.getElementsByClassName("step")[currentTab].className += " finish";
+		}
+	  return valid; // return the valid status
+
+	} 
+
+	function nextPrev(n) {  //alert(currentTab);
+	  // This function will figure out which tab to display
+	  var x = document.getElementsByClassName("tab");
+
+	  var fields = getValidatedFields(currentTab+n);
+
+	  alert(fields);
+
+	  if(fields){
+	  	 x[currentTab].style.display = "none";
+	  	currentTab = currentTab + n;  
+	  	if (currentTab >= x.length) {
+	    //...the form gets submitted:
+	    document.getElementById("regForm").submit();
+	    window.location.href = '/print-shop/cart';
+	    return false;
+		} 
+	  }else{
+	  	return false;
+	  }
+	  // Otherwise, display the correct tab:
+	  showTab(currentTab);
+	}
+
+	function showTab(n) {
+	  // This function will display the specified tab of the form ...
+	  var x = document.getElementsByClassName("tab");
+	  x[n].style.display = "block";
+	  // ... and fix the Previous/Next buttons:
+	  if (n == 0) {
+	  	document.getElementById("prevBtn").style.display = "none";
+	  } else {
+	  	document.getElementById("prevBtn").style.display = "inline";
+	  }
+	  if (n == (x.length - 1)) {
+	  	document.getElementById("nextBtn").innerHTML = "Submit";
+	  } else {
+	  	document.getElementById("nextBtn").innerHTML = "Next";
+	  }
+	  // ... and run a function that displays the correct step indicator:
+	  fixStepIndicator(n)
+	}
+
+	// function nextPrev(n) {  //alert(n);
+	//   // This function will figure out which tab to display
+	//   var x = document.getElementsByClassName("tab");
+
+	//   // Exit the function if any field in the current tab is invalid:
+	//   if (n == 1 && !validateForm()) return false;
+	//   // Hide the current tab:
+	//   x[currentTab].style.display = "none";
+	//   // Increase or decrease the current tab by 1:
+	//   currentTab = currentTab + n;   alert(currentTab);
+	//   // if you have reached the end of the form... :
+	//   if (currentTab >= x.length) {
+	//     //...the form gets submitted:
+	//     document.getElementById("regForm").submit();
+	//     window.location.href = '/print-shop/cart';
+	//     return false;
+	// }
+	//   // Otherwise, display the correct tab:
+	//   showTab(currentTab);
+	// }
+
+	// function validateForm() {
+	//   // This function deals with validation of the form fields
+	//   var x, y, i, valid = true;
+	//   x = document.getElementsByClassName("tab");  //console.log(x);
+	//   y = x[currentTab].getElementsByTagName("select"); 
+	//   z = x[currentTab].getElementsByTagName("input"); 
+	//   //console.log(y);
+	//   // A loop that checks every input field in the current tab:
+	//   for (i = 0; i < y.length; i++) {  
+	//   //   if (y[i].value == "-1" ) {  console.log(y[i].id  +"  :   "+  y[i].style.display);
+	//   //   console.log("in select");
+	// 	 //      y[i].className += " invalid";
+	// 	 //      valid = false;
+	//   // }
+	// }
+
+	// for (i = 0; i < z.length; i++) {  //console.log(z[i].name  +"  :   "+  z[i].value);
+	//     // If a field is empty...
+	//   //   if (y[i].value == "") {  console.log("in");
+	//   //     // add an "invalid" class to the field:
+	//   //     y[i].className += " invalid";
+	//   //     // and set the current valid status to false:
+	//   //     valid = false;
+	//   // }
+	// }
+	//   // If the valid status is true, mark the step as finished and valid:
+	//   if (valid) { 
+	//   document.getElementsByClassName("step")[currentTab].className += " finish";
+	// }
+	//   return valid; // return the valid status
+	// }
+
+	function fixStepIndicator(n) {
+	  // This function removes the "active" class of all steps...
+	  var i, x = document.getElementsByClassName("step");
+	  for (i = 0; i < x.length; i++) {
+	  	x[i].className = x[i].className.replace(" active", "");
+	  }
+	  //... and adds the "active" class to the current step:
+	  x[n].className += " active";
+	}
+
+// -------     Code to handle checkout page pagination Ends ----------- //						
