@@ -63,6 +63,10 @@ Route::get('/get-relations','CheckoutController@getProductAttributes')->name('ge
 Route::get('/get-price','CheckoutController@getPrice')->name('get-price');
 Route::get('/get-relations-content','CheckoutController@getContentAttributes')->name('get-relations-content');
 
+Route::get('/latest','LatestController@index')->name('latest');
+Route::get('/about-us','AboutController@index')->name('about-us');
+Route::get('/faq','FaqController@index')->name('faq');
+Route::get('/contact','ContactController@index')->name('contact');
 
 Route::POST('/upload-file','UploadfileController@uploadFile')->name('upload-file');
 Route::POST('/remove-file','UploadfileController@removeFile')->name('remove-file');
