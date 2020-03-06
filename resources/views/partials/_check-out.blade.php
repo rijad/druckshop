@@ -236,7 +236,11 @@
 
 													<div class="displayNone" id="div-template">
 														<label>Fonts*:</label>
-														<p><select id="template"><option value="-1">Select</option><option value="Standardvorlage mit Logo">Standardvorlage mit Logo</option><option value="Standardvorlage ohne Logo">Standardvorlage ohne Logo</option><option value="Eigene Vorlage">Eigene Vorlage</option></select></p>
+														<p><select id ="template">
+															<option value="-1">Select</option>
+															<option value="Standardvorlage mit Logo">Standardvorlage mit Logo</option>
+															<option value="Standardvorlage ohne Logo">Standardvorlage ohne Logo</option>
+															<option value="Eigene Vorlage">Eigene Vorlage</option></select></p>
 													</div>	
 
 													<div class="displayNone" id="div-display-image"> </div>
@@ -327,7 +331,11 @@
 
 														<div class="displayNone" id="div-cd-template">
 															<label>CD Template</label>
-															<p><select id="cd-template" onchange="displayPopUp(this.value);"><option value="-1">Select</option><option value="Standardvorlage mit Logo">Standardvorlage mit Logo</option><option value="Standardvorlage ohne Logo">Standardvorlage ohne Logo</option><option value="Eigene Vorlage">Eigene Vorlage</option></select></p>
+															<p><select id="cd-template" onchange="displayPopUp(this.value);">
+															<option value="-1">Select</option>
+															<option value="Standardvorlage mit Logo">Standardvorlage mit Logo</option>
+															<option value="Standardvorlage ohne Logo">Standardvorlage ohne Logo</option>
+															<option value="Eigene Vorlage">Eigene Vorlage</option></select></p>
 														</div>
 
 

@@ -80,6 +80,14 @@ Route::get('/cart', function () {
     return view('/pages/front-end/cart'); 
 })->name('cart');
 
+
+//Admin
+Route::group(['namespace'=>'Admin', 'prefix' => 'admin'], function()
+{
+Route::get('/dashboard','HomeController@index')->name('dashboard');
+});
+
+
 // Auth::routes();
 
 //Route::get('/home', 'HomeController@index')->name('home');

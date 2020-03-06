@@ -501,4 +501,9 @@ function displayPrice(paper_weight = "", nos_of_cds = "", data_check = ""){
 	  x[n].className += " active";
 	}
 
+
+	
+
+	
+
 // -------     Code to handle checkout page pagination Ends ----------- //						
