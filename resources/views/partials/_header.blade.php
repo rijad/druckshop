@@ -86,10 +86,10 @@
 					    
 						    <li class="nav-item active"><a href="{{ route('index') }}"><i class="fa fa-home"></i></a></li>
 							<li><a href="{{ route('products') }}">products</a></li>
-							<li><a href="{{ route('coming-soon') }}">Latest</a></li>
-							<li><a href="{{ route('coming-soon') }}">About Us</a></li>
-							<li><a href="{{ route('coming-soon') }}">FAQ</a></li>
-							<li><a href="{{ route('coming-soon') }}">Contact</a></li>
+							<li><a href="{{ route('latest') }}">Latest</a></li>
+							<li><a href="{{ route('about-us') }}">About Us</a></li>
+							<li><a href="{{ route('faq') }}">FAQ</a></li>
+							<li><a href="{{ route('contact') }}">Contact</a></li>
 						</ul>  
 					  </div>
 
