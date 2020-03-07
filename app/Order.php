@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $order_date
  * @property integer $payment_id
  * @property int $amount
- * @property boolean $status
+ * @property boolean $status 
  * @property string $priority
  * @property string $assigned_to
  * @property string $transaction_id

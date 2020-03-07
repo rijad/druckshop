@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator; 
 use App\BackCovers;
 use App\CdBag;
 use App\CoverColor;
@@ -13,7 +14,7 @@ use App\Discount;
 use App\KindList;
 use App\LettesOfSpine; 
 use App\PageFormat;
-use App\PaperWeight; 
+use App\PaperWeight;  
 use App\ArtList;
 use App\Product;
 use App\ProductPageFormat;
@@ -21,6 +22,9 @@ use App\PageOptions;
 use App\Mirror;
 use App\Font;
 use App\DateFormat;
+use App\OrderAttributes;
+use App\OrderDetails;
+use Auth;
  
 
 class CheckoutController extends Controller
@@ -110,7 +114,7 @@ class CheckoutController extends Controller
 
 				$mirror = self::getMirror($request->id);
 
-			}
+			} 
 		}
 
 			$data = compact('paper_weight','mirror');	 
@@ -238,4 +242,151 @@ class CheckoutController extends Controller
 			print_r($response); exit;
 
 	}
+
+	public function saveOrder(Request $request){
+
+		//$count = count($request->input());
+		//dd(Auth::user()->id);   
+		//dd($request->input()); 
+		 
+		$product_attribute = json_encode($request->input());
+		$product = Product::where('id', $request->input('binding'))->first()->title_english;
+
+		// foreach($request->input() as $key => $value){
+
+		// 	$OrderAttributes = new OrderAttributes;
+		// 	$OrderAttributes->user_id = Auth::user()->id;
+		// 	$OrderAttributes->attribute = $key;
+		// 	$OrderAttributes->value = $value;
+		// 	$OrderAttributes->save();
+ 
+		// }
+
+		$product_details = "";
+
+		foreach($request->input() as $key => $value){
+
+			$str_arr = explode ("_", $key);  
+
+			if(!is_null($value) && $value != "-1" && $key != "_token" && $key != "selectfile" && $str_arr[0] != "selectfile" && $key != "total"){
+				$product_details .= $key ." of ".$value." ,";
+			}
+ 
+		}
+
+		$qty = 1;
+
+		if (Auth::check())
+		{
+			$user_id = Auth::user()->id;
+	 //print_r($user_id);
+		}else{$user_id = 0;}
+ 
+		$OrderAttributes = new OrderAttributes;
+		$OrderAttributes->user_id = $user_id;
+		$OrderAttributes->product= $product;
+		$OrderAttributes->attribute = $product_attribute;
+		$OrderAttributes->product_id= $product."_".$user_id."_".time();
+		$OrderAttributes->quantity= $qty;
+		$OrderAttributes->attribute_desc= $product_details;
+		$OrderAttributes->price_per_product= $request->total;
+		$OrderAttributes->price_product_qty= $request->total * $qty;
+		$OrderAttributes->quantity= 1; 
+		$OrderAttributes->status= 1;
+		$OrderAttributes->save();
+
+
+		session(['product_id' =>  $product."_".Auth::user()->id."_".time()]);
+
+		
+
+		//echo $product_details; 
+
+		 //return view('/pages/front-end/cart',compact('product_data'));
+
+		 return redirect()->route('cart');
+
+
+		//dd($request->input()); 
+ 
 }
+
+public function cart(){
+
+	$product_data = OrderAttributes::where('status', '1')->get();
+	return view('/pages/front-end/cart',compact('product_data'));
+
+}
+
+public function orderDetails(Request $request){
+
+	$total = 0;
+ 
+	if (Auth::check()) 
+    {
+	 $user_id = Auth::user()->id;
+	}else{$user_id = 0;}
+
+	$product_data = OrderAttributes::where('user_id', $user_id)->get();
+	foreach($product_data as $value){
+
+		$total += $value->price_product_qty;
+
+	} 
+
+	$OrderDetailsvalue = new OrderDetails;
+		$OrderDetailsvalue->user_id = $user_id;
+		$OrderDetailsvalue->order_id= $user_id.'_'.time();
+		$OrderDetailsvalue->no_of_copies= $request->no_of_copies;
+		$OrderDetailsvalue->no_of_cds= $request->no_of_cds;
+		$OrderDetailsvalue->shipping_company= $request->no_of_cds;
+		$OrderDetailsvalue->promo_code= $request->promo_code;
+		$OrderDetailsvalue->shipping_address= $request->shipping_address;
+		$OrderDetailsvalue->billing_address= $request->billing_address;
+		$OrderDetailsvalue->total= $total;
+		$OrderDetailsvalue->save();
+
+
+		$product_data = OrderAttributes::where('user_id', $user_id)->get();
+	return view('/pages/front-end/order',compact('product_data'));
+
+}   //trantor@123
+ 
+
+public function setQuantity(Request $request){
+
+	//print_r($request->input('qty'));
+
+	 $qty = $request->input('qty');
+	 $total_price_per_product = $request->input('total_price_per_product');
+	 if (Auth::check())
+	 {
+	 	$user_id = Auth::user()->id;
+	 //print_r($user_id);
+	 }else{$user_id = 0;}
+	 $data = OrderAttributes::where('user_id', $user_id)->take($request->input('count'))->get();
+	 //print_r($data);
+
+
+	 $i = 1;
+	 foreach($data as $value){
+
+	 	$update_data = $value;
+	 	$update_data->quantity = $qty[$i];
+	 	$update_data->price_product_qty = $total_price_per_product[$i];
+	 	$update_data->save();
+	 	$i++;
+
+	 }
+
+	exit;
+
+}
+
+
+		
+
+
+
+}
+  

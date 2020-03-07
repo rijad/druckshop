@@ -48,7 +48,7 @@ function ajaxFileUpload(file_obj,id) {
         $('#drop_file_zone_cover_sheet').append('<div id="del" class="displayBlock"><span class="upload-msg">File Uploaded</span><span id="cover_sheet_del"><i class="fa fa-trash"></i></span></div>');
         document.getElementById('cover_sheet_file_name').innerHTML = "File Name:"+data['data']['file_name'];
         document.getElementById('cover_sheet_page_no').innerHTML = "No of Pages:"+data['data']['no_of_pages'];
-        document.getElementById('selectfile_coversheet').value = data['data']['edit_file_name'];
+        document.getElementById('selectfile_coversheet').value = data['data']['edit_name'];
         $('#cover_sheet_del').attr('onclick',"removeFile('"+data['data']['edit_name']+"','"+id+"')");
 
       }else if(id == "drop_file_zone_back_cover"){
@@ -58,7 +58,7 @@ function ajaxFileUpload(file_obj,id) {
         $('#drop_file_zone_back_cover').append('<div id="del" class="displayBlock"><span class="upload-msg">File Uploaded</span><span id="back_cover_del"><i class="fa fa-trash"></i></span></div>');
         document.getElementById('back_cover_file_name').innerHTML = "File Name:"+data['data']['file_name'];
         document.getElementById('back_cover_page_no').innerHTML = "No of Pages:"+data['data']['no_of_pages'];
-        document.getElementById('selectfile_backcover').value = data['data']['edit_file_name'];
+        document.getElementById('selectfile_backcover').value = data['data']['edit_name'];
         $('#back_cover_del').attr('onclick',"removeFile('"+data['data']['edit_name']+"','"+id+"')");
 
       }else if(id == "drop_file_zone_content"){
@@ -68,6 +68,7 @@ function ajaxFileUpload(file_obj,id) {
         $('#drop_file_zone_content').append('<div id="del" class="displayBlock"><span class="upload-msg">File Uploaded</span><span id="content_del"><i class="fa fa-trash"></i></span></div>');
         document.getElementById('content_file_name').innerHTML = "File Name:"+data['data']['file_name'];
         document.getElementById('content_page_no').innerHTML = "No of Pages:"+data['data']['no_of_pages'];
+        document.getElementById('selectfile_content').value = data['data']['edit_name'];
         $('#content_del').attr('onclick',"removeFile('"+data['data']['edit_name']+"','"+id+"')");
 
       }else if(id == "drop_file_din_A3"){
@@ -95,8 +96,9 @@ function ajaxFileUpload(file_obj,id) {
         $('#upload_custom_logo').append('<div id="del" class="displayBlock"><span class="upload-msg">File Uploaded</span><span id="logo_del"><i class="fa fa-trash"></i></span></div>');
         document.getElementById('logo_file_name').innerHTML = "File Name:"+data['data']['file_name'];
         document.getElementById('logo_page_no').innerHTML = "No of Pages:"+data['data']['no_of_pages'];
+        document.getElementById('selectfile_logo').value = data['data']['edit_name'];
         $('#logo_del').attr('onclick',"removeFile('"+data['data']['edit_name']+"','"+id+"')");
-        
+      
       }else if(id == "upload_cd"){
         
         // $('#upload_cd').empty();
@@ -104,6 +106,7 @@ function ajaxFileUpload(file_obj,id) {
         $('#upload_cd').append('<div id="del" class="displayBlock"><span class="upload-msg">File Uploaded</span><span id="cd_del"><i class="fa fa-trash"></i></span></div>');
         document.getElementById('cd_file_name').innerHTML = "File Name:"+data['data']['file_name'];
         document.getElementById('cd_page_no').innerHTML = "No of Pages:"+data['data']['no_of_pages'];
+        document.getElementById('selectfile_cd').value = data['data']['edit_name'];
         $('#cd_del').attr('onclick',"removeFile('"+data['data']['edit_name']+"','"+id+"')");
         
       }
