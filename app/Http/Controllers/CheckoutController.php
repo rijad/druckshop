@@ -313,7 +313,12 @@ class CheckoutController extends Controller
 
 public function cart(){
 
-	$product_data = OrderAttributes::where('status', '1')->get();
+	if (Auth::check()) 
+    {
+	 $user_id = Auth::user()->id;
+	}else{$user_id = 0;}
+
+	$product_data = OrderAttributes::where(['status'=>'1','user_id'=>$user_id])->get();
 	return view('/pages/front-end/cart',compact('product_data'));
 
 }
@@ -334,7 +339,7 @@ public function orderDetails(Request $request){
 
 	} 
 
-	$OrderDetailsvalue = new OrderDetails;
+		$OrderDetailsvalue = new OrderDetails;
 		$OrderDetailsvalue->user_id = $user_id;
 		$OrderDetailsvalue->order_id= $user_id.'_'.time();
 		$OrderDetailsvalue->no_of_copies= $request->no_of_copies;
@@ -355,7 +360,7 @@ public function orderDetails(Request $request){
 
 public function setQuantity(Request $request){
 
-	//print_r($request->input('qty'));
+	print_r($request->input('qty'));
 
 	 $qty = $request->input('qty');
 	 $total_price_per_product = $request->input('total_price_per_product');
@@ -368,7 +373,7 @@ public function setQuantity(Request $request){
 	 //print_r($data);
 
 
-	 $i = 1;
+	 $i = 0;
 	 foreach($data as $value){
 
 	 	$update_data = $value;
@@ -380,6 +385,41 @@ public function setQuantity(Request $request){
 	 }
 
 	exit;
+
+}
+
+
+public function removeItem(Request $request){
+
+	//dd($request->id);
+
+	if (Auth::check())
+	{
+		$user_id = Auth::user()->id;
+	 //print_r($user_id);
+	}else{$user_id = 0;}
+
+	$delete = OrderAttributes::destroy($request->id);
+	$product_data = OrderAttributes::where('user_id', $user_id)->get();
+	return view('/pages/front-end/cart',compact('product_data'));
+
+}
+
+
+public function paymentPaypal(){
+
+
+	if(Auth::check())
+	{
+	$user_id = Auth::user()->id;
+	}else{$user_id = 0;}
+
+	$product_data = OrderAttributes::where('user_id', $user_id)->get();
+	$order_details = OrderDetails::where('user_id', $user_id)->get();
+
+	return view('/pages/front-end/payment_paypal',compact('product_data','order_details'));
+
+
 
 }
 

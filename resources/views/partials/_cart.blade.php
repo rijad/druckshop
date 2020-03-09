@@ -14,16 +14,21 @@
                             	@foreach ($product_data as $data)
  
                                 <div class="product_listing">
-                                    <img src="images/product_frame.png" alt="" width="100px">
+                                    <img src="images/product_frame.png" alt="" width="100px" />
                                     <div class="product_description">
                                         <p class="thisproduct_head">{{$data->product}}</p>
                                         <p class="thisproduct_subhead">{{$data->attribute_desc}}</p>
                                     </div>
-                                    <ul class="product_price">
-                                        <li class="inputcard_quantity"><h6><strong>€ <span id="price_per_product_{{$data->id}}">{{$data->price_per_product}}</span><span class="text-muted">x</span></strong></h6>
-                                            <input id ="qty_{{$data->id}}" name = "qty_{{$data->id}}" type="text" class="form-control input-sm" placeholder="" onchange ="setQuantity({{count($product_data)}});" value = "1">
+                                    <ul class="product_price" id="product_price">
+                                        <li class="inputcard_quantity"><h6><strong>€ <span id="price_per_product_{{$data->id}}" class = "price_per_product">{{$data->price_per_product}}</span><span class="text-muted">x</span></strong></h6>
+                                            <input id ="qty_{{$data->id}}" name = "qty_{{$data->id}}" type="text" class="form-control input-sm" placeholder="" onchange ="setQuantity({{count($product_data)}});" value = "1"><div><span id="qty_msg"></span></div>
                                         </li>
-                                        <li><button class="remove_btn" onclick = "decrementQuantity('qty_{{$data->id}}')">Remove</button></li>
+                                        <li>
+                                        <button class="remove_btn" onclick = "decrementQuantity('qty_{{$data->id}}',{{count($product_data)}})">-</button>
+                                        <button class="remove_btn" onclick = "incrementQuantity('qty_{{$data->id}}',{{count($product_data)}})">+</button>
+                                        
+                                        <button onclick="window.location='{{route('remove-item',['id'=>$data->id]) }}'" class="remove_btn" > Remove </button> 
+                                    </li>
                                     </ul>
                                 </div>
                                 <hr>
@@ -42,7 +47,7 @@
                         <div class="summary">
                             <h4>Items <span class="price" style="color:black"><i class="fa fa-shopping-cart"></i> <b>{{count($product_data)}}</b></span></h4>
                             @foreach ($product_data as $data)
-                            <p><a href="#">{{$data->product}}</a> <span style="float: right;">€</span><span id = "total_price_per_item_{{$data->id}}" class="price"> {{$data->price_per_product}}</span></p>
+                            <p><a href="#">{{$data->product}}</a> <span style="float: right;">€</span><span id = "total_price_per_item_{{$data->id}}" class="price total_price_per_item"> {{$data->price_per_product}}</span></p>
                            @endforeach
                             <hr style="margin-top:20%;">
                             <p>Total <span style="float: right;">€</span><span id ="checkout_total" class="price" style="color:black"><b>$127.27</b></span></p>

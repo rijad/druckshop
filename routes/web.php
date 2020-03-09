@@ -65,16 +65,18 @@ Route::get('/get-relations-content','CheckoutController@getContentAttributes')->
 Route::POST('/order','CheckoutController@saveOrder')->name('order');
 Route::POST('/order-details','CheckoutController@orderDetails')->name('order-details');
 Route::POST('/set-quantity','CheckoutController@setQuantity')->name('set-quantity');
-
+Route::get('/remove-item/{id}','CheckoutController@removeItem')->name('remove-item');
 Route::get('/cart','CheckoutController@cart')->name('cart');
-
 Route::POST('/upload-file','UploadfileController@uploadFile')->name('upload-file');
 Route::POST('/remove-file','UploadfileController@removeFile')->name('remove-file');
-      
-
 Route::get('/coming-soon', function () {
     return view('coming-soon'); 
 })->name('coming-soon');
+
+
+// Payment
+
+Route::get('/payment-paypal','CheckoutController@paymentPaypal')->name('payment-paypal');
  
 
 

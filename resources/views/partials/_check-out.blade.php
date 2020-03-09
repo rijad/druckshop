@@ -357,7 +357,7 @@
 															</select></p> 
 														</div>	
 
-													</div>
+													</div> 
 
 
 													<div class="stepperButtons" style="overflow:auto;">

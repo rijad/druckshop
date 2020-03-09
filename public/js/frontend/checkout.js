@@ -594,41 +594,81 @@ function displayPrice(paper_weight = "", nos_of_cds = "", data_check = ""){
 
 function setQuantity(count = ""){
 
-
-
 	var qty = []; var price_per_unit = []; var total_price_per_product = []; var total = 0;
 
-	for(var i = 1; i<=count; i++){ 
+	var x = $('#product_price li input[type=text]');
 
-		id = 'qty_'+i;   console.log(id);
-		id_price = 'price_per_product_'+i; console.log(id_price);
+	x.each(function(e) {
+         qty.push($(this).val());
+       
+	});
+	var y = $('#product_price li .price_per_product');
+	//console.log(y);
 
-		qty[i] = document.getElementById(id).value;    
-		price_per_unit[i] = document.getElementById(id_price).innerHTML;  
-		total_price_per_product[i] = parseInt(qty[i]) * parseInt(price_per_unit[i]);
+    var i = 0;
+	y.each(function(e) {
+         price_per_unit.push($(this).html());  
+         total_price_per_product[i] = parseInt(qty[i]) * parseInt($(this).html());  
+         i++;
+	});
 
-		document.getElementById('total_price_per_item_'+i).innerHTML = total_price_per_product[i];
-		total = parseInt(total) + parseInt(total_price_per_product[i]);
-		document.getElementById('checkout_total').innerHTML = total;
+	var z = $('.total_price_per_item');
+	//console.log(z);
+	var i = 0;
+	z.each(function(e) {
+        $(this).html(total_price_per_product[i]);  
+         i++;
+	});
 
+	for(var i = 0; i<count; i++){ 
+	total = parseInt(total) + parseInt(total_price_per_product[i]);
+	document.getElementById('checkout_total').innerHTML = total;
+	}
 
-		$.ajax({
+	// console.log(qty);  
+	// console.log(price_per_unit);
+
+	$.ajax({
 		url: '/print-shop/set-quantity', 
 		type: 'POST', 
 		data: {'qty': qty,'total_price_per_product' : total_price_per_product, 'count' : count},
 		success: function (response){
 		}
 	});
-
-	}
 }
 
 
-function decrementQuantity(id = ""){ 
-
-	console.log("id:"+id);
-
+function decrementQuantity(id = "",count = ""){ 
+ 
+	document.getElementById('qty_msg').innerHTML = "";
 	qty = document.getElementById(id).value;
 	qty_final = parseInt(qty) - 1;
-	document.getElementById(id).value = qty_final;
+
+	if(qty_final >= 1){
+		document.getElementById(id).value = qty_final;
+		setQuantity(count);
+	}else{
+		document.getElementById('qty_msg').innerHTML = "Quantity cannot be less then 1";
+	}
+
+	
 }
+
+function incrementQuantity(id = "",count = ""){
+
+	document.getElementById('qty_msg').innerHTML = "";
+	qty = document.getElementById(id).value;
+	qty_final = parseInt(qty) + 1;
+
+	if(qty_final >= 1){
+		document.getElementById(id).value = qty_final;
+		setQuantity(count);
+	}else{
+		// document.getElementById('qty_msg').innerHTML = "Quantity cannot be less then 1";
+	}
+
+}
+
+// function removeItem(id){
+
+// }

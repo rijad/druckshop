@@ -31,7 +31,7 @@
                                 <hr>
                             </div>
                             <div class="text-right">
-                                <button class="paypaypal">Pay via PayPal</button>
+                                <button class="paypaypal" onclick="window.location='{{route('payment-paypal')}}'">Pay via PayPal</button>
                                 <button class="paycash">Pay via Cash</button>
                             </div>
 
