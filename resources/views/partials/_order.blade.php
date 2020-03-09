@@ -32,7 +32,7 @@
                             </div>
                             <div class="text-right">
                                 <button class="paypaypal" onclick="window.location='{{route('payment-paypal')}}'">Pay via PayPal</button>
-                                <button class="paycash">Pay via Cash</button>
+                                <button class="paycash" onclick="window.location='{{route('cash-on-delivery')}}'">Pay via Cash</button>
                             </div>
 
                     </div>

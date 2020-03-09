@@ -16,12 +16,12 @@ $paypal_username = 'aditya.bandral-facilitator@trantorinc.com'; //Business Email
         <!-- Specify details about the item that buyers will purchase. -->
         <input type="hidden" name="item_name" value="Order Payment">
         <input type="hidden" name="item_number" value="101">
-        <input type="hidden" name="amount" value="<?php echo $row['price']; ?>">
+        <input type="hidden" name="amount" value="{{$order_details->total}}">
         <input type="hidden" name="currency_code" value="USD">
         
         <!-- Specify URLs -->
-        <input type='hidden' name='cancel_return' value='http://localhost/paypal/paypal_cancel.php'>
-		<input type='hidden' name='return' value='http://localhost/paypal/paypal_success.php'>
+        <input type='hidden' name='cancel_return' value='{{route("payment-fail")}}'>
+		<input type='hidden' name='return' value='{{route("payment-success")}}'>
 
         
         <!-- Display the payment button. -->

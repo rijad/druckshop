@@ -24,6 +24,8 @@ use App\Font;
 use App\DateFormat;
 use App\OrderAttributes;
 use App\OrderDetails;
+use App\Payment;
+use App\OrderDetailsFinal;
 use Auth;
  
 
@@ -415,14 +417,78 @@ public function paymentPaypal(){
 	}else{$user_id = 0;}
 
 	$product_data = OrderAttributes::where('user_id', $user_id)->get();
-	$order_details = OrderDetails::where('user_id', $user_id)->get();
+	$order_details = OrderDetails::where('user_id', $user_id)->first();
 
 	return view('/pages/front-end/payment_paypal',compact('product_data','order_details'));
 
 
 
+} 
+
+
+public function paymentPaypalSuccess(){
+
+	
+
+	if(Auth::check())
+	{
+	$user_id = Auth::user()->id;
+	}else{$user_id = 0;}
+
+	$order_details = OrderDetails::where('user_id', $user_id)->first();
+
+	$order_details_amt = $order_details->total;
+	$txn = $_GET['tx'];
+
+	$payment = new Payment;
+	$payment->order_id = $order_details->order_id;
+	$payment->txn = $_GET['tx'];
+	$payment->status = $_GET['st'];
+	$payment->user_id = $user_id;
+	$payment->amount = $_GET['amt']; 
+	$payment->save();
+
+
+	$OrderDetails = OrderDetails::where('user_id', $user_id)->first();
+
+	$OrderDetailsFinal = new OrderDetailsFinal;
+		$OrderDetailsFinal->user_id = $user_id;
+		$OrderDetailsFinal->order_id= $OrderDetails->order_id;
+		$OrderDetailsFinal->no_of_copies= $OrderDetails->no_of_copies;
+		$OrderDetailsFinal->no_of_cds= $OrderDetails->no_of_cds;
+		$OrderDetailsFinal->shipping_company= $OrderDetails->shipping_company;
+		$OrderDetailsFinal->promo_code= $OrderDetails->promo_code;
+		$OrderDetailsFinal->shipping_address= $OrderDetails->shipping_address;
+		$OrderDetailsFinal->billing_address= $OrderDetails->billing_address;
+		$OrderDetailsFinal->total= $OrderDetails->total;
+		$OrderDetailsFinal->status= $_GET['st'];
+		$OrderDetailsFinal->txn= $_GET['tx'];
+		$OrderDetailsFinal->save();
+
+	$OrderDetailsFinal = $OrderDetails;
+
+	$delete_cart = OrderAttributes::destroy($user_id);
+	$delete_order_details = OrderDetails::destroy($user_id);
+
+
+	
+	
+	return view('/pages/front-end/paypalsuccess',compact('order_details','order_details_amt','txn'));
+	
 }
 
+
+public function cashOnDelivery(){
+
+	if(Auth::check())
+	{
+	$user_id = Auth::user()->id;
+	}else{$user_id = 0;}
+	$OrderDetails = OrderDetailsFinal::where('user_id', $user_id)->first();
+
+	return view('/pages/front-end/cashondelivery',compact('OrderDetails'));
+
+}
 
 		
 

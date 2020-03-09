@@ -89,7 +89,7 @@
                                 <button type= "submit" class="continue_btn">Proceed to Checkout</button>
                             </div>
                         </form>
-                    </div>    
+                    </div>     
         </div>
     </div>
 

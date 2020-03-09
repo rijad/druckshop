@@ -82,10 +82,25 @@ Route::get('/coming-soon', function () {
     return view('coming-soon'); 
 })->name('coming-soon');
 
-
+ 
 // Payment
 
 Route::get('/payment-paypal','CheckoutController@paymentPaypal')->name('payment-paypal');
+
+Route::get('/cash-on-delivery','CheckoutController@cashOnDelivery')->name('cash-on-delivery');
+
+// Route::get('/payment-success', function () {
+//     return view('paypalsuccess'); 
+// })->name('payment-success');
+
+
+Route::get('/payment-fail', function () {
+    return view('paypalfail'); 
+})->name('payment-fail');
+
+
+Route::get('/payment-success','CheckoutController@paymentPaypalSuccess')->name('payment-success');
+// Route::get('/payment-fail','CheckoutController@paymentPaypal')->name('payment-fail');
  
 
 
