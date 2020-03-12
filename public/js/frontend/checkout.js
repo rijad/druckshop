@@ -166,12 +166,14 @@ function displayImage(path){
 	$("#div-display-image").append("<img src='"+path+"'> ");
 }
 
-function displayCDFields(value = ""){
+function displayCDFields(value = ""){ 
 
-	if(value == "cd"){
+	if(value == "cd"){ 
 
 		document.getElementById('div-number-of-cds').className = "displayBlock";
-		document.getElementById('uload_cd').className = "displayBlock";
+		document.getElementById('upload_cd').className = "displayBlock";
+		document.getElementById('div-cd-imprint').className = "displayBlock";
+		document.getElementById('div-cd-bag').className = "displayBlock";
 
 	}else if(value == "imprint"){
 
@@ -294,6 +296,7 @@ function displayPrice(paper_weight = "", nos_of_cds = "", data_check = ""){
 			document.getElementById('price_per_cd').innerHTML = data['data']['price_per_cd'] + "€" ;
 			document.getElementById('price_of_data_check').innerHTML = data['data']['price_data_check'] + "€" ;
 			document.getElementById('total').innerHTML = data['data']['total'] + "€" ;
+			document.getElementById('total_price').value = data['data']['total'];
 			
 		}
 	}); 
@@ -319,14 +322,14 @@ function displayPrice(paper_weight = "", nos_of_cds = "", data_check = ""){
 				return false;
 			}else{
 				
-			if($("#no-of-copies").val() == ""){valid = false; return false;}
+			if($("#no-of-copies").val() == ""){ $("#no-of-copies").addBack().addClass('invalid'); valid = false; return false;}
 
 			// binding field is selected
 				$product_attributes = getProductAttributes(binding);
 
 			// Get data for page format
 			if (typeof $product_attributes['page_format'] !== 'undefined' && $product_attributes['page_format'].length > 0) {
-				if($("#page-format").find(":selected").val() == "-1"){$("#page-format").addBack().addClass('invalid'); valid = false; return false;}
+				if($("#page-format").find(":selected").val() == "-1"){ $("#page-format").addClass('invalid'); valid = false; return false;}
 			}else{valid = true; return true;}
 
 			//Get data for cover color
@@ -353,40 +356,125 @@ function displayPrice(paper_weight = "", nos_of_cds = "", data_check = ""){
 
 			}// end of outer else
 
-		}else if(tab == "content"){
+		}else if(tab == "2"){
 
 			page_options = document.getElementById('page_options').value;
 
 				if(page_options == "-1"){
-					return false;
+					$("#page_options").addClass('invalid'); valid = false; return false;
 				}else{
 
 					$content_attributes = getContentAttributes(page_options);
 
+					if($("#no-of-pages").val() == ""){$("#no-of-pages").addBack().addClass('invalid'); valid = false; return false;}
+
 					// Get data for paper weight
 					if (typeof $content_attributes['paper_weight'] !== 'undefined' && $content_attributes['paper_weight'].length > 0) {	
-						if($("#paper-weight").find(":selected").val() == "-1"){$("#paper-weight").addBack().addClass('invalid'); valid = false; return false;}
+						if($("#paper-weight").find(":selected").val() == "-1"){$("#paper-weight").addClass('invalid'); valid = false; return false;}
 					}else{valid = true; return true;}
-
-					
 
 					if(page_options == "1"){// unilaterally
 
+						 if($("#selectfile_content").val() == ""){ alert($("#selectfile_content").val()); $("#drop_file_zone_content").addBack().addClass('invalid'); valid = false; return false;}else{valid = true;return true;}
+
+						 if($("#color-pages").is(":checked")){
+						 	// color pages check box is checked
+						 	if($("#page-numbers").val() == ""){$("#page-numbers").addBack().addClass('invalid'); valid = false; return false;} 	
+						 }
+
+						 if($("#A3-pages").is(":checked")){
+						 	// color pages check box is checked
+						 	if($("#numbers-of-pages").val() == ""){$("#numbers-of-pages").addBack().addClass('invalid'); valid = false; return false;} 
+						 	if($("#selectfile_din_A3").val() == ""){ alert($("#selectfile_din_A3").val()); $("#drop_file_din_A3").addBack().addClass('invalid'); valid = false; return false;}else{valid = true;return true;}	
+
+						 }
+
+						 if($("#A2-pages").is(":checked")){
+						 	// color pages check box is checked
+						 	if($("#numbers-of-A2-pages").val() == ""){$("#numbers-of-A2-pages").addBack().addClass('invalid'); valid = false; return false;} 
+						 	if($("#selectfile_din_A2").val() == ""){ alert($("#selectfile_din_A2").val()); $("#drop_file_din_A2").addBack().addClass('invalid'); valid = false; return false;}else{valid = true;return true;}		
+
+						 } 
+
 					}else if(page_options == "2"){// both sides
+
+						if($("#selectfile_content").val() == ""){ alert($("#selectfile_content").val()); $("#drop_file_zone_content").addBack().addClass('invalid'); valid = false; return false;}else{valid = true;return true;}
+
+						 if($("#mirror").find(":selected").val() == "-1"){$("#mirror").addClass('invalid'); valid = false; return false;}
+
+						 if($("#color-pages").is(":checked")){
+						 	// color pages check box is checked
+						 	if($("#page-numbers").val() == ""){$("#page-numbers").addBack().addClass('invalid'); valid = false; return false;} 	
+						 }
+
+						 if($("#A3-pages").is(":checked")){
+						 	// color pages check box is checked
+						 	if($("#numbers-of-pages").val() == ""){$("#numbers-of-pages").addBack().addClass('invalid'); valid = false; return false;} 
+						 	if($("#selectfile_din_A3").val() == ""){ alert($("#selectfile_din_A3").val()); $("#drop_file_din_A3").addBack().addClass('invalid'); valid = false; return false;}else{valid = true;return true;}	
+
+						 }
+
+						 if($("#A2-pages").is(":checked")){
+						 	// color pages check box is checked
+						 	if($("#numbers-of-A2-pages").val() == ""){$("#numbers-of-A2-pages").addBack().addClass('invalid'); valid = false; return false;} 
+						 	if($("#selectfile_din_A2").val() == ""){ alert($("#selectfile_din_A2").val()); $("#drop_file_din_A2").addBack().addClass('invalid'); valid = false; return false;}else{valid = true;return true;}		
+
+						 }
 
 						// Get data for mirror
 					if (typeof $content_attributes['mirror'] !== 'undefined' && $content_attributes['mirror'].length > 0) {		
-						if($("#mirror").find(":selected").val() == "-1"){$("#mirror").addBack().addClass('invalid'); valid = false; return false;}
+						if($("#mirror").find(":selected").val() == "-1"){$("#mirror").addClass('invalid'); valid = false; return false;}
 					}else{valid = true; return true;}
 
 					}
-					
-					
-					
+						
 
 				}// end of else
+		 // end of tab 2 (content)
+		 // start of print finishing
+		}else if(tab == "3"){
 
-		} // end of tab 2 (content)
+			if($("#embossment-cover-sheet").is(":checked")){$("#embossment-cover-sheet").addBack().addClass('invalid'); 
+			    if($("#template").find(":selected").val() == "-1"){
+			      $("#template").addClass('invalid'); valid = false; return false;
+				}else{valid = true; return true;}
+
+			}else{valid = true; return true;}
+
+			//template cases
+			if($("#template").find(":selected").val() == "-1"){$("#template").addClass('invalid'); valid = false; return false; }	
+			else if($("#template").find(":selected").val() == "Eigene Vorlage"){
+				if($("#selectfile_logo").val() == ""){ alert($("#selectfile_logo").val()); $("#upload_custom_logo").addBack().addClass('invalid'); valid = false; return false;}else{valid = true;return true;}	
+			}else{ 	
+			    //fonts
+				if($("#fonts").find(":selected").val() == "-1"){$("#fonts").addClass('invalid'); valid = false; return false;}	
+			
+				//Date Format
+				if($("#date-format").find(":selected").val() == "-1"){$("#date-format").addClass('invalid'); valid = false; return false;}	
+				valid = true; return true; 
+				// end of tab Print Finishing
+				// start of CD Bag
+			}
+			}else if(tab == "4"){
+
+				//data check
+				if($("#data_check").find(":selected").val() == "-1"){$("#data_check").addClass('invalid'); valid = false; return false;}	
+				
+				if($("#cd-check").is(":not(:checked)")){$("#cd-check").addBack().addClass('invalid'); valid = true; return true;}
+				else{ 
+					//no. of cd
+					if($("#numbers-of-cds").val() == ""){$("#numbers-of-cds").addBack().addClass('invalid');valid = false; return false; }
+					// upload
+					if($("#selectfile_cd").val() == ""){ alert($("#selectfile_cd").val()); $("#upload_cd").addBack().addClass('invalid'); valid = false; return false;}else{valid = true;return true;}	
+										valid = true; return true;
+					if($("#cd-bag").find(":selected").val() == "-1")
+					{
+					    $("#cd-bag").addClass('invalid'); valid = false; return false;
+					}	
+					else{valid = true; return true;
+					}
+				}
+			}
 
 		if (valid) { 
 			document.getElementsByClassName("step")[currentTab].className += " finish";
@@ -401,15 +489,15 @@ function displayPrice(paper_weight = "", nos_of_cds = "", data_check = ""){
 
 	  var fields = getValidatedFields(currentTab+n);
 
-	  alert(fields);
-
+	  
+ 
 	  if(fields){
 	  	 x[currentTab].style.display = "none";
-	  	currentTab = currentTab + n;  
-	  	if (currentTab >= x.length) {
+	  	currentTab = currentTab + n; //alert("cr : "+currentTab); 
+	  	if (currentTab >= 4) { //alert("i am in");
 	    //...the form gets submitted:
 	    document.getElementById("regForm").submit();
-	    window.location.href = '/print-shop/cart';
+	    // window.location.href = '/print-shop/cart'; 
 	    return false;
 		} 
 	  }else{
@@ -507,3 +595,85 @@ function displayPrice(paper_weight = "", nos_of_cds = "", data_check = ""){
 	
 
 // -------     Code to handle checkout page pagination Ends ----------- //						
+
+
+function setQuantity(count = ""){
+
+	var qty = []; var price_per_unit = []; var total_price_per_product = []; var total = 0;
+
+	var x = $('#product_price li input[type=text]');
+
+	x.each(function(e) {
+         qty.push($(this).val());
+       
+	});
+	var y = $('#product_price li .price_per_product');
+	//console.log(y);
+
+    var i = 0;
+	y.each(function(e) {
+         price_per_unit.push($(this).html());  
+         total_price_per_product[i] = parseInt(qty[i]) * parseInt($(this).html());  
+         i++;
+	});
+
+	var z = $('.total_price_per_item');
+	//console.log(z);
+	var i = 0;
+	z.each(function(e) {
+        $(this).html(total_price_per_product[i]);  
+         i++;
+	});
+
+	for(var i = 0; i<count; i++){ 
+	total = parseInt(total) + parseInt(total_price_per_product[i]);
+	document.getElementById('checkout_total').innerHTML = total;
+	}
+
+	// console.log(qty);  
+	// console.log(price_per_unit);
+
+	$.ajax({
+		url: '/print-shop/set-quantity', 
+		type: 'POST', 
+		data: {'qty': qty,'total_price_per_product' : total_price_per_product, 'count' : count},
+		success: function (response){
+		}
+	});
+}
+
+
+function decrementQuantity(id = "",count = ""){ 
+ 
+	document.getElementById('qty_msg').innerHTML = "";
+	qty = document.getElementById(id).value;
+	qty_final = parseInt(qty) - 1;
+
+	if(qty_final >= 1){
+		document.getElementById(id).value = qty_final;
+		setQuantity(count);
+	}else{
+		document.getElementById('qty_msg').innerHTML = "Quantity cannot be less then 1";
+	}
+
+	
+}
+
+function incrementQuantity(id = "",count = ""){
+
+	document.getElementById('qty_msg').innerHTML = "";
+	qty = document.getElementById(id).value;
+	qty_final = parseInt(qty) + 1;
+
+	if(qty_final >= 1){
+		document.getElementById(id).value = qty_final;
+		setQuantity(count);
+	}else{
+		// document.getElementById('qty_msg').innerHTML = "Quantity cannot be less then 1";
+	}
+
+}
+
+// function removeItem(id){
+
+// }

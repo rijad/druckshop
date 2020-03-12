@@ -19,14 +19,15 @@ class RegisterController extends Controller
 		]);
 		$input = $request->all();
 		$input['password'] = \Hash::make($request['password']);
-		$user = User::create($input);
+		//$user = User::create($input);
 		if ($validator->passes()){
 			$response = returnResponse($input,'200','User Created Successfully');
+			$user = User::create($input);
 			return back()->with('success', $response);
-		}
+		}else{return back()->with('errors', $validator->errors());}
 		//$response = returnResponse($validator->errors(),'401','Valiation Error');
 		// dd($validator->errors());
-		return back()->with('errors', $validator->errors());
+		
 
 		
 	}

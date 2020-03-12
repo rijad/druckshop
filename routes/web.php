@@ -63,24 +63,48 @@ Route::get('/get-relations','CheckoutController@getProductAttributes')->name('ge
 Route::get('/get-price','CheckoutController@getPrice')->name('get-price');
 Route::get('/get-relations-content','CheckoutController@getContentAttributes')->name('get-relations-content');
 
+Route::POST('/order','CheckoutController@saveOrder')->name('order');
+Route::POST('/order-details','CheckoutController@orderDetails')->name('order-details');
+Route::POST('/set-quantity','CheckoutController@setQuantity')->name('set-quantity');
+Route::get('/remove-item/{id}','CheckoutController@removeItem')->name('remove-item');
+Route::get('/cart','CheckoutController@cart')->name('cart');
+
+
 Route::get('/latest','LatestController@index')->name('latest');
 Route::get('/about-us','AboutController@index')->name('about-us');
 Route::get('/faq','FaqController@index')->name('faq');
 Route::get('/contact','ContactController@index')->name('contact');
 
+
 Route::POST('/upload-file','UploadfileController@uploadFile')->name('upload-file');
 Route::POST('/remove-file','UploadfileController@removeFile')->name('remove-file');
-      
-
 Route::get('/coming-soon', function () {
     return view('coming-soon'); 
 })->name('coming-soon');
+
  
-Route::get('/cart', function () {
-    return view('/pages/front-end/cart'); 
-})->name('cart');
+// Payment
+
+Route::get('/payment-paypal','CheckoutController@paymentPaypal')->name('payment-paypal');
+
+Route::get('/cash-on-delivery','CheckoutController@cashOnDelivery')->name('cash-on-delivery');
+
+// Route::get('/payment-success', function () {
+//     return view('paypalsuccess'); 
+// })->name('payment-success');
 
 
+Route::get('/payment-fail', function () {
+    return view('paypalfail'); 
+})->name('payment-fail');
+
+
+Route::get('/payment-success','CheckoutController@paymentPaypalSuccess')->name('payment-success');
+// Route::get('/payment-fail','CheckoutController@paymentPaypal')->name('payment-fail');
+ 
+
+
+ 
 //Admin
 Route::group(['namespace'=>'Admin', 'prefix' => 'admin'], function()
 {
