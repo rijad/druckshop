@@ -597,10 +597,17 @@ button:focus {outline:none !important;}
 
 .servicePrice ul li p { margin:0; }
 .servicePrice ul li big {font-weight: bold; font-size: 15px; margin-bottom:15px; display: block;}
-.stepperButtons {float:;left; width:100%; text-align:left; margin-top:30px;}
+.stepperButtons {clear: both; text-align:left; margin-top:30px;float:left;}
 .stepperButtons button {height:45px; width:150px; line-height:45px; border-radius:3px; background-image: linear-gradient(270deg,#79879a,#aec6cf);box-shadow: 0 8px 16px rgba(174,198,207,.25); color:#fff;}
 .checkoutBlock p {float:left; width:100%;}
-
+.checkoutBlock.detail-right-fix {
+    float: inherit;
+    display: inline-block;
+}
+.checkoutStepper .tab {
+    clear: both;
+    float: left;
+}
 
 /*--------------------------------------- 13-02-2020 ---------------------------------*/
 
@@ -608,14 +615,17 @@ button:focus {outline:none !important;}
 .displayBlock {display:block;}
 .formToolTip {
     display: inline-block;
-    height: 16px;
-    width: 16px;
+    height: 18px;
+    width: 18px;
     border: 1px solid #333;
-    line-height: 16px;
+    line-height: 18px;
     border-radius: 50%;
     text-align: center;
-    font-size: 10px;
+    font-size: 12px;
     margin-left: 5px;
+    font-weight: bolder;
+    padding-left: 1px;
+    color: #000;
 }
 
 /*--------------------------------------- 17-02-2020 ---------------------------------*/
@@ -1256,6 +1266,24 @@ img {
     margin-bottom: 20px;
     margin-right: 20px;
 }
+
+span.cart-product-count {
+    position: absolute;
+    background-color: #b88862;
+    border-radius: 50%;
+    width: 20px;
+    text-align: center;
+    color: white;
+    right: -7px;
+    bottom: 22px;
+}
+li.cart-relative-count {
+    position: relative;
+}
+
+
+
+
 
 @media (min-width: 768px){
     .Product_qeue .left_productdetail {

@@ -42,7 +42,7 @@
 									<p><select name="cover-color" class = "" onclick = "displayProductAttributes('4',this);" id="cover-color"><option value="-1">Select</option></select></p>
 								</div>
 								<div class="displayNone" id="div-cover-sheet">
-									<label>Cover Sheet*:<div title="200 gm/m2 sheets" class="formToolTip">i</div></label>
+									<label>Cover Sheet*:<a href="#" data-toggle="tooltip" title="200 gm/m2 sheets" class="formToolTip">i</a></label>
 									<p><select class = "" onclick = "displayProductAttributes('5',this);uploadDisplay(this.id,this.value);" id="cover-sheet" name="cover-sheet"><option value="-1">Select</option></select></p>
 
 								</div> 
@@ -370,7 +370,7 @@
 													</div> 
 
 
-													<div class="stepperButtons" style="overflow:auto;">
+													<div class="stepperButtons">
 														<div>
 															<button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
 															<button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
@@ -379,7 +379,7 @@
 
 												</div> <!-- col ends -->
 												<!--  Print Product Attributes -->
-												<div class="checkoutBlock col-half text-left">
+												<div class="checkoutBlock col-half text-left detail-right-fix">
 													<div class="prodkt-info">
 														<ul id="prodkt-attrib">	</ul>
 													</div>

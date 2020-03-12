@@ -50,11 +50,11 @@
                             <p><a href="#">{{$data->product}}</a> <span style="float: right;">€</span><span id = "total_price_per_item_{{$data->id}}" class="price total_price_per_item"> {{$data->price_per_product}}</span></p>
                            @endforeach
                             <hr style="margin-top:20%;">
-                            <p>Total <span style="float: right;">€</span><span id ="checkout_total" class="price" style="color:black"><b>$127.27</b></span></p>
+                            <p>Total <span style="float: right;">€</span><span id ="checkout_total" class="price" style="color:black"><b>€</b></span></p>
                         </div>
                         </div>
                     </div>
-                </div>
+                </div> 
             </div>   
             <div class="cart-form-shop w-100">
                 <p>Please Fill in Details</p>
@@ -63,14 +63,32 @@
                             <div class="form-group">
                               <label for="text">No of Copies*:</label>
                               <input type="text" name="no_of_copies" id="no_of_copies" class="form-control" placeholder="enter here" >
+                              @if($errors->has('no_of_copies'))
+                              <div class="error">{{ $errors->first('no_of_copies') }}</div>
+                              @endif
                             </div>
                             <div class="form-group">
                               <label for="pwd">No of CDS*:</label>
                               <input type="text" name="no_of_cds" id="no_of_cds" class="form-control" placeholder="enter here">
+                               @if($errors->has('no_of_cds'))
+                              <div class="error">{{ $errors->first('no_of_cds') }}</div>
+                              @endif
+                            </div>
+                            <div class="form-group">
+                              <label for="pwd">E-mail*:</label>
+                              <input type="text" name="email_id" id="email_id" class="form-control" placeholder="enter here">
+                              @if($errors->has('email_id'))
+                              <div class="error">{{ $errors->first('email_id') }}</div>
+                              @endif
                             </div>
                             <div class="form-group">
                               <label for="email">Shipping Company*:</label>
-                              <select class="form-control" name="shipping_company" id="shipping_company" > <option>test1</option><option>test2</option> </select> 
+                              <select class="form-control" name="shipping_company" id="shipping_company" > <option value ="-1">Select</option>
+                              @foreach($shipping_company as $value)<option value = "{{$value->company_english}}">{{$value->company_english}}</option> @endforeach
+                              </select>
+                              @if($errors->has('shipping_company'))
+                              <div class="error">{{ $errors->first('shipping_company') }}</div>
+                              @endif
                             </div>
                              <div class="form-group">
                               <label for="email">Dicount Code:</label>
@@ -78,11 +96,17 @@
                             </div>
                             <div class="form-group">
                               <label for="email">Shipping Address*:</label>
-                              <textarea name="shipping_address" id="shipping_address" class="form-control">enter here</textarea>
+                              <textarea name="shipping_address" id="shipping_address" class="form-control"></textarea>
+                               @if($errors->has('shipping_address'))
+                              <div class="error">{{ $errors->first('shipping_address') }}</div>
+                              @endif
                             </div>
                              <div class="form-group">
                               <label for="email">Billing Address*:</label>
-                              <textarea name="billing_address" id="billing_address" class="form-control">enter here</textarea>
+                              <textarea name="billing_address" id="billing_address" class="form-control"></textarea>
+                               @if($errors->has('billing_address'))
+                              <div class="error">{{ $errors->first('billing_address') }}</div>
+                              @endif
                             </div>
                            
                             <div class="text-right">
