@@ -5,24 +5,38 @@
                             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
                                     <tr>
+                                        <th>State</th>
                                         <th>Name</th>
+                                        <th>City</th>
+                                        <th>Street</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tfoot>
                                     <tr>
+                                        <th>State</th>
                                         <th>Name</th>
+                                        <th>City</th>
+                                        <th>Street</th>
                                         <th>Actions</th>
                                     </tr>
                                 </tfoot>
                                 <tbody>
+                                @foreach($freesample as $sample)
                                     <tr>
                                         <td>Tiger Nixon</td>
+                                        <td>Tiger Nixon</td>
+                                        <td>Tiger Nixon</td>
+                                        <td>Tiger Nixon</td>
                                         <td>System Architect</td>
-                                    </tr> 
+                                    </tr>  
+                                    @endforeach
                                     <tr>
-                                        <td>Airi Satou</td>
-                                        <td>Accountant</td>
+                                        <td>Tiger Nixon</td>
+                                        <td>Tiger Nixon</td>
+                                        <td>Tiger Nixon</td>
+                                        <td>Tiger Nixon</td>
+                                        <td>System Architect</td>
                                     </tr> 
                                 </tbody>
                             </table>
