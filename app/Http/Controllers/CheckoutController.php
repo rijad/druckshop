@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator; 
 use App\BackCovers;
 use App\CdBag;
 use App\CoverColor;
@@ -13,7 +14,7 @@ use App\Discount;
 use App\KindList;
 use App\LettesOfSpine; 
 use App\PageFormat;
-use App\PaperWeight; 
+use App\PaperWeight;  
 use App\ArtList;
 use App\Product;
 use App\ProductPageFormat;
@@ -21,6 +22,14 @@ use App\PageOptions;
 use App\Mirror;
 use App\Font;
 use App\DateFormat;
+use App\OrderAttributes;
+use App\OrderDetails;
+use App\Payment;
+use App\OrderDetailsFinal;
+use App\User;
+use App\ShippingCompany;
+use Auth;
+use Session;
  
 
 class CheckoutController extends Controller
@@ -110,7 +119,7 @@ class CheckoutController extends Controller
 
 				$mirror = self::getMirror($request->id);
 
-			}
+			} 
 		}
 
 			$data = compact('paper_weight','mirror');	 
@@ -238,4 +247,429 @@ class CheckoutController extends Controller
 			print_r($response); exit;
 
 	}
+
+	public function saveOrder(Request $request){
+
+		//$count = count($request->input());
+		//dd(Auth::user()->id);   
+		//dd($request->input()); 
+		 
+		$product_attribute = json_encode($request->input());
+		$product = Product::where('id', $request->input('binding'))->first()->title_english;
+
+		// foreach($request->input() as $key => $value){
+
+		// 	$OrderAttributes = new OrderAttributes;
+		// 	$OrderAttributes->user_id = Auth::user()->id;
+		// 	$OrderAttributes->attribute = $key;
+		// 	$OrderAttributes->value = $value;
+		// 	$OrderAttributes->save();
+ 
+		// }
+ 
+		$product_details = "";
+
+		foreach($request->input() as $key => $value){
+
+			print_r($key ."   :   ".$value);
+			echo "<br>";
+
+			$str_arr = explode ("_", $key);  
+
+			if(!is_null($value) && $value != "-1" && $key != "_token" && $key != "selectfile" && $str_arr[0] != "selectfile" && $key != "total"){
+
+				$attribute_value = self::makeOrderDetails($key,$value);
+				// make scentence for product details
+				$product_details .= $key ." ".$attribute_value." ,";
+			}
+ 
+		} echo $product_details; die;
+
+		$qty = 1;
+
+		if (Auth::check())
+		{
+			$user_id = Auth::user()->id;
+	 //print_r($user_id);
+		}else{
+			$user_id = time();
+			Session::put('user_id', $user_id);
+		}
+ 
+		$OrderAttributes = new OrderAttributes;
+		$OrderAttributes->user_id = $user_id;
+		$OrderAttributes->product= $product;
+		$OrderAttributes->attribute = $product_attribute;
+		$OrderAttributes->product_id= $product."_".$user_id."_".time();
+		$OrderAttributes->quantity= $qty;
+		$OrderAttributes->attribute_desc= $product_details;
+		$OrderAttributes->price_per_product= $request->total;
+		$OrderAttributes->price_product_qty= $request->total * $qty;
+		$OrderAttributes->quantity= 1; 
+		$OrderAttributes->status= 1;
+		$OrderAttributes->save();
+
+
+		session(['product_id' =>  $product."_".$user_id."_".time()]);
+
+		
+
+		//echo $product_details; 
+
+		 //return view('/pages/front-end/cart',compact('product_data'));
+
+		 return redirect()->route('cart');
+
+
+		//dd($request->input()); 
+ 
 }
+
+public function cart(){ 
+
+	if (Auth::check()) 
+    {
+	 $user_id = Auth::user()->id;
+	}else{$user_id = Session::get('user_id');}
+
+	$product_data = OrderAttributes::where(['status'=>'1','user_id'=>$user_id])->get();
+	$shipping_company = ShippingCompany::all();
+	return view('/pages/front-end/cart',compact('product_data','shipping_company'));
+
+}
+
+public function orderDetails(Request $request){
+
+	$total = 0;
+ 
+	if (Auth::check()) 
+    {
+	 $user_id = Auth::user()->id;
+	}else{
+		$user_id = Session::get('user_id');
+	}
+
+	$product_data = OrderAttributes::where('user_id', $user_id)->get();
+	foreach($product_data as $value){
+
+		$total += $value->price_product_qty;
+ 
+	}  
+
+	// Check if Guest already exists (using email id)
+	// get already existing or new user_id
+	if($user_id == Session::get('user_id')){
+
+		$user_id = self::checkGuest($request->input('email_id'));
+		// set new user id for Guest in tables
+		self::setGuestUserid($user_id);
+		//dd($user_id);
+
+	}
+
+	$validator = Validator::make($request->all(), [ 
+			'no_of_copies' => 'required',
+			'no_of_cds' => 'required',
+			'email_id' => 'required|email',
+			'shipping_company' => 'required|not_in:-1',
+			'shipping_address' => 'required',                
+			'billing_address' => 'required',
+			'promo_code' => 'nullable', 
+		]);
+
+		$input = $request->all();
+
+		//dd($input);
+		$input['user_id'] = $user_id;
+		$input['order_id'] = $user_id.'_'.time();
+		$input['total'] = $total;
+//dd($input); 
+		if ($validator->passes()){
+			$OrderDetailsvalue= OrderDetails::create($input);
+			$product_data = OrderAttributes::where('user_id', $user_id)->get();
+
+			return view('/pages/front-end/order',compact('product_data'));
+		}else{//dd($validator->errors());
+			return back()->with('errors', $validator->errors());
+		}
+
+
+		// $OrderDetailsvalue = new OrderDetails;
+		// $OrderDetailsvalue->user_id = $user_id;
+		// $OrderDetailsvalue->order_id= $user_id.'_'.time();
+		// $OrderDetailsvalue->no_of_copies= $request->no_of_copies;
+		// $OrderDetailsvalue->no_of_cds= $request->no_of_cds;
+		// $OrderDetailsvalue->shipping_company= $request->no_of_cds;
+		// $OrderDetailsvalue->promo_code= $request->promo_code;
+		// $OrderDetailsvalue->shipping_address= $request->shipping_address;
+		// $OrderDetailsvalue->billing_address= $request->billing_address;
+		// $OrderDetailsvalue->total= $total;
+		// $OrderDetailsvalue->save();
+
+
+	// 	$product_data = OrderAttributes::where('user_id', $user_id)->get();
+	// return view('/pages/front-end/order',compact('product_data'));
+
+}   //trantor@123
+ 
+
+public function setQuantity(Request $request){
+
+	//print_r($request->input('qty'));
+
+	 $qty = $request->input('qty');
+	 $total_price_per_product = $request->input('total_price_per_product');
+	 if (Auth::check())
+	 {
+	 	$user_id = Auth::user()->id;
+	 //print_r($user_id);
+	 }else{$user_id = 0;}
+	 $data = OrderAttributes::where('user_id', $user_id)->take($request->input('count'))->get();
+	 //print_r($data);
+
+
+	 $i = 0;
+	 foreach($data as $value){
+
+	 	$update_data = $value;
+	 	$update_data->quantity = $qty[$i];
+	 	$update_data->price_product_qty = $total_price_per_product[$i];
+	 	$update_data->save();
+	 	$i++;
+
+	 }
+
+	exit;
+
+}
+
+
+public function removeItem(Request $request){
+
+	//dd($request->id);
+
+	if (Auth::check())
+	{
+		$user_id = Auth::user()->id;
+	 //print_r($user_id);
+	}else{$user_id = 0;}
+
+	$delete = OrderAttributes::destroy($request->id);
+	$product_data = OrderAttributes::where('user_id', $user_id)->get();
+	return view('/pages/front-end/cart',compact('product_data'));
+
+}
+
+
+public function paymentPaypal(){
+
+	if(Auth::check())
+	{
+	$user_id = Auth::user()->id;
+	}else{$user_id = 0;}
+
+	$product_data = OrderAttributes::where('user_id', $user_id)->get();
+	$order_details = OrderDetails::where('user_id', $user_id)->first();
+
+	return view('/pages/front-end/payment_paypal',compact('product_data','order_details'));
+
+} 
+
+
+public function paymentPaypalSuccess(){
+
+	if(Auth::check())
+	{
+	$user_id = Auth::user()->id;
+	}else{$user_id = 0;}
+
+	$order_details = OrderDetails::where('user_id', $user_id)->first();
+
+	$order_details_amt = $order_details->total;
+	$txn = $_GET['tx'];
+
+	$payment = new Payment;
+	$payment->order_id = $order_details->order_id;
+	$payment->txn = $_GET['tx'];
+	$payment->status = $_GET['st'];
+	$payment->user_id = $user_id;
+	$payment->amount = $_GET['amt']; 
+	$payment->payment_type = "paypal";
+	$payment->save();
+
+
+	$OrderDetails = OrderDetails::where('user_id', $user_id)->first();
+
+	$OrderDetailsFinal = new OrderDetailsFinal;
+		$OrderDetailsFinal->user_id = $user_id;
+		$OrderDetailsFinal->order_id= $OrderDetails->order_id;
+		$OrderDetailsFinal->no_of_copies= $OrderDetails->no_of_copies;
+		$OrderDetailsFinal->no_of_cds= $OrderDetails->no_of_cds;
+		$OrderDetailsFinal->shipping_company= $OrderDetails->shipping_company;
+		$OrderDetailsFinal->promo_code= $OrderDetails->promo_code;
+		$OrderDetailsFinal->shipping_address= $OrderDetails->shipping_address;
+		$OrderDetailsFinal->billing_address= $OrderDetails->billing_address;
+		$OrderDetailsFinal->total= $OrderDetails->total;
+		$OrderDetailsFinal->status= $_GET['st'];
+		$OrderDetailsFinal->txn= $_GET['tx'];
+		$OrderDetailsFinal->save();
+
+	$OrderDetailsFinal = $OrderDetails;
+
+	$delete_cart = OrderAttributes::destroy($user_id);
+	$delete_order_details = OrderDetails::destroy($user_id);
+
+	return view('/pages/front-end/paypalsuccess',compact('order_details','order_details_amt','txn'));
+	
+}
+
+
+public function cashOnDelivery(){
+   
+	if(Auth::check()) 
+	{
+	$user_id = Auth::user()->id;
+	}else{$user_id = 0;}
+	$OrderDetails = OrderDetailsFinal::where('user_id', $user_id)->first();
+
+
+	$order_details_amt = $order_details->total;
+	$txn = time();
+
+	$payment = new Payment;
+	$payment->order_id = $order_details->order_id;
+	$payment->txn = $txn;
+	$payment->status = "Pending";
+	$payment->user_id = $user_id;
+	$payment->amount = $order_details_amt; 
+	$payment->payment_type = "COD";
+	$payment->save();
+
+
+	$OrderDetails = OrderDetails::where('user_id', $user_id)->first();
+
+	$OrderDetailsFinal = new OrderDetailsFinal;
+		$OrderDetailsFinal->user_id = $user_id;
+		$OrderDetailsFinal->order_id= $OrderDetails->order_id;
+		$OrderDetailsFinal->no_of_copies= $OrderDetails->no_of_copies;
+		$OrderDetailsFinal->no_of_cds= $OrderDetails->no_of_cds;
+		$OrderDetailsFinal->shipping_company= $OrderDetails->shipping_company;
+		$OrderDetailsFinal->promo_code= $OrderDetails->promo_code;
+		$OrderDetailsFinal->shipping_address= $OrderDetails->shipping_address;
+		$OrderDetailsFinal->billing_address= $OrderDetails->billing_address;
+		$OrderDetailsFinal->total= $OrderDetails->total;
+		$OrderDetailsFinal->status= "Pending";
+		$OrderDetailsFinal->txn= $txn;
+		$OrderDetailsFinal->save();
+
+	$OrderDetailsFinal = $OrderDetails;
+
+	$delete_cart = OrderAttributes::destroy($user_id);
+	$delete_order_details = OrderDetails::destroy($user_id);
+
+	return view('/pages/front-end/cashondelivery',compact('OrderDetails'));
+
+}
+
+public function checkGuest($email_id = ""){
+//if user email exists return user id
+	if (User::where('email', $email_id)->exists()) {   
+		$user_id = User::where('email', $email_id)->first('id');
+		return $user_id->id;
+	}else{
+	// if user does not exist, create new user and return new user id
+
+		$GuestUser = new User;
+		$GuestUser->name = "Guest";
+		$GuestUser->email= $email_id;
+		$GuestUser->save();	
+
+		Auth::loginUsingId($GuestUser->id,true);
+		return $GuestUser->id;
+	}
+} 
+
+ 
+public function setGuestUserid($user_id = ""){
+
+	$update_guest_id = OrderAttributes::where('user_id',Session::get('user_id'))->first();
+	$update_guest_id->user_id = $user_id;
+	$update_guest_id->save();
+
+}
+
+
+public function makeOrderDetails($model = "", $id=""){   
+
+	$id = intval($id);  //dd($id);
+
+	if($model == "binding"){
+		$attribute = Product::find($id)->first();
+		return $attribute->title_english;
+	}
+
+	if($model == "page-format"){
+		$attribute = PageFormat::find($id)->first();
+		return "type is ".$attribute->page_format;
+	}
+
+	if($model == "cover-color"){
+		$attribute = CoverColor::find($id)->first();
+		return "is ".$attribute->color;
+	}
+
+	if($model == "cover-sheet"){
+		$attribute = CoverSheet::find($id)->first();
+		return "is ".$attribute->sheet;
+	}
+
+	if($model == "back-cover"){
+		$attribute = BackCovers::find($id)->first();
+		return "is ".$attribute->back_cover;
+	}
+
+	if($model == "page_options"){
+		$attribute = PageOptions::find($id)->first();
+		return "is ".$attribute->page_options;
+	}
+ 
+	if($model == "paper-weight"){
+		$attribute = PaperWeight::find($id)->first();
+		return "is ".$attribute->paper_weight;
+	}
+
+	if($model == "mirror"){
+		$attribute = Mirror::find($id)->first();
+		return "type is ".$attribute->mirror;
+	}
+
+	if($model == "fonts"){
+		$attribute = Font::find('1')->first();
+		return "is ".$attribute->font;
+	}
+
+	if($model == "date-format"){
+		$attribute = DateFormat::find('1')->first();
+		return "is ".$attribute->date_format;
+	}
+
+	if($model == "cd-bag"){
+		$attribute = CdBag::find($id)->first();
+		return "is ".$attribute->bag;
+	}
+
+	if($model == "data_check"){
+		$attribute = DataCheck::find($id)->first();
+		return "is ".$attribute->check_list;
+	}
+
+	return $id;
+
+}
+  
+		
+
+
+
+}
+  

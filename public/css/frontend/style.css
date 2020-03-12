@@ -379,6 +379,10 @@ button:focus {outline:none !important;}
   background-color: #ffdddd;
 }
 
+.checkoutStepper select.invalid {
+  background-color: #ffdddd;
+}
+
 /* Hide all steps by default: */
 .checkoutStepper .tab {
   display: none;
@@ -593,10 +597,17 @@ button:focus {outline:none !important;}
 
 .servicePrice ul li p { margin:0; }
 .servicePrice ul li big {font-weight: bold; font-size: 15px; margin-bottom:15px; display: block;}
-.stepperButtons {float:;left; width:100%; text-align:left; margin-top:30px;}
+.stepperButtons {clear: both; text-align:left; margin-top:30px;float:left;}
 .stepperButtons button {height:45px; width:150px; line-height:45px; border-radius:3px; background-image: linear-gradient(270deg,#79879a,#aec6cf);box-shadow: 0 8px 16px rgba(174,198,207,.25); color:#fff;}
 .checkoutBlock p {float:left; width:100%;}
-
+.checkoutBlock.detail-right-fix {
+    float: inherit;
+    display: inline-block;
+}
+.checkoutStepper .tab {
+    clear: both;
+    float: left;
+}
 
 /*--------------------------------------- 13-02-2020 ---------------------------------*/
 
@@ -604,14 +615,17 @@ button:focus {outline:none !important;}
 .displayBlock {display:block;}
 .formToolTip {
     display: inline-block;
-    height: 16px;
-    width: 16px;
+    height: 18px;
+    width: 18px;
     border: 1px solid #333;
-    line-height: 16px;
+    line-height: 18px;
     border-radius: 50%;
     text-align: center;
-    font-size: 10px;
+    font-size: 12px;
     margin-left: 5px;
+    font-weight: bolder;
+    padding-left: 1px;
+    color: #000;
 }
 
 /*--------------------------------------- 17-02-2020 ---------------------------------*/
@@ -1071,6 +1085,250 @@ img {
 
 
 
+
+
+
+
+
+/*--------------------------------------06-03-2020-------------------------------*/
+
+
+    .Product_qeue {
+    padding: 40px 0;
+}
+
+.Product_qeue .left_productdetail {
+        box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.08);
+    background-color: white;
+}
+
+.w-100 {
+    width: 100% !important;
+}
+.text-center {
+    text-align: center !important;
+}
+.Product_qeue .product {
+    padding: 10px 20px 20px;
+}
+.Product_qeue .product_listing {
+    position: relative;
+}
+.product_listing img {
+    box-shadow: 0 0px 4px 0 rgba(8, 149, 69,0.2);
+}
+img {
+    max-width: 100%;
+}
+
+
+.Product_qeue .product .product_description {
+    display: inline-block;
+    vertical-align: top;
+    width: 50%;
+    line-height: 10px;
+    padding-left: 20px;
+    padding-top: 5px;
+}
+.Product_qeue .product .product_description .thisproduct_head {
+    font-weight: 530;
+    color: #444;
+}
+.Product_qeue .product .product_description .thisproduct_subhead {
+    color: #999;
+    line-height: 20px;
+}
+.Product_qeue .product ul.product_price {
+    list-style: none;
+    float: right;
+}
+.Product_qeue .product .inputcard_quantity {
+    display: flex;
+}
+.Product_qeue .product ul.product_price h6 {
+    margin-top: 3px;
+    margin-right: 6px;
+}
+.Product_qeue .product .form-control.input-sm {
+    width: 50px;
+    height: 25px;
+    border-radius: 0;
+    border: 1px solid #999;
+    font-size: 14px;
+    background-color: #f9f9f9;
+    font-weight: 600;
+}
+.Product_qeue .product ul.product_price li .remove_btn {
+    background-color: #79879a;
+    color: white;
+    padding: 0px 30px;
+    border-color: #79879a;
+    font-size: 12px;
+    margin-top: 40px;
+}
+
+
+.w-35 {
+    width: 35%;
+    padding-left: 15px;
+}
+.Product_qeue .right_productdetail {
+        box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.08);
+    background-color: white;
+}
+.text-center.quote_heading p {
+    background-color: #79879a;
+    color: white;
+    padding: 10px;
+    font-weight: 550;
+    font-size: 16px;
+}
+.Product_qeue .summary {
+    padding: 20px 20px 20px;
+}
+.Product_qeue .summary h4 {
+    font-weight: 530;
+    color: #444;
+    margin-bottom: 20px;
+}
+.Product_qeue .summary span.price {
+    float: right;
+    color: grey;
+}
+.Product_qeue .summary p {
+    font-weight: 530;
+    color: #444;
+}
+.Product_qeue .summary p a {
+    font-weight: 530;
+    color: #444;
+}
+.Product_qeue .summary span.price {
+    float: right;
+    color: grey;
+}
+.cart-form-shop  .continue_btn {
+    background-color: #79879a;
+    color: white;
+    border-color: #79879a;
+    font-size: 16px;
+    padding: 10px 15px;
+    margin-top: 15px;
+    width: auto;
+}
+.cart-form-shop {
+    clear: both;
+    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.08);
+    background-color: white;
+    float: left;
+    margin: 20px 0;
+}
+.cart-form-shop form {
+    padding: 0px 20px 10px;
+}
+
+.cart-form-shop > p {
+    background-color: #79879a;
+    color: white;
+    padding: 10px;
+    font-weight: 550;
+    font-size: 16px;
+    text-align: center;
+}
+.w-35{
+    width: 35%;
+    float: left;
+}
+.w-65{
+    width: 65%;
+    float: left;
+}
+
+.paypaypal{
+    background-color: #79879a;
+    color: white;
+    border-color: #79879a;
+    font-size: 16px;
+    padding: 10px 15px;
+    margin-top: 15px;
+    width: auto;
+    margin-right: 10px;
+}
+
+.paycash{
+    background-color: #79879a;
+    color: white;
+    border-color: #79879a;
+    font-size: 16px;
+    padding: 10px 15px;
+    margin-top: 15px;
+    width: auto;
+    margin-bottom: 20px;
+    margin-right: 20px;
+}
+
+span.cart-product-count {
+    position: absolute;
+    background-color: #b88862;
+    border-radius: 50%;
+    width: 20px;
+    text-align: center;
+    color: white;
+    right: -7px;
+    bottom: 22px;
+}
+li.cart-relative-count {
+    position: relative;
+}
+
+
+
+
+
+@media (min-width: 768px){
+    .Product_qeue .left_productdetail {
+    min-height: 360px;
+    }
+    .Product_qeue .right_productdetail {
+    min-height: 360px;
+    }
+    .cart-form-shop form .form-group {
+        padding:0 5px;
+        width: 50%;
+        float: left;
+    }
+}
+
+
+@media only screen and (max-width: 1300px){
+.w-35 {
+    width: 100%;
+    padding-left: 0px;
+}
+.w-65 {
+    width: 100%;
+    padding-right: 0px;
+    margin-top: 30px;
+}
+}
+
+@media only screen and (max-width: 1300px){
+.Product_qeue .product .product_price {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+}
+@media only screen and (max-width: 1300px){
+.Product_qeue .product .product_description {
+    display: inline-block;
+    vertical-align: top;
+    width: 100%;
+    line-height: 10px;
+    padding-left: 0px;
+    padding-top: 30px;
+}
+}
 
 
 

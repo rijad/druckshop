@@ -70,4 +70,9 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\PsShippingAddress', 'order_id');
     }
+
+    public function psOrderAttributes()
+    {
+        return $this->belongsToMany('App\OrderAttributes');
+    }
 }

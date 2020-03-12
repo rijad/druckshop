@@ -1,0 +1,1 @@
+ 	<h1>your order has been placed, your Order Id is - {{$OrderDetails->order_id}}</h1>

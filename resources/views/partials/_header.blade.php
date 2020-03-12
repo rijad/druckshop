@@ -63,7 +63,7 @@
 
 							</div>								
 						</li>
-						<li class=""><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+						<li class="cart-relative-count"><a href="{{route('cart')}}"><i class="fa fa-shopping-cart"></i><span class="cart-product-count">1</span> </a></li>
 						<li><a href="#"><img src="{{ asset('public/images/eng.png') }}" alt="" /></a></li>
 						<li><a href="#"><img src="{{ asset('public/images/ger.png') }}" alt="" /></a></li>	
 												 						 

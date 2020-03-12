@@ -1,201 +1,133 @@
+<div class="mycart">
+        <div class="container">
+            <div class="Product_qeue">
+                <div class="w-100">
+                    <div class="w-65">
+                        <div class="left_productdetail">   
+                            <div class="text-center quote_heading">
+                                <p>Product list</p>
+                            </div>
 
-<style>
-body {
-  font-family: Arial;
-  font-size: 17px;
-  padding: 8px;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-.row {
-  display: -ms-flexbox; /* IE10 */
-  display: flex;
-  -ms-flex-wrap: wrap; /* IE10 */
-  flex-wrap: wrap;
-  margin: 0 -16px;
-}
-
-.col-25 {
-  -ms-flex: 25%; /* IE10 */
-  flex: 25%;
-}
-
-.col-50 {
-  -ms-flex: 50%; /* IE10 */
-  flex: 50%;
-}
-
-.col-75 {
-  -ms-flex: 75%; /* IE10 */
-  flex: 75%;
-}
-
-.col-25,
-.col-50,
-.col-75 {
-  padding: 0 16px;
-}
-
-.innercartcontainer {
-  background-color: #f2f2f2;
-  padding: 5px 20px 15px 20px;
-  border: 1px solid lightgrey;
-  border-radius: 3px;
-}
-form#regForm {
-    margin-top: 30px;
-}
-#regForm input[type=text] {
-  width: 100%;
-  margin-bottom: 20px;
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
-}
-
-#regForm label {
-  margin-bottom: 10px;
-  display: block;
-}
-
-.icon-container {
-  margin-bottom: 20px;
-  padding: 7px 0;
-  font-size: 24px;
-}
-
-.btn {
-  background-color: #4CAF50;
-  color: white;
-  padding: 12px;
-  margin: 10px 0;
-  border: none;
-  width: 100%;
-  border-radius: 3px;
-  cursor: pointer;
-  font-size: 17px;
-}
-
-.btn:hover {
-  background-color: #45a049;
-}
-
-a {
-  color: #2196F3;
-}
-
-hr {
-  border: 1px solid lightgrey;
-}
-
-span.price {
-  float: right;
-  color: grey;
-}
-
-/* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other (also change the direction - make the "cart" column go on top) */
-@media (max-width: 800px) {
-  .row {
-    flex-direction: column-reverse;
-  }
-  .col-25 {
-    margin-bottom: 20px;
-  }
-}
-</style>
+                            <div class="product">
 
 
+                            	@foreach ($product_data as $data)
+ 
+                                <div class="product_listing">
+                                    <img src="images/product_frame.png" alt="" width="100px" />
+                                    <div class="product_description">
+                                        <p class="thisproduct_head">{{$data->product}}</p>
+                                        <p class="thisproduct_subhead">{{$data->attribute_desc}}</p>
+                                    </div>
+                                    <ul class="product_price" id="product_price">
+                                        <li class="inputcard_quantity"><h6><strong>€ <span id="price_per_product_{{$data->id}}" class = "price_per_product">{{$data->price_per_product}}</span><span class="text-muted">x</span></strong></h6>
+                                            <input id ="qty_{{$data->id}}" name = "qty_{{$data->id}}" type="text" class="form-control input-sm" placeholder="" onchange ="setQuantity({{count($product_data)}});" value = "1"><div><span id="qty_msg"></span></div>
+                                        </li>
+                                        <li>
+                                        <button class="remove_btn" onclick = "decrementQuantity('qty_{{$data->id}}',{{count($product_data)}})">-</button>
+                                        <button class="remove_btn" onclick = "incrementQuantity('qty_{{$data->id}}',{{count($product_data)}})">+</button>
+                                        
+                                        <button onclick="window.location='{{route('remove-item',['id'=>$data->id]) }}'" class="remove_btn" > Remove </button> 
+                                    </li>
+                                    </ul>
+                                </div>
+                                <hr>
+                                @endforeach  
 
-<div class="content-wrapper">
 
-		<div class="checkoutStepper col-full text-left">
+                                <hr>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-35">
+                        <div class="right_productdetail">
+                        <div class="text-center quote_heading">
+                            <p>Summary</p>
+                        </div>
+                        <div class="summary">
+                            <h4>Items <span class="price" style="color:black"><i class="fa fa-shopping-cart"></i> <b>{{count($product_data)}}</b></span></h4>
+                            @foreach ($product_data as $data)
+                            <p><a href="#">{{$data->product}}</a> <span style="float: right;">€</span><span id = "total_price_per_item_{{$data->id}}" class="price total_price_per_item"> {{$data->price_per_product}}</span></p>
+                           @endforeach
+                            <hr style="margin-top:20%;">
+                            <p>Total <span style="float: right;">€</span><span id ="checkout_total" class="price" style="color:black"><b>€</b></span></p>
+                        </div>
+                        </div>
+                    </div>
+                </div> 
+            </div>   
+            <div class="cart-form-shop w-100">
+                <p>Please Fill in Details</p>
+                        <form method = "POST" action="{{route('order-details')}}">
+                        	@csrf
+                            <div class="form-group">
+                              <label for="text">No of Copies*:</label>
+                              <input type="text" name="no_of_copies" id="no_of_copies" class="form-control" placeholder="enter here" >
+                              @if($errors->has('no_of_copies'))
+                              <div class="error">{{ $errors->first('no_of_copies') }}</div>
+                              @endif
+                            </div>
+                            <div class="form-group">
+                              <label for="pwd">No of CDS*:</label>
+                              <input type="text" name="no_of_cds" id="no_of_cds" class="form-control" placeholder="enter here">
+                               @if($errors->has('no_of_cds'))
+                              <div class="error">{{ $errors->first('no_of_cds') }}</div>
+                              @endif
+                            </div>
+                            <div class="form-group">
+                              <label for="pwd">E-mail*:</label>
+                              <input type="text" name="email_id" id="email_id" class="form-control" placeholder="enter here">
+                              @if($errors->has('email_id'))
+                              <div class="error">{{ $errors->first('email_id') }}</div>
+                              @endif
+                            </div>
+                            <div class="form-group">
+                              <label for="email">Shipping Company*:</label>
+                              <select class="form-control" name="shipping_company" id="shipping_company" > <option value ="-1">Select</option>
+                              @foreach($shipping_company as $value)<option value = "{{$value->company_english}}">{{$value->company_english}}</option> @endforeach
+                              </select>
+                              @if($errors->has('shipping_company'))
+                              <div class="error">{{ $errors->first('shipping_company') }}</div>
+                              @endif
+                            </div>
+                             <div class="form-group">
+                              <label for="email">Dicount Code:</label>
+                              <input type="text" name="promo_code" id="promo_code" class="form-control" placeholder="enter here">
+                            </div>
+                            <div class="form-group">
+                              <label for="email">Shipping Address*:</label>
+                              <textarea name="shipping_address" id="shipping_address" class="form-control"></textarea>
+                               @if($errors->has('shipping_address'))
+                              <div class="error">{{ $errors->first('shipping_address') }}</div>
+                              @endif
+                            </div>
+                             <div class="form-group">
+                              <label for="email">Billing Address*:</label>
+                              <textarea name="billing_address" id="billing_address" class="form-control"></textarea>
+                               @if($errors->has('billing_address'))
+                              <div class="error">{{ $errors->first('billing_address') }}</div>
+                              @endif
+                            </div>
+                           
+                            <div class="text-right">
+                                <button type= "submit" class="continue_btn">Proceed to Checkout</button>
+                            </div>
+                        </form>
+                    </div>     
+        </div>
+    </div>
 
-			<!-- ====================== stepper added ================== -->
 
-			<form id="regForm" action="">
-				<div class="row">
-				  <div class="col-75">
-				    <div class="innercartcontainer">
-				      <form action="/action_page.php">
-				      
-				        <div class="row">
-				          <div class="col-50">
-				            <h3>Billing Address</h3>
-				            <label for="fname"><i class="fa fa-user"></i> Full Name</label>
-				            <input type="text" id="fname" name="firstname" placeholder="John M. Doe">
-				            <label for="email"><i class="fa fa-envelope"></i> Email</label>
-				            <input type="text" id="email" name="email" placeholder="john@example.com">
-				            <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
-				            <input type="text" id="adr" name="address" placeholder="542 W. 15th Street">
-				            <label for="city"><i class="fa fa-institution"></i> City</label>
-				            <input type="text" id="city" name="city" placeholder="New York">
 
-				            <div class="row">
-				              <div class="col-50">
-				                <label for="state">State</label>
-				                <input type="text" id="state" name="state" placeholder="NY">
-				              </div>
-				              <div class="col-50">
-				                <label for="zip">Zip</label>
-				                <input type="text" id="zip" name="zip" placeholder="10001">
-				              </div>
-				            </div>
-				          </div>
+    <script src="{{ asset('public/js/frontend/checkout.js') }}" type="text/javascript" ></script>
+	<script src="{{ asset('public/js/frontend/dragdrop.js') }}" type="text/javascript" ></script>
 
-				          <div class="col-50">
-				            <h3>Payment</h3>
-				            <label for="fname">Accepted Cards</label>
-				            <div class="icon-container">
-				              <i class="fa fa-cc-visa" style="color:navy;"></i>
-				              <i class="fa fa-cc-amex" style="color:blue;"></i>
-				              <i class="fa fa-cc-mastercard" style="color:red;"></i>
-				              <i class="fa fa-cc-discover" style="color:orange;"></i>
-				            </div>
-				            <label for="cname">Name on Card</label>
-				            <input type="text" id="cname" name="cardname" placeholder="John More Doe">
-				            <label for="ccnum">Credit card number</label>
-				            <input type="text" id="ccnum" name="cardnumber" placeholder="1111-2222-3333-4444">
-				            <label for="expmonth">Exp Month</label>
-				            <input type="text" id="expmonth" name="expmonth" placeholder="September">
-				            <div class="row">
-				              <div class="col-50">
-				                <label for="expyear">Exp Year</label>
-				                <input type="text" id="expyear" name="expyear" placeholder="2018">
-				              </div>
-				              <div class="col-50">
-				                <label for="cvv">CVV</label>
-				                <input type="text" id="cvv" name="cvv" placeholder="352">
-				              </div>
-				            </div>
-				          </div>
-				           
-				        </div>
-				        {{-- <label>
-				          <input type="checkbox" checked="checked" name="sameadr"> Shipping address same as billing
-				        </label> --}}
-				        <input type="submit" value="Place Order" class="btn">
-				      </form>
-				    </div>  
-				  </div>
-				  <div class="col-25">
-				    <div class="innercartcontainer">
-				      <h4>Cart <span class="price" style="color:black"><i class="fa fa-shopping-cart"></i> <b>1</b></span></h4>
-				      <p><a href="#">Product 1</a> <span class="price">30€</span></p>
-				     {{--  <p><a href="#">Product 2</a> <span class="price">$5</span></p>
-				      <p><a href="#">Product 3</a> <span class="price">$8</span></p>
-				      <p><a href="#">Product 4</a> <span class="price">$2</span></p> --}}
-				      <hr>
-				      <p>Total <span class="price" style="color:black"><b>30€</b></span></p>
-				    </div>
-				  </div>
-				</div>
-			</form> 
+	<script>
+		
+		$(document).ready( function () {
+			setQuantity({{count($product_data)}});
+		});
 
-			<!-- ==================== stepper ends ================== -->
 
-		</div>
-</div> 
 
+	</script>

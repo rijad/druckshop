@@ -5,7 +5,8 @@
 
 					<!-- ====================== stepper added ================== -->
 
-					<form id="regForm" action="">
+					<form id="regForm" action="{{route('order')}}" method="POST"> 
+						@csrf
 
 						<div class="stepperBullets">
 							<div class="step"><span>1</span></div>
@@ -21,7 +22,7 @@
 							<div class="tab" id="tab-fields">
 								<div class="displayBlock">
 									<label>Binding*:</label>
-									<p><select id = "binding" onclick="displayFields(this.value);displayProductAttributes('1',this);">
+									<p><select class = "" name = "binding" id = "binding" onclick="displayFields(this.value);displayProductAttributes('1',this);">
 										<option value = "-1">Select</option>
 										@foreach ($product_listing as $key=>$listing)
 										<option value="{{$listing->id}}">{{$listing->title_english}}</option>  
@@ -29,20 +30,20 @@
 									</select></p>
 								</div>
 								<div class="displayBlock" id="div-no-of-copies">
-									<label>No of Copies</label>
-									<p><input name="no_of_copies" id="no-of-copies" placeholder="No of Copies" oninput="displayProductAttributes('2',this);"></p>
+									<label>No of Copies*:</label>
+									<p><input class = "" name="no_of_copies" id="no-of-copies" placeholder="No of Copies" oninput="displayProductAttributes('2',this);"></p>
 								</div>
 								<div class="displayBlock" id="div-page-format">
 									<label>Page Format*:</label>
-									<p><select onclick = "displayProductAttributes('3',this);" id="page-format"><option value="-1">Select</option></select></p>
+									<p><select class = "" onclick = "displayProductAttributes('3',this);" id="page-format" name="page-format"><option value="-1">Select</option></select></p>
 								</div>
 								<div class="displayNone" id="div-cover-color">
 									<label>Cover Color*:</label> 
-									<p><select onclick = "displayProductAttributes('4',this);" id="cover-color"><option value="-1">Select</option></select></p>
+									<p><select name="cover-color" class = "" onclick = "displayProductAttributes('4',this);" id="cover-color"><option value="-1">Select</option></select></p>
 								</div>
 								<div class="displayNone" id="div-cover-sheet">
-									<label>Cover Sheet*:<div title="200 gm/m2 sheets" class="formToolTip">i</div></label>
-									<p><select onclick = "displayProductAttributes('5',this);uploadDisplay(this.id,this.value);" id="cover-sheet"><option value="-1">Select</option></select></p>
+									<label>Cover Sheet*:<a href="#" data-toggle="tooltip" title="200 gm/m2 sheets" class="formToolTip">i</a></label>
+									<p><select class = "" onclick = "displayProductAttributes('5',this);uploadDisplay(this.id,this.value);" id="cover-sheet" name="cover-sheet"><option value="-1">Select</option></select></p>
 
 								</div> 
 
@@ -51,8 +52,8 @@
 										<p>Drop file here</p>
 										<p>or</p>
 										<p><input type="button" value="Select File" onclick="file_explorer('drop_file_zone_cover_sheet');"></p>
-										<input class = "displayNone" type="file" id="selectfile" accept="application/pdf" value = "" />
-										<input class = "displayNone" type="hidden" id="selectfile_coversheet" value = "" />
+										<input class = "displayNone" type="file" name="selectfile" id="selectfile" accept="application/pdf" value = "" />
+										<input class = "displayNone" type="hidden" name="selectfile_coversheet" id="selectfile_coversheet" value = "" />
 									</div>
 								</div>
   
@@ -62,7 +63,7 @@
 
 									<div class="displayNone" id="div-back-cover">
 										<label>Back Sheet*:<div title="200 gm/m2 sheets" class="formToolTip">i</div></label>
-										<p><select onclick = "displayProductAttributes('6',this);uploadDisplay(this.id,this.value);" id="back-cover"><option value="-1">Select</option></select></p> 
+										<p><select class = "" onclick = "displayProductAttributes('6',this);uploadDisplay(this.id,this.value);" id="back-cover" name="back-cover"><option value="-1">Select</option></select></p> 
 									</div>
 
 									<div id="drop_file_zone_back_cover" ondrop="upload_file(event,this.id)" ondragover="return false" class="displayNone">
@@ -70,8 +71,8 @@
 											<p>Drop file here</p>
 											<p>or</p>  
 											<p><input type="button" value="Select File" onclick="file_explorer('drop_file_zone_back_cover');"></p>
-											<input class = "displayNone" type="file" id="selectfile" accept="application/pdf" value = "" />
-											<input class = "displayNone" type="hidden" id="selectfile_backcover" value = "" />
+											<input class = "displayNone" type="file" name="selectfile" id="selectfile" accept="application/pdf" value = "" />
+											<input class = "displayNone" type="hidden" name="selectfile_backcover" id="selectfile_backcover" value = "" />
 										</div>
 									</div>
 
@@ -109,7 +110,7 @@
 								<div class="tab">
 									<div class="displayBlock">
 										<label>Side Options*:</label>
-										<p><select id = "page_options" onclick="displayFieldsContent(this.value);">
+										<p><select class = "" id = "page_options" name = "page_options" onclick="displayFieldsContent(this.value);">
 											<option value = "-1">Select</option>
 											@foreach ($page_options as $key=>$listing)
 											<option value="{{$listing->id}}">{{$listing->name_english}}</option>  
@@ -119,25 +120,26 @@
 
 									<div class="displayBlock" id="div-paper-weight">
 										<label>Paper Weight*:</label>
-										<p><select id="paper-weight" onclick="displayPrice(this,'','');"><option value="-1">Select</option></select></p>
+										<p><select class = "" name="paper-weight" id="paper-weight" onclick="displayPrice(this,'','');"><option value="-1">Select</option></select></p>
 									</div>
 
 									<div class="displayNone" id="div-mirror">
 										<label>Mirror*:</label>
-										<p><select id="mirror"><option value="-1">Select</option></select></p>
+										<p><select class = "" id="mirror" name="mirror"><option value="-1">Select</option></select></p>
 									</div>
 
 									<div class="displayBlock" id="div-no-of-copies">
 										<label>No of Pages*:</label>
-										<p><input name="no_of_pages" id="no-of-pages" placeholder="No of Pages" oninput="this.className = ''"></p>
+										<p><input class = "" name="no_of_pages" id="no-of-pages" placeholder="No of Pages" value = ""></p>
 									</div>
 
 									<div id="drop_file_zone_content" ondrop="upload_file(event,this.id)" ondragover="return false" class="displayBlock">
 										<div id="drag_upload_file">
 											<p>Drop file here</p> 
 											<p>or</p>
-											<p><input type="button" value="Select File" onclick="file_explorer('drop_file_zone_content');"></p>
-											<input type="file" id="selectfile" accept="application/pdf">
+											<p><input class = "" type="button" value="Select File" onclick="file_explorer('drop_file_zone_content');"></p>
+											<input type="file" name="selectfile" id="selectfile" accept="application/pdf">
+											<input type="hidden" name="selectfile_content" id="selectfile_content" accept="application/pdf">
 										</div>
 									</div>
 
@@ -146,36 +148,37 @@
 										<p></p>
 										<div class="displayBlock" id="div-color-pages">
 											<label class="csCheckbtn">Color Pages
-												<input type="checkbox" onclick="displayContentInput('Color_Pages');">
+												<input type="checkbox" name = "color-pages" id = "color-pages" onclick="displayContentInput('Color_Pages');">
 												<span class="checkmark"></span>
 											</label>
 										</div>
 
 										<div class="displayNone" id="div-page-numbers">
 											<label>Colored Page Numbers*:</label>
-											<p><input name="page_numbers" id="page-numbers" placeholder="Page Numbers" oninput="this.className = ''"></p>
+											<p><input class= "" name="page_numbers" id="page-numbers" placeholder="Page Numbers" value = ""></p>
 
 											<div class="displayBlock" id="div-A3-pages">
 												<label class="csCheckbtn">A3 Pages
-													<input type="checkbox" onclick="displayContentInput('A3_Pages');">
+													<input class = ""  name = "A3-pages" id = "A3-pages" type="checkbox" onclick="displayContentInput('A3_Pages');">
 													<span class="checkmark"></span>
 												</label>
 											</div>
 
 											<div class="displayNone" id="div-number-of-pages">
 												<label>Number of Pages*:</label>
-												<p><input name="number_of_pages" id="numbers-of-pages" placeholder="Number of Pages" oninput="this.className = ''" max="10"></p>
+												<p><input class = "" name="number_of_pages" id="numbers-of-pages" placeholder="Number of Pages"  max="10"></p>
 											</div>
 											<div class="displayNone" id="div-pos-A3-pages">
 												<label>Position A3 Pages in Work</label>
-												<p><textarea name="pos_of_A3_pages" id=" pos-of-A3-pages" placeholder="Number of Pages" oninput="this.className = ''"></textarea></p>
+												<p><textarea class = ""  name="pos_of_A3_pages" id=" pos-of-A3-pages" placeholder="Number of Pages" ></textarea></p>
 											</div>
 											<div class="displayNone" id="drop_file_din_A3" ondrop="upload_file(event,this.id)" ondragover="return false" class="displayBlock">
 												<div id="drag_upload_file">
 													<p>Drop file here</p> 
 													<p>or</p>
 													<p><input type="button" value="Select File" onclick="file_explorer('drop_file_din_A3');"></p>
-													<input type="file" id="selectfile" accept="application/pdf">
+													<input type="file" name ="selectfile" id="selectfile" accept="application/pdf">
+													<input type="hidden" name="selectfile_din_A3" id="selectfile_din_A3" accept="application/pdf">
 												</div>
 											</div>
 
@@ -184,14 +187,14 @@
 
 												<div class="displayBlock" id="div-A2-pages">
 													<label class="csCheckbtn">Din A2 Pages
-														<input type="checkbox" onclick="displayContentInput('A2_Pages');" >
+														<input class = "" name = "A2-pages" id = "A2-pages" type="checkbox" onclick="displayContentInput('A2_Pages');" >
 														<span class="checkmark"></span>
 													</label>
 												</div>
 
 												<div class="displayNone" id="div-number-of-A2-pages">
 													<label>Number of Pages*:</label>
-													<p><input name="number_of_A2_pages" id="numbers-of-A2-pages" placeholder="Number of Pages" oninput="this.className = ''" max="10"></p>
+													<p><input class = "" name="number_of_A2_pages" id="numbers-of-A2-pages" placeholder="Number of Pages" value = "" max="10"></p>
 												</div>
 
 												<div class="displayNone" id="drop_file_din_A2" ondrop="upload_file(event,this.id)" ondragover="return false" class="displayBlock">
@@ -199,7 +202,9 @@
 														<p>Drop file here</p> 
 														<p>or</p>
 														<p><input type="button" value="Select File" onclick="file_explorer('drop_file_din_A2');"></p>
-														<input type="file" id="selectfile" accept="application/pdf">
+														<input type="file" name="selectfile" id="selectfile" accept="application/pdf">
+
+														<input type="hidden" name="selectfile_din_A2" id="selectfile_din_A2" accept="application/pdf">
 													</div>
 												</div> 
 
@@ -212,14 +217,14 @@
 											<div class="tab">
 												<div class="displayBlock" id="div-embossment-cover-sheet">
 													<label class="csCheckbtn">Embossment Cover Sheet
-														<input type="checkbox" onclick="displayPrintFields('Embossment_Cover_Sheet');" >
+														<input name ="embossment-cover-sheet" id ="embossment-cover-sheet" type="checkbox" onclick="displayPrintFields('Embossment_Cover_Sheet');" >
 														<span class="checkmark"></span>
 													</label>
 												</div>
 
 												<div class="displayNone" id="div-template">
 													<label>Template*:</label>
-													<p><select id="template" onchange="displayPopUp(this.value);"><option value="-1">Select</option><option value="Standardvorlage mit Logo">Standardvorlage mit Logo</option><option value="Standardvorlage ohne Logo">Standardvorlage ohne Logo</option><option value="Eigene Vorlage">Eigene Vorlage</option></select></p>
+													<p><select name ="template" id="template" onchange="displayPopUp(this.value);"><option value="-1">Select</option><option value="Standardvorlage mit Logo">Standardvorlage mit Logo</option><option value="Standardvorlage ohne Logo">Standardvorlage ohne Logo</option><option value="Eigene Vorlage">Eigene Vorlage</option></select></p>
 												</div>
 
 												<div class="displayNone" id="upload_custom_logo" ondrop="upload_file(event,this.id)" ondragover="return false" class="displayBlock">
@@ -227,15 +232,14 @@
 														<p>Drop file here</p> 
 														<p>or</p>
 														<p><input type="button" value="Select File" onclick="file_explorer('upload_custom_logo');"></p>
-														<input type="file" id="selectfile" accept="image/x-png">
+														<input type="file" name ="selectfile" id="selectfile" accept="image/x-png">
+
+														<input type="hidden" name ="selectfile_logo" id="selectfile_logo" accept="image/x-png">
 													</div>
 												</div>  
 
 												<div id="drop_file_zone_logo" class="displayNone"><label id="logo_file_name"></label>
 													<label id="logo_page_no"></label><label id="logo_del"></label></div>
-
-													<div class="displayNone" id="div-template">
-														<label>Fonts*:</label>
 														<p><select id ="template">
 															<option value="-1">Select</option>
 															<option value="Standardvorlage mit Logo">Standardvorlage mit Logo</option>
@@ -243,11 +247,12 @@
 															<option value="Eigene Vorlage">Eigene Vorlage</option></select></p>
 													</div>	
 
+
 													<div class="displayNone" id="div-display-image"> </div>
 
 													<div class="displayNone" id="div-fonts">
 														<label>Fonts*:</label>
-														<p><select><option value = "-1">Select</option>
+														<p><select class = "" name="fonts" id="fonts"><option value = "-1">Select</option>
 															@foreach ($fonts as $key=>$listing)
 															<option value="{{$listing->font}}">{{$listing->font}}</option>  
 															@endforeach
@@ -256,7 +261,7 @@
 
 													<div class="displayNone" id="div-date-format">
 														<label>Date Format*:</label>
-														<p><select><option value = "-1">Select</option>
+														<p><select class = "" id="date-format" name="date-format"><option value = "-1">Select</option>
 															@foreach ($date_format as $key=>$listing)
 															<option value="{{$listing->surname}}">{{$listing->date_format}}</option>  
 															@endforeach
@@ -265,14 +270,14 @@
 
 													<div class="displayNone" id="div-embossment-cover-sheet">
 														<label class="csCheckbtn">Embossment Spine
-															<input type="checkbox" disabled>
+															<input class = "" type="checkbox" id = "embossment-spine" name = "embossment-spine" disabled>
 															<span class="checkmark"></span>
 														</label>
 													</div>
 
 													<div class="displayNone" id="div-remarks">
 														<label>Remarks</label>
-														<p><textarea name="remarks" id=" remarks" placeholder="remarks" oninput="this.className = ''"></textarea></p>
+														<p><textarea class = "" name="remarks" id=" remarks" placeholder="remarks" oninput="this.className = ''"></textarea></p>
 													</div>	
 
 													<div class="modal fade" tabindex="-1" role="dialog"> 
@@ -299,14 +304,14 @@
 												<div class="tab">
 													<div class="displayBlock" id="div-cd">
 														<label class="csCheckbtn">CD
-															<input type="checkbox" onclick="displayCDFields('cd');">
+															<input class = ""  name = "cd-check" id = "cd-check" type="checkbox" onclick="displayCDFields('cd');">
 															<span class="checkmark"></span>
 														</label>
 													</div>
 
 													<div class="displayNone" id="div-number-of-cds">
 														<label>Number of CDs*:</label>
-														<p><input name="number_of_cds" id="numbers-of-cds" placeholder="Number of CDs" oninput="this.className = ''"></p>
+														<p><input class = "" name="number_of_cds" id="numbers-of-cds" placeholder="Number of CDs" oninput="this.className = ''"></p>
 													</div>
 
 													<div class="displayNone" id="upload_cd" ondrop="upload_file(event,this.id)" ondragover="return false" class="displayBlock">
@@ -314,7 +319,8 @@
 															<p>Drop file here</p>  
 															<p>or</p>
 															<p><input type="button" value="Select File" onclick="file_explorer('upload_cd');"></p>
-															<input type="file" id="selectfile" accept="image/x-png">
+															<input type="file" id="selectfile" name="selectfile" >
+															<input type="hidden" id="selectfile_cd" name="selectfile_cd">
 														</div>
 													</div>  
 
@@ -322,27 +328,30 @@
 														<label id="cd_page_no"></label><label id="cd_del"></label></div>
 
 
-														<div class="displayBlock" id="div-cd-imprint">
+														<div class="displayNone" id="div-cd-imprint">
 															<label class="csCheckbtn">CD Imprint
-																<input type="checkbox" onclick="displayCDFields('imprint');">
+																<input id= "imprint" name = "imprint" class = "" type="checkbox" onclick="displayCDFields('imprint');">
 																<span class="checkmark"></span>
 															</label>
 														</div>	
 
 														<div class="displayNone" id="div-cd-template">
 															<label>CD Template</label>
-															<p><select id="cd-template" onchange="displayPopUp(this.value);">
+
+															<p><select name="cd-template" id="cd-template" onchange="displayPopUp(this.value);"><option value="-1">Select</option><option value="Standardvorlage mit Logo">Standardvorlage mit Logo</option><option value="Standardvorlage ohne Logo">Standardvorlage ohne Logo</option><option value="Eigene Vorlage">Eigene Vorlage</option></select></p>
+
+															{{-- <p><select id="cd-template" onchange="displayPopUp(this.value);">
 															<option value="-1">Select</option>
 															<option value="Standardvorlage mit Logo">Standardvorlage mit Logo</option>
 															<option value="Standardvorlage ohne Logo">Standardvorlage ohne Logo</option>
-															<option value="Eigene Vorlage">Eigene Vorlage</option></select></p>
+															<option value="Eigene Vorlage">Eigene Vorlage</option></select></p> --}}
+
 														</div>
 
 
-
-														<div class="displayBlock" id="div-cd-bag">
+														<div class="displayNone" id="div-cd-bag">
 															<label>CD Bag*:</label>
-															<p><select><option value = "-1">Select</option>
+															<p><select class = "" name = "cd-bag" id = "cd-bag"><option value = "-1">Select</option>
 																@foreach ($cd_bag as $key=>$listing)
 																<option value="{{$listing->id}}">{{$listing->bag}}</option>  
 																@endforeach
@@ -351,17 +360,17 @@
 
 														<div class="displayBlock" id="div-data-check">
 															<label>Data Check*:</label>
-															<p><select id = "data_check" onclick="displayPrice('','',this);"><option value = "-1">Select</option>
+															<p><select id = "data_check" name = "data_check" onclick="displayPrice('','',this);"><option value = "-1">Select</option>
 																@foreach ($data_check as $key=>$listing)
 																<option value="{{$listing->id}}">{{$listing->check_list}}</option>  
 																@endforeach
 															</select></p> 
 														</div>	
 
-													</div>
+													</div> 
 
 
-													<div class="stepperButtons" style="overflow:auto;">
+													<div class="stepperButtons">
 														<div>
 															<button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
 															<button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
@@ -370,7 +379,7 @@
 
 												</div> <!-- col ends -->
 												<!--  Print Product Attributes -->
-												<div class="checkoutBlock col-half text-left">
+												<div class="checkoutBlock col-half text-left detail-right-fix">
 													<div class="prodkt-info">
 														<ul id="prodkt-attrib">	</ul>
 													</div>
@@ -380,6 +389,7 @@
 															<li><p>Preis pro CD</p><span id="price_per_cd"><big>0.00 €</big></span></li>
 															<li><p>Preis des Datenchecks</p><span id="price_of_data_check"><big>0.00 €</big></span></li>
 															<li><p>Gesamtpreis</p><span id="total"><big>0.00 €</big></span></li>
+															<input type="hidden" name="total" id="total_price" value="">
 														</ul>
 
 													</div>
