@@ -1,9 +1,11 @@
 @extends('pages/admin/layouts.master')
 
+
 @section('content')
-@include('partials/admin/_sidebar') 
+@include('partials/admin/_card')
 @stop 
  
-@section('content')
+@section('table')
+@include('partials/admin/_charts')
 @include('partials/admin/_table') 			
 @stop  

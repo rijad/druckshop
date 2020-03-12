@@ -1,5 +1,5 @@
 <div class="card mb-4">
-                <div class="card-header"><i class="fas fa-table mr-1"></i>DataTable</div>
+                <div class="card-header"><i class="fas fa-table mr-1"></i>Parameter</div>
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -16,13 +16,15 @@
                                     </tr>
                                 </tfoot>
                                 <tbody>
+                                    @foreach($parameter as $para)
                                     <tr>
                                         <td>Tiger Nixon</td>
                                         <td>System Architect</td>
                                     </tr> 
+                                    @endforeach
                                     <tr>
-                                        <td>Airi Satou</td>
-                                        <td>Accountant</td>
+                                        <td>Tiger Nixon</td>
+                                        <td>System Architect</td>
                                     </tr> 
                                 </tbody>
                             </table>

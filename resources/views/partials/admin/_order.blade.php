@@ -5,24 +5,38 @@
                             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
                                     <tr>
-                                        <th>Name</th>
+                                        <th>State</th>
+                                        <th>CD</th>
+                                        <th>Last update</th>
+                                        <th>No. of copies</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tfoot>
                                     <tr>
-                                        <th>Name</th>
+                                        <th>State</th>
+                                        <th>CD</th>
+                                        <th>Last update</th>
+                                        <th>No. of copies</th>
                                         <th>Actions</th>
                                     </tr>
                                 </tfoot>
                                 <tbody>
+                                @foreach($order as $odr)
                                     <tr>
                                         <td>Tiger Nixon</td>
+                                        <td>Tiger Nixon</td>
+                                        <td>Tiger Nixon</td>
+                                        <td>Tiger Nixon</td>
                                         <td>System Architect</td>
-                                    </tr> 
+                                    </tr>  
+                                    @endforeach
                                     <tr>
-                                        <td>Airi Satou</td>
-                                        <td>Accountant</td>
+                                        <td>Tiger Nixon</td>
+                                        <td>Tiger Nixon</td>
+                                        <td>Tiger Nixon</td>
+                                        <td>Tiger Nixon</td>
+                                        <td>System Architect</td>
                                     </tr> 
                                 </tbody>
                             </table>

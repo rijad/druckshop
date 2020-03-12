@@ -6,23 +6,35 @@
                                 <thead>
                                     <tr>
                                         <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Is Verified</th>
+                                        <th>Roles</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tfoot>
                                     <tr>
                                         <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Is Verified</th>
+                                        <th>Roles</th>
                                         <th>Actions</th>
                                     </tr>
                                 </tfoot>
                                 <tbody>
                                     <tr>
                                         <td>Tiger Nixon</td>
+                                        <td>Tiger Nixon</td>
+                                        <td>Tiger Nixon</td>
+                                        <td>Tiger Nixon</td>
                                         <td>System Architect</td>
                                     </tr> 
                                     <tr>
-                                        <td>Airi Satou</td>
-                                        <td>Accountant</td>
+                                        <td>Tiger Nixon</td>
+                                        <td>Tiger Nixon</td>
+                                        <td>Tiger Nixon</td>
+                                        <td>Tiger Nixon</td>
+                                        <td>System Architect</td>
                                     </tr> 
                                 </tbody>
                             </table>

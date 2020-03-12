@@ -80,13 +80,21 @@ Route::get('/cart', function () {
     return view('/pages/front-end/cart'); 
 })->name('cart');
 
-
+ 
 //Admin
-Route::group(['namespace'=>'Admin', 'prefix' => 'admin'], function()
+Route::group(['namespace'=>'Admin', 'prefix' => 'admin' ], function()
 {
-Route::get('/dashboard','HomeController@index')->name('dashboard');
+Route::get('/dashboard','DashboardController@index')->name('dashboard');
+Route::get('/users','AdminUsersController@index')->name('users');
+Route::resource('/slider','SliderController');
+// Route::get('/slider','SliderController@index')->name('slider');
+// Route::post('/slider-edit','SliderController@edit')->name('slider-edit');
+Route::get('/parameter','ParameterController@index')->name('parameter');
+Route::get('/order','OrderController@index')->name('order');
+Route::resource('/FAQ','FAQController');
+Route::get('/payment','PaymentController@index')->name('payment');
+Route::get('/freesample','FreeSampleController@index')->name('freesample');
 });
-
 
 // Auth::routes();
 
