@@ -16,12 +16,12 @@
                                     </tr>
                                 </tfoot>
                                 <tbody>
-                                    @foreach($parameter as $para)
+                                    
                                     <tr>
                                         <td>Tiger Nixon</td>
                                         <td>System Architect</td>
                                     </tr> 
-                                    @endforeach
+                                    
                                     <tr>
                                         <td>Tiger Nixon</td>
                                         <td>System Architect</td>

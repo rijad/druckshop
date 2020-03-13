@@ -27,7 +27,6 @@ use App\OrderDetails;
 use App\Payment;
 use App\OrderDetailsFinal;
 use App\User;
-use App\ShippingCompany;
 use Auth;
 use Session;
  
@@ -271,9 +270,6 @@ class CheckoutController extends Controller
 
 		foreach($request->input() as $key => $value){
 
-			print_r($key ."   :   ".$value);
-			echo "<br>";
-
 			$str_arr = explode ("_", $key);  
 
 			if(!is_null($value) && $value != "-1" && $key != "_token" && $key != "selectfile" && $str_arr[0] != "selectfile" && $key != "total"){
@@ -283,7 +279,7 @@ class CheckoutController extends Controller
 				$product_details .= $key ." ".$attribute_value." ,";
 			}
  
-		} echo $product_details; die;
+		}
 
 		$qty = 1;
 
@@ -333,7 +329,7 @@ public function cart(){
 	}else{$user_id = Session::get('user_id');}
 
 	$product_data = OrderAttributes::where(['status'=>'1','user_id'=>$user_id])->get();
-	$shipping_company = ShippingCompany::all();
+	$shipping_company = DeliveryService::all();
 	return view('/pages/front-end/cart',compact('product_data','shipping_company'));
 
 }
@@ -519,6 +515,8 @@ public function paymentPaypalSuccess(){
 	$delete_cart = OrderAttributes::destroy($user_id);
 	$delete_order_details = OrderDetails::destroy($user_id);
 
+	$request->session()->forget('user_id');
+
 	return view('/pages/front-end/paypalsuccess',compact('order_details','order_details_amt','txn'));
 	
 }
@@ -544,7 +542,7 @@ public function cashOnDelivery(){
 	$payment->amount = $order_details_amt; 
 	$payment->payment_type = "COD";
 	$payment->save();
-
+ 
 
 	$OrderDetails = OrderDetails::where('user_id', $user_id)->first();
 
@@ -566,6 +564,8 @@ public function cashOnDelivery(){
 
 	$delete_cart = OrderAttributes::destroy($user_id);
 	$delete_order_details = OrderDetails::destroy($user_id);
+
+	$request->session()->forget('user_id');
 
 	return view('/pages/front-end/cashondelivery',compact('OrderDetails'));
 
@@ -599,13 +599,13 @@ public function setGuestUserid($user_id = ""){
 }
 
 
-public function makeOrderDetails($model = "", $id=""){   
+public function makeOrderDetails($model = "", $attribute=""){   
 
-	$id = intval($id);  //dd($id);
+	$id = intval($attribute);  //dd($id);
 
 	if($model == "binding"){
 		$attribute = Product::find($id)->first();
-		return $attribute->title_english;
+		return "is ".$attribute->title_english;
 	}
 
 	if($model == "page-format"){
@@ -644,13 +644,11 @@ public function makeOrderDetails($model = "", $id=""){
 	}
 
 	if($model == "fonts"){
-		$attribute = Font::find('1')->first();
-		return "is ".$attribute->font;
+		return "is ".$attribute;
 	}
 
 	if($model == "date-format"){
-		$attribute = DateFormat::find('1')->first();
-		return "is ".$attribute->date_format;
+		return "is ".$attribute;
 	}
 
 	if($model == "cd-bag"){
@@ -663,13 +661,10 @@ public function makeOrderDetails($model = "", $id=""){
 		return "is ".$attribute->check_list;
 	}
 
-	return $id;
+	return "are ".$attribute;
 
 }
   
 		
-
-
-
 }
   

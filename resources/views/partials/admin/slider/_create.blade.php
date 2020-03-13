@@ -32,9 +32,9 @@
     </div>
     <div class="form-group">
         <label>Image</label>
-        <input type="file" name="image_path" value="{{ old('image_path') }}" />
+        <input type="file" name="image_path"/>
     </div>
-    <div class="form-group">
+    <div class="form-group">  
         <label>English_text</label>
         <textarea type="text" name="content_english" >{{ old('content_english') }}</textarea>
     </div>
@@ -43,12 +43,16 @@
         <textarea type="text" name="content_german" >{{ old('content_german') }}</textarea>
     </div>
     <div class="form-group">
+        <label>Redirect_url</label>
+        <textarea type="text" name="redirect_url" >{{ old('content_german') }}</textarea>
+    </div>
+    <div class="form-group">
         <label>Active</label>
-        <input type="checkbox" name="is_active" value="{{ old('is_active') }}" checked />
+        <input type="checkbox" name="is_active"  checked />
     </div>
     <div class="form-group">
         <label>Is_slide</label>
-        <input type="checkbox" name="is_slide" value="{{ old('is_slide') }}" />
+        <input type="checkbox" name="is_slide"  />
     </div>
     <div class="form-group">
         <input name="create" type="submit"/>

@@ -44,7 +44,7 @@ Route::get('/view-clear', function() {
     return '<h1>View cache cleared</h1>';
 });
 
-//Clear Config cache:
+//Clear Config cache: 
 Route::get('/config-cache', function() {
     $exitCode = Artisan::call('config:cache');
     return '<h1>Clear Config cleared</h1>';
@@ -93,11 +93,11 @@ Route::get('/cash-on-delivery','CheckoutController@cashOnDelivery')->name('cash-
 //     return view('paypalsuccess'); 
 // })->name('payment-success');
 
-
+ 
 Route::get('/payment-fail', function () {
     return view('paypalfail'); 
 })->name('payment-fail');
-
+ 
 
 Route::get('/payment-success','CheckoutController@paymentPaypalSuccess')->name('payment-success');
 // Route::get('/payment-fail','CheckoutController@paymentPaypal')->name('payment-fail');
@@ -107,8 +107,8 @@ Route::get('/payment-success','CheckoutController@paymentPaypalSuccess')->name('
 Route::group(['namespace'=>'Admin', 'prefix' => 'admin' ], function()
 {
 Route::get('/dashboard','DashboardController@index')->name('dashboard');
-Route::get('/users','AdminUsersController@index')->name('users');
-Route::resource('/slider','SliderController');
+Route::resource('/slider','SliderController'); 
+Route::resource('/users','AdminUsersController');
 // Route::get('/slider','SliderController@index')->name('slider');
 // Route::post('/slider-edit','SliderController@edit')->name('slider-edit');
 Route::get('/parameter','ParameterController@index')->name('parameter');
@@ -116,8 +116,15 @@ Route::get('/order','OrderController@index')->name('order');
 Route::resource('/FAQ','FAQController');
 Route::get('/payment','PaymentController@index')->name('payment');
 Route::get('/freesample','FreeSampleController@index')->name('freesample');
+Route::post('/dashboard-login-data','LoginController@authenticate')->name('dashboard-login-data');
+Route::get('/dashboard-logout-data','LoginController@logout')->name('dashboard-logout-data');
+
 });
 
+
+Route::get('/dashboard-login', function () {
+    return view('/pages/admin/users/loginDashBoard'); 
+})->name('dashboard-login');
 // Auth::routes();
 
 //Route::get('/home', 'HomeController@index')->name('home');

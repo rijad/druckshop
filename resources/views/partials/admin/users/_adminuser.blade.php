@@ -1,6 +1,6 @@
 <div class="card mb-4">
                 <div class="card-header"><i class="fas fa-table mr-1"></i>Slider
-                    <form method="GET" action="{{ route('slider.create') }}">
+                    <form method="GET" action="">
                         <input type="submit" value="New" >
                     </form>
                 </div>
@@ -9,32 +9,34 @@
                             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
                                     <tr>
-                                        <th>Image</th>
-                                        <th>Active</th>
-                                        <th>Is_Slide</th>
+                                        <th>User</th>
+                                        <th>Email</th>
+                                        <th>Role</th>
+                                        <th>Status</th>
                                         <th>Actions</th> 
                                     </tr>
-                                </thead> 
+                                </thead>  
                                 <tfoot>
                                     <tr>
-                                        <th>Image</th>
-                                        <th>Active</th>
-                                        <th>Is_Slide</th>
+                                        <th>User</th>
+                                        <th>Email</th>
+                                        <th>Role</th>
+                                        <th>Status</th>
                                         <th>Actions</th> 
                                     </tr>
                                 </tfoot> 
                                 <tbody>
-                                @foreach($slider as $slid)
+                                @foreach($users as $data)
                                     <tr>
-                                        <td><img src="{{ asset($slid->image_path)}}" height="50" width="100" alt="..."></td>
-                                        <td>{{ $slid->is_active }}</td>
-                                        <td>{{ $slid->is_slide }}</td>
+                                        <td>{{$data->name}}</td>
+                                        <td>{{$data->email}}</td>
+                                        <td>@if($data->role == '0'){{'Admin'}}@endif</td>
+                                        <td>{{$data->status}}</td>
                                         <td>
-                                            <form method="GET" action="{{ route('slider.edit' , $slid->id) }}">
-                                          
+                                            <form method="GET" action="">
                                             <input type="submit" value="edit" >
                                             </form>
-                                            <form method="POST" action="{{ route('slider.destroy' , $slid->id) }}">
+                                            <form method="POST" action="">
                                                 @method('DELETE')
                                           @csrf
                                             <input type="submit" value="delete" >

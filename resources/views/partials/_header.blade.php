@@ -94,7 +94,7 @@
 					  </div>
 
 					  <div class="loginBtn my-lg-0">					    
-						<button data-toggle="modal" data-target="#exampleModal"><i class="fa fa-sign-out"></i></button>						 
+						<button onclick="window.location='{{route('dashboard-login')}}'"  data-toggle="modal" data-target="#exampleModal"><i class="fa fa-sign-out"></i></button>						 
 				    </div>
 					</nav>
 				</div>

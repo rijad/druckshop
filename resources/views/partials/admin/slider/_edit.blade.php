@@ -45,11 +45,11 @@
     </div>
     <div class="form-group">
         <label class="small mb-1" for="inputEmailAddress">Active</label>
-        <input type="checkbox" name="is_active" value="{{ $slider->is_active }}" checked />
+        <input type="checkbox" name="is_active" checked />
     </div>
     <div class="form-group">
         <label class="small mb-1" for="inputEmailAddress">Is_slide</label>
-        <input type="checkbox" name="is_slide" value="{{ $slider->is_slide }}" />
+        <input type="checkbox" name="is_slide" />
     </div>
     <div class="form-group">
         <input name="update" value="update" type="submit"/>
