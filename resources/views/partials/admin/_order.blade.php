@@ -5,7 +5,8 @@
                             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
                                     <tr>
-                                        <th>State</th>
+                                        <th>Shipping Address</th>
+                                        <th>Billing Address</th>
                                         <th>CD</th>
                                         <th>Last update</th>
                                         <th>No. of copies</th>
@@ -14,7 +15,8 @@
                                 </thead>
                                 <tfoot>
                                     <tr>
-                                        <th>State</th>
+                                        <th>Shipping Address</th>
+                                        <th>Billing Address</th>
                                         <th>CD</th>
                                         <th>Last update</th>
                                         <th>No. of copies</th>
@@ -24,20 +26,14 @@
                                 <tbody>
                                 @foreach($order as $odr)
                                     <tr>
-                                        <td>Tiger Nixon</td>
-                                        <td>Tiger Nixon</td>
-                                        <td>Tiger Nixon</td>
-                                        <td>Tiger Nixon</td>
+                                        <td>{{ $odr->shipping_address }}</td>
+                                        <td>{{ $odr->billing_address }}</td>
+                                        <td>{{ $odr->no_of_cds }}</td>
+                                        <td>{{ $odr->updated_at }}</td>
+                                        <td>{{ $odr->no_of_copies }}</td>
                                         <td>System Architect</td>
                                     </tr>  
                                     @endforeach
-                                    <tr>
-                                        <td>Tiger Nixon</td>
-                                        <td>Tiger Nixon</td>
-                                        <td>Tiger Nixon</td>
-                                        <td>Tiger Nixon</td>
-                                        <td>System Architect</td>
-                                    </tr> 
                                 </tbody>
                             </table>
                         </div>

@@ -31,7 +31,7 @@ class ProductImage extends Model
     /**
      * @var array
      */
-    protected $fillable = ['product_id', 'image_path', 'created_at', 'modified_at'];
+    protected $fillable = ['product_id', 'image_path', 'created_at', 'updated_at', 'deleted_at'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

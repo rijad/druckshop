@@ -18,7 +18,7 @@ class ProductBackSheet extends Model
     /**
      * @var array
      */
-    protected $fillable = ['product_id', 'back_cover_id', 'created_at', 'modified_at'];
+    protected $fillable = ['product_id', 'back_cover_id', 'created_at', 'updated_at', 'deleted_at'];
 
     public function psProduct()
     {

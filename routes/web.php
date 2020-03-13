@@ -109,12 +109,13 @@ Route::group(['namespace'=>'Admin', 'prefix' => 'admin' ], function()
 Route::get('/dashboard','DashboardController@index')->name('dashboard');
 Route::get('/users','AdminUsersController@index')->name('users');
 Route::resource('/slider','SliderController');
-// Route::get('/slider','SliderController@index')->name('slider');
-// Route::post('/slider-edit','SliderController@edit')->name('slider-edit');
-Route::get('/parameter','ParameterController@index')->name('parameter');
+Route::resource('/parameter','ParameterController');
+Route::get('/details/{model}/{id}','ParameterController@details')->name('details');
 Route::get('/order','OrderController@index')->name('order');
 Route::resource('/FAQ','FAQController');
+Route::resource('/product','ProductController');
 Route::get('/payment','PaymentController@index')->name('payment');
+Route::get('/delivery','DeliveryController@index')->name('delivery');
 Route::get('/freesample','FreeSampleController@index')->name('freesample');
 });
 

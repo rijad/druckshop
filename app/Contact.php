@@ -15,6 +15,6 @@ class Contact extends Model
 
     protected $fillable = [
         'email', 'address_english', 'address_german', 'text_english', 'text_german', 'location', 
-        'contact', 'status', 
+        'contact', 'status', 'updated_at', 'deleted_at',
     ];
 }

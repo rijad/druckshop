@@ -4,6 +4,20 @@
                         <input type="submit" value="New" >
                     </form>
                 </div>
+                @if (session('status'))
+                    <div class="alert alert-success" role="alert">
+                        {{ session('status') }}
+                    </div>
+                    @endif
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -34,12 +48,10 @@
                                         <td>{{ $fq->text_german }}</td>
                                         <td>
                                             <form method="GET" action="{{ route('FAQ.edit' , $fq->id) }}">
-                                          
-                                            <input type="submit" value="edit" >
+                                                <input type="submit" value="edit" >
                                             </form>
                                             <form method="GET" action="{{ route('FAQ.destroy' , $fq->id) }}">
-                                          
-                                            <input type="submit" value="delete" >
+                                                <input type="submit" value="delete" >
                                             </form>
                                         </td>
                                     </tr>  

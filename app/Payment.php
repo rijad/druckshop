@@ -40,7 +40,8 @@ class Payment extends Model
     /**
      * @var array
      */
-    protected $fillable = ['order_id', 'product_id', 'user_id', 'payment_type', 'type', 'amount', 'status', 'ship_date', 'shipper_id', 'txn','created_at', 'updated_at', 'deleted_at'];
+    protected $fillable = ['order_id', 'product_id', 'user_id', 'payment_type', 'type', 
+    'amount', 'status', 'ship_date', 'shipper_id', 'txn','created_at', 'updated_at', 'deleted_at'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

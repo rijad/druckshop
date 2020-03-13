@@ -18,12 +18,14 @@ class OrderDetailsFinal extends Model
     /**
      * @var array
      */
-    protected $fillable = ['user_id','order_id', 'no_of_copies','no_of_cds' , 'shipping_company', 'promo_code', 'shipping_address','billing_address','created_at', 'updated_at','deleted_at'];
+    protected $fillable = ['user_id','order_id', 'no_of_copies','no_of_cds' , 'shipping_company', 
+    'promo_code', 'shipping_address','billing_address','created_at', 'updated_at','deleted_at'];
 
 
     public function psUsers()
     {
         return $this->belongsToMany('App\User'); 
     }
+
 }
  

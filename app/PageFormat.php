@@ -37,7 +37,9 @@ class PageFormat extends Model
     /**
      * @var array 
      */
-    protected $fillable = ['page_format', 'surname', 'name_english', 'name_german', 'can_add_din_A2', 'can_add_din_A3', 'status', 'max_pages_A2', 'max_pages_A3', 'created_at', 'modified_at'];
+    protected $fillable = ['page_format', 'surname', 'name_english', 'name_german', 
+    'can_add_din_A2', 'can_add_din_A3', 'status', 'max_pages_A2', 'max_pages_A3', 
+    'created_at', 'updated_at', 'deleted_at'];
 
     public function psProduct()
     {

@@ -18,16 +18,16 @@
                                 <tbody>
                                     @foreach($parameter as $para)
                                     <tr>
-                                        <td>Tiger Nixon</td>
-                                        <td>System Architect</td>
+                                        <td>{{ $para->parameter_list }}</td>
+                                        <td>
+                                            
+                                            <button onclick="window.location='{{route('details' , ['model'=>$para->model,'id'=>$para->id]) }}'" class="remove_btn" > Details </button>
+                                        </td>
                                     </tr> 
                                     @endforeach
-                                    <tr>
-                                        <td>Tiger Nixon</td>
-                                        <td>System Architect</td>
-                                    </tr> 
                                 </tbody>
                             </table>
                         </div>
                     </div>
+                    
                 </div>

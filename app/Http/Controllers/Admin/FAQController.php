@@ -80,8 +80,8 @@ class FAQController extends Controller
      */
     public function edit($id)
     {
-        $faq = FrequentlyAskedQuestion::all();
-        return view('pages.admin.faq.index', compact('faq'));
+        $faq = FrequentlyAskedQuestion::find($id);
+        return view('pages.admin.faq.edit', compact('faq'));
     }
 
     /**
@@ -108,8 +108,8 @@ class FAQController extends Controller
         }
         $faq->title_english = $request->title_english;
         $faq->title_german = $request->title_german;
-        $faq->text_english = $request->content_english;
-        $faq->text_german = $request->content_german;
+        $faq->text_english = $request->text_english;
+        $faq->text_german = $request->text_german;
 
         $faq->save();
 

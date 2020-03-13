@@ -36,7 +36,8 @@ class LettesOfSpine extends Model
     /**
      * @var array
      */
-    protected $fillable = ['paper_weight_id', 'delivery_service_id', 'sheets_range_start', 'sheets_range_end', 'letters', 'status', 'created_at', 'modified_at'];
+    protected $fillable = ['paper_weight_id', 'delivery_service_id', 'sheets_range_start', 
+    'sheets_range_end', 'letters', 'status', 'created_at', 'updated_at', 'deleted_at'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
