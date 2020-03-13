@@ -36,7 +36,8 @@ class PaperWeight extends Model
     /**
      * @var array
      */
-    protected $fillable = ['paper_weight', 'surname', 'name_english', 'name_german', 'status', 'weight_per_sheet', 'min_sheets_for_spine', 'created_at', 'modified_at'];
+    protected $fillable = ['paper_weight', 'surname', 'name_english', 'name_german', 'status', 
+    'weight_per_sheet', 'min_sheets_for_spine', 'created_at', 'updated_at', 'deleted_at'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

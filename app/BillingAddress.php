@@ -37,6 +37,6 @@ class BillingAddress extends Model
     /**
      * @var array
      */
-    protected $fillable = ['user_id', 'order_id', 'house_no', 'street_address', 'city', 'state', 'postal_code', 'country', 'same_as_shipping', 'created_at', 'modified_at'];
+    protected $fillable = ['user_id', 'order_id', 'house_no', 'street_address', 'city', 'state', 'postal_code', 'country', 'same_as_shipping', 'created_at', 'updated_at', 'deleted_at'];
 
 }

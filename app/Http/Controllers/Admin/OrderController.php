@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Order;
+use App\OrderDetailsFinal;
 
 class OrderController extends Controller
 {
@@ -15,7 +15,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $order = Order::where('status', '1')->get();
+        $order = OrderDetailsFinal::all();
         return view('/pages/admin/order',compact('order'));
     }
 

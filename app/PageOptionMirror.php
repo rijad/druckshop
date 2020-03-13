@@ -18,7 +18,7 @@ class PageOptionMirror extends Model
     /**
      * @var array
      */
-    protected $fillable = ['page_option_id', 'paper_mirror_id', 'created_at', 'modified_at'];
+    protected $fillable = ['page_option_id', 'paper_mirror_id', 'created_at', 'updated_at', 'deleted_at'];
 
    public function psPageOption()
     {
