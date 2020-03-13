@@ -84,7 +84,7 @@
                             <div class="form-group">
                               <label for="email">Shipping Company*:</label>
                               <select class="form-control" name="shipping_company" id="shipping_company" > <option value ="-1">Select</option>
-                              @foreach($shipping_company as $value)<option value = "{{$value->company_english}}">{{$value->company_english}}</option> @endforeach
+                              @foreach($shipping_company as $value)<option value = "{{$value->delivery_service}}">{{$value->delivery_service}}</option> @endforeach
                               </select>
                               @if($errors->has('shipping_company'))
                               <div class="error">{{ $errors->first('shipping_company') }}</div>

@@ -22,7 +22,7 @@
                                     </tr>
                                 </tfoot>
                                 <tbody>
-                                @foreach($freesample as $sample)
+                                
                                     <tr>
                                         <td>Tiger Nixon</td>
                                         <td>Tiger Nixon</td>
@@ -30,7 +30,7 @@
                                         <td>Tiger Nixon</td>
                                         <td>System Architect</td>
                                     </tr>  
-                                    @endforeach
+                                    
                                     <tr>
                                         <td>Tiger Nixon</td>
                                         <td>Tiger Nixon</td>

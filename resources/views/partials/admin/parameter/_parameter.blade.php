@@ -16,7 +16,7 @@
                                     </tr>
                                 </tfoot>
                                 <tbody>
-                                    @foreach($parameter as $para)
+                                  @foreach($parameter as $para)
                                     <tr>
                                         <td>{{ $para->parameter_list }}</td>
                                         <td>
@@ -25,6 +25,7 @@
                                         </td>
                                     </tr> 
                                     @endforeach
+
                                 </tbody>
                             </table>
                         </div>

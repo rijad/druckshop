@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\UsersAdmin;
 
 class AdminUsersController extends Controller
 {
@@ -14,7 +15,9 @@ class AdminUsersController extends Controller
      */
     public function index()
     {
-        return view('/pages/admin/user');
+        $users = UsersAdmin::all();
+        return view('pages.admin.users.adminuser', compact('users'));
+        //return view('/pages/admin/users/user');
     }
 
     /**
@@ -24,7 +27,7 @@ class AdminUsersController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
