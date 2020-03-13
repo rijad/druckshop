@@ -33,6 +33,7 @@ class KindList extends Model
     /**
      * @var array
      */
-    protected $fillable = ['kind', 'surname', 'name_english', 'name_german', 'status', 'created_at', 'modified_at'];
+    protected $fillable = ['kind', 'surname', 'name_english', 'name_german', 'status', 
+    'created_at', 'updated_at', 'deleted_at'];
 
 }

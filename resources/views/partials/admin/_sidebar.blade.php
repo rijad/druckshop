@@ -4,15 +4,15 @@
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading">Core</div>
-                            <a class="nav-link" href="{{ route('users.index') }}">
+                            {{-- <a class="nav-link" href="{{ route('users.adminuser') }}">
                                 <div class="sb-nav-link-icon">
                                     <i class="fas fa-tachometer-alt"></i>
-                                </div>Users</a>
+                                </div>Users</a> --}}
                             <a class="nav-link" href="{{ route('slider.index') }}">
                                 <div class="sb-nav-link-icon">
                                     <i class="fa fa-sliders"></i>
                                 </div>Sliders</a>
-                            <a class="nav-link" href="{{ route('parameter') }}">
+                            <a class="nav-link" href="{{ route('parameter.index') }}">
                                 <div class="sb-nav-link-icon">
                                     <i class="fas fa-tachometer-alt"></i>
                                 </div>Parameters</a>
@@ -24,10 +24,18 @@
                                 <div class="sb-nav-link-icon">
                                     <i class="fa fa-question-circle"></i>
                                 </div>FAQ</a>
+                            <a class="nav-link" href="{{ route('product.index') }}">
+                                <div class="sb-nav-link-icon">
+                                    <i class="fa fa-credit-card-alt"></i>
+                                </div>Product</a>
                             <a class="nav-link" href="{{ route('payment') }}">
                                 <div class="sb-nav-link-icon">
-                                    <i class="fa fa-question-circle"></i>
+                                    <i class="fa fa-credit-card-alt"></i>
                                 </div>Payment</a>
+                            <a class="nav-link" href="{{ route('delivery') }}">
+                                <div class="sb-nav-link-icon">
+                                    <i class="fa fa-question-circle"></i>
+                                </div>Delivery Service</a>
                             <a class="nav-link" href="{{ route('freesample') }}">
                                 <div class="sb-nav-link-icon">
                                     <i class="fas fa-tachometer-alt"></i>

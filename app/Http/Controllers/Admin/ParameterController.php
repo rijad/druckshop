@@ -4,7 +4,18 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Slider;
+use App\Product;
+use App\PageFormat;
+use App\CoverColor;
+use App\CoverSheet;
+use App\BackCovers;
+use App\PaperWeight;
+use App\CdBag;
+use App\DataCheck;
+use App\ArtList;
+use App\Discount;
+use App\DeliveryService;
+use App\Parameter_list;
 
 class ParameterController extends Controller
 {
@@ -15,8 +26,58 @@ class ParameterController extends Controller
      */
     public function index()
     {
-        // $parameter = FrequentlyAskedQuestion::where('status', '1')->get();
-        return view('/pages/admin/parameter',compact('parameter'));
+        $parameter = Parameter_list::where('status' , '1')->get();
+        return view('pages.admin.parameter.parameter',compact('parameter'));
+    }
+
+    public function details(Request $request)
+    {
+        if($request->model == 'Product'){
+            $binding = Product::where('status' , '1')->get();
+            return view('pages.admin.parameter.binding',compact('binding'));
+        }
+        if($request->model == 'PageFormat'){
+            $pageformat = PageFormat::where('status' , '1')->get();
+            return view('pages.admin.parameter.pageformat',compact('pageformat'));
+        }
+        if($request->model == 'CoverColor'){
+            $covercolor = CoverColor::where('status' , '1')->get();
+            return view('pages.admin.parameter.covercolor',compact('covercolor'));
+        }
+        if($request->model == 'CoverSheet'){
+            $coversheet = CoverSheet::where('status' , '1')->get();
+            return view('pages.admin.parameter.coversheet',compact('coversheet'));
+        }
+        if($request->model == 'BackCovers'){
+            $backcover = BackCovers::where('status' , '1')->get();
+            return view('pages.admin.parameter.backcover',compact('backcover'));
+        }
+        if($request->model == 'PaperWeight'){
+            $paperweight = PaperWeight::where('status' , '1')->get();
+            return view('pages.admin.parameter.paperweight',compact('paperweight'));
+        }
+        if($request->model == 'CdBag'){
+            $cdbag = CdBag::where('status' , '1')->get();
+            return view('pages.admin.parameter.cdbag',compact('cdbag'));
+        }
+        if($request->model == 'DataCheck'){
+            $datacheck = DataCheck::where('status' , '1')->get();
+            return view('pages.admin.parameter.datacheck',compact('datacheck'));
+        }
+        if($request->model == 'ArtList'){
+            $art = ArtList::where('status' , '1')->get();
+            return view('pages.admin.parameter.art',compact('art'));
+        }
+        if($request->model == 'Discount'){
+            $discount = Discount::where('status' , '1')->get();
+            return view('pages.admin.parameter.discount',compact('discount'));
+        }
+        if($request->model == 'DeliveryService'){
+            $deliveryservice = DeliveryService::where('status' , '1')->get();
+            return view('pages.admin.parameter.deliveryservice',compact('deliveryservice'));
+        }
+        // return view('pages.admin.parameter.parameter',compact('binding','pageformat','covercolor',
+        // 'coversheet','backcover','paperweight','cdbag','datacheck','art','discount','deliveryservice'));
     }
 
     /**

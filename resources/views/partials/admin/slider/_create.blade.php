@@ -15,31 +15,32 @@
 <form method="POST" action="{{ route('slider.store') }}" enctype="multipart/form-data">
     @csrf
     <div class="form-group">
-        <label>English_title</label>
+        <label>English title</label>
         <input type="text" name="title_english" value="{{ old('title_english') }}" />
     </div>
     <div class="form-group">
-        <label>German_title</label>
+        <label>German title</label>
         <input type="text" name="title_german" value="{{ old('title_german') }}" />
     </div>
     <div class="form-group">
-        <label>Title_color</label>
+        <label>Title color</label>
         <input type="text" name="title_color" value="{{ old('title_color') }}" />
     </div>
     <div class="form-group">
-        <label>Title_size</label>
+        <label>Title size</label>
         <input type="text" name="title_size" value="{{ old('title_size') }}" />
     </div>
     <div class="form-group">
         <label>Image</label>
         <input type="file" name="image_path"/>
     </div>
+
     <div class="form-group">  
         <label>English_text</label>
         <textarea type="text" name="content_english" >{{ old('content_english') }}</textarea>
     </div>
     <div class="form-group">
-        <label>German_text</label>
+        <label>German text</label>
         <textarea type="text" name="content_german" >{{ old('content_german') }}</textarea>
     </div>
     <div class="form-group">

@@ -107,14 +107,23 @@ Route::get('/payment-success','CheckoutController@paymentPaypalSuccess')->name('
 Route::group(['namespace'=>'Admin', 'prefix' => 'admin' ], function()
 {
 Route::get('/dashboard','DashboardController@index')->name('dashboard');
+
 Route::resource('/slider','SliderController'); 
 Route::resource('/users','AdminUsersController');
 // Route::get('/slider','SliderController@index')->name('slider');
 // Route::post('/slider-edit','SliderController@edit')->name('slider-edit');
 Route::get('/parameter','ParameterController@index')->name('parameter');
+
+
+Route::resource('/slider','SliderController');
+Route::resource('/parameter','ParameterController');
+Route::get('/details/{model}/{id}','ParameterController@details')->name('details');
+
 Route::get('/order','OrderController@index')->name('order');
 Route::resource('/FAQ','FAQController');
+Route::resource('/product','ProductController');
 Route::get('/payment','PaymentController@index')->name('payment');
+Route::get('/delivery','DeliveryController@index')->name('delivery');
 Route::get('/freesample','FreeSampleController@index')->name('freesample');
 Route::post('/dashboard-login-data','LoginController@authenticate')->name('dashboard-login-data');
 Route::get('/dashboard-logout-data','LoginController@logout')->name('dashboard-logout-data');
