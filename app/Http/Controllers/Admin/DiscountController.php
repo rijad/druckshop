@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use App\Discount;
+use DateTime;
 
 class DiscountController extends Controller
 {
@@ -57,8 +58,8 @@ class DiscountController extends Controller
         
         $input = $request->all();
         
-        $datetime1 = $request->input('from_date');
-        $datetime2 = $request->input('to_date');
+        $datetime1 = new DateTime($request->input('from_date'));
+        $datetime2 = new DateTime($request->input('to_date'));
         // dd($datetime1,$datetime2);
         if($datetime1 != '' && $datetime2 != ''){
         $interval = $datetime1->diff($datetime2)->days;
@@ -146,12 +147,13 @@ class DiscountController extends Controller
             
             $input = $request->all();
 
-            $datetime1 = $request->input('from_date');
-            $datetime2 = $request->input('to_date');
-            dd($datetime1,$datetime2);
+            $datetime1 = new DateTime($request->input('from_date'));
+            $datetime2 = new DateTime($request->input('to_date'));
+            // dd($datetime1,$datetime2);
             if($datetime1 != '' && $datetime2 != ''){
             $interval = $datetime1->diff($datetime2)->days;
             $input['duration'] = $interval;
+            // dd($interval);
             }else if($datetime1 != '' && $datetime2 == ''){
                 $input['duration'] = 30;
             }
@@ -182,12 +184,13 @@ class DiscountController extends Controller
             $discount->to_date = $input['to_date'];
             $discount->needs_code = $input['needs_code'];
             $discount->status = $input['status'];
+            $discount->duration = $interval;
             if($request->input('by_discount') == "by_price"){
                 $discount->by_price = $request->input('discount');
-                $discount->by_percent = "";
+                // $discount->by_percent = "";
             }else{
                 $discount->by_percent = $request->input('discount');
-                $discount->by_price = "";
+                // $discount->by_price = "";
             }
             $discount->save();
             

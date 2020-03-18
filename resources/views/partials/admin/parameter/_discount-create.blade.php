@@ -42,7 +42,7 @@
                 </div>
                 <div>
                     <label>To Date</label>
-                    <input type="date" id="to_date" name="to_date"  value="{{ old('to_date') }}">
+                    <input type="date" id="to_date" name="to_date" value="{{ old('to_date') }}">
                 </div>
                 <div>
                     <input type="radio" id="by_price" name="by_discount" value="by_price">

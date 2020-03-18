@@ -12,6 +12,10 @@
                                 <div class="sb-nav-link-icon">
                                     <i class="fa fa-sliders"></i>
                                 </div>Sliders</a>
+                            <a class="nav-link" href="{{ route('gallery.index') }}">
+                                <div class="sb-nav-link-icon">
+                                    <i class="fa fa-sliders"></i>
+                                </div>Gallery</a>
                             <a class="nav-link" href="{{ route('parameter.index') }}">
                                 <div class="sb-nav-link-icon">
                                     <i class="fas fa-tachometer-alt"></i>

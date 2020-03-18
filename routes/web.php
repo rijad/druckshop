@@ -97,7 +97,8 @@ Route::get('/cash-on-delivery','CheckoutController@cashOnDelivery')->name('cash-
 Route::get('/payment-fail', function () {
     return view('paypalfail'); 
 })->name('payment-fail');
- 
+
+Route::get('/gallery-images','Admin\GalleryController@gallery')->name('gallery-images');
 
 Route::get('/payment-success','CheckoutController@paymentPaypalSuccess')->name('payment-success');
 // Route::get('/payment-fail','CheckoutController@paymentPaypal')->name('payment-fail');
@@ -118,6 +119,7 @@ Route::post('/delete-user','AdminUsersController@destroy')->name('delete-user');
 Route::resource('/slider','SliderController');
 
 
+
 //Parameters
 Route::resource('/parameter','ParameterController');
 Route::get('/details/{model}/{id}','ParameterController@details')->name('details');
@@ -128,7 +130,7 @@ Route::resource('/cdbag','CdBagController');
 Route::resource('/datacheck','DataCheckController');
 Route::resource('/art','ArtController');
 Route::resource('/discount','DiscountController');
-
+Route::resource('/gallery','GalleryController');
 
 
 Route::get('/order','OrderController@index')->name('order');
