@@ -12,7 +12,7 @@
                                         <th>User</th>
                                         <th>Email</th>
                                         <th>Role</th>
-                                        <th>Status</th>
+                                        <th>Status</th> 
                                         <th>Actions</th> 
                                     </tr>
                                 </thead>  

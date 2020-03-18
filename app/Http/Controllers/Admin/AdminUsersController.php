@@ -14,9 +14,9 @@ class AdminUsersController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+    { dd("kjkl");
         $users = UsersAdmin::all();
-        return view('pages.admin.users.adminuser', compact('users'));
+        return view('pages.admin.adminusers.adminuser', compact('users'));
         //return view('/pages/admin/users/user');
     }
 

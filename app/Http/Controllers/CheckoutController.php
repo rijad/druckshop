@@ -321,7 +321,7 @@ class CheckoutController extends Controller
  
 }
 
-public function cart(){ 
+public function cart(){  
 
 	if (Auth::check()) 
     {

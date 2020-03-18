@@ -15,7 +15,7 @@
                                         <th>Actions</th>
                                     </tr>
                                 </tfoot>
-                                <tbody>
+                                <tbody> 
                                   @foreach($parameter as $para)
                                     <tr>
                                         <td>{{ $para->parameter_list }}</td>

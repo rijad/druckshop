@@ -63,7 +63,7 @@
 
 							</div>								
 						</li>
-						<li class="cart-relative-count"><a href="{{route('cart')}}"><i class="fa fa-shopping-cart"></i><span class="cart-product-count">1</span> </a></li>
+						<li class="cart-relative-count"><a @if(isset($cart)) href="{{route('cart')}}" @endif><i class="fa fa-shopping-cart"></i><span class="cart-product-count">@if(isset($cart)) @if(count($cart) > 0) {{count($cart)}} @endif @endif</span> </a></li>
 						<li><a href="#"><img src="{{ asset('public/images/eng.png') }}" alt="" /></a></li>
 						<li><a href="#"><img src="{{ asset('public/images/ger.png') }}" alt="" /></a></li>	
 												 						 

@@ -47,7 +47,7 @@ Route::get('/view-clear', function() {
 //Clear Config cache: 
 Route::get('/config-cache', function() {
     $exitCode = Artisan::call('config:cache');
-    return '<h1>Clear Config cleared</h1>';
+    return '<h1>Clear Config cleared</h1>'; 
 });
 
 Route::get('/', 'IndexController@sendData')->name('index');
@@ -63,7 +63,7 @@ Route::get('/get-relations','CheckoutController@getProductAttributes')->name('ge
 Route::get('/get-price','CheckoutController@getPrice')->name('get-price');
 Route::get('/get-relations-content','CheckoutController@getContentAttributes')->name('get-relations-content');
 
-Route::POST('/order','CheckoutController@saveOrder')->name('order');
+Route::POST('/product-order','CheckoutController@saveOrder')->name('product-order');
 Route::POST('/order-details','CheckoutController@orderDetails')->name('order-details');
 Route::POST('/set-quantity','CheckoutController@setQuantity')->name('set-quantity');
 Route::get('/remove-item/{id}','CheckoutController@removeItem')->name('remove-item');
@@ -117,7 +117,7 @@ Route::get('/parameter','ParameterController@index')->name('parameter');
 
 Route::resource('/slider','SliderController');
 Route::resource('/parameter','ParameterController');
-Route::get('/details/{model}/{id}','ParameterController@details')->name('details');
+Route::get('/details/{model}/{id}','ParameterController@details')->name('details'); 
 
 Route::get('/order','OrderController@index')->name('order');
 Route::resource('/FAQ','FAQController');
@@ -132,7 +132,7 @@ Route::get('/dashboard-logout-data','LoginController@logout')->name('dashboard-l
 
 
 Route::get('/dashboard-login', function () {
-    return view('/pages/admin/users/loginDashBoard'); 
+    return view('/pages/admin/adminusers/loginDashBoard'); 
 })->name('dashboard-login');
 // Auth::routes();
 
