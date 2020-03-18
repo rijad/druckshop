@@ -128,6 +128,10 @@ Route::get('/freesample','FreeSampleController@index')->name('freesample');
 Route::post('/dashboard-login-data','LoginController@authenticate')->name('dashboard-login-data');
 Route::get('/dashboard-logout-data','LoginController@logout')->name('dashboard-logout-data');
 
+
+//Parameters Route :Sachin
+Route::resource('/deliveryService','DeliveryController');
+
 });
 
 
@@ -144,4 +148,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::post('user-login','LoginController@authenticate')->name('user-login');
 Route::post('user-register','RegisterController@validateRegister')->name('user-register');
 Route::get('/user-logout','LoginController@logout')->name('user-logout');
+
+
+
+
 

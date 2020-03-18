@@ -1,9 +1,12 @@
 <div class="card mb-4 mt-4">
     <div class="card-header"><span>Delivery Service</span>
 
-        <a href="#" class="btn btn-primary float-right ">
-            <span>Create New Delivery Service</span>
-        </a>
+        <div class="float-right">
+            <form method="GET" action="{{ route('deliveryService.create') }}">
+                <input type="submit" value="Create New Delivery Service" class="btn btn-primary">
+            </form>
+        </div>
+        
     </div>
 
     <div class="card-body">
@@ -26,7 +29,7 @@
                     <tr>
                         <td>{{ $service->delivery_service }}</td>
                         <td>
-                        <a href="#" class="btn btn-success">
+                            <a href="#" class="btn btn-success">
                                 <span>Edit</span>
                             </a>
                             <a href="#" class="btn btn-danger">
