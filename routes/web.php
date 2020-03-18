@@ -108,16 +108,28 @@ Route::group(['namespace'=>'Admin', 'prefix' => 'admin' ], function()
 {
 Route::get('/dashboard','DashboardController@index')->name('dashboard');
 
-Route::resource('/slider','SliderController'); 
-Route::resource('/users','AdminUsersController');
-// Route::get('/slider','SliderController@index')->name('slider');
-// Route::post('/slider-edit','SliderController@edit')->name('slider-edit');
-Route::get('/parameter','ParameterController@index')->name('parameter');
-
-
 Route::resource('/slider','SliderController');
+Route::get('/users','AdminUsersController@index')->name('users');
+Route::get('/create-user','AdminUsersController@create')->name('create-user');
+Route::post('/store-user','AdminUsersController@store')->name('store-user');
+Route::get('/edit-user/{id}','AdminUsersController@edit')->name('edit-user');
+Route::get('/update-user/{id}','AdminUsersController@update')->name('update-user');
+Route::post('/delete-user','AdminUsersController@destroy')->name('delete-user');
+Route::resource('/slider','SliderController');
+
+
+//Parameters
 Route::resource('/parameter','ParameterController');
 Route::get('/details/{model}/{id}','ParameterController@details')->name('details');
+Route::resource('/covercolor','CoverColorController');
+Route::resource('/coversheet','CoverSheetController');
+Route::resource('/backcover','BackCoverController');
+Route::resource('/cdbag','CdBagController');
+Route::resource('/datacheck','DataCheckController');
+Route::resource('/art','ArtController');
+Route::resource('/discount','DiscountController');
+
+
 
 Route::get('/order','OrderController@index')->name('order');
 Route::resource('/FAQ','FAQController');

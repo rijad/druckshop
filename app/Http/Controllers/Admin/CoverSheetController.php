@@ -4,10 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\FrequentlyAskedQuestion;
 use Illuminate\Support\Facades\Validator;
+use App\CoverSheet;
 
-class FAQController extends Controller
+class CoverSheetController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +16,7 @@ class FAQController extends Controller
      */
     public function index()
     {
-        $faq = FrequentlyAskedQuestion::all();
-        return view('pages.admin.faq.index', compact('faq'));
+        //
     }
 
     /**
@@ -27,8 +26,7 @@ class FAQController extends Controller
      */
     public function create()
     {
-        $data['faq'] = FrequentlyAskedQuestion::where('status', '1')->get();
-        return view('pages.admin.faq.create');
+        return view('pages.admin.parameter.coversheet-create');
     }
 
     /**
@@ -40,23 +38,28 @@ class FAQController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'title_english' => 'required',
-            'title_german' => 'required',
-            'text_english' => 'required',
-            'text_german' => 'required',
+            'sheet' => 'required',
+            'name_english' => 'required',
+            'name_german' => 'required',
+            'status' => 'nullable',
         ]);
         if ($validator->fails()) {
             return redirect()->back()
                         ->withErrors($validator)
                         ->withInput();
         }
+        
+        $input = $request->all();
+        // dd($input);
 
-        $faq = FrequentlyAskedQuestion::create([
-            'title_english' => $request->title_english,
-            'title_german' => $request->title_german,
-            'text_english' => $request->text_english,
-            'text_german' => $request->text_german,
-        ]);
+        if($request->input('status') == "on"){
+            $input['status'] = 1;
+        }else{
+            $input['status'] = 0;
+        }
+
+        
+        $users = CoverSheet::create($input);
 
         return redirect()->back()->with('status' , 'Created');
     }
@@ -80,8 +83,8 @@ class FAQController extends Controller
      */
     public function edit($id)
     {
-        $faq = FrequentlyAskedQuestion::find($id);
-        return view('pages.admin.faq.edit', compact('faq'));
+        $coversheet = CoverSheet::find($id);
+        return view('pages.admin.parameter.coversheet-edit', compact('coversheet'));
     }
 
     /**
@@ -93,28 +96,38 @@ class FAQController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $faq = FrequentlyAskedQuestion::find($id);
-
         $validator = Validator::make($request->all(), [
-            'title_english' => 'required',
-            'title_german' => 'required',
-            'text_english' => 'required',
-            'text_german' => 'required',
+            'sheet' => 'required',
+            'name_english' => 'required',
+            'name_german' => 'required',
+            'status' => 'nullable',   
         ]);
         if ($validator->fails()) {
             return redirect()->back()
                         ->withErrors($validator)
                         ->withInput();
         }
-        $faq->title_english = $request->title_english;
-        $faq->title_german = $request->title_german;
-        $faq->text_english = $request->text_english;
-        $faq->text_german = $request->text_german;
+        
 
-        $faq->save();
+        if ($validator->passes()){
+            
+            $input = $request->all();
 
-        return redirect()->back()->with('status' , 'Updated');
-
+            if($request->input('status') == "on"){
+                $input['status'] = 1;
+            }else{
+                $input['status'] = 0;
+            }
+            // dd($status);
+            $coversheet = CoverSheet::find($id);
+            $coversheet->sheet = $input['sheet'];
+            $coversheet->name_english = $input['name_english'];
+            $coversheet->name_german = $input['name_german'];
+            $coversheet->status = $input['status'];
+            $coversheet->save();
+            
+        }
+            return redirect()->back()->with('status' , 'Updated');
     }
 
     /**
@@ -125,7 +138,7 @@ class FAQController extends Controller
      */
     public function destroy($id)
     {
-        $faq = FrequentlyAskedQuestion::destroy($id);
+        $coversheet = CoverSheet::destroy($id);
         return redirect()->back()->with('status' , 'Deleted');
     }
 }

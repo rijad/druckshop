@@ -16,7 +16,7 @@ class FreeSampleController extends Controller
     public function index()
     {
         // $freesample = FrequentlyAskedQuestion::where('status', '1')->get();
-        return view('/pages/admin/freesample',compact('freesample'));
+        return view('/pages/admin/freesample');
     }
 
     /**

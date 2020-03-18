@@ -38,7 +38,7 @@ class Discount extends Model
     /**
      * @var array
      */
-    protected $fillable = ['code', 'surname', 'name_english', 'name_german', 'to_date', 
+    protected $fillable = ['code', 'surname', 'name_english', 'name_german', 'to_date', 'duration',
     'from_date', 'by_price', 'by_percent', 'needs_code', 'status', 'created_at', 'updated_at', 'deleted_at'];
 
 }
