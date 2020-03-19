@@ -99,6 +99,8 @@ Route::get('/payment-fail', function () {
 })->name('payment-fail');
 
 Route::get('/gallery-images','Admin\GalleryController@gallery')->name('gallery-images');
+Route::get('/free-sample','Admin\FreeSampleController@create')->name('free-sample');
+Route::post('/free_sample_request','Admin\FreeSampleController@store')->name('free_sample_request');
 
 Route::get('/payment-success','CheckoutController@paymentPaypalSuccess')->name('payment-success');
 // Route::get('/payment-fail','CheckoutController@paymentPaypal')->name('payment-fail');

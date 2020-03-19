@@ -4,18 +4,20 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Slider;
+use Illuminate\Support\Facades\Validator;
+use App\FreeSample;
+use App\PaperWeight;
 
 class FreeSampleController extends Controller
 {
-    /**
+    /**FreeSample
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        // $freesample = FrequentlyAskedQuestion::where('status', '1')->get();
+        // $freesample = FreeSample::where('status', '1')->get();
         return view('/pages/admin/freesample');
     }
 
@@ -26,7 +28,8 @@ class FreeSampleController extends Controller
      */
     public function create()
     {
-        //
+        $paper_weight = PaperWeight::where('status' , '1')->get();
+        return view('pages.front-end.freesample', compact('paper_weight'));
     }
 
     /**
@@ -37,7 +40,46 @@ class FreeSampleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'side_option' => 'required',
+            'paper_weight' => 'required',
+            'last_name' => 'required',
+            'first_name' => 'required',
+            'company' => 'required',
+            'street' => 'required',
+            'house_number' => 'required',
+            'addition_to_address' => 'required',
+            'zip_code' => 'required',
+            'city' => 'required',
+            // 'document' => 'required',
+            'sample_status' => 'nullable',
+            'status' => 'nullable',
+        ]);
+        if ($validator->fails()) {
+            return redirect()->back()
+                        ->withErrors($validator)
+                        ->withInput();
+        } 
+
+        if ($validator->passes()){
+
+            $input = $request->all();
+            
+            if($request->input('sample_status') == "on"){
+                $input['sample_status'] = 'done';
+            }else{
+                $input['sample_status'] = 'in-progress';
+            }
+
+            if($request->input('status') == "on"){
+                $input['status'] = 1;
+            }else{
+                $input['status'] = 0;
+            }
+            $freesample = FreeSample::create($input);
+        }
+
+        return redirect()->back()->with('status' , 'Requested');
     }
 
     /**

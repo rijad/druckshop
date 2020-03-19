@@ -57,16 +57,20 @@ class DiscountController extends Controller
         }
         
         $input = $request->all();
-        
-        $datetime1 = new DateTime($request->input('from_date'));
-        $datetime2 = new DateTime($request->input('to_date'));
+        $from_date = $request->input('from_date');
+        $to_date = $request->input('to_date');
+       
         // dd($datetime1,$datetime2);
-        if($datetime1 != '' && $datetime2 != ''){
+        if($from_date != '' && $to_date != ''){
+            $datetime1 = new DateTime($request->input('from_date'));
+            $datetime2 = new DateTime($request->input('to_date'));
         $interval = $datetime1->diff($datetime2)->days;
         $input['duration'] = $interval;
         // dd($interval);
-        }else if($datetime1 != '' && $datetime2 == ''){
+        }elseif($from_date != '' && $to_date == ''){
             $input['duration'] = 30;
+        }else{
+
         }
 
         if($request->input('by_discount') == "by_price"){
@@ -147,16 +151,22 @@ class DiscountController extends Controller
             
             $input = $request->all();
 
+        $from_date = $request->input('from_date');
+        $to_date = $request->input('to_date');
+       
+        // dd($datetime1,$datetime2);
+        if($from_date != '' && $to_date != ''){
             $datetime1 = new DateTime($request->input('from_date'));
             $datetime2 = new DateTime($request->input('to_date'));
-            // dd($datetime1,$datetime2);
-            if($datetime1 != '' && $datetime2 != ''){
-            $interval = $datetime1->diff($datetime2)->days;
-            $input['duration'] = $interval;
-            // dd($interval);
-            }else if($datetime1 != '' && $datetime2 == ''){
-                $input['duration'] = 30;
-            }
+        $interval = $datetime1->diff($datetime2)->days;
+        // $input['duration'] = $interval;
+        // dd($interval);
+        }elseif($from_date != '' && $to_date == ''){
+            // $input['duration'] = 30;
+            $interval = 30;
+        }else{
+            
+        }
 
             if($request->input('by_discount') == "by_price"){
                 $input['by_price'] = $request->input('discount');
@@ -184,13 +194,15 @@ class DiscountController extends Controller
             $discount->to_date = $input['to_date'];
             $discount->needs_code = $input['needs_code'];
             $discount->status = $input['status'];
+
             $discount->duration = $interval;
+
             if($request->input('by_discount') == "by_price"){
                 $discount->by_price = $request->input('discount');
-                // $discount->by_percent = "";
+                $discount->by_percent = 0;
             }else{
                 $discount->by_percent = $request->input('discount');
-                // $discount->by_price = "";
+                $discount->by_price = 0;
             }
             $discount->save();
             

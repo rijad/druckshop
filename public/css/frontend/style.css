@@ -1330,7 +1330,18 @@ li.cart-relative-count {
 }
 }
 
+.form-group input {
+  border-color: black;
+  background-color: lightgray;
+  padding: 4px;
+  margin-left: 25px;
+}
 
+.form-group select {
+  background-color: lightgray;
+  padding: 5px;
+  margin-left: 25px;
+}
 
 
 
