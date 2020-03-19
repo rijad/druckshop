@@ -7,3 +7,22 @@
 <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
 <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
 <script src="{{ asset('public/js/admin/datatables-demo.js') }}"></script>
+
+<script type="text/javascript">
+        $(document).ready(function() {
+
+
+            $(".add-more").click(function() {
+                var html = $(".copy").html();
+                console.log(html);
+                $(".after-add-more").after(html);
+            });
+
+
+            $("body").on("click", ".remove", function() {
+                $(this).parents(".control-group").remove();
+            });
+
+
+        });
+    </script>
