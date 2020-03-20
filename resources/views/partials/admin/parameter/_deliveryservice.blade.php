@@ -6,7 +6,7 @@
                 <input type="submit" value="Create New Delivery Service" class="btn btn-primary">
             </form>
         </div>
-        
+
     </div>
 
     <div class="card-body">
@@ -29,12 +29,17 @@
                     <tr>
                         <td>{{ $service->delivery_service }}</td>
                         <td>
-                            <a href="#" class="btn btn-success">
-                                <span>Edit</span>
-                            </a>
-                            <a href="#" class="btn btn-danger">
-                                <span>Delete</span>
-                            </a>
+                            <form method="GET" action="{{ route('deliveryService.edit' , $service->id) }}">
+                                <input type="submit" value="edit" class="btn btn-success">
+                            </form>
+
+                            <form method="POST" action="{{ route('deliveryService.destroy' , $service->id) }}">
+                                @method('DELETE')
+                                @csrf
+                                <input type="submit" value="delete" class="btn btn-danger">
+                            </form>
+                            
+
                         </td>
                     </tr>
                     @endforeach
