@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class OrderAttributes extends Model
+class OrderHistory extends Model
 {
-   protected $table = 'ps_order_attributes';
+    protected $table = 'ps_order_history';
 
     /**
      * The "type" of the auto-incrementing ID.
@@ -25,5 +25,9 @@ class OrderAttributes extends Model
     {
         return $this->belongsToMany('App\User'); 
     }
+
+    public function OrderFinalDetails()
+    {
+        return $this->belongsToMany('App\OrderDetailsFinal'); 
+    }
 }
-  

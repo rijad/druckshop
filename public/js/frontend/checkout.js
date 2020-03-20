@@ -624,12 +624,12 @@ function incrementQuantity(id = "",count = ""){
 		// document.getElementById('qty_msg').innerHTML = "Quantity cannot be less then 1";
 	}
 
-}
+} 
 
  function checkPageRange(id1 = '', id2 = '' ,value = ''){
  
      var count_of_pages = 0; var range = 0; var val = [];
-     document.getElementById('error_range').innerHTML = "";
+     document.getElementById('error_range').innerHTML = ""; 
 
      if(document.getElementById(id1).value == "" || document.getElementById(id1).value == null){
      }else{

@@ -26,6 +26,7 @@ use App\OrderAttributes;
 use App\OrderDetails;
 use App\Payment;
 use App\OrderDetailsFinal;
+use App\OrderHistory;
 use App\User;
 use Auth;
 use Session;
@@ -254,6 +255,7 @@ class CheckoutController extends Controller
 		//dd($request->input()); 
 		 
 		$product_attribute = json_encode($request->input());
+		
 		$product = Product::where('id', $request->input('binding'))->first()->title_english;
 
 		// foreach($request->input() as $key => $value){
@@ -280,7 +282,7 @@ class CheckoutController extends Controller
 			}
  
 		}
-
+ 
 		$qty = 1;
 
 		if (Auth::check())
@@ -291,12 +293,13 @@ class CheckoutController extends Controller
 			$user_id = time();
 			Session::put('user_id', $user_id);
 		}
- 
+ //dd($product_attribute);
 		$OrderAttributes = new OrderAttributes;
 		$OrderAttributes->user_id = $user_id;
 		$OrderAttributes->product= $product;
 		$OrderAttributes->attribute = $product_attribute;
-		$OrderAttributes->product_id= $product."_".$user_id."_".time();
+		//$OrderAttributes->product_id= $product."_".$user_id."_".time();
+		$OrderAttributes->product_id = $request->input('binding');
 		$OrderAttributes->quantity= $qty;
 		$OrderAttributes->attribute_desc= $product_details;
 		$OrderAttributes->price_per_product= $request->total;
@@ -451,8 +454,9 @@ public function removeItem(Request $request){
 	}else{$user_id = 0;}
 
 	$delete = OrderAttributes::destroy($request->id);
-	$product_data = OrderAttributes::where('user_id', $user_id)->get();
-	return view('/pages/front-end/cart',compact('product_data'));
+	// $product_data = OrderAttributes::where('user_id', $user_id)->get();
+	// return view('/pages/front-end/cart',compact('product_data'));
+	return redirect()->route('cart');
 
 }
 
@@ -462,7 +466,7 @@ public function paymentPaypal(){
 	if(Auth::check())
 	{
 	$user_id = Auth::user()->id;
-	}else{$user_id = 0;}
+	}else{return redirect()->route('index'); }
 
 	$product_data = OrderAttributes::where('user_id', $user_id)->get();
 	$order_details = OrderDetails::where('user_id', $user_id)->first();
@@ -472,12 +476,13 @@ public function paymentPaypal(){
 } 
 
 
-public function paymentPaypalSuccess(){
+public function paymentPaypalSuccess(Request $request){
 
 	if(Auth::check())
 	{
 	$user_id = Auth::user()->id;
-	}else{$user_id = 0;}
+	}else{return redirect()->route('index'); }
+
 
 	$order_details = OrderDetails::where('user_id', $user_id)->first();
 
@@ -490,7 +495,7 @@ public function paymentPaypalSuccess(){
 	$payment->status = $_GET['st'];
 	$payment->user_id = $user_id;
 	$payment->amount = $_GET['amt']; 
-	$payment->payment_type = "paypal";
+	$payment->type = "paypal";
 	$payment->save();
 
 
@@ -508,12 +513,33 @@ public function paymentPaypalSuccess(){
 		$OrderDetailsFinal->total= $OrderDetails->total;
 		$OrderDetailsFinal->status= $_GET['st'];
 		$OrderDetailsFinal->txn= $_GET['tx'];
+		$OrderDetailsFinal->state="New";
 		$OrderDetailsFinal->save();
 
-	$OrderDetailsFinal = $OrderDetails;
+	//$OrderDetailsFinal = $OrderDetails;
 
-	$delete_cart = OrderAttributes::destroy($user_id);
-	$delete_order_details = OrderDetails::destroy($user_id);
+	$OrderAttributes = OrderAttributes::where(['status'=>'1','user_id'=>$user_id])->get();
+
+	foreach($OrderAttributes as $order){
+		$OrderHistory = new OrderHistory;
+		$OrderHistory->user_id = $order->user_id;
+		$OrderHistory->product= $order->product;
+		$OrderHistory->attribute = $order->attribute;
+		$OrderHistory->order_history_id= $OrderDetailsFinal->id;
+		$OrderHistory->product_id =$order->product_id;
+		$OrderHistory->quantity= $order->quantity;
+		$OrderHistory->attribute_desc= $order->attribute_desc;
+		$OrderHistory->price_per_product= $order->price_per_product;
+		$OrderHistory->price_product_qty= $order->price_product_qty;
+		$OrderHistory->quantity= $order->quantity; 
+		$OrderHistory->status= $order->status;
+		$OrderHistory->order_id= $OrderDetails->order_id;;
+		$OrderHistory->save();
+}
+
+
+	$delete_cart = OrderAttributes::where(['user_id'=>$user_id])->delete();
+	$delete_order_details = OrderDetails::where(['user_id'=>$user_id])->delete();
 
 	$request->session()->forget('user_id');
 
@@ -522,25 +548,26 @@ public function paymentPaypalSuccess(){
 }
 
 
-public function cashOnDelivery(){
+public function cashOnDelivery(Request $request){
    
 	if(Auth::check()) 
 	{
 	$user_id = Auth::user()->id;
-	}else{$user_id = 0;}
-	$OrderDetails = OrderDetailsFinal::where('user_id', $user_id)->first();
+	}else{return redirect()->route('index');}
+	
+	$OrderDetails = OrderDetails::where('user_id', $user_id)->first();
 
 
-	$order_details_amt = $order_details->total;
+	$order_details_amt = $OrderDetails->total;
 	$txn = time();
 
 	$payment = new Payment;
-	$payment->order_id = $order_details->order_id;
+	$payment->order_id = $OrderDetails->order_id;
 	$payment->txn = $txn;
 	$payment->status = "Pending";
 	$payment->user_id = $user_id;
-	$payment->amount = $order_details_amt; 
-	$payment->payment_type = "COD";
+	$payment->amount = $order_details_amt;  
+	$payment->type = "COD";
 	$payment->save();
  
 
@@ -558,12 +585,33 @@ public function cashOnDelivery(){
 		$OrderDetailsFinal->total= $OrderDetails->total;
 		$OrderDetailsFinal->status= "Pending";
 		$OrderDetailsFinal->txn= $txn;
+		$OrderDetailsFinal->state="New";
 		$OrderDetailsFinal->save();
 
-	$OrderDetailsFinal = $OrderDetails;
+	//$OrderDetailsFinal = $OrderDetails;
 
-	$delete_cart = OrderAttributes::destroy($user_id);
-	$delete_order_details = OrderDetails::destroy($user_id);
+
+	$OrderAttributes = OrderAttributes::where(['status'=>'1','user_id'=>$user_id])->get();
+
+	foreach($OrderAttributes as $order){
+		$OrderHistory = new OrderHistory;
+		$OrderHistory->user_id = $order->user_id;
+		$OrderHistory->product= $order->product;
+		$OrderHistory->attribute = $order->attribute;
+		$OrderHistory->order_history_id= $OrderDetailsFinal->id;
+		$OrderHistory->product_id =$order->product_id;
+		$OrderHistory->quantity= $order->quantity;
+		$OrderHistory->attribute_desc= $order->attribute_desc;
+		$OrderHistory->price_per_product= $order->price_per_product;
+		$OrderHistory->price_product_qty= $order->price_product_qty;
+		$OrderHistory->quantity= $order->quantity; 
+		$OrderHistory->status= $order->status;
+		$OrderHistory->order_id= $OrderDetails->order_id;;
+		$OrderHistory->save();
+	}
+
+	$delete_cart = OrderAttributes::where(['user_id'=>$user_id])->delete();
+	$delete_order_details = OrderDetails::where(['user_id'=>$user_id])->delete();
 
 	$request->session()->forget('user_id');
 

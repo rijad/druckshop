@@ -55,10 +55,6 @@ Route::get('/products', 'ProductController@sendData')->name('products');
 Route::get('/product-information', 'ProductInfoController@sendData')->name('product-information');
 Route::POST('/news-letter','NewsLetterController@sendData')->name('news-letter');
 Route::get('/checkout','CheckoutController@sendData')->name('check-out');
-// Route::get('/page-format','CheckoutController@getPageFormat')->name('page-format');
-// Route::get('/cover-color','CheckoutController@getCoverColor')->name('cover-color');
-// Route::get('/cover-sheet','CheckoutController@getCoverSheet')->name('cover-sheet');
-// Route::get('/back-cover','CheckoutController@getBackCover')->name('back-cover');
 Route::get('/get-relations','CheckoutController@getProductAttributes')->name('get-relations');
 Route::get('/get-price','CheckoutController@getPrice')->name('get-price');
 Route::get('/get-relations-content','CheckoutController@getContentAttributes')->name('get-relations-content');
@@ -68,6 +64,9 @@ Route::POST('/order-details','CheckoutController@orderDetails')->name('order-det
 Route::POST('/set-quantity','CheckoutController@setQuantity')->name('set-quantity');
 Route::get('/remove-item/{id}','CheckoutController@removeItem')->name('remove-item');
 Route::get('/cart','CheckoutController@cart')->name('cart');
+Route::get('/customer-area','CustomerAreaController@index')->name('customer-area');
+Route::get('/repeat-order/{order_id}','RepeatOrderController@RepeatOrder')->name('repeat-order');
+Route::get('/cancel-order/{order_id}','CancelOrderController@CancelOrder')->name('cancel-order');
 
 
 Route::get('/latest','LatestController@index')->name('latest');
@@ -88,19 +87,13 @@ Route::get('/coming-soon', function () {
 Route::get('/payment-paypal','CheckoutController@paymentPaypal')->name('payment-paypal');
 
 Route::get('/cash-on-delivery','CheckoutController@cashOnDelivery')->name('cash-on-delivery');
-
-// Route::get('/payment-success', function () {
-//     return view('paypalsuccess'); 
-// })->name('payment-success');
-
  
 Route::get('/payment-fail', function () {
     return view('paypalfail'); 
 })->name('payment-fail');
  
-
 Route::get('/payment-success','CheckoutController@paymentPaypalSuccess')->name('payment-success');
-// Route::get('/payment-fail','CheckoutController@paymentPaypal')->name('payment-fail');
+
  
  
 //Admin
@@ -129,7 +122,7 @@ Route::post('/dashboard-login-data','LoginController@authenticate')->name('dashb
 Route::get('/dashboard-logout-data','LoginController@logout')->name('dashboard-logout-data');
 
 });
-
+  
 
 Route::get('/dashboard-login', function () {
     return view('/pages/admin/adminusers/loginDashBoard'); 
@@ -143,5 +136,5 @@ Route::get('/dashboard-login', function () {
 Route::get('/home', 'HomeController@index')->name('home');
 Route::post('user-login','LoginController@authenticate')->name('user-login');
 Route::post('user-register','RegisterController@validateRegister')->name('user-register');
-Route::get('/user-logout','LoginController@logout')->name('user-logout');
+Route::post('/user-logout','LoginController@logout')->name('user-logout');
 
