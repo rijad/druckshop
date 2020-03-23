@@ -93,6 +93,7 @@
 							<li><a href="{{ route('latest') }}">Latest</a></li>
 							<li><a href="{{ route('about-us') }}">About Us</a></li>
 							<li><a href="{{ route('faq') }}">FAQ</a></li>
+							<li><a href="{{ route('gallery-images') }}">Gallery</a></li>
 							<li><a href="{{ route('contact') }}">Contact</a></li>
 						</ul>  
 					  </div>

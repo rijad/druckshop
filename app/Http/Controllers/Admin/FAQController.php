@@ -125,7 +125,7 @@ class FAQController extends Controller
      */
     public function destroy($id)
     {
-        $faq = destroy($id);
+        $faq = FrequentlyAskedQuestion::destroy($id);
         return redirect()->back()->with('status' , 'Deleted');
     }
 }

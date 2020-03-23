@@ -20,10 +20,12 @@
                                     <tr>
                                         <td>{{ $check->check_list }}</td>
                                         <td>
-                                            <form method="GET">
+                                            <form method="GET" action="{{ route('datacheck.edit' , $check->id) }}">
                                                 <input type="submit" value="edit" >
                                             </form>
-                                            <form method="GET">
+                                            <form method="POST" action="{{ route('datacheck.destroy' , $check->id) }}">
+                                            @method('DELETE')
+                                            @csrf
                                                 <input type="submit" value="delete" >
                                             </form>
                                         </td>

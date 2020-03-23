@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;  
 use Illuminate\Support\Facades\Validator; 
 use App\User;
-use Auth;
+use Auth;  
+// use Illuminate\Support\Facades\Mail; 
+// use App\Mail\SendMail;
 
 
 class RegisterController extends Controller
@@ -25,6 +27,14 @@ class RegisterController extends Controller
 			$response = returnResponse($input,'200','User Created Successfully');
 			$user = User::create($input);
 			Auth::loginUsingId($user->id,true);
+
+// $data = array(
+// 	'name' => $request->name,
+// 	'password' => $request->password
+// );
+
+// Mail::to('palak.gupta@tratornic.com')->send(new SendMail($data));
+
 			if(Auth::check()){
 			return redirect()->route('index');       
 		    }
