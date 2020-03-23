@@ -2,12 +2,13 @@
             <div id="layoutSidenav_nav">
                 <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                     <div class="sb-sidenav-menu">
-                        <div class="nav">
+                        <div class="nav"> 
                             <div class="sb-sidenav-menu-heading">Core</div>
-                            {{-- <a class="nav-link" href="{{ route('users.adminuser') }}">
+                            {{-- <a class="nav-link" href="{{ route('adminusers.adminuser') }}">
                                 <div class="sb-nav-link-icon">
                                     <i class="fas fa-tachometer-alt"></i>
                                 </div>Users</a> --}}
+                                
                             <a class="nav-link" href="{{ route('slider.index') }}">
                                 <div class="sb-nav-link-icon">
                                     <i class="fa fa-sliders"></i>

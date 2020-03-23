@@ -309,7 +309,7 @@ function displayPrice(paper_weight = "", nos_of_cds = "", data_check = ""){
 	var currentTab = 0; // Current tab is set to be the first tab (0)
 	showTab(currentTab); // Display the current tab
 
-	function getValidatedFields(tab = ""){ alert(tab);
+	function getValidatedFields(tab = ""){ //alert(tab);
 
 		var valid = true;
 
@@ -319,39 +319,45 @@ function displayPrice(paper_weight = "", nos_of_cds = "", data_check = ""){
 
 			// binding field is not selectec
 			if(binding == "-1"){
+				$('#error_binding').html('Binding Field is required');
 				return false;
 			}else{
 				
-			if($("#no-of-copies").val() == ""){ $("#no-of-copies").addBack().addClass('invalid'); valid = false; return false;}
+			if($("#no-of-copies").val() == ""){ $("#no-of-copies").addBack().addClass('invalid'); $('#error_no_of_copies').html('No of copies Field is required'); valid = false; return false;
+			}else if(isNaN($("#no-of-copies").val())){
+				$("#no-of-copies").addBack().addClass('invalid'); $('#error_no_of_copies').html('Field must be Number'); valid = false; return false;
+			}else if($("#no-of-copies").val() <= 0){
+				$("#no-of-copies").addBack().addClass('invalid'); $('#error_no_of_copies').html('Field must be greater than 0'); valid = false; return false;
+			}
 
 			// binding field is selected
 				$product_attributes = getProductAttributes(binding);
 
 			// Get data for page format
 			if (typeof $product_attributes['page_format'] !== 'undefined' && $product_attributes['page_format'].length > 0) {
-				if($("#page-format").find(":selected").val() == "-1"){ $("#page-format").addClass('invalid'); valid = false; return false;}
+				if($("#page-format").find(":selected").val() == "-1"){ $("#page-format").addClass('invalid'); $('#error_page_format').html('Page Format Field is required'); valid = false; return false;}
 			}else{valid = true; return true;}
 
 			//Get data for cover color
 			if (typeof $product_attributes['cover_color'] !== 'undefined' && $product_attributes['cover_color'].length > 0) {	
-				if($("#cover-color").find(":selected").val() == "-1"){$("#cover-color").addBack().addClass('invalid'); valid = false; return false;}	
+				if($("#cover-color").find(":selected").val() == "-1"){$("#cover-color").addBack().addClass('invalid'); $('#error_cover_color').html('Cover Color Field is required'); valid = false; return false;}	
 			}else{valid = true; return true;}
 
 
 			//Get data for cover sheet
 			if (typeof $product_attributes['cover_sheet'] !== 'undefined' && $product_attributes['cover_sheet'].length > 0) {	
-				if($("#cover-sheet").find(":selected").val() == "-1"){$("#cover-sheet").addBack().addClass('invalid'); valid = false; return false;}
+				if($("#cover-sheet").find(":selected").val() == "-1"){$("#cover-sheet").addBack().addClass('invalid'); $('#error_cover_sheet').html('Cover Color Field is required'); valid = false; return false;}
 			}else{valid = true; return true;}
 
 
 			//Get data for back cover
 			if (typeof $product_attributes['back_cover'] !== 'undefined' && $product_attributes['back_cover'].length > 0) {	
-				if($("#back-cover").find(":selected").val() == "-1"){$("#back-cover").addBack().addClass('invalid'); valid = false; return false;}
+				if($("#back-cover").find(":selected").val() == "-1"){$("#back-cover").addBack().addClass('invalid'); $('#error_back_cover').html('Back Cover Field is required'); valid = false; return false;}
 			}else{valid = true; return true;}
 
 			// input type file
-			 if($("#selectfile_coversheet").val() == ""){ alert($("#selectfile_coversheet").val()); $("#drop_file_zone_cover_sheet").addBack().addClass('invalid'); valid = false; return false;}else{valid = true;return true;}
-			 if($("#selectfile_backcover").val() == ""){alert($("#selectfile_backcover").val()); $("#drop_file_zone_back_cover").addBack().addClass('invalid'); valid = false; return false;}else{valid = true; return true;}
+			 if($("#selectfile_coversheet").val() == ""){ alert($("#selectfile_coversheet").val()); $("#drop_file_zone_cover_sheet").addBack().addClass('invalid'); $('#error_selectfile_coversheet').html('Field is required'); valid = false; return false;}else{valid = true;return true;}
+			 if($("#selectfile_backcover").val() == ""){alert($("#selectfile_backcover").val()); $("#drop_file_zone_back_cover").addBack().addClass('invalid'); $('#error_selectfile_backcover').html('Field is required'); valid = false; return false;}else{valid = true; return true;}
 
 
 			}// end of outer else
@@ -361,69 +367,69 @@ function displayPrice(paper_weight = "", nos_of_cds = "", data_check = ""){
 			page_options = document.getElementById('page_options').value;
 
 				if(page_options == "-1"){
-					$("#page_options").addClass('invalid'); valid = false; return false;
+					$("#page_options").addClass('invalid'); $('#error_page_options').html('Page Options Field is required'); valid = false; return false;
 				}else{
 
 					$content_attributes = getContentAttributes(page_options);
 
-					if($("#no-of-pages").val() == ""){$("#no-of-pages").addBack().addClass('invalid'); valid = false; return false;}
+					if($("#no-of-pages").val() == ""){$("#no-of-pages").addBack().addClass('invalid'); $('#error_no_of_pages').html('Field is required'); valid = false; return false;}
 
 					// Get data for paper weight
 					if (typeof $content_attributes['paper_weight'] !== 'undefined' && $content_attributes['paper_weight'].length > 0) {	
-						if($("#paper-weight").find(":selected").val() == "-1"){$("#paper-weight").addClass('invalid'); valid = false; return false;}
+						if($("#paper-weight").find(":selected").val() == "-1"){$("#paper-weight").addClass('invalid'); $('#error_paper_weight').html('Paper Weight Field is required');  valid = false; return false;}
 					}else{valid = true; return true;}
 
 					if(page_options == "1"){// unilaterally
 
-						 if($("#selectfile_content").val() == ""){ alert($("#selectfile_content").val()); $("#drop_file_zone_content").addBack().addClass('invalid'); valid = false; return false;}else{valid = true;return true;}
+						 if($("#selectfile_content").val() == ""){ alert($("#selectfile_content").val()); $("#drop_file_zone_content").addBack().addClass('invalid'); $('#error_selectfile_content').html('This Field is required'); valid = false; return false;}else{valid = true;return true;}
 
 						 if($("#color-pages").is(":checked")){
 						 	// color pages check box is checked
-						 	if($("#page-numbers").val() == ""){$("#page-numbers").addBack().addClass('invalid'); valid = false; return false;} 	
+						 	if($("#page-numbers").val() == ""){$("#page-numbers").addBack().addClass('invalid'); $('#error_page_numbers').html('This Field is required'); valid = false; return false;} 	
 						 }
 
 						 if($("#A3-pages").is(":checked")){
 						 	// color pages check box is checked
-						 	if($("#numbers-of-pages").val() == ""){$("#numbers-of-pages").addBack().addClass('invalid'); valid = false; return false;} 
-						 	if($("#selectfile_din_A3").val() == ""){ alert($("#selectfile_din_A3").val()); $("#drop_file_din_A3").addBack().addClass('invalid'); valid = false; return false;}else{valid = true;return true;}	
+						 	if($("#numbers-of-pages").val() == ""){$("#numbers-of-pages").addBack().addClass('invalid'); $('#error_no_of_pages').html('This Field is required'); valid = false; return false;} 
+						 	if($("#selectfile_din_A3").val() == ""){ alert($("#selectfile_din_A3").val()); $("#drop_file_din_A3").addBack().addClass('invalid'); $('#error_selectfile_din_A3').html('This Field is required'); valid = false; return false;}else{valid = true;return true;}	
 
 						 }
 
 						 if($("#A2-pages").is(":checked")){
 						 	// color pages check box is checked
-						 	if($("#numbers-of-A2-pages").val() == ""){$("#numbers-of-A2-pages").addBack().addClass('invalid'); valid = false; return false;} 
-						 	if($("#selectfile_din_A2").val() == ""){ alert($("#selectfile_din_A2").val()); $("#drop_file_din_A2").addBack().addClass('invalid'); valid = false; return false;}else{valid = true;return true;}		
+						 	if($("#numbers-of-A2-pages").val() == ""){$("#numbers-of-A2-pages").addBack().addClass('invalid'); $('#error_number_of_A2_pages').html('This Field is required'); valid = false; return false;} 
+						 	if($("#selectfile_din_A2").val() == ""){ alert($("#selectfile_din_A2").val()); $("#drop_file_din_A2").addBack().addClass('invalid'); $('#error_selectfile_din_A2').html('This Field is required'); valid = false; return false;}else{valid = true;return true;}		
 
 						 } 
 
 					}else if(page_options == "2"){// both sides
 
-						if($("#selectfile_content").val() == ""){ alert($("#selectfile_content").val()); $("#drop_file_zone_content").addBack().addClass('invalid'); valid = false; return false;}else{valid = true;return true;}
+						if($("#selectfile_content").val() == ""){ alert($("#selectfile_content").val()); $("#drop_file_zone_content").addBack().addClass('invalid'); $('#error_selectfile_content').html('This Field is required'); valid = false; return false;}else{valid = true;return true;}
 
-						 if($("#mirror").find(":selected").val() == "-1"){$("#mirror").addClass('invalid'); valid = false; return false;}
+						 if($("#mirror").find(":selected").val() == "-1"){$("#mirror").addClass('invalid'); $('#error_mirror').html('Mirror Field is required'); valid = false; return false;}
 
 						 if($("#color-pages").is(":checked")){
 						 	// color pages check box is checked
-						 	if($("#page-numbers").val() == ""){$("#page-numbers").addBack().addClass('invalid'); valid = false; return false;} 	
+						 	if($("#page-numbers").val() == ""){$("#page-numbers").addBack().addClass('invalid'); $('#error_no_of_pages').html('This Field is required');valid = false; return false;} 	
 						 }
 
 						 if($("#A3-pages").is(":checked")){
 						 	// color pages check box is checked
-						 	if($("#numbers-of-pages").val() == ""){$("#numbers-of-pages").addBack().addClass('invalid'); valid = false; return false;} 
-						 	if($("#selectfile_din_A3").val() == ""){ alert($("#selectfile_din_A3").val()); $("#drop_file_din_A3").addBack().addClass('invalid'); valid = false; return false;}else{valid = true;return true;}	
+						 	if($("#numbers-of-pages").val() == ""){$("#numbers-of-pages").addBack().addClass('invalid'); $('#error_number_of_A3_pages').html('This Field is required'); valid = false; return false;} 
+						 	if($("#selectfile_din_A3").val() == ""){ alert($("#selectfile_din_A3").val()); $("#drop_file_din_A3").addBack().addClass('invalid'); $('#error_selectfile_din_A3').html('This Field is required'); valid = false; return false;}else{valid = true;return true;}	
 
 						 }
 
 						 if($("#A2-pages").is(":checked")){
 						 	// color pages check box is checked
-						 	if($("#numbers-of-A2-pages").val() == ""){$("#numbers-of-A2-pages").addBack().addClass('invalid'); valid = false; return false;} 
-						 	if($("#selectfile_din_A2").val() == ""){ alert($("#selectfile_din_A2").val()); $("#drop_file_din_A2").addBack().addClass('invalid'); valid = false; return false;}else{valid = true;return true;}		
+						 	if($("#numbers-of-A2-pages").val() == ""){$("#numbers-of-A2-pages").addBack().addClass('invalid'); $('#error_number_of_A2_pages').html('This Field is required'); valid = false; return false;} 
+						 	if($("#selectfile_din_A2").val() == ""){ alert($("#selectfile_din_A2").val()); $("#drop_file_din_A2").addBack().addClass('invalid'); $('#error_selectfile_din_A2').html('This Field is required'); valid = false; return false;}else{valid = true;return true;}		
 
 						 }
 
 						// Get data for mirror
 					if (typeof $content_attributes['mirror'] !== 'undefined' && $content_attributes['mirror'].length > 0) {		
-						if($("#mirror").find(":selected").val() == "-1"){$("#mirror").addClass('invalid'); valid = false; return false;}
+						if($("#mirror").find(":selected").val() == "-1"){$("#mirror").addClass('invalid'); $('#error_mirror').html('Mirror Field is required'); valid = false; return false;}
 					}else{valid = true; return true;}
 
 					}
@@ -436,21 +442,21 @@ function displayPrice(paper_weight = "", nos_of_cds = "", data_check = ""){
 
 			if($("#embossment-cover-sheet").is(":checked")){$("#embossment-cover-sheet").addBack().addClass('invalid'); 
 			    if($("#template").find(":selected").val() == "-1"){
-			      $("#template").addClass('invalid'); valid = false; return false;
+			      $("#template").addClass('invalid'); $('#error_template').html('Template Field is required'); valid = false; return false;
 				}else{valid = true; return true;}
 
 			}else{valid = true; return true;}
 
 			//template cases
-			if($("#template").find(":selected").val() == "-1"){$("#template").addClass('invalid'); valid = false; return false; }	
+			if($("#template").find(":selected").val() == "-1"){$("#template").addClass('invalid'); $('#error_template').html('Template Field is required');valid = false; return false; }	
 			else if($("#template").find(":selected").val() == "Eigene Vorlage"){
-				if($("#selectfile_logo").val() == ""){ alert($("#selectfile_logo").val()); $("#upload_custom_logo").addBack().addClass('invalid'); valid = false; return false;}else{valid = true;return true;}	
+				if($("#selectfile_logo").val() == ""){ alert($("#selectfile_logo").val()); $("#upload_custom_logo").addBack().addClass('invalid'); $('#error_selectfile_logo').html('Field is required'); valid = false; return false;}else{valid = true;return true;}	
 			}else{ 	
 			    //fonts
-				if($("#fonts").find(":selected").val() == "-1"){$("#fonts").addClass('invalid'); valid = false; return false;}	
+				if($("#fonts").find(":selected").val() == "-1"){$("#fonts").addClass('invalid'); $('#error_fonts').html('Fonts Field is required'); valid = false; return false;}	
 			
 				//Date Format
-				if($("#date-format").find(":selected").val() == "-1"){$("#date-format").addClass('invalid'); valid = false; return false;}	
+				if($("#date-format").find(":selected").val() == "-1"){$("#date-format").addClass('invalid'); $('#error_date_format').html('Date Format Field is required'); valid = false; return false;}	
 				valid = true; return true; 
 				// end of tab Print Finishing
 				// start of CD Bag
@@ -458,18 +464,18 @@ function displayPrice(paper_weight = "", nos_of_cds = "", data_check = ""){
 			}else if(tab == "4"){
 
 				//data check
-				if($("#data_check").find(":selected").val() == "-1"){$("#data_check").addClass('invalid'); valid = false; return false;}	
+				if($("#data_check").find(":selected").val() == "-1"){$("#data_check").addClass('invalid'); $('error_data_check').html('Field is required'); valid = false; return false;}	
 				
 				if($("#cd-check").is(":not(:checked)")){$("#cd-check").addBack().addClass('invalid'); valid = true; return true;}
 				else{ 
 					//no. of cd
-					if($("#numbers-of-cds").val() == ""){$("#numbers-of-cds").addBack().addClass('invalid');valid = false; return false; }
+					if($("#numbers-of-cds").val() == ""){$("#numbers-of-cds").addBack().addClass('invalid'); $('#error_number_of_cds').html('Field is required'); valid = false; return false; }
 					// upload
-					if($("#selectfile_cd").val() == ""){ alert($("#selectfile_cd").val()); $("#upload_cd").addBack().addClass('invalid'); valid = false; return false;}else{valid = true;return true;}	
+					if($("#selectfile_cd").val() == ""){ alert($("#selectfile_cd").val()); $("#upload_cd").addBack().addClass('invalid'); $('#error_number_of_cds').html('error_selectfile_cd'); valid = false; return false;}else{valid = true;return true;}	
 										valid = true; return true;
 					if($("#cd-bag").find(":selected").val() == "-1")
 					{
-					    $("#cd-bag").addClass('invalid'); valid = false; return false;
+					    $("#cd-bag").addClass('invalid'); $('#error_cd_bag').html('Field is required'); valid = false; return false;
 					}	
 					else{valid = true; return true;
 					}
@@ -526,59 +532,7 @@ function displayPrice(paper_weight = "", nos_of_cds = "", data_check = ""){
 	  fixStepIndicator(n)
 	}
 
-	// function nextPrev(n) {  //alert(n);
-	//   // This function will figure out which tab to display
-	//   var x = document.getElementsByClassName("tab");
-
-	//   // Exit the function if any field in the current tab is invalid:
-	//   if (n == 1 && !validateForm()) return false;
-	//   // Hide the current tab:
-	//   x[currentTab].style.display = "none";
-	//   // Increase or decrease the current tab by 1:
-	//   currentTab = currentTab + n;   alert(currentTab);
-	//   // if you have reached the end of the form... :
-	//   if (currentTab >= x.length) {
-	//     //...the form gets submitted:
-	//     document.getElementById("regForm").submit();
-	//     window.location.href = '/print-shop/cart';
-	//     return false;
-	// }
-	//   // Otherwise, display the correct tab:
-	//   showTab(currentTab);
-	// }
-
-	// function validateForm() {
-	//   // This function deals with validation of the form fields
-	//   var x, y, i, valid = true;
-	//   x = document.getElementsByClassName("tab");  //console.log(x);
-	//   y = x[currentTab].getElementsByTagName("select"); 
-	//   z = x[currentTab].getElementsByTagName("input"); 
-	//   //console.log(y);
-	//   // A loop that checks every input field in the current tab:
-	//   for (i = 0; i < y.length; i++) {  
-	//   //   if (y[i].value == "-1" ) {  console.log(y[i].id  +"  :   "+  y[i].style.display);
-	//   //   console.log("in select");
-	// 	 //      y[i].className += " invalid";
-	// 	 //      valid = false;
-	//   // }
-	// }
-
-	// for (i = 0; i < z.length; i++) {  //console.log(z[i].name  +"  :   "+  z[i].value);
-	//     // If a field is empty...
-	//   //   if (y[i].value == "") {  console.log("in");
-	//   //     // add an "invalid" class to the field:
-	//   //     y[i].className += " invalid";
-	//   //     // and set the current valid status to false:
-	//   //     valid = false;
-	//   // }
-	// }
-	//   // If the valid status is true, mark the step as finished and valid:
-	//   if (valid) { 
-	//   document.getElementsByClassName("step")[currentTab].className += " finish";
-	// }
-	//   return valid; // return the valid status
-	// }
-
+	
 	function fixStepIndicator(n) {
 	  // This function removes the "active" class of all steps...
 	  var i, x = document.getElementsByClassName("step");
@@ -590,9 +544,7 @@ function displayPrice(paper_weight = "", nos_of_cds = "", data_check = ""){
 	}
 
 
-	
 
-	
 
 // -------     Code to handle checkout page pagination Ends ----------- //						
 
@@ -672,8 +624,43 @@ function incrementQuantity(id = "",count = ""){
 		// document.getElementById('qty_msg').innerHTML = "Quantity cannot be less then 1";
 	}
 
-}
+} 
 
-// function removeItem(id){
+ function checkPageRange(id1 = '', id2 = '' ,value = ''){
+ 
+     var count_of_pages = 0; var range = 0; var val = [];
+     document.getElementById('error_range').innerHTML = ""; 
 
-// }
+     if(document.getElementById(id1).value == "" || document.getElementById(id1).value == null){
+     }else{
+     	count_of_pages = document.getElementById(id2).innerHTML.split(":")[1];
+     }
+
+     if(value.includes("-")){
+     	val = value.split("-");  
+     	range = Math.abs(parseInt(val[0]) - parseInt(val[1])); alert(range);
+     }else if(value.includes(",")){
+     	val = value.split(",");  
+     	range = val.length;   
+     }else if(value.match(/^\d+$/)){
+     	range = parseInt(value);
+     }else{
+     	range = -1;
+     }
+
+
+     if(range > count_of_pages){
+     		document.getElementById('error_range').innerHTML = "Please check the range for number of pages";
+     }else if(range <= 0){
+     		document.getElementById('error_range').innerHTML = "Invalid Expression";
+     }else{
+     	document.getElementById('error_range').innerHTML = "No of Colored Pages:"+range;
+     }
+
+
+      
+
+
+
+ }
+

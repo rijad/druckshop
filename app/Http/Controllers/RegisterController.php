@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;  
 use Illuminate\Support\Facades\Validator; 
 use App\User;
+use Auth;
 
 
 class RegisterController extends Controller
@@ -23,12 +24,16 @@ class RegisterController extends Controller
 		if ($validator->passes()){
 			$response = returnResponse($input,'200','User Created Successfully');
 			$user = User::create($input);
-			return back()->with('success', $response);
+			Auth::loginUsingId($user->id,true);
+			if(Auth::check()){
+			return redirect()->route('index');       
+		    }
+			//return back()->with('success', $response);
 		}else{return back()->with('errors', $validator->errors());}
 		//$response = returnResponse($validator->errors(),'401','Valiation Error');
 		// dd($validator->errors());
 		
-
+ 
 		
 	}
     
