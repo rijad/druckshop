@@ -174,7 +174,7 @@ class DeliveryController extends Controller
 
                                 $attr_data = [
                                     
-                                    'delivery_service_id' => $insert->id,
+                                    'delivery_service_id' => $id,
                                     'ds_from' => $request['from'][$key],
                                     'ds_to' => $request['to'][$key],
                                     'ds_price' => $request['price'][$key],
