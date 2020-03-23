@@ -6,8 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator; 
 use App\User;
 use Auth;  
-use Illuminate\Support\Facades\Mail; 
-use App\Mail\SendMail;
+// use Illuminate\Support\Facades\Mail; 
+// use App\Mail\SendMail;
 
 
 class RegisterController extends Controller

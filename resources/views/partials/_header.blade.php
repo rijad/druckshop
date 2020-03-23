@@ -34,15 +34,19 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                	<a class="dropdown-item" href="{{ route('customer-area') }}" >
+                                        Customer Area
+                                    </a>
                                     <a class="dropdown-item" href="{{ route('user-logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
 
-                                   {{--  <form id="logout-form" action="{{ route('user-logout') }}" method="POST" style="display: none;">
+                                    <form id="logout-form" action="{{ route('user-logout') }}" method="POST" style="display: none;">
                                         @csrf
-                                    </form> --}}
+                                    </form>
+                                    
                                 </div>
                             </li>
                         @endguest 
@@ -63,7 +67,7 @@
 
 							</div>								
 						</li>
-						<li class="cart-relative-count"><a href="{{route('cart')}}"><i class="fa fa-shopping-cart"></i><span class="cart-product-count">1</span> </a></li>
+						<li class="cart-relative-count"><a @if(isset($cart)) href="{{route('cart')}}" @endif><i class="fa fa-shopping-cart"></i><span class="cart-product-count">@if(isset($cart)) @if(count($cart) > 0) {{count($cart)}} @endif @endif</span> </a></li>
 						<li><a href="#"><img src="{{ asset('public/images/eng.png') }}" alt="" /></a></li>
 						<li><a href="#"><img src="{{ asset('public/images/ger.png') }}" alt="" /></a></li>	
 												 						 
