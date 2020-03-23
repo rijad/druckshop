@@ -1,5 +1,5 @@
 <div class="card mb-4">
-                <div class="card-header"><i class="fas fa-table mr-1"></i>Slider
+                <div class="card-header"><i class="fas fa-table mr-1"></i>Users
                     <form method="GET" action="{{ route('create-user') }}">
                         <input type="submit" value="New" >
                     </form>

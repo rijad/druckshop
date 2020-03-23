@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\OrderDetailsFinal;
+use Auth;
 
 class OrderController extends Controller
 {
@@ -26,7 +27,8 @@ class OrderController extends Controller
      */
     public function create()
     {
-        //
+        $orderhistory = OrderDetailsFinal::where(['user_id'=>Auth::user()->id])->with('orderProductHistory')->get();
+        return view('/pages/admin/orderdetails',compact('orderhistory'));
     }
 
     /**

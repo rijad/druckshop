@@ -129,6 +129,7 @@ Route::resource('/gallery','GalleryController');
 Route::get('/details/{model}/{id}','ParameterController@details')->name('details'); 
 
 Route::get('/order','OrderController@index')->name('order');
+Route::get('/order-details/{order_id}','OrderController@create')->name('order-details');
 Route::resource('/FAQ','FAQController');
 Route::resource('/product','ProductController');
 Route::get('/payment','PaymentController@index')->name('payment');
