@@ -11,14 +11,10 @@
             with us you can even print and have your work tied up elsewhere.</p>
         </div>
     </div>
-        
 
     <div>
-
-    
         <form action="{{route('free_sample_request')}}" method="POST"> 
 		@csrf
-
 
         @if (session('status'))
         <div class="alert alert-success" role="alert">
@@ -36,15 +32,7 @@
         </div>
         @endif
 
-        <div id="drop_file_zone_cover_sheet" ondrop="upload_file(event,this.id)" ondragover="return false" class="displayNone">
-									<div id="drag_upload_file_cover_sheet">
-										<p>Drop file here</p>
-										<p>or</p>
-										<p><input type="button" value="Select File" onclick="file_explorer('drop_file_zone_cover_sheet');"></p>
-										<input class = "displayNone" type="file" name="selectfile" id="selectfile" accept="application/pdf" value = "" />
-										<input class = "displayNone" type="hidden" name="selectfile_coversheet" id="selectfile_coversheet" value = "" />
-									</div>
-								</div>
+        
                                 
         <div class="form-group">
             <label>Side Option:</label>
@@ -101,6 +89,17 @@
             <div class="form-group">
                 <input type="submit" name="request_free_sample" value="request_free_sample">
             </div>
+            
+            <div id="drop_file_zone_content" ondrop="upload_file(event,this.id)" ondragover="return false" class="displayBlock">
+                <div id="drag_upload_file">
+                    <p>Drop file here</p> 
+                    <p>or</p>
+                    <p><input class = "" type="button" value="Select File" onclick="file_explorer('drop_file_zone_content');"></p>
+                    <input type="file" name="selectfile" id="selectfile" accept="application/pdf">
+                    <input type="hidden" name="selectfile_content" id="selectfile_content" accept="application/pdf">
+                </div>
+		    </div>
+            
         </form>
     </div>
 </div>		 
