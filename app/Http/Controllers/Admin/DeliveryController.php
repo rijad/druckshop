@@ -64,7 +64,10 @@ class DeliveryController extends Controller
             }
             
             
-            $insert = DeliveryService::create(['delivery_service' => $request->name, 'active_status'=>$active_status]);
+            $insert = DeliveryService::create([
+                'delivery_service' => $request->name,
+                 'shipment_tracking_link'=> @$request->shipment_tracking_link,
+                 'active_status'=>$active_status]);
             
             if($insert){
 
@@ -150,6 +153,7 @@ class DeliveryController extends Controller
             if(!empty($delivery)){
 
                 $delivery->delivery_service = $request->name;
+                $delivery->shipment_tracking_link = @$request->shipment_tracking_link;
                 $delivery->active_status = $active_status;
 
                 $delivery->save();

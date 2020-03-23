@@ -12,6 +12,11 @@
                     <input class="form-control col-md-8" id="name" name="name" value="{{ $data->delivery_service }}" type="text" placeholder="Name" required />
                 </div>
 
+                <div class="form-group">
+                    <label class="small mb-1" for="name">Shipment Tracking Link</label>
+                    <input class="form-control col-md-8" id="shipment_tracking_link" name="shipment_tracking_link" value="{{ $data->shipment_tracking_link }}" type="text" placeholder="Shipment Tracking Link" />
+                </div>
+
                 <div class="form-group ">
                     <table>
                         <tr>
