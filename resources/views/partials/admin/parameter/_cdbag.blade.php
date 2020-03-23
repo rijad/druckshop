@@ -20,10 +20,12 @@
                                     <tr>
                                         <td>{{ $bag->bag }}</td>
                                         <td>
-                                            <form method="GET">
+                                        <form method="GET" action="{{ route('cdbag.edit' , $bag->id) }}">
                                                 <input type="submit" value="edit" >
                                             </form>
-                                            <form method="GET">
+                                            <form method="POST" action="{{ route('cdbag.destroy' , $bag->id) }}">
+                                            @method('DELETE')
+                                            @csrf
                                                 <input type="submit" value="delete" >
                                             </form>
                                         </td>

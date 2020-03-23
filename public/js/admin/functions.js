@@ -20,3 +20,21 @@
         $("body").toggleClass("sb-sidenav-toggled");
     });
 })(jQuery);
+
+// function dateCompare(from_date,to_date){
+//     // alert('hello');
+//     // die;
+//     var d1 = new Date(from_date); 
+//     var d2 = new Date(to_date); 
+//     var date1 = document.getElementById("from_date").value;
+//     var date2 = document.getElementById("to_date").value;
+//     if(date1 != "" && date2 != ""){
+//         alert('hey');
+//         if (d2.getTime() - d1.getTime() >= 30){
+//             alert('hey');
+//         // document.write("ok"); 
+//     }else{
+//         document.write("not ok");
+//     }
+//     }
+}

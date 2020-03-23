@@ -35,8 +35,8 @@
                                             <input type="submit" value="edit" >
                                             </form>
                                             <form method="POST" action="{{ route('slider.destroy' , $slid->id) }}">
-                                                @method('DELETE')
-                                          @csrf
+                                            @method('DELETE')
+                                            @csrf
                                             <input type="submit" value="delete" >
                                             </form>
                                         </td>

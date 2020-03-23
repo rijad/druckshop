@@ -26,4 +26,4 @@ class OrderAttributes extends Model
         return $this->belongsToMany('App\User'); 
     }
 }
- 
+  
