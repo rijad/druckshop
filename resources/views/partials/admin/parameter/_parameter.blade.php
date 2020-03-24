@@ -20,7 +20,6 @@
                                     <tr>
                                         <td>{{ $para->parameter_list }}</td>
                                         <td>
-                                            
                                             <button onclick="window.location='{{route('details' , ['model'=>$para->model,'id'=>$para->id]) }}'" class="remove_btn" > Details </button>
                                         </td>
                                     </tr> 

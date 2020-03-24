@@ -15,7 +15,7 @@ class AdminUsersController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    { dd("kjkl");
+    { 
         $users = UsersAdmin::all();
         return view('pages.admin.users.adminuser', compact('users'));
 
@@ -107,8 +107,6 @@ class AdminUsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
-
         $validator = Validator::make($request->all(), [
             'name' => 'required',
             'email' => 'required|email',
