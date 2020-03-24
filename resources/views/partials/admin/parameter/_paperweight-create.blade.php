@@ -40,53 +40,68 @@
                     </table>
                     <br>
 
-                    <div class="form-inline">
-                        <div><input id="from" type="hidden" name="sheet_start[]" value="0" />0</div> -
-                        <div><input id="from" type="hidden" name="sheet_end[]" value="65" />65</div>
-                        <div><input class="form-control" id="latters" type="number" name="latters[]" value="40" required /></div>
-                    </div>
+                    <div class="paper_input">
 
-                    <div class="after-add-more form-inline">
-                        <div><input id="from" type="hidden" name="sheet_start[]" value="66" />66</div> -
-                        <div><input id="from" type="hidden" name="sheet_end[]" value="150" />150</div>
-                        <div><input class="form-control" id="latters" type="number" name="latters[]" value="130" /></div>
-                        <div><button type="button" class="btn btn-danger btn-sm mr-2 remove"> <span>Remove</span></button></div>
-                    </div>
+                        <div>
+                            <div class="paper_div control-group form-inline">
+                                <div><input id="from" type="hidden" name="sheet_start[]" value="0" />0</div> -
+                                <div><input id="from" type="hidden" name="sheet_end[]" value="65" />65</div>
+                                <div><input class="form-control" id="latters" type="number" name="latters[]" value="40" required /></div>
+                            </div>
+                        </div>
 
-                    <div class="after-add-more form-inline">
-                        <div><input id="from" type="hidden" name="sheet_start[]" value="151" />151</div> -
-                        <div><input id="from" type="hidden" name="sheet_end[]" value="190" />190</div>
-                        <div><input class="form-control" id="latters" type="number" name="latters[]" value="160" /></div>
-                        <div><button type="button" class="btn btn-danger btn-sm mr-2 remove"> <span>Remove</span></button></div>
-                    </div>
+                        <div>
+                            <div class="paper_div control-group form-inline">
+                                <div><input id="from" type="hidden" name="sheet_start[]" value="66" />66</div> -
+                                <div><input id="from" type="hidden" name="sheet_end[]" value="150" />150</div>
+                                <div><input class="form-control" id="latters" type="number" name="latters[]" value="130" /></div>
+                                <div><button type="button" class="btn btn-danger btn-sm mr-2 remove"> <span>Remove</span></button></div>
+                            </div>
+                        </div>
 
-                    <div class="after-add-more form-inline">
-                        <div><input id="from" type="hidden" name="sheet_start[]" value="191" />191</div> -
-                        <div><input id="from" type="hidden" name="sheet_end[]" value="250" />250</div>
-                        <div><input class="form-control" id="latters" type="number" name="latters[]" value="205" /></div>
-                        <div><button type="button" class="btn btn-danger btn-sm mr-2 remove"> <span>Remove</span></button></div>
-                    </div>
+                        <div>
+                            <div class="paper_div control-group form-inline">
+                                <div><input id="from" type="hidden" name="sheet_start[]" value="151" />151</div> -
+                                <div><input id="from" type="hidden" name="sheet_end[]" value="190" />190</div>
+                                <div><input class="form-control" id="latters" type="number" name="latters[]" value="160" /></div>
+                                <div><button type="button" class="btn btn-danger btn-sm mr-2 remove"> <span>Remove</span></button></div>
+                            </div>
+                        </div>
 
-                    <div class="after-add-more form-inline">
-                        <div><input id="from" type="hidden" name="sheet_start[]" value="251" />251</div> -
-                        <div><input id="from" type="hidden" name="sheet_end[]" value="300" />300</div>
-                        <div><input class="form-control" id="latters" type="number" name="latters[]" value="265" /></div>
-                        <div><button type="button" class="btn btn-danger btn-sm mr-2 remove"> <span>Remove</span></button></div>
-                    </div>
+                        <div>
+                            <div class="paper_div control-group form-inline">
+                                <div><input id="from" type="hidden" name="sheet_start[]" value="191" />191</div> -
+                                <div><input id="from" type="hidden" name="sheet_end[]" value="250" />250</div>
+                                <div><input class="form-control" id="latters" type="number" name="latters[]" value="205" /></div>
+                                <div><button type="button" class="btn btn-danger btn-sm mr-2 remove"> <span>Remove</span></button></div>
+                            </div>
+                        </div>
 
-                    <div class="after-add-more form-inline">
-                        <div><input id="from" type="hidden" name="sheet_start[]" value="301" />301</div> -
-                        <div><input id="from" name="sheet_end[]" placeholder="sheet range" /></div>
-                        <div><input class="form-control" id="latters" type="number" name="latters[]" placeholder="latter number" /></div>
-                        <div><button type="button" class="btn btn-danger btn-sm mr-2 remove"> <span>Remove</span></button></div>
+                        <div>
+                            <div class="paper_div control-group form-inline">
+                                <div><input id="from" type="hidden" name="sheet_start[]" value="251" />251</div> -
+                                <div><input id="from" type="hidden" name="sheet_end[]" value="300" />300</div>
+                                <div><input class="form-control" id="latters" type="number" name="latters[]" value="265" /></div>
+                                <div><button type="button" class="btn btn-danger btn-sm mr-2 remove"> <span>Remove</span></button></div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="paper_div control-group form-inline">
+                                <div><input id="from" type="hidden" name="sheet_start[]" value="301" />301</div> -
+                                <div><input id="from" name="sheet_end[]" placeholder="sheet range" /></div>
+                                <div><input class="form-control" id="latters" type="number" name="latters[]" placeholder="latter number" /></div>
+                                <div><button type="button" class="btn btn-danger btn-sm mr-2 remove_paper"> <span>Remove</span></button></div>
+                            </div>
+                        </div>
+
                     </div>
 
 
                 </div>
 
                 <div class="form-group">
-                    <button type="button" class="btn btn-primary btn-sm mr-2 add-more"> <span>Add new row</span></button>
-                    <!-- <button type="button" class="btn btn-danger btn-sm mr-2 remove"> <span>Remove last row</span></button> -->
+                    <button type="button" class="btn btn-primary btn-sm mr-2 add_paper_row"> <span>Add new row</span></button>
                 </div>
 
                 <!-- <div class="control-group copy hide" style="display:none">

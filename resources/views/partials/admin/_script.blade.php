@@ -43,6 +43,26 @@
             }
         });
 
+        //for paper weight page
+        var max_paper_fields = 10;
+        var paper_wrapper = $(".paper_input"); 
+        var add_paper_button = $(".add_paper_row"); 
+        var i = 1; //Initial input field is set to 1
+
+        $(add_paper_button).click(function(e) {
+            e.preventDefault();
+            //Check maximum allowed input fields
+            if (i < max_paper_fields) {
+                i++; //input field increment
+                //add input field
+                $(paper_wrapper).append('<div class="after-add-more form-inline"><div><input id="from" type="hidden" name="sheet_start[]" value="301" />301</div><div><input id="from" name="sheet_end[]" placeholder="sheet range" /></div><div><input class="form-control" id="latters" type="number" name="latters[]" placeholder="latter number" /></div><div><button type="button" class="btn btn-danger btn-sm mr-2 remove"> <span>Remove</span></button></div></div>');
+            }
+        });
+
+        $("body").on("click", ".remove_paper", function() {
+            $(this).parents(".paper_div").remove();
+        });
+
 
     });
 </script>
