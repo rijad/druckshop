@@ -30,6 +30,12 @@
 
                                 <hr>
                             </div>
+                             <div class="text-right">
+                                <p class="thisproduct_head">Total: {{$total}} €</p>
+                                <p class="thisproduct_head">Promo Discount:({{$discount_amt}}) €</p>
+                                <hr>
+                                <p class="thisproduct_head">Net Amount: {{$net_amt}} €</p>
+                             </div>
                             <div class="text-right">
                                 <button class="paypaypal" onclick="window.location='{{route('payment-paypal')}}'">Pay via PayPal</button>
                                 <button class="paycash" onclick="window.location='{{route('cash-on-delivery')}}'">Pay via Cash</button>

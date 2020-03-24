@@ -29,7 +29,7 @@ use App\OrderDetailsFinal;
 use App\OrderHistory;
 use App\User;
 use Auth;
-use Session;
+use Session; 
  
 
 class CheckoutController extends Controller
@@ -373,21 +373,43 @@ public function orderDetails(Request $request){
 			'shipping_company' => 'required|not_in:-1',
 			'shipping_address' => 'required',                
 			'billing_address' => 'required',
-			'promo_code' => 'nullable', 
-		]);
+			'code' => 'nullable|exists:ps_discount',  
+		]); 
 
-		$input = $request->all();
+		$input = $request->all();   
 
 		//dd($input);
-		$input['user_id'] = $user_id;
-		$input['order_id'] = $user_id.'_'.time();
-		$input['total'] = $total;
-//dd($input); 
-		if ($validator->passes()){
+
+		if ($validator->passes()){ 
+
+		// handling promo code
+		  if($request->input('code') != "null" && ! empty($request->input('code'))){
+
+		  	$discount = Discount::where(['code' => $request->input('code')])->first(['by_price','by_percent']);
+			//dd($discount->by_price);
+			if($discount->by_price != "null" && ! empty($discount->by_price)){
+				$discount_amt = $discount->by_price;
+			}else{
+				$discount_amt = ($total / 100 ) * $discount->by_percent;
+			}
+				$net_amt = $total - $discount_amt;
+		  }else{
+		  	$discount_amt = 0.0;
+		  	$net_amt = $total - $discount_amt;
+		  }
+			
+			//dd($discount_amt);
+			$input['user_id'] = $user_id;
+			$input['order_id'] = $user_id.'_'.time();
+			$input['total'] = $total;
+			$input['promo_code'] = $request->input('code');
+
+			Session::put('order_id', $user_id.'_'.time());
+			
 			$OrderDetailsvalue= OrderDetails::create($input);
 			$product_data = OrderAttributes::where('user_id', $user_id)->get();
 
-			return view('/pages/front-end/order',compact('product_data'));
+			return view('/pages/front-end/order',compact('product_data','discount_amt','total','net_amt'));
 		}else{//dd($validator->errors());
 			return back()->with('errors', $validator->errors());
 		}
@@ -469,9 +491,21 @@ public function paymentPaypal(){
 	}else{return redirect()->route('index'); }
 
 	$product_data = OrderAttributes::where('user_id', $user_id)->get();
-	$order_details = OrderDetails::where('user_id', $user_id)->first();
+	$order_details = OrderDetails::where(['user_id'=> $user_id , 'order_id' => Session::get('order_id')])->first();
+	$net_amt = $order_details->total; 
+	// handling promo code
+	if($order_details->promo_code != "null" && ! empty($order_details->promo_code)){  
 
-	return view('/pages/front-end/payment_paypal',compact('product_data','order_details'));
+		$discount = Discount::where(['code' => $order_details->promo_code])->first(['by_price','by_percent']);
+			//dd($discount->by_price);
+		if($discount->by_price != "null" && ! empty($discount->by_price)){
+			$discount_amt = $discount->by_price;
+		}else{
+			$discount_amt = ($order_details->total / 100 ) * $discount->by_percent;
+		}
+		$net_amt = $order_details->total - $discount_amt;
+	}  //dd($net_amt);
+	return view('/pages/front-end/payment_paypal',compact('product_data','order_details','net_amt'));
 
 } 
 
@@ -542,6 +576,7 @@ public function paymentPaypalSuccess(Request $request){
 	$delete_order_details = OrderDetails::where(['user_id'=>$user_id])->delete();
 
 	$request->session()->forget('user_id');
+	$request->session()->forget('order_id');
 
 	return view('/pages/front-end/paypalsuccess',compact('order_details','order_details_amt','txn'));
 	
@@ -552,10 +587,23 @@ public function cashOnDelivery(Request $request){
    
 	if(Auth::check()) 
 	{
-	$user_id = Auth::user()->id;
+	$user_id = Auth::user()->id; 
 	}else{return redirect()->route('index');}
 	
-	$OrderDetails = OrderDetails::where('user_id', $user_id)->first();
+	$OrderDetails = OrderDetails::where(['user_id'=> $user_id , 'order_id' => Session::get('order_id')])->first();
+	$net_amt = $OrderDetails->total; 
+	// handling promo code
+	if($OrderDetails->promo_code != "null" && ! empty($OrderDetails->promo_code)){  
+
+		$discount = Discount::where(['code' => $OrderDetails->promo_code])->first(['by_price','by_percent']);
+			//dd($discount->by_price);
+		if($discount->by_price != "null" && ! empty($discount->by_price)){
+			$discount_amt = $discount->by_price;
+		}else{
+			$discount_amt = ($OrderDetails->total / 100 ) * $discount->by_percent;
+		}
+		$net_amt = $OrderDetails->total - $discount_amt;
+	}  //dd($net_amt);
 
 
 	$order_details_amt = $OrderDetails->total;
@@ -566,12 +614,12 @@ public function cashOnDelivery(Request $request){
 	$payment->txn = $txn;
 	$payment->status = "Pending";
 	$payment->user_id = $user_id;
-	$payment->amount = $order_details_amt;  
+	$payment->amount = $net_amt;  
 	$payment->type = "COD";
 	$payment->save();
  
 
-	$OrderDetails = OrderDetails::where('user_id', $user_id)->first();
+	$OrderDetails = OrderDetails::where(['user_id'=> $user_id , 'order_id' => Session::get('order_id')])->first();
 
 	$OrderDetailsFinal = new OrderDetailsFinal;
 		$OrderDetailsFinal->user_id = $user_id;
@@ -614,6 +662,7 @@ public function cashOnDelivery(Request $request){
 	$delete_order_details = OrderDetails::where(['user_id'=>$user_id])->delete();
 
 	$request->session()->forget('user_id');
+	$request->session()->forget('order_id');
 
 	return view('/pages/front-end/cashondelivery',compact('OrderDetails'));
 
@@ -713,6 +762,20 @@ public function makeOrderDetails($model = "", $attribute=""){
 
 }
   
+
+public static function CartCount(){
+
+	if(Auth::check()) 
+	{
+	$user_id = Auth::user()->id; 
+	$cart = count(OrderAttributes::where(['status'=>'1','user_id'=>$user_id])->get());
+	return $cart;
+	}else{
+		return 0;
+	}
+
+
+}  
 		
 }
   

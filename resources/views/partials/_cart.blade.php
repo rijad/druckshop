@@ -65,7 +65,7 @@
                               <input type="text" name="no_of_copies" id="no_of_copies" class="form-control" placeholder="enter here" >
                               @if($errors->has('no_of_copies'))
                               <div class="error">{{ $errors->first('no_of_copies') }}</div>
-                              @endif
+                              @endif 
                             </div>
                             <div class="form-group">
                               <label for="pwd">No of CDS*:</label>
@@ -92,8 +92,11 @@
                             </div>
                              <div class="form-group">
                               <label for="email">Dicount Code:</label>
-                              <input type="text" name="promo_code" id="promo_code" class="form-control" placeholder="enter here">
-                            </div>
+                              <input type="text" name="code" id="code" class="form-control" placeholder="enter here">
+                              @if($errors->has('code'))
+                              <div class="error">{{ $errors->first('code') }}</div>
+                              @endif
+                            </div> 
                             <div class="form-group">
                               <label for="email">Shipping Address*:</label>
                               <textarea name="shipping_address" id="shipping_address" class="form-control"></textarea>

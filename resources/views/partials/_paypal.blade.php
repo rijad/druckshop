@@ -16,7 +16,7 @@ $paypal_username = 'aditya.bandral-facilitator@trantorinc.com'; //Business Email
         <!-- Specify details about the item that buyers will purchase. -->
         <input type="hidden" name="item_name" value="Order Payment">
         <input type="hidden" name="item_number" value="101">
-        <input type="hidden" name="amount" value="{{$order_details->total}}">
+        <input type="hidden" name="amount" value="{{$net_amt}}">
         <input type="hidden" name="currency_code" value="USD">
         
         <!-- Specify URLs -->
