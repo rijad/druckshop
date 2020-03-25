@@ -1,4 +1,4 @@
-		<div class="content-wrapper">
+<div class="content-wrapper">
 			<div class="container">
 
 				<div class="checkoutStepper col-full text-left">
@@ -212,14 +212,14 @@
 												</div>
 
 												<div class="displayNone" id="div-template">
-													<label>Template*:</label>
+													<label>Template*:<a href="#" data-toggle="tooltip" title="Data is taken from cover sheet" class="formToolTip">i</a></label>
 													<p><select name ="template" id="template" onchange="displayPopUp(this.value);"><option value="-1">Select</option><option value="Standardvorlage mit Logo">Standardvorlage mit Logo</option><option value="Standardvorlage ohne Logo">Standardvorlage ohne Logo</option><option value="Eigene Vorlage">Eigene Vorlage</option></select></p>
 													<p class="error" id="error_template"></p>
 												</div>
 
 												<div class="displayNone" id="upload_custom_logo" ondrop="upload_file(event,this.id)" ondragover="return false" class="displayBlock">
 													<div id="drag_upload_file">
-														<p>Drop file here</p> 
+														<p>Drop file here<a href="#" data-toggle="tooltip" title="jpeg,jpg,png" class="formToolTip">i</a></p> 
 														<p>or</p>
 														<p><input type="button" value="Select File" onclick="file_explorer('upload_custom_logo');"></p>
 														<input type="file" name ="selectfile" id="selectfile" accept="image/x-png">
@@ -232,7 +232,7 @@
 												<div id="drop_file_zone_logo_info" class="displayNone"><label id="logo_file_name"></label>
 													<label id="logo_page_no"></label><label id="logo_del"></label></div>
 														<p><select id ="template">
-															<option value="-1">Select</option>
+															<option value="-1">Select</option><a href="#" data-toggle="tooltip" title="Data is taken from cover sheet" class="formToolTip">i</a>
 															<option value="Standardvorlage mit Logo">Standardvorlage mit Logo</option>
 															<option value="Standardvorlage ohne Logo">Standardvorlage ohne Logo</option>
 															<option value="Eigene Vorlage">Eigene Vorlage</option></select></p>
@@ -346,7 +346,7 @@
 														</div>
 
 														<div class="displayBlock" id="div-data-check">
-															<label>Data Check*:</label>
+															<label>Data Check*:<a href="#" data-toggle="tooltip" title="Data Check Select" class="formToolTip">i</a></label>
 															<p><select id = "data_check" name = "data_check" onclick="displayPrice('','',this);"><option value = "-1">Select</option>
 																@foreach ($data_check as $key=>$listing)
 																<option value="{{$listing->id}}">{{$listing->check_list}}</option>  

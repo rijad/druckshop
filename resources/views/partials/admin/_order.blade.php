@@ -11,6 +11,8 @@
                                         <th>CD</th>
                                         <th>Last update</th>
                                         <th>No. of copies</th>
+                                        <th>Order Assigned To</th>
+                                        <th>Priority</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
@@ -22,6 +24,8 @@
                                         <th>CD</th>
                                         <th>Last update</th>
                                         <th>No. of copies</th>
+                                        <th>Order Assigned To</th>
+                                        <th>Priority</th>
                                         <th>Actions</th>
                                     </tr>
                                 </tfoot>
@@ -34,6 +38,11 @@
                                         <td>{{ $odr->no_of_cds }}</td>
                                         <td>{{ $odr->updated_at }}</td>
                                         <td>{{ $odr->no_of_copies }}</td>
+                                        <td>    @php
+                                                echo App\Http\Controllers\Admin\OrderController::users($odr->assigned_to);
+                                                @endphp
+                                        </td>
+                                        <td>{{ $odr->priority }}</td>
                                         <td>
                                             <button onclick="window.location='{{route('order-details' , 
                                                 ['id'=>$odr->order_id ]) }}'" 
