@@ -68,11 +68,11 @@ class PaperController extends Controller
 
         $insert = PaperWeight::create([
 
-            'paper_weight' => $request->name, 
-            'name_english' => $request->name_in_en, 
-            'name_german' => $request->name_in_dh, 
-            'weight_per_sheet' => $request->weight_per_sheet, 
-            'min_sheets_for_spine' => $request->min_sheets_for_spine, 
+            'paper_weight' => $request->name,
+            'name_english' => $request->name_in_en,
+            'name_german' => $request->name_in_dh,
+            'weight_per_sheet' => $request->weight_per_sheet,
+            'min_sheets_for_spine' => $request->min_sheets_for_spine,
             'status' => $active_status
         ]);
 
@@ -119,9 +119,9 @@ class PaperController extends Controller
      */
     public function edit($id)
     {
-        $data = DeliveryService::find($id);
-        $attributes = LettesOfSpine::where('delivery_service_id', $id)->get();
-        return view('pages.admin.parameter.deliveryservice-edit', compact('data', 'attributes'));
+        $data = PaperWeight::find($id);
+        $attributes = LettesOfSpine::where('paper_weight_id', $id)->get();
+        return view('pages.admin.parameter.paperweight-edit', compact('data', 'attributes'));
     }
 
     /**
@@ -154,45 +154,43 @@ class PaperController extends Controller
             $active_status = 0;
         }
 
-        $delivery = DeliveryService::find($id);
+        $paper = PaperWeight::find($id);
 
-        if (!empty($delivery)) {
+        if (!empty($paper)) {
 
-            $delivery->delivery_service = $request->name;
-            $delivery->active_status = $active_status;
+            $paper->paper_weight = $request->name;
+            $paper->name_english = $request->name_in_en;
+            $paper->name_german = $request->name_in_dh;
+            $paper->weight_per_sheet = $request->weight_per_sheet;
+            $paper->min_sheets_for_spine = $request->min_sheets_for_spine;
+            $paper->status = $active_status;
 
-            $delivery->save();
-
-            if (!empty($request->from) && !empty($request->to) && !empty($request->price)) {
-
-                foreach ($request->from as $key => $value) {
-
-                    if (!empty($request['to'][$key]) && !empty($request['price'][$key])) {
+            $paper->save();
 
 
-                        $check_already = LettesOfSpine::find($request['id'][$key]);
+            foreach ($request->sheet_start as $key => $value) {
 
-                        if (!empty($check_already)) {
+                    $check_already = LettesOfSpine::find($request['id'][$key]);
 
-                            $check_already->ds_from =  $request['from'][$key];
-                            $check_already->ds_to =  $request['to'][$key];
-                            $check_already->ds_price =  $request['price'][$key];
+                    if (!empty($check_already)) {
 
-                            $check_already->save();
-                        } else {
+                        $check_already->sheets_range_start =  $request['sheet_start'][$key];
+                        $check_already->sheets_range_end =  $request['sheet_end'][$key];
+                        $check_already->letters =  $request['latters'][$key];
 
-                            $attr_data = [
+                        $check_already->save();
+                    } else {
 
-                                'delivery_service_id' => $id,
-                                'ds_from' => $request['from'][$key],
-                                'ds_to' => $request['to'][$key],
-                                'ds_price' => $request['price'][$key],
-                            ];
+                        $attr_data = [
 
-                            $store_attributes = LettesOfSpine::create($attr_data);
-                        }
+                            'paper_weight_id' => $id,
+                            'sheets_range_start' => $request['sheet_start'][$key],
+                            'sheets_range_end' => $request['sheet_end'][$key],
+                            'letters' => $request['latters'][$key],
+                        ];
+
+                        $store_attributes = LettesOfSpine::create($attr_data);
                     }
-                }
             }
         }
 
