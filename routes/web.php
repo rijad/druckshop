@@ -148,7 +148,7 @@ Route::resource('/paper','PaperController');
   
 
 Route::get('/dashboard-login', function () {
-    return view('/pages/admin/adminusers/loginDashBoard'); 
+    return view('/pages/admin/users/loginDashBoard'); 
 })->name('dashboard-login');
 // Auth::routes();
 

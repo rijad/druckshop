@@ -11,6 +11,61 @@
 <script type="text/javascript">
     $(document).ready(function() {
 
+        //Add: add more for delivery services
+        $('#delivery_add_more').click(function(){
+
+            var from = 0;
+            get_to_value = $('#dilivery_services_table tr:last td:nth(1) input').val();
+
+            if (get_to_value) {
+
+                from = get_to_value;
+            }else{ 
+               from = 0;
+           }
+
+           $('#dilivery_services_table').append('<tr class="form-inline"><td><input id="from" type="hidden" name="from[]" value='+from+' />'+from+'</td><td><input class="form-control" id="to" type="number" name="to[]" required /></td><td><input class="form-control" id="price" type="number" name="price[]" required /></td></tr>');
+       });
+
+        $('#delivery_remove_last').click(function(){
+            var row_index = $('#dilivery_services_table tr:last').index(); 
+            if(row_index >= 2){
+
+                $('#dilivery_services_table tr:last').remove();
+            }
+        });
+
+        //end delivery services
+
+        //Edit: add, more for delivery services
+        $('#delivery_edit_add_new_row').click(function(){
+
+            var from = 0;
+            get_to_value = $('#dilivery_services_table_edit tr:last td:nth(1) input').val();
+
+            if (get_to_value) {
+
+                from = get_to_value;
+            }else{ 
+               from = 0;
+           }
+
+           $('#dilivery_services_table_edit').append('<tr class="form-inline"><td><input id="from" type="hidden" name="from[]" value='+from+' />'+from+'</td><td><input class="form-control" id="to" type="number" name="to[]" required /></td><td><input class="form-control" id="price" type="number" name="price[]" required /></td></tr>');
+       });
+
+        $('#delivery_edit_remove_last').click(function(){
+            var row_index = $('#dilivery_services_table_edit tr:last').index(); 
+            if(row_index >= 2){
+
+                $('#dilivery_services_table_edit tr:last').remove();
+            }
+        });
+
+        //end delivery services
+
+
+
+
 
         $(".add-more").click(function() {
             var html = $(".copy").html();
