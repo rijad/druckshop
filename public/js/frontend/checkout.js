@@ -119,8 +119,12 @@ function displayFieldsContent(page_options = ""){
 			$("#mirror").empty();
 			$("#mirror").append("<option value='-1'>Select</option>");
 			for( var i = 0; i<len; i++){  
-				$("#mirror").append("<option value = "+$content_attributes['mirror'][i]['id']+">"+$content_attributes['mirror'][i]['mirror']+"</option>");
+				$("#mirror").append("<option value = "+$content_attributes['mirror'][i]['id'] +">"+$content_attributes['mirror'][i]['mirror']+"</option>");
+			if($content_attributes['mirror'][i]['mirror'] == 'Long edge'){
+				$("#mirror").val($content_attributes['mirror'][i]['id']);
+		} 
 			}
+
 		}else{
 			document.getElementById('div-mirror').className = "displayNone";
 		}

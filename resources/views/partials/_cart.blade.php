@@ -58,7 +58,7 @@
             </div>   
             <div class="cart-form-shop w-100">
                 <p>Please Fill in Details</p>
-                        <form method = "POST" action="{{route('order-details')}}">
+                        <form method = "POST" action="{{route('orders-details')}}">
                         	@csrf
                             <div class="form-group">
                               <label for="text">No of Copies*:</label>

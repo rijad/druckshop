@@ -94,16 +94,16 @@
 										</select></p> <p class="error" id="error_page_options"></p>
 									</div>
 
-									<div class="displayBlock" id="div-paper-weight">
-										<label>Paper Weight*:<a href="#" data-toggle="tooltip" title="
-											for one-sided 100 g/m² paper <br> for two-sided 120 g/m² paper" class="formToolTip">i</a></label>
-										<p><select class = "" name="paper-weight" id="paper-weight" onclick="displayPrice(this,'','');"><option value="-1">Select</option></select></p> <p class="error" id="error_paper_weight"></p>
-									</div>
-
 									<div class="displayNone" id="div-mirror">
 										<label>Mirror*:</label>
 										<p><select class = "" id="mirror" name="mirror"><option value="-1">Select</option></select></p> <p class="error" id="error_mirror"></p>
 									</div>
+
+									<div class="displayBlock" id="div-paper-weight">
+										<label>Paper Weight*:<a href="#" data-toggle="tooltip" title="
+											for one-sided 100 g/m² paper <br> for two-sided 120 g/m² paper" class="formToolTip">i</a></label>
+										<p><select class = "" name="paper-weight" id="paper-weight" onclick="displayPrice(this,'','');"><option value="-1">Select</option></select></p> <p class="error" id="error_paper_weight"></p>
+									</div> 
 
 									<div class="displayBlock" id="div-no-of-copies">
 										<label>No of Pages*:<a href="#" data-toggle="tooltip" title="
@@ -212,14 +212,14 @@
 												</div>
 
 												<div class="displayNone" id="div-template">
-													<label>Template*:</label>
+													<label>Template*:<a href="#" data-toggle="tooltip" title="Data is taken from cover sheet" class="formToolTip">i</a></label>
 													<p><select name ="template" id="template" onchange="displayPopUp(this.value);"><option value="-1">Select</option><option value="Standardvorlage mit Logo">Standardvorlage mit Logo</option><option value="Standardvorlage ohne Logo">Standardvorlage ohne Logo</option><option value="Eigene Vorlage">Eigene Vorlage</option></select></p>
 													<p class="error" id="error_template"></p>
 												</div>
 
 												<div class="displayNone" id="upload_custom_logo" ondrop="upload_file(event,this.id)" ondragover="return false" class="displayBlock">
 													<div id="drag_upload_file">
-														<p>Drop file here</p> 
+														<p>Drop file here<a href="#" data-toggle="tooltip" title="jpeg,jpg,png" class="formToolTip">i</a></p> 
 														<p>or</p>
 														<p><input type="button" value="Select File" onclick="file_explorer('upload_custom_logo');"></p>
 														<input type="file" name ="selectfile" id="selectfile" accept="image/x-png">
@@ -229,7 +229,7 @@
 												</div>  
 												<p class="error" id="error_selectfile_logo"></p>
 
-												<div id="drop_file_zone_logo_info" class="displayNone"><label id="logo_file_name"></label>
+												<div id="drop_file_zone_logo_info" class="displayNone"><label id="logo_file_name"><a href="#" data-toggle="tooltip" title="Data is taken from cover sheet" class="formToolTip">i</a></label>
 													<label id="logo_page_no"></label><label id="logo_del"></label></div>
 														<p><select id ="template">
 															<option value="-1">Select</option>
@@ -346,7 +346,7 @@
 														</div>
 
 														<div class="displayBlock" id="div-data-check">
-															<label>Data Check*:</label>
+															<label>Data Check*:<a href="#" data-toggle="tooltip" title="Data Check Select" class="formToolTip">i</a></label>
 															<p><select id = "data_check" name = "data_check" onclick="displayPrice('','',this);"><option value = "-1">Select</option>
 																@foreach ($data_check as $key=>$listing)
 																<option value="{{$listing->id}}">{{$listing->check_list}}</option>  

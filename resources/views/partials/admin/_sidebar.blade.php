@@ -10,7 +10,7 @@
                                 <div class="sb-nav-link-icon">
                                     <i class="fa fa-sliders"></i>
                                 </div>Users</a>
-                            <a class="nav-link" href="{{ route('slider.index') }}">
+                            <a class="nav-link" href="{{ route('slider.index') }}"> 
                                 <div class="sb-nav-link-icon">
                                     <i class="fa fa-sliders"></i>
                                 </div>Sliders</a>
