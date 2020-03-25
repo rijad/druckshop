@@ -1,4 +1,4 @@
-		<div class="content-wrapper">
+<div class="content-wrapper">
 			<div class="container">
 
 				<div class="checkoutStepper col-full text-left">
@@ -232,7 +232,7 @@
 												<div id="drop_file_zone_logo_info" class="displayNone"><label id="logo_file_name"><a href="#" data-toggle="tooltip" title="Data is taken from cover sheet" class="formToolTip">i</a></label>
 													<label id="logo_page_no"></label><label id="logo_del"></label></div>
 														<p><select id ="template">
-															<option value="-1">Select</option>
+															<option value="-1">Select</option><a href="#" data-toggle="tooltip" title="Data is taken from cover sheet" class="formToolTip">i</a>
 															<option value="Standardvorlage mit Logo">Standardvorlage mit Logo</option>
 															<option value="Standardvorlage ohne Logo">Standardvorlage ohne Logo</option>
 															<option value="Eigene Vorlage">Eigene Vorlage</option></select></p>
