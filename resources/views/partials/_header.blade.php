@@ -1,7 +1,3 @@
- 
-
-
-
 <header id="site-header">   
 			<div class="topHeader">
 				<div class="container"> 
@@ -78,7 +74,7 @@
 
 			</div>
 
-			<div class="nav-wrapper">
+			<div class="nav-wrapper"> 
 				<div class="container"> 
 						 
 					<nav class="site-nav navbar navbar-expand-md p-0">

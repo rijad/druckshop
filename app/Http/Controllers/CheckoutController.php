@@ -548,6 +548,8 @@ public function paymentPaypalSuccess(Request $request){
 		$OrderDetailsFinal->status= $_GET['st'];
 		$OrderDetailsFinal->txn= $_GET['tx'];
 		$OrderDetailsFinal->state="New";
+		$OrderDetailsFinal->assigned_to = 0;
+		$OrderDetailsFinal->priority= "Normal";
 		$OrderDetailsFinal->save();
 
 	//$OrderDetailsFinal = $OrderDetails;
@@ -634,6 +636,8 @@ public function cashOnDelivery(Request $request){
 		$OrderDetailsFinal->status= "Pending";
 		$OrderDetailsFinal->txn= $txn;
 		$OrderDetailsFinal->state="New";
+		$OrderDetailsFinal->assigned_to = 0;
+		$OrderDetailsFinal->priority= "Normal";
 		$OrderDetailsFinal->save();
 
 	//$OrderDetailsFinal = $OrderDetails;
@@ -774,7 +778,7 @@ public static function CartCount(){
 		return 0;
 	}
 
-
+ 
 }  
 		
 }

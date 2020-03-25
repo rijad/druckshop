@@ -60,7 +60,7 @@ Route::get('/get-price','CheckoutController@getPrice')->name('get-price');
 Route::get('/get-relations-content','CheckoutController@getContentAttributes')->name('get-relations-content');
 
 Route::POST('/product-order','CheckoutController@saveOrder')->name('product-order');
-Route::POST('/order-details','CheckoutController@orderDetails')->name('order-details');
+Route::POST('/orders-details','CheckoutController@orderDetails')->name('orders-details');
 Route::POST('/set-quantity','CheckoutController@setQuantity')->name('set-quantity');
 Route::get('/remove-item/{id}','CheckoutController@removeItem')->name('remove-item');
 Route::get('/cart','CheckoutController@cart')->name('cart');
@@ -148,7 +148,7 @@ Route::resource('/paper','PaperController');
   
 
 Route::get('/dashboard-login', function () {
-    return view('/pages/admin/adminusers/loginDashBoard'); 
+    return view('/pages/admin/users/loginDashBoard'); 
 })->name('dashboard-login');
 // Auth::routes();
 
