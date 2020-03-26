@@ -46,53 +46,53 @@ class DeliveryController extends Controller
         $validator = Validator::make($request->all(), [
             
             'name' => 'required',
-            ]);
+        ]);
+        
+        if ($validator->fails()) {
             
-            if ($validator->fails()) {
-                
-                return redirect()->back()
-                ->withErrors($validator)
-                ->withInput();
-            }
+            return redirect()->back()
+            ->withErrors($validator)
+            ->withInput();
+        }
+        
+        if($request->input('active') == "on"){
             
-            if($request->input('active') == "on"){
-                
-                $active_status = 1;
-            }else{
-                
-                $active_status = 0;
-            }
+            $active_status = 1;
+        }else{
             
-            
-            $insert = DeliveryService::create([
-                'delivery_service' => $request->name,
-                 'shipment_tracking_link'=> @$request->shipment_tracking_link,
-                 'active_status'=>$active_status]);
-            
-            if($insert){
+            $active_status = 0;
+        }
+        
+        
+        $insert = DeliveryService::create([
+            'delivery_service' => $request->name,
+            'shipment_tracking_link'=> @$request->shipment_tracking_link,
+            'active_status'=>$active_status]);
+        
+        if($insert){
 
-                if(!empty($request->from) && !empty($request->to) && !empty($request->price)){
+            if(!empty($request->from) && !empty($request->to) && !empty($request->price)){
 
-                    foreach ($request->from as $key => $value) {
-                        
-                        if(!empty($request['to'][$key]) && !empty($request['price'][$key])){
+                foreach ($request->from as $key => $value) {
+                    
+                    if((!empty($request['to'][$key]) || $request['to'][$key] == '0') && (!empty($request['price'][$key]) || $request['to'][$key] == '0') ){
 
-                            $attr_data = [
-                                
-                                'delivery_service_id' => $insert->id,
-                                'ds_from' => $request['from'][$key],
-                                'ds_to' => $request['to'][$key],
-                                'ds_price' => $request['price'][$key],
-                            ];
+                        $attr_data = [
                             
-                            $store_attributes = LettesOfSpine::create($attr_data);
-                        }
+                            'delivery_service_id' => $insert->id,
+                            'ds_from' => $request['from'][$key],
+                            'ds_to' => $request['to'][$key],
+                            'ds_price' => $request['price'][$key],
+                        ];
                         
-                        }
+                        $store_attributes = LettesOfSpine::create($attr_data);
                     }
-                               
+                    
+                }
             }
-            return redirect()->back()->with('status' , 'Created');
+            
+        }
+        return redirect()->back()->with('status' , 'Created');
     }
 
     /**
@@ -131,69 +131,69 @@ class DeliveryController extends Controller
         $validator = Validator::make($request->all(), [
             
             'name' => 'required',
-            ]);
+        ]);
+        
+        if ($validator->fails()) {
             
-            if ($validator->fails()) {
-                
-                return redirect()->back()
-                ->withErrors($validator)
-                ->withInput();
-            }
+            return redirect()->back()
+            ->withErrors($validator)
+            ->withInput();
+        }
+        
+        if($request->input('active') == "on"){
             
-            if($request->input('active') == "on"){
-                
-                $active_status = 1;
-            }else{
-                
-                $active_status = 0;
-            }
+            $active_status = 1;
+        }else{
             
-            $delivery = DeliveryService::find($id);
+            $active_status = 0;
+        }
+        
+        $delivery = DeliveryService::find($id);
 
-            if(!empty($delivery)){
+        if(!empty($delivery)){
 
-                $delivery->delivery_service = $request->name;
-                $delivery->shipment_tracking_link = @$request->shipment_tracking_link;
-                $delivery->active_status = $active_status;
+            $delivery->delivery_service = $request->name;
+            $delivery->shipment_tracking_link = @$request->shipment_tracking_link;
+            $delivery->active_status = $active_status;
 
-                $delivery->save();
+            $delivery->save();
 
-                if(!empty($request->from) && !empty($request->to) && !empty($request->price)){
+            if(!empty($request->from) && !empty($request->to) && !empty($request->price)){
 
-                    foreach ($request->from as $key => $value) {
+                foreach ($request->from as $key => $value) {
+                    
+                    if( !empty($request['to'][$key]) && !empty($request['price'][$key]) ) {
+
                         
-                        if( !empty($request['to'][$key]) && !empty($request['price'][$key]) ) {
+                        $check_already = LettesOfSpine::find($request['id'][$key]);
 
-                            
-                            $check_already = LettesOfSpine::find($request['id'][$key]);
+                        if(!empty($check_already)){
 
-                            if(!empty($check_already)){
+                            $check_already->ds_from =  $request['from'][$key];
+                            $check_already->ds_to =  $request['to'][$key];
+                            $check_already->ds_price =  $request['price'][$key];
 
-                                $check_already->ds_from =  $request['from'][$key];
-                                $check_already->ds_to =  $request['to'][$key];
-                                $check_already->ds_price =  $request['price'][$key];
+                            $check_already->save();
+                        }else{
 
-                                $check_already->save();
-                            }else{
-
-                                $attr_data = [
-                                    
-                                    'delivery_service_id' => $id,
-                                    'ds_from' => $request['from'][$key],
-                                    'ds_to' => $request['to'][$key],
-                                    'ds_price' => $request['price'][$key],
-                                ];
+                            $attr_data = [
                                 
-                                $store_attributes = LettesOfSpine::create($attr_data);
-                            }
-                        }
-                        
+                                'delivery_service_id' => $id,
+                                'ds_from' => $request['from'][$key],
+                                'ds_to' => $request['to'][$key],
+                                'ds_price' => $request['price'][$key],
+                            ];
+                            
+                            $store_attributes = LettesOfSpine::create($attr_data);
                         }
                     }
-
+                    
                 }
-                               
-                return redirect()->back()->with('status' , 'Created');
+            }
+
+        }
+        
+        return redirect()->back()->with('status' , 'Created');
 
     }
 
