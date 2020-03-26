@@ -9,7 +9,7 @@ $.ajaxSetup({
   e.preventDefault(); 
   fileobj = e.dataTransfer.files[0];
   //to restrict only to pdf file format
-  if(fileobj.type == "application/pdf"){
+  if(fileobj.type == "application/pdf"){ 
   ajaxFileUpload(fileobj,id);
   }else{
     return false;
@@ -32,11 +32,11 @@ function ajaxFileUpload(file_obj,id) {  alert(id);
   form_data.append('file', file_obj);
   $.ajax({ 
     type: 'POST',
-    url: '/print-shop/upload-file',
+    url: '/druckshop/upload-file',
     contentType: false,
     processData: false,
     data: form_data,
-    success:function(response) {
+    success:function(response) {  console.log(response);
  
       $('#selectfile').val('');
       var data = JSON.parse(response); 
@@ -74,27 +74,28 @@ function ajaxFileUpload(file_obj,id) {  alert(id);
       }else if(id == "drop_file_din_A3"){
 
         // $('#drop_file_din_A3').empty();
-        document.getElementById('drag_upload_file').className = "displayNone";
+        document.getElementById('drag_upload_file_A3').className = "displayNone";
         $('#drop_file_din_A3').append('<div id="del" class="displayBlock"><span class="upload-msg">File Uploaded</span><span id="A3_del"><i class="fa fa-trash"></i></span></div>');
         document.getElementById('drop_file_din_A3_info').className = "displayBlock";
         document.getElementById('A3_file_name').innerHTML = "File Name:"+data['data']['file_name'];
         document.getElementById('A3_page_no').innerHTML = "No of Pages:"+data['data']['no_of_pages'];
+        document.getElementById('selectfile_din_A3').value = data['data']['edit_name'];
         $('#A3_del').attr('onclick',"removeFile('"+data['data']['edit_name']+"','"+id+"')");
 
       }else if(id == "drop_file_din_A2"){
-
         // $('#drop_file_din_A2').empty();
-        document.getElementById('drag_upload_file').className = "displayNone";
+        document.getElementById('drag_upload_file_A2').className = "displayNone";
         $('#drop_file_din_A2').append('<div id="del" class="displayBlock"><span class="upload-msg">File Uploaded</span><span id="A2_del"><i class="fa fa-trash"></i></span></div>');
         document.getElementById('drop_file_din_A2_info').className = "displayBlock";
         document.getElementById('A2_file_name').innerHTML = "File Name:"+data['data']['file_name'];
         document.getElementById('A2_page_no').innerHTML = "No of Pages:"+data['data']['no_of_pages'];
+        document.getElementById('selectfile_din_A2').value = data['data']['edit_name'];
         $('#A2_del').attr('onclick',"removeFile('"+data['data']['edit_name']+"','"+id+"')");
         
       }else if(id == "upload_custom_logo"){
         
         // $('#upload_custom_logo').empty();
-        document.getElementById('drag_upload_file').className = "displayNone";
+        document.getElementById('drag_upload_file_logo').className = "displayNone";
         $('#upload_custom_logo').append('<div id="del" class="displayBlock"><span class="upload-msg">File Uploaded</span><span id="logo_del"><i class="fa fa-trash"></i></span></div>');
         document.getElementById('upload_custom_logo_info').className = "displayBlock";
         document.getElementById('logo_file_name').innerHTML = "File Name:"+data['data']['file_name'];
@@ -105,13 +106,24 @@ function ajaxFileUpload(file_obj,id) {  alert(id);
       }else if(id == "upload_cd"){
         
         // $('#upload_cd').empty();
-        document.getElementById('drag_upload_file').className = "displayNone";
+        document.getElementById('drag_upload_file_cd').className = "displayNone";
         $('#upload_cd').append('<div id="del" class="displayBlock"><span class="upload-msg">File Uploaded</span><span id="cd_del"><i class="fa fa-trash"></i></span></div>');
         document.getElementById('drop_file_zone_cd').className = "displayBlock";
         document.getElementById('cd_file_name').innerHTML = "File Name:"+data['data']['file_name'];
         document.getElementById('cd_page_no').innerHTML = "No of Pages:"+data['data']['no_of_pages'];
         document.getElementById('selectfile_cd').value = data['data']['edit_name'];
         $('#cd_del').attr('onclick',"removeFile('"+data['data']['edit_name']+"','"+id+"')");
+        
+      }else if(id == "drop_pdf"){  // free sample page
+        
+        // $('#upload_cd').empty(); 
+        document.getElementById('drag_upload_file_sample').className = "displayNone";
+        $('#drop_pdf').append('<div id="del" class="displayBlock"><span class="upload-msg">File Uploaded</span><span id="cd_del"><i class="fa fa-trash"></i></span></div>');
+        document.getElementById('drop_file_zone_pdf').className = "displayBlock";
+        document.getElementById('pdf_file_name').innerHTML = "File Name:"+data['data']['file_name'];
+        document.getElementById('pdf_page_no').innerHTML = "No of Pages:"+data['data']['no_of_pages'];
+        document.getElementById('selectfile_free_sample').value = data['data']['edit_name'];
+        $('#pdf_del').attr('onclick',"removeFile('"+data['data']['edit_name']+"','"+id+"')");
         
       }
       
@@ -142,7 +154,7 @@ function removeFile(file_name,id){
     // remove previously uploaded file
 
     $.ajax({
-    url: '/print-shop/remove-file', 
+    url: '/druckshop/remove-file', 
     type: 'POST',
     data: {'file_name': file_name},
     success: function (response){

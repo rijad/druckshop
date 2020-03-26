@@ -103,7 +103,7 @@
 										<label>Paper Weight*:<a href="#" data-toggle="tooltip" title="
 											for one-sided 100 g/m² paper <br> for two-sided 120 g/m² paper" class="formToolTip">i</a></label>
 										<p><select class = "" name="paper-weight" id="paper-weight" onclick="displayPrice(this,'','');"><option value="-1">Select</option></select></p> <p class="error" id="error_paper_weight"></p>
-									</div> 
+									</div>  
 
 									<div class="displayBlock" id="div-no-of-copies">
 										<label>No of Pages*:<a href="#" data-toggle="tooltip" title="
@@ -140,27 +140,31 @@
 										<div class="displayNone" id="div-page-numbers">
 											<label>Page Numbers to be printed in Colored *:<a href="#" data-toggle="tooltip" title="Page numbers of the PDF file, not of the thesis (document)" class="formToolTip">i</a></label>
 
-											<p><input class= "" name="page_numbers" id="page-numbers" placeholder="Page Numbers" value = "" oninput="checkPageRange('selectfile_content','content_page_no', this.value);">
+											<p><input class= "" name="page_numbers" id="page-numbers" placeholder="Page Numbers" value = "">
 												<p class="error" id="error_page_numbers"></p>
 												<p class="error" id="error_range"></p><label>Example : 3,12,15-23,37</label></p>
 
 											<div class="displayBlock" id="div-A3-pages">
-												<label class="csCheckbtn">A3 Pages
-													<input class = ""  name = "A3-pages" id = "A3-pages" type="checkbox" onclick="displayContentInput('A3_Pages');">
+												<label class="csCheckbtn">DIN A3 Pages
+													<input class = ""  name = "A3-pages" id = "A3-pages" type="checkbox" onclick="displayContentInput('A3_Pages');"> 
 													<span class="checkmark"></span>
 												</label>
 											</div>
  
 											<div class="displayNone" id="div-number-of-pages">
-												<label>Number of DIN A3 Pages*:<a href="#" data-toggle="tooltip" title="Page numbers of the PDF file, not of the thesis (document)" class="formToolTip">i</a></label>
-												<p><input class = "" name="number_of_pages" id="numbers-of-pages" placeholder="Number of Pages"  max="10"></p><p class="error" id="error_number_of_pages"></p>
+												<label>Number of DIN A3 Pages*:<a href="#" data-toggle="tooltip" title=" It is printed with the same paper type and one-sided.  <br> 
+													It is printed with the same paper type and one-sided. " class="formToolTip">i</a></label>
+												<p><input class = "" name="number_of_pages" id="numbers-of-pages" placeholder="Number of Pages"  max="10">
+												</p>
+												<p id="A3_msg" class="displayNone">The maximum number of DIN A3 pages is: 10</p>
+												<p class="error" id="error_number_of_pages"></p>
 											</div>
 											<div class="displayNone" id="div-pos-A3-pages">
 												<label>Position A3 Pages in Work</label>
 												<p><textarea class = ""  name="pos_of_A3_pages" id=" pos-of-A3-pages" placeholder="Number of Pages" ></textarea></p>
 											</div>
 											<div class="displayNone" id="drop_file_din_A3" ondrop="upload_file(event,this.id)" ondragover="return false" class="displayBlock">
-												<div id="drag_upload_file">
+												<div id="drag_upload_file_A3" >
 													<p>Drop file here</p> 
 													<p>or</p>
 													<p><input type="button" value="Select File" onclick="file_explorer('drop_file_din_A3');"></p>
@@ -170,7 +174,8 @@
 											</div>
 											<p class="error" id="error_selectfile_din_A3"></p>
 
-											<div id="drop_file_zone_A3_info" class="displayNone"><label id="A3_file_name"></label>
+
+											<div id="drop_file_din_A3_info" class="displayNone"><label id="A3_file_name"></label>
 												<label id="A3_page_no"></label><label id="A3_del"></label></div>
 
 												<div class="displayBlock" id="div-A2-pages">
@@ -182,11 +187,13 @@
 
 												<div class="displayNone" id="div-number-of-A2-pages">
 													<label>Number of Pages*:</label>
-													<p><input class = "" name="number_of_A2_pages" id="numbers-of-A2-pages" placeholder="Number of Pages" value = "" max="10"></p><p class="error" id="error_number_of_A2_pages"></p>
+													<p><input class = "" name="number_of_A2_pages" id="numbers-of-A2-pages" placeholder="Number of Pages" value = "" max="3"></p>
+													<p id="A2_msg" class="displayNone">The maximum number of DIN A2 pages is: 3</p>
+													<p class="error" id="error_number_of_A2_pages"></p>
 												</div>
 
 												<div class="displayNone" id="drop_file_din_A2" ondrop="upload_file(event,this.id)" ondragover="return false" class="displayBlock">
-													<div id="drag_upload_file">
+													<div id="drag_upload_file_A2" >
 														<p>Drop file here</p> 
 														<p>or</p>
 														<p><input type="button" value="Select File" onclick="file_explorer('drop_file_din_A2');"></p>
@@ -195,9 +202,10 @@
 														<input type="hidden" name="selectfile_din_A2" id="selectfile_din_A2" accept="application/pdf">
 													</div>
 												</div> 
+
 												<p class="error" id="error_selectfile_din_A2"></p>
 
-												<div id="drop_file_zone_A2_info" class="displayNone"><label id="A2_file_name"></label>
+												<div id="drop_file_din_A2_info" class="displayNone"><label id="A2_file_name"></label>
 													<label id="A2_page_no"></label><label id="A2_del"></label></div>
 
 												</div>
@@ -218,7 +226,7 @@
 												</div>
 
 												<div class="displayNone" id="upload_custom_logo" ondrop="upload_file(event,this.id)" ondragover="return false" class="displayBlock">
-													<div id="drag_upload_file">
+													<div id="drag_upload_file_logo">
 														<p>Drop file here<a href="#" data-toggle="tooltip" title="jpeg,jpg,png" class="formToolTip">i</a></p> 
 														<p>or</p>
 														<p><input type="button" value="Select File" onclick="file_explorer('upload_custom_logo');"></p>
@@ -307,7 +315,7 @@
 													</div>
 
 													<div class="displayNone" id="upload_cd" ondrop="upload_file(event,this.id)" ondragover="return false" class="displayBlock">
-														<div id="drag_upload_file">
+														<div id="drag_upload_file_cd">
 															<p>Drop file here</p>  
 															<p>or</p>
 															<p><input type="button" value="Select File" onclick="file_explorer('upload_cd');"></p>

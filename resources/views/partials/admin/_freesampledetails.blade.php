@@ -39,6 +39,10 @@
         </tr> 
         <tr>
             <td>{{ $sample->zip_code }}</td>
-        </tr>                                                                
+        </tr>  
+        <tr>
+            <td><a href = '{{asset($sample->document)}}'>Document</a></td>
+        </tr>   
+
     @endforeach
 </table>
