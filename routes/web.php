@@ -127,17 +127,24 @@ Route::resource('/datacheck','DataCheckController');
 Route::resource('/art','ArtController');
 Route::resource('/discount','DiscountController');
 Route::resource('/gallery','GalleryController');
-
 Route::get('/details/{model}/{id}','ParameterController@details')->name('details'); 
 
+//order
 Route::get('/order','OrderController@index')->name('order');
 Route::get('/order-details/{order_id}','OrderController@edit')->name('order-details');
 Route::post('/order-edit/{id}','OrderController@update')->name('order-edit');
+
 Route::resource('/FAQ','FAQController');
 Route::resource('/product','ProductController');
 Route::get('/payment','PaymentController@index')->name('payment');
 Route::get('/delivery','DeliveryController@index')->name('delivery');
+
+//free sample
 Route::get('/freesample','FreeSampleController@index')->name('freesample');
+Route::get('/freesample-details/{id}','FreeSampleController@edit')->name('freesample-details');
+Route::post('/freesample-edit/{id}','FreeSampleController@update')->name('freesample-edit');
+
+
 Route::post('/dashboard-login-data','LoginController@authenticate')->name('dashboard-login-data');
 Route::get('/dashboard-logout-data','LoginController@logout')->name('dashboard-logout-data');
 

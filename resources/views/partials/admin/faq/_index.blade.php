@@ -44,8 +44,8 @@
                                     <tr>
                                         <td>{{ $fq->title_english }}</td>
                                         <td>{{ $fq->title_german }}</td>
-                                        <td>{{ $fq->text_english }}</td>
-                                        <td>{{ $fq->text_german }}</td>
+                                        <td>{{ substr(($fq->text_english),0,200) }}</td>
+                                        <td>{{ substr(($fq->text_german),0,200) }}</td>
                                         <td>
                                             <form method="GET" action="{{ route('FAQ.edit' , $fq->id) }}">
                                                 <input type="submit" value="edit" >
