@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Product;
+use App\PageFormat;
+use App\CoverSetting;
 
 class ProductController extends Controller
 {
@@ -27,6 +29,10 @@ class ProductController extends Controller
     public function create()
     {
         //
+        $pageFormat = PageFormat::where('status', 1)->limit(4)->get();
+        $coverSetting = CoverSetting::where('status', 1)->orderBy('id', 'DESC')->limit(4)->get();
+
+        return view('pages.admin.parameter.binding-create', compact('pageFormat', 'coverSetting'));
     }
 
     /**
