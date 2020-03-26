@@ -69,10 +69,10 @@ class OrderController extends Controller
      */
     public function edit(Request $request, $id)
     {
+        // dd($request->order_id);
         $users = UsersAdmin ::where('status', '1')->get();
         $orderstate = OrderState ::where('status', '1')->get();
-        $orderhistory = OrderDetailsFinal::where(['user_id'=>Auth::user()->id])
-                        ->with('orderProductHistory')
+        $orderhistory = OrderDetailsFinal::with('orderProductHistory')
                         ->where(['order_id' => $request->order_id ])
                         ->first();
         return view('/pages/admin/orderdetails',compact('orderhistory', 'users', 'orderstate'));

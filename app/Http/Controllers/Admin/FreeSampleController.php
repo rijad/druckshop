@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use App\FreeSample;
+use App\OrderState;
 use App\PaperWeight;
 
 class FreeSampleController extends Controller
@@ -17,8 +18,8 @@ class FreeSampleController extends Controller
      */
     public function index()
     {
-        // $freesample = FreeSample::where('status', '1')->get();
-        return view('/pages/admin/freesample');
+        $freesample = FreeSample::where('status', '1')->get();
+        return view('/pages/admin/freesample', compact('freesample'));
     }
 
     /**
@@ -71,11 +72,6 @@ class FreeSampleController extends Controller
                 $input['sample_status'] = 'in-progress';
             }
 
-            if($request->input('status') == "on"){
-                $input['status'] = 1;
-            }else{
-                $input['status'] = 0;
-            }
             $freesample = FreeSample::create($input);
         }
 
@@ -99,9 +95,12 @@ class FreeSampleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        //
+    public function edit(Request $request, $id)
+    { 
+        // dd($id);
+        $freesample = FreeSample::where(['id' => $request->id ])->get();
+        $orderstate = OrderState ::where('status', '1')->get();
+        return view('/pages/admin/freesampledetails',compact('freesample' , 'orderstate', 'id'));
     }
 
     /**
@@ -112,8 +111,21 @@ class FreeSampleController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
-        //
+    {  
+        $freesample = FreeSample::find($id);
+        // dd($freesample);
+        $validator = Validator::make($request->all(), [
+            'sample_status' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return redirect()->back()
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+        $freesample->sample_status = $request->sample_status;
+        $freesample->save();
+
+        return redirect()->back()->with('status' , 'Updated');
     }
 
     /**

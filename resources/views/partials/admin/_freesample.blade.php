@@ -2,7 +2,7 @@
                 <div class="card-header"><i class="fas fa-table mr-1"></i>DataTable</div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <table class="table table-bfreesampleed" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
                                     <tr>
                                         <th>State</th>
@@ -23,21 +23,18 @@
                                 </tfoot>
                                 <tbody>
                                 
+                                @foreach($freesample as $sample)
                                     <tr>
-                                        <td>Tiger Nixon</td>
-                                        <td>Tiger Nixon</td>
-                                        <td>Tiger Nixon</td>
-                                        <td>Tiger Nixon</td>
-                                        <td>System Architect</td>
+                                        <td>{{ $sample->sample_status }}</td>
+                                        <td>{{ $sample->first_name }}</td>
+                                        <td>{{ $sample->city }}</td>
+                                        <td>{{ $sample->street }}</td>
+                                        <td>
+                                            <button onclick="window.location='{{route('freesample-details' , 
+                                                ['id'=>$sample->id ]) }}'" class="remove_btn"> Details </button>
+                                        </td>
                                     </tr>  
-                                    
-                                    <tr>
-                                        <td>Tiger Nixon</td>
-                                        <td>Tiger Nixon</td>
-                                        <td>Tiger Nixon</td>
-                                        <td>Tiger Nixon</td>
-                                        <td>System Architect</td>
-                                    </tr> 
+                                @endforeach
                                 </tbody>
                             </table>
                         </div>
