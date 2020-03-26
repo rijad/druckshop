@@ -2,4 +2,4 @@
 
 @section('content')
 @include('partials/_freesample') 	
-@stop     
+@stop      

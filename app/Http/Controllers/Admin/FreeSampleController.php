@@ -8,13 +8,14 @@ use Illuminate\Support\Facades\Validator;
 use App\FreeSample;
 use App\OrderState;
 use App\PaperWeight;
+use App\PageOptions;
 
 class FreeSampleController extends Controller
 {
     /**FreeSample
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response 
      */
     public function index()
     {
@@ -30,7 +31,8 @@ class FreeSampleController extends Controller
     public function create()
     {
         $paper_weight = PaperWeight::where('status' , '1')->get();
-        return view('pages.front-end.freesample', compact('paper_weight'));
+        $page_options = PageOptions::where('status' , '1')->get();
+        return view('pages.front-end.freesample', compact('paper_weight','page_options'));
     }
 
     /**
@@ -40,7 +42,7 @@ class FreeSampleController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {  //dd($request->input());
         $validator = Validator::make($request->all(), [
             'side_option' => 'required',
             'paper_weight' => 'required',
@@ -52,8 +54,8 @@ class FreeSampleController extends Controller
             'addition_to_address' => 'required',
             'zip_code' => 'required',
             'city' => 'required',
-            // 'document' => 'required',
-            'sample_status' => 'nullable',
+            'selectfile_free_sample' => 'required',
+            'sample_status' => 'nullable', 
             'status' => 'nullable',
         ]);
         if ($validator->fails()) {
@@ -62,7 +64,7 @@ class FreeSampleController extends Controller
                         ->withInput();
         } 
 
-        if ($validator->passes()){
+        if ($validator->passes()){ 
 
             $input = $request->all();
             
@@ -71,6 +73,9 @@ class FreeSampleController extends Controller
             }else{
                 $input['sample_status'] = 'in-progress';
             }
+
+            $input['document'] = 'public/uploads/'.$request->input('selectfile_free_sample');
+            $input['status'] = 1;
 
             $freesample = FreeSample::create($input);
         }

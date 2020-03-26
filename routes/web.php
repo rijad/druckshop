@@ -19,7 +19,7 @@ Route::get('/clear-cache', function() {
     $exitCode = Artisan::call('cache:clear');
     return '<h1>Cache facade value cleared</h1>';
 });
-
+ 
 //Reoptimized class loader:
 Route::get('/optimize', function() {
     $exitCode = Artisan::call('optimize');
@@ -49,7 +49,7 @@ Route::get('/config-cache', function() {
     $exitCode = Artisan::call('config:cache');
     return '<h1>Clear Config cleared</h1>'; 
 });
-
+ 
 Route::get('/', 'IndexController@sendData')->name('index');
 Route::get('/products', 'ProductController@sendData')->name('products');
 Route::get('/product-information', 'ProductInfoController@sendData')->name('product-information');
@@ -148,7 +148,7 @@ Route::post('/freesample-edit/{id}','FreeSampleController@update')->name('freesa
 Route::post('/dashboard-login-data','LoginController@authenticate')->name('dashboard-login-data');
 Route::get('/dashboard-logout-data','LoginController@logout')->name('dashboard-logout-data');
 
-
+ 
 //Parameters Route :Sachin
 Route::resource('/deliveryService','DeliveryController');
 Route::resource('/paper','PaperController');
