@@ -27,6 +27,7 @@ use App\OrderDetails;
 use App\Payment;
 use App\OrderDetailsFinal;
 use App\OrderHistory;
+use App\ProductPaperWeight;
 use App\User;
 use Auth;
 use Session; 
@@ -777,9 +778,18 @@ public static function CartCount(){
 	}else{
 		return 0;
 	}
+} 
 
- 
-}  
+
+public function paperWeightSheets(Request $request){
+
+	$range = ProductPaperWeight::where(['product_id'=>$request->input('binding'),'paper_weight_id'=>$request->input('weight')])->get(['min_sheets','max_sheets']);
+
+	return json_encode($range);
+
+
+
+} 
 		
 }
   

@@ -63,6 +63,8 @@ Route::POST('/product-order','CheckoutController@saveOrder')->name('product-orde
 Route::POST('/orders-details','CheckoutController@orderDetails')->name('orders-details');
 Route::POST('/set-quantity','CheckoutController@setQuantity')->name('set-quantity');
 Route::get('/remove-item/{id}','CheckoutController@removeItem')->name('remove-item');
+Route::POST('/paper-weight-sheets','CheckoutController@paperWeightSheets')->name('paper-weight-sheets');
+
 Route::get('/cart','CheckoutController@cart')->name('cart');
 Route::get('/customer-area','CustomerAreaController@index')->name('customer-area');
 Route::get('/repeat-order/{order_id}','RepeatOrderController@RepeatOrder')->name('repeat-order');
