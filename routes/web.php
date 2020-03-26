@@ -127,6 +127,7 @@ Route::resource('/datacheck','DataCheckController');
 Route::resource('/art','ArtController');
 Route::resource('/discount','DiscountController');
 Route::resource('/gallery','GalleryController');
+Route::resource('/pageformat','PageFormatController');
 Route::get('/details/{model}/{id}','ParameterController@details')->name('details'); 
 
 //order
