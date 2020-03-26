@@ -1,6 +1,6 @@
 <div class="card mb-4 mt-4">
     <div class="card-header">
-        <h2>Create New Paper Weight</h2>
+        <h2>Create New Binding</h2>
 
         <div class="card-body col-md-12">
 
@@ -15,19 +15,36 @@
                     <label class="small mb-1" for="name">Name In English</label>
                     <input class="form-control" id="name_in_en" name="name_in_en" type="text" placeholder="Name" required />
                 </div>
+
                 <div class="form-group">
                     <label class="small mb-1" for="name">Name In DEUTSCH</label>
                     <input class="form-control" id="name_in_dh" name="name_in_dh" type="text" placeholder="Name" required />
                 </div>
+                
+                <div class="form-group">
+                    <label class="small mb-1" for="name">Upload Binding Image</label>
+                    <input class="form-control" type="file" id="name_in_dh" name="name_in_dh" required />
+                </div>
+
 
                 <div class="form-group">
-                    <label class="small mb-1" for="name">Weight per sheet</label>
-                    <input class="form-control" id="weight_per_sheet" name="weight_per_sheet" type="text" value="0" placeholder="Weight per sheet" required />
+                    <label class="small mb-1" for="name">Page Format</label>
+                    <div class="form-inline">
+                        @foreach ($pageFormat as $key => $value)
+                        <span class="ml-4"><input type="checkbox" class="form-control" name="pageFormat[]" value="{{ $value->id }}" />{{ $value->page_format }}</span>
+                        @endforeach
+
+                    </div>
                 </div>
 
                 <div class="form-group">
-                    <label class="small mb-1" for="name">Minimum number of sheets for spine</label>
-                    <input class="form-control" id="min_sheets_for_spine" name="min_sheets_for_spine" type="text" value="0" placeholder="Min number of sheet for spine" required />
+                    <label class="small mb-1" for="name">Cover Settings</label>
+                    <div class="form-inline">
+                        @foreach ($coverSetting as $key => $value1)
+                        <span class="ml-4"><input type="checkbox" class="form-control" name="pageFormat[]" value="{{ $value1->id }}" />{{ $value1->cover_settings }}</span>
+                        @endforeach
+
+                    </div>
                 </div>
 
                 <div class="form-group ">
@@ -76,7 +93,7 @@
                         </tr>
 
                     </table>
-                   
+
 
 
                 </div>
@@ -106,11 +123,11 @@
 
 
     <style>
-        tr>th {
-            padding: 8px;
-        }
+    tr>th {
+        padding: 8px;
+    }
 
-        tr>td {
-            padding: 8px;
-        }
-    </style>
+    tr>td {
+        padding: 8px;
+    }
+</style>

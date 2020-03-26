@@ -64,6 +64,64 @@
         //end delivery services
 
 
+        //Add: add more for paper weight
+        $('#paper_weight_add_more').click(function(){
+
+            var from = 0;
+            get_to_value = $('#paper_weight_table tr:last td:nth(1) input').val();
+
+            if (get_to_value) {
+
+                from = get_to_value;
+            }else{ 
+               from = 0;
+           }
+
+           $('#paper_weight_table').append('<tr class="form-inline"><td><input id="from" type="hidden" name="sheet_start[]" value='+from+' />'+from+'</td><td><input class="form-control" id="from" name="sheet_end[]"  placeholder="sheet range" /></td><td><input class="form-control" id="latters" type="number" name="latters[]" required /></td></tr>');
+       });
+
+        $('#paper_remove_last').click(function(){
+            var row_index = $('#paper_weight_table tr:last').index(); 
+            if(row_index >= 2){
+
+                $('#paper_weight_table tr:last').remove();
+            }
+        });
+
+        //end delivery services
+
+         //Edit: add, more for delivery services
+        $('#paper_weight_edit_add_new_row').click(function(){
+
+            var from = 0;
+            get_to_value = $('#paper_weight_edit_table tr:last td:nth(1) input').val();
+
+            if (get_to_value) {
+
+                from = get_to_value;
+            }else{ 
+               from = 0;
+           }
+
+           $('#paper_weight_edit_table').append('<tr class="form-inline"><td><input id="from" type="hidden" name="from[]" value='+from+' />'+from+'</td><td><input class="form-control" id="to" type="number" name="to[]" required /></td><td><input class="form-control" id="price" type="number" name="price[]" required /></td></tr>');
+       });
+
+        $('#paper_weight_edit_remove_last').click(function(){
+            var row_index = $('#paper_weight_edit_table tr:last').index(); 
+            if(row_index >= 2){
+
+                $('#paper_weight_edit_table tr:last').remove();
+            }
+        });
+
+        //end delivery services
+
+
+
+
+
+
+
 
 
 

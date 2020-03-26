@@ -152,6 +152,7 @@ Route::get('/dashboard-logout-data','LoginController@logout')->name('dashboard-l
 //Parameters Route :Sachin
 Route::resource('/deliveryService','DeliveryController');
 Route::resource('/paper','PaperController');
+Route::resource('/binding','ProductController');
 
 });
   
