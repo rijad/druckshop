@@ -24,7 +24,7 @@ $(document).ready(function () {
         }
     });
 
-    if ($('#can_add_din_A2').val() == 'on') {
+    if ($("#can_add_din_A2").is(":checked")) {
 
         $("#max_a22").show();
     } else {
@@ -33,7 +33,7 @@ $(document).ready(function () {
     }
 
 
-    if($('#can_add_din_A3').val() == 'on'){
+    if($("#can_add_din_A3").is(":checked")){
 
         $("#max_a33").show();
     }else{
