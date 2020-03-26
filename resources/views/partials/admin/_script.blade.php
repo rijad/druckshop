@@ -7,6 +7,7 @@
 <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
 <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
 <script src="{{ asset('public/js/admin/datatables-demo.js') }}"></script>
+<script src="{{ asset('public/js/admin/custom.js') }}"></script>
 
 <script type="text/javascript">
     $(document).ready(function() {

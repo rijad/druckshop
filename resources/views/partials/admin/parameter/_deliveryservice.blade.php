@@ -38,8 +38,6 @@
                                 @csrf
                                 <input type="submit" value="delete" class="btn btn-danger">
                             </form>
-                            
-
                         </td>
                     </tr>
                     @endforeach

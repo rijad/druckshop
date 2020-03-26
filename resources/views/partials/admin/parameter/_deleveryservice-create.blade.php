@@ -1,6 +1,6 @@
 <div class="card mb-4 mt-4">
     <div class="card-header">
-        <h2>Create New Delevery Services</h2>
+        <h2>Create New Delivery Services</h2>
 
         <div class="card-body col-md-6">
 
@@ -36,13 +36,8 @@
                         <button type="button" class="btn btn-primary btn-sm mr-2" id="delivery_add_more"> <span>Add new row</span></button>
                         <button type="button" class="btn btn-danger btn-sm mr-2" id="delivery_remove_last"> <span>Remove last row</span></button>
                     </div>
-
-
-
-
                 </div>
-
-
+                
                 <div class="form-group">
                     <div class="custom-control custom-checkbox small">
                         <input type="checkbox" class="custom-control-input" id="customCheck" name="active">
