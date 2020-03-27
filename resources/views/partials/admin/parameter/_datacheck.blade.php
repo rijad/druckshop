@@ -1,5 +1,5 @@
-<div class="card mb-4">
-                <div class="card-header"><i class="fas fa-table mr-1"></i>Data Check</div>
+<div class="card mb-4 mt-4">
+    <div class="card-header"><span>Data Check</span></div>
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -19,14 +19,14 @@
                                     @foreach($datacheck as $check)
                                     <tr>
                                         <td>{{ $check->check_list }}</td>
-                                        <td>
+                                        <td class="form-inline">
                                             <form method="GET" action="{{ route('datacheck.edit' , $check->id) }}">
-                                                <input type="submit" value="edit" >
+                                                <input type="submit" value="edit" class="btn btn-success">
                                             </form>
-                                            <form method="POST" action="{{ route('datacheck.destroy' , $check->id) }}">
+                                            <form method="POST" action="{{ route('datacheck.destroy' , $check->id) }}" class="ml-2">
                                             @method('DELETE')
                                             @csrf
-                                                <input type="submit" value="delete" >
+                                                <input type="submit" value="delete" class="btn btn-danger">
                                             </form>
                                         </td>
                                     </tr> 

@@ -137,7 +137,7 @@ class CoverColorController extends Controller
      */
     public function destroy($id)
     {
-        $covercolor = CoverColor::destroy($id);
+        $covercolor = CoverColor::where(['id' => $id])->update(['status' => 0]);
         return redirect()->back()->with('status' , 'Deleted');
     }
 }

@@ -190,7 +190,7 @@ class PageFormatController extends Controller
      */
     public function destroy($id)
     {
-        $format = PageFormat::destroy($id);
+        $format = PageFormat::where(['id' => $id])->update(['status' => 0]);
         return redirect()->back()->with('status' , 'Deleted');
     }
 }

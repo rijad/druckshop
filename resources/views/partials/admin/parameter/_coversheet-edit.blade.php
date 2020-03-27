@@ -29,14 +29,17 @@
             <div>
                 <label>Name</label>
                 <input type="text" name="sheet" value="{{ $coversheet->sheet }}">
+                <span class="text-danger">{{ $errors->first('sheet') }}</span>
             </div>
             <div>
                 <label>Name in English</label>
                 <input type="text" name="name_english" value="{{ $coversheet->name_english }}">
+                <span class="text-danger">{{ $errors->first('name_english') }}</span>
             </div>
             <div>
                 <label>Name in German</label>
                 <input type="text" name="name_german" value="{{ $coversheet->name_german }}">
+                <span class="text-danger">{{ $errors->first('name_german') }}</span>
             </div>
             <div>
                 <input type="checkbox" id="status" name="status" checked>

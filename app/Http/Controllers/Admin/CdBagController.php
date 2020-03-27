@@ -114,7 +114,7 @@ class CdBagController extends Controller
      */
     public function destroy($id)
     {
-        $cdbag = CdBag::destroy($id);
+        $cdbag = CdBag::where(['id' => $id])->update(['status' => 0]);
         return redirect()->back()->with('status' , 'Deleted');
     }
 }

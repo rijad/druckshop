@@ -1,71 +1,72 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"><html>
-<head>
-    <META http-equiv="Content-Type" content="text/html; charset=utf-8">
-</head>
-<body>
+<div class="card mb-4 mt-4">
+    <div class="card-header">
+        <h2>Edit Discount</h2>
 
-    @if (session('status'))
-    <div class="alert alert-success" role="alert">
-        {{ session('status') }}
-    </div>
-    @endif
-    @if ($errors->any())
-        <div class="alert alert-danger">
+        <div class="card-body col-md-8">
+
+        @if (session('status'))
+            <div class="alert alert-success" role="alert">
+                {{ session('status') }}
+            </div>
+        @endif
+        @if ($errors->any())
             <ul>
                 @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
                 @endforeach
             </ul>
-        </div>
-    @endif
-
-<div>
-  <div>
-    <div>
-    <form  method="POST" action="{{ route('discount.update' , $discount->id) }}" enctype="multipart/form-data" 
+        @endif
+    <form  class="form-group-inline" method="POST" action="{{ route('discount.update' , $discount->id) }}" enctype="multipart/form-data" 
             target="_blank">
         @method('PUT')
         @csrf
-            <div>
-                <label>Name</label>
-                <input type="text" name="code" value="{{ $discount->code }}">
+            <div class="form-group">
+                <label class="small mb-1" for="code">Name</label>
+                <input class="form-control" type="text" name="code" value="{{ $discount->code }}">
+                <span class="text-danger">{{ $errors->first('code') }}</span>
             </div>
-            <div>
-                <label>Name in English</label>
-                <input type="text" name="name_english" value="{{ $discount->name_english }}">
+            <div class="form-group">
+                <label class="small mb-1" for="name_english">Name in English</label>
+                <input class="form-control" type="text" name="name_english" value="{{ $discount->name_english }}">
+                <span class="text-danger">{{ $errors->first('name_english') }}</span>
             </div>
-            <div>
-                <label>Name in German</label>
-                <input type="text" name="name_german" value="{{ $discount->name_german }}">
+            <div class="form-group">
+                <label class="small mb-1" for="name_german">Name in German</label>
+                <input class="form-control" type="text" name="name_german" value="{{ $discount->name_german }}">
+                <span class="text-danger">{{ $errors->first('name_german') }}</span>
             </div>
-            <div>
-                <label>From Date</label>
-                <input type="date" id="from_date" name="from_date" value="{{ $discount->from_date }}">
+            <div class="form-group">
+                <label class="small mb-1" for="name_german">From Date</label>
+                <input class="form-control" type="date" id="from_date" name="from_date" value="{{ $discount->from_date }}">
             </div>
-            <div>
-                <label>To Date</label>
-                <input type="date" id="to_date" name="to_date" value="{{ $discount->to_date }}">
+            <div class="form-group">
+                <label class="small mb-1" for="to_date">To Date</label>
+                <input class="form-control" type="date" id="to_date" name="to_date" value="{{ $discount->to_date }}">
             </div>
-            <div>
+            <div class="form-group">
                 <input type="radio" id="by_price" name="by_discount" value="by_price">
                 <label for="by_price">By_Price</label><br>
                 <input type="radio" id="by_percent" name="by_discount" value="by_percent">
                 <label for="by_percent">By_Percent</label><br>
             </div>
-            <div>
-                <label>Discount</label>
-                <input type="text" name="discount" value="{{ $discount->discount }}">
+            <div class="form-group">
+                <label class="small mb-1" for="discount">Discount</label>
+                <input class="form-control" type="text" name="discount" value="{{ $discount->discount }}">
+                <span class="text-danger">{{ $errors->first('discount') }}</span>
             </div>
-            <div>
-                <input type="checkbox" id="needs_code" name="needs_code" checked>
-                <label for="needs_code">Needs Code</label><br>
+            <div class="form-group">
+                <div class="custom-control custom-checkbox small">
+                    <input class="custom-control-input" type="checkbox" id="needs_code" name="needs_code" checked>
+                    <label class="custom-control-label" for="needs_code">Needs Code</label>
+                </div>
             </div>
-            <div>
-                <input type="checkbox" id="status" name="status">
-                <label for="status">Active</label><br>
+            <div class="form-group">
+                <div class="custom-control custom-checkbox small">
+                    <input class="custom-control-input" type="checkbox" id="status" name="status">
+                    <label class="custom-control-label" for="status">Active</label>
+                </div>
             </div>
-            <div>
-                <button type="update" value="update" name="update">Update</button>
+            <div class="form-group">
+            <input type="submit" class="btn btn-primary btn-user btn-block col-md-3" value="Update">
             </div>
       </form>
     </div>
