@@ -40,19 +40,27 @@
                             <th>Letters</th>
                         </tr>
 
+                        @if(!empty($attributes))
                         @foreach ($attributes as $key => $value)
                         <tr class="form-inline">
-                         <input id="from" type="hidden" name="id[]" value="{{ $value->id }}" />
-                         <td><input id="from" type="hidden" name="sheet_start[]" value="{{ $value->sheets_range_start }}" />{{ $value->sheets_range_start }}</td>
-                         <td><input id="from" type="hidden" name="sheet_end[]" value="{{ $value->sheets_range_end }}" />{{ $value->sheets_range_end }}</td>
-                         <td><input class="form-control" id="latters" type="number" name="latters[]" value="{{ $value->letters }}" /></td>
-                     </tr>
-                     @endforeach
+                           <input id="from" type="hidden" name="id[]" value="{{ $value['id'] }}" />
+                           <td><input id="from" type="hidden" name="sheet_start[]" value="{{ $value['sheets_range_start'] }}" />{{ $value['sheets_range_start'] }}</td>
+                           <td><input class="sheet_end_input" id="from" type="hidden" name="sheet_end[]" value="{{ $value['sheets_range_end'] }}" />{{ $value['sheets_range_end'] }}</td>
+                           <td><input class="form-control latters_input" id="latters" type="number" name="latters[]" value="{{ $value['letters'] }}" /></td>
+                       </tr>
+                       @endforeach
+                       @else
+                       <tr class="form-inline">
+                           <td><input id="from" type="hidden" name="sheet_start[]" value="0" />0</td>
+                           <td><input class="sheet_end_input" id="from" type="hidden" name="sheet_end[]" value="65" />65</td>
+                           <td><input class="form-control latters_input" id="latters" type="number" name="latters[]" value="40" /></td>
+                       </tr>
+                       @endif
 
-                 </table>
-             </div>
+                   </table>
+               </div>
 
-             <div class="form-group">
+               <div class="form-group">
                 <button type="button" class="btn btn-primary btn-sm mr-2" id="paper_weight_edit_add_new_row"> <span>Add new row</span></button>
                 <button type="button" class="btn btn-danger btn-sm mr-2" id="paper_weight_edit_remove_last"> <span>Remove last row</span></button>
             </div>

@@ -15,6 +15,8 @@
         //Add: add more for delivery services
         $('#delivery_add_more').click(function(){
 
+            $( "#delivery_add_more" ).prop( "disabled", true );
+
             var from = 0;
             get_to_value = $('#dilivery_services_table tr:last td:nth(1) input').val();
 
@@ -25,7 +27,7 @@
                from = 0;
            }
 
-           $('#dilivery_services_table').append('<tr class="form-inline"><td><input id="from" type="hidden" name="from[]" value='+from+' />'+from+'</td><td><input class="form-control" id="to" type="number" name="to[]" required /></td><td><input class="form-control" id="price" type="number" name="price[]" required /></td></tr>');
+           $('#dilivery_services_table').append('<tr class="form-inline"><td><input id="from" type="hidden" name="from[]" value='+from+' />'+from+'</td><td><input class="form-control to_input" id="to" type="number" name="to[]" required /></td><td><input class="form-control price_input" id="price" type="number" name="price[]" required /></td></tr>');
        });
 
         $('#delivery_remove_last').click(function(){
@@ -36,30 +38,105 @@
             }
         });
 
+        $(document).on('keyup', '.to_input', function() {
+
+            var to_input = $('#dilivery_services_table tr:last td:nth(1) input').val();
+
+            var price_input = $('#dilivery_services_table tr:last td:nth(2) input').val();
+
+            if (to_input > 0 && price_input > 0) {
+
+                $( "#delivery_add_more" ).prop( "disabled", false );
+            }
+
+
+        });
+
+        $(document).on('keyup', '.price_input', function() {
+
+            var to_input = $('#dilivery_services_table tr:last td:nth(1) input').val();
+
+            var price_input = $('#dilivery_services_table tr:last td:nth(2) input').val();
+
+            if (to_input > 0 && price_input > 0) {
+
+                $( "#delivery_add_more" ).prop( "disabled", false );
+            }
+
+        });
+
         //end delivery services
 
         //Edit: add, more for delivery services
         $('#delivery_edit_add_new_row').click(function(){
 
-            var from = 0;
-            get_to_value = $('#dilivery_services_table_edit tr:last td:nth(1) input').val();
+         $( "#delivery_edit_add_new_row" ).prop( "disabled", true );
 
-            if (get_to_value) {
+         var from = 0;
+         get_to_value = $('#dilivery_services_table_edit tr:last td:nth(1) input').val();
 
-                from = get_to_value;
-            }else{ 
-               from = 0;
-           }
+         if (get_to_value) {
 
-           $('#dilivery_services_table_edit').append('<tr class="form-inline"><td><input id="from" type="hidden" name="from[]" value='+from+' />'+from+'</td><td><input class="form-control" id="to" type="number" name="to[]" required /></td><td><input class="form-control" id="price" type="number" name="price[]" required /></td></tr>');
-       });
+            from = get_to_value;
+        }else{ 
+           from = 0;
+       }
+
+       $('#dilivery_services_table_edit').append('<tr class="form-inline"><td><input id="from" type="hidden" name="from[]" value='+from+' />'+from+'</td><td><input class="form-control to_input" id="to" type="number" name="to[]" required /></td><td><input class="form-control price_input" id="price" type="number" name="price[]" required /></td></tr>');
+   });
 
         $('#delivery_edit_remove_last').click(function(){
             var row_index = $('#dilivery_services_table_edit tr:last').index(); 
+
             if(row_index >= 2){
 
-                $('#dilivery_services_table_edit tr:last').remove();
+
+                var last_row_id = $('#dilivery_services_table_edit tr:last input').val();
+                
+                if (last_row_id) {
+
+                    var base_ur = '<?php echo URL::to('/'); ?>';
+                    $.ajax({
+                        url: base_ur+'/admin/deliverySpine', 
+                        type: 'GET', 
+                        data: {'id': last_row_id},
+                        async: false,
+                        success: function (response){
+                            console.log(response);
+                        }
+
+                    }); 
+
+                    $('#dilivery_services_table_edit tr:last').remove();
+                } 
             }
+        });
+
+        $(document).on('keyup', '.to_input', function() {
+
+            var to_input = $('#dilivery_services_table_edit tr:last td:nth(1) input').val();
+
+            var price_input = $('#dilivery_services_table_edit tr:last td:nth(2) input').val();
+
+            if (to_input > 0 && price_input > 0) {
+
+                $( "#delivery_edit_add_new_row" ).prop( "disabled", false );
+            }
+
+
+        });
+
+        $(document).on('keyup', '.price_input', function() {
+
+            var to_input = $('#dilivery_services_table_edit tr:last td:nth(1) input').val();
+
+            var price_input = $('#dilivery_services_table_edit tr:last td:nth(2) input').val();
+
+            if (to_input > 0 && price_input > 0) {
+
+                $( "#delivery_edit_add_new_row" ).prop( "disabled", false );
+            }
+
         });
 
         //end delivery services
@@ -67,6 +144,8 @@
 
         //Add: add more for paper weight
         $('#paper_weight_add_more').click(function(){
+
+            $( "#paper_weight_add_more" ).prop( "disabled", true );
 
             var from = 0;
             get_to_value = $('#paper_weight_table tr:last td:nth(1) input').val();
@@ -78,7 +157,7 @@
                from = 0;
            }
 
-           $('#paper_weight_table').append('<tr class="form-inline"><td><input id="from" type="hidden" name="sheet_start[]" value='+from+' />'+from+'</td><td><input class="form-control" id="from" name="sheet_end[]"  placeholder="sheet range" /></td><td><input class="form-control" id="latters" type="number" name="latters[]" required /></td></tr>');
+           $('#paper_weight_table').append('<tr class="form-inline"><td><input id="from" type="hidden" name="sheet_start[]" value='+from+' />'+from+'</td><td><input type="number" class="form-control sheet_end_input" id="from" name="sheet_end[]"  placeholder="sheet range" /></td><td><input class="form-control latters_input" id="latters" type="number" name="latters[]" required /></td></tr>');
        });
 
         $('#paper_remove_last').click(function(){
@@ -89,10 +168,39 @@
             }
         });
 
-        //end delivery services
+        $(document).on('keyup', '.sheet_end_input', function() {
 
-         //Edit: add, more for delivery services
-        $('#paper_weight_edit_add_new_row').click(function(){
+            var sheet_end = $('#paper_weight_table tr:last td:nth(1) input').val();
+
+            var latters_input = $('#paper_weight_table tr:last td:nth(2) input').val();
+
+            if (sheet_end > 0 && latters_input > 0) {
+
+                $( "#paper_weight_add_more" ).prop( "disabled", false );
+            }
+
+
+        });
+
+        $(document).on('keyup', '.latters_input', function() {
+
+            var sheet_end = $('#paper_weight_table tr:last td:nth(1) input').val();
+
+            var latters_input = $('#paper_weight_table tr:last td:nth(2) input').val();
+
+            if (sheet_end > 0 && latters_input > 0) {
+
+                $( "#paper_weight_add_more" ).prop( "disabled", false );
+            }
+
+        });
+
+        //end paper weight
+
+         //Edit: add, more for paper weight
+         $('#paper_weight_edit_add_new_row').click(function(){
+
+            $( "#paper_weight_edit_add_new_row" ).prop( "disabled", true );
 
             var from = 0;
             get_to_value = $('#paper_weight_edit_table tr:last td:nth(1) input').val();
@@ -104,18 +212,64 @@
                from = 0;
            }
 
-           $('#paper_weight_edit_table').append('<tr class="form-inline"><td><input id="from" type="hidden" name="from[]" value='+from+' />'+from+'</td><td><input class="form-control" id="to" type="number" name="to[]" required /></td><td><input class="form-control" id="price" type="number" name="price[]" required /></td></tr>');
+           $('#paper_weight_edit_table').append('<tr class="form-inline"><td><input id="from" type="hidden" name="sheet_start[]" value='+from+' />'+from+'</td><td><input type="number" class="form-control sheet_end_input" id="from" name="sheet_end[]"  placeholder="sheet range" /></td><td><input class="form-control latters_input" id="latters" type="number" name="latters[]" required /></td></tr>');
        });
 
-        $('#paper_weight_edit_remove_last').click(function(){
+         $('#paper_weight_edit_remove_last').click(function(){
             var row_index = $('#paper_weight_edit_table tr:last').index(); 
             if(row_index >= 2){
 
-                $('#paper_weight_edit_table tr:last').remove();
+                var last_row_id = $('#paper_weight_edit_table tr:last input').val();
+                
+                if (last_row_id) {
+
+                    var base_ur = '<?php echo URL::to('/'); ?>';
+                    $.ajax({
+                        url: base_ur+'/admin/deletePaperWeightSpin', 
+                        type: 'GET', 
+                        data: {'id': last_row_id},
+                        async: false,
+                        success: function (response){
+                            console.log(response);
+                        }
+
+                    }); 
+
+                    $('#paper_weight_edit_table tr:last').remove();
+                } 
+
             }
         });
 
-        //end delivery services
+
+         $(document).on('keyup', '.sheet_end_input', function() {
+
+            var sheet_end = $('#paper_weight_edit_table tr:last td:nth(1) input').val();
+
+            var latters_input = $('#paper_weight_edit_table tr:last td:nth(2) input').val();
+
+            if (sheet_end > 0 && latters_input > 0) {
+
+                $( "#paper_weight_edit_add_new_row" ).prop( "disabled", false );
+            }
+
+
+        });
+
+         $(document).on('keyup', '.latters_input', function() {
+
+            var sheet_end = $('#paper_weight_edit_table tr:last td:nth(1) input').val();
+
+            var latters_input = $('#paper_weight_edit_table tr:last td:nth(2) input').val();
+
+            if (sheet_end > 0 && latters_input > 0) {
+
+                $( "#paper_weight_edit_add_new_row" ).prop( "disabled", false );
+            }
+
+        });
+
+        //end paper weight
 
 
 
