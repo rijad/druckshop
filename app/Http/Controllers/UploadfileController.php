@@ -14,10 +14,12 @@ class UploadfileController extends Controller
 			echo "false";
 			return;
 		}
- 
-		// if (!file_exists('uploads')) {
-		// 	mkdir('uploads', 0777); 
-		// } 
+
+		 if (!file_exists(public_path().'/uploads')) {
+		 	mkdir(public_path().'/uploads', 0777); 
+		 } 
+
+		 
 
 		move_uploaded_file($_FILES['file']['tmp_name'], public_path().'/uploads/' . time() . '_' . $_FILES['file']['name']);
 

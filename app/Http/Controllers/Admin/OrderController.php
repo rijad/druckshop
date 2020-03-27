@@ -23,6 +23,12 @@ class OrderController extends Controller
         return view('/pages/admin/order',compact('order'));
     }
 
+    public static function users($id)
+    {
+        $user = UsersAdmin::where(['id' => $id])->first();
+        return $user->name ;
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -30,13 +36,7 @@ class OrderController extends Controller
      */
     public function create()
     {
-        $users = UsersAdmin ::where('status', '1')->get();
-        $orderstate = OrderState ::where('status', '1')->get();
-        $orderhistory = OrderDetailsFinal::where(['user_id'=>Auth::user()->id])
-                        ->with('orderProductHistory')
-                        // ->where(['order_id' => order_id ])
-                        ->get();
-        return view('/pages/admin/orderdetails',compact('orderhistory', 'users', 'orderstate'));
+
     }
 
     /**
@@ -69,10 +69,10 @@ class OrderController extends Controller
      */
     public function edit(Request $request, $id)
     {
+        // dd($request->order_id);
         $users = UsersAdmin ::where('status', '1')->get();
         $orderstate = OrderState ::where('status', '1')->get();
-        $orderhistory = OrderDetailsFinal::where(['user_id'=>Auth::user()->id])
-                        ->with('orderProductHistory')
+        $orderhistory = OrderDetailsFinal::with('orderProductHistory')
                         ->where(['order_id' => $request->order_id ])
                         ->first();
         return view('/pages/admin/orderdetails',compact('orderhistory', 'users', 'orderstate'));

@@ -138,7 +138,7 @@ class CoverSheetController extends Controller
      */
     public function destroy($id)
     {
-        $coversheet = CoverSheet::destroy($id);
+        $coversheet = CoverSheet::where(['id' => $id])->update(['status' => 0]);
         return redirect()->back()->with('status' , 'Deleted');
     }
 }

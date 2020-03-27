@@ -1,5 +1,5 @@
 
-function displayFields(binding){
+function displayFields(binding){ 
 
 	$product_attributes = getProductAttributes(binding);
 
@@ -11,8 +11,8 @@ function displayFields(binding){
 			for( var i = 0; i<len; i++){
 				$("#page-format").append("<option value = "+$product_attributes['page_format'][i]['id']+">"+$product_attributes['page_format'][i]['page_format']+"</option>");
 			}
-		}else{}
-
+		}else{} 
+ 
 	//Get data for cover color
 	if (typeof $product_attributes['cover_color'] !== 'undefined' && $product_attributes['cover_color'].length > 0) {
 		document.getElementById('div-cover-color').className = "displayBlock";
@@ -65,7 +65,7 @@ function getProductAttributes(binding){
 	var product_attributes = "";
 
 	$.ajax({
-		url: '/print-shop/get-relations', 
+		url: '/druckshop/get-relations', 
 		type: 'GET', 
 		data: {'id': binding},
 		async: false,
@@ -84,7 +84,7 @@ function getContentAttributes(page_options){
 	var content_attributes = "";
 
 	$.ajax({
-		url: '/print-shop/get-relations-content', 
+		url: '/druckshop/get-relations-content', 
 		type: 'GET', 
 		data: {'id': page_options},
 		async: false,
@@ -110,6 +110,13 @@ function displayFieldsContent(page_options = ""){
 			for( var i = 0; i<len; i++){  
 				$("#paper-weight").append("<option value = "+$content_attributes['paper_weight'][i]['id']+">"+$content_attributes['paper_weight'][i]['paper_weight']+"</option>");
 			}
+
+			if($("#page_options option:selected").val() == "1"){ //single
+				$("#paper-weight").val(1);  
+			}else if($("#page_options option:selected").val() == "2"){ //both
+				$("#paper-weight").val(2);  
+			}
+
 		}else{}
 
 		// Get data for mirror
@@ -129,12 +136,25 @@ function displayFieldsContent(page_options = ""){
 			document.getElementById('div-mirror').className = "displayNone";
 		}
 
-}  
+} 
+ 
 
 function displayPrintFields(embossment = ""){
 
 	if(embossment == "Embossment_Cover_Sheet"){
-		document.getElementById('div-template').className = "displayBlock";
+		if($("#embossment-cover-sheet").is(":checked")){
+			document.getElementById('div-template').className = "displayBlock";
+		}else{
+			document.getElementById('div-template').className = "displayNone";
+			//document.getElementById('div-embossment-cover-sheet').className = "displayNone";
+			document.getElementById('upload_custom_logo').className = "displayNone";
+			document.getElementById('drop_file_zone_logo_info').className = "displayNone";
+			document.getElementById('div-remarks').className = "displayNone"; 
+			$("#div-display-image").empty();
+			document.getElementById('div-display-image').className = "displayNone";
+			document.getElementById('div-fonts').className = "displayNone";
+			document.getElementById('div-date-format').className = "displayNone";
+		}
 	}
 
 } 
@@ -143,23 +163,79 @@ function displayPopUp(template = ""){
 	 var title = template;
   $('.modal-title').html(title);
  
-  $("#modal-body").empty();
+  $("#modal-body").empty(); 
 	if(template == "Standardvorlage mit Logo"){
 		 $('.modal').modal('show');
 		$("#modal-body").append("<p>Choose layout for standard cover with logo.</p><br><img id='mit_1' src='public/images/mit_1.png' onclick = displayImage('public/images/mit_1.png');> <img id='mit_1' src='public/images/mit_1.png' onclick = displayImage('public/images/mit_2.png');> <img id='mit_3' src='public/images/mit_3.png' onclick = displayImage('public/images/mit_3.png');> ");
 		document.getElementById('div-fonts').className = "displayBlock";
 		document.getElementById('div-date-format').className = "displayBlock";
-		document.getElementById('div-embossment-cover-sheet').className = "displayBlock";
+		document.getElementById('div-embossment-spine').className = "displayBlock";
+		document.getElementById('div-remarks').className = "displayBlock";
+		document.getElementById('upload_custom_logo').className = "displayBlock";
 	}else if(template == "Standardvorlage ohne Logo"){
 		 $('.modal').modal('show');
 		$("#modal-body").append("<p>Choose layout for standard cover without logo.</p><br><img id='ohne_1' src='public/images/ohne_1.png' onclick = displayImage('public/images/ohne_1.png');> <img id='ohne_2' src='public/images/ohne_2.png' onclick = displayImage('public/images/ohne_2.png');> <img id='ohne_3' src='public/images/ohne_3.png' onclick = displayImage('public/images/ohne_3.png');> ");
 		document.getElementById('div-fonts').className = "displayBlock";
 		document.getElementById('div-date-format').className = "displayBlock";
-		document.getElementById('div-embossment-cover-sheet').className = "displayBlock";
+		document.getElementById('div-embossment-spine').className = "displayBlock";
+		document.getElementById('div-remarks').className = "displayBlock";
+
+		document.getElementById('upload_custom_logo').className = "displayNone";
 	}else if(template == "Eigene Vorlage"){
 		document.getElementById('upload_custom_logo').className = "displayBlock";
 		document.getElementById('div-remarks').className = "displayBlock";
+		$("#div-display-image").empty();
+		document.getElementById('div-display-image').className = "displayNone"; 
 	}
+
+	if($("#template").find(":selected").val() == "-1"){
+		document.getElementById('upload_custom_logo').className = "displayNone";
+		document.getElementById('drop_file_zone_logo_info').className = "displayNone";
+		document.getElementById('div-remarks').className = "displayNone"; 
+		$("#div-display-image").empty();
+		document.getElementById('div-display-image').className = "displayNone"; 
+		document.getElementById('div-embossment-spine').className = "displayBlock";
+	}	
+
+}
+
+function displayPopUpCD(template = ""){
+	 var title = template;
+  $('.modal-title').html(title);
+ 
+  $("#modal-body").empty(); 
+	if(template == "Standardvorlage mit Logo"){
+		 $('.modal').modal('show');
+		$("#modal-body").append("<p>Choose layout for standard cover with logo.</p><br><img id='mit_1' src='public/images/mit_1.png' onclick = displayImage('public/images/mit_1.png');> <img id='mit_1' src='public/images/mit_1.png' onclick = displayImage('public/images/mit_2.png');> <img id='mit_3' src='public/images/mit_3.png' onclick = displayImage('public/images/mit_3.png');> ");
+		document.getElementById('div-fonts').className = "displayBlock";
+		document.getElementById('div-date-format').className = "displayBlock";
+		document.getElementById('div-embossment-spine').className = "displayBlock";
+		document.getElementById('div-remarks').className = "displayBlock";
+		document.getElementById('upload_custom_logo').className = "displayBlock";
+	}else if(template == "Standardvorlage ohne Logo"){
+		 $('.modal').modal('show');
+		$("#modal-body").append("<p>Choose layout for standard cover without logo.</p><br><img id='ohne_1' src='public/images/ohne_1.png' onclick = displayImage('public/images/ohne_1.png');> <img id='ohne_2' src='public/images/ohne_2.png' onclick = displayImage('public/images/ohne_2.png');> <img id='ohne_3' src='public/images/ohne_3.png' onclick = displayImage('public/images/ohne_3.png');> ");
+		document.getElementById('div-fonts').className = "displayBlock";
+		document.getElementById('div-date-format').className = "displayBlock";
+		document.getElementById('div-embossment-spine').className = "displayBlock";
+		document.getElementById('div-remarks').className = "displayBlock";
+
+		document.getElementById('upload_custom_logo').className = "displayNone";
+	}else if(template == "Eigene Vorlage"){
+		document.getElementById('upload_custom_logo').className = "displayBlock";
+		document.getElementById('div-remarks').className = "displayBlock";
+		$("#div-display-image").empty();
+		document.getElementById('div-display-image').className = "displayNone"; 
+	}
+
+	if($("#template").find(":selected").val() == "-1"){
+		document.getElementById('upload_custom_logo').className = "displayNone";
+		document.getElementById('drop_file_zone_logo_info').className = "displayNone";
+		document.getElementById('div-remarks').className = "displayNone"; 
+		$("#div-display-image").empty();
+		document.getElementById('div-display-image').className = "displayNone"; 
+		document.getElementById('div-embossment-spine').className = "displayBlock";
+	}	
 
 }
 
@@ -173,36 +249,97 @@ function displayImage(path){
 function displayCDFields(value = ""){ 
 
 	if(value == "cd"){ 
-
+		if($("#cd-check").is(":checked")){
 		document.getElementById('div-number-of-cds').className = "displayBlock";
 		document.getElementById('upload_cd').className = "displayBlock";
 		document.getElementById('div-cd-imprint').className = "displayBlock";
 		document.getElementById('div-cd-bag').className = "displayBlock";
+		}else{
+		document.getElementById('div-number-of-cds').className = "displayNone";
+		document.getElementById('upload_cd').className = "displayNone";
+		document.getElementById('div-cd-imprint').className = "displayNone";
+		document.getElementById('div-cd-bag').className = "displayNone";	
+		}
 
 	}else if(value == "imprint"){
 
-		document.getElementById('div-cd-template').className = "displayBlock";
+		if($("#imprint").is(":checked")){
+			document.getElementById('div-cd-template').className = "displayBlock";
+		}else{
+			document.getElementById('div-cd-template').className = "displayNone";
+		}
 		//document.getElementById('div-cd-bag').className = "displayBlock";
-
 	}
 		
+}
+
+
+function cdBagPosition(){
+
+	if($("#cd-bag option:selected").val() == "2"){ 
+		document.getElementById('div-pos-cd-bag').className = "displayBlock";  
+	}else{ 
+		document.getElementById('div-pos-cd-bag').className = "displayNone";  
+	}
+
 }
 
 
 function displayContentInput(option = ""){
 
 	if(option == "Color_Pages"){
-		document.getElementById('div-page-numbers').className = "displayBlock";
+		if($("#color-pages").is(":checked")){ 
+			document.getElementById('div-page-numbers').className = "displayBlock";
+		}else{
+			document.getElementById('div-page-numbers').className = "displayNone";
+		}
 	}else if(option == "A3_Pages"){
+		if($("#A3-pages").is(":checked")){
 		document.getElementById('div-number-of-pages').className = "displayBlock";
 		document.getElementById('div-pos-A3-pages').className = "displayBlock";
 		document.getElementById('drop_file_din_A3').className = "displayBlock";
-		document.getElementById('drop_file_zone_A3').className = "displayBlock";
+		document.getElementById('A3_msg').className = "displayBlock";
+		}else{
+		document.getElementById('div-number-of-pages').className = "displayNone";
+		document.getElementById('div-pos-A3-pages').className = "displayNone";
+		document.getElementById('drop_file_din_A3').className = "displayNone";
+		document.getElementById('A3_msg').className = "displayNone";	
+		}
+		
 	}else if(option == "A2_Pages"){
+		if($("#A2-pages").is(":checked")){
 		document.getElementById('div-number-of-A2-pages').className = "displayBlock";
 		document.getElementById('drop_file_din_A2').className = "displayBlock";
-		document.getElementById('drop_file_zone_A2').className = "displayBlock";
+		//document.getElementById('drop_file_zone_A2').className = "displayBlock";
+		document.getElementById('A2_msg').className = "displayBlock";
+		}else{
+		document.getElementById('div-number-of-A2-pages').className = "displayNone";
+		document.getElementById('drop_file_din_A2').className = "displayNone";
+		//document.getElementById('drop_file_zone_A2').className = "displayNone";
+		document.getElementById('A2_msg').className = "displayNone";
+		}
 	}
+}
+
+
+function hideBindingElements(value = ""){
+
+	if(value == "back-cover"){
+		if($("#back-cover").find(":selected").val() == "-1"){
+			document.getElementById('drop_file_zone_back_cover').className = "displayNone";
+			document.getElementById('drop_file_zone_back_cover_sheet_info').className = "displayNone";
+			document.getElementById('selectfile_backcover').value=""; // empty file field as well
+		}
+	}
+
+	if(value == "cover-sheet"){
+		if($("#cover-sheet").find(":selected").val() == "-1"){
+			document.getElementById('drop_file_zone_cover_sheet').className = "displayNone";
+			document.getElementById('drop_file_zone_cover_sheet_info').className = "displayNone";
+			document.getElementById('selectfile_coversheet').value=""; // empty file field as well
+		}
+	}
+
 }
 
 function displayProductAttributes(field_flag = "", values = ""){
@@ -290,7 +427,7 @@ function displayPrice(paper_weight = "", nos_of_cds = "", data_check = ""){
     } 
 
 	$.ajax({
-		url: '/print-shop/get-price',
+		url: '/druckshop/get-price',
 		type: 'GET', 
 		data: {'paper_weight': weight,'no_of_pages': no_of_pages ,'no_of_cds':nos_of_cds,'data_check':data_check_value},
 		success: function (response){
@@ -368,7 +505,7 @@ function displayPrice(paper_weight = "", nos_of_cds = "", data_check = ""){
 
 		}else if(tab == "2"){
 
-			page_options = document.getElementById('page_options').value;
+			page_options = document.getElementById('page_options').value; 
 
 				if(page_options == "-1"){
 					$("#page_options").addClass('invalid'); $('#error_page_options').html('Page Options Field is required'); valid = false; return false;
@@ -377,24 +514,31 @@ function displayPrice(paper_weight = "", nos_of_cds = "", data_check = ""){
 					$content_attributes = getContentAttributes(page_options);
 
 					if($("#no-of-pages").val() == ""){$("#no-of-pages").addBack().addClass('invalid'); $('#error_no_of_pages').html('Field is required'); valid = false; return false;}
-
+					var range = NumberOfPages('binding','paper-weight','no-of-pages');
+					
+					if(! range){$("#no-of-pages").addBack().addClass('invalid'); valid = false; return false;} //else { valid=true; return true;}
 					// Get data for paper weight
 					if (typeof $content_attributes['paper_weight'] !== 'undefined' && $content_attributes['paper_weight'].length > 0) {	
 						if($("#paper-weight").find(":selected").val() == "-1"){$("#paper-weight").addClass('invalid'); $('#error_paper_weight').html('Paper Weight Field is required');  valid = false; return false;}
-					}else{valid = true; return true;}
+					}//else{valid = true; return true;}
 
-					if(page_options == "1"){// unilaterally
+					if(page_options == "1"){// unilaterally  
+						
 
-						 if($("#selectfile_content").val() == ""){ alert($("#selectfile_content").val()); $("#drop_file_zone_content").addBack().addClass('invalid'); $('#error_selectfile_content').html('This Field is required'); valid = false; return false;}else{valid = true;return true;}
+						 if($("#selectfile_content").val() == ""){ alert($("#selectfile_content").val()); $("#drop_file_zone_content").addBack().addClass('invalid'); $('#error_selectfile_content').html('This Field is required'); valid = false; return false;} //else{valid = true;return true;}
 
-						 if($("#color-pages").is(":checked")){
+						 if($("#color-pages").is(":checked")){ //alert("chk");
 						 	// color pages check box is checked
 						 	if($("#page-numbers").val() == ""){$("#page-numbers").addBack().addClass('invalid'); $('#error_page_numbers').html('This Field is required'); valid = false; return false;} 	
+						 	var range1 = checkPageRange('selectfile_content','content_page_no','page-numbers');
+						 	//alert(range1);
+						 	if(!range1){$("#page-numbers").addBack().addClass('invalid'); valid = false; return false;} //else{valid = true; return true;}
 						 }
 
 						 if($("#A3-pages").is(":checked")){
 						 	// color pages check box is checked
 						 	if($("#numbers-of-pages").val() == ""){$("#numbers-of-pages").addBack().addClass('invalid'); $('#error_no_of_pages').html('This Field is required'); valid = false; return false;} 
+						 	if($("#numbers-of-pages").val() > 10 || $("#numbers-of-pages").val() < 1){$("#numbers-of-pages").addBack().addClass('invalid'); $('#error_number_of_pages').html('Pages out of range'); valid = false; return false;} 
 						 	if($("#selectfile_din_A3").val() == ""){ alert($("#selectfile_din_A3").val()); $("#drop_file_din_A3").addBack().addClass('invalid'); $('#error_selectfile_din_A3').html('This Field is required'); valid = false; return false;}else{valid = true;return true;}	
 
 						 }
@@ -402,32 +546,38 @@ function displayPrice(paper_weight = "", nos_of_cds = "", data_check = ""){
 						 if($("#A2-pages").is(":checked")){
 						 	// color pages check box is checked
 						 	if($("#numbers-of-A2-pages").val() == ""){$("#numbers-of-A2-pages").addBack().addClass('invalid'); $('#error_number_of_A2_pages').html('This Field is required'); valid = false; return false;} 
+						 	if($("#numbers-of-A2-pages").val() > 3 || $("#numbers-of-A2-pages").val() < 1){$("#numbers-of-A2-pages").addBack().addClass('invalid'); $('#error_number_of_A2_pages').html('Pages out of range'); valid = false; return false;} 
 						 	if($("#selectfile_din_A2").val() == ""){ alert($("#selectfile_din_A2").val()); $("#drop_file_din_A2").addBack().addClass('invalid'); $('#error_selectfile_din_A2').html('This Field is required'); valid = false; return false;}else{valid = true;return true;}		
 
 						 } 
 
-					}else if(page_options == "2"){// both sides
+					}else if(page_options == "2"){// both sides  
+						//alert("2");
 
-						if($("#selectfile_content").val() == ""){ alert($("#selectfile_content").val()); $("#drop_file_zone_content").addBack().addClass('invalid'); $('#error_selectfile_content').html('This Field is required'); valid = false; return false;}else{valid = true;return true;}
+						if($("#selectfile_content").val() == ""){ alert($("#selectfile_content").val()); $("#drop_file_zone_content").addBack().addClass('invalid'); $('#error_selectfile_content').html('This Field is required'); valid = false; return false;}//else{valid = true;return true;}
 
 						 if($("#mirror").find(":selected").val() == "-1"){$("#mirror").addClass('invalid'); $('#error_mirror').html('Mirror Field is required'); valid = false; return false;}
 
-						 if($("#color-pages").is(":checked")){
+						 if($("#color-pages").is(":checked")){ //alert("chk");
 						 	// color pages check box is checked
 						 	if($("#page-numbers").val() == ""){$("#page-numbers").addBack().addClass('invalid'); $('#error_no_of_pages').html('This Field is required');valid = false; return false;} 	
+						 	var range1 = checkPageRange('selectfile_content','content_page_no','page-numbers');
+						 	if(!range1){$("#page-numbers").addBack().addClass('invalid'); valid = false; return false;}//else{valid = true; return true;}
 						 }
 
-						 if($("#A3-pages").is(":checked")){
+						 if($("#A3-pages").is(":checked")){  alert("A3");
 						 	// color pages check box is checked
-						 	if($("#numbers-of-pages").val() == ""){$("#numbers-of-pages").addBack().addClass('invalid'); $('#error_number_of_A3_pages').html('This Field is required'); valid = false; return false;} 
-						 	if($("#selectfile_din_A3").val() == ""){ alert($("#selectfile_din_A3").val()); $("#drop_file_din_A3").addBack().addClass('invalid'); $('#error_selectfile_din_A3').html('This Field is required'); valid = false; return false;}else{valid = true;return true;}	
+						 	if($("#numbers-of-A3-pages").val() == ""){$("#numbers-of-A3-pages").addBack().addClass('invalid'); $('#error_number_of_A3_pages').html('This Field is required'); valid = false; return false;} 
+						 	if($("#numbers-of-pages").val() > 10 || $("#numbers-of-pages").val() < 1){$("#numbers-of-pages").addBack().addClass('invalid'); $('#error_number_of_pages').html('Pages out of range'); valid = false; return false;} 
+						 	if($("#selectfile_din_A3").val() == ""){ alert($("#selectfile_din_A3").val()); $("#drop_file_din_A3").addBack().addClass('invalid'); $('#error_selectfile_din_A3').html('This Field is required'); valid = false; return false;}//else{valid = true;return true;}	
 
 						 }
-
-						 if($("#A2-pages").is(":checked")){
+ 
+						 if($("#A2-pages").is(":checked")){ alert("A2");
 						 	// color pages check box is checked
-						 	if($("#numbers-of-A2-pages").val() == ""){$("#numbers-of-A2-pages").addBack().addClass('invalid'); $('#error_number_of_A2_pages').html('This Field is required'); valid = false; return false;} 
-						 	if($("#selectfile_din_A2").val() == ""){ alert($("#selectfile_din_A2").val()); $("#drop_file_din_A2").addBack().addClass('invalid'); $('#error_selectfile_din_A2').html('This Field is required'); valid = false; return false;}else{valid = true;return true;}		
+						 	if($("#numbers-of-A2-pages").val() == ""){$("#numbers-of-A2-pages").addBack().addClass('invalid'); $('#error_number_of_A2_pages').html('This Field is required'); valid = false; return false;}
+						 	if($("#numbers-of-A2-pages").val() > 3 || $("#numbers-of-A2-pages").val() < 1){$("#numbers-of-A2-pages").addBack().addClass('invalid'); $('#error_number_of_A2_pages').html('Pages out of range'); valid = false; return false;} 
+						 	if($("#selectfile_din_A2").val() == ""){ alert($("#selectfile_din_A2").val()); $("#drop_file_din_A2").addBack().addClass('invalid'); $('#error_selectfile_din_A2').html('This Field is required'); valid = false; return false;}//else{valid = true;return true;}		
 
 						 }
 
@@ -507,7 +657,7 @@ function displayPrice(paper_weight = "", nos_of_cds = "", data_check = ""){
 	  	if (currentTab >= 4) { //alert("i am in");
 	    //...the form gets submitted:
 	    document.getElementById("regForm").submit();
-	    // window.location.href = '/print-shop/cart'; 
+	    // window.location.href = '/druckshop/cart'; 
 	    return false;
 		} 
 	  }else{
@@ -590,7 +740,7 @@ function setQuantity(count = ""){
 	// console.log(price_per_unit);
 
 	$.ajax({
-		url: '/print-shop/set-quantity', 
+		url: '/druckshop/set-quantity', 
 		type: 'POST', 
 		data: {'qty': qty,'total_price_per_product' : total_price_per_product, 'count' : count},
 		success: function (response){
@@ -630,14 +780,15 @@ function incrementQuantity(id = "",count = ""){
 
 } 
 
- function checkPageRange(id1 = '', id2 = '' ,value = ''){
+ function checkPageRange(id1 = '', id2 = '' ,value_id = ''){  alert("1");
  
      var count_of_pages = 0; var range = 0; var val = [];
      document.getElementById('error_range').innerHTML = ""; 
+     var value = document.getElementById(value_id).value;
 
      if(document.getElementById(id1).value == "" || document.getElementById(id1).value == null){
      }else{
-     	count_of_pages = document.getElementById(id2).innerHTML.split(":")[1];
+     	count_of_pages =parseInt(document.getElementById(id2).innerHTML.split(":")[1]);
      }
 
      if(value.includes("-")){
@@ -655,14 +806,47 @@ function incrementQuantity(id = "",count = ""){
 
      if(range > count_of_pages){
      		document.getElementById('error_range').innerHTML = "Please check the range for number of pages";
+     		return false;
      }else if(range <= 0){
      		document.getElementById('error_range').innerHTML = "Invalid Expression";
+     		return false;
      }else{
      	document.getElementById('error_range').innerHTML = "No of Colored Pages:"+range;
+     	return true;
      }
 
+ }
 
-      
+
+ // step 2 Number of pages dependency C
+ function NumberOfPages(binding = "", weight = "", no_pages=""){
+    
+    var binding_val = document.getElementById(binding).value;
+    var weight_val = document.getElementById(weight).value;
+    var value = parseInt(document.getElementById(no_pages).value);
+    var status = true;
+
+    $.ajax({
+		url: '/druckshop/paper-weight-sheets',  
+		type: 'POST', 
+		async: false,
+		data: {'binding': binding_val,'weight' : weight_val},
+		success: function (response){
+
+			var data = JSON.parse(response)[0];
+			var min  =  parseInt(data['min_sheets']);
+			var max  = parseInt(data['max_sheets']);
+
+			document.getElementById('error_no_of_pages').innerHTML = "Range is "+ min + " - " + max ;
+			//console.log(value+"-----"+min+"-----"+max);
+			if(value < min || value > max){
+				status = false;
+			}
+
+			callback.call(status);
+		}
+	}); //console.log(status); 
+	return(status);
 
 
 

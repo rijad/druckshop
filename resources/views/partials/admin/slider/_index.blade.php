@@ -1,9 +1,12 @@
-<div class="card mb-4">
-                <div class="card-header"><i class="fas fa-table mr-1"></i>Slider
-                    <form method="GET" action="{{ route('slider.create') }}">
-                        <input type="submit" value="New" >
-                    </form>
-                </div>
+<div class="card mb-4 mt-4">
+    <div class="card-header"><span>Slider</span>
+
+        <div class="float-right">
+            <form method="GET" action="{{ route('slider.create') }}">
+                <input type="submit" value="Create New Slider" class="btn btn-primary">
+            </form>
+        </div>
+    </div>
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -29,15 +32,15 @@
                                         <td><img src="{{ asset($slid->image_path)}}" height="50" width="100" alt="..."></td>
                                         <td>{{ $slid->is_active }}</td>
                                         <td>{{ $slid->is_slide }}</td>
-                                        <td>
+                                        <td class="form-inline">
                                             <form method="GET" action="{{ route('slider.edit' , $slid->id) }}">
                                           
-                                            <input type="submit" value="edit" >
+                                            <input type="submit" value="edit" class="btn btn-success">
                                             </form>
-                                            <form method="POST" action="{{ route('slider.destroy' , $slid->id) }}">
+                                            <form method="POST" action="{{ route('slider.destroy' , $slid->id) }}"class="ml-2">
                                             @method('DELETE')
                                             @csrf
-                                            <input type="submit" value="delete" >
+                                             <input type="submit" value="delete" class="btn btn-danger">
                                             </form>
                                         </td>
                                     </tr>  

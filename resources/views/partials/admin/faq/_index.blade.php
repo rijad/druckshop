@@ -1,9 +1,12 @@
-<div class="card mb-4">
-                <div class="card-header"><i class="fas fa-table mr-1"></i>Faq
-                    <form method="GET" action="{{ route('FAQ.create') }}">
-                        <input type="submit" value="New" >
-                    </form>
-                </div>
+<div class="card mb-4 mt-4">
+    <div class="card-header"><span>FAQ</span>
+
+        <div class="float-right">
+            <form method="GET" action="{{ route('FAQ.create') }}">
+                <input type="submit" value="Create New FAQ" class="btn btn-primary">
+            </form>
+        </div>
+    </div>
                 @if (session('status'))
                     <div class="alert alert-success" role="alert">
                         {{ session('status') }}
@@ -44,14 +47,14 @@
                                     <tr>
                                         <td>{{ $fq->title_english }}</td>
                                         <td>{{ $fq->title_german }}</td>
-                                        <td>{{ $fq->text_english }}</td>
-                                        <td>{{ $fq->text_german }}</td>
-                                        <td>
+                                        <td>{{ substr(($fq->text_english),0,200) }}</td>
+                                        <td>{{ substr(($fq->text_german),0,200) }}</td>
+                                        <td class="form-inline">
                                             <form method="GET" action="{{ route('FAQ.edit' , $fq->id) }}">
-                                                <input type="submit" value="edit" >
+                                                <input type="submit" value="edit" class="btn btn-success">
                                             </form>
-                                            <form method="GET" action="{{ route('FAQ.destroy' , $fq->id) }}">
-                                                <input type="submit" value="delete" >
+                                            <form method="GET" action="{{ route('FAQ.destroy' , $fq->id) }}"class="ml-2">
+                                                 <input type="submit" value="delete" class="btn btn-danger">
                                             </form>
                                         </td>
                                     </tr>  

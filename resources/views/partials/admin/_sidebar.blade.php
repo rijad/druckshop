@@ -30,18 +30,10 @@
                                 <div class="sb-nav-link-icon">
                                     <i class="fa fa-question-circle"></i>
                                 </div>FAQ</a>
-                            <a class="nav-link" href="{{ route('product.index') }}">
-                                <div class="sb-nav-link-icon">
-                                    <i class="fa fa-credit-card-alt"></i>
-                                </div>Product</a>
                             <a class="nav-link" href="{{ route('payment') }}">
                                 <div class="sb-nav-link-icon">
                                     <i class="fa fa-credit-card-alt"></i>
                                 </div>Payment</a>
-                            <a class="nav-link" href="{{ route('delivery') }}">
-                                <div class="sb-nav-link-icon">
-                                    <i class="fa fa-question-circle"></i>
-                                </div>Delivery Service</a>
                             <a class="nav-link" href="{{ route('freesample') }}">
                                 <div class="sb-nav-link-icon">
                                     <i class="fas fa-tachometer-alt"></i>

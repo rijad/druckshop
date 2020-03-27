@@ -1,4 +1,4 @@
-<div class="mycart">
+<div class="mycart cart-rv">
         <div class="container">
             <div class="Product_qeue">
                 <div class="w-100">
@@ -17,7 +17,7 @@
                                     <img src="images/product_frame.png" alt="" width="100px" />
                                     <div class="product_description">
                                         <p class="thisproduct_head">{{$data->product}}</p>
-                                        <p class="thisproduct_subhead">{{$data->attribute_desc}}</p>
+                                        <p class="thisproduct_subhead more">{{$data->attribute_desc}}</p>
                                     </div>
                                     <ul class="product_price" id="product_price">
                                         <li class="inputcard_quantity"><h6><strong>€ <span id="price_per_product_{{$data->id}}" class = "price_per_product">{{$data->price_per_product}}</span><span class="text-muted">x</span></strong></h6>
@@ -33,9 +33,6 @@
                                 </div>
                                 <hr>
                                 @endforeach  
-
-
-                                <hr>
                             </div>
                         </div>
                     </div>
@@ -122,15 +119,61 @@
 
 
 
-    <script src="{{ asset('public/js/frontend/checkout.js') }}" type="text/javascript" ></script>
-	<script src="{{ asset('public/js/frontend/dragdrop.js') }}" type="text/javascript" ></script>
+<script src="{{ asset('public/js/frontend/checkout.js') }}" type="text/javascript" ></script>
+<script src="{{ asset('public/js/frontend/dragdrop.js') }}" type="text/javascript" ></script>
 
-	<script>
-		
-		$(document).ready( function () {
-			setQuantity({{count($product_data)}});
-		});
+<script>
+  $(document).ready( function () {
+  	setQuantity({{count($product_data)}});
+  });
+</script>
+
+<script>
+$(document).ready(function() {
+  var showChar = 300;
+  var ellipsestext = "...";
+  var moretext = "Read more";
+  var lesstext = "Read less";
+  $('.more').each(function() {
+    var content = $(this).html();
+
+    if(content.length > showChar) {
+
+      var c = content.substr(0, showChar);
+      var h = content.substr(showChar-1, content.length - showChar);
+
+      var html = c + '<span class="moreelipses">'+ellipsestext+'</span>&nbsp;<span class="morecontent"><span>' + h + '</span><a href="" class="morelink">'+moretext+'</a></span>';
+
+      $(this).html(html);
+    }
+
+  });
+
+  $(".morelink").click(function(){
+    if($(this).hasClass("less")) {
+      $(this).removeClass("less");
+      $(this).html(moretext);
+    } else {
+      $(this).addClass("less");
+      $(this).html(lesstext);
+    }
+    $(this).parent().prev().toggle();
+    $(this).prev().toggle();
+    return false;
+  });
+});
+</script>
+
+<style>
+a.morelink {
+  text-decoration:none;
+  outline: none;
+}
+.morecontent span {
+  display: none;
+
+}
+</style>
 
 
 
-	</script>

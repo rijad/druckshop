@@ -19,7 +19,7 @@ Route::get('/clear-cache', function() {
     $exitCode = Artisan::call('cache:clear');
     return '<h1>Cache facade value cleared</h1>';
 });
-
+ 
 //Reoptimized class loader:
 Route::get('/optimize', function() {
     $exitCode = Artisan::call('optimize');
@@ -49,7 +49,7 @@ Route::get('/config-cache', function() {
     $exitCode = Artisan::call('config:cache');
     return '<h1>Clear Config cleared</h1>'; 
 });
-
+ 
 Route::get('/', 'IndexController@sendData')->name('index');
 Route::get('/products', 'ProductController@sendData')->name('products');
 Route::get('/product-information', 'ProductInfoController@sendData')->name('product-information');
@@ -63,6 +63,8 @@ Route::POST('/product-order','CheckoutController@saveOrder')->name('product-orde
 Route::POST('/orders-details','CheckoutController@orderDetails')->name('orders-details');
 Route::POST('/set-quantity','CheckoutController@setQuantity')->name('set-quantity');
 Route::get('/remove-item/{id}','CheckoutController@removeItem')->name('remove-item');
+Route::POST('/paper-weight-sheets','CheckoutController@paperWeightSheets')->name('paper-weight-sheets');
+
 Route::get('/cart','CheckoutController@cart')->name('cart');
 Route::get('/customer-area','CustomerAreaController@index')->name('customer-area');
 Route::get('/repeat-order/{order_id}','RepeatOrderController@RepeatOrder')->name('repeat-order');
@@ -125,24 +127,37 @@ Route::resource('/datacheck','DataCheckController');
 Route::resource('/art','ArtController');
 Route::resource('/discount','DiscountController');
 Route::resource('/gallery','GalleryController');
-
+Route::resource('/pageformat','PageFormatController');
 Route::get('/details/{model}/{id}','ParameterController@details')->name('details'); 
 
+//order
 Route::get('/order','OrderController@index')->name('order');
 Route::get('/order-details/{order_id}','OrderController@edit')->name('order-details');
 Route::post('/order-edit/{id}','OrderController@update')->name('order-edit');
+
 Route::resource('/FAQ','FAQController');
 Route::resource('/product','ProductController');
 Route::get('/payment','PaymentController@index')->name('payment');
 Route::get('/delivery','DeliveryController@index')->name('delivery');
+
+//free sample
 Route::get('/freesample','FreeSampleController@index')->name('freesample');
+Route::get('/freesample-details/{id}','FreeSampleController@edit')->name('freesample-details');
+Route::post('/freesample-edit/{id}','FreeSampleController@update')->name('freesample-edit');
+
+
 Route::post('/dashboard-login-data','LoginController@authenticate')->name('dashboard-login-data');
 Route::get('/dashboard-logout-data','LoginController@logout')->name('dashboard-logout-data');
 
-
+ 
 //Parameters Route :Sachin
 Route::resource('/deliveryService','DeliveryController');
+Route::get('deliverySpine','DeliveryController@deleteSpine');
+
 Route::resource('/paper','PaperController');
+Route::get('deletePaperWeightSpin','PaperController@deleteSpine');
+
+Route::resource('/binding','ProductController');
 
 });
   

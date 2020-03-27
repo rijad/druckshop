@@ -5,9 +5,9 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
-use App\CoverColor;
+use App\PageFormat;
 
-class CoverColorController extends Controller
+class PageFormatController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -26,7 +26,7 @@ class CoverColorController extends Controller
      */
     public function create()
     {
-        return view('pages.admin.parameter.covercolor-create');
+        return view('pages.admin.parameter.pageformat-create');
     }
 
     /**
@@ -38,9 +38,13 @@ class CoverColorController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'color' => 'required',
+            'page_format' => 'required',
             'name_english' => 'required',
             'name_german' => 'required',
+            'can_add_din_A2' => 'nullable',
+            'max_pages_A2' =>'required_if:can_add_din_A2,on',
+            'can_add_din_A3' => 'nullable',
+            'max_pages_A3' =>'required_if:can_add_din_A3,on',
             'status' => 'nullable',
         ]);
         if ($validator->fails()) {
@@ -50,6 +54,7 @@ class CoverColorController extends Controller
         }
         
         $input = $request->all();
+        // dd($input);
 
         if($request->input('status') == "on"){
             $input['status'] = 1;
@@ -57,8 +62,24 @@ class CoverColorController extends Controller
             $input['status'] = 0;
         }
 
+        if($request->input('can_add_din_A2') == "on"){
+            $input['can_add_din_A2'] = 1;
+            $input['max_pages_A2'] = $request->max_pages_A2;
+        }else{
+            $input['can_add_din_A2'] = 0;
+            $input['max_pages_A2'] = 0;
+        }
+
+        if($request->input('can_add_din_A3') == "on"){
+            $input['can_add_din_A3'] = 1;
+            $input['max_pages_A3'] = $request->max_pages_A3;
+        }else{
+            $input['can_add_din_A3'] = 0;
+            $input['max_pages_A3'] = 0;
+        }
+
         
-        $users = CoverColor::create($input);
+        $format = PageFormat::create($input);
 
         return redirect()->back()->with('status' , 'Created');
     }
@@ -82,8 +103,8 @@ class CoverColorController extends Controller
      */
     public function edit($id)
     {
-        $covercolor = CoverColor::find($id);
-        return view('pages.admin.parameter.covercolor-edit', compact('covercolor'));
+        $format = PageFormat::find($id);
+        return view('pages.admin.parameter.pageformat-edit', compact('format'));
     }
 
     /**
@@ -96,10 +117,14 @@ class CoverColorController extends Controller
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'color' => 'required',
+            'page_format' => 'required',
             'name_english' => 'required',
             'name_german' => 'required',
-            'status' => 'nullable',   
+            'can_add_din_A2' => 'nullable',
+            'max_pages_A2' =>'required_if:can_add_din_A2,on',
+            'can_add_din_A3' => 'nullable',
+            'max_pages_A3' =>'required_if:can_add_din_A3,on',
+            'status' => 'nullable',  
         ]);
         if ($validator->fails()) {
             return redirect()->back()
@@ -117,13 +142,41 @@ class CoverColorController extends Controller
             }else{
                 $input['status'] = 0;
             }
-            // dd($status);
-            $covercolor = CoverColor::find($id);
-            $covercolor->color = $input['color'];
-            $covercolor->name_english = $input['name_english'];
-            $covercolor->name_german = $input['name_german'];
-            $covercolor->status = $input['status'];
-            $covercolor->save();
+
+            if($request->input('can_add_din_A2') == "on"){
+                $input['can_add_din_A2'] = 1;
+            }else{
+                $input['can_add_din_A2'] = 0;
+            }
+    
+            if($request->input('can_add_din_A3') == "on"){
+                $input['can_add_din_A3'] = 1;
+            }else{
+                $input['can_add_din_A3'] = 0;
+            }
+
+            $format = PageFormat::find($id);
+            $format->page_format = $input['page_format'];
+            $format->name_english = $input['name_english'];
+            $format->name_german = $input['name_german'];
+            $format->status = $input['status'];
+
+            if($request->input('can_add_din_A2') == "on"){
+                $format->can_add_din_A2 = $input['can_add_din_A2'];
+                $format->max_pages_A2 = $input['max_pages_A2'];
+            }else{
+                $format->can_add_din_A2 = 0;
+                $format->max_pages_A2 = 0;
+            }
+
+            if($request->input('can_add_din_A3') == "on"){
+                $format->can_add_din_A3 = $input['can_add_din_A3'];
+                $format->max_pages_A3 = $input['max_pages_A3'];
+            }else{
+                $format->can_add_din_A3 = 0;
+                $format->max_pages_A3 = 0;
+            }
+            $format->save();
             
         }
             return redirect()->back()->with('status' , 'Updated');
@@ -137,7 +190,7 @@ class CoverColorController extends Controller
      */
     public function destroy($id)
     {
-        $covercolor = CoverColor::where(['id' => $id])->update(['status' => 0]);
+        $format = PageFormat::where(['id' => $id])->update(['status' => 0]);
         return redirect()->back()->with('status' , 'Deleted');
     }
 }

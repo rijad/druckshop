@@ -114,7 +114,7 @@ class DataCheckController extends Controller
      */
     public function destroy($id)
     {
-        $datacheck = DataCheck::destroy($id);
+        $datacheck = DataCheck::where(['id' => $id])->update(['status' => 0]);
         return redirect()->back()->with('status' , 'Deleted');
     }
 }
