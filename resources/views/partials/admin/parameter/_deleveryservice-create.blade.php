@@ -26,14 +26,14 @@
 
                         <tr class="form-inline">
                             <td><input id="from" type="hidden" name="from[]" value="0" />0</td>
-                            <td><input class="form-control" id="to" type="number" name="to[]" required /></td>
-                            <td><input class="form-control" id="price" type="number" name="price[]" required /></td>
+                            <td><input class="form-control to_input" id="to" type="number" name="to[]" required /></td>
+                            <td><input class="form-control price_input" id="price" type="number" name="price[]" required /></td>
                         </tr>
 
                     </table>
 
                     <div class="form-group">
-                        <button type="button" class="btn btn-primary btn-sm mr-2" id="delivery_add_more"> <span>Add new row</span></button>
+                        <button type="button" class="btn btn-primary btn-sm mr-2" id="delivery_add_more" disabled="true"> <span>Add new row</span></button>
                         <button type="button" class="btn btn-danger btn-sm mr-2" id="delivery_remove_last"> <span>Remove last row</span></button>
                     </div>
                 </div>

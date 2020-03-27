@@ -25,28 +25,36 @@
                             <th>Price</th>
                         </tr>
 
+                        @if(!empty($attributes))
                         @foreach ($attributes as $key => $value)
                         <tr class="form-inline">
-                            <input id="from" type="hidden" name="id[]" value="{{ $value->id }}" />
-                            <td><input id="from" type="hidden" name="from[]" value="{{ $value->ds_from }}" />{{ $value->ds_from }}</td>
-                            <td><input class="form-control" id="to" type="number" name="to[]" value="{{ $value->ds_to }}" required /></td>
-                            <td><input class="form-control" id="price" type="number" name="price[]" value="{{ $value->ds_price }}" required /></td>
+                            <input id="from" type="hidden" name="id[]" value="{{ $value['id'] }}" />
+                            <td><input id="from" type="hidden" name="from[]" value="{{ $value['ds_from'] }}" />{{ $value['ds_from'] }}</td>
+                            <td><input class="form-control to_input" id="to" type="number" name="to[]" value="{{ $value['ds_to'] }}" required /></td>
+                            <td><input class="form-control price_input" id="price" type="number" name="price[]" value="{{ $value['ds_price'] }}" required /></td>
                         </tr>
-                        
                         @endforeach
+                        @else
+                        <tr class="form-inline">
+                            <td><input id="from" type="hidden" name="from[]" value="0" />0</td>
+                            <td><input class="form-control to_input" id="to" type="number" name="to[]" required /></td>
+                            <td><input class="form-control price_input" id="price" type="number" name="price[]" required /></td>
+                        </tr>
+                        @endif
+                        
 
                     </table>
                     
                 </div>
 
                 <div class="form-group">
-                    <button type="button" class="btn btn-primary btn-sm mr-2" id="delivery_edit_add_new_row"> <span>Add new row</span></button>
+                    <button type="button" class="btn btn-primary btn-sm mr-2" id="delivery_edit_add_new_row" > <span>Add new row</span></button>
                     <button type="button" class="btn btn-danger btn-sm mr-2" id="delivery_edit_remove_last"> <span>Remove last row</span></button>
                 </div>
 
                 <div class="form-group">
                     <div class="custom-control custom-checkbox small">
-                        <input type="checkbox" class="custom-control-input" id="customCheck" <?php echo ($value->ds_active) ? 'checked' : ''; ?> name="active">
+                        <input type="checkbox" class="custom-control-input" id="customCheck" <?php echo ($data->active_status) ? 'checked' : ''; ?> name="active">
                         <label class="custom-control-label" for="customCheck">Active</label>
                     </div>
                 </div>
