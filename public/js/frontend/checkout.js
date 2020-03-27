@@ -110,6 +110,13 @@ function displayFieldsContent(page_options = ""){
 			for( var i = 0; i<len; i++){  
 				$("#paper-weight").append("<option value = "+$content_attributes['paper_weight'][i]['id']+">"+$content_attributes['paper_weight'][i]['paper_weight']+"</option>");
 			}
+
+			if($("#page_options option:selected").val() == "1"){ //single
+				$("#paper-weight").val(1);  
+			}else if($("#page_options option:selected").val() == "2"){ //both
+				$("#paper-weight").val(2);  
+			}
+
 		}else{}
 
 		// Get data for mirror
@@ -129,12 +136,25 @@ function displayFieldsContent(page_options = ""){
 			document.getElementById('div-mirror').className = "displayNone";
 		}
 
-}  
+} 
+ 
 
 function displayPrintFields(embossment = ""){
 
 	if(embossment == "Embossment_Cover_Sheet"){
-		document.getElementById('div-template').className = "displayBlock";
+		if($("#embossment-cover-sheet").is(":checked")){
+			document.getElementById('div-template').className = "displayBlock";
+		}else{
+			document.getElementById('div-template').className = "displayNone";
+			//document.getElementById('div-embossment-cover-sheet').className = "displayNone";
+			document.getElementById('upload_custom_logo').className = "displayNone";
+			document.getElementById('drop_file_zone_logo_info').className = "displayNone";
+			document.getElementById('div-remarks').className = "displayNone"; 
+			$("#div-display-image").empty();
+			document.getElementById('div-display-image').className = "displayNone";
+			document.getElementById('div-fonts').className = "displayNone";
+			document.getElementById('div-date-format').className = "displayNone";
+		}
 	}
 
 } 
@@ -143,23 +163,79 @@ function displayPopUp(template = ""){
 	 var title = template;
   $('.modal-title').html(title);
  
-  $("#modal-body").empty();
+  $("#modal-body").empty(); 
 	if(template == "Standardvorlage mit Logo"){
 		 $('.modal').modal('show');
 		$("#modal-body").append("<p>Choose layout for standard cover with logo.</p><br><img id='mit_1' src='public/images/mit_1.png' onclick = displayImage('public/images/mit_1.png');> <img id='mit_1' src='public/images/mit_1.png' onclick = displayImage('public/images/mit_2.png');> <img id='mit_3' src='public/images/mit_3.png' onclick = displayImage('public/images/mit_3.png');> ");
 		document.getElementById('div-fonts').className = "displayBlock";
 		document.getElementById('div-date-format').className = "displayBlock";
-		document.getElementById('div-embossment-cover-sheet').className = "displayBlock";
+		document.getElementById('div-embossment-spine').className = "displayBlock";
+		document.getElementById('div-remarks').className = "displayBlock";
+		document.getElementById('upload_custom_logo').className = "displayBlock";
 	}else if(template == "Standardvorlage ohne Logo"){
 		 $('.modal').modal('show');
 		$("#modal-body").append("<p>Choose layout for standard cover without logo.</p><br><img id='ohne_1' src='public/images/ohne_1.png' onclick = displayImage('public/images/ohne_1.png');> <img id='ohne_2' src='public/images/ohne_2.png' onclick = displayImage('public/images/ohne_2.png');> <img id='ohne_3' src='public/images/ohne_3.png' onclick = displayImage('public/images/ohne_3.png');> ");
 		document.getElementById('div-fonts').className = "displayBlock";
 		document.getElementById('div-date-format').className = "displayBlock";
-		document.getElementById('div-embossment-cover-sheet').className = "displayBlock";
+		document.getElementById('div-embossment-spine').className = "displayBlock";
+		document.getElementById('div-remarks').className = "displayBlock";
+
+		document.getElementById('upload_custom_logo').className = "displayNone";
 	}else if(template == "Eigene Vorlage"){
 		document.getElementById('upload_custom_logo').className = "displayBlock";
 		document.getElementById('div-remarks').className = "displayBlock";
+		$("#div-display-image").empty();
+		document.getElementById('div-display-image').className = "displayNone"; 
 	}
+
+	if($("#template").find(":selected").val() == "-1"){
+		document.getElementById('upload_custom_logo').className = "displayNone";
+		document.getElementById('drop_file_zone_logo_info').className = "displayNone";
+		document.getElementById('div-remarks').className = "displayNone"; 
+		$("#div-display-image").empty();
+		document.getElementById('div-display-image').className = "displayNone"; 
+		document.getElementById('div-embossment-spine').className = "displayBlock";
+	}	
+
+}
+
+function displayPopUpCD(template = ""){
+	 var title = template;
+  $('.modal-title').html(title);
+ 
+  $("#modal-body").empty(); 
+	if(template == "Standardvorlage mit Logo"){
+		 $('.modal').modal('show');
+		$("#modal-body").append("<p>Choose layout for standard cover with logo.</p><br><img id='mit_1' src='public/images/mit_1.png' onclick = displayImage('public/images/mit_1.png');> <img id='mit_1' src='public/images/mit_1.png' onclick = displayImage('public/images/mit_2.png');> <img id='mit_3' src='public/images/mit_3.png' onclick = displayImage('public/images/mit_3.png');> ");
+		document.getElementById('div-fonts').className = "displayBlock";
+		document.getElementById('div-date-format').className = "displayBlock";
+		document.getElementById('div-embossment-spine').className = "displayBlock";
+		document.getElementById('div-remarks').className = "displayBlock";
+		document.getElementById('upload_custom_logo').className = "displayBlock";
+	}else if(template == "Standardvorlage ohne Logo"){
+		 $('.modal').modal('show');
+		$("#modal-body").append("<p>Choose layout for standard cover without logo.</p><br><img id='ohne_1' src='public/images/ohne_1.png' onclick = displayImage('public/images/ohne_1.png');> <img id='ohne_2' src='public/images/ohne_2.png' onclick = displayImage('public/images/ohne_2.png');> <img id='ohne_3' src='public/images/ohne_3.png' onclick = displayImage('public/images/ohne_3.png');> ");
+		document.getElementById('div-fonts').className = "displayBlock";
+		document.getElementById('div-date-format').className = "displayBlock";
+		document.getElementById('div-embossment-spine').className = "displayBlock";
+		document.getElementById('div-remarks').className = "displayBlock";
+
+		document.getElementById('upload_custom_logo').className = "displayNone";
+	}else if(template == "Eigene Vorlage"){
+		document.getElementById('upload_custom_logo').className = "displayBlock";
+		document.getElementById('div-remarks').className = "displayBlock";
+		$("#div-display-image").empty();
+		document.getElementById('div-display-image').className = "displayNone"; 
+	}
+
+	if($("#template").find(":selected").val() == "-1"){
+		document.getElementById('upload_custom_logo').className = "displayNone";
+		document.getElementById('drop_file_zone_logo_info').className = "displayNone";
+		document.getElementById('div-remarks').className = "displayNone"; 
+		$("#div-display-image").empty();
+		document.getElementById('div-display-image').className = "displayNone"; 
+		document.getElementById('div-embossment-spine').className = "displayBlock";
+	}	
 
 }
 
@@ -173,37 +249,97 @@ function displayImage(path){
 function displayCDFields(value = ""){ 
 
 	if(value == "cd"){ 
-
+		if($("#cd-check").is(":checked")){
 		document.getElementById('div-number-of-cds').className = "displayBlock";
 		document.getElementById('upload_cd').className = "displayBlock";
 		document.getElementById('div-cd-imprint').className = "displayBlock";
 		document.getElementById('div-cd-bag').className = "displayBlock";
+		}else{
+		document.getElementById('div-number-of-cds').className = "displayNone";
+		document.getElementById('upload_cd').className = "displayNone";
+		document.getElementById('div-cd-imprint').className = "displayNone";
+		document.getElementById('div-cd-bag').className = "displayNone";	
+		}
 
 	}else if(value == "imprint"){
 
-		document.getElementById('div-cd-template').className = "displayBlock";
+		if($("#imprint").is(":checked")){
+			document.getElementById('div-cd-template').className = "displayBlock";
+		}else{
+			document.getElementById('div-cd-template').className = "displayNone";
+		}
 		//document.getElementById('div-cd-bag').className = "displayBlock";
-
 	}
 		
+}
+
+
+function cdBagPosition(){
+
+	if($("#cd-bag option:selected").val() == "2"){ 
+		document.getElementById('div-pos-cd-bag').className = "displayBlock";  
+	}else{ 
+		document.getElementById('div-pos-cd-bag').className = "displayNone";  
+	}
+
 }
 
 
 function displayContentInput(option = ""){
 
 	if(option == "Color_Pages"){
-		document.getElementById('div-page-numbers').className = "displayBlock";
+		if($("#color-pages").is(":checked")){ 
+			document.getElementById('div-page-numbers').className = "displayBlock";
+		}else{
+			document.getElementById('div-page-numbers').className = "displayNone";
+		}
 	}else if(option == "A3_Pages"){
+		if($("#A3-pages").is(":checked")){
 		document.getElementById('div-number-of-pages').className = "displayBlock";
 		document.getElementById('div-pos-A3-pages').className = "displayBlock";
 		document.getElementById('drop_file_din_A3').className = "displayBlock";
 		document.getElementById('A3_msg').className = "displayBlock";
+		}else{
+		document.getElementById('div-number-of-pages').className = "displayNone";
+		document.getElementById('div-pos-A3-pages').className = "displayNone";
+		document.getElementById('drop_file_din_A3').className = "displayNone";
+		document.getElementById('A3_msg').className = "displayNone";	
+		}
+		
 	}else if(option == "A2_Pages"){
+		if($("#A2-pages").is(":checked")){
 		document.getElementById('div-number-of-A2-pages').className = "displayBlock";
 		document.getElementById('drop_file_din_A2').className = "displayBlock";
 		//document.getElementById('drop_file_zone_A2').className = "displayBlock";
 		document.getElementById('A2_msg').className = "displayBlock";
+		}else{
+		document.getElementById('div-number-of-A2-pages').className = "displayNone";
+		document.getElementById('drop_file_din_A2').className = "displayNone";
+		//document.getElementById('drop_file_zone_A2').className = "displayNone";
+		document.getElementById('A2_msg').className = "displayNone";
+		}
 	}
+}
+
+
+function hideBindingElements(value = ""){
+
+	if(value == "back-cover"){
+		if($("#back-cover").find(":selected").val() == "-1"){
+			document.getElementById('drop_file_zone_back_cover').className = "displayNone";
+			document.getElementById('drop_file_zone_back_cover_sheet_info').className = "displayNone";
+			document.getElementById('selectfile_backcover').value=""; // empty file field as well
+		}
+	}
+
+	if(value == "cover-sheet"){
+		if($("#cover-sheet").find(":selected").val() == "-1"){
+			document.getElementById('drop_file_zone_cover_sheet').className = "displayNone";
+			document.getElementById('drop_file_zone_cover_sheet_info').className = "displayNone";
+			document.getElementById('selectfile_coversheet').value=""; // empty file field as well
+		}
+	}
+
 }
 
 function displayProductAttributes(field_flag = "", values = ""){
