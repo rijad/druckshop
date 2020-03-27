@@ -1,4 +1,4 @@
-<div class="mycart">
+<div class="mycart checkout-rv">
         <div class="container">
             <div class="Product_qeue">
                 <div class="w-100">
@@ -15,7 +15,7 @@
                                     <img src="images/product_frame.png" alt="" width="100px">
                                     <div class="product_description">
                                         <p class="thisproduct_head">{{$data->product}}</p>
-                                        <p class="thisproduct_subhead">{{$data->attribute_desc}}</p>
+                                        <p class="thisproduct_subhead more">{{$data->attribute_desc}}</p>
                                     </div>
                                     <ul class="product_price">
                                         <li class="inputcard_quantity"><h6><strong>{{$data->price_product_qty}}€</strong></h6>
@@ -24,13 +24,9 @@
                                     </ul>
                                 </div> 
                                 <hr>
-                                
                                 @endforeach
-
-
-                                <hr>
                             </div>
-                             <div class="text-right">
+                             <div class="text-right pr-4 pl-4">
                                 <p class="thisproduct_head">Total: {{$total}} €</p>
                                 <p class="thisproduct_head">Promo Discount:({{$discount_amt}}) €</p>
                                 <hr>
@@ -48,3 +44,53 @@
            
         </div>
     </div>
+
+
+
+
+<script>
+$(document).ready(function() {
+  var showChar = 300;
+  var ellipsestext = "...";
+  var moretext = "Read more";
+  var lesstext = "Read less";
+  $('.more').each(function() {
+    var content = $(this).html();
+
+    if(content.length > showChar) {
+
+      var c = content.substr(0, showChar);
+      var h = content.substr(showChar-1, content.length - showChar);
+
+      var html = c + '<span class="moreelipses">'+ellipsestext+'</span>&nbsp;<span class="morecontent"><span>' + h + '</span><a href="" class="morelink">'+moretext+'</a></span>';
+
+      $(this).html(html);
+    }
+
+  });
+
+  $(".morelink").click(function(){
+    if($(this).hasClass("less")) {
+      $(this).removeClass("less");
+      $(this).html(moretext);
+    } else {
+      $(this).addClass("less");
+      $(this).html(lesstext);
+    }
+    $(this).parent().prev().toggle();
+    $(this).prev().toggle();
+    return false;
+  });
+});
+</script>
+
+<style>
+a.morelink {
+  text-decoration:none;
+  outline: none;
+}
+.morecontent span {
+  display: none;
+
+}
+</style>

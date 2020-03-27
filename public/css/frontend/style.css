@@ -347,7 +347,7 @@ ul.headerCart li a {  margin-top: 18px; margin-left: 20px;}
 .product-block .proInfo a {color:#b88862;} 
 .pageNewsletter {padding:100px 0; margin-top:30px; background:url(/../public/images/slide-01.png) no-repeat center center #eaeaea; background-size:cover; background-attachment: fixed;}
 button:focus {outline:none !important;}
-
+}
  
 /* ========================================== css added 10-02-2020 ===================== */
 
@@ -701,18 +701,6 @@ button:focus {outline:none !important;}
     font-size: 18px;
     margin-top:80px;
 }
-
-#drop_pdf {
-    background-color: #EEE; 
-    border: #999 5px dashed;
-    width: 290px; 
-    height: 200px;
-    padding: 8px;
-    font-size: 18px;
-    margin-top:80px;
-}
-
-
 #drag_upload_file {
   width:50%;
   margin:0 auto;
@@ -934,35 +922,7 @@ img {max-width: 100%;}
 }
 
 
-@media only screen and (max-width: 1300px){
-.w-35 {
-  width: 100%;
-  padding-left: 0px;
-}
-.w-65 {
-  width: 100%;
-  padding-right: 0px;
-  margin-top: 30px;
-}
-}
 
-@media only screen and (max-width: 1300px){
-.Product_qeue .product .product_price {
-  position: absolute;
-  right: 0;
-  top: 0;
-}
-}
-@media only screen and (max-width: 1300px){
-.Product_qeue .product .product_description {
-  display: inline-block;
-  vertical-align: top;
-  width: 100%;
-  line-height: 10px;
-  padding-left: 0px;
-  padding-top: 30px;
-}
-}
 
 
 
@@ -1341,7 +1301,7 @@ div#drop_file_zone_content {
   overflow: hidden;
 }
 
-/*.customer-profile-image .btn-file input[type=file] {
+.customer-profile-image .btn-file input[type=file] {
     position: absolute;
     top: 0;
     right: 0;
@@ -1355,20 +1315,40 @@ div#drop_file_zone_content {
     background: white;
     cursor: inherit;
     display: block;
-}*/
+}
 section.customer-profile-section{
   margin: 50px 0;
 }
 
 
 
+.customer-area-login {
+  margin: 50px 0;
+}
+.customer-area-login .form-group input{
+    margin-left: 0;
+}
+.customer-area-login .form-check-label {
+    margin-bottom: 0;
+    margin-left: 20px;
+    vertical-align: middle;
+}
+.customer-area-login .form-check{
+  padding-left: 0;
+}
 
+.customer-area-register {
+  margin: 50px 0;
+}
+.customer-area-register .form-group input{
+    margin-left: 0;
+}
 
 
 
 /*media query starts from here*/
 
-/*@media only screen and (max-width:768px){
+@media only screen and (max-width:768px){
   .customer-profile-info ul li {
     display: block;
   }
@@ -1382,7 +1362,19 @@ section.customer-profile-section{
   .customer-profile-text p {
     font-size: 20px;
   }
-}*/
+
+
+  .Product_qeue .product .product_description {
+    padding-top: 30px;
+  }
+  .Product_qeue .product .product_description {
+    width: 100%;
+        padding-top: 60px;
+}
+.Product_qeue .product ul.product_price li .remove_btn {
+    margin-top: 15px;
+  }
+}
 
 
 @media (min-width: 768px){
@@ -1451,14 +1443,14 @@ section.customer-profile-section{
     top: 0;
 }
 }
-@media only screen and (max-width: 1300px){
+@media (min-width:768px) and (max-width: 1300px){
 .Product_qeue .product .product_description {
     display: inline-block;
     vertical-align: top;
-    width: 100%;
+    width: 50%;
     line-height: 10px;
     padding-left: 0px;
-    padding-top: 30px;
+    padding-top: 0px;
 }
 }
 
