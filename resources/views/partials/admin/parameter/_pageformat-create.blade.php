@@ -9,22 +9,31 @@
                 {{ session('status') }}
             </div>
         @endif
+        @if ($errors->any())
+            <ul>
+                @foreach ($errors->all() as $error)
+                @endforeach
+            </ul>
+        @endif
 
             <form class="form-group-inline" method="POST" action="{{ route('pageformat.store') }}" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
                     <label class="small mb-1" for="page_format">Name</label>
                     <input class="form-control" id="page_format" name="page_format" value="{{ old('page_format') }}" type="text" placeholder="page_format" required />
+                    <span class="text-danger">{{ $errors->first('page_format') }}</span>
                 </div>
 
                 <div class="form-group">
                     <label class="small mb-1" for="name_english">Name in English</label>
                     <input class="form-control" id="name_english" name="name_english" value="{{ old('name_english') }}" type="text" placeholder="Name" required />
+                    <span class="text-danger">{{ $errors->first('name_english') }}</span>
                 </div>
 
                 <div class="form-group">
                     <label class="small mb-1" for="name_german">Name In German</label>
                     <input class="form-control" id="name_german" name="name_german" value="{{ old('name_german') }}" type="text" placeholder="Name" required />
+                    <span class="text-danger">{{ $errors->first('name_german') }}</span>
                 </div>
 
                 <div class="form-group">
@@ -35,8 +44,9 @@
                 </div>
 
                 <div class="form-group" id="max_a2">
-                    <label class="small mb-1" for="max_pages_A2">max_pages_A2</label>
+                    <label class="small mb-1" for="max_pages_A2">Max Pages A2</label>
                     <input class="form-control" id="max_pages_A2" name="max_pages_A2" value="{{ old('max_pages_A2') }}" type="text" placeholder="max_pages_A2"  />
+                    <span class="text-danger">{{ $errors->first('max_pages_A2') }}</span>
                 </div>
 
                 <div class="form-group">
@@ -47,8 +57,9 @@
                 </div>
 
                 <div class="form-group" id="max_a3">
-                    <label class="small mb-1" for="max_pages_A2">max_pages_A3</label>
+                    <label class="small mb-1" for="max_pages_A2">Max Pages A3</label>
                     <input class="form-control" id="max_pages_A3" name="max_pages_A3" value="{{ old('max_pages_A3') }}" type="text" placeholder="max_pages_A3"  />
+                    <span class="text-danger">{{ $errors->first('max_pages_A3') }}</span>
                 </div>
 
                 <div class="form-group">

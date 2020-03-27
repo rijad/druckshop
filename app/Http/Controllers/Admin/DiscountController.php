@@ -218,7 +218,7 @@ class DiscountController extends Controller
      */
     public function destroy($id)
     {
-        $discount = Discount::destroy($id);
+        $discount = Discount::where(['id' => $id])->update(['status' => 0]);
         return redirect()->back()->with('status' , 'Deleted');
     }
 }

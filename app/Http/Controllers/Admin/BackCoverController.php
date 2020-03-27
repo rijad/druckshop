@@ -138,7 +138,7 @@ class BackCoverController extends Controller
      */
     public function destroy($id)
     {
-        $backcover = BackCovers::destroy($id);
+        $backcover = BackCovers::where(['id' => $id])->update(['status' => 0]);
         return redirect()->back()->with('status' , 'Deleted');
     }
 }

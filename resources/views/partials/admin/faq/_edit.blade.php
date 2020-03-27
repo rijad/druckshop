@@ -1,55 +1,49 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"><html>
-<head>
-    <META http-equiv="Content-Type" content="text/html; charset=utf-8">
-</head>
-<body>
+<div class="card mb-4 mt-4">
+    <div class="card-header">
+        <h2>Edit FAQ</h2>
 
-    @if (session('status'))
-    <div class="alert alert-success" role="alert">
-        {{ session('status') }}
-    </div>
-    @endif
-    @if ($errors->any())
-        <div class="alert alert-danger">
+        <div class="card-body col-md-8">
+
+        @if (session('status'))
+            <div class="alert alert-success" role="alert">
+                {{ session('status') }}
+            </div>
+        @endif
+        @if ($errors->any())
             <ul>
                 @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
                 @endforeach
             </ul>
-        </div>
-    @endif
-
-<div>
-  <div>
+        @endif
     <div>
-        <form method="POST" action="{{ route('FAQ.update' , $faq->id) }}" enctype="multipart/form-data" 
-            target="_blank">
+        <form  class="form-group-inline" method="POST" action="{{ route('FAQ.update' , $faq->id) }}" enctype="multipart/form-data">
         @method('PUT')
         @csrf
           <div>
-            <label>English Title</label>
-            <input type="text" name="title_english" value="{{ $faq->title_english }}">
+            <label class="small mb-1" for="title_english">English Title</label>
+            <input class="form-control" type="text" name="title_english" value="{{ $faq->title_english }}">
+            <span class="text-danger">{{ $errors->first('title_english') }}</span>
           </div>
           <div>
-            <label>German Title</label>
-            <input type="text" name="title_german" value="{{ $faq->title_german }}">
+            <label class="small mb-1" for="title_german">German Title</label>
+            <input class="form-control" type="text" name="title_german" value="{{ $faq->title_german }}">
+            <span class="text-danger">{{ $errors->first('title_german') }}</span>
           </div>
           <div>
-            <label>English Text</label>
+            <label class="small mb-1" for="text_english">English Text</label>
             <textarea type="text" name="text_english" >{{ $faq->text_english }}</textarea>
+            <span class="text-danger">{{ $errors->first('text_english') }}</span>
           </div>
           <div>
-            <label>German Text</label>
+            <label class="small mb-1" for="text_german">German Text</label>
             <textarea type="text" name="text_german" >{{ $faq->text_german }}</textarea>
+            <span class="text-danger">{{ $errors->first('text_german') }}</span>
           </div>
-          <div>
-              <button type="submit" value="update" name="update">Update</button>
-          </div>
+          <div class="form-group">
+                <input type="submit" class="btn btn-primary btn-user btn-block col-md-3" value="Update">
+            </div>
       </form>
     </div>
   </div>
 
 </div>
-
-</body>
-</html>

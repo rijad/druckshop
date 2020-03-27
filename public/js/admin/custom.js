@@ -41,13 +41,4 @@ $(document).ready(function () {
         $("#max_a33").hide();
     }
 
-    // $('#can_add_din_A2').click(function(){
-    //     $('#max_a22').toggle();
-    // })
-
-    // $('#can_add_din_A3').click(function(){
-    //     $('#max_a33').toggle();
-    // })
-
-
 });

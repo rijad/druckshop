@@ -27,12 +27,12 @@
                                     @foreach($pageformat as $format)
                                     <tr>
                                         <td>{{ $format->page_format }}</td>
-                                        <td>
+                                        <td class="form-inline">
                                             <form method="GET" action="{{ route('pageformat.edit' , $format->id) }}">
                                                 <input type="submit" value="edit" class="btn btn-success">
                                             </form>
 
-                                            <form method="POST" action="{{ route('pageformat.destroy' , $format->id) }}">
+                                            <form method="POST" action="{{ route('pageformat.destroy' , $format->id) }}" class="ml-2">
                                                 @method('DELETE')
                                                 @csrf
                                                 <input type="submit" value="delete" class="btn btn-danger">

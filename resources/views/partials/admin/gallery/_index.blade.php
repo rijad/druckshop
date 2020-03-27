@@ -1,9 +1,12 @@
-<div class="card mb-4">
-                <div class="card-header"><i class="fas fa-table mr-1"></i>galer
-                    <form method="GET" action="{{ route('gallery.create') }}">
-                        <input type="submit" value="New" >
-                    </form>
-                </div>
+<div class="card mb-4 mt-4">
+    <div class="card-header"><span>Gallery</span>
+
+        <div class="float-right">
+            <form method="GET" action="{{ route('gallery.create') }}">
+                <input type="submit" value="Create New Gallery" class="btn btn-primary">
+            </form>
+        </div>
+    </div>
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -23,11 +26,11 @@
                                 @foreach($gallery as $gal)
                                     <tr>
                                         <td><img src="{{ asset($gal->image)}}" height="50" width="100" alt="..."></td>
-                                        <td>
+                                        <td class="form-inline">
                                             <form method="POST" action="{{ route('gallery.destroy' , $gal->id) }}">
                                             @method('DELETE')
                                             @csrf
-                                            <input type="submit" value="delete" >
+                                             <input type="submit" value="delete" class="btn btn-danger">
                                             </form>
                                         </td>
                                     </tr>  
