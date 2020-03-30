@@ -5,8 +5,13 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Product;
+use App\ArtList;
 use App\PageFormat;
+use App\CoverColor;
+use App\CoverSheet;
+use App\BackCovers;
 use App\CoverSetting;
+use App\PrintFinishing;
 
 class ProductController extends Controller
 {
@@ -32,7 +37,15 @@ class ProductController extends Controller
         $pageFormat = PageFormat::where('status', 1)->limit(4)->get();
         $coverSetting = CoverSetting::where('status', 1)->orderBy('id', 'DESC')->limit(4)->get();
 
-        return view('pages.admin.parameter.binding-create', compact('pageFormat', 'coverSetting'));
+        $coverColor = CoverColor::where('status', 1)->orderBy('id', 'ASC')->limit(5)->get();
+        $coverSheet = CoverSheet::where('status', 1)->orderBy('id', 'ASC')->limit(5)->get();
+        $backCover = BackCovers::where('status', 1)->orderBy('id', 'ASC')->limit(5)->get();
+
+        $printFinishing = PrintFinishing::where('status', 1)->orderBy('id', 'DESC')->limit(5)->get();
+
+        $artList = ArtList::where('status', 1)->orderBy('id', 'ASC')->limit(5)->get();
+
+        return view('pages.admin.parameter.binding-create', compact('pageFormat', 'coverSetting', 'coverColor', 'coverSheet', 'backCover', 'printFinishing', 'artList'));
     }
 
     /**

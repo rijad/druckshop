@@ -273,8 +273,31 @@
 
 
 
+        // Binding Form Validation and js
+        $(document).on('click', '#cover_setting', function() {
 
+            var cover_setting = $('input:radio[name=cover_setting]:checked').val();
 
+            if (cover_setting == 1) {
+
+                $('.cover_color').show();
+                $('.cover_sheet').hide();
+                $('.back_cover').hide();
+            } else if (cover_setting == 2) {
+
+                $('.cover_color').show();
+                $('.cover_sheet').show();
+                $('.back_cover').show();
+            }else{
+
+                $('.cover_color').hide();
+                $('.cover_sheet').hide();
+                $('.back_cover').hide();
+            }
+
+            console.log('cover_setting', cover_setting);
+
+        });
 
 
 
