@@ -57,7 +57,9 @@ class FreeSampleController extends Controller
             'selectfile_free_sample' => 'required',
             'sample_status' => 'nullable', 
             'status' => 'nullable',
-        ]);
+        ], [
+            'selectfile_free_sample.required' => 'Upload document to be printed as sample',
+            ]); 
         if ($validator->fails()) {
             return redirect()->back()
                         ->withErrors($validator)

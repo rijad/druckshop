@@ -171,8 +171,8 @@ p.footer-copyright {padding:10px; color:#5b6a87; font-size: 14px;}
 .btn-gray {background-image: linear-gradient(270deg,#79879a,#aec6cf); box-shadow: 0 8px 16px rgba(174,198,207,.25); padding:10px 20px; color:#fff; font-size:14px; letter-spacing:1px;border-radius: 4px;}
 .product-item button { margin-top:20px; }
 .product-item a {display: inline-block; padding:8px 20px; font-size: 14px; text-transform: capitalize; outline: 0; line-height: 1.5; text-align: center; white-space: nowrap; border: 1px solid #c5d9e8; 
-	border-radius: 4px; background-color: #fff; transition: background .2s; letter-spacing:0.5px; margin-left:15px;}
-.product-item-img {vertical-align: middle; }	
+  border-radius: 4px; background-color: #fff; transition: background .2s; letter-spacing:0.5px; margin-left:15px;}
+.product-item-img {vertical-align: middle; }  
 .product-item-img img {display: inline-block; border:5px solid #fff; box-shadow:0px 0px 20px rgba(0,0,0,0.2); max-width:400px; margin-top:40px; position: relative; z-index: 10;}
 .product-item-img .img-back{display: inline-block; position: relative; margin-top:40px;}
 .product-item-img .img-back img {margin-top:0;}
@@ -204,8 +204,8 @@ p.footer-copyright {padding:10px; color:#5b6a87; font-size: 14px;}
     letter-spacing:0;
 }
 .loginModalContent .modal-header h2 i{
-	color:#79879a;
-	font-size: 30px;
+  color:#79879a;
+  font-size: 30px;
 }
 .login-form h3 {
     font-size: 18px;
@@ -239,20 +239,20 @@ p.footer-copyright {padding:10px; color:#5b6a87; font-size: 14px;}
     margin-top:20px;
 }
 .signInForm .inputField label {
-	display: block;
-	clear: both;
-	font-size: 14px;
-	color:#79879a;
+  display: block;
+  clear: both;
+  font-size: 14px;
+  color:#79879a;
 }
 .signInForm .inputField input {
-	display: block;
-	width: 100%;
-	height: 40px; 
-	border-radius:3px;
-	padding: 0px 10px;
-	border:1px solid #dbdbdb;
-	margin-top:5px;
-	font-size: 14px;
+  display: block;
+  width: 100%;
+  height: 40px; 
+  border-radius:3px;
+  padding: 0px 10px;
+  border:1px solid #dbdbdb;
+  margin-top:5px;
+  font-size: 14px;
 }
 
 .formSubmit button, .formSubmit input {
@@ -275,9 +275,9 @@ p.footer-copyright {padding:10px; color:#5b6a87; font-size: 14px;}
 }
 
 .formSubmit input[type="submit"] {
-	background:#0181f6;
-	color:#fff;
-	margin-right: 15px;
+  background:#0181f6;
+  color:#fff;
+  margin-right: 15px;
 }
 
 .loginWrap span#switchForm {color:#b88862; cursor: pointer;}
@@ -701,6 +701,18 @@ button:focus {outline:none !important;}
     font-size: 18px;
     margin-top:80px;
 }
+
+#drop_pdf {
+    background-color: #EEE; 
+    border: #999 5px dashed;
+    width: 290px; 
+    height: 200px;
+    padding: 8px;
+    font-size: 18px;
+    margin-top:80px;
+}
+
+
 #drag_upload_file {
   width:50%;
   margin:0 auto;
@@ -1342,6 +1354,46 @@ section.customer-profile-section{
 }
 .customer-area-register .form-group input{
     margin-left: 0;
+}
+
+
+p.About-subhead {
+    color: #5b6a87;
+    font-size: 18px;
+    text-align: center;
+    max-width: 900px;
+    margin: 10px auto 30px;
+}
+.About-boody{
+  color: #5b6a87;
+    font-size: 18px;
+    margin: 10px auto 30px;
+    padding-top: 50px;
+    clear:both; 
+}
+
+
+.About-boody h2 {
+    color: #1d2b4c;
+    font-size: 26px;
+    padding: 15px 0;
+    letter-spacing: 0.5px;
+}
+
+.latestpage-rv .latestpost-item-img.text-left img {
+    max-height: 400px;
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #f1f1f1;
+    margin-bottom: 20px;
+}
+.latestpage-rv .latest-header {
+    box-shadow: 1px 2px 13px 0 rgba(0, 0, 0, 0.08);
+    padding: 15px 20px;
+    margin-bottom: 50px;
+}
+.latestpage-rv p.latest-date {
+    color: #9c9c9c;
 }
 
 

@@ -108,13 +108,15 @@ function displayFieldsContent(page_options = ""){
 			$("#paper-weight").empty();
 			$("#paper-weight").append("<option value='-1'>Select</option>");
 			for( var i = 0; i<len; i++){  
-				$("#paper-weight").append("<option value = "+$content_attributes['paper_weight'][i]['id']+">"+$content_attributes['paper_weight'][i]['paper_weight']+"</option>");
+				$("#paper-weight").append("<option value = "+$content_attributes['paper_weight'][i]['id']+">"+$content_attributes['paper_weight'][i]['paper_weight']+" g/m²</option>");
 			}
 
 			if($("#page_options option:selected").val() == "1"){ //single
 				$("#paper-weight").val(1);  
+				$("#paper-weight").trigger("onchange");
 			}else if($("#page_options option:selected").val() == "2"){ //both
-				$("#paper-weight").val(2);  
+				$("#paper-weight").val(2);
+				$("#paper-weight").trigger("onchange");  
 			}
 
 		}else{}
@@ -403,39 +405,75 @@ function displayProductAttributes(field_flag = "", values = ""){
 }
 
 
-function displayPrice(paper_weight = "", nos_of_cds = "", data_check = ""){
+function displayPrice(binding = "", no_ofsheets = "", page_options = "", embossing_cover = "", embossing_spine="", paper_weight = "", A2="", A3="", nos_of_cds = "", data_check = "", cd_cover = "", no_of_colored_sheets = "", delivery_service = ''){
+//alert(binding);
 
-	//alert($(data_check).find(":selected").text());
-	
-	var stringArray = ""; var data_check_value = 0; var weight = 0; var no_of_pages = 0;
-    
-    if(paper_weight != ""){
-    	value = $(paper_weight).find(":selected").text();
-    	stringArray = value.split(/\b(\s)/);
-    	weight = stringArray[0];
-    	no_of_pages = document.getElementById('numbers-of-pages').value;
-    }
-	
+	var binding_type = "",no_of_sheets = "", pageOptions = "", embossingCover = "", embossingSpine="", paperWeight = "", A2_page="", A3_page="", nosOfCds = "", dataCheck = "", cdCover = "", coloredSheets = "", deliveryService = '';
+
+	if(binding != ""){
+		binding_type = binding;
+	}
+
+	if(no_ofsheets != ""){
+		no_of_sheets = no_ofsheets; 
+	}
+
+	if(page_options != ""){
+		pageOptions = page_options;
+	}
+
+	if(embossing_cover != ""){
+		embossingCover = embossing_cover;
+	}
+
+	if(embossing_spine != ""){
+		embossingSpine = embossing_spine;
+	}
+
+	if(paper_weight != ""){
+		paperWeight = paper_weight;
+	}
+
+	if(A2 != ""){
+		A2_page = A2;
+	}
+
+	if(A3 != ""){
+		A3_page = A3;
+	}
 
 	if(nos_of_cds != ""){
-    	nos_of_cds = document.getElementById('numbers-of-cds').value;
-    }
+		nosOfCds = nos_of_cds;
+	}
 
-    if(data_check != ""){
-    	data_check_value = document.getElementById('data_check').value;
-    	 //alert(data_check_value);
-    } 
+	if(data_check != ""){
+		dataCheck = data_check;
+	}
+	if(no_of_colored_sheets != ""){
+		coloredSheets = no_of_colored_sheets;
+	}
+	if(delivery_service != ""){
+		deliveryService = delivery_service;
+	}
+
+	if(cd_cover != ""){
+		cdCover = cd_cover;
+
+	}
+	
 
 	$.ajax({
-		url: '/druckshop/get-price',
+		url: '/druckshop/get-price', 
 		type: 'GET', 
-		data: {'paper_weight': weight,'no_of_pages': no_of_pages ,'no_of_cds':nos_of_cds,'data_check':data_check_value},
+		data: {'binding_type' : binding, 'no_of_sheets' : no_ofsheets, 'pageOptions' : page_options, 'embossingCover' : embossing_cover, 'embossingSpine' : embossing_spine, 'paperWeight' : paper_weight, 'A2_page' : A2, 'A3_page': A3, 'nosOfCds' : nos_of_cds, 'dataCheck' : data_check, 'coloredSheets' : no_of_colored_sheets, 'deliveryService' : delivery_service, 'cdCover':cdCover},
 		success: function (response){
 			var data = JSON.parse(response); 
-			//console.log(data['data']['price_per_copy']);
-			document.getElementById('price_per_copy').innerHTML = data['data']['price_per_copy'] + "€" ;
-			document.getElementById('price_per_cd').innerHTML = data['data']['price_per_cd'] + "€" ;
-			document.getElementById('price_of_data_check').innerHTML = data['data']['price_data_check'] + "€" ;
+			//console.log(response);
+			//console.log(data['data']['price_per_copy']);  cd_dvd
+			document.getElementById('binding_price').innerHTML = data['data']['binding_price'] + "€" ;
+			document.getElementById('printout').innerHTML = data['data']['printout'] + "€" ;
+			document.getElementById('data_check_price').innerHTML = data['data']['data_check_price'] + "€" ;
+			document.getElementById('cd_dvd').innerHTML = data['data']['cd_dvd'] + "€" ;
 			document.getElementById('total').innerHTML = data['data']['total'] + "€" ;
 			document.getElementById('total_price').value = data['data']['total'];
 			
@@ -780,7 +818,7 @@ function incrementQuantity(id = "",count = ""){
 
 } 
 
- function checkPageRange(id1 = '', id2 = '' ,value_id = ''){  alert("1");
+ function checkPageRange(id1 = '', id2 = '' ,value_id = ''){  //alert("1");
  
      var count_of_pages = 0; var range = 0; var val = [];
      document.getElementById('error_range').innerHTML = ""; 
@@ -793,7 +831,7 @@ function incrementQuantity(id = "",count = ""){
 
      if(value.includes("-")){
      	val = value.split("-");  
-     	range = Math.abs(parseInt(val[0]) - parseInt(val[1])); alert(range);
+     	range = Math.abs(parseInt(val[0]) - parseInt(val[1])); //alert(range);
      }else if(value.includes(",")){
      	val = value.split(",");  
      	range = val.length;   
@@ -816,7 +854,7 @@ function incrementQuantity(id = "",count = ""){
      }
 
  }
-
+ 
 
  // step 2 Number of pages dependency C
  function NumberOfPages(binding = "", weight = "", no_pages=""){
