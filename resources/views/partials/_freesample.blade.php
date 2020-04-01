@@ -1,6 +1,8 @@
 <div class="container">
     <div class="col-row mb-5">  
 
+   
+
         <div class="product-item-img col-half text-left">
             <span class="img-back"><img src="{{ asset('public/images/product2.jpg')}}" alt="" /></span>
         </div>
@@ -15,14 +17,13 @@
  
         <div id="drop_pdf" ondrop="upload_file(event,this.id)" ondragover="return false" class="displayBlock">
 			<div id="drag_upload_file_sample">
-                <p>Drop file here<a href="#" data-toggle="tooltip" title="PDF" class="formToolTip">i</a></p> 
+                <p>Drop file here*<a href="#" data-toggle="tooltip" title="PDF" class="formToolTip">i</a></p> 
 				<p>or</p>
 				<p><input class = "" type="button" value="Select File" onclick="file_explorer('drop_pdf');"></p>
 				<input type="file" name="selectfile" id="selectfile" accept="application/pdf" required>
-				
 			</div>
 		</div>
-
+       
         <p class="error" id="error_selectfile_pdf"></p> 
 
         <div id="drop_file_zone_pdf" class="displayNone"><label id="pdf_file_name"></label>
@@ -46,9 +47,9 @@
             @endif
                       
             <div class="form-group">
-                <label>Side Option:</label>
+                <label>Side Option:*</label>
                  <select name="side_option">
-                    <option>Please Choose</option>
+                    <option selected="true" disabled="disabled">Please Choose</option>
                     @foreach($page_options as $options)
                     <option value="{{$options->page_options}}">{{$options->page_options}}</option>
                      @endforeach
@@ -56,9 +57,9 @@
                     <span class="text-danger">{{ $errors->first('side_option') }}</span>
             </div>
             <div class="form-group">
-                <label>Paper Weight:</label>
+                <label>Paper Weight:*</label>
                 <select name="paper_weight">
-                    <option>Please Choose</option>
+                    <option selected="true" disabled="disabled">Please Choose</option>
                     @foreach($paper_weight as $weight)
                     <option value="{{$weight->paper_weight}}">{{$weight->paper_weight}}</option>
                     @endforeach
@@ -108,12 +109,11 @@
                     <span class="text-danger">{{ $errors->first('city') }}</span>
                 </div>
                 {{-- uploaded File name --}}
-            <input type="hidden" name="selectfile_free_sample" id="selectfile_free_sample">
+                <input type="hidden" name="selectfile_free_sample" id="selectfile_free_sample">
+                <span class="text-danger">{{ $errors->first('selectfile_free_sample') }}</span>
                 <div class="form-group pull-right">
                     <input type="submit" name="request_free_sample" value="request_free_sample">
                 </div>
-                
-                
                 
             </form>
         </div>
