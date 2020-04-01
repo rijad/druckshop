@@ -295,7 +295,81 @@
                 $('.back_cover').hide();
             }
 
-            console.log('cover_setting', cover_setting);
+
+        });
+
+        $(document).on('click', '#print_finishing', function() {
+
+            var print_finishing = $('input:radio[name=print_finishing]:checked').val();
+
+            if (print_finishing == 2) {
+
+                $('.art_list').show();
+            } else {
+
+                $('.art_list').hide();
+            }
+
+        });
+
+         //Binding -> Add More -> Create form
+        $('#binding_add_more').click(function(){
+
+            $( "#binding_add_more" ).prop( "disabled", true );
+
+            var start = 0;
+            get_end_value = $('#binding_table tr:last td:nth(1) input').val();
+            console.log('get_end_value', get_end_value);
+
+            if (get_end_value) {
+
+                start = get_end_value;
+            }else{ 
+               start = 0;
+           }
+
+           $('#binding_table').append('<tr class="form-inline"><td><input id="start" type="hidden" name="sheet_start[]" value='+start+' />'+start+'</td><td><input class="form-control end" id="end" type="number" name="sheet_end[]" placeholder="page range" required /></td><td><input class="form-control product_price" id="product_price" type="number" name="product_price[]" placeholder="price" required /></td></tr>');
+       });
+
+        $('#binding_remove_last').click(function(){
+            var row_index = $('#binding_table tr:last').index(); 
+            if(row_index >= 2){
+
+                $('#binding_table tr:last').remove();
+
+                $('#binding_table tr:last td:nth(2) input').val("");
+
+                $('#binding_table tr:last td:nth(1)').html("");
+                $("#binding_table tr:last td:nth(1)").append('<input class="form-control end" id="end" type="number" name="sheet_end[]" placeholder="page range" />');
+
+
+            }
+        });
+
+        $(document).on('keyup', '.end', function() {
+
+            var end = $('#binding_table tr:last td:nth(1) input').val();
+
+            var product_price = $('#binding_table tr:last td:nth(2) input').val();
+
+            if (end > 0 && product_price > 0) {
+
+                $( "#binding_add_more" ).prop( "disabled", false );
+            }
+
+
+        });
+
+        $(document).on('keyup', '.product_price', function() {
+
+            var end = $('#binding_table tr:last td:nth(1) input').val();
+
+            var product_price = $('#binding_table tr:last td:nth(2) input').val();
+
+            if (end > 0 && product_price > 0) {
+
+                $( "#binding_add_more" ).prop( "disabled", false );
+            }
 
         });
 
