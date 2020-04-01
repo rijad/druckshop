@@ -24,11 +24,11 @@
 
                 from = get_to_value;
             }else{ 
-               from = 0;
-           }
+             from = 0;
+         }
 
-           $('#dilivery_services_table').append('<tr class="form-inline"><td><input id="from" type="hidden" name="from[]" value='+from+' />'+from+'</td><td><input class="form-control to_input" id="to" type="number" name="to[]" required /></td><td><input class="form-control price_input" id="price" type="number" name="price[]" required /></td></tr>');
-       });
+         $('#dilivery_services_table').append('<tr class="form-inline"><td><input id="from" type="hidden" name="from[]" value='+from+' />'+from+'</td><td><input class="form-control to_input" id="to" type="number" name="to[]" required /></td><td><input class="form-control price_input" id="price" type="number" name="price[]" required /></td></tr>');
+     });
 
         $('#delivery_remove_last').click(function(){
             var row_index = $('#dilivery_services_table tr:last').index(); 
@@ -70,20 +70,20 @@
         //Edit: add, more for delivery services
         $('#delivery_edit_add_new_row').click(function(){
 
-         $( "#delivery_edit_add_new_row" ).prop( "disabled", true );
+           $( "#delivery_edit_add_new_row" ).prop( "disabled", true );
 
-         var from = 0;
-         get_to_value = $('#dilivery_services_table_edit tr:last td:nth(1) input').val();
+           var from = 0;
+           get_to_value = $('#dilivery_services_table_edit tr:last td:nth(1) input').val();
 
-         if (get_to_value) {
+           if (get_to_value) {
 
             from = get_to_value;
         }else{ 
-           from = 0;
-       }
+         from = 0;
+     }
 
-       $('#dilivery_services_table_edit').append('<tr class="form-inline"><td><input id="from" type="hidden" name="from[]" value='+from+' />'+from+'</td><td><input class="form-control to_input" id="to" type="number" name="to[]" required /></td><td><input class="form-control price_input" id="price" type="number" name="price[]" required /></td></tr>');
-   });
+     $('#dilivery_services_table_edit').append('<tr class="form-inline"><td><input id="from" type="hidden" name="from[]" value='+from+' />'+from+'</td><td><input class="form-control to_input" id="to" type="number" name="to[]" required /></td><td><input class="form-control price_input" id="price" type="number" name="price[]" required /></td></tr>');
+ });
 
         $('#delivery_edit_remove_last').click(function(){
             var row_index = $('#dilivery_services_table_edit tr:last').index(); 
@@ -154,11 +154,11 @@
 
                 from = get_to_value;
             }else{ 
-               from = 0;
-           }
+             from = 0;
+         }
 
-           $('#paper_weight_table').append('<tr class="form-inline"><td><input id="from" type="hidden" name="sheet_start[]" value='+from+' />'+from+'</td><td><input type="number" class="form-control sheet_end_input" id="from" name="sheet_end[]"  placeholder="sheet range" /></td><td><input class="form-control latters_input" id="latters" type="number" name="latters[]" required /></td></tr>');
-       });
+         $('#paper_weight_table').append('<tr class="form-inline"><td><input id="from" type="hidden" name="sheet_start[]" value='+from+' />'+from+'</td><td><input type="number" class="form-control sheet_end_input" id="from" name="sheet_end[]"  placeholder="sheet range" /></td><td><input class="form-control latters_input" id="latters" type="number" name="latters[]" required /></td></tr>');
+     });
 
         $('#paper_remove_last').click(function(){
             var row_index = $('#paper_weight_table tr:last').index(); 
@@ -209,11 +209,11 @@
 
                 from = get_to_value;
             }else{ 
-               from = 0;
-           }
+             from = 0;
+         }
 
-           $('#paper_weight_edit_table').append('<tr class="form-inline"><td><input id="from" type="hidden" name="sheet_start[]" value='+from+' />'+from+'</td><td><input type="number" class="form-control sheet_end_input" id="from" name="sheet_end[]"  placeholder="sheet range" /></td><td><input class="form-control latters_input" id="latters" type="number" name="latters[]" required /></td></tr>');
-       });
+         $('#paper_weight_edit_table').append('<tr class="form-inline"><td><input id="from" type="hidden" name="sheet_start[]" value='+from+' />'+from+'</td><td><input type="number" class="form-control sheet_end_input" id="from" name="sheet_end[]"  placeholder="sheet range" /></td><td><input class="form-control latters_input" id="latters" type="number" name="latters[]" required /></td></tr>');
+     });
 
          $('#paper_weight_edit_remove_last').click(function(){
             var row_index = $('#paper_weight_edit_table tr:last').index(); 
@@ -298,6 +298,7 @@
 
         });
 
+
         $(document).on('click', '#print_finishing', function() {
 
             var print_finishing = $('input:radio[name=print_finishing]:checked').val();
@@ -312,8 +313,39 @@
 
         });
 
+        //cover_setting load
+        var cover_setting = $('input:radio[name=cover_setting]:checked').val();
+
+        if (cover_setting == 1) {
+
+            $('.cover_color').show();
+            $('.cover_sheet').hide();
+            $('.back_cover').hide();
+        } else if (cover_setting == 2) {
+
+            $('.cover_color').show();
+            $('.cover_sheet').show();
+            $('.back_cover').show();
+        }else{
+
+            $('.cover_color').hide();
+            $('.cover_sheet').hide();
+            $('.back_cover').hide();
+        }
+
+        //print_finishing load
+        var print_finishing = $('input:radio[name=print_finishing]:checked').val();
+
+        if (print_finishing == 2) {
+
+            $('.art_list').show();
+        } else {
+
+            $('.art_list').hide();
+        }
+
          //Binding -> Add More -> Create form
-        $('#binding_add_more').click(function(){
+         $('#binding_add_more').click(function(){
 
             $( "#binding_add_more" ).prop( "disabled", true );
 
@@ -325,13 +357,13 @@
 
                 start = get_end_value;
             }else{ 
-               start = 0;
-           }
+             start = 0;
+         }
 
-           $('#binding_table').append('<tr class="form-inline"><td><input id="start" type="hidden" name="sheet_start[]" value='+start+' />'+start+'</td><td><input class="form-control end" id="end" type="number" name="sheet_end[]" placeholder="page range" required /></td><td><input class="form-control product_price" id="product_price" type="number" name="product_price[]" placeholder="price" required /></td></tr>');
-       });
+         $('#binding_table').append('<tr class="form-inline"><td><input id="start" type="hidden" name="sheet_start[]" value='+start+' />'+start+'</td><td><input class="form-control end" id="end" type="number" name="sheet_end[]" placeholder="page range" required /></td><td><input class="form-control product_price" id="product_price" type="number" name="product_price[]" placeholder="price" required /></td></tr>');
+     });
 
-        $('#binding_remove_last').click(function(){
+         $('#binding_remove_last').click(function(){
             var row_index = $('#binding_table tr:last').index(); 
             if(row_index >= 2){
 
@@ -346,7 +378,7 @@
             }
         });
 
-        $(document).on('keyup', '.end', function() {
+         $(document).on('keyup', '.end', function() {
 
             var end = $('#binding_table tr:last td:nth(1) input').val();
 
@@ -360,7 +392,7 @@
 
         });
 
-        $(document).on('keyup', '.product_price', function() {
+         $(document).on('keyup', '.product_price', function() {
 
             var end = $('#binding_table tr:last td:nth(1) input').val();
 
@@ -377,23 +409,23 @@
 
 
 
-        $(".add-more").click(function() {
+         $(".add-more").click(function() {
             var html = $(".copy").html();
             console.log(html);
             $(".after-add-more").after(html);
         });
 
 
-        $("body").on("click", ".remove", function() {
+         $("body").on("click", ".remove", function() {
             $(this).parents(".control-group").remove();
         });
 
-        $("body").on("click", ".edit_remove", function() {
+         $("body").on("click", ".edit_remove", function() {
             $(this).parents(".edit_remove_for").remove();
         });
 
 
-        var max_fields = 10;
+         var max_fields = 10;
         var wrapper = $(".main_input"); //Input fields wrapper
         var add_button = $(".add_new_row"); //Add button class or ID
         var x = 1; //Initial input field is set to 1
