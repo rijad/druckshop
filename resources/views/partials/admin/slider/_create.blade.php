@@ -18,52 +18,52 @@
         <form  class="form-group-inline" method="POST" action="{{ route('slider.store') }}" enctype="multipart/form-data">
     @csrf
     <div class="form-group">
-        <label>English title</label>
-        <input type="text" name="title_english" value="{{ old('title_english') }}" />
+        <label class="small mb-1" for="title_english">English title</label>
+        <input class="form-control" type="text" name="title_english" value="{{ old('title_english') }}" />
         <span class="text-danger">{{ $errors->first('title_english') }}</span>
     </div>
     <div class="form-group">
-        <label>German title</label>
-        <input type="text" name="title_german" value="{{ old('title_german') }}" />
+        <label class="small mb-1" for="title_german">German title</label>
+        <input class="form-control" type="text" name="title_german" value="{{ old('title_german') }}" />
         <span class="text-danger">{{ $errors->first('title_german') }}</span>
     </div>
     <div class="form-group">
-        <label>Title color</label>
-        <input type="text" name="title_color" value="{{ old('title_color') }}" />
+        <label class="small mb-1" for="title_color">Title color</label>
+        <input class="form-control" type="text" name="title_color" value="{{ old('title_color') }}" />
         <span class="text-danger">{{ $errors->first('title_color') }}</span>
     </div>
     <div class="form-group">
-        <label>Title size</label>
-        <input type="text" name="title_size" value="{{ old('title_size') }}" />
+        <label class="small mb-1" for="title_size">Title size</label>
+        <input class="form-control" type="text" name="title_size" value="{{ old('title_size') }}" />
         <span class="text-danger">{{ $errors->first('title_size') }}</span>
     </div>
     <div class="form-group">
-        <label>Image</label>
+        <label class="small mb-1" for="image_path">Image</label>
         <input type="file" name="image_path"/>
         <span class="text-danger">{{ $errors->first('image_path') }}</span>
     </div>
 
     <div class="form-group">  
-        <label>English_text</label>
-        <textarea type="text" name="content_english" >{{ old('content_english') }}</textarea>
+        <label class="small mb-1" for="content_english">English_text</label>
+        <textarea class="form-control" rows="7" type="text" name="content_english" >{{ old('content_english') }}</textarea>
         <span class="text-danger">{{ $errors->first('content_english') }}</span>
     </div>
     <div class="form-group">
-        <label>German text</label>
-        <textarea type="text" name="content_german" >{{ old('content_german') }}</textarea>
+        <label class="small mb-1" for="content_german">German text</label>
+        <textarea class="form-control" rows="7" type="text" name="content_german" >{{ old('content_german') }}</textarea>
         <span class="text-danger">{{ $errors->first('content_german') }}</span>
     </div>
     <div class="form-group">
-        <label>Redirect_url</label>
-        <textarea type="text" name="redirect_url" >{{ old('content_german') }}</textarea>
+        <label class="small mb-1" for="redirect_url">Redirect_url</label>
+        <textarea class="form-control" rows="3" type="text" name="redirect_url" >{{ old('content_german') }}</textarea>
         <span class="text-danger">{{ $errors->first('content_german') }}</span>
     </div>
     <div class="form-group">
-        <label>Active</label>
+        <label class="small mb-1" for="is_active">Active</label>
         <input type="checkbox" name="is_active"  checked />
     </div>
     <div class="form-group">
-        <label>Is_slide</label>
+        <label class="small mb-1" for="is_slide">Is_slide</label>
         <input type="checkbox" name="is_slide"  />
     </div>
     <div class="form-group">

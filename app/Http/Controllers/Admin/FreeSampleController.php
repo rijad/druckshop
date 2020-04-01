@@ -42,7 +42,8 @@ class FreeSampleController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {  //dd($request->input());
+    {  
+        // dd($request->input());
         $validator = Validator::make($request->all(), [
             'side_option' => 'required',
             'paper_weight' => 'required',

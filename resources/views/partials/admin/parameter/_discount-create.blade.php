@@ -14,8 +14,8 @@
                 @endforeach
             </ul>
         @endif
-            <form class="form-group-inline" method="POST" action="{{ route('discount.store') }}" enctype="multipart/form-data" 
-                target="_blank">
+            <form class="form-group-inline" method="POST" action="{{ route('discount.store') }}" 
+                    enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
                     <label class="small mb-1" for="code">Name</label>

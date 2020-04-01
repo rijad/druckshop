@@ -15,8 +15,8 @@
                 @endforeach
             </ul>
         @endif
-    <form  class="form-group-inline" method="POST" action="{{ route('discount.update' , $discount->id) }}" enctype="multipart/form-data" 
-            target="_blank">
+    <form  class="form-group-inline" method="POST" action="{{ route('discount.update' , $discount->id) }}" 
+        enctype="multipart/form-data" >
         @method('PUT')
         @csrf
             <div class="form-group">
@@ -61,7 +61,7 @@
             </div>
             <div class="form-group">
                 <div class="custom-control custom-checkbox small">
-                    <input class="custom-control-input" type="checkbox" id="status" name="status">
+                    <input class="custom-control-input"<?php echo ($discount->status) ? 'checked' : ''; ?> type="checkbox" id="status" name="status">
                     <label class="custom-control-label" for="status">Active</label>
                 </div>
             </div>
