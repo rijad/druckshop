@@ -46,4 +46,5 @@ class PageFormat extends Model
         return $this->belongsToMany('App\Product', 'ps_product_page_format','paper_format','product_id');
     }
 
+
 }

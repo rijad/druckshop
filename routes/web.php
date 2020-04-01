@@ -58,6 +58,7 @@ Route::get('/checkout','CheckoutController@sendData')->name('check-out');
 Route::get('/get-relations','CheckoutController@getProductAttributes')->name('get-relations');
 Route::get('/get-price','CheckoutController@getPrice')->name('get-price');
 Route::get('/get-relations-content','CheckoutController@getContentAttributes')->name('get-relations-content');
+Route::get('/loose-print','CheckoutController@loosePrint')->name('loose-print');
 
 Route::POST('/product-order','CheckoutController@saveOrder')->name('product-order');
 Route::POST('/orders-details','CheckoutController@orderDetails')->name('orders-details');
@@ -75,6 +76,8 @@ Route::get('/latest','LatestController@index')->name('latest');
 Route::get('/about-us','AboutController@index')->name('about-us');
 Route::get('/faq','FaqController@index')->name('faq');
 Route::get('/contact','ContactController@index')->name('contact');
+
+Route::get('/clear-session','CheckoutController@clearSession')->name('clear-session');
 
 
 Route::POST('/upload-file','UploadfileController@uploadFile')->name('upload-file');

@@ -13,7 +13,7 @@ class CustomerAreaController extends Controller
 		if(!Auth::check()){
 			return redirect()->route('index');       
 		}
-
+ 
 		
 		$OrderHistory = OrderDetailsFinal::where(['user_id'=>Auth::user()->id])->with('orderProductHistory')->get();
 

@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ProductCoverSheet extends Model
+class ProductPrintFinishing extends Model
 {
-    protected $table = 'ps_product_cover_sheet';
+   protected $table = 'ps_product_print_finishing';
 
     /**
      * The "type" of the auto-incrementing ID.
@@ -18,14 +18,15 @@ class ProductCoverSheet extends Model
     /**
      * @var array
      */
-    protected $fillable = ['product_id', 'cover_sheet_id', 'created_at', 'updated_at', 'deleted_at'];
+    protected $fillable = ['product_id', 'print_finishing_id', 'created_at', 'updated_at', 'deleted_at'];
 
     public function psProduct()
     {
     	return $this->belongsToMany('App\Product');
     }
-    public function psCoverSheet()
+    public function psProductAttribute()
     {
-    	return $this->belongsToMany('App\CoverSheet');
+    	return $this->belongsToMany('App\ProductAttributeRelationship');
     }
 }
+ 

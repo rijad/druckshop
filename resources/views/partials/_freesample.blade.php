@@ -23,7 +23,8 @@
 				<input type="file" name="selectfile" id="selectfile" accept="application/pdf" required>
 			</div>
 		</div>
-       
+        <span class="text-danger">{{ $errors->first('selectfile_free_sample') }}</span>
+
         <p class="error" id="error_selectfile_pdf"></p> 
 
         <div id="drop_file_zone_pdf" class="displayNone"><label id="pdf_file_name"></label>
@@ -110,17 +111,15 @@
                 </div>
                 {{-- uploaded File name --}}
                 <input type="hidden" name="selectfile_free_sample" id="selectfile_free_sample">
-                <span class="text-danger">{{ $errors->first('selectfile_free_sample') }}</span>
+
                 <div class="form-group pull-right">
                     <input type="submit" name="request_free_sample" value="request_free_sample">
-                </div>
-                
+                </div>   
+
             </form>
         </div>
     </div>
-
-
-</div>		 
+</div>		  
 
 <script src="{{ asset('public/js/frontend/checkout.js') }}" type="text/javascript" ></script>
 <script src="{{ asset('public/js/frontend/dragdrop.js') }}" type="text/javascript" ></script>                               

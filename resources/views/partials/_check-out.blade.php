@@ -14,7 +14,7 @@
 							<div class="step"><span>3</span></div>
 							<div class="step"><span>4</span></div>
 						</div>
- 
+  
 						<div class="checkoutBlock col-half text-left">
 							{{-- <h1>Register:</h1> --}}
 
@@ -22,7 +22,7 @@
 							<div class="tab" id="tab-fields">
 								<div class="displayBlock">
 									<label>Binding*:</label>
-									<p><select class = "" name = "binding" id = "binding" onclick="displayFields(this.value);displayProductAttributes('1',this);">
+									<p><select class = "" name = "binding" id = "binding" onchange="displayFields(this.value);displayProductAttributes('1',this); resetFields(this.id,this.value);" oninput="displayPrice(this.value,'','','','','','','','','','','','');">
 										<option value = "-1">Select</option>
 										@foreach ($product_listing as $key=>$listing)
 										<option value="{{$listing->id}}">{{$listing->title_english}}</option>  
@@ -31,11 +31,11 @@
 								</div>
 								<div class="displayBlock" id="div-no-of-copies">
 									<label>No of Copies*:</label>
-									<p><input class = "" name="no_of_copies" id="no-of-copies" placeholder="No of Copies" oninput="displayProductAttributes('2',this);"></p><p class="error" id="error_no_of_copies"></p>
+									<p><input type = "text" class = "" name="no_of_copies" id="no-of-copies" placeholder="No of Copies" oninput="displayProductAttributes('2',this);"></p><p class="error" id="error_no_of_copies"></p>
 								</div>
 								<div class="displayBlock" id="div-page-format">
 									<label>Page Format*:</label>
-									<p><select class = "" onclick = "displayProductAttributes('3',this);" id="page-format" name="page-format"><option value="-1">Select</option></select></p><p class="error" id="error_page_format"></p>
+									<p><select class = "" onclick = "displayProductAttributes('3',this);" id="page-format" name="page-format" ><option value="-1">Select</option></select></p><p class="error" id="error_page_format"></p>
 								</div>
 								<div class="displayNone" id="div-cover-color">
 									<label>Cover Color*:</label> 
@@ -82,11 +82,11 @@
 									<div id="drop_file_zone_back_cover_sheet_info" class="displayNone"><label id="back_cover_file_name"></label>
 										<label id="back_cover_page_no"></label><label id="back_cover_del"></label></div>
 
-								</div>
+								</div> 
 								<div class="tab">
 									<div class="displayBlock">
 										<label>Side Options*:</label>
-										<p><select class = "" id = "page_options" name = "page_options" onclick="displayFieldsContent(this.value);" >
+										<p><select class = "" id = "page_options" name = "page_options" onclick="displayFieldsContent(this.value);"  onchange="displayPrice('','',this.value,'','','','','','','','','','');" >
 											<option value = "-1">Select</option>
 											@foreach ($page_options as $key=>$listing)
 											<option value="{{$listing->id}}">{{$listing->name_english}}</option>  
@@ -102,14 +102,14 @@
 									<div class="displayBlock" id="div-paper-weight">
 										<label>Paper Weight*:<a href="#" data-toggle="tooltip" title="
 											for one-sided 100 g/m² paper &#013; for two-sided 120 g/m² paper" class="formToolTip">i</a></label>
-										<p><select class = "" name="paper-weight" id="paper-weight" onclick="displayPrice(this,'','');"><option value="-1">Select</option></select></p> <p class="error" id="error_paper_weight"></p>
+										<p><select class = "" name="paper-weight" id="paper-weight" onchange="displayPrice('','','','','',this.value,'','','','','','','');"><option value="-1">Select</option></select></p> <p class="error" id="error_paper_weight"></p>
 									</div>  
 
 									<div class="displayBlock" id="div-no-of-copies">
 										<label>No of Pages*:<a href="#" data-toggle="tooltip" title="
 											number of the PDF file and &#013; only number of DIN A4
 											" class="formToolTip">i</a></label>
-										<p><input class = "" name="no_of_pages" id="no-of-pages" placeholder="No of Pages" value = ""></p>
+										<p><input type = "text" class = "" name="no_of_pages" id="no-of-pages" placeholder="No of Pages" value = "" oninput="displayPrice('',this.value,'','','','','','','','','','','');"></p>
 										<p class="error" id="error_no_of_pages"></p>
 									</div>
  
@@ -132,7 +132,7 @@
 										<p></p>
 										<div class="displayBlock" id="div-color-pages">
 											<label class="csCheckbtn">Color Pages
-												<input type="checkbox" name = "color-pages" id = "color-pages" onclick="displayContentInput('Color_Pages');">
+												<input type="checkbox" name = "color-pages" id = "color-pages" onchange="displayContentInput('Color_Pages');">
 												<span class="checkmark"></span>
 											</label>
 										</div>
@@ -140,20 +140,20 @@
 										<div class="displayNone" id="div-page-numbers">
 											<label>Page Numbers to be printed in Colored *:<a href="#" data-toggle="tooltip" title="Page numbers of the PDF file, not of &#013; the thesis (document)" class="formToolTip">i</a></label>
 
-											<p><input class= "" name="page_numbers" id="page-numbers" placeholder="Page Numbers" value = "">
+											<p><input type = "text" class= "" name="page_numbers" id="page-numbers" placeholder="Page Numbers" value = "" oninput = "displayPrice('','','','','','','','','','','',this.value,'');">
 												<p class="error" id="error_page_numbers"></p>
 												<p class="error" id="error_range"></p><label>Example : 3,12,15-23,37</label></p>
 
 											<div class="displayBlock" id="div-A3-pages">
 												<label class="csCheckbtn">DIN A3 Pages
-													<input class = ""  name = "A3-pages" id = "A3-pages" type="checkbox" onclick="displayContentInput('A3_Pages');"> 
+													<input class = ""  name = "A3-pages" id = "A3-pages" type="checkbox" onclick="displayContentInput('A3_Pages');"  > 
 													<span class="checkmark"></span>
 												</label>
 											</div>
  
 											<div class="displayNone" id="div-number-of-pages">
 												<label>Number of DIN A3 Pages*:<a href="#" data-toggle="tooltip" title=" It is printed with the same paper type and one-sided. &#013; It is printed with the same paper type and one-sided. " class="formToolTip">i</a></label>
-												<p><input class = "" name="number_of_pages" id="numbers-of-pages" placeholder="Number of Pages"  max="10">
+												<p><input type = "text" class = "" name="number_of_pages" id="numbers-of-pages" placeholder="Number of Pages"  max="10" oninput = "displayPrice('','','','','','','',this.value,'','','','','');">
 												</p>
 												<p id="A3_msg" class="displayNone">The maximum number of DIN A3 pages is: 10</p>
 												<p class="error" id="error_number_of_pages"></p>
@@ -186,7 +186,7 @@
 
 												<div class="displayNone" id="div-number-of-A2-pages">
 													<label>Number of DIN A2 Pages*:<a href="#" data-toggle="tooltip" title="It is folded and glued into a bag at the end of the thesis. &#013; The maximum number of DIN A2 pages is: 3 " class="formToolTip">i</a></label>
-													<p><input class = "" name="number_of_A2_pages" id="numbers-of-A2-pages" placeholder="Number of Pages" value = "" max="3"></p>
+													<p><input type = "text" class = "" name="number_of_A2_pages" id="numbers-of-A2-pages" placeholder="Number of Pages" value = "" max="3" oninput = "displayPrice('','','','','','',this.value,'','','','','','');"></p>
 													<p id="A2_msg" class="displayNone">The maximum number of DIN A2 pages is: 3</p>
 													<p class="error" id="error_number_of_A2_pages"></p>
 												</div>
@@ -213,10 +213,10 @@
 											<div class="tab">
 												<div class="displayBlock" id="div-embossment-cover-sheet">
 													<label class="csCheckbtn">Embossment Cover Sheet
-														<input name ="embossment-cover-sheet" id ="embossment-cover-sheet" type="checkbox" onclick="displayPrintFields('Embossment_Cover_Sheet');" >
+														<input name ="embossment-cover-sheet" id ="embossment-cover-sheet" type="checkbox" onclick="displayPrintFields('Embossment_Cover_Sheet'); displayPrice('','','',this.value,'','','','','','','','','');" >
 														<span class="checkmark"></span>
 													</label>
-												</div>
+												</div> 
 
 												<div class="displayNone" id="div-template">
 													<label>Template*:<a href="#" data-toggle="tooltip" title="Data is taken from cover sheet" class="formToolTip">i</a></label>
@@ -266,7 +266,7 @@
 
 													<div class="displayBlock" id="div-embossment-spine">
 														<label class="csCheckbtn">Embossment Spine<a href="#" data-toggle="tooltip" title="Data is taken from cover sheet" class="formToolTip">i</a>
-															<input class = "" type="checkbox" id = "embossment-spine" name = "embossment-spine" disabled>
+															<input class = "" type="checkbox" id = "embossment-spine" name = "embossment-spine" onclick = "displayPrice('','','','',this.value,'','','','','','','','');" disabled>
 															<span class="checkmark"></span>
 														</label>
 														<p>Minimum sheet number for having spine is 40</p>
@@ -308,9 +308,9 @@
 
 													<div class="displayNone" id="div-number-of-cds">
 														<label>Number of CDs*:</label>
-														<p><input class = "" name="number_of_cds" id="numbers-of-cds" placeholder="Number of CDs" oninput="this.className = ''"></p>
+														<p><input type = "text" class = "" name="number_of_cds" id="numbers-of-cds" placeholder="Number of CDs" oninput= "displayPrice('','','','','','','','',this.value,'','','','');"></p>
 														<p class="error" id="error_number_of_cds"></p>
-													</div>
+													</div> 
 
 													<div class="displayNone" id="upload_cd" ondrop="upload_file(event,this.id)" ondragover="return false" class="displayBlock">
 														<div id="drag_upload_file_cd">
@@ -341,12 +341,9 @@
 
 														</div>
 
-
-
-
 														<div class="displayNone" id="div-cd-bag">
 															<label>CD Bag*:</label>
-															<p><select class = "" name = "cd-bag" id = "cd-bag" onchange="cdBagPosition();"><option value = "-1">Select</option>
+															<p><select class = "" name = "cd-bag" id = "cd-bag" onchange="cdBagPosition(); displayPrice('','','','','','','','','','',this.value,'','');"><option value = "-1">Select</option>
 																@foreach ($cd_bag as $key=>$listing)
 																<option value="{{$listing->id}}" @if($listing->id == '1') selected @endif>{{$listing->bag}}</option>  
 																@endforeach
@@ -360,7 +357,7 @@
 			 
 														<div class="displayBlock" id="div-data-check">
 															<label>Data Check*:<a href="#" title="wird erklärt" data-toggle="tooltip" title="Data Check Select" class="formToolTip">i</a></label>
-															<p><select id = "data_check" name = "data_check" onclick="displayPrice('','',this);"><option value = "-1">Select</option>
+															<p><select id = "data_check" name = "data_check" onchange="displayPrice('','','','','','','','','',this.value,'','','');"><option value = "-1">Select</option>
 																@foreach ($data_check as $key=>$listing)
 																<option value="{{$listing->id}}" @if($listing->id == "1") selected @endif>{{$listing->check_list}}</option>  
 																@endforeach
@@ -386,10 +383,11 @@
 													</div>
 													<div class="servicePrice">
 														<ul>
-															<li><p>Preis pro Auflage</p><span id="price_per_copy"><big>0.00 €</big></span></li>
-															<li><p>Preis pro CD</p><span id="price_per_cd"><big>0.00 €</big></span></li>
-															<li><p>Preis des Datenchecks</p><span id="price_of_data_check"><big>0.00 €</big></span></li>
-															<li><p>Gesamtpreis</p><span id="total"><big>0.00 €</big></span></li>
+															<li><p>{{-- Preis pro Auflage --}} Binding Price</p><span id="binding_price"><big>0.00 €</big></span></li>
+															<li><p>{{-- Preis pro CD --}} Printouts</p><span id="printout"><big>0.00 €</big></span></li>
+															<li><p>{{-- Preis des Datenchecks --}} Data checks</p><span id="data_check_price"><big>0.00 €</big></span></li>
+															<li><p>{{-- Preis des Datenchecks --}} CDs</p><span id="cd_dvd"><big>0.00 €</big></span></li>
+															<li><p>{{-- Gesamtpreis --}}Total</p><span id="total"><big>0.00 €</big></span></li>
 															<input type="hidden" name="total" id="total_price" value="">
 														</ul>
 
@@ -409,6 +407,18 @@
 
 									</div><!-- content area ends -->
 								</div> 
+
+<script>
+	$(document).ready(function(){
+    $.ajax({
+		url: '/druckshop/clear-session', 
+		type: 'GET', 
+		success: function (response){
+			console.log(response);
+		}
+	}); 
+});
+</script>
 
 <script src="{{ asset('public/js/frontend/checkout.js') }}" type="text/javascript" ></script>
 <script src="{{ asset('public/js/frontend/dragdrop.js') }}" type="text/javascript" ></script>								

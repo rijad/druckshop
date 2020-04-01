@@ -9,12 +9,18 @@
 					<div class="product-item-img col-half text-left">
 						 <span class="img-back"><img src="{{ asset($listing->image_path)}}" alt="" /></span>
 					</div>
+					<div class="product-item-img col-half text-left">
+						 <span class="img-back">
+						 @foreach ($listing->psProductImages as $image)
+						 	<img src="{{ asset($listing->image_path)}}" alt="" height="50" width="50" /></span>
+						 @endforeach
+					</div>
 
 					<div class="product-item col-half">
 						<h2>{{$listing->title_english}}</h2>	
 						<p>{{$listing->short_description_english}}</p>
 						 
-						<a href="{{ route('check-out') }}" class="btn-gray">To Order</a>
+						<a href="{{ route($listing->product_page_url) }}" class="btn-gray">To Order</a>
 						<a href="{{ route('product-information') }}#{{$listing->title_english}}">product Info</a>
 					</div> 
 					
@@ -27,12 +33,18 @@
 					<div class="product-item-img col-half text-right pull-right">
 						<span class="img-back"><img src="{{ asset($listing->image_path)}}" alt="" /></span>
 					</div>
+					<div class="product-item-img col-half text-left">
+						 <span class="img-back">
+						 @foreach ($listing->psProductImages as $image)
+						 	<img src="{{ asset($listing->image_path)}}" alt="" height="50" width="50" /></span>
+						 @endforeach
+					</div>
 
 					<div class="product-item col-half">
 						<h2>{{$listing->title_english}}</h2>	
 						<p>{{$listing->short_description_english}}</p>
-						 
-						<a href="{{ route('check-out') }}" class="btn-gray">To Order</a>
+						
+						<a href="{{ route($listing->product_page_url) }}" class="btn-gray">To Order</a>
 						<a href="{{ route('product-information') }}#{{$listing->title_english}}">product Info</a>
 					</div> 
 
