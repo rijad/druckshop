@@ -27,7 +27,7 @@ class OrderController extends Controller
     {
         // dd($id);
         $user = UsersAdmin::where(['id' => $id])->first();
-        dd($user);
+        // dd($user);
         return $user->name;
     }
 

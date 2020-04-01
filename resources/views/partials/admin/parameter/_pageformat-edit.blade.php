@@ -39,7 +39,7 @@
 
                 <div class="form-group">
                     <div class="custom-control custom-checkbox small">
-                        <input type="checkbox" class="custom-control-input" id="can_add_din_A2" name="can_add_din_A2" <?php echo ($format->can_add_din_A2) ? 'checked' : ''; ?>>
+                        <input type="checkbox" class="custom-control-input" <?php echo ($format->can_add_din_A2) ? 'checked' : ''; ?> id="can_add_din_A2" name="can_add_din_A2" <?php echo ($format->can_add_din_A2) ? 'checked' : ''; ?>>
                         <label class="custom-control-label" for="can_add_din_A2">Can Add Din A2</label>
                     </div>
                 </div>
@@ -52,7 +52,7 @@
 
                 <div class="form-group">
                     <div class="custom-control custom-checkbox small">
-                        <input type="checkbox" class="custom-control-input" id="can_add_din_A3" name="can_add_din_A3" <?php echo ($format->can_add_din_A3) ? 'checked' : ''; ?>>
+                        <input type="checkbox" class="custom-control-input" <?php echo ($format->can_add_din_A3) ? 'checked' : ''; ?> id="can_add_din_A3" name="can_add_din_A3" <?php echo ($format->can_add_din_A3) ? 'checked' : ''; ?>>
                         <label class="custom-control-label" for="can_add_din_A3">Can Add Din A3</label>
                     </div>
                 </div>
