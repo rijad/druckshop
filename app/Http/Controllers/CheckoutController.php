@@ -9,7 +9,7 @@ use App\CdBag;
 use App\CoverColor;
 use App\CoverSheet;
 use App\DataCheck;
-use App\DeliveryService;
+use App\DeliveryService; 
 use App\Discount;
 use App\KindList;
 use App\LettesOfSpine; 
@@ -25,7 +25,7 @@ use App\DateFormat;
 use App\OrderAttributes;
 use App\OrderDetails;
 use App\Payment;
-use App\OrderDetailsFinal;
+use App\OrderDetailsFinal; 
 use App\OrderHistory;
 use App\ProductPaperWeight;
 use App\ProductPrice;
@@ -63,6 +63,20 @@ class CheckoutController extends Controller
 		// return view('/pages/front-end/checkout',compact('back_covers','cd_bag','cover_color','cover_sheet','data_check','delivery_service','discount','kind_list','letters_of_spine','paper_format','paper_weight','art_list','product_listing'));
 
 		return view('/pages/front-end/checkout',compact('product_listing','page_options','fonts','date_format','data_check','cd_bag'));
+	}
+
+
+	public function loosePrint(){
+
+		$cd_bag = CdBag::where('status', '1')->get();
+		$data_check = DataCheck::where('status', '1')->get();
+		$product_listing = Product::where('status', '1')->get(); 
+		$page_options = PageOptions::where('status', '1')->get(); 
+		$fonts = Font::where('status', '1')->get(); 
+		$date_format = DateFormat::where('status', '1')->get(); 
+
+		return view('/pages/front-end/loose-print',compact('product_listing','page_options','fonts','date_format','data_check','cd_bag'));
+
 	}
 
 	public function getProductAttributes(Request $request){

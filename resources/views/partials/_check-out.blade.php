@@ -22,7 +22,7 @@
 							<div class="tab" id="tab-fields">
 								<div class="displayBlock">
 									<label>Binding*:</label>
-									<p><select class = "" name = "binding" id = "binding" onclick="displayFields(this.value);displayProductAttributes('1',this);" oninput="displayPrice(this.value,'','','','','','','','','','','','');">
+									<p><select class = "" name = "binding" id = "binding" onchange="displayFields(this.value);displayProductAttributes('1',this); resetFields(this.id,this.value);" oninput="displayPrice(this.value,'','','','','','','','','','','','');">
 										<option value = "-1">Select</option>
 										@foreach ($product_listing as $key=>$listing)
 										<option value="{{$listing->id}}">{{$listing->title_english}}</option>  
@@ -31,7 +31,7 @@
 								</div>
 								<div class="displayBlock" id="div-no-of-copies">
 									<label>No of Copies*:</label>
-									<p><input class = "" name="no_of_copies" id="no-of-copies" placeholder="No of Copies" oninput="displayProductAttributes('2',this);"></p><p class="error" id="error_no_of_copies"></p>
+									<p><input type = "text" class = "" name="no_of_copies" id="no-of-copies" placeholder="No of Copies" oninput="displayProductAttributes('2',this);"></p><p class="error" id="error_no_of_copies"></p>
 								</div>
 								<div class="displayBlock" id="div-page-format">
 									<label>Page Format*:</label>
@@ -109,7 +109,7 @@
 										<label>No of Pages*:<a href="#" data-toggle="tooltip" title="
 											number of the PDF file and &#013; only number of DIN A4
 											" class="formToolTip">i</a></label>
-										<p><input class = "" name="no_of_pages" id="no-of-pages" placeholder="No of Pages" value = "" oninput="displayPrice('',this.value,'','','','','','','','','','','');"></p>
+										<p><input type = "text" class = "" name="no_of_pages" id="no-of-pages" placeholder="No of Pages" value = "" oninput="displayPrice('',this.value,'','','','','','','','','','','');"></p>
 										<p class="error" id="error_no_of_pages"></p>
 									</div>
  
@@ -132,7 +132,7 @@
 										<p></p>
 										<div class="displayBlock" id="div-color-pages">
 											<label class="csCheckbtn">Color Pages
-												<input type="checkbox" name = "color-pages" id = "color-pages" onclick="displayContentInput('Color_Pages');">
+												<input type="checkbox" name = "color-pages" id = "color-pages" onchange="displayContentInput('Color_Pages');">
 												<span class="checkmark"></span>
 											</label>
 										</div>
@@ -140,7 +140,7 @@
 										<div class="displayNone" id="div-page-numbers">
 											<label>Page Numbers to be printed in Colored *:<a href="#" data-toggle="tooltip" title="Page numbers of the PDF file, not of &#013; the thesis (document)" class="formToolTip">i</a></label>
 
-											<p><input class= "" name="page_numbers" id="page-numbers" placeholder="Page Numbers" value = "" oninput = "displayPrice('','','','','','','','','','','',this.value,'');">
+											<p><input type = "text" class= "" name="page_numbers" id="page-numbers" placeholder="Page Numbers" value = "" oninput = "displayPrice('','','','','','','','','','','',this.value,'');">
 												<p class="error" id="error_page_numbers"></p>
 												<p class="error" id="error_range"></p><label>Example : 3,12,15-23,37</label></p>
 
@@ -153,7 +153,7 @@
  
 											<div class="displayNone" id="div-number-of-pages">
 												<label>Number of DIN A3 Pages*:<a href="#" data-toggle="tooltip" title=" It is printed with the same paper type and one-sided. &#013; It is printed with the same paper type and one-sided. " class="formToolTip">i</a></label>
-												<p><input class = "" name="number_of_pages" id="numbers-of-pages" placeholder="Number of Pages"  max="10" oninput = "displayPrice('','','','','','','',this.value,'','','','','');">
+												<p><input type = "text" class = "" name="number_of_pages" id="numbers-of-pages" placeholder="Number of Pages"  max="10" oninput = "displayPrice('','','','','','','',this.value,'','','','','');">
 												</p>
 												<p id="A3_msg" class="displayNone">The maximum number of DIN A3 pages is: 10</p>
 												<p class="error" id="error_number_of_pages"></p>
@@ -186,7 +186,7 @@
 
 												<div class="displayNone" id="div-number-of-A2-pages">
 													<label>Number of DIN A2 Pages*:<a href="#" data-toggle="tooltip" title="It is folded and glued into a bag at the end of the thesis. &#013; The maximum number of DIN A2 pages is: 3 " class="formToolTip">i</a></label>
-													<p><input class = "" name="number_of_A2_pages" id="numbers-of-A2-pages" placeholder="Number of Pages" value = "" max="3" oninput = "displayPrice('','','','','','',this.value,'','','','','','');"></p>
+													<p><input type = "text" class = "" name="number_of_A2_pages" id="numbers-of-A2-pages" placeholder="Number of Pages" value = "" max="3" oninput = "displayPrice('','','','','','',this.value,'','','','','','');"></p>
 													<p id="A2_msg" class="displayNone">The maximum number of DIN A2 pages is: 3</p>
 													<p class="error" id="error_number_of_A2_pages"></p>
 												</div>
@@ -308,7 +308,7 @@
 
 													<div class="displayNone" id="div-number-of-cds">
 														<label>Number of CDs*:</label>
-														<p><input class = "" name="number_of_cds" id="numbers-of-cds" placeholder="Number of CDs" oninput= "displayPrice('','','','','','','','',this.value,'','','','');"></p>
+														<p><input type = "text" class = "" name="number_of_cds" id="numbers-of-cds" placeholder="Number of CDs" oninput= "displayPrice('','','','','','','','',this.value,'','','','');"></p>
 														<p class="error" id="error_number_of_cds"></p>
 													</div> 
 
