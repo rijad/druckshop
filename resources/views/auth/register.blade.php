@@ -1,6 +1,7 @@
 @extends('layouts._master')
 
 @section('content')
+<div class="customer-area-register">
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -74,5 +75,6 @@
             </div>
         </div>
     </div>
+</div>
 </div>
 @endsection
