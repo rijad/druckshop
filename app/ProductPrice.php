@@ -43,3 +43,4 @@ class ProductPrice extends Model
         return $this->belongsTo('App\PsDeliveryService', 'delivery_service_id');
     }
 }
+

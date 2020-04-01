@@ -43,7 +43,7 @@ class Product extends Model
     {
         return $this->hasMany('App\PsOrder', 'product_id');
     }
- 
+  
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -57,7 +57,7 @@ class Product extends Model
      */
     public function psProductImages()
     {
-        return $this->hasMany('App\PsProductImage', 'product_id');
+        return $this->hasMany('App\ProductImage', 'product_id');
     }
  
 
