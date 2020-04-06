@@ -174,6 +174,9 @@ Route::get('/dashboard-login', function () {
    
  Auth::routes();
 
+ //For change the language
+ Route::get('lang/{locale}', 'HomeController@lang');
+
 Route::get('/home', 'HomeController@index')->name('home');
 Route::post('user-login','LoginController@authenticate')->name('user-login');
 Route::post('user-register','RegisterController@validateRegister')->name('user-register');
