@@ -21,7 +21,7 @@
 							<!-- One "tab" for each step in the form: -->
 							<div class="tab" id="tab-fields">
 								<div class="displayBlock">
-									<label>Binding*:</label>
+									<label>{{ trans('checkout.binding_title') }}*:</label>
 									<p><select class = "" name = "binding" id = "binding" onclick="displayFields(this.value);displayProductAttributes('1',this); resetFields(this.id,this.value);" oninput="displayPrice(this.value,'','','','','','','','','','','','');">
 										<option value = "-1">Select</option>
 										@foreach ($product_listing as $key=>$listing)
@@ -30,19 +30,19 @@
 									</select></p><p class="error" id="error_binding"></p>
 								</div>
 								<div class="displayBlock" id="div-no-of-copies">
-									<label>No of Copies*:</label>
-									<p><input type = "text" class = "" name="no_of_copies" id="no-of-copies" placeholder="No of Copies" oninput="displayProductAttributes('2',this);"></p><p class="error" id="error_no_of_copies"></p>
+									<label>{{ trans('checkout.no_of_copies') }}*:</label>
+									<p><input type = "text" class = "" name="no_of_copies" id="no-of-copies" placeholder="{{ trans('checkout.no_of_copies') }}" oninput="displayProductAttributes('2',this);"></p><p class="error" id="error_no_of_copies"></p>
 								</div>
 								<div class="displayBlock" id="div-page-format">
-									<label>Page Format*:</label>
+									<label>{{ trans('checkout.page_format') }}*:</label>
 									<p><select class = "" onclick = "displayProductAttributes('3',this);" id="page-format" name="page-format" ><option value="-1">Select</option></select></p><p class="error" id="error_page_format"></p>
 								</div>
 								<div class="displayNone" id="div-cover-color">
-									<label>Cover Color*:</label> 
+									<label>{{ trans('checkout.cover_color') }}*:</label> 
 									<p><select name="cover-color" class = "" onclick = "displayProductAttributes('4',this);" id="cover-color"><option value="-1">Select</option></select></p><p class="error" id="error_cover_color"></p>
 								</div>
 								<div class="displayNone" id="div-cover-sheet">
-									<label>Cover Sheet*:<a href="#" data-toggle="tooltip" title="200 gm/m2 sheets" class="formToolTip">i</a></label>
+									<label>{{ trans('checkout.cover_sheet') }}*:<a href="#" data-toggle="tooltip" title="200 gm/m2 sheets" class="formToolTip">i</a></label>
 									<p><select class = "" onclick = "displayProductAttributes('5',this);uploadDisplay(this.id,this.value);hideBindingElements('cover-sheet');" id="cover-sheet" name="cover-sheet"><option value="-1">Select</option></select></p>
 									<p class="error" id="error_cover_sheet">
  
@@ -370,8 +370,8 @@
 
 													<div class="stepperButtons">
 														<div>
-															<button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
-															<button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+															<button type="button" id="prevBtn" onclick="nextPrev(-1)">{{ trans('checkout.previous') }}</button>
+															<button type="button" id="nextBtn" onclick="nextPrev(1)">{{ trans('checkout.next') }}</button>
 														</div>
 													</div>
 
@@ -383,11 +383,11 @@
 													</div>
 													<div class="servicePrice">
 														<ul>
-															<li><p>{{-- Preis pro Auflage --}} Binding Price</p><span id="binding_price"><big>0.00 €</big></span></li>
-															<li><p>{{-- Preis pro CD --}} Printouts</p><span id="printout"><big>0.00 €</big></span></li>
-															<li><p>{{-- Preis des Datenchecks --}} Data checks</p><span id="data_check_price"><big>0.00 €</big></span></li>
-															<li><p>{{-- Preis des Datenchecks --}} CDs</p><span id="cd_dvd"><big>0.00 €</big></span></li>
-															<li><p>{{-- Gesamtpreis --}}Total</p><span id="total"><big>0.00 €</big></span></li>
+															<li><p>{{ trans('checkout.binding_price') }}</p><span id="binding_price"><big>0.00 €</big></span></li>
+															<li><p>{{ trans('checkout.printouts') }}</p><span id="printout"><big>0.00 €</big></span></li>
+															<li><p>{{ trans('checkout.data_checks') }}</p><span id="data_check_price"><big>0.00 €</big></span></li>
+															<li><p>{{ trans('checkout.cds') }}</p><span id="cd_dvd"><big>0.00 €</big></span></li>
+															<li><p>{{ trans('checkout.total') }}</p><span id="total"><big>0.00 €</big></span></li>
 															<input type="hidden" name="total" id="total_price" value="">
 														</ul>
 

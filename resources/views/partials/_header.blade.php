@@ -3,7 +3,7 @@
 		<div class="container"> 
 			<div class="site-login d-flex">
 				<ul class="list-inline headerReview mr-auto">						 
-					<li><h4><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i><i class="fa fa-star-half"></i> </h4><a href="#"><small> 4.86 / 5 from 1632 reviews</small></a></li>						 					 
+					<li><h4><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i><i class="fa fa-star-half"></i> </h4><a href="#"><small> 4.86 / 5 {{ trans('header.from')}} 1632 {{ trans('header.reviews')}}</small></a></li>						 					 
 				</ul>
 
 
@@ -18,11 +18,11 @@
 					<!-- Authentication Links -->
 					@guest
 					<li class="nav-item">
-						<a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+						<a class="nav-link" href="{{ route('login') }}">{{ trans('header.login')}}</a>
 					</li>
 					@if (Route::has('register'))
 					<li class="nav-item">
-						<a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+						<a class="nav-link" href="{{ route('register') }}">{{ trans('header.register')}}</a>
 					</li>
 					@endif
 					@else
@@ -77,8 +77,8 @@
 			@default
 			@php $active_lang_en = 'border: 2px solid green; border-radius: 12px;'; @endphp
 			@endswitch
-			<li><a href="lang/en"><img style="{{ $active_lang_en }}" src="{{ asset('public/images/eng.png') }}" alt="English" /></a></li>
-			<li><a href="lang/gr"><img style="{{ $active_lang_gr }}" src="{{ asset('public/images/ger.png') }}" alt="German" /></a></li>	
+			<li><a href="{{ url('lang/en') }}"><img style="{{ $active_lang_en }}" src="{{ asset('public/images/eng.png') }}" alt="English" /></a></li>
+			<li><a href="{{ url('lang/gr') }}"><img style="{{ $active_lang_gr }}" src="{{ asset('public/images/ger.png') }}" alt="German" /></a></li>	
 
 		</ul>
 	</div>
@@ -98,12 +98,12 @@
 				<ul class="navbar-nav mr-auto">					      
 
 					<li class="nav-item active"><a href="{{ route('index') }}"><i class="fa fa-home"></i></a></li>
-					<li><a href="{{ route('products') }}">products</a></li>
-					<li><a href="{{ route('latest') }}">Latest</a></li>
-					<li><a href="{{ route('about-us') }}">About Us</a></li>
-					<li><a href="{{ route('faq') }}">FAQ</a></li>
+					<li><a href="{{ route('products') }}">{{ trans('header.products')}}</a></li>
+					<li><a href="{{ route('latest') }}">{{ trans('header.latest')}}</a></li>
+					<li><a href="{{ route('about-us') }}">{{ trans('header.about')}}</a></li>
+					<li><a href="{{ route('faq') }}">{{ trans('header.faq')}}</a></li>
 					{{-- <li><a href="{{ route('gallery-images') }}">Gallery</a></li> --}}
-					<li><a href="{{ route('contact') }}">Contact</a></li>
+					<li><a href="{{ route('contact') }}">{{ trans('header.contact')}}</a></li>
 				</ul>  
 			</div>
 
