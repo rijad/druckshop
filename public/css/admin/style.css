@@ -47,6 +47,11 @@
   box-sizing: border-box;
 }
 
+.btn.btn-secondary.btn-user.btn-block.col-md-3 {
+    margin-right: 20px;
+    margin-top: 10px;
+}
+
 #max_a2{
   display: none;
 }

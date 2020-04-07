@@ -17,7 +17,7 @@ use App\PageFormat;
 use App\PaperWeight;  
 use App\ArtList;
 use App\Product;
-use App\ProductPageFormat;
+use App\ProductPageFormat; 
 use App\PageOptions;
 use App\Mirror;
 use App\Font;
@@ -1137,7 +1137,7 @@ public function makeOrderDetails($model = "", $attribute=""){
 
 }
   
-
+ 
 public static function CartCount(){
 
 	if(Auth::check()) 

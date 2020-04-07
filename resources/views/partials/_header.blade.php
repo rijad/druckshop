@@ -65,7 +65,7 @@
 
 				</div>								
 			</li>
-			<li class="cart-relative-count"><a @if(isset($cart)) href="{{route('cart')}}" @endif><i class="fa fa-shopping-cart"></i><span class="cart-product-count">@if(isset($cart)) @if(count($cart) > 0) {{count($cart)}} @endif @endif</span> </a></li>
+			<li class="cart-relative-count"><a @if(\App\Http\Controllers\CheckoutController::CartCount() > 0) href="{{route('cart')}}" @endif><i class="fa fa-shopping-cart"></i><span class="cart-product-count">@if(\App\Http\Controllers\CheckoutController::CartCount() >0 ) @if(\App\Http\Controllers\CheckoutController::CartCount() > 0) {{\App\Http\Controllers\CheckoutController::CartCount()}} @endif @endif</span> </a></li>
 			@php $locale = session()->get('locale'); $active_lang_en = ''; $active_lang_gr=''; @endphp
 			@switch($locale)
 			@case('en')
@@ -102,7 +102,7 @@
 					<li><a href="{{ route('latest') }}">Latest</a></li>
 					<li><a href="{{ route('about-us') }}">About Us</a></li>
 					<li><a href="{{ route('faq') }}">FAQ</a></li>
-					<li><a href="{{ route('gallery-images') }}">Gallery</a></li>
+					{{-- <li><a href="{{ route('gallery-images') }}">Gallery</a></li> --}}
 					<li><a href="{{ route('contact') }}">Contact</a></li>
 				</ul>  
 			</div>

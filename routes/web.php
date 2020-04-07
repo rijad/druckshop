@@ -42,7 +42,7 @@ Route::get('/route-clear', function() {
 Route::get('/view-clear', function() {
     $exitCode = Artisan::call('view:clear');
     return '<h1>View cache cleared</h1>';
-});
+}); 
 
 //Clear Config cache: 
 Route::get('/config-cache', function() {
@@ -54,19 +54,21 @@ Route::get('/', 'IndexController@sendData')->name('index');
 Route::get('/products', 'ProductController@sendData')->name('products');
 Route::get('/product-information', 'ProductInfoController@sendData')->name('product-information');
 Route::POST('/news-letter','NewsLetterController@sendData')->name('news-letter');
-Route::get('/checkout','CheckoutController@sendData')->name('check-out');
+
+Route::get('/checkout/{id}','CheckoutController@sendData')->name('check-out');
 Route::get('/get-relations','CheckoutController@getProductAttributes')->name('get-relations');
 Route::get('/get-price','CheckoutController@getPrice')->name('get-price');
 Route::get('/get-relations-content','CheckoutController@getContentAttributes')->name('get-relations-content');
 Route::get('/loose-print','CheckoutController@loosePrint')->name('loose-print');
-
 Route::POST('/product-order','CheckoutController@saveOrder')->name('product-order');
 Route::POST('/orders-details','CheckoutController@orderDetails')->name('orders-details');
 Route::POST('/set-quantity','CheckoutController@setQuantity')->name('set-quantity');
 Route::get('/remove-item/{id}','CheckoutController@removeItem')->name('remove-item');
 Route::POST('/paper-weight-sheets','CheckoutController@paperWeightSheets')->name('paper-weight-sheets');
+//Route::POST('/cart-count','CheckoutController@CartCount')->name('cart-count');
 
 Route::get('/cart','CheckoutController@cart')->name('cart');
+
 Route::get('/customer-area','CustomerAreaController@index')->name('customer-area');
 Route::get('/repeat-order/{order_id}','RepeatOrderController@RepeatOrder')->name('repeat-order');
 Route::get('/cancel-order/{order_id}','CancelOrderController@CancelOrder')->name('cancel-order');
