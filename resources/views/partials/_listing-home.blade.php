@@ -12,7 +12,7 @@
 						<div class="proInfo">
 							<h2>{{$listing->title_english}}</h2>
 								<p>{{$listing->short_description_english}}</p>
-								<a href="#">Read More</a>
+								<a href="{{ route('product-information') }}#{{$listing->title_english}}">Read More</a>
 						</div>
 					</div>
 				</div>

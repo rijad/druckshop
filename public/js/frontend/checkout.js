@@ -291,7 +291,7 @@ function displayContentInput(option = ""){
 
 	if(option == "Color_Pages"){
 		if($("#color-pages").is(":checked")){ 
-			document.getElementById('div-page-numbers').className = "displayBlock";
+			document.getElementById('div-page-numbers').className = "displayBlock";  
 		}else{
 			document.getElementById('div-page-numbers').className = "displayNone";
 		}
@@ -674,9 +674,9 @@ function displayPrice(binding = "", no_ofsheets = "", page_options = "", embossi
 				}
 			}
 
-		if (valid) { 
-			document.getElementsByClassName("step")[currentTab].className += " finish";
-		}
+		// if (valid) { 
+		// 	document.getElementsByClassName("step")[currentTab].className += " finish";
+		// }
 	  return valid; // return the valid status
 
 	} 
@@ -725,13 +725,15 @@ function displayPrice(binding = "", no_ofsheets = "", page_options = "", embossi
 	}
 
 	
-	function fixStepIndicator(n) {
+	function fixStepIndicator(n) {  alert(n); 
 	  // This function removes the "active" class of all steps...
 	  var i, x = document.getElementsByClassName("step");
 	  for (i = 0; i < x.length; i++) {
 	  	x[i].className = x[i].className.replace(" active", "");
 	  }
 	  //... and adds the "active" class to the current step:
+	 // document.getElementsByClassName("step")[currentTab].className += " finish";
+	  x[n-1].className += " finish";
 	  x[n].className += " active";
 	}
 
