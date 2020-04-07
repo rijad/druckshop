@@ -5,7 +5,7 @@
 
 					<!-- ====================== stepper added ================== -->
 
-					<form id="regForm" action="{{route('product-order')}}" method="POST"> 
+					<form id="regForm" action="{{route('product-order')}}" method="POST" enctype="multipart/form-data"> 
 						@csrf   
 
 						<div class="stepperBullets">
@@ -13,7 +13,7 @@
 							<div class="step"><span>2</span></div>
 							<div class="step"><span>3</span></div>
 							<div class="step"><span>4</span></div>
-						</div>
+						</div> 
   
 						<div class="checkoutBlock col-half text-left">
 							{{-- <h1>Register:</h1> --}}
@@ -22,10 +22,10 @@
 							<div class="tab" id="tab-fields">
 								<div class="displayBlock">
 									<label>Binding*:</label>
-									<p><select class = "" name = "binding" id = "binding" onchange="displayFields(this.value);displayProductAttributes('1',this); resetFields(this.id,this.value);" oninput="displayPrice(this.value,'','','','','','','','','','','','');">
+									<p><select class = "" name = "binding" id = "binding" onclick="displayFields(this.value);displayProductAttributes('1',this); resetFields(this.id,this.value);" oninput="displayPrice(this.value,'','','','','','','','','','','','');">
 										<option value = "-1">Select</option>
 										@foreach ($product_listing as $key=>$listing)
-										<option value="{{$listing->id}}">{{$listing->title_english}}</option>  
+										<option value="{{$listing->id}}" @if($listing->id == request()->id) selected @endif>{{$listing->title_english}}</option>  
 										@endforeach
 									</select></p><p class="error" id="error_binding"></p>
 								</div>
@@ -45,15 +45,15 @@
 									<label>Cover Sheet*:<a href="#" data-toggle="tooltip" title="200 gm/m2 sheets" class="formToolTip">i</a></label>
 									<p><select class = "" onclick = "displayProductAttributes('5',this);uploadDisplay(this.id,this.value);hideBindingElements('cover-sheet');" id="cover-sheet" name="cover-sheet"><option value="-1">Select</option></select></p>
 									<p class="error" id="error_cover_sheet">
-
-								</div> 
+ 
+								</div>  
 
 								<div id="drop_file_zone_cover_sheet" ondrop="upload_file(event,this.id)" ondragover="return false" class="displayNone">
 									<div id="drag_upload_file_cover_sheet">
 										<p>Drop file here<a href="#" data-toggle="tooltip" title="PDF" class="formToolTip">i</a></p>
 										<p>or</p>
 										<p><input type="button" value="Select File" onclick="file_explorer('drop_file_zone_cover_sheet');"></p>
-										<input class = "displayNone" type="file" name="selectfile" id="selectfile" accept="application/pdf" value = "" />
+										<input class = "displayNone" type="file" name="selectfile" id="selectfile" accept="application/pdf" value = "" multiple/>
 										<input class = "displayNone" type="hidden" name="selectfile_coversheet" id="selectfile_coversheet" value = "" />
 									</div>
 								</div>
@@ -143,7 +143,7 @@
 											<p><input type = "text" class= "" name="page_numbers" id="page-numbers" placeholder="Page Numbers" value = "" oninput = "displayPrice('','','','','','','','','','','',this.value,'');">
 												<p class="error" id="error_page_numbers"></p>
 												<p class="error" id="error_range"></p><label>Example : 3,12,15-23,37</label></p>
-
+										</div>
 											<div class="displayBlock" id="div-A3-pages">
 												<label class="csCheckbtn">DIN A3 Pages
 													<input class = ""  name = "A3-pages" id = "A3-pages" type="checkbox" onclick="displayContentInput('A3_Pages');"  > 
@@ -181,7 +181,7 @@
 													<label class="csCheckbtn">Din A2 Pages
 														<input class = "" name = "A2-pages" id = "A2-pages" type="checkbox" onclick="displayContentInput('A2_Pages');" >
 														<span class="checkmark"></span>
-													</label>
+													</label> 
 												</div>
 
 												<div class="displayNone" id="div-number-of-A2-pages">
@@ -207,7 +207,7 @@
 												<div id="drop_file_din_A2_info" class="displayNone"><label id="A2_file_name"></label>
 													<label id="A2_page_no"></label><label id="A2_del"></label></div>
 
-												</div>
+												
 											</div>
 
 											<div class="tab">
@@ -317,7 +317,7 @@
 															<p>Drop file here</p>  
 															<p>or</p>
 															<p><input type="button" value="Select File" onclick="file_explorer('upload_cd');"></p>
-															<input type="file" id="selectfile" name="selectfile" >
+															<input type="file" id="selectfile" name="selectfile" multiple>
 															<input type="hidden" id="selectfile_cd" name="selectfile_cd">
 														</div>
 													</div> 

@@ -20,11 +20,11 @@
 						<h2>{{$listing->title_english}}</h2>	
 						<p>{{$listing->short_description_english}}</p>
 						 
-						<a href="{{ route($listing->product_page_url) }}" class="btn-gray">To Order</a>
+						<a href="{{ route($listing->product_page_url,['id'=>$listing->id])}}" class="btn-gray">To Order</a>
 						<a href="{{ route('product-information') }}#{{$listing->title_english}}">product Info</a>
 					</div> 
 					
-				</div><!-- col row ends -->
+				</div><!-- col row ends -->  
 
 				@else
 
@@ -44,7 +44,7 @@
 						<h2>{{$listing->title_english}}</h2>	
 						<p>{{$listing->short_description_english}}</p>
 						
-						<a href="{{ route($listing->product_page_url) }}" class="btn-gray">To Order</a>
+						<a href="{{ route($listing->product_page_url,['id'=>$listing->id])}}" class="btn-gray">To Order</a>
 						<a href="{{ route('product-information') }}#{{$listing->title_english}}">product Info</a>
 					</div> 
 
@@ -53,21 +53,5 @@
 				@endif
 
 				@endforeach
-
-				<div class="col-row mb-5"> 
-
-					<div class="product-item-img col-half text-right pull-right">
-						<span class="img-back"><img src="{{ asset('/public/images/product4.jpg')}}" alt="" /></span>
-					</div>
-
-					<div class="product-item col-half">
-						<h2>Sample with 15 free pages</h2>	
-						<p>You just want to print out your work? No problem, with us you can even print and have your work tied up elsewhere.</p>
-						 
-						<a href="{{ route('free-sample') }}" class="btn-gray">To Order</a>
-						<a href="{{ route('product-information') }}#{{$listing->title_english}}">product Info</a>
-					</div> 
-
-				</div><!-- col row ends --> 
 
 		</div>		 

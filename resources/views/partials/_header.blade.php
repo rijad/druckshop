@@ -12,7 +12,7 @@
 						<li><h4><strong><i class="fa fa-envelope"></i></strong> : </h4><a href="#"><small>sampleemail@gmail.com</small></a></li>
 												 
 					</ul>
-
+ 
 					<!-- Right Side Of Navbar -->
                     <ul class="align-item-md-end">
                         <!-- Authentication Links -->
@@ -44,7 +44,7 @@
                                     <form id="logout-form" action="{{ route('user-logout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form>
-                                    
+                                     
                                 </div>
                             </li>
                         @endguest 
@@ -54,7 +54,7 @@
 			</div>
 			<div class="container">
 
-				<div class="site-logo"><a href="#"><img src="{{ asset('public/images/logo.png') }}" alt="" /></a></div>
+				<div class="site-logo"><a href="{{route('index')}}"><img src="{{ asset('public/images/logo.png') }}" alt="" /></a></div>
 
 				<div class="site-login">
 					<ul class="headerCart d-flex float-right">
@@ -64,8 +64,8 @@
 								<button><i class="fa fa-search"></i></button>
 
 							</div>								
-						</li>
-						<li class="cart-relative-count"><a @if(isset($cart)) href="{{route('cart')}}" @endif><i class="fa fa-shopping-cart"></i><span class="cart-product-count">@if(isset($cart)) @if(count($cart) > 0) {{count($cart)}} @endif @endif</span> </a></li>
+						</li> 
+						<li class="cart-relative-count"><a @if(\App\Http\Controllers\CheckoutController::CartCount() > 0) href="{{route('cart')}}" @endif><i class="fa fa-shopping-cart"></i><span class="cart-product-count">@if(\App\Http\Controllers\CheckoutController::CartCount() >0 ) @if(\App\Http\Controllers\CheckoutController::CartCount() > 0) {{\App\Http\Controllers\CheckoutController::CartCount()}} @endif @endif</span> </a></li>
 						<li><a href="#"><img src="{{ asset('public/images/eng.png') }}" alt="" /></a></li>
 						<li><a href="#"><img src="{{ asset('public/images/ger.png') }}" alt="" /></a></li>	
 												 						 
@@ -91,7 +91,7 @@
 							<li><a href="{{ route('latest') }}">Latest</a></li>
 							<li><a href="{{ route('about-us') }}">About Us</a></li>
 							<li><a href="{{ route('faq') }}">FAQ</a></li>
-							<li><a href="{{ route('gallery-images') }}">Gallery</a></li>
+							{{-- <li><a href="{{ route('gallery-images') }}">Gallery</a></li> --}}
 							<li><a href="{{ route('contact') }}">Contact</a></li>
 						</ul>  
 					  </div>
