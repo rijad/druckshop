@@ -219,7 +219,8 @@
                     </div>
                 </div>
 
-                <div class="form-group">
+                <div class="form-inline">
+                    <a href="{{ URL::previous() }}" class="btn btn-secondary btn-user btn-block col-md-3">Back</a>
                     <input type="submit" class="btn btn-primary btn-user btn-block col-md-3" value="Add">
                 </div>
 
