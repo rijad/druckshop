@@ -119,6 +119,10 @@ Route::get('/update-user/{id}','AdminUsersController@update')->name('update-user
 Route::post('/delete-user','AdminUsersController@destroy')->name('delete-user');
 Route::resource('/slider','SliderController');
 
+//About
+Route::get('/about-edit','PagesController@about')->name('about-edit');
+Route::post('/about-update','PagesController@aboutupdate')->name('about-update');
+
 //Parameters
 Route::resource('/parameter','ParameterController');
 Route::get('/details/{model}/{id}','ParameterController@details')->name('details');
