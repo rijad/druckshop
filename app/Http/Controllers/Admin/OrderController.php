@@ -27,8 +27,14 @@ class OrderController extends Controller
     {
         // dd($id);
         $user = UsersAdmin::where(['id' => $id])->first();
-        // dd($user);
-        return $user->name;
+        //dd($user);
+
+        if(! empty($user->name)){
+            return $user->name;
+        }else{
+            return "";
+        }
+       
     }
 
     /**
