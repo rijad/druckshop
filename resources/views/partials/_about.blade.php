@@ -1,58 +1,39 @@
 <section class=" page-section home-faq">
-					<h1>About Us</h1>
-					<p class="About-subhead">
-					    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium commodi libero mollitia necessitatibus
-					    quisquam, sed suscipit. Amet aspernatur dignissimos doloremque dolorum fugit, nulla sed totam unde. Architecto
-					    quae sapiente suscipit.
-					 </p>
-					<div class="Aboutpage-rv">
-						@foreach ($about as $key=>$abut)
-					    <div class="about-header" id="heading{{$key}}">
-					      	<!-- <h2 class="mb-0">
-                          	{{$abut->title_english}}
-					      	</h2> -->
-                          	<div class="product-item-img col-half text-left">
-								<span class="img-back">
-									<img src="{{ asset($abut->image)}}" alt="" />
-								</span>
-							</div>
+	<h1>{{ trans('about.about_title')}}</h1>
+	<p class="About-subhead">
+		{{ trans('about.about_description')}}
+	</p>
+	<div class="Aboutpage-rv">
 
-					    	<div class="product-item col-half">
-						    	<h2 style="margin-top:20px; ">Spiral Bindings</h2>
-						        <p>{{$abut->text_english}}</p>
-						     </div>
-						     <div class="About-boody">
-						     	<h2>More Information</h2>
-						     	<p> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium commodi libero mollitia necessitatibus
-								    quisquam, sed suscipit. Amet aspernatur dignissimos doloremque dolorum fugit, nulla sed totam unde. Architecto
-								    quae sapiente suscipitLorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium commodi libero mollitia necessitatibus
-								    quisquam, sed suscipit. Amet aspernatur dignissimos doloremque dolorum fugit, nulla sed totam unde. Architecto
-								    quae sapiente suscipit Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium commodi libero mollitia necessitatibus
-								    quisquam, sed suscipit. Amet aspernatur dignissimos doloremque dolorum fugit, nulla sed totam unde. Architecto
-								    quae sapiente suscipit Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium commodi libero mollitia necessitatibus
-								    quisquam, sed suscipit. Amet aspernatur dignissimos doloremque dolorum fugit, nulla sed totam unde. Architecto
-								    quae sapiente suscipit Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium commodi libero mollitia necessitatibus
-								    quisquam, sed suscipit. Amet aspernatur dignissimos doloremque dolorum fugit, nulla sed totam unde. Architecto
-								    quae sapiente suscipit Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium commodi libero mollitia necessitatibus
-								    quisquam, sed suscipit. Amet aspernatur dignissimos doloremque dolorum fugit, nulla sed totam unde. Architecto
-								    quae sapiente suscipit.</p>
-								    <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium commodi libero mollitia necessitatibus
-								    quisquam, sed suscipit. Amet aspernatur dignissimos doloremque dolorum fugit, nulla sed totam unde. Architecto
-								    quae sapiente suscipitLorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium commodi libero mollitia necessitatibus
-								    quisquam, sed suscipit. Amet aspernatur dignissimos doloremque dolorum fugit, nulla sed totam unde. Architecto
-								    quae sapiente suscipit Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium commodi libero mollitia necessitatibus
-								    quisquam, sed suscipit. Amet aspernatur dignissimos doloremque dolorum fugit, nulla sed totam unde. Architecto
-								    quae sapiente suscipit Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium commodi libero mollitia necessitatibus
-								    quisquam, sed suscipit. Amet aspernatur dignissimos doloremque dolorum fugit, nulla sed totam unde. Architecto
-								    quae sapiente suscipit Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium commodi libero mollitia necessitatibus
-								    quisquam, sed suscipit. Amet aspernatur dignissimos doloremque dolorum fugit, nulla sed totam unde. Architecto
-								    quae sapiente suscipit Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium commodi libero mollitia necessitatibus
-								    quisquam, sed suscipit. Amet aspernatur dignissimos doloremque dolorum fugit.</p>
-						     </div>
-					  	</div>
+		@foreach ($about as $key => $value)
 
+		<div class="about-header" id="heading{{$key}}">
 
-					  	
-					  @endforeach	
-					</div>  
-		</section>  
+			<div class="product-item-img col-half text-left">
+				<span class="img-back">
+					<img src="{{ asset($value->image)}}" alt="" />
+				</span>
+			</div>
+
+			<div class="product-item col-half">
+
+				<?php $locale = session()->get('locale'); 
+				if ($locale == 'gr') { ?>
+
+				<h2 style="margin-top:20px; ">{{ $value->title_german  }}</h2>
+				<p>{{$value->text_german}}</p>
+
+				<?php } else{  ?>
+
+				<h2 style="margin-top:20px; ">{{ $value->title_english  }}</h2>
+				<p>{{$value->text_english}}</p>
+				
+				<?php }  ?>
+
+			</div>
+
+		</div>
+
+		@endforeach	
+	</div>  
+</section>  

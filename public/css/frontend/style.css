@@ -397,6 +397,7 @@ button:focus {outline:none !important;}
 /* Mark the active step: */
 .checkoutStepper .step.active {
   opacity: 1;
+
 }
 
 /* Mark the steps that are finished and valid: */
@@ -428,6 +429,7 @@ button:focus {outline:none !important;}
 .stepperBullets .step.finish:after {background:#4CAF50;}
 
 .checkoutStepper .step.finish span {color:#4CAF50; border-color:#4CAF50;}
+.checkoutStepper .step.active span {color:#524444; border-color:#524444;}
  
 
  

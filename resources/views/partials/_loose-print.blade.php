@@ -24,7 +24,7 @@
 										<option value = "-1">Select</option>
 										@foreach ($product_listing as $key=>$listing)
 											@if($listing->id == "5")
-												<option value="{{$listing->id}}">{{$listing->title_english}}</option> 
+												<option value="{{$listing->id}}" selected>{{$listing->title_english}}</option> 
 											@endif	 
 										@endforeach
 									</select></p><p class="error" id="error_binding"></p>
