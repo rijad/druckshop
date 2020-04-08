@@ -9,8 +9,19 @@
 <script src="{{ asset('public/js/admin/datatables-demo.js') }}"></script>
 <script src="{{ asset('public/js/admin/custom.js') }}"></script>
 
+<!-- plugins -->
+<!-- summernote -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.4/summernote.css" rel="stylesheet" crossorigin="anonymous" />
+<script src="{{ asset('public/js/plugins/summernote/summernote.js') }}"></script>
+
 <script type="text/javascript">
     $(document).ready(function() {
+
+        // summernote
+        $('.summernote').summernote({
+
+            height: 150,
+        });
 
         //Add: add more for delivery services
         $('#delivery_add_more').click(function(){
