@@ -18,7 +18,7 @@ class ProductPrintFinishing extends Model
     /**
      * @var array
      */
-    protected $fillable = ['product_id', 'print_finishing_id', 'created_at', 'updated_at', 'deleted_at'];
+    protected $fillable = ['product_id', 'print_finishing_id', 'status', 'created_at', 'updated_at', 'deleted_at'];
 
     public function psProduct()
     {
