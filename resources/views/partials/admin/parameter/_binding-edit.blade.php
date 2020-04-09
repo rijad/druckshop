@@ -21,6 +21,27 @@
                     <label class="small mb-1" for="name">Name In DEUTSCH</label>
                     <input class="form-control" id="name_in_dh" name="name_in_dh" type="text" value="{{ $product->title_german }}"  placeholder="Name" required />
                 </div>
+
+                <div class="form-group">
+                    <label class="small mb-1" for="name">Short Description English</label>
+                    <input class="form-control" id="short_description_english" name="short_description_english" type="text" value="{{ @$product->short_description_english }}" placeholder="Short Description English" required />
+                </div>
+
+                <div class="form-group">
+                    <label class="small mb-1" for="name">Short Description German</label>
+                    <input class="form-control" id="short_description_german" name="short_description_german" type="text" value="{{ @$product->short_description_german }}" placeholder="Short Description German" required />
+                </div>
+
+                <div class="form-group">
+                    <label class="small mb-1" for="name">Long Description English</label>
+                    <textarea class="form-control summernote" id="long_description_english" name="long_description_english" placeholder="Long Description English" required>{{ @$product->description_english }}</textarea>
+                    
+                </div>
+
+                <div class="form-group">
+                    <label class="small mb-1" for="name">Long Description German</label>
+                    <textarea class="form-control summernote" id="long_description_german" name="long_description_german" placeholder="Long Description German" required>{{ @$product->description_german }}</textarea>
+                </div>
                 
                 <div class="border_dashed">
                     <div class="form-group">
@@ -364,4 +385,5 @@ tr>td {
 .border_dashed{
     border: 2px dotted #212529;
 }
+body .popover{display:none !important; }
 </style>

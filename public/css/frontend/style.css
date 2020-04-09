@@ -1275,7 +1275,7 @@ div#drop_file_zone_content {
 .customer-profile-info ul li {
     font-size: 20px;
     color: #808181;
-    margin-bottom: 15px;
+    margin-bottom: 5px;
     display: flex;
 }
 .customer-profile-info ul li span {
@@ -1284,7 +1284,7 @@ div#drop_file_zone_content {
     min-width: 220px;
 }
 .customer-profile-image {
-    padding-top: 40px;
+    padding-top: 50px;
     position: relative;
 }
 .customer-profile-image span.btn.btn-link.btn-file {
@@ -1397,6 +1397,37 @@ p.About-subhead {
 .latestpage-rv p.latest-date {
     color: #9c9c9c;
 }
+ul.GeneralInfoListing input {
+    min-width: 300px;
+}
+ul.GeneralInfoListing textarea {
+    min-width: 300px;
+    height: 60px;
+}
+.customer-profile-info {
+    position: relative;
+}
+.customer-profile-info .UserIdEdit {
+    position: absolute;
+    right: 40px;
+    top: 2px;
+}
+.customer-profile-info .UserIdEdit button {
+    padding: 2px 14px;
+    border-radius: 3px;
+    font-size: 18px;
+    background-color: #79879a;
+    color: white;
+    margin-right: 5px: 
+}
+.customer-profile-info .UserIdEdit .userSaveInfo {
+    padding: 2px 14px;
+    border-radius: 3px;
+    font-size: 18px;
+    background-color: #79879a;
+    color: white;
+}
+
 
 
 

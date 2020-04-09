@@ -6,10 +6,10 @@
                                 <thead>
                                     <tr>
                                         <th>State</th>
+                                        <th>Order Id</th>
                                         <th>Shipping Address</th>
                                         <th>Billing Address</th>
                                         <th>CD</th>
-                                        <th>Last update</th>
                                         <th>No. of copies</th>
                                         <th>Order Assigned To</th>
                                         <th>Priority</th>
@@ -19,24 +19,24 @@
                                 <tfoot>
                                     <tr>
                                         <th>State</th>
+                                        <th>Order Id</th>
                                         <th>Shipping Address</th>
                                         <th>Billing Address</th>
                                         <th>CD</th>
-                                        <th>Last update</th>
                                         <th>No. of copies</th>
                                         <th>Order Assigned To</th>
                                         <th>Priority</th>
                                         <th>Actions</th>
                                     </tr>
                                 </tfoot>
-                                <tbody>
+                                <tbody> 
                                 @foreach($order as $odr)
                                     <tr>
                                         <td>{{ $odr->state }}</td>
+                                        <td>{{$odr->order_id}}</td>
                                         <td>{{ $odr->billing_address }}</td>
                                         <td>{{ $odr->shipping_address }}</td>
                                         <td>{{ $odr->no_of_cds }}</td>
-                                        <td>{{ $odr->updated_at }}</td>
                                         <td>{{ $odr->no_of_copies }}</td>
                                         <td>    @php
                                                 echo App\Http\Controllers\Admin\OrderController::users($odr->assigned_to);
