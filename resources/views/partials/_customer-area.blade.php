@@ -4,38 +4,44 @@
 		<div class="col-xl-12">
 			<div class="row">
 				<div class="col-lg-7">
-					<div class="customer-profile-text">
-					<h2>Maria Williams</h2>
-					<!-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed dod tempor incididunt labore.</p> -->
-					</div>
-					<div class="customer-profile-info"> 
-					<h2>General Info</h2>
-					<div class="UserIdEdit">
-						<button onclick="enableFieldFunction()">Edit Info</button>
-						<input type="submit" name="" class="userSaveInfo" value="Save">
-					</div>	
-					<ul class="GeneralInfoListing">
-					<li><span>Date of Birth</span><span><input id="userIdBirth" value="Nov 29, 1968" disabled></span></li>
-					<li><span>Address</span><span><textarea id="userIdAddress" value="" disabled>Rosia Road 55, Downtown Eastside Gibraltar, US</textarea></span></li>
-					<li><span>E-mail</span><span><input id="userIdEmail" value="mariawilliams@company.com" disabled></span></li>
-					<li><span>Phone </span><span><input id="userIdPhone" value="+993 5266 22 345" disabled></span></li>
-					<li><span>Shipping Address </span><span><textarea id="userIdshipping" value="" disabled>Rosia Road 55, Downtown Eastside Gibraltar, US</textarea></span></li>
-					<li><span>Billing Address </span><span><textarea id="userIdBilling" value="" disabled>Rosia Road 55, Downtown Eastside Gibraltar, US</textarea></span></li>
-					</ul>
-					</div>
-				</div>
-				<div class="col-lg-5">
-					<figure class="customer-profile-image">
-					<div id="img-preview-block" class="avatar avatar-original center-block" style="background-size:cover; 
-					                background-image:url(http://druckshop.trantorglobal.com/public/images/customer-profile.jpg)"></div>
-					                <span class="btn btn-link btn-file">Edit Profile <input type="file" id="upload-img"></span>
-					</figure>
-				</div>
+					    <div class="customer-profile-text">
+                            <h2>Maria Williams</h2>
+                            <!-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed dod tempor incididunt labore.</p> -->
+                            </div>
+                            <div class="customer-profile-info"> 
+                            <h2>General Info</h2>
+                            <div class="UserIdEdit">
+                                <button onclick="enableFieldFunction()">Edit Info</button>
+                                <input type="button" onclick="saveValues()" class="userSaveInfo" value="Save">
+                            </div>
+                            <ul class="GeneralInfoListing">
+                            <li><span>Date of Birth</span>
+                                <span><input name="dob" id="userIdBirth" value="Nov 29, 1968" disabled></span></li>
+                            <li><span>Address</span>
+                                <span><textarea name="address" id="userIdAddress" value="" disabled>Rosia Road 55, Downtown Eastside Gibraltar, US</textarea></span></li>
+                            <li><span>E-mail</span>
+                                <span><input name="email" id="userIdEmail" value="mariawilliams@company.com" disabled></span></li>
+                            <li><span>Phone </span>
+                                <span><input name="phone" id="userIdPhone" value="+993 5266 22 345" disabled></span></li>
+                            <li><span>Shipping Address </span>
+                                <span><textarea name="shipping_address" id="userIdshipping" value="" disabled>Rosia Road 55, Downtown Eastside Gibraltar, US</textarea></span></li>
+                            <li><span>Billing Address </span>
+                                <span><textarea name="billing_address" id="userIdBilling" value="" disabled>Rosia Road 55, Downtown Eastside Gibraltar, US</textarea></span></li>
+                            </ul>
+                            </div>
+                        </div>
+                        <div class="col-lg-5">
+                            <figure class="customer-profile-image">
+                            <div id="img-preview-block" class="avatar avatar-original center-block" style="background-size:cover; 
+                                background-image:url(http://druckshop.trantorglobal.com/public/images/customer-profile.jpg)"></div>
+                                <span class="btn btn-link btn-file">Edit Profile <input type="file" name="image" id="upload-img"></span>
+                            </figure>
+                        </div>
+                </div>
 			</div>
 		</div>
 	</div>
 </section>
-
 
  <div class="mycart customer-area-rv">
     <div class="container">
@@ -64,8 +70,8 @@
                                 <p class="thisproduct_subhead">{{$details->attribute_desc}}</p>
                             </div>
                             <ul class="product_price">
-                                <li class="inputcard_quantity"><h6><strong>{{$details->price_product_qty}}€</strong></h6>
-                                   
+                                <li class="inputcard_quantity"><h6>
+                                    <strong>{{$details->price_product_qty}}€</strong></h6>
                                 </li>
                             </ul>
                         </div>  
@@ -89,15 +95,11 @@
                         @endif
                         @endforeach
                     </div>
-                      
                 </div>
-               
             </div> 
-        </div>   
-        
+        </div>  
     </div>
 </div>
-
  
 {{-- Return Details Modal --}}
                     <div class="modal fade" id="returnModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -120,12 +122,12 @@
                               <div class="error">{{ $errors->first('shipping_address') }}</div>
                               @endif
                             </div>
-                             <div class="form-group">
-                              <label for="email">Upload Product Image*:</label>
-                              <input type="file" name="return_image" id="return_image" accept="image/*">
-                               @if($errors->has('billing_address'))
-                              <div class="error">{{ $errors->first('billing_address') }}</div>
-                              @endif
+                            <div class="form-group">
+                                <label for="email">Upload Product Image*:</label>
+                                <input type="file" name="return_image" id="return_image" accept="image/*">
+                                @if($errors->has('billing_address'))
+                                <div class="error">{{ $errors->first('billing_address') }}</div>
+                                @endif
                             </div>
                         </form>
                 </div>
@@ -162,13 +164,53 @@
 
 <script>
 function enableFieldFunction() {
-  document.getElementById("userIdBirth").disabled = false;
-  document.getElementById("userIdAddress").disabled = false;
-  document.getElementById("userIdEmail").disabled = false;
-  document.getElementById("userIdPhone").disabled = false;
-  document.getElementById("userIdAddress").disabled = false;
-  document.getElementById("userIdshipping").disabled = false;
-  document.getElementById("userIdBilling").disabled = false;
+    
+    document.getElementById("userIdBirth").disabled = false;
+    document.getElementById("userIdAddress").disabled = false;
+    document.getElementById("userIdEmail").disabled = false;
+    document.getElementById("userIdPhone").disabled = false;
+    document.getElementById("userIdAddress").disabled = false;
+    document.getElementById("userIdshipping").disabled = false;
+    document.getElementById("userIdBilling").disabled = false;
 }
+
+function saveValues(){
+    // alert('hey');
+
+    var dob = document.getElementById('userIdBirth').value;
+    var address = document.getElementById('userIdAddress').value; 
+    var email = document.getElementById('userIdEmail').value;  
+    var phone = document.getElementById('userIdPhone').value;  
+    var shipping_address = document.getElementById('userIdshipping').value;   
+    var billing_address = document.getElementById('userIdBilling').value;  
+    var image = document.getElementById('upload-img').files[0];   //file object
+
+    if(file != undefined) {
+        var form_data = new FormData();                  
+        form_data.append('image', image);
+        form_data.append('dob', dob);
+        form_data.append('address', address);
+        form_data.append('email', email);
+        form_data.append('phone', phone);
+        form_data.append('shipping_address', shipping_address);
+        form_data.append('billing_address', billing_address);
+        form_data.append( "_token", "{{ csrf_token() }}");
+
+	$.ajax({
+        type: 'POST',
+        //"headers": {'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')},
+        url: '/print-shop/customer-area-update',
+        contentType: false,
+        processData: false,
+        data: form_data,
+        success:function(response) {  
+            console.log(response);
+        }
+	});
+    }
+}
+
 </script>
+
+
 

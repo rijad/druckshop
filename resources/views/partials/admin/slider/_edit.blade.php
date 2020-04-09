@@ -15,7 +15,8 @@
                 @endforeach
             </ul>
         @endif
-        <form  class="form-group-inline" method="POST" action="{{ route('slider.update' , $slider->id) }}" enctype="multipart/form-data">
+        <form  class="form-group-inline" method="POST" action="{{ route('slider.update' , $slider->id) }}" 
+          enctype="multipart/form-data">
         @method('PUT')
         @csrf
           <div class="form-group">
