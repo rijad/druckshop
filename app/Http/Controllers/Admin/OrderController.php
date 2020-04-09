@@ -23,12 +23,18 @@ class OrderController extends Controller
         return view('/pages/admin/order',compact('order'));
     }
 
-    public static function users($id)
+    public static function users($id)  
     {
         // dd($id);
         $user = UsersAdmin::where(['id' => $id])->first();
-        // dd($user);
-        return $user->name;
+        //dd($user);
+
+        if(! empty($user->name)){
+            return $user->name;
+        }else{
+            return "";
+        }
+        
     }
 
     /**
@@ -38,7 +44,7 @@ class OrderController extends Controller
      */
     public function create()
     {
-
+ 
     }
 
     /**
@@ -72,8 +78,8 @@ class OrderController extends Controller
     public function edit(Request $request, $id)
     {
         // dd($request->order_id);
-        $users = UsersAdmin ::where('status', '1')->get();
-        $orderstate = OrderState ::where('status', '1')->get();
+        $users = UsersAdmin::where('status', '1')->get();
+        $orderstate = OrderState::where('status', '1')->get();
         $orderhistory = OrderDetailsFinal::with('orderProductHistory')
                         ->where(['order_id' => $request->order_id ])
                         ->first();

@@ -6,15 +6,21 @@
 				<div class="col-lg-7">
 					<div class="customer-profile-text">
 					<h2>Maria Williams</h2>
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed dod tempor incididunt labore.</p>
+					<!-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed dod tempor incididunt labore.</p> -->
 					</div>
-					<div class="customer-profile-info">
+					<div class="customer-profile-info"> 
 					<h2>General Info</h2>
-					<ul>
-					<li><span>Date of Birth</span><span>Nov 29, 1968</span></li>
-					<li><span>Address</span><span>Rosia Road 55, Downtown Eastside Gibraltar, US</span></li>
-					<li><span>E-mail</span><span>mariawilliams@company.com</span></li>
-					<li><span>Phone </span><span>+993 5266 22 345</span></li>
+					<div class="UserIdEdit">
+						<button onclick="enableFieldFunction()">Edit Info</button>
+						<input type="submit" name="" class="userSaveInfo" value="Save">
+					</div>	
+					<ul class="GeneralInfoListing">
+					<li><span>Date of Birth</span><span><input id="userIdBirth" value="Nov 29, 1968" disabled></span></li>
+					<li><span>Address</span><span><textarea id="userIdAddress" value="" disabled>Rosia Road 55, Downtown Eastside Gibraltar, US</textarea></span></li>
+					<li><span>E-mail</span><span><input id="userIdEmail" value="mariawilliams@company.com" disabled></span></li>
+					<li><span>Phone </span><span><input id="userIdPhone" value="+993 5266 22 345" disabled></span></li>
+					<li><span>Shipping Address </span><span><textarea id="userIdshipping" value="" disabled>Rosia Road 55, Downtown Eastside Gibraltar, US</textarea></span></li>
+					<li><span>Billing Address </span><span><textarea id="userIdBilling" value="" disabled>Rosia Road 55, Downtown Eastside Gibraltar, US</textarea></span></li>
 					</ul>
 					</div>
 				</div>
@@ -24,7 +30,6 @@
 					                background-image:url(http://druckshop.trantorglobal.com/public/images/customer-profile.jpg)"></div>
 					                <span class="btn btn-link btn-file">Edit Profile <input type="file" id="upload-img"></span>
 					</figure>
-
 				</div>
 			</div>
 		</div>
@@ -77,6 +82,8 @@
                         	<button class="paycash" onclick="window.location='{{route('cancel-order',['order_id'=>$data->order_id])}}'">Cancel Order</button>
                         	@elseif($data->state == "Cancelled")
                          	<button class="paycash" onclick="#">Cancelled</button>
+                            @elseif($data->state == "Done")
+                            <button type="button" class="paycash" onclick="#" data-toggle="modal" data-target="#returnModal">Return</button>
                         	@endif
                     	</div> 
                         @endif
@@ -85,11 +92,50 @@
                       
                 </div>
                
-            </div>
+            </div> 
         </div>   
-       
+        
     </div>
 </div>
+
+ 
+{{-- Return Details Modal --}}
+                    <div class="modal fade" id="returnModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Please Fill in Details to Request a Return</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                          </button>
+                      </div>
+                      <div class="modal-body">
+                        <p></p>
+                        <form method = "POST" action="">
+                            @csrf 
+                            <div class="form-group">
+                              <label for="email">Describe Reason of Return*:</label>
+                              <textarea name="shipping_address" id="shipping_address" class="form-control"></textarea>
+                               @if($errors->has('shipping_address'))
+                              <div class="error">{{ $errors->first('shipping_address') }}</div>
+                              @endif
+                            </div>
+                             <div class="form-group">
+                              <label for="email">Upload Product Image*:</label>
+                              <input type="file" name="return_image" id="return_image" accept="image/*">
+                               @if($errors->has('billing_address'))
+                              <div class="error">{{ $errors->first('billing_address') }}</div>
+                              @endif
+                            </div>
+                        </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="submitRequest();">Send Request</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 
@@ -113,3 +159,16 @@
     });
 });
 </script>
+
+<script>
+function enableFieldFunction() {
+  document.getElementById("userIdBirth").disabled = false;
+  document.getElementById("userIdAddress").disabled = false;
+  document.getElementById("userIdEmail").disabled = false;
+  document.getElementById("userIdPhone").disabled = false;
+  document.getElementById("userIdAddress").disabled = false;
+  document.getElementById("userIdshipping").disabled = false;
+  document.getElementById("userIdBilling").disabled = false;
+}
+</script>
+
