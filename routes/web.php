@@ -77,8 +77,8 @@ Route::post('/customer-area-update','CustomerAreaController@update')->name('cust
 
 Route::get('/repeat-order/{order_id}','RepeatOrderController@RepeatOrder')->name('repeat-order');
 Route::get('/cancel-order/{order_id}','CancelOrderController@CancelOrder')->name('cancel-order');
-
-
+Route::POST('/return-order','ReturnOrderController@ReturnOrder')->name('return-order');
+  
 Route::get('/latest','LatestController@index')->name('latest');
 Route::get('/about-us','AboutController@index')->name('about-us');
 Route::get('/faq','FaqController@index')->name('faq');
@@ -86,7 +86,7 @@ Route::get('/contact','ContactController@index')->name('contact');
 
 Route::get('/clear-session','CheckoutController@clearSession')->name('clear-session');
 
-
+ 
 Route::POST('/upload-file','UploadfileController@uploadFile')->name('upload-file');
 Route::POST('/remove-file','UploadfileController@removeFile')->name('remove-file');
 Route::get('/coming-soon', function () {

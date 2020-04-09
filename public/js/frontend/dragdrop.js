@@ -29,7 +29,7 @@ alert("2"+id);
 
 }else{  // single file uploading
 
-    fileobj = e.dataTransfer.files[0];
+    fileobj = e.dataTransfer.files[0]; 
     //to restrict only to pdf file format
     if(fileobj.type == "application/pdf"){ 
     ajaxFileUpload(fileobj,id);
