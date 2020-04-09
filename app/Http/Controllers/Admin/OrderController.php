@@ -34,7 +34,6 @@ class OrderController extends Controller
         }else{
             return "";
         }
-        
     }
 
     /**

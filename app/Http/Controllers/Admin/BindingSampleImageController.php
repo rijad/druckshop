@@ -3,27 +3,24 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller; 
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
-use App\Gallery;
+use App\BindingSampleImage;
+use App\Product;
+use App\PageFormat;
+use App\CoverColor;
 
-class GalleryController extends Controller
+class BindingSampleImageController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $gallery = Gallery::all();
-        return view('pages.admin.gallery.index', compact('gallery'));
-    }
-
-    public function gallery()
-    {
-        $gallery = Gallery::all();
-        return view('pages.front-end.gallery', compact('gallery'));
+        $binding = BindingSampleImage::all();
+        return view('pages.admin.bindingsampleimage.index', compact('binding'));
     }
 
     /**
@@ -33,7 +30,10 @@ class GalleryController extends Controller
      */
     public function create()
     {
-        return view('pages.admin.gallery.create');
+        $product = Product::where('status', '1')->get();
+        $pageformat = PageFormat::where('status', '1')->get();
+        $covercolor = CoverColor::where('status', '1')->get();
+        return view('pages.admin.bindingsampleimage.create' , compact('product', 'pageformat', 'covercolor'));
     }
 
     /**
@@ -46,6 +46,9 @@ class GalleryController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'image' => 'required|image:jpeg,png,jpg,gif',
+            'product_id' => 'required',
+            'pageformat_id' => 'required',
+            'covercolor_id' => 'required',
             'status' => 'nullable',
         ]);
         if ($validator->fails()) {
@@ -58,22 +61,23 @@ class GalleryController extends Controller
               // upload file
               $file = $request->file('image'); 
               //Move Uploaded File
-              $destinationPath = public_path().'/gallery';
+              $destinationPath = public_path().'/bindingsampleimage';
               $file->move($destinationPath,$file->getClientOriginalName());
 
 
             $input = $request->all();
-            $input['image'] = "public/gallery/".$file->getClientOriginalName();
-           // dd($input);
+            $input['image'] = "public/bindingsampleimage/".$file->getClientOriginalName();
 
             if($request->input('status') == "on"){
                 $input['status'] = 1;
             }else{
                 $input['status'] = 0;
             }
-            $gallery = Gallery::create($input);
+            $binding = BindingSampleImage::create($input);
         }
+
         return redirect()->back()->with('status' , 'Created');
+
     }
 
     /**
@@ -95,7 +99,7 @@ class GalleryController extends Controller
      */
     public function edit($id)
     {
-        //
+
     }
 
     /**
@@ -107,7 +111,7 @@ class GalleryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        
     }
 
     /**
@@ -117,11 +121,10 @@ class GalleryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {
-        $gallery1 = Gallery::find($id);
-        //dd($gallery1->image);
-        unlink(base_path()."/".$gallery1->image);
-        $gallery = Gallery::destroy($id);
+    {   $binding1 = BindingSampleImage::find($id);
+        //dd($binding_path->image);
+        unlink(base_path()."/".$binding1->image);
+        $binding = BindingSampleImage::destroy($id);
         return redirect()->back()->with('status' , 'Deleted');
     }
 }

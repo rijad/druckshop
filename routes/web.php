@@ -113,13 +113,21 @@ Route::group(['namespace'=>'Admin', 'prefix' => 'admin' ], function()
 Route::get('/dashboard','DashboardController@index')->name('dashboard');
 
 Route::resource('/slider','SliderController');
+
+//Users
 Route::get('/users','AdminUsersController@index')->name('users');
 Route::get('/create-user','AdminUsersController@create')->name('create-user');
 Route::post('/store-user','AdminUsersController@store')->name('store-user');
 Route::get('/edit-user/{id}','AdminUsersController@edit')->name('edit-user');
 Route::get('/update-user/{id}','AdminUsersController@update')->name('update-user');
 Route::post('/delete-user','AdminUsersController@destroy')->name('delete-user');
-Route::resource('/slider','SliderController');
+
+
+Route::resource('/bindingsample','BindingSampleImageController');
+
+//About
+Route::get('/about-edit','PagesController@about')->name('about-edit');
+Route::post('/about-update','PagesController@aboutupdate')->name('about-update');
 
 //Parameters
 Route::resource('/parameter','ParameterController');

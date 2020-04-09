@@ -38,5 +38,13 @@
                                 <div class="sb-nav-link-icon">
                                     <i class="fas fa-tachometer-alt"></i>
                                 </div>Free Samples</a>
+                            <a class="nav-link" href="{{ route('about-edit') }}">
+                                <div class="sb-nav-link-icon">
+                                    <i class="fas fa-tachometer-alt"></i>
+                                </div>About</a>
+                            <a class="nav-link" href="{{ route('bindingsample.index') }}">
+                                <div class="sb-nav-link-icon">
+                                    <i class="fas fa-tachometer-alt"></i>
+                                </div>Binding Sample Image</a>
                 </nav>
             </div>
