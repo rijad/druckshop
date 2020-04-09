@@ -83,7 +83,13 @@
                         	@elseif($data->state == "Cancelled")
                          	<button class="paycash" onclick="#">Cancelled</button>
                             @elseif($data->state == "Done")
-                            <button type="button" class="paycash" onclick="#" data-toggle="modal" data-target="#returnModal">Return</button>
+                            <button type="button" class="paycash" onclick="#" data-toggle="modal" data-oid="{{$data->order_id}}" data-uid="{{$data->user_id}}" data-target="#returnModal">Return</button>
+                            @elseif($data->state == "Reversal Request")
+                              <button class="paycash" onclick="#">Return Requested</button>
+                            @elseif($data->state == "Reversal declined")
+                              <button class="paycash" onclick="#">Return Declined</button>
+                            @elseif($data->state == "Reversal approved")
+                              <button class="paycash" onclick="#">Return Approved</button>    
                         	@endif
                     	</div> 
                         @endif
@@ -99,7 +105,7 @@
 </div>
 
  
-{{-- Return Details Modal --}}
+                    {{-- Return Details Modal --}}
                     <div class="modal fade" id="returnModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                       <div class="modal-dialog" role="document">
                         <div class="modal-content">
@@ -111,27 +117,24 @@
                       </div>
                       <div class="modal-body">
                         <p></p>
-                        <form method = "POST" action="">
-                            @csrf 
+                        <form>
+                            <input type="hidden" id="order_id" name="order_id" />
+                            <input type="hidden" id="user_id" name="user_id" />
                             <div class="form-group">
-                              <label for="email">Describe Reason of Return*:</label>
-                              <textarea name="shipping_address" id="shipping_address" class="form-control"></textarea>
-                               @if($errors->has('shipping_address'))
-                              <div class="error">{{ $errors->first('shipping_address') }}</div>
-                              @endif
+                              <label for="desc">Describe Reason of Return*:</label>
+                              <textarea name="return_desc" id="return_desc" class="form-control"></textarea>
+                              <p class="error" id="error_return_desc"></p>
                             </div>
                              <div class="form-group">
                               <label for="email">Upload Product Image*:</label>
                               <input type="file" name="return_image" id="return_image" accept="image/*">
-                               @if($errors->has('billing_address'))
-                              <div class="error">{{ $errors->first('billing_address') }}</div>
-                              @endif
+                               <p class="error" id="error_return_image"></p>
                             </div>
                         </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" onclick="submitRequest();">Send Request</button>
+                    <button type="button" class="btn btn-primary" onclick="javascript:submitReturnRequest()">Send Request</button>
                 </div>
             </div>
         </div>
@@ -172,3 +175,54 @@ function enableFieldFunction() {
 }
 </script>
 
+<script>
+
+// fetching data in modal
+$('#returnModal').on('show.bs.modal', function(e) {
+    var orderId = $(e.relatedTarget).data('oid');
+    var userId = $(e.relatedTarget).data('uid');
+    //populate the hidden textbox in modal
+    $(e.currentTarget).find('input[id="order_id"]').val(orderId);
+    $(e.currentTarget).find('input[id="user_id"]').val(userId);
+});
+  
+  function submitReturnRequest(){
+    var order_id = document.getElementById('order_id').value; 
+    var user_id = document.getElementById('user_id').value; 
+    var desc = document.getElementById('return_desc').value;  
+    var file = document.getElementById('return_image').files[0];   //file object
+
+    if(desc == ""){
+      document.getElementById('error_return_desc').innerHTML = "Kindly mention reason of return.";
+      return false;
+    }
+
+    if(document.getElementById('return_image').files.length == 0){
+      document.getElementById('error_return_image').innerHTML = "Kindly upload image of product.";
+      return false;
+    }
+    
+    //console.log(order_id); console.log(desc);
+    if(file != undefined) {
+      var form_data = new FormData();                  
+      form_data.append('file', file); 
+      form_data.append('order_id', order_id);
+      form_data.append('user_id', user_id);
+      form_data.append('desc', desc);
+      form_data.append( "_token", "{{ csrf_token() }}");
+        $.ajax({ 
+          type: 'POST', 
+          url: '/druckshop/return-order',
+          contentType: false,
+          processData: false,
+          data: form_data,
+          success:function(response) {  
+              $('#returnModal').modal('hide');
+              Location.reload();
+        }
+
+      });
+    }
+}
+</script>
+ 
