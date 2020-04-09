@@ -26,6 +26,10 @@
                                 <div class="sb-nav-link-icon">
                                     <i class="fa fa-shopping-cart"></i>
                                 </div>Orders</a>
+                            <a class="nav-link" href="{{ route('returnorder.index') }}">
+                                <div class="sb-nav-link-icon">
+                                    <i class="fa fa-shopping-cart"></i>
+                                </div>Return Orders</a>
                             <a class="nav-link" href="{{ route('FAQ.index') }}">
                                 <div class="sb-nav-link-icon">
                                     <i class="fa fa-question-circle"></i>

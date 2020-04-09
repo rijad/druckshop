@@ -254,7 +254,7 @@ $('#returnModal').on('show.bs.modal', function(e) {
       form_data.append( "_token", "{{ csrf_token() }}");
         $.ajax({ 
           type: 'POST', 
-          url: '/druckshop/return-order',
+          url: '/print-shop/return-order',
           contentType: false,
           processData: false,
           data: form_data,
