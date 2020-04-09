@@ -153,6 +153,9 @@ Route::get('/order','OrderController@index')->name('order');
 Route::get('/order-details/{order_id}','OrderController@edit')->name('order-details');
 Route::post('/order-edit/{id}','OrderController@update')->name('order-edit');
 
+Route::resource('/returnorder','ReturnOrdersController');
+
+
 Route::resource('/FAQ','FAQController');
 Route::resource('/product','ProductController');
 Route::get('/payment','PaymentController@index')->name('payment');
