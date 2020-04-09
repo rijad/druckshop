@@ -72,8 +72,9 @@ Route::get('/cart','CheckoutController@cart')->name('cart');
 //Customer-area
 Route::get('/customer-area','CustomerAreaController@index')->name('customer-area');
 Route::get('/customer-area-edit','CustomerAreaController@edit')->name('customer-area-edit');
-Route::post('/customer-area-update','CustomerAreaController@update')->name('customer-area-update');
-
+Route::POST('/customer-area-update','CustomerAreaController@update')->name('customer-area-update');  
+Route::get('/customer-area-data','CustomerAreaController@fetchData')->name('customer-area-data');
+ 
 
 Route::get('/repeat-order/{order_id}','RepeatOrderController@RepeatOrder')->name('repeat-order');
 Route::get('/cancel-order/{order_id}','CancelOrderController@CancelOrder')->name('cancel-order');

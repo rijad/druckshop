@@ -12,21 +12,21 @@
                             <h2>General Info</h2>
                             <div class="UserIdEdit">
                                 <button onclick="enableFieldFunction()">Edit Info</button>
-                                <input type="button" onclick="saveValues()" class="userSaveInfo" value="Save">
+                                <input type="button" onclick="javascript:saveProfile();" class="userSaveInfo" value="Save">
                             </div>
                             <ul class="GeneralInfoListing">
                             <li><span>Date of Birth</span>
-                                <span><input name="dob" id="userIdBirth" value="Nov 29, 1968" disabled></span></li>
+                                <span><input name="dob" id="userIdBirth" value="" disabled></span></li>
                             <li><span>Address</span>
-                                <span><textarea name="address" id="userIdAddress" value="" disabled>Rosia Road 55, Downtown Eastside Gibraltar, US</textarea></span></li>
+                                <span><textarea name="address" id="userIdAddress" value="" disabled></textarea></span></li>
                             <li><span>E-mail</span>
-                                <span><input name="email" id="userIdEmail" value="mariawilliams@company.com" disabled></span></li>
+                                <span><input name="email" id="userIdEmail" value="" disabled></span></li>
                             <li><span>Phone </span>
-                                <span><input name="phone" id="userIdPhone" value="+993 5266 22 345" disabled></span></li>
+                                <span><input name="phone" id="userIdPhone" value="" disabled></span></li>
                             <li><span>Shipping Address </span>
-                                <span><textarea name="shipping_address" id="userIdshipping" value="" disabled>Rosia Road 55, Downtown Eastside Gibraltar, US</textarea></span></li>
+                                <span><textarea name="shipping_address" id="userIdshipping" value="" disabled></textarea></span></li>
                             <li><span>Billing Address </span>
-                                <span><textarea name="billing_address" id="userIdBilling" value="" disabled>Rosia Road 55, Downtown Eastside Gibraltar, US</textarea></span></li>
+                                <span><textarea name="billing_address" id="userIdBilling" value="" disabled></textarea></span></li>
                             </ul>
                             </div>
                         </div>
@@ -34,7 +34,7 @@
                             <figure class="customer-profile-image">
                             <div id="img-preview-block" class="avatar avatar-original center-block" style="background-size:cover; 
                                 background-image:url(http://druckshop.trantorglobal.com/public/images/customer-profile.jpg)"></div>
-                                <span class="btn btn-link btn-file">Edit Profile <input type="file" name="image" id="upload-img"></span>
+                                <span class="btn btn-link btn-file">Edit Profile <input type="file" name="image" id="upload-img" accept="image/*"></span>
                             </figure>
                         </div>
                 </div>
@@ -143,27 +143,29 @@
         </div>
     </div>
 
+<script>
 
+// fetch data for customer profile
+    window.onload = function WindowLoad(event) {
 
-
-<script type="text/javascript">
-  $(function() {
-    $("#upload-img").on("change", function()
-    {
-        var files = !!this.files ? this.files : [];
-        if (!files.length || !window.FileReader) return; // no file selected, or no FileReader support
- 
-        if (/^image/.test( files[0].type)){ // only image file
-            var reader = new FileReader(); // instance of the FileReader
-            reader.readAsDataURL(files[0]); // read the local file
- 
-            reader.onload = function(e){ // set image data as background of div
-              
-              $("#img-preview-block").css({'background-image': 'url('+e.target.result +')', "background-size": "cover"});
-            }
+        $.ajax({ 
+          type: 'get', 
+          url: '/druckshop/customer-area-data',
+          success:function(response) { 
+           var data = JSON.parse(response);  
+           document.getElementById('userIdBirth').value = data['dob'];
+           document.getElementById('userIdAddress').value = data['address'];
+           document.getElementById('userIdEmail').value = data['email'];
+           document.getElementById('userIdPhone').value = data['phone'];
+           document.getElementById('userIdshipping').value = data['shipping_address'];
+           document.getElementById('userIdBilling').value = data['billing_address'];
+           $("#img-preview-block").css({'background-image': 'url('+ data['image'] +')', "background-size": "cover"});
         }
-    });
-});
+
+      });
+} 
+
+
 </script>
 
 <script>
@@ -178,9 +180,7 @@ function enableFieldFunction() {
     document.getElementById("userIdBilling").disabled = false;
 }
 
-function saveValues(){
-    // alert('hey');
-
+function saveProfile(){  
     var dob = document.getElementById('userIdBirth').value;
     var address = document.getElementById('userIdAddress').value; 
     var email = document.getElementById('userIdEmail').value;  
@@ -189,8 +189,7 @@ function saveValues(){
     var billing_address = document.getElementById('userIdBilling').value;  
     var image = document.getElementById('upload-img').files[0];   //file object
 
-    if(file != undefined) {
-        var form_data = new FormData();                  
+         var form_data = new FormData();                  
         form_data.append('image', image);
         form_data.append('dob', dob);
         form_data.append('address', address);
@@ -200,18 +199,23 @@ function saveValues(){
         form_data.append('billing_address', billing_address);
         form_data.append( "_token", "{{ csrf_token() }}");
 
-	$.ajax({
+	$.ajax({ 
         type: 'POST',
-        //"headers": {'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')},
-        url: '/print-shop/customer-area-update',
+        url: '/druckshop/customer-area-update',
         contentType: false,
         processData: false,
         data: form_data,
         success:function(response) {  
-            console.log(response);
+                document.getElementById("userIdBirth").disabled = true;
+                document.getElementById("userIdAddress").disabled = true;
+                document.getElementById("userIdEmail").disabled = true;
+                document.getElementById("userIdPhone").disabled = true;
+                document.getElementById("userIdAddress").disabled = true;
+                document.getElementById("userIdshipping").disabled = true;
+                document.getElementById("userIdBilling").disabled = true;
         }
 	});
-    }
+    
 }
 
 </script>
@@ -242,8 +246,6 @@ $('#returnModal').on('show.bs.modal', function(e) {
       return false;
     }
     
-    //console.log(order_id); console.log(desc);
-    if(file != undefined) {
       var form_data = new FormData();                  
       form_data.append('file', file); 
       form_data.append('order_id', order_id);
@@ -262,6 +264,5 @@ $('#returnModal').on('show.bs.modal', function(e) {
         }
 
       });
-    }
 }
 </script>
