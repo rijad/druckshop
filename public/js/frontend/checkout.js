@@ -717,7 +717,7 @@ function displayPrice(binding = "", no_ofsheets = "", page_options = "", embossi
 	  }
 	  if (n == (x.length - 1)) {
 	  	document.getElementById("nextBtn").innerHTML = "Submit";
-	  } else {
+	  } else { 
 	  	document.getElementById("nextBtn").innerHTML = "Next";
 	  }
 	  // ... and run a function that displays the correct step indicator:
