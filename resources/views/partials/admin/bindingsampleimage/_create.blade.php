@@ -8,7 +8,7 @@
     <div class="alert alert-success" role="alert">
         {{ session('status') }}
     </div>
-    @endif
+    @endif 
     @if ($errors->any())
             <ul>
                 @foreach ($errors->all() as $error)

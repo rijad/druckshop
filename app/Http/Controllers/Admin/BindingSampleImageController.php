@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Controller; 
 use Illuminate\Support\Facades\Validator;
 use App\BindingSampleImage;
 use App\Product;
@@ -57,9 +57,13 @@ class BindingSampleImageController extends Controller
                         ->withInput();
         } 
 
-        if ($validator->passes()){
+        if ($validator->passes()){ 
               // upload file
-              $file = $request->file('image'); 
+              $file = $request->file('image');  
+
+              if (!file_exists(public_path().'/bindingsampleimage')) {
+                    mkdir(public_path().'/bindingsampleimage', 0777); 
+            } 
               //Move Uploaded File
               $destinationPath = public_path().'/bindingsampleimage';
               $file->move($destinationPath,$file->getClientOriginalName());
