@@ -65,7 +65,9 @@ Route::POST('/orders-details','CheckoutController@orderDetails')->name('orders-d
 Route::POST('/set-quantity','CheckoutController@setQuantity')->name('set-quantity');
 Route::get('/remove-item/{id}','CheckoutController@removeItem')->name('remove-item');
 Route::POST('/paper-weight-sheets','CheckoutController@paperWeightSheets')->name('paper-weight-sheets');
-//Route::POST('/cart-count','CheckoutController@CartCount')->name('cart-count');
+
+// Binding Sample Image
+Route::POST('/binding-sample-image','BindingSampleImageController@getSampleImage')->name('binding-sample-image');
 
 Route::get('/cart','CheckoutController@cart')->name('cart');
 

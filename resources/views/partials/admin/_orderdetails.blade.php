@@ -33,7 +33,7 @@
 </select>
 
 <select name="assigned_to">
-    <option>Assigned To</option>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+    <option>Assigned To</option>                                                                                
         @foreach($users as $list)
         <option value="{{ $list->id }}">{{ $list->name }}</option>
         @endforeach
@@ -44,11 +44,12 @@
 <table>
     @foreach($orderhistory->orderProductHistory as $order)
         @foreach(json_decode($order->attribute ,true) as $key=>$value)
-
         <tr>
-            <td>{{$key}} : {{$value}}</td>
+            <td>{{$key}}</td>
+            <td>{{$value}}</td>
+            <td>@if($key == "selectfile" || $key == "selectfile_coversheet" || $key == "selectfile_content" || $key == "selectfile_din_A3" || $key == "selectfile_din_A2" || $key == "selectfile_logo") <a href={{url('/').'/public/uploads/'.$value}} target="_blank" >Download</a> @endif</td>
+            <td>@if($key == "selectfile" || $key == "selectfile_coversheet" || $key == "selectfile_content" || $key == "selectfile_din_A3" || $key == "selectfile_din_A2" || $key == "selectfile_logo") <a href="#">Send Mail</a> @endif</td>
         </tr>
-
         @endforeach                                                                     
     @endforeach
 </table>

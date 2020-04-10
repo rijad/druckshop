@@ -14,7 +14,7 @@
 							<div class="step"><span>3</span></div>
 							<div class="step"><span>4</span></div>
 						</div> 
-  
+   
 						<div class="checkoutBlock col-half text-left">
 							{{-- <h1>Register:</h1> --}}
 
@@ -22,7 +22,7 @@
 							<div class="tab" id="tab-fields">
 								<div class="displayBlock">
 									<label>{{ trans('checkout.binding_title') }}*:</label>
-									<p><select class = "" name = "binding" id = "binding" onclick="displayFields(this.value);displayProductAttributes('1',this); resetFields(this.id,this.value);" oninput="displayPrice(this.value,'','','','','','','','','','','','');">
+									<p><select class = "" name = "binding" id = "binding" onclick="displayFields(this.value); displayProductAttributes('1',this); resetFields(this.id,this.value); sampleImage();" onchange="displayPrice(this.value,'','','','','','','','','','','','');">
 										<option value = "-1">Select</option>
 										@foreach ($product_listing as $key=>$listing)
 										<option value="{{$listing->id}}" @if($listing->id == request()->id) selected @endif>{{$listing->title_english}}</option>  
@@ -35,17 +35,17 @@
 								</div>
 								<div class="displayBlock" id="div-page-format">
 									<label>{{ trans('checkout.page_format') }}*:</label>
-									<p><select class = "" onclick = "displayProductAttributes('3',this);" id="page-format" name="page-format" ><option value="-1">Select</option></select></p><p class="error" id="error_page_format"></p>
+									<p><select class = "" onclick = "displayProductAttributes('3',this); sampleImage();" id="page-format" name="page-format" onchange="" ><option value="-1">Select</option></select></p><p class="error" id="error_page_format"></p>
 								</div>
 								<div class="displayNone" id="div-cover-color">
 									<label>{{ trans('checkout.cover_color') }}*:</label> 
-									<p><select name="cover-color" class = "" onclick = "displayProductAttributes('4',this);" id="cover-color"><option value="-1">Select</option></select></p><p class="error" id="error_cover_color"></p>
+									<p><select name="cover-color" class = "" onclick = "displayProductAttributes('4',this); sampleImage();" onchange="" id="cover-color"><option value="-1">Select</option></select></p><p class="error" id="error_cover_color"></p>
 								</div>
 								<div class="displayNone" id="div-cover-sheet">
 									<label>{{ trans('checkout.cover_sheet') }}*:<a href="#" data-toggle="tooltip" title="200 gm/m2 sheets" class="formToolTip">i</a></label>
 									<p><select class = "" onclick = "displayProductAttributes('5',this);uploadDisplay(this.id,this.value);hideBindingElements('cover-sheet');" id="cover-sheet" name="cover-sheet"><option value="-1">Select</option></select></p>
 									<p class="error" id="error_cover_sheet">
- 
+  
 								</div>  
 
 								<div id="drop_file_zone_cover_sheet" ondrop="upload_file(event,this.id)" ondragover="return false" class="displayNone">
@@ -381,6 +381,10 @@
 													<div class="prodkt-info">
 														<ul id="prodkt-attrib">	</ul>
 													</div>
+													<div class="prodkt-info">
+														<div id="sampleImage" class="avatar avatar-original center-block"> hhhhhh
+														</div>
+													</div>
 													<div class="servicePrice">
 														<ul>
 															<li><p>{{ trans('checkout.binding_price') }}</p><span id="binding_price"><big>0.00 €</big></span></li>
@@ -391,7 +395,7 @@
 															<input type="hidden" name="total" id="total_price" value="">
 														</ul>
 
-													</div>
+													</div> 
 
 												</div> <!-- col ends -->
 

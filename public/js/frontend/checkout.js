@@ -906,3 +906,30 @@ function incrementQuantity(id = "",count = ""){
 
  }
 
+
+ function sampleImage(){
+
+ 	var binding = document.getElementById('binding').value;
+ 	var page_format = document.getElementById('page-format').value;
+ 	var cover_color = document.getElementById('cover-color').value;
+
+ 	$.ajax({
+		url: '/druckshop/binding-sample-image', 
+		type: 'POST', 
+		data: {'binding': binding,'page_format' : page_format, 'cover_color' : cover_color},
+		success: function (response){
+
+			console.log(response);
+
+			$("#sampleImage").css({'background-image': 'url('+response+')', "background-size": "cover"});
+
+
+		}
+	});
+
+ 
+
+
+
+ }
+

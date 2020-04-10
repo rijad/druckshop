@@ -9,6 +9,7 @@ if (! function_exists('returnResponse')) {
 
 function productNameById($product_id){
 	$product = \App\Product::find($product_id);
+	//dd($product->title_english);
 	echo $product->title_english;
 }
 

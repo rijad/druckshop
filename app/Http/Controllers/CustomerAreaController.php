@@ -11,14 +11,12 @@ use \Exception;
 
 class CustomerAreaController extends Controller
 {
-	public function index(){
+	public function index(){ 
 
 		if(!Auth::check()){
 			return redirect()->route('index');       
 		}
 		$OrderHistory = OrderDetailsFinal::where(['user_id'=>Auth::user()->id])->with('orderProductHistory')->get();
-
-		//print_r($OrderHistory->toArray()); exit;
 
 		return view('/pages/front-end/customer-area',compact('OrderHistory'));
 	}
