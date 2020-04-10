@@ -119,6 +119,10 @@ Route::get('/dashboard','DashboardController@index')->name('dashboard');
 
 Route::resource('/slider','SliderController');
 
+//Defect File
+Route::get('/defectfile','DefectFileController@index')->name('defectfile');
+Route::get('/defectfile-update/{user_id}/{order_id}/{oldfile}','DefectFileController@update')->name('defectfile-update');
+
 //Users
 Route::get('/users','AdminUsersController@index')->name('users');
 Route::get('/create-user','AdminUsersController@create')->name('create-user');
