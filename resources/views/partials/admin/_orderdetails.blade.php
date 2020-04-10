@@ -2,7 +2,7 @@
 <div class="alert alert-success" role="alert">
     {{ session('status') }}
 </div>
-@endif
+@endif 
 @if ($errors->any())
     <div class="alert alert-danger">
         <ul>
@@ -52,4 +52,4 @@
         </tr>
         @endforeach                                                                     
     @endforeach
-</table>
+</table> 

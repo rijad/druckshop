@@ -1,6 +1,6 @@
 <div class="card mb-4 mt-4">
     <div class="card-header">
-        <h2>Edit Defect File</h2>
+        <h2>Upload File</h2>
 
         <div class="card-body col-md-6">
 
@@ -8,23 +8,23 @@
     <div class="alert alert-success" role="alert">
         {{ session('status') }}
     </div>
-    @endif
+    @endif  
     @if ($errors->any())
         <ul>
             @foreach ($errors->all() as $error)
             @endforeach
         </ul>
     @endif
-        <form class="form-group-inline" method="GET" action="#" enctype="multipart/form-data">
-            <!-- {{ route('defectfile.update' , [ $defect->order_id, $defect->user_id ]) }} -->
+        <form class="form-group-inline" method="post" action="{{route('defectfile-update')}}" enctype="multipart/form-data">
             @csrf
             <input type="hidden" id="order_id" name="order_id" />
-            <input type="hidden" id="user_id" name="user_id" />
             <input type="hidden" id="oldfile" name="oldfile" />
             <div class="form-group">
-                <label class="small mb-1" for="image">Image</label>
-                <input type="file" name="image"/>
-                <span class="text-danger">{{ $errors->first('image') }}</span>
+                <label class="small mb-1" for="image">Upload File</label>
+                <input type="file" name="newfile" id="newfile" accept="application/pdf"/>
+                <div>
+                <span class="text-danger">{{ $errors->first('file') }}</span>
+            </div>
             </div>
     
             <div class="form-group">
@@ -35,4 +35,4 @@
     </div>
   </div>
 
-</div>
+</div> 
