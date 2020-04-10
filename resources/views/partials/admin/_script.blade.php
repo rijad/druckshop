@@ -163,7 +163,7 @@
 
             if (get_to_value) {
 
-                from = get_to_value;
+                from = ++get_to_value;
             }else{ 
              from = 0;
          }
@@ -176,35 +176,68 @@
             if(row_index >= 2){
 
                 $('#paper_weight_table tr:last').remove();
+                $('#paper_weight_table tr:last td:nth(1) input').val("");
+                $('#paper_weight_table tr:last td:nth(2) input').val("");
+
+
+                $('#paper_weight_table tr:last td:nth(1)').html("");
+                $("#paper_weight_table tr:last td:nth(1)").append('<input type="number" class="form-control sheet_end_input" id="from" name="sheet_end[]"  placeholder="sheet range" />');
+
             }
+        });
+
+        $(document).on('keyup', '.min_sheets_for_spine', function() {
+
+            var min_sheets_for_spine = 0;
+            min_sheets_for_spine = $('#min_sheets_for_spine').val();
+
+            if (Number(min_sheets_for_spine) < 1) {
+
+                min_sheets_for_spine = 0;
+            }
+
+
+            var for_spine = '<input class="first_row" id="from" type="hidden" name="sheet_start[]" value='+min_sheets_for_spine+' />'+min_sheets_for_spine+'';
+            // $('#paper_weight_table tr:not(:last-child) td:nth(0) input').val(min_sheets_for_spine);
+            $('#paper_weight_table tr td:nth(0)').html(for_spine);
+            $('#paper_weight_edit_table tr td:nth(0)').html(for_spine);
+            
+
         });
 
         $(document).on('keyup', '.sheet_end_input', function() {
 
+            var sheet_start = $('#paper_weight_table tr:last td:nth(0) input').val();
             var sheet_end = $('#paper_weight_table tr:last td:nth(1) input').val();
 
             var latters_input = $('#paper_weight_table tr:last td:nth(2) input').val();
 
-            if (sheet_end > 0 && latters_input > 0) {
+            if (Number(sheet_end) > Number(sheet_start) && Number(latters_input) > 0) {
 
                 $( "#paper_weight_add_more" ).prop( "disabled", false );
-            }
+            }else{
 
+                $( "#paper_weight_add_more" ).prop( "disabled", true );
+            }
 
         });
 
         $(document).on('keyup', '.latters_input', function() {
 
-            var sheet_end = $('#paper_weight_table tr:last td:nth(1) input').val();
+         var sheet_start = $('#paper_weight_table tr:last td:nth(0) input').val();
+         var sheet_end = $('#paper_weight_table tr:last td:nth(1) input').val();
 
-            var latters_input = $('#paper_weight_table tr:last td:nth(2) input').val();
+         var latters_input = $('#paper_weight_table tr:last td:nth(2) input').val();
 
-            if (sheet_end > 0 && latters_input > 0) {
+         if (Number(sheet_end) > Number(sheet_start) && Number(latters_input) > 0) {
 
-                $( "#paper_weight_add_more" ).prop( "disabled", false );
-            }
+            $( "#paper_weight_add_more" ).prop( "disabled", false );
+        }else{
 
-        });
+            $( "#paper_weight_add_more" ).prop( "disabled", true );
+        }
+
+    });
 
         //end paper weight
 
@@ -218,7 +251,7 @@
 
             if (get_to_value) {
 
-                from = get_to_value;
+                from = ++get_to_value;
             }else{ 
              from = 0;
          }
@@ -247,6 +280,13 @@
                     }); 
 
                     $('#paper_weight_edit_table tr:last').remove();
+
+                    $('#paper_weight_edit_table tr:last td:nth(1) input').val("");
+                    $('#paper_weight_edit_table tr:last td:nth(2) input').val("");
+
+
+                    $('#paper_weight_edit_table tr:last td:nth(1)').html("");
+                    $("#paper_weight_edit_table tr:last td:nth(1)").append('<input type="number" class="form-control sheet_end_input" id="from" name="sheet_end[]"  placeholder="sheet range" />');
                 } 
 
             }
@@ -255,13 +295,19 @@
 
          $(document).on('keyup', '.sheet_end_input', function() {
 
+            var sheet_start = $('#paper_weight_edit_table tr:last td:nth(0) input').val();
+
             var sheet_end = $('#paper_weight_edit_table tr:last td:nth(1) input').val();
 
             var latters_input = $('#paper_weight_edit_table tr:last td:nth(2) input').val();
 
-            if (sheet_end > 0 && latters_input > 0) {
+
+            if (Number(sheet_end) > Number(sheet_start) && Number(latters_input) > 0) {
 
                 $( "#paper_weight_edit_add_new_row" ).prop( "disabled", false );
+            }else{
+
+                $( "#paper_weight_edit_add_new_row" ).prop( "disabled", true );
             }
 
 
@@ -269,13 +315,18 @@
 
          $(document).on('keyup', '.latters_input', function() {
 
+            var sheet_start = $('#paper_weight_edit_table tr:last td:nth(0) input').val();
+
             var sheet_end = $('#paper_weight_edit_table tr:last td:nth(1) input').val();
 
             var latters_input = $('#paper_weight_edit_table tr:last td:nth(2) input').val();
 
-            if (sheet_end > 0 && latters_input > 0) {
+            if (Number(sheet_end) > Number(sheet_start) && Number(latters_input) > 0) {
 
                 $( "#paper_weight_edit_add_new_row" ).prop( "disabled", false );
+            }else{
+
+                $( "#paper_weight_edit_add_new_row" ).prop( "disabled", true );
             }
 
         });

@@ -28,7 +28,7 @@
 
                 <div class="form-group">
                     <label class="small mb-1" for="name">Minimum number of sheets for spine</label>
-                    <input class="form-control" id="min_sheets_for_spine" name="min_sheets_for_spine" value="{{ $data->min_sheets_for_spine }}" type="text" value="0" placeholder="Min number of sheet for spine" required />
+                    <input class="form-control min_sheets_for_spine" id="min_sheets_for_spine" name="min_sheets_for_spine" value="{{ $data->min_sheets_for_spine }}" type="number" value="0" placeholder="Min number of sheet for spine" required />
                 </div>
 
                 <div class="form-group">

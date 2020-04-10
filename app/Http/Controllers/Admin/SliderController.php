@@ -83,18 +83,6 @@ class SliderController extends Controller
             $slider = Slider::create($input);
         }
 
-        // $slider = Slider::create([ 
-        //     'image_path' => $request->file('image_path')->store('images'),
-        //     'title_english' => $request->title_english,
-        //     'title_german' => $request->title_german,
-        //     'title_color' => $request->title_color,
-        //     'title_size' => $request->title_size,
-        //     'content_english' => $request->content_english,
-        //     'content_german' => $request->content_german,
-        //     'is_active' => $request->is_active,
-        //     'is_slide' => $request->is_slide,
-        // ]); 
-
         return redirect()->back()->with('status' , 'Created');
 
     }
