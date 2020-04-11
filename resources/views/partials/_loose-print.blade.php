@@ -185,4 +185,4 @@
 </script>
 
 <script src="{{ asset('public/js/frontend/loose.js') }}" type="text/javascript" ></script>
-<script src="{{ asset('public/js/frontend/dragdrop.js') }}" type="text/javascript" ></script>								
+<script src="{{ asset('public/js/frontend/dragdrop.js') }}" type="text/javascript" ></script>								 

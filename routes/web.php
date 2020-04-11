@@ -72,7 +72,7 @@ Route::POST('/binding-sample-image','BindingSampleImageController@getSampleImage
 
 //Defect File
 Route::get('/defectfile','DefectFileController@index')->name('defectfile');
-Route::post('/defectfile-update','DefectFileController@update')->name('defectfile-update');
+Route::post('/defectfile-update','DefectFileController@update')->name('defectfile-update'); 
 
 //Customer-area
 Route::get('/customer-area','CustomerAreaController@index')->name('customer-area');

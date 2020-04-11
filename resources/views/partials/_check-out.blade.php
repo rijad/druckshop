@@ -60,7 +60,7 @@
 								<p class="error" id="error_selectfile_coversheet"></p>
   
 								<div id="drop_file_zone_cover_sheet_info" class="displayNone"><label id="cover_sheet_file_name"></label>
-									<label id="cover_sheet_page_no"></label>
+									<label id="cover_sheet_page_no"></label>  <label id="cover_sheet_del"></label>
 									</div>
 
 									<div class="displayNone" id="div-back-cover">
@@ -109,7 +109,7 @@
 										<label>No of Pages*:<a href="#" data-toggle="tooltip" title="
 											number of the PDF file and &#013; only number of DIN A4
 											" class="formToolTip">i</a></label>
-										<p><input type = "text" class = "" name="no_of_pages" id="no-of-pages" placeholder="No of Pages" value = "" oninput="displayPrice('',this.value,'','','','','','','','','','','');"></p>
+										<p><input type = "text" class = "" name="no_of_pages" id="no-of-pages" placeholder="No of Pages"  oninput="displayPrice('',this.value,'','','','','','','','','','','');"></p>
 										<p class="error" id="error_no_of_pages"></p>
 									</div>
  
@@ -121,6 +121,7 @@
 											<p><input class = "" type="button" value="Select File" onclick="file_explorer('drop_file_zone_content');"></p>
 											<input type="file" name="selectfile" id="selectfile" accept="application/pdf">
 											<input type="hidden" name="selectfile_content" id="selectfile_content">
+											<input type="hidden" name="pg_no" id="pg_no">
 										</div>
 									</div>
 									<p class="error" id="error_selectfile_content"></p>
@@ -314,7 +315,7 @@
 
 													<div class="displayNone" id="upload_cd" ondrop="upload_file(event,this.id)" ondragover="return false" class="displayBlock">
 														<div id="drag_upload_file_cd">
-															<p>Drop file here</p>  
+															<p>Drop file here</p>   
 															<p>or</p>
 															<p><input type="button" value="Select File" onclick="file_explorer('upload_cd');"></p>
 															<input type="file" id="selectfile" name="selectfile" multiple>
@@ -411,18 +412,33 @@
 
 									</div><!-- content area ends -->
 								</div> 
+<script>// Reset Price elements on new order 
 
-<script>
-	$(document).ready(function(){
-    $.ajax({
-		url: '/druckshop/clear-session', 
-		type: 'GET', 
-		success: function (response){
-			console.log(response);
-		}
-	}); 
+jQuery.noConflict()(function ($) {
+$(document).ready(function(){   	
+
+		$('#binding').trigger('onchange');
+		$('#binding').trigger('onclick');
+
+		document.getElementById('binding_price').innerHTML = "";
+		document.getElementById('printout').innerHTML = "" ;
+		document.getElementById('data_check_price').innerHTML = "" ;
+		document.getElementById('cd_dvd').innerHTML = "" ;
+		document.getElementById('total').innerHTML = "" ;
+		document.getElementById('total_price').value = "";
+
+
+	    $.ajax({
+			url: '/druckshop/clear-session', 
+			type: 'GET', 
+			success: function (response){
+				console.log(response);
+			}
+		}); 
+});  
+
 });
-</script>
 
+</script>
 <script src="{{ asset('public/js/frontend/checkout.js') }}" type="text/javascript" ></script>
 <script src="{{ asset('public/js/frontend/dragdrop.js') }}" type="text/javascript" ></script>								

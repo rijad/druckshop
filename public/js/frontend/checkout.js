@@ -1,5 +1,5 @@
 
-function displayFields(binding){ 
+function displayFields(binding){  
 
 	$product_attributes = getProductAttributes(binding);
 
@@ -406,7 +406,7 @@ function displayProductAttributes(field_flag = "", values = ""){
 
 
 function displayPrice(binding = "", no_ofsheets = "", page_options = "", embossing_cover = "", embossing_spine="", paper_weight = "", A2="", A3="", nos_of_cds = "", data_check = "", cd_cover = "", no_of_colored_sheets = "", delivery_service = ''){
-//alert(binding);
+
 
 	var binding_type = "",no_of_sheets = "", pageOptions = "", embossingCover = "", embossingSpine="", paperWeight = "", A2_page="", A3_page="", nosOfCds = "", dataCheck = "", cdCover = "", coloredSheets = "", deliveryService = '';
 
@@ -725,7 +725,7 @@ function displayPrice(binding = "", no_ofsheets = "", page_options = "", embossi
 	}
 
 	
-	function fixStepIndicator(n) {  alert(n); 
+	function fixStepIndicator(n) {  //alert(n); 
 	  // This function removes the "active" class of all steps...
 	  var i, x = document.getElementsByClassName("step");
 	  for (i = 0; i < x.length; i++) {
@@ -866,19 +866,26 @@ function incrementQuantity(id = "",count = ""){
     var value = parseInt(document.getElementById(no_pages).value);
     var status = true;
 
-    $.ajax({
+    $.ajax({ 
 		url: '/druckshop/paper-weight-sheets',  
 		type: 'POST', 
 		async: false,
-		data: {'binding': binding_val,'weight' : weight_val},
+		data: {'binding': binding_val,'weight' : weight_val}, 
 		success: function (response){
 
 			var data = JSON.parse(response)[0];
 			var min  =  parseInt(data['min_sheets']);
 			var max  = parseInt(data['max_sheets']);
+			var no_of_pages = document.getElementById('pg_no').value;
 
-			document.getElementById('error_no_of_pages').innerHTML = "Range is "+ min + " - " + max ;
+			document.getElementById('error_no_of_pages').innerHTML = "Range is "+ min + " - " + max + " and Uploaded file contains "+ no_of_pages + " Range should not exceed this count.";
+			
 			//console.log(value+"-----"+min+"-----"+max);
+
+			// if(value > no_of_pages){
+			// 	status = false;
+			// }
+
 			if(value < min || value > max){
 				status = false;
 			}
@@ -927,9 +934,7 @@ function incrementQuantity(id = "",count = ""){
 		}
 	});
 
+ } 
+
+
  
-
-
-
- }
-
