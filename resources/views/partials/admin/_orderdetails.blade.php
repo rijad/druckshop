@@ -46,7 +46,7 @@
         @foreach(json_decode($order->attribute ,true) as $key=>$value)
 
         <tr>
-            <td>{{$key}} : {{$value}}</td>
+            <td>{{showDetails($key , $value)}}</td>
         </tr>
 
         @endforeach                                                                     
