@@ -46,6 +46,10 @@
                                 <div class="sb-nav-link-icon">
                                     <i class="fas fa-tachometer-alt"></i>
                                 </div>About</a>
+                            <a class="nav-link" href="{{ route('latest.index') }}">
+                                <div class="sb-nav-link-icon">
+                                    <i class="fas fa-tachometer-alt"></i>
+                                </div>Latest</a>
 
                             <a class="nav-link" href="{{ route('bindingsample.index') }}">
                                 <div class="sb-nav-link-icon">
