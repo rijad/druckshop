@@ -1,6 +1,6 @@
 <div class="card mb-4 mt-4">
     <div class="card-header">
-        <h2>Create New FAQ</h2>
+        <h2>Create New Slider</h2>
 
         <div class="card-body col-md-6">
 

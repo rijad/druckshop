@@ -45,6 +45,7 @@
     @foreach($orderhistory->orderProductHistory as $order)
         @foreach(json_decode($order->attribute ,true) as $key=>$value)
         <tr>
+            <td>{{showDetails($key , $value)}}</td>
             <td>{{$key}}</td>
             <td>{{$value}}</td>
             <td>@if($key == "selectfile" || $key == "selectfile_coversheet" || $key == "selectfile_content" || $key == "selectfile_din_A3" || $key == "selectfile_din_A2" || $key == "selectfile_logo") <a href={{url('/').'/public/uploads/'.$value}} target="_blank" >Download</a> @endif</td>

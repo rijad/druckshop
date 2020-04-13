@@ -161,6 +161,7 @@ Route::get('/order-details/{order_id}','OrderController@edit')->name('order-deta
 Route::post('/order-edit/{id}','OrderController@update')->name('order-edit');
 
 Route::resource('/returnorder','ReturnOrdersController');
+Route::resource('/latest','LatestController');
 
 
 Route::resource('/FAQ','FAQController');
