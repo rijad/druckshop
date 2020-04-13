@@ -1437,6 +1437,20 @@ ul.GeneralInfoListing textarea {
     background-color: #79879a;
     color: white;
 }
+.site-nav ul li a:hover {
+    background-color: #ccc;
+    color: white;
+    text-decoration: none;
+}
+nav .loginBtn button:hover {
+    background-color: #ccc;
+}
+.product-item-img .rv-imagelist {
+    display: inline-block;
+    margin-top: 20px;
+}
+
+
 
 
 
