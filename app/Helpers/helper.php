@@ -9,7 +9,9 @@ if (! function_exists('returnResponse')) {
 
 function productNameById($product_id){
 	$product = \App\Product::find($product_id);
+
 	return $product->title_english;
+
 }
 
 function pageformatById($pageformat_id){

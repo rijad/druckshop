@@ -5,28 +5,28 @@
 			<div class="row">
 				<div class="col-lg-7">
 					    <div class="customer-profile-text">
-                            <h2>Maria Williams</h2>
+                            <h2>{{ Auth::user()->name }}</h2>
                             <!-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed dod tempor incididunt labore.</p> -->
                             </div>
                             <div class="customer-profile-info"> 
-                            <h2>General Info</h2>
+                            <h2>General Info</h2> 
                             <div class="UserIdEdit">
                                 <button onclick="enableFieldFunction()">Edit Info</button>
-                                <input type="button" onclick="saveValues()" class="userSaveInfo" value="Save">
+                                <input type="button" onclick="javascript:saveProfile();" class="userSaveInfo" value="Save">
                             </div>
                             <ul class="GeneralInfoListing">
                             <li><span>Date of Birth</span>
-                                <span><input name="dob" id="userIdBirth" value="Nov 29, 1968" disabled></span></li>
+                                <span><input name="dob" id="userIdBirth" value="" disabled></span></li>
                             <li><span>Address</span>
-                                <span><textarea name="address" id="userIdAddress" value="" disabled>Rosia Road 55, Downtown Eastside Gibraltar, US</textarea></span></li>
+                                <span><textarea name="address" id="userIdAddress" value="" disabled></textarea></span></li>
                             <li><span>E-mail</span>
-                                <span><input name="email" id="userIdEmail" value="mariawilliams@company.com" disabled></span></li>
+                                <span><input name="email" id="userIdEmail" value="" disabled></span></li>
                             <li><span>Phone </span>
-                                <span><input name="phone" id="userIdPhone" value="+993 5266 22 345" disabled></span></li>
+                                <span><input name="phone" id="userIdPhone" value="" disabled></span></li>
                             <li><span>Shipping Address </span>
-                                <span><textarea name="shipping_address" id="userIdshipping" value="" disabled>Rosia Road 55, Downtown Eastside Gibraltar, US</textarea></span></li>
+                                <span><textarea name="shipping_address" id="userIdshipping" value="" disabled></textarea></span></li>
                             <li><span>Billing Address </span>
-                                <span><textarea name="billing_address" id="userIdBilling" value="" disabled>Rosia Road 55, Downtown Eastside Gibraltar, US</textarea></span></li>
+                                <span><textarea name="billing_address" id="userIdBilling" value="" disabled></textarea></span></li>
                             </ul>
                             </div>
                         </div>
@@ -34,7 +34,7 @@
                             <figure class="customer-profile-image">
                             <div id="img-preview-block" class="avatar avatar-original center-block" style="background-size:cover; 
                                 background-image:url(http://druckshop.trantorglobal.com/public/images/customer-profile.jpg)"></div>
-                                <span class="btn btn-link btn-file">Edit Profile <input type="file" name="image" id="upload-img"></span>
+                                <span class="btn btn-link btn-file">Edit Profile <input type="file" name="image" id="upload-img" accept="image/*"></span>
                             </figure>
                         </div>
                 </div>
@@ -82,6 +82,9 @@
                         <div class="text-right quote_heading">
                         	<p class="total-amount-rv"><b>Total Amount: {{$data->total}} €<b></p>
                     	</div>
+                      <div class="text-left repeat-cancel-order">
+                        <p> @if(isset($data->admin_response)) {{ "Comments: " . $data->admin_response}} @endif</p>
+                      </div>
                         <div class="text-right repeat-cancel-order">
                         	<button class="paypaypal" onclick="window.location='{{route('repeat-order',['order_id'=>$data->order_id])}}'">Repeat Order</button>
                         	@if($data->state == "New")
@@ -142,126 +145,4 @@
             </div>
         </div>
     </div>
-
-
-
-
-<script type="text/javascript">
-  $(function() {
-    $("#upload-img").on("change", function()
-    {
-        var files = !!this.files ? this.files : [];
-        if (!files.length || !window.FileReader) return; // no file selected, or no FileReader support
- 
-        if (/^image/.test( files[0].type)){ // only image file
-            var reader = new FileReader(); // instance of the FileReader
-            reader.readAsDataURL(files[0]); // read the local file
- 
-            reader.onload = function(e){ // set image data as background of div
-              
-              $("#img-preview-block").css({'background-image': 'url('+e.target.result +')', "background-size": "cover"});
-            }
-        }
-    });
-});
-</script>
-
-<script>
-function enableFieldFunction() {
-    
-    document.getElementById("userIdBirth").disabled = false;
-    document.getElementById("userIdAddress").disabled = false;
-    document.getElementById("userIdEmail").disabled = false;
-    document.getElementById("userIdPhone").disabled = false;
-    document.getElementById("userIdAddress").disabled = false;
-    document.getElementById("userIdshipping").disabled = false;
-    document.getElementById("userIdBilling").disabled = false;
-}
-
-function saveValues(){
-    // alert('hey');
-
-    var dob = document.getElementById('userIdBirth').value;
-    var address = document.getElementById('userIdAddress').value; 
-    var email = document.getElementById('userIdEmail').value;  
-    var phone = document.getElementById('userIdPhone').value;  
-    var shipping_address = document.getElementById('userIdshipping').value;   
-    var billing_address = document.getElementById('userIdBilling').value;  
-    var image = document.getElementById('upload-img').files[0];   //file object
-
-    if(file != undefined) {
-        var form_data = new FormData();                  
-        form_data.append('image', image);
-        form_data.append('dob', dob);
-        form_data.append('address', address);
-        form_data.append('email', email);
-        form_data.append('phone', phone);
-        form_data.append('shipping_address', shipping_address);
-        form_data.append('billing_address', billing_address);
-        form_data.append( "_token", "{{ csrf_token() }}");
-
-	$.ajax({
-        type: 'POST',
-        //"headers": {'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')},
-        url: '/print-shop/customer-area-update',
-        contentType: false,
-        processData: false,
-        data: form_data,
-        success:function(response) {  
-            console.log(response);
-        }
-	});
-    }
-}
-
-</script>
-<script>
-
-// fetching data in modal
-$('#returnModal').on('show.bs.modal', function(e) {
-    var orderId = $(e.relatedTarget).data('oid');
-    var userId = $(e.relatedTarget).data('uid');
-    //populate the hidden textbox in modal
-    $(e.currentTarget).find('input[id="order_id"]').val(orderId);
-    $(e.currentTarget).find('input[id="user_id"]').val(userId);
-});
-  
-  function submitReturnRequest(){
-    var order_id = document.getElementById('order_id').value; 
-    var user_id = document.getElementById('user_id').value; 
-    var desc = document.getElementById('return_desc').value;  
-    var file = document.getElementById('return_image').files[0];   //file object
-
-    if(desc == ""){
-      document.getElementById('error_return_desc').innerHTML = "Kindly mention reason of return.";
-      return false;
-    }
-
-    if(document.getElementById('return_image').files.length == 0){
-      document.getElementById('error_return_image').innerHTML = "Kindly upload image of product.";
-      return false;
-    }
-    
-    //console.log(order_id); console.log(desc);
-    if(file != undefined) {
-      var form_data = new FormData();                  
-      form_data.append('file', file); 
-      form_data.append('order_id', order_id);
-      form_data.append('user_id', user_id);
-      form_data.append('desc', desc);
-      form_data.append( "_token", "{{ csrf_token() }}");
-        $.ajax({ 
-          type: 'POST', 
-          url: '/print-shop/return-order',
-          contentType: false,
-          processData: false,
-          data: form_data,
-          success:function(response) {  
-              $('#returnModal').modal('hide');
-              Location.reload();
-        }
-
-      });
-    }
-}
-</script>
+<script src="{{ asset('public/js/frontend/customerarea.js') }}" type="text/javascript" ></script>

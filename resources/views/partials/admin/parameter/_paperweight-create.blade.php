@@ -27,7 +27,7 @@
 
                 <div class="form-group">
                     <label class="small mb-1" for="name">Minimum number of sheets for spine</label>
-                    <input class="form-control" id="min_sheets_for_spine" name="min_sheets_for_spine" type="text" value="0" placeholder="Min number of sheet for spine" required />
+                    <input class="form-control min_sheets_for_spine" id="min_sheets_for_spine" name="min_sheets_for_spine" type="number" value="0" placeholder="Min number of sheet for spine" required />
                 </div>
 
                 <div class="form-group ">
@@ -40,13 +40,13 @@
                         </tr>
 
                         <tr class="form-inline">
-                            <td><input id="from" type="hidden" name="sheet_start[]" value="0" />0</td>
+                            <td><input class="first_row" id="from" type="hidden" name="sheet_start[]" value="0" />0</td>
                             <td><input class="sheet_end_input" id="from" type="hidden" name="sheet_end[]" value="65" />65</td>
                             <td><input class="form-control latters_input" id="latters" type="number" name="latters[]" value="40" required /></td>
                         </tr>
 
                         <tr class="form-inline">
-                            <td><input id="from" type="hidden" name="sheet_start[]" value="66" />0</td>
+                            <td><input id="from" type="hidden" name="sheet_start[]" value="66" />66</td>
                             <td><input class="sheet_end_input" id="from" type="hidden" name="sheet_end[]" value="150" />150</td>
                             <td><input class="form-control latters_input" id="latters" type="number" name="latters[]" value="130" required /></td>
                         </tr>
@@ -71,7 +71,7 @@
 
                         <tr class="form-inline">
                             <td><input class="form-control" id="from" type="hidden" name="sheet_start[]" value="301" />301</td>
-                            <td><input class="form-control sheet_end_input" id="from" name="sheet_end[]"  placeholder="sheet range" /></td>
+                            <td><input class="form-control sheet_end_input" id="from" type="number" name="sheet_end[]"  placeholder="sheet range" /></td>
                             <td><input class="form-control latters_input" id="latters" type="number" name="latters[]" placeholder="latter number" /></td>
                         </tr>
 
