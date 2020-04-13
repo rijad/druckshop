@@ -162,21 +162,21 @@ function displayPrintFields(embossment = ""){
 } 
 
 function displayPopUp(template = ""){
-	 var title = template;
+	 var title = template; 
   $('.modal-title').html(title);
  
   $("#modal-body").empty(); 
 	if(template == "Standardvorlage mit Logo"){
-		 $('.modal').modal('show');
-		$("#modal-body").append("<p>Choose layout for standard cover with logo.</p><br><img id='mit_1' src='public/images/mit_1.png' onclick = displayImage('public/images/mit_1.png');> <img id='mit_1' src='public/images/mit_1.png' onclick = displayImage('public/images/mit_2.png');> <img id='mit_3' src='public/images/mit_3.png' onclick = displayImage('public/images/mit_3.png');> ");
+		 $('#modal-logo').modal('show');
+		$("#modal-body").append("<p>Choose layout for standard cover with logo.</p><br><img id='mit_1' src='"+base_url+"/public/images/mit_1.png' onclick = displayImage('"+base_url+"/public/images/mit_1.png','mit_1.png');> <img id='mit_1' src='"+base_url+"/public/images/mit_1.png' onclick = displayImage('"+base_url+"/public/images/mit_2.png','mit_1.png');> <img id='mit_3' src='"+base_url+"/public/images/mit_3.png' onclick = displayImage('"+base_url+"/public/images/mit_3.png','mit_1.png');> ");
 		document.getElementById('div-fonts').className = "displayBlock";
 		document.getElementById('div-date-format').className = "displayBlock";
 		document.getElementById('div-embossment-spine').className = "displayBlock";
 		document.getElementById('div-remarks').className = "displayBlock";
 		document.getElementById('upload_custom_logo').className = "displayBlock";
 	}else if(template == "Standardvorlage ohne Logo"){
-		 $('.modal').modal('show');
-		$("#modal-body").append("<p>Choose layout for standard cover without logo.</p><br><img id='ohne_1' src='public/images/ohne_1.png' onclick = displayImage('public/images/ohne_1.png');> <img id='ohne_2' src='public/images/ohne_2.png' onclick = displayImage('public/images/ohne_2.png');> <img id='ohne_3' src='public/images/ohne_3.png' onclick = displayImage('public/images/ohne_3.png');> ");
+		 $('#modal-logo').modal('show');
+		$("#modal-body").append("<p>Choose layout for standard cover without logo.</p><br><img id='ohne_1' src='"+base_url+"/public/images/ohne_1.png' onclick = displayImage('"+base_url+"/public/images/ohne_1.png','ohne_1');> <img id='ohne_2' src='"+base_url+"/public/images/ohne_2.png' onclick = displayImage('"+base_url+"/public/images/ohne_2.png','ohne_2');> <img id='ohne_3' src='"+base_url+"/public/images/ohne_3.png' onclick = displayImage('"+base_url+"/public/images/ohne_3.png','ohne_3');> ");
 		document.getElementById('div-fonts').className = "displayBlock";
 		document.getElementById('div-date-format').className = "displayBlock";
 		document.getElementById('div-embossment-spine').className = "displayBlock";
@@ -207,45 +207,46 @@ function displayPopUpCD(template = ""){
  
   $("#modal-body").empty(); 
 	if(template == "Standardvorlage mit Logo"){
-		 $('.modal').modal('show');
-		$("#modal-body").append("<p>Choose layout for standard cover with logo.</p><br><img id='mit_1' src='public/images/mit_1.png' onclick = displayImage('public/images/mit_1.png');> <img id='mit_1' src='public/images/mit_1.png' onclick = displayImage('public/images/mit_2.png');> <img id='mit_3' src='public/images/mit_3.png' onclick = displayImage('public/images/mit_3.png');> ");
-		document.getElementById('div-fonts').className = "displayBlock";
-		document.getElementById('div-date-format').className = "displayBlock";
-		document.getElementById('div-embossment-spine').className = "displayBlock";
-		document.getElementById('div-remarks').className = "displayBlock";
-		document.getElementById('upload_custom_logo').className = "displayBlock";
+		 $('#modal-cd').modal('show');
+		$("#modal-body-cd").append("<p>Choose layout for standard cover with logo.</p><br><img id='mit_1' src='"+base_url+"/public/images/mit_1.png' onclick = displayImageCd('"+base_url+"/public/images/mit_1.png','mit_1');> <img id='mit_1' src='"+base_url+"/public/images/mit_1.png' onclick = displayImageCd('"+base_url+"/public/images/mit_2.png','mit_1');> <img id='mit_3' src='"+base_url+"/public/images/mit_3.png' onclick = displayImageCd('"+base_url+"/public/images/mit_3.png','mit_1');> ");
+		document.getElementById('div-fonts-cd').className = "displayBlock";
+		document.getElementById('upload_custom_logo_cd').className = "displayBlock";
 	}else if(template == "Standardvorlage ohne Logo"){
-		 $('.modal').modal('show');
-		$("#modal-body").append("<p>Choose layout for standard cover without logo.</p><br><img id='ohne_1' src='public/images/ohne_1.png' onclick = displayImage('public/images/ohne_1.png');> <img id='ohne_2' src='public/images/ohne_2.png' onclick = displayImage('public/images/ohne_2.png');> <img id='ohne_3' src='public/images/ohne_3.png' onclick = displayImage('public/images/ohne_3.png');> ");
-		document.getElementById('div-fonts').className = "displayBlock";
-		document.getElementById('div-date-format').className = "displayBlock";
-		document.getElementById('div-embossment-spine').className = "displayBlock";
-		document.getElementById('div-remarks').className = "displayBlock";
-
-		document.getElementById('upload_custom_logo').className = "displayNone";
+		 $('#modal-cd').modal('show');
+		$("#modal-body-cd").append("<p>Choose layout for standard cover without logo.</p><br><img id='ohne_1' src='"+base_url+"/public/images/ohne_1.png' onclick = displayImageCd('"+base_url+"/public/images/ohne_1.png','ohne_1');> <img id='ohne_2' src='"+base_url+"/public/images/ohne_2.png' onclick = displayImageCd('"+base_url+"/public/images/ohne_2.png',ohne_2);> <img id='ohne_3' src='"+base_url+"/public/images/ohne_3.png' onclick = displayImageCd('"+base_url+"/public/images/ohne_3.png','ohne_3');> ");
+		document.getElementById('div-fonts-cd').className = "displayBlock";
+		document.getElementById('upload_custom_logo_cd').className = "displayBlock";
 	}else if(template == "Eigene Vorlage"){
-		document.getElementById('upload_custom_logo').className = "displayBlock";
-		document.getElementById('div-remarks').className = "displayBlock";
-		$("#div-display-image").empty();
-		document.getElementById('div-display-image').className = "displayNone"; 
+		document.getElementById('upload_custom_logo_cd').className = "displayBlock";
+		$("#div-display-image-cd").empty();
+		document.getElementById('div-display-image-cd').className = "displayNone"; 
+		document.getElementById('div-fonts-cd').className = "displayNone";
 	}
 
-	if($("#template").find(":selected").val() == "-1"){
-		document.getElementById('upload_custom_logo').className = "displayNone";
-		document.getElementById('drop_file_zone_logo_info').className = "displayNone";
-		document.getElementById('div-remarks').className = "displayNone"; 
-		$("#div-display-image").empty();
-		document.getElementById('div-display-image').className = "displayNone"; 
-		document.getElementById('div-embossment-spine').className = "displayBlock";
+	if($("#cd-template").find(":selected").val() == "-1"){
+		document.getElementById('upload_custom_logo_cd').className = "displayNone";
+		document.getElementById('drop_file_zone_logo_info_cd').className = "displayNone";
+		document.getElementById('div-fonts-cd').className = "displayNone"; 
+		$("#div-display-image-cd").empty();
+		document.getElementById('div-display-image-cd').className = "displayNone"; 
 	}	
 
 }
 
-function displayImage(path){
+function displayImage(path,name){
 
 	$("#div-display-image").empty();
 	document.getElementById('div-display-image').className = "displayBlock";
-	$("#div-display-image").append("<img src='"+path+"'> ");
+	$("#div-display-image").append("<img src='"+path+"'><input type='hidden' name='embossment-template-name' id ='embossment-template-name' value=''> ");
+	document.getElementById('embossment-template-name').value = name;
+}
+
+function displayImageCd(path,name){
+
+	$("#div-display-image-cd").empty();
+	document.getElementById('div-display-image-cd').className = "displayBlock";
+	$("#div-display-image-cd").append("<img src='"+path+"'><input type='hidden' id='cd-template-name' name = 'cd-template-name' value = ''> ");
+	document.getElementById('cd-template-name').value = name;
 }
 
 function displayCDFields(value = ""){ 
@@ -928,7 +929,7 @@ function incrementQuantity(id = "",count = ""){
 
 			console.log(response);
 
-			$("#sampleImage").css({'background-image': 'url('+response+')', "background-size": "cover"});
+			$("#sampleImage").css({'background-image': 'url('+base_url+'/'+response+')', "background-size": "cover"});
 
 
 		}
