@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -15,10 +15,10 @@ class DefectFileController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()   
-    {  dd("hhj");
+    {  
         return view('pages.front-end.defectfile');
     }
-
+ 
     /**
      * Show the form for creating a new resource. 
      * 
@@ -73,7 +73,7 @@ class DefectFileController extends Controller
     {   
 
         $validator = Validator::make($request->all(), [
-            'file' => 'required',
+            'newfile' => 'required',
         ]); 
 
 
@@ -85,6 +85,8 @@ class DefectFileController extends Controller
 
         if ($validator->passes()){ 
 
+           // dd($request->file('newfile')->getClientOriginalName());
+
                     //$old_file_name = $request->input('oldfile');
             $old_file_name = '1586179191_sample.pdf';
 
@@ -95,7 +97,7 @@ class DefectFileController extends Controller
             $order_id = '1_1584966747';
 
               // upload file 
-              $file = $request->file('file'); 
+              $file = $request->file('newfile'); 
               $new_file = time().'_'.$file->getClientOriginalName();
               if (!file_exists(public_path().'/uploads')) {
                     mkdir(public_path().'/uploads', 0777); 
@@ -113,7 +115,7 @@ class DefectFileController extends Controller
               $data_array->selectfile_content = $new_file;
             
               $updated_array = json_encode($data_array);
-              dd($updated_array);
+             // dd($updated_array);
 
               // update new array in table
               $defect = $data;

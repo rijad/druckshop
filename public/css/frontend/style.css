@@ -714,6 +714,16 @@ button:focus {outline:none !important;}
     margin-top:80px;
 }
 
+#upload_custom_logo_cd {
+    background-color: #EEE; 
+    border: #999 5px dashed;
+    width: 290px; 
+    height: 200px;
+    padding: 8px;
+    font-size: 18px;
+    margin-top:80px;
+}
+
 
 #drag_upload_file {
   width:50%;

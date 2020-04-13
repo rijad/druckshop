@@ -60,7 +60,7 @@
 								<p class="error" id="error_selectfile_coversheet"></p>
   
 								<div id="drop_file_zone_cover_sheet_info" class="displayNone"><label id="cover_sheet_file_name"></label>
-									<label id="cover_sheet_page_no"></label>
+									<label id="cover_sheet_page_no"></label>  <label id="cover_sheet_del"></label>
 									</div>
 
 									<div class="displayNone" id="div-back-cover">
@@ -109,7 +109,7 @@
 										<label>No of Pages*:<a href="#" data-toggle="tooltip" title="
 											number of the PDF file and &#013; only number of DIN A4
 											" class="formToolTip">i</a></label>
-										<p><input type = "text" class = "" name="no_of_pages" id="no-of-pages" placeholder="No of Pages" value = "" oninput="displayPrice('',this.value,'','','','','','','','','','','');"></p>
+										<p><input type = "text" class = "" name="no_of_pages" id="no-of-pages" placeholder="No of Pages"  oninput="displayPrice('',this.value,'','','','','','','','','','','');"></p>
 										<p class="error" id="error_no_of_pages"></p>
 									</div>
  
@@ -121,6 +121,7 @@
 											<p><input class = "" type="button" value="Select File" onclick="file_explorer('drop_file_zone_content');"></p>
 											<input type="file" name="selectfile" id="selectfile" accept="application/pdf">
 											<input type="hidden" name="selectfile_content" id="selectfile_content">
+											<input type="hidden" name="pg_no" id="pg_no">
 										</div>
 									</div>
 									<p class="error" id="error_selectfile_content"></p>
@@ -224,6 +225,9 @@
 													<p class="error" id="error_template"></p>
 												</div>
 
+													<div class="displayNone" id="div-display-image"></div>
+
+
 												<div class="displayNone" id="upload_custom_logo" ondrop="upload_file(event,this.id)" ondragover="return false" class="displayBlock">
 													<div id="drag_upload_file_logo">
 														<p>Drop file here<a href="#" data-toggle="tooltip" title="jpeg,jpg,png" class="formToolTip">i</a></p> 
@@ -238,14 +242,8 @@
 
 												<div id="drop_file_zone_logo_info" class="displayNone"><label id="logo_file_name"><a href="#" data-toggle="tooltip" title="Data is taken from cover sheet" class="formToolTip">i</a></label>
 													<label id="logo_page_no"></label><label id="logo_del"></label></div>
-														{{-- <p><select id ="template">
-															<option value="-1">Select</option><a href="#" data-toggle="tooltip" title="Data is taken from cover sheet" class="formToolTip">i</a>
-															<option value="Standardvorlage mit Logo">Standardvorlage mit Logo</option>
-															<option value="Standardvorlage ohne Logo">Standardvorlage ohne Logo</option>
-															<option value="Eigene Vorlage">Eigene Vorlage</option></select></p> --}}
-
-															<div class="displayNone" id="div-display-image"> </div>
-
+												
+														
 													<div class="displayNone" id="div-fonts">
 														<label>Fonts*:</label>
 														<p><select class = "" name="fonts" id="fonts"><option value = "-1">Select</option>
@@ -277,7 +275,7 @@
 														<p><textarea class = "" name="remarks" id=" remarks" placeholder="remarks" oninput="this.className = ''"></textarea></p>
 													</div>	
 
-													<div class="modal fade" tabindex="-1" role="dialog"> 
+													<div class="modal fade" tabindex="-1" role="dialog" id="modal-logo"> 
 														<div class="modal-dialog" role="document">
 															<div class="modal-content">
 																<div class="modal-header">
@@ -314,7 +312,7 @@
 
 													<div class="displayNone" id="upload_cd" ondrop="upload_file(event,this.id)" ondragover="return false" class="displayBlock">
 														<div id="drag_upload_file_cd">
-															<p>Drop file here</p>  
+															<p>Drop file here</p>   
 															<p>or</p>
 															<p><input type="button" value="Select File" onclick="file_explorer('upload_cd');"></p>
 															<input type="file" id="selectfile" name="selectfile" multiple>
@@ -337,9 +335,55 @@
 														<div class="displayNone" id="div-cd-template">
 															<label>CD Template</label>
 
-															<p><select name="cd-template" id="cd-template" ><option value="-1">Select</option><option value="Standardvorlage mit Logo">Standardvorlage mit Logo</option><option value="Standardvorlage ohne Logo">Standardvorlage ohne Logo</option><option value="Eigene Vorlage">Eigene Vorlage</option></select></p>
+															<p><select name="cd-template" id="cd-template" onchange="displayPopUpCD(this.value);"><option value="-1">Select</option><option value="Standardvorlage mit Logo">Standardvorlage mit Logo</option><option value="Standardvorlage ohne Logo">Standardvorlage ohne Logo</option><option value="Eigene Vorlage">Eigene Vorlage</option></select></p>
 
 														</div>
+
+															<div class="displayNone" id="div-display-image-cd"></div>
+
+														<div class="displayNone" id="upload_custom_logo_cd" ondrop="upload_file(event,this.id)" ondragover="return false" class="displayBlock">
+														<div id="drag_upload_file_logo">
+															<p>Drop file here<a href="#" data-toggle="tooltip" title="jpeg,jpg,png" class="formToolTip">i</a></p> 
+															<p>or</p>
+															<p><input type="button" value="Select File" onclick="file_explorer('upload_custom_logo_cd');"></p>
+															<input type="file" name ="selectfile" id="selectfile" accept="image/x-png">
+ 
+															<input type="hidden" name ="selectfile_logo_cd" id="selectfile_logo_cd" accept="image/x-png">
+														</div>
+													</div>  
+													<p class="error" id="error_selectfile_logo_cd"></p>
+
+													<div id="drop_file_zone_logo_info_cd" class="displayNone"><label id="logo_file_name_cd"><a href="#" data-toggle="tooltip" title="Data is taken from cover sheet" class="formToolTip">i</a></label>
+													<label id="logo_page_no_cd"></label><label id="logo_del_cd"></label></div>
+												
+														
+
+														<div class="modal fade" tabindex="-1" role="dialog" id="modal-cd"> 
+														<div class="modal-dialog" role="document">
+															<div class="modal-content">
+																<div class="modal-header">
+																	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+																	<h4 class="modal-title">Modal title</h4>
+																</div>
+																<div class="modal-body" id="modal-body-cd">
+
+																</div>
+																<div class="modal-footer">
+																	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+																	<button type="button" class="btn btn-primary">Save changes</button>
+																</div>
+															</div><!-- /.modal-content -->
+														</div><!-- /.modal-dialog -->
+													</div><!-- /.modal -->
+	
+														<div class="displayNone" id="div-fonts-cd">
+														<label>Fonts*:</label>
+														<p><select class = "" name="fonts-cd" id="fonts-cd"><option value = "-1">Select</option>
+															@foreach ($fonts as $key=>$listing)
+															<option value="{{$listing->font}}">{{$listing->font}}</option>  
+															@endforeach
+														</select></p> <p class="error" id="error_fonts"></p>
+													</div>
 
 														<div class="displayNone" id="div-cd-bag">
 															<label>CD Bag*:</label>
@@ -411,18 +455,33 @@
 
 									</div><!-- content area ends -->
 								</div> 
+<script>// Reset Price elements on new order 
 
-<script>
-	$(document).ready(function(){
-    $.ajax({
-		url: '/druckshop/clear-session', 
-		type: 'GET', 
-		success: function (response){
-			console.log(response);
-		}
-	}); 
+jQuery.noConflict()(function ($) {
+$(document).ready(function(){   	
+
+		$('#binding').trigger('onchange');
+		$('#binding').trigger('onclick');
+
+		document.getElementById('binding_price').innerHTML = "";
+		document.getElementById('printout').innerHTML = "" ;
+		document.getElementById('data_check_price').innerHTML = "" ;
+		document.getElementById('cd_dvd').innerHTML = "" ;
+		document.getElementById('total').innerHTML = "" ;
+		document.getElementById('total_price').value = "";
+
+
+	    $.ajax({
+			url: '/druckshop/clear-session', 
+			type: 'GET', 
+			success: function (response){
+				console.log(response);
+			}
+		}); 
+});  
+
 });
-</script>
 
+</script>
 <script src="{{ asset('public/js/frontend/checkout.js') }}" type="text/javascript" ></script>
 <script src="{{ asset('public/js/frontend/dragdrop.js') }}" type="text/javascript" ></script>								

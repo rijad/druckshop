@@ -83,16 +83,16 @@ class CheckoutController extends Controller
 
 		$page_format = ""; $cover_color = ""; $cover_sheet = ""; $back_cover = "";
 
-		$product_attribute_relation = Product::find($request->id)->psProductAttribute()->get(['model','attribute','ps_product_attributes.id']);
+		$product_attribute_relation = Product::find($request->id)->psProductAttribute()->get(['model','attribute','ps_product_attributes.id']);   
 		//$details = json_decode(json_encode($product_attribute_relation),true);
 
 		foreach ($product_attribute_relation as $key => $attribute) {
 			
-			$product_attribute = $attribute['model'];
+			$product_attribute = $attribute['model']; 
 
-			if($product_attribute == "PageFormat"){
+			if($product_attribute == "PageFormat"){     
 
-				$page_format = self::getPageFormat($request->id);
+				$page_format = self::getPageFormat($request->id);  //print_r($page_format); 
 
 			}else if($product_attribute == "CoverColor"){
 

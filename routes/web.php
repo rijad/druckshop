@@ -65,11 +65,14 @@ Route::POST('/orders-details','CheckoutController@orderDetails')->name('orders-d
 Route::POST('/set-quantity','CheckoutController@setQuantity')->name('set-quantity');
 Route::get('/remove-item/{id}','CheckoutController@removeItem')->name('remove-item');
 Route::POST('/paper-weight-sheets','CheckoutController@paperWeightSheets')->name('paper-weight-sheets');
+Route::get('/cart','CheckoutController@cart')->name('cart');
 
 // Binding Sample Image
 Route::POST('/binding-sample-image','BindingSampleImageController@getSampleImage')->name('binding-sample-image');
 
-Route::get('/cart','CheckoutController@cart')->name('cart');
+//Defect File
+Route::get('/defectfile','DefectFileController@index')->name('defectfile');
+Route::post('/defectfile-update','DefectFileController@update')->name('defectfile-update'); 
 
 //Customer-area
 Route::get('/customer-area','CustomerAreaController@index')->name('customer-area');
@@ -122,9 +125,7 @@ Route::get('/dashboard','DashboardController@index')->name('dashboard');
 
 Route::resource('/slider','SliderController');
 
-//Defect File
-Route::get('/defectfile','DefectFileController@index')->name('defectfile');
-Route::get('/defectfile-update/{user_id}/{order_id}/{oldfile}','DefectFileController@update')->name('defectfile-update');
+
 
 //Users
 Route::get('/users','AdminUsersController@index')->name('users');
@@ -149,8 +150,8 @@ Route::resource('/coversheet','CoverSheetController');
 Route::resource('/backcover','BackCoverController');
 Route::resource('/cdbag','CdBagController');
 Route::resource('/datacheck','DataCheckController');
-Route::resource('/art','ArtController');
-Route::resource('/discount','DiscountController');
+Route::resource('/art','ArtController'); 
+Route::resource('/discount','DiscountController'); 
 Route::resource('/gallery','GalleryController');
 Route::resource('/pageformat','PageFormatController');
 Route::get('/details/{model}/{id}','ParameterController@details')->name('details'); 

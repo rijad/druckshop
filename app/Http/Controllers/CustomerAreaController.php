@@ -12,7 +12,7 @@ use \Exception;
 class CustomerAreaController extends Controller
 {
 	public function index(){ 
-
+ 
 		if(!Auth::check()){
 			return redirect()->route('index');       
 		}
