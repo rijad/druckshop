@@ -735,6 +735,11 @@ button:focus {outline:none !important;}
 #drag_upload_file #selectfile {
   display: none;
 }
+.rv-dropfilehere {
+    text-align: center;
+}
+
+
 
 
 /* ========================================== style override ===================== */
@@ -1449,8 +1454,92 @@ nav .loginBtn button:hover {
     display: inline-block;
     margin-top: 20px;
 }
+div#drop_file_din_A3 input#selectfile {
+    display: none;
+}
+div#drop_file_din_A2 input#selectfile {
+    display: none;
+}
+div#drop_file_din_A3{
+    text-align: center;
+    clear: both;
+}
+div#drop_file_din_A2{
+    text-align: center;
+    clear: both;
+}
+div#drop_file_zone_content {
+    margin-left: 0;
+    text-align: center;
+}
+div#upload_custom_logo input#selectfile {
+    display: none;
+}
+div#upload_custom_logo {
+    text-align: center;
+}
+div#upload_cd input#selectfile{
+  display: none;
+}
+div#upload_cd{
+  text-align: center;
+}
+div#upload_custom_logo_cd {
+    text-align: center;
+}
+div#upload_custom_logo_cd input#selectfile{
+    display: none;
+}
+div#modal-body-cd img {
+    width: 32%;
+    margin-bottom: 15px;
+    padding: 5px;
+}
+
+div#div-display-image img {
+    border: #999 3px dashed;
+    width: 150px;
+}
+div#sampleImage {
+    background-size: contain !important;
+    background-repeat: no-repeat;
+    min-height: 100px;
+    width: 100%;
+    height: 100%;
+    background-position: 25px 0;
+    display: none;
+}
+.prodkt-info ul {
+    margin-bottom: 20px;
+}
+form#regForm .checkoutBlock.col-half.text-left {
+    max-height: 600px;
+    overflow-y: scroll;
+}
+
+img.zoom:hover {
+    -webkit-transition: all .2s ease-in-out;
+    -moz-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;     
+    -ms-transition: all .2s ease-in-out;
+    -webkit-transform: scale(4.8);
+    -moz-transform: scale(4.8);
+    -o-transform: scale(4.8);
+    transform: scale(4.8);
+    z-index: 99;
+
+}
 
 
+
+
+ 
+/*.transition {
+    -webkit-transform: scale(4.8);
+    -moz-transform: scale(4.8);
+    -o-transform: scale(4.8);
+    transform: scale(4.8);
+}*/
 
 
 
@@ -1521,14 +1610,14 @@ nav .loginBtn button:hover {
 @media (min-width: 992px){
     div#drop_file_zone_content {
       margin-top: 0 !important;
-      width: 50% !important;
+      /*width: 50% !important;*/
   }
   .free-sample-form-rv {
     margin-left: 200px;
   }
   div#drop_file_zone_content {
       margin-top: 0 !important;
-      width: 50% !important;
+      /*width: 50% !important;*/
     }
 }
 

@@ -86,7 +86,7 @@
 								<div class="tab">
 									<div class="displayBlock">
 										<label>Side Options*:</label>
-										<p><select class = "" id = "page_options" name = "page_options" onclick="displayFieldsContent(this.value);"  onchange="displayPrice('','',this.value,'','','','','','','','','','');" >
+										<p><select class = "" id = "page_options" name = "page_options" onclick="displayFieldsContent(this.value);  displayProductAttributes('7',this);"  onchange="displayPrice('','',this.value,'','','','','','','','','','');" >
 											<option value = "-1">Select</option>
 											@foreach ($page_options as $key=>$listing)
 											<option value="{{$listing->id}}">{{$listing->name_english}}</option>  
@@ -109,7 +109,7 @@
 										<label>No of Pages*:<a href="#" data-toggle="tooltip" title="
 											number of the PDF file and &#013; only number of DIN A4
 											" class="formToolTip">i</a></label>
-										<p><input type = "text" class = "" name="no_of_pages" id="no-of-pages" placeholder="No of Pages"  oninput="displayPrice('',this.value,'','','','','','','','','','','');"></p>
+										<p><input type = "text" class = "" name="no_of_pages" id="no-of-pages" placeholder="No of Pages"  oninput="displayPrice('',this.value,'','','','','','','','','','',''); displayProductAttributes('8',this);"></p>
 										<p class="error" id="error_no_of_pages"></p>
 									</div>
  
@@ -214,7 +214,7 @@
 											<div class="tab">
 												<div class="displayBlock" id="div-embossment-cover-sheet">
 													<label class="csCheckbtn">Embossment Cover Sheet
-														<input name ="embossment-cover-sheet" id ="embossment-cover-sheet" type="checkbox" onclick="displayPrintFields('Embossment_Cover_Sheet'); displayPrice('','','',this.value,'','','','','','','','','');" >
+														<input name ="embossment-cover-sheet" id ="embossment-cover-sheet" type="checkbox" onclick="displayPrintFields('Embossment_Cover_Sheet'); displayPrice('','','',this.value,'','','','','','','','',''); displayProductAttributes('9',this);" >
 														<span class="checkmark"></span>
 													</label>
 												</div> 
@@ -264,7 +264,7 @@
 
 													<div class="displayBlock" id="div-embossment-spine">
 														<label class="csCheckbtn">Embossment Spine<a href="#" data-toggle="tooltip" title="Data is taken from cover sheet" class="formToolTip">i</a>
-															<input class = "" type="checkbox" id = "embossment-spine" name = "embossment-spine" onclick = "displayPrice('','','','',this.value,'','','','','','','','');" disabled>
+															<input class = "" type="checkbox" id = "embossment-spine" name = "embossment-spine" onclick = "displayPrice('','','','',this.value,'','','','','','','',''); displayProductAttributes('10',this);" disabled>
 															<span class="checkmark"></span>
 														</label>
 														<p>Minimum sheet number for having spine is 40</p>
@@ -306,7 +306,7 @@
 
 													<div class="displayNone" id="div-number-of-cds">
 														<label>Number of CDs*:</label>
-														<p><input type = "text" class = "" name="number_of_cds" id="numbers-of-cds" placeholder="Number of CDs" oninput= "displayPrice('','','','','','','','',this.value,'','','','');"></p>
+														<p><input type = "text" class = "" name="number_of_cds" id="numbers-of-cds" placeholder="Number of CDs" oninput= "displayPrice('','','','','','','','',this.value,'','','',''); displayProductAttributes('11',this);"></p>
 														<p class="error" id="error_number_of_cds"></p>
 													</div> 
 
@@ -426,7 +426,7 @@
 														<ul id="prodkt-attrib">	</ul>
 													</div>
 													<div class="prodkt-info">
-														<div id="sampleImage" class="avatar avatar-original center-block"> hhhhhh
+														<div id="sampleImage" class="avatar avatar-original center-block"><!--  hhhhhh -->
 														</div>
 													</div>
 													<div class="servicePrice">

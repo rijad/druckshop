@@ -11,7 +11,7 @@
 						<div class="rv-imagelist">
 							<span class="img-back">
 							 @foreach ($listing->psProductImages as $image)
-							 	<img src="{{ asset($listing->image_path)}}" alt="" height="50" width="50" />
+							 	<img class = "zoom"src="{{ asset($listing->image_path)}}" alt="" height="50" width="50" />
 							 @endforeach
 							 </span>
 						</div>	 
@@ -19,7 +19,7 @@
 					<!-- <div class="product-item-img col-half text-left">
 						<span class="img-back">
 							@foreach ($listing->psProductImages as $image)
-							<img src="{{ asset($listing->image_path)}}" alt="" height="50" width="50" /></span>
+							<img class = "zoom"src="{{ asset($listing->image_path)}}" alt="" height="50" width="50" /></span>
 							@endforeach
 						</div> -->
 
@@ -51,7 +51,7 @@
 							<div class="rv-imagelist">
 							<span class="img-back">
 							 @foreach ($listing->psProductImages as $image)
-							 	<img src="{{ asset($listing->image_path)}}" alt="" height="50" width="50" />
+							 	<img class="zoom" class = "zoom"src="{{ asset($listing->image_path)}}" alt="" height="50" width="50" />
 							 @endforeach
 							 </span>
 						</div>	 
@@ -59,7 +59,7 @@
 						<!-- <div class="product-item-img col-half text-left">
 							<span class="img-back">
 								@foreach ($listing->psProductImages as $image)
-								<img src="{{ asset($listing->image_path)}}" alt="" height="50" width="50" /></span>
+								<img class = "zoom"src="{{ asset($listing->image_path)}}" alt="" height="50" width="50" /></span>
 								@endforeach
 							</div> -->
 
@@ -89,3 +89,14 @@
 						@endforeach
 
 					</div>		 
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+    $('.zoom').hover(function() {
+        $(this).addClass('transition');
+    }, function() {
+        $(this).removeClass('transition');
+    });
+});
+</script>
