@@ -30,7 +30,7 @@
                         <tr class="form-inline">
                             <input id="from" type="hidden" name="id[]" value="{{ $value['id'] }}" />
                             <td><input id="from" type="hidden" name="from[]" value="{{ $value['ds_from'] }}" />{{ $value['ds_from'] }}</td>
-                            <td><input class="form-control to_input" id="to" type="number" name="to[]" value="{{ $value['ds_to'] }}" required /></td>
+                            <td><input class="form-control to_input" id="to" type="hidden" name="to[]" value="{{ $value['ds_to'] }}" required />{{ $value['ds_to'] }}</td>
                             <td><input class="form-control price_input" id="price" type="number" name="price[]" value="{{ $value['ds_price'] }}" required /></td>
                         </tr>
                         @endforeach
