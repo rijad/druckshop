@@ -140,6 +140,35 @@ function displayFieldsContent(page_options = ""){
 
 } 
  
+function getPrinting(value){ 
+	$.ajax({
+		url: '/druckshop/get-print-finishing-status', 
+		type: 'GET', 
+		data: {'binding_type' : value},
+		success: function (response){
+			var data = JSON.parse(response); 
+			
+			// if(data == 1){
+
+			// 	$("#embossment-cover-sheet").removeAttr('disabled');
+
+			// }else if(data == 2){
+
+			// 	$("#embossment-spine").removeAttr('disabled');
+
+			// }else if(data == 3){
+
+			// 	$("#embossment-cover-sheet").removeAttr('disabled');
+			// 	$("#embossment-spine").removeAttr('disabled');
+				
+			// }else{
+
+			// 	$("#embossment-cover-sheet").removeAttr('disabled');
+			// 	$("#embossment-spine").removeAttr('disabled');
+			// }
+		}
+	}); 
+}
 
 function displayPrintFields(embossment = ""){
 
@@ -157,9 +186,117 @@ function displayPrintFields(embossment = ""){
 			document.getElementById('div-fonts').className = "displayNone";
 			document.getElementById('div-date-format').className = "displayNone";
 		}
+	}else if(embossment == "Embossment_spine"){
+
+		if($("#embossment-spine").is(":checked")){
+
+			document.getElementById('div-direction').className = "displayBlock";
+			document.getElementById('div-section-1').className = "displayBlock";
+
+		}else{
+
+			document.getElementById('div-direction').className = "displayNone";
+			document.getElementById('div-section-1').className = "displayNone";
+
+		}
 	}
 
-} 
+}
+
+// Populate section 2
+function section2(){
+
+		if($("#fields_1").find(":selected").val() != "-1"){
+
+			document.getElementById('input_1').value = "Enter "+$("#fields_1").find(":selected").val();
+
+		}
+
+		if($("#pos_1").find(":selected").val() != "-1" && $("#fields_1").find(":selected").val() != "-1"){
+
+			document.getElementById('div-section-2').className = "displayBlock";
+
+			 var sec_2 =$("#fields_1").find('option').not(':selected').map(function() {
+    						return $(this).text();
+						}).toArray();
+			 var pos_2 = $("#pos_1").find('option').not(':selected').map(function() {
+    						return $(this).text();
+						}).toArray();
+
+			 $("#fields_2").empty();
+			 $("#fields_2").append("<option value='-1'>Select</option>");
+
+			 $("#pos_2").empty();
+			 $("#pos_2").append("<option value='-1'>Select</option>");
+
+			 for(var i=1; i< sec_2.length; i++){
+
+			 	$("#fields_2").append("<option value='"+sec_2[i]+"'>"+sec_2[i]+"</option>");
+
+			 }
+
+
+
+			 for(var i=1; i< pos_2.length; i++){
+
+			 	$("#pos_2").append("<option value='"+pos_2[i]+"'>"+pos_2[i]+"</option>");
+
+			 }
+
+
+
+		}else{
+
+		}
+}	
+
+
+// Populate section 3
+function section3(){
+
+		if($("#fields_2").find(":selected").val() != "-1"){
+
+			document.getElementById('input_3').value = "Enter "+$("#fields_2").find(":selected").val();
+
+		}
+
+		if($("#pos_2").find(":selected").val() != "-1" && $("#fields_2").find(":selected").val() != "-1"){
+
+			document.getElementById('div-section-3').className = "displayBlock";
+
+			 var sec_3 =$("#fields_2").find('option').not(':selected').map(function() {
+    						return $(this).text();
+						}).toArray();
+			 var pos_3 = $("#pos_2").find('option').not(':selected').map(function() {
+    						return $(this).text();
+						}).toArray();
+
+			 $("#fields_3").empty();
+			 $("#fields_3").append("<option value='-1'>Select</option>");
+
+			 $("#pos_3").empty();
+			 $("#pos_3").append("<option value='-1'>Select</option>");
+
+			 for(var i=1; i< sec_3.length; i++){
+
+			 	$("#fields_3").append("<option value='"+sec_3[i]+"'>"+sec_3[i]+"</option>");
+
+			 }
+
+
+
+			 for(var i=1; i< pos_2.length; i++){
+
+			 	$("#pos_3").append("<option value='"+pos_3[i]+"'>"+pos_3[i]+"</option>");
+
+			 }
+
+
+
+		}else{
+
+		}
+}	
 
 function displayPopUp(template = ""){
 	 var title = template; 
@@ -1123,7 +1260,7 @@ function incrementQuantity(id = "",count = ""){
 		data: {'binding': binding,'page_format' : page_format, 'cover_color' : cover_color},
 		success: function (response){
 
-			console.log(response);
+			//console.log(response);
 			$("#sampleImage").css("display", "block");
 			$("#sampleImage").css({'background-image': 'url('+base_url+'/'+response+')', "background-size": "cover"});
 

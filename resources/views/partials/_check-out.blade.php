@@ -22,7 +22,7 @@
 							<div class="tab" id="tab-fields">
 								<div class="displayBlock">
 									<label>{{ trans('checkout.binding_title') }}*:</label>
-									<p><select class = "" name = "binding" id = "binding" onclick="displayFields(this.value); displayProductAttributes('1',this); resetFields(this.id,this.value); sampleImage();" onchange="displayPrice(this.value,'','','','','','','','','','','','');">
+									<p><select class = "" name = "binding" id = "binding" onclick="displayFields(this.value); displayProductAttributes('1',this); resetFields(this.id,this.value); sampleImage();" onchange="getPrinting(this.value); displayPrice(this.value,'','','','','','','','','','','',''); ">
 										<option value = "-1">Select</option>
 										@foreach ($product_listing as $key=>$listing)
 										<option value="{{$listing->id}}" @if($listing->id == request()->id) selected @endif>{{$listing->title_english}}</option>  
@@ -212,9 +212,19 @@
 											</div>
 
 											<div class="tab">
+
+												<div class="displayBlock">
+													<label>Embossing*:</label>
+													<p><select class = "" id = "embossing" name = "embossing">
+														<option value = "-1">Select</option>
+														<option value = "Edition">Edition</option>
+														<option value = "Classic">Classic</option>
+													</select></p> <p class="error" id=""></p>
+												</div>
+
 												<div class="displayBlock" id="div-embossment-cover-sheet">
-													<label class="csCheckbtn">Embossment Cover Sheet
-														<input name ="embossment-cover-sheet" id ="embossment-cover-sheet" type="checkbox" onclick="displayPrintFields('Embossment_Cover_Sheet'); displayPrice('','','',this.value,'','','','','','','','',''); displayProductAttributes('9',this);" >
+													<label class="csCheckbtn">Refinemenr Cover Sheet
+														<input name ="embossment-cover-sheet" id ="embossment-cover-sheet" type="checkbox" onclick="displayPrintFields('Embossment_Cover_Sheet'); displayPrice('','','',this.value,'','','','','','','','',''); displayProductAttributes('9',this);" disabled>
 														<span class="checkmark"></span>
 													</label>
 												</div> 
@@ -261,13 +271,80 @@
 															@endforeach
 														</select></p> <p class="error" id="error_date_format">
 													</div>
-
+ 
 													<div class="displayBlock" id="div-embossment-spine">
-														<label class="csCheckbtn">Embossment Spine<a href="#" data-toggle="tooltip" title="Data is taken from cover sheet" class="formToolTip">i</a>
-															<input class = "" type="checkbox" id = "embossment-spine" name = "embossment-spine" onclick = "displayPrice('','','','',this.value,'','','','','','','',''); displayProductAttributes('10',this);" disabled>
+														<label class="csCheckbtn">Refinement Spine<a href="#" data-toggle="tooltip" title="Data is taken from cover sheet" class="formToolTip">i</a>
+															<input class = "" type="checkbox" id = "embossment-spine" name = "embossment-spine" onclick = "displayPrice('','','','',this.value,'','','','','','','',''); displayProductAttributes('10',this); displayPrintFields('Embossment_spine');" disabled>
 															<span class="checkmark"></span>
 														</label>
 														<p>Minimum sheet number for having spine is 40</p>
+													</div>
+
+													<div class="displayNone" id="div-direction">
+													<label>Direction:</label>
+													<p><select class = "" id = "direction" name = "direction">
+														<option value = "-1">Select</option>
+														<option value = "Top Down">Top Down</option>
+														<option value = "Bottom Up">Bottom Up</option>
+													</select></p> <p class="error" id="s"></p>
+													</div>
+
+													<div class="displayNone" id="div-section-1">
+													<label>Section 1:</label>
+
+													<label>Field 1:</label>
+													<p><select class = "" id = "fields_1" name = "fields_1" onchange="section2();">
+														<option value = "-1">Select</option>
+														<option value = "Name">Name</option>
+														<option value = "Title">Title</option>
+														<option value = "Date">Date</option>
+														<option value = "Topic">Topic</option>
+													</select></p>
+
+													<input type="text" id ="input_1" name = "input_1">
+													
+													<label>Position 1:</label>
+													<p><select class = "" id = "pos_1" name = "pos_1" onchange="section2();">
+														<option value = "-1">Select</option>
+														<option value = "Top">Top</option>
+														<option value = "Middle">Middle</option>
+														<option value = "Bottom">Bottom</option>
+													</select></p> 
+													<p class="error" id=""></p>
+													</div>
+
+													<div class="displayNone" id="div-section-2">
+													<label>Section 2:</label>
+
+													<label>Field 2:</label>
+													<p><select class = "" id = "fields_2" name = "fields_2" onchange="section3();">
+														<option value = "-1">Select</option>
+													</select></p>
+
+													<input type="text" id ="input_2" name = "input_2">
+													
+													<label>Position 2:</label>
+													<p><select class = "" id = "pos_2" name = "pos_2" onchange="section3();">
+														<option value = "-1">Select</option>
+													</select></p> 
+													<p class="error" id=""></p>
+													</div>
+
+													<div class="displayNone" id="div-section-3">
+													<label>Section 3:</label>
+
+													<label>Field 3:</label>
+													<p><select class = "" id = "fields_3" name = "fields_3">
+														<option value = "-1">Select</option>
+													</select></p>
+
+													<input type="text" id ="input_3" name = "input_3">
+													
+													<label>Position 3:</label>
+													<p><select class = "" id = "pos_3" name = "pos_3">
+														<option value = "-1">Select</option>
+													</select></p> 
+													<p class="error" id=""></p>
 													</div>
 
 													<div class="displayNone" id="div-remarks">

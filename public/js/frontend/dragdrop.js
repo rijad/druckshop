@@ -76,6 +76,7 @@ function ajaxFileUpload(file_obj,id) {  alert(id);
  if(file_obj != undefined) {
   var form_data = new FormData();                  
   form_data.append('file', file_obj);
+  //form_data.append( "_token", "{{ csrf_token() }}");
   $.ajax({ 
     type: 'POST',
     url: '/druckshop/upload-file',

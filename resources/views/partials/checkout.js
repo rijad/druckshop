@@ -139,6 +139,8 @@ function displayFieldsContent(page_options = ""){
 		}
 
 } 
+
+
  
 
 function displayPrintFields(embossment = ""){
@@ -157,9 +159,22 @@ function displayPrintFields(embossment = ""){
 			document.getElementById('div-fonts').className = "displayNone";
 			document.getElementById('div-date-format').className = "displayNone";
 		}
+	}else if(embossment == "Embossment_spine"){
+
+		if($("#embossment-spine").is(":checked")){
+
+		}else{
+
+		}
+
 	}
 
 } 
+
+
+
+
+
 
 function displayPopUp(template = ""){
 	 var title = template; 
@@ -445,22 +460,22 @@ function displayProductAttributes(field_flag = "", values = ""){
 	}else if(field_flag == "9"){
 		if($("#embossment-cover-sheet").is(":checked")){
 
-			if($("#prodkt-attrib li[value='Embossment Cover Sheet']").length > 0)
+			if($("#prodkt-attrib li[value='Refinement Cover Sheet']").length > 0)
 			{
-				$("#prodkt-attrib li[value='Embossment Cover Sheet']").text("Embossment Cover Sheet: Yes");
+				$("#prodkt-attrib li[value='Refinement Cover Sheet']").text("Refinement Cover Sheet: Yes");
 			}else{	
-				el.innerHTML = "Embossment Cover Sheet: Yes";
-				el.setAttribute("value","Embossment Cover Sheet");
+				el.innerHTML = "Refinement Cover Sheet: Yes";
+				el.setAttribute("value","Refinement Cover Sheet");
 			}
 
 		}else{
 
-			if($("#prodkt-attrib li[value='Embossment Cover Sheet']").length > 0)
+			if($("#prodkt-attrib li[value='Refinement Cover Sheet']").length > 0)
 			{
-				$("#prodkt-attrib li[value='Embossment Cover Sheet']").text("Embossment Cover Sheet: No");
+				$("#prodkt-attrib li[value='Refinement Cover Sheet']").text("Refinement Cover Sheet: No");
 			}else{	
-				el.innerHTML = "Embossment Cover Sheet: No";
-				el.setAttribute("value","Embossment Cover Sheet");
+				el.innerHTML = "Refinement Cover Sheet: No";
+				el.setAttribute("value","Refinement Cover Sheet");
 			}
 
 		}
@@ -468,26 +483,26 @@ function displayProductAttributes(field_flag = "", values = ""){
 
 		if($("#embossment-spine").is(":checked")){
 
-			if($("#prodkt-attrib li[value='Embossment Spine']").length > 0)
+			if($("#prodkt-attrib li[value='Refinement Spine']").length > 0)
 			{
-				$("#prodkt-attrib li[value='Embossment Spine']").text("Embossment Spine: Yes");
+				$("#prodkt-attrib li[value='Refinement Spine']").text("Refinement Spine: Yes");
 			}else{	
-				el.innerHTML = "Embossment Spine: Yes";
-				el.setAttribute("value","Embossment Spine");
+				el.innerHTML = "Refinement Spine: Yes";
+				el.setAttribute("value","Refinement Spine");
 			}
 
 		}else{
 
-			if($("#prodkt-attrib li[value='Embossment Spine']").length > 0)
+			if($("#prodkt-attrib li[value='Refinement Spine']").length > 0)
 			{
-				$("#prodkt-attrib li[value='Embossment Spine']").text("Embossment Spine: No");
+				$("#prodkt-attrib li[value='Refinement Spine']").text("Refinement Spine: No");
 			}else{	
-				el.innerHTML = "Embossment Spine: No";
-				el.setAttribute("value","Embossment Spine");
+				el.innerHTML = "Refinement Spine: No";
+				el.setAttribute("value","Refinement Spine");
 			}
 
 
-		} 
+		}  
 		
 	}else if(field_flag == "11"){
 		if($("#prodkt-attrib li[value='Number of CDs']").length > 0)
@@ -1134,4 +1149,7 @@ function incrementQuantity(id = "",count = ""){
  } 
 
 
- 
+
+    
+
+	
