@@ -23,8 +23,9 @@ class UsersAdmin extends Authenticatable
      * @var string
      */
     protected $guard = 'admin';
+    
     protected $fillable = [
-        'name', 'email', 'password','role','status'
+        'name', 'email', 'phone', 'email_verified_at', 'password','role','status'
     ]; 
 
     /**

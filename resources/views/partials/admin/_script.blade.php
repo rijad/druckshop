@@ -102,11 +102,14 @@
          $( "#delivery_edit_add_new_row" ).prop( "disabled", true );
 
          var from = 0;
+
+         
          get_to_value = $('#dilivery_services_table_edit tr:last td:nth(1) input').val();
 
 
-         var for_spine = '<input class="form-control to_input" id="to" type="number" name="to[]" value='+get_to_value+'>'+get_to_value+'';
+         var for_spine = '<input class="form-control to_input" id="to" type="hidden" name="to[]" value='+get_to_value+'>'+get_to_value+'';
 
+         $('#dilivery_services_table_edit tr:last td:nth(1)').html("");
          $('#dilivery_services_table_edit tr:last td:nth(1)').html(for_spine);
 
          if (get_to_value) {
