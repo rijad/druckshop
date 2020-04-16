@@ -22,10 +22,12 @@
 							<div class="tab" id="tab-fields">
 								<div class="displayBlock">
 									<label>{{ trans('checkout.binding_title') }}*:</label>
-									<p><select class = "" name = "binding" id = "binding" onclick="displayFields(this.value); displayProductAttributes('1',this); resetFields(this.id,this.value); sampleImage();" onchange="getPrinting(this.value); displayPrice(this.value,'','','','','','','','','','','',''); ">
+									<p><select class = "" name = "binding" id = "binding" onclick="displayFields(this.value); displayProductAttributes('1',this); resetFields(this.id,this.value); sampleImage();" onchange="getPrinting(); displayPrice(this.value,'','','','','','','','','','','',''); ">
 										<option value = "-1">Select</option>
 										@foreach ($product_listing as $key=>$listing)
+										@if($listing->id != 8 && $listing->id != 5)
 										<option value="{{$listing->id}}" @if($listing->id == request()->id) selected @endif>{{$listing->title_english}}</option>  
+										@endif
 										@endforeach
 									</select></p><p class="error" id="error_binding"></p>
 								</div>
@@ -46,7 +48,7 @@
 									<p><select class = "" onclick = "displayProductAttributes('5',this);uploadDisplay(this.id,this.value);hideBindingElements('cover-sheet');" id="cover-sheet" name="cover-sheet"><option value="-1">Select</option></select></p>
 									<p class="error" id="error_cover_sheet">
   
-								</div>  
+								</div>   
 
 								<div id="drop_file_zone_cover_sheet" ondrop="upload_file(event,this.id)" ondragover="return false" class="displayNone">
 									<div id="drag_upload_file_cover_sheet">
@@ -213,7 +215,7 @@
 
 											<div class="tab">
 
-												<div class="displayBlock">
+												<div class="displayNone" id="div-embossing">
 													<label>Embossing*:</label>
 													<p><select class = "" id = "embossing" name = "embossing">
 														<option value = "-1">Select</option>
@@ -224,7 +226,7 @@
 
 												<div class="displayBlock" id="div-embossment-cover-sheet">
 													<label class="csCheckbtn">Refinemenr Cover Sheet
-														<input name ="embossment-cover-sheet" id ="embossment-cover-sheet" type="checkbox" onclick="displayPrintFields('Embossment_Cover_Sheet'); displayPrice('','','',this.value,'','','','','','','','',''); displayProductAttributes('9',this);" disabled>
+														<input class =""name ="embossment-cover-sheet" id ="embossment-cover-sheet" type="checkbox" onclick="displayPrintFields('Embossment_Cover_Sheet'); displayPrice('','','',this.value,'','','','','','','','',''); displayProductAttributes('9',this);" >
 														<span class="checkmark"></span>
 													</label>
 												</div> 
@@ -251,7 +253,7 @@
 												<p class="error" id="error_selectfile_logo"></p>
 
 												<div id="drop_file_zone_logo_info" class="displayNone"><label id="logo_file_name"><a href="#" data-toggle="tooltip" title="Data is taken from cover sheet" class="formToolTip">i</a></label>
-													<label id="logo_page_no"></label><label id="logo_del"></label></div>
+													<label id="logo_page_no"></label></div>
 												
 														
 													<div class="displayNone" id="div-fonts">
@@ -270,14 +272,29 @@
 															<option value="{{$listing->surname}}">{{$listing->date_format}}</option>  
 															@endforeach
 														</select></p> <p class="error" id="error_date_format">
+													</div>   
+
+													<div class="displayNone" id="upload_custom_file" ondrop="upload_file(event,this.id)" ondragover="return false" class="displayBlock">
+													<div id="drag_upload_file_file">
+														<p>Drop file here<a href="#" data-toggle="tooltip" title="The length X within 'spine X cm' is calculated by the thickness of the paper (to be set in the admin area under paper weight) times the number of sheets + 0.5 mm." class="formToolTip">i</a></p> 
+														<p>or</p>
+														<p><input type="button" value="Select File" onclick="file_explorer('upload_custom_file');"></p>
+														<input type="file" name ="selectfile" id="selectfile" accept="application/pdf">
+
+														<input type="hidden" name ="selectfile_file" id="selectfile_file" accept="image/x-png">
 													</div>
+												</div>  
+												<p class="error" id="error_selectfile_file"></p>
+
+												<div id="drop_file_info" class="displayNone"><label id="file_name"></label> <label id="file_page_no"></label> <label> <a href={{url('/').'/public/link/Order_with_parameters_en.pdf'}} target="_blank" >Link for sample style sheet</a></label></div>
  
 													<div class="displayBlock" id="div-embossment-spine">
 														<label class="csCheckbtn">Refinement Spine<a href="#" data-toggle="tooltip" title="Data is taken from cover sheet" class="formToolTip">i</a>
-															<input class = "" type="checkbox" id = "embossment-spine" name = "embossment-spine" onclick = "displayPrice('','','','',this.value,'','','','','','','',''); displayProductAttributes('10',this); displayPrintFields('Embossment_spine');" disabled>
+															<input class = "" type="checkbox" id = "embossment-spine" name = "embossment-spine" onclick = "displayPrice('','','','',this.value,'','','','','','','',''); displayProductAttributes('10',this); displayPrintFields('Embossment_spine'); getPaperWeightCount();" >
 															<span class="checkmark"></span>
 														</label>
-														<p>Minimum sheet number for having spine is 40</p>
+														<p id="spine-count"></p>
+														<input type = "hidden" id="spine-count-hidden" name="spine-count-hidden">
 													</div>
 
 													<div class="displayNone" id="div-direction">
@@ -301,7 +318,7 @@
 														<option value = "Topic">Topic</option>
 													</select></p>
 
-													<input type="text" id ="input_1" name = "input_1">
+													<input type="text" id ="input_1" name = "input_1" class="displayBlock">
 													
 													<label>Position 1:</label>
 													<p><select class = "" id = "pos_1" name = "pos_1" onchange="section2();">
@@ -321,7 +338,7 @@
 														<option value = "-1">Select</option>
 													</select></p>
 
-													<input type="text" id ="input_2" name = "input_2">
+													<input type="text" id ="input_2" name = "input_2" class="displayBlock">
 													
 													<label>Position 2:</label>
 													<p><select class = "" id = "pos_2" name = "pos_2" onchange="section3();">
@@ -334,18 +351,20 @@
 													<label>Section 3:</label>
 
 													<label>Field 3:</label>
-													<p><select class = "" id = "fields_3" name = "fields_3">
+													<p><select class = "" id = "fields_3" name = "fields_3" onchange="section4();">
 														<option value = "-1">Select</option>
 													</select></p>
 
-													<input type="text" id ="input_3" name = "input_3">
+													<input type="text" id ="input_3" name = "input_3" class="displayBlock">
 													
 													<label>Position 3:</label>
-													<p><select class = "" id = "pos_3" name = "pos_3">
+													<p><select class = "" id = "pos_3" name = "pos_3" onchange="section4();">
 														<option value = "-1">Select</option>
 													</select></p> 
-													<p class="error" id=""></p>
+													
 													</div>
+
+													<div><p class="error" id="error_sections"></p></div>
 
 													<div class="displayNone" id="div-remarks">
 														<label>Remarks</label>

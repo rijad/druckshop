@@ -1203,6 +1203,25 @@ public function getPrintfinishingStatus(Request $request){
 	}
 	
 }
+
+
+public function getSpineCount(Request $request){
+
+
+	try{
+
+		$data = ProductPaperWeight::where(['paper_weight_id' => $request->paper_weight, 'product_id' => $request->binding])->first('min_sheets');
+
+		echo $data->min_sheets;
+
+	}catch (Exception $e) {
+
+		echo '0';
+
+	}
+
+
+}	
 		
 }
   

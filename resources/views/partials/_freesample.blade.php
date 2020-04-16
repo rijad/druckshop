@@ -19,8 +19,8 @@
 			<div id="drag_upload_file_sample">
                 <p>Drop file here*<a href="#" data-toggle="tooltip" title="PDF" class="formToolTip">i</a></p> 
 				<p>or</p>
-				<p><input class = "" type="button" value="Select File" onclick="file_explorer('drop_pdf');"></p>
-				<input type="file" name="selectfile" id="selectfile" accept="application/pdf" required>
+				<p><input  type="button" value="Select File" onclick="file_explorer('drop_pdf');"></p>
+				<input class="displayNone" type="file" name="selectfile" id="selectfile" accept="application/pdf" required>
 			</div>
 		</div>
         <span class="text-danger">{{ $errors->first('selectfile_free_sample') }}</span>
@@ -28,7 +28,7 @@
         <p class="error" id="error_selectfile_pdf"></p> 
 
         <div id="drop_file_zone_pdf" class="displayNone"><label id="pdf_file_name"></label>
-            <label id="pdf_page_no"></label><label id="pdf_del"></label>
+            <label id="pdf_page_no"></label>
         </div>
 
         <div class="free-sample-form-rv">

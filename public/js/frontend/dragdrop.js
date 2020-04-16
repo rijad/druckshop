@@ -166,7 +166,7 @@ function ajaxFileUpload(file_obj,id) {  alert(id);
         
         // $('#upload_cd').empty(); 
         document.getElementById('drag_upload_file_sample').className = "displayNone";
-        $('#drop_pdf').append('<div id="del_pdf" class="displayBlock"><span class="upload-msg">File Uploaded</span><span id="cd_del"><i class="fa fa-trash"></i></span></div>');
+        $('#drop_pdf').append('<div id="del_pdf" class="displayBlock"><span class="upload-msg">File Uploaded</span><span id="pdf_del"><i class="fa fa-trash"></i></span></div>');
         document.getElementById('drop_file_zone_pdf').className = "displayBlock";
         document.getElementById('pdf_file_name').innerHTML = "File Name:"+data['data']['file_name'];
         document.getElementById('pdf_page_no').innerHTML = "No of Pages:"+data['data']['no_of_pages'];
@@ -176,13 +176,24 @@ function ajaxFileUpload(file_obj,id) {  alert(id);
       }else if(id == "upload_custom_logo_cd"){
          
         // $('#upload_custom_logo').empty();
-        document.getElementById('drag_upload_file_logo_cd').className = "displayNone";
-        $('#upload_custom_logo').append('<div id="del_logo_cd" class="displayBlock"><span class="upload-msg">File Uploaded</span><span id="logo_del"><i class="fa fa-trash"></i></span></div>');
+        document.getElementById('drag_upload_file_cd').className = "displayNone";
+        $('#upload_custom_logo_cd').append('<div id="del_logo_cd" class="displayBlock"><span class="upload-msg">File Uploaded</span><span id="logo_del_cd"><i class="fa fa-trash"></i></span></div>');
         document.getElementById('upload_custom_logo_info_cd').className = "displayBlock";
         document.getElementById('logo_file_name_cd').innerHTML = "File Name:"+data['data']['file_name'];
         document.getElementById('logo_page_no_cd').innerHTML = "No of Pages:"+data['data']['no_of_pages'];
         document.getElementById('selectfile_logo_cd').value = data['data']['edit_name'];
         $('#logo_del_cd').attr('onclick',"removeFile('"+data['data']['edit_name']+"','"+id+"')");
+      
+      }else if(id == "upload_custom_file"){
+         
+        // $('#upload_custom_logo').empty();
+        document.getElementById('drag_upload_file_file').className = "displayNone";
+        $('#upload_custom_file').append('<div id="del_file" class="displayBlock"><span class="upload-msg">File Uploaded</span><span id="file_del"><i class="fa fa-trash"></i></span></div>');
+        document.getElementById('drop_file_info').className = "displayBlock";
+        document.getElementById('file_name').innerHTML = "File Name:"+data['data']['file_name'];
+        document.getElementById('file_page_no').innerHTML = "No of Pages:"+data['data']['no_of_pages'];
+        document.getElementById('selectfile_file').value = data['data']['edit_name'];
+        $('#file_del').attr('onclick',"removeFile('"+data['data']['edit_name']+"','"+id+"')");
       
       }
       
@@ -271,8 +282,14 @@ function removeFile(file_name,id){   alert(id);
         document.getElementById('logo_file_name_cd').innerHTML = "";
         document.getElementById('logo_page_no_cd').innerHTML = "";
         document.getElementById('selectfile_logo_cd').value = "";
-        document.getElementById('drag_upload_file_logo_cd').className = "displayBlock"
+        document.getElementById('drag_upload_file_cd').className = "displayBlock"
         document.getElementById('del_logo_cd').className = "displayNone";
+      }else if(id == "upload_custom_file"){
+        document.getElementById('file_name').innerHTML = "";
+        document.getElementById('file_page_no').innerHTML = "";
+        document.getElementById('selectfile_file').value = "";
+        document.getElementById('drag_upload_file_file').className = "displayBlock"
+        document.getElementById('del_file').className = "displayNone";
       }
      // console.log(data);
     }
