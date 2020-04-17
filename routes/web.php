@@ -217,8 +217,3 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::post('user-login','LoginController@authenticate')->name('user-login');
 Route::post('user-register','RegisterController@validateRegister')->name('user-register');
 Route::post('/user-logout','LoginController@logout')->name('user-logout');
-
-
-
-
-
