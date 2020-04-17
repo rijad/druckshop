@@ -49,6 +49,8 @@ Route::get('/config-cache', function() {
     $exitCode = Artisan::call('config:cache');
     return '<h1>Clear Config cleared</h1>'; 
 });
+
+ Auth::routes();
  
 Route::get('/', 'IndexController@sendData')->name('index');
 Route::get('/products', 'ProductController@sendData')->name('products');
@@ -122,7 +124,7 @@ Route::get('/payment-success','CheckoutController@paymentPaypalSuccess')->name('
  
  
 //Admin
-Route::group(['namespace'=>'Admin', 'prefix' => 'admin' ], function()
+Route::group(['namespace'=>'Admin', 'prefix' => 'admin'], function()
 {
 Route::get('/dashboard','DashboardController@index')->name('dashboard');
 
@@ -137,6 +139,10 @@ Route::post('/store-user','AdminUsersController@store')->name('store-user');
 Route::get('/edit-user/{id}','AdminUsersController@edit')->name('edit-user');
 Route::get('/update-user/{id}','AdminUsersController@update')->name('update-user');
 Route::post('/delete-user','AdminUsersController@destroy')->name('delete-user');
+
+// details about user
+Route::get('/change-password','AdminUsersController@changeAdminPassword')->name('change-password');
+
 
 
 Route::resource('/bindingsample','BindingSampleImageController');
@@ -202,7 +208,7 @@ Route::get('/dashboard-login', function () {
 
 //Route::get('/home', 'HomeController@index')->name('home');
    
- Auth::routes();
+
 
  //For change the language
  Route::get('lang/{locale}', 'HomeController@lang');

@@ -1,6 +1,6 @@
 <div class="card mb-4 mt-4">
     <div class="card-header">
-        <h2>Create New FAQ</h2>
+        <h2>Create New User</h2>
 
         <div class="card-body col-md-6">
 
@@ -23,6 +23,11 @@
                 <span class="text-danger">{{ $errors->first('name') }}</span>
             </div>
             <div class="form-group">
+                <label class="small mb-1" for="phone">Phone</label>
+                <input class="form-control" type="text" name="phone" value="{{ old('phone') }}">
+                <span class="text-danger">{{ $errors->first('phone') }}</span>
+            </div>
+            <div class="form-group">
                 <label class="small mb-1" for="email">Email</label>
                 <input class="form-control" type="text" name="email" value="{{ old('email') }}">
                 <span class="text-danger">{{ $errors->first('email') }}</span>
@@ -35,20 +40,16 @@
             <div class="form-group">
 
                 <label class="small mb-1" for="roles">Roles</label><br>
-                <input type="checkbox" id="user" name="user">
-                <label for="user">User</label><br>
                 <input type="checkbox" id="admin" name="admin">
                 <label for="admin">Admin</label><br>
                 <input type="checkbox" id="superadmin" name="superadmin">
                 <label for="vehicle3">Superadmin</label><br>
                 <input type="checkbox" id="employee" name="employee">
                 <label for="vehicle3">Employee</label><br>
-                <input type="checkbox" id="supervisor" name="supervisor">
-                <label for="vehicle3">Supervisor</label><br>
 
             </div>
             <div class="form-group">
-            <input type="submit" class="btn btn-primary btn-user btn-block col-md-3" value="Add">
+            <input type="submit" class="btn btn-primary btn-user btn-block col-md-3" value="Submit">
           </div>
       </form>
     </div>

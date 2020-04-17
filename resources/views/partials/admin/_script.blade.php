@@ -31,33 +31,48 @@
             var from = 0;
             get_to_value = $('#dilivery_services_table tr:last td:nth(1) input').val();
 
+            $('#dilivery_services_table tr:last td:nth(1) input').attr('type', 'hidden');
+            $('#dilivery_services_table tr:last td:nth(1)').append(get_to_value);
+
             if (get_to_value) {
 
-                from = get_to_value;
+                from = ++get_to_value;
             }else{ 
-             from = 0;
-         }
+               from = 0;
+           }
 
-         $('#dilivery_services_table').append('<tr class="form-inline"><td><input id="from" type="hidden" name="from[]" value='+from+' />'+from+'</td><td><input class="form-control to_input" id="to" type="number" name="to[]" required /></td><td><input class="form-control price_input" id="price" type="number" name="price[]" required /></td></tr>');
-     });
+
+           $('#dilivery_services_table').append('<tr class="form-inline"><td><input id="from" type="hidden" name="from[]" value='+from+' />'+from+'</td><td><input class="form-control to_input" id="to" type="number" name="to[]" required /></td><td><input class="form-control price_input" id="price" type="number" name="price[]" required /></td></tr>');
+       });
 
         $('#delivery_remove_last').click(function(){
             var row_index = $('#dilivery_services_table tr:last').index(); 
             if(row_index >= 2){
 
                 $('#dilivery_services_table tr:last').remove();
+                $('#dilivery_services_table tr:last td:nth(1) input').val("");
+                $('#dilivery_services_table tr:last td:nth(2) input').val("");
+
+
+                $('#dilivery_services_table tr:last td:nth(1)').html("");
+                $("#dilivery_services_table tr:last td:nth(1)").append('<input class="form-control to_input" id="to" type="number" name="to[]" required />');
+
             }
         });
 
         $(document).on('keyup', '.to_input', function() {
 
+            var from_input = $('#dilivery_services_table tr:last td:nth(0) input').val();
             var to_input = $('#dilivery_services_table tr:last td:nth(1) input').val();
 
             var price_input = $('#dilivery_services_table tr:last td:nth(2) input').val();
 
-            if (to_input > 0 && price_input > 0) {
+            if (Number(to_input) > Number(from_input) && Number(price_input) > 0) {
 
                 $( "#delivery_add_more" ).prop( "disabled", false );
+            }else{
+
+                $( "#delivery_add_more" ).prop( "disabled", true );
             }
 
 
@@ -65,15 +80,18 @@
 
         $(document).on('keyup', '.price_input', function() {
 
+            var from_input = $('#dilivery_services_table tr:last td:nth(0) input').val();
             var to_input = $('#dilivery_services_table tr:last td:nth(1) input').val();
 
             var price_input = $('#dilivery_services_table tr:last td:nth(2) input').val();
 
-            if (to_input > 0 && price_input > 0) {
+            if (Number(to_input) > Number(from_input) && Number(price_input) > 0) {
 
                 $( "#delivery_add_more" ).prop( "disabled", false );
-            }
+            }else{
 
+                $( "#delivery_add_more" ).prop( "disabled", true );
+            }
         });
 
         //end delivery services
@@ -81,22 +99,32 @@
         //Edit: add, more for delivery services
         $('#delivery_edit_add_new_row').click(function(){
 
-           $( "#delivery_edit_add_new_row" ).prop( "disabled", true );
+         $( "#delivery_edit_add_new_row" ).prop( "disabled", true );
 
-           var from = 0;
-           get_to_value = $('#dilivery_services_table_edit tr:last td:nth(1) input').val();
+         var from = 0;
 
-           if (get_to_value) {
+         
+         get_to_value = $('#dilivery_services_table_edit tr:last td:nth(1) input').val();
 
-            from = get_to_value;
+
+         var for_spine = '<input class="form-control to_input" id="to" type="hidden" name="to[]" value='+get_to_value+'>'+get_to_value+'';
+
+         $('#dilivery_services_table_edit tr:last td:nth(1)').html("");
+         $('#dilivery_services_table_edit tr:last td:nth(1)').html(for_spine);
+
+         if (get_to_value) {
+
+            from = ++get_to_value;
         }else{ 
-         from = 0;
-     }
+           from = 0;
+       }
 
-     $('#dilivery_services_table_edit').append('<tr class="form-inline"><td><input id="from" type="hidden" name="from[]" value='+from+' />'+from+'</td><td><input class="form-control to_input" id="to" type="number" name="to[]" required /></td><td><input class="form-control price_input" id="price" type="number" name="price[]" required /></td></tr>');
- });
+       $('#dilivery_services_table_edit').append('<tr class="form-inline"><td><input id="from" type="hidden" name="from[]" value='+from+' />'+from+'</td><td><input class="form-control to_input" id="to" type="number" name="to[]" required /></td><td><input class="form-control price_input" id="price" type="number" name="price[]" required /></td></tr>');
+   });
 
         $('#delivery_edit_remove_last').click(function(){
+
+            $( "#delivery_edit_add_new_row" ).prop( "disabled", true );
             var row_index = $('#dilivery_services_table_edit tr:last').index(); 
 
             if(row_index >= 2){
@@ -119,19 +147,30 @@
                     }); 
 
                     $('#dilivery_services_table_edit tr:last').remove();
+                    $('#dilivery_services_table_edit tr:last td:nth(1) input').val("");
+                    $('#dilivery_services_table_edit tr:last td:nth(2) input').val("");
+
+
+                    $('#dilivery_services_table_edit tr:last td:nth(1)').html("");
+                    $("#dilivery_services_table_edit tr:last td:nth(1)").append('<input class="form-control to_input" id="to" type="number" name="to[]" required />');
                 } 
             }
         });
 
+
         $(document).on('keyup', '.to_input', function() {
 
+            var from_input = $('#dilivery_services_table_edit tr:last td:nth(0) input').val();
             var to_input = $('#dilivery_services_table_edit tr:last td:nth(1) input').val();
 
             var price_input = $('#dilivery_services_table_edit tr:last td:nth(2) input').val();
 
-            if (to_input > 0 && price_input > 0) {
+            if (Number(to_input) > Number(from_input) && Number(price_input) > 0) {
 
                 $( "#delivery_edit_add_new_row" ).prop( "disabled", false );
+            }else{
+
+                $( "#delivery_edit_add_new_row" ).prop( "disabled", true );
             }
 
 
@@ -139,15 +178,18 @@
 
         $(document).on('keyup', '.price_input', function() {
 
+            var from_input = $('#dilivery_services_table_edit tr:last td:nth(0) input').val();
             var to_input = $('#dilivery_services_table_edit tr:last td:nth(1) input').val();
 
             var price_input = $('#dilivery_services_table_edit tr:last td:nth(2) input').val();
 
-            if (to_input > 0 && price_input > 0) {
+            if (Number(to_input) > Number(from_input) && Number(price_input) > 0) {
 
                 $( "#delivery_edit_add_new_row" ).prop( "disabled", false );
-            }
+            }else{
 
+                $( "#delivery_edit_add_new_row" ).prop( "disabled", true );
+            }
         });
 
         //end delivery services
@@ -161,15 +203,20 @@
             var from = 0;
             get_to_value = $('#paper_weight_table tr:last td:nth(1) input').val();
 
+            $('#paper_weight_table tr:last td:nth(1) input').attr('type', 'hidden');
+            $('#paper_weight_table tr:last td:nth(1)').append(get_to_value);
+
             if (get_to_value) {
 
                 from = ++get_to_value;
             }else{ 
-             from = 0;
-         }
+               from = 0;
+           }
 
-         $('#paper_weight_table').append('<tr class="form-inline"><td><input id="from" type="hidden" name="sheet_start[]" value='+from+' />'+from+'</td><td><input type="number" class="form-control sheet_end_input" id="from" name="sheet_end[]"  placeholder="sheet range" /></td><td><input class="form-control latters_input" id="latters" type="number" name="latters[]" required /></td></tr>');
-     });
+
+
+           $('#paper_weight_table').append('<tr class="form-inline"><td><input id="from" type="hidden" name="sheet_start[]" value='+from+' />'+from+'</td><td><input type="number" class="form-control sheet_end_input" id="from" name="sheet_end[]"  placeholder="sheet range" /></td><td><input class="form-control latters_input" id="latters" type="number" name="latters[]" required /></td></tr>');
+       });
 
         $('#paper_remove_last').click(function(){
             var row_index = $('#paper_weight_table tr:last').index(); 
@@ -224,12 +271,12 @@
 
         $(document).on('keyup', '.latters_input', function() {
 
-         var sheet_start = $('#paper_weight_table tr:last td:nth(0) input').val();
-         var sheet_end = $('#paper_weight_table tr:last td:nth(1) input').val();
+           var sheet_start = $('#paper_weight_table tr:last td:nth(0) input').val();
+           var sheet_end = $('#paper_weight_table tr:last td:nth(1) input').val();
 
-         var latters_input = $('#paper_weight_table tr:last td:nth(2) input').val();
+           var latters_input = $('#paper_weight_table tr:last td:nth(2) input').val();
 
-         if (Number(sheet_end) > Number(sheet_start) && Number(latters_input) > 0) {
+           if (Number(sheet_end) > Number(sheet_start) && Number(latters_input) > 0) {
 
             $( "#paper_weight_add_more" ).prop( "disabled", false );
         }else{
@@ -249,17 +296,21 @@
             var from = 0;
             get_to_value = $('#paper_weight_edit_table tr:last td:nth(1) input').val();
 
+            $('#paper_weight_edit_table tr:last td:nth(1) input').attr('type', 'hidden');
+            $('#paper_weight_edit_table tr:last td:nth(1)').append(get_to_value);
+
             if (get_to_value) {
 
                 from = ++get_to_value;
             }else{ 
-             from = 0;
-         }
+               from = 0;
+           }
 
-         $('#paper_weight_edit_table').append('<tr class="form-inline"><td><input id="from" type="hidden" name="sheet_start[]" value='+from+' />'+from+'</td><td><input type="number" class="form-control sheet_end_input" id="from" name="sheet_end[]"  placeholder="sheet range" /></td><td><input class="form-control latters_input" id="latters" type="number" name="latters[]" required /></td></tr>');
-     });
+           $('#paper_weight_edit_table').append('<tr class="form-inline"><td><input id="from" type="hidden" name="sheet_start[]" value='+from+' />'+from+'</td><td><input type="number" class="form-control sheet_end_input" id="from" name="sheet_end[]"  placeholder="sheet range" /></td><td><input class="form-control latters_input" id="latters" type="number" name="latters[]" required /></td></tr>');
+       });
 
          $('#paper_weight_edit_remove_last').click(function(){
+
             var row_index = $('#paper_weight_edit_table tr:last').index(); 
             if(row_index >= 2){
 
@@ -419,11 +470,11 @@
 
                 start = get_end_value;
             }else{ 
-             start = 0;
-         }
+               start = 0;
+           }
 
-         $('#binding_table').append('<tr class="form-inline"><td><input id="start" type="hidden" name="sheet_start[]" value='+start+' />'+start+'</td><td><input class="form-control end" id="end" type="number" name="sheet_end[]" placeholder="page range" required /></td><td><input class="form-control product_price" id="product_price" type="number" name="product_price[]" placeholder="price" required /></td></tr>');
-     });
+           $('#binding_table').append('<tr class="form-inline"><td><input id="start" type="hidden" name="sheet_start[]" value='+start+' />'+start+'</td><td><input class="form-control end" id="end" type="number" name="sheet_end[]" placeholder="page range" required /></td><td><input class="form-control product_price" id="product_price" type="number" name="product_price[]" placeholder="price" required /></td></tr>');
+       });
 
          $('#binding_remove_last').click(function(){
             var row_index = $('#binding_table tr:last').index(); 
