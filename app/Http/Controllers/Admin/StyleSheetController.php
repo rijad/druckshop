@@ -13,6 +13,13 @@ class StyleSheetController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+     public function __construct() {
+
+        $this->middleware('auth:admin');
+    }
+
+
     public function index()
     {
         return view ('pages.admin.stylesheet');
@@ -54,34 +61,10 @@ class StyleSheetController extends Controller
             }
               //Move Uploaded File
               $destinationPath = public_path().'/style_sheet';
-              $file->move($destinationPath,'stylesheet');
+              $file->move($destinationPath,'stylesheet.pdf');
 
 
-            $input = $request->all();
-            $input['newfile'] = "public/style_sheet/".'stylesheet';
-
-            // $file = $request->file('file'); 
-            //   $new_file = time(). '_'. 'stylesheet';
-            //   if (!file_exists(public_path().'/uploads')) {
-            //         mkdir(public_path().'/uploads', 0777); 
-            //  }
-            //   //Move Uploaded File
-            //   $destinationPath = public_path().'/uploads';
-            //   $file->move($destinationPath,$new_file);
-
-            //   // Remove old file
-            //   unlink($destinationPath."/".$old_file_name);
-
-            // if ($request->hasFile('newfile')) {
-            //     $file = $request->file('newfile'); 
-            //     if (!file_exists(public_path().'/style_sheet')) {
-            //       mkdir(public_path().'/style_sheet', 0777); 
-            //      }  
-
-            //     $destinationPath = public_path().'/style_sheet';
-            //     $file->move($destinationPath,time() . '_' . 'stylesheet');
-            //     $input['newfile'] = "public/style_sheet/".time() . '_' . 'stylesheet'; 
-            // }
+             
         }
         return redirect()->back()->with('status' , 'Created');
     }
@@ -95,7 +78,7 @@ class StyleSheetController extends Controller
     public function show($id)
     {
         //
-    }
+    } 
 
     /**
      * Show the form for editing the specified resource.

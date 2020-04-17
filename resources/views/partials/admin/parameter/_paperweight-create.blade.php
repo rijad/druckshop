@@ -30,49 +30,48 @@
                     <input class="form-control min_sheets_for_spine" id="min_sheets_for_spine" name="min_sheets_for_spine" type="number" value="0" placeholder="Min number of sheet for spine" required />
                 </div>
 
-                <div class="form-group ">
+                <div class="form-group rv-responsivetable">
                     <h2><label class="small mb-1" for="name">Letters for spine</label></h2>
                     <table id="paper_weight_table">
                         <tr>
-                            <th>Sheets</th>
-                            <th></th>
-                            <th>Letters</th>
+                            <th class="rv-headLt">Sheets</th>
+                            <th class="rv-headRt">Letters</th>
                         </tr>
 
                         <tr class="form-inline">
-                            <td><input class="first_row" id="from" type="hidden" name="sheet_start[]" value="0" />0</td>
-                            <td><input class="sheet_end_input" id="from" type="hidden" name="sheet_end[]" value="65" />65</td>
-                            <td><input class="form-control latters_input" id="latters" type="number" name="latters[]" value="40" required /></td>
+                            <td class="rv-headLtchild1"><input class="first_row" id="from" type="hidden" name="sheet_start[]" value="0" />0</td>
+                            <td class="rv-headLtchild"><input class="sheet_end_input" id="from" type="hidden" name="sheet_end[]" value="65" />65</td>
+                            <td class="rv-headRtchild"><input class="form-control latters_input" id="latters" type="number" name="latters[]" value="40" required /></td>
                         </tr>
 
                         <tr class="form-inline">
-                            <td><input id="from" type="hidden" name="sheet_start[]" value="66" />66</td>
-                            <td><input class="sheet_end_input" id="from" type="hidden" name="sheet_end[]" value="150" />150</td>
-                            <td><input class="form-control latters_input" id="latters" type="number" name="latters[]" value="130" required /></td>
+                            <td class="rv-headLtchild1"><input id="from" type="hidden" name="sheet_start[]" value="66" />66</td>
+                            <td class="rv-headLtchild"><input class="sheet_end_input" id="from" type="hidden" name="sheet_end[]" value="150" />150</td>
+                            <td class="rv-headRtchild"><input class="form-control latters_input" id="latters" type="number" name="latters[]" value="130" required /></td>
                         </tr>
 
                         <tr class="form-inline">
-                            <td><input id="from" type="hidden" name="sheet_start[]" value="151" />151</td>
-                            <td><input class="sheet_end_input" id="from" type="hidden" name="sheet_end[]" value="190" />190</td>
-                            <td><input class="form-control latters_input" id="latters" type="number" name="latters[]" value="160" required /></td>
+                            <td class="rv-headLtchild1"><input id="from" type="hidden" name="sheet_start[]" value="151" />151</td>
+                            <td class="rv-headLtchild"><input class="sheet_end_input" id="from" type="hidden" name="sheet_end[]" value="190" />190</td>
+                            <td class="rv-headRtchild"><input class="form-control latters_input" id="latters" type="number" name="latters[]" value="160" required /></td>
                         </tr>
 
                         <tr class="form-inline">
-                            <td><input id="from" type="hidden" name="sheet_start[]" value="191" />191</td>
-                            <td><input class="sheet_end_input" id="from" type="hidden" name="sheet_end[]" value="250" />250</td>
-                            <td><input class="form-control latters_input" id="latters" type="number" name="latters[]" value="160" required /></td>
+                            <td class="rv-headLtchild1"><input id="from" type="hidden" name="sheet_start[]" value="191" />191</td>
+                            <td class="rv-headLtchild"><input class="sheet_end_input" id="from" type="hidden" name="sheet_end[]" value="250" />250</td>
+                            <td class="rv-headRtchild"><input class="form-control latters_input" id="latters" type="number" name="latters[]" value="160" required /></td>
                         </tr>
 
                         <tr class="form-inline">
-                            <td><input id="from" type="hidden" name="sheet_start[]" value="251" />251</td>
-                            <td><input class="sheet_end_input" id="from" type="hidden" name="sheet_end[]" value="300" />300</td>
-                            <td><input class="form-control latters_input" id="latters" type="number" name="latters[]" value="265" required /></td>
+                            <td class="rv-headLtchild1"><input id="from" type="hidden" name="sheet_start[]" value="251" />251</td>
+                            <td class="rv-headLtchild"><input class="sheet_end_input" id="from" type="hidden" name="sheet_end[]" value="300" />300</td>
+                            <td class="rv-headRtchild"><input class="form-control latters_input" id="latters" type="number" name="latters[]" value="265" required /></td>
                         </tr>
 
                         <tr class="form-inline">
-                            <td><input class="form-control" id="from" type="hidden" name="sheet_start[]" value="301" />301</td>
-                            <td><input class="form-control sheet_end_input" id="from" type="number" name="sheet_end[]"  placeholder="sheet range" /></td>
-                            <td><input class="form-control latters_input" id="latters" type="number" name="latters[]" placeholder="latter number" /></td>
+                            <td class="rv-headLtchild1"><input class="form-control" id="from" type="hidden" name="sheet_start[]" value="301" />301</td>
+                            <td class="rv-headLtchild"><input class="form-control sheet_end_input" id="from" type="number" name="sheet_end[]"  placeholder="sheet range" /></td>
+                            <td class="rv-headRtchild"><input class="form-control latters_input" id="latters" type="number" name="latters[]" placeholder="latter number" /></td>
                         </tr>
 
                     </table>
