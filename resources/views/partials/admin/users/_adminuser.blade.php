@@ -13,33 +13,23 @@
                                 <thead>
                                     <tr>
                                         <th>User</th>
+                                        <th>Phone</th>
                                         <th>Email</th>
                                         <th>Role</th>
-                                        <th>Status</th> 
                                         <th>Actions</th> 
                                     </tr>
                                 </thead>  
-                                <tfoot>
-                                    <tr>
-                                        <th>User</th>
-                                        <th>Email</th>
-                                        <th>Role</th>
-                                        <th>Status</th>
-                                        <th>Actions</th> 
-                                    </tr>
-                                </tfoot> 
+                                 
                                 <tbody>
                                 @foreach($users as $data)
                                     <tr>
                                         <td>{{$data->name}}</td>
+                                        <td>{{$data->phone}}</td>
                                         <td>{{$data->email}}</td>
-                                        <td>@if($data->role == '0'){{'SuperAdmin'}}
+                                        <td>@if($data->role == '0'){{'Super Admin'}}
                                             @elseif($data->role == '1'){{'Admin'}}
                                             @elseif($data->role == '2'){{'Employee'}}
-                                            @elseif($data->role == '3'){{'User'}}
-                                            @elseif($data->role == '4'){{'SuperVisor'}}
                                             @endif</td>
-                                        <td>{{$data->status}}</td>
                                         <td class="form-inline">
                                             <form method="GET" action="{{ route('edit-user' , $data->id) }}">
                                             <input type="submit" value="edit" class="btn btn-success">

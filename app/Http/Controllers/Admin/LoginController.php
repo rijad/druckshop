@@ -1,37 +1,73 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
- 
+
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Auth;
 use Notifiable;
+
+
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
+
+
+use Redirect;
+use Illuminate\Support\Facades\Session;
 
 class LoginController extends Controller
 {
+  use AuthenticatesUsers;
+
+  protected $redirectTo = '/';
+
+  public function __construct() {
+
+   $this->middleware('guest')->except('logout');
+
+        //For admin
+   $this->middleware('guest:admin')->except('logout');
+
+  }
+
+
     public function authenticate(Request $request) {
 
-      $status = Auth::guard('admin')->attempt([
-      'email'=>$request->email,
-      'password'=>$request->password,
+      $validatedData = $this->validate($request, [
 
-    ]); //dd($status);
- 
-    if($status){
-    	//return redirect('/dashboard');
-    	return redirect()->route('dashboard');
-    } 
+        'email'   => 'required|email',
+        'password' => 'required|min:6'
+      ]);
 
-    return redirect()->back()->with('fail','Please input correct details and try again.');
+      if (Auth::guard('admin')->attempt(['email' => trim($request->email), 'password' => trim($request->password)])) {
 
- }
+        return redirect()->intended('/admin/dashboard');
+      }else {
 
- public function logout(){
- 
-    Auth::guard('admin')->logout();
-    return redirect()->route('index');
+        $errors = ['Invalid Email or Password , Please try again.'];
+
+        return Redirect::back()->withErrors($errors)->withInput($request->only('email', 'remember'));
+      }
+
+      return back()->withInput($request->only('email', 'remember'));
+
+    }
+
+
+    /**
+     * Get the guard to be used during authentication.
+     *
+     * @return \Illuminate\Contracts\Auth\StatefulGuard
+     */
+    protected function guard()
+    {
+        return Auth::guard('admin');
+    }
+
+    public function logout(){
+
+      Auth::guard('admin')->logout();
+      return redirect()->route('index');
     //return redirect()->back();
 
- }
-}
- 
+    }
+  }

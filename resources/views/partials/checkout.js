@@ -65,7 +65,7 @@ function getProductAttributes(binding){
 	var product_attributes = "";
 
 	$.ajax({
-		url: '/druckshop/get-relations', 
+		url: '/get-relations', 
 		type: 'GET', 
 		data: {'id': binding},
 		async: false,
@@ -84,7 +84,7 @@ function getContentAttributes(page_options){
 	var content_attributes = "";
 
 	$.ajax({
-		url: '/druckshop/get-relations-content', 
+		url: '/get-relations-content', 
 		type: 'GET', 
 		data: {'id': page_options},
 		async: false,
@@ -139,245 +139,42 @@ function displayFieldsContent(page_options = ""){
 		}
 
 } 
+
+
  
-function getPrinting(value){ 
-
-binding = document.getElementById('binding').value;
-	$.ajax({
-		url: '/druckshop/get-print-finishing-status', 
-		type: 'GET', 
-		data: {'binding_type' : binding},
-		success: function (response){
-			var data = JSON.parse(response);  console.log(response);
-			
-			if(data == 1){ // page 4
-
-				$("#embossment-cover-sheet").removeAttr('disabled');
-				$("#embossment-spine").removeAttr('disabled');
-
-			}else if(data == 2){ //page 3
-
-				$("#embossment-spine").removeAttr('disabled');
-				$("#embossment-cover-sheet").removeAttr('disabled');
-
-			}else if(data == 3){
-
-				$("#embossment-cover-sheet").attr('disabled', true);
-				$("#embossment-spine").attr('disabled', true);
-				
-			}else{
-
-				$("#embossment-cover-sheet").attr('disabled', true);
-				$("#embossment-spine").attr('disabled', true);
-			}
-		}
-	}); 
-}
 
 function displayPrintFields(embossment = ""){
 
-	var binding = document.getElementById('binding').value;
-
-	$.ajax({
-		url: '/druckshop/get-print-finishing-status', 
-		type: 'GET', 
-		data: {'binding_type' : binding},
-		success: function (response){
-			var data = JSON.parse(response); 
-			
-
-			//Refine with embossing (4)
-			if(data == 1){ 
-
-				document.getElementById('div-embossing').className = "displayBlock";
-
-				if($("#embossment-cover-sheet").is(":checked")){
-					document.getElementById('div-template').className = "displayBlock";
-					document.getElementById('upload_custom_file').className = "displayBlock";
-				}else{
-					document.getElementById('div-template').className = "displayNone";
-					//document.getElementById('div-embossment-cover-sheet').className = "displayNone";
-					document.getElementById('upload_custom_logo').className = "displayNone";
-					document.getElementById('drop_file_zone_logo_info').className = "displayNone";
-					document.getElementById('div-remarks').className = "displayNone"; 
-					$("#div-display-image").empty();
-					document.getElementById('div-display-image').className = "displayNone";
-					document.getElementById('div-fonts').className = "displayNone";
-					document.getElementById('div-date-format').className = "displayNone";
-					document.getElementById('upload_custom_file').className = "displayNone";
-				}
-
-
-				
-				if($("#embossment-spine").is(":checked")){
-					document.getElementById('div-direction').className = "displayBlock";
-					document.getElementById('div-section-1').className = "displayBlock";
-					if(! $("#embossment-cover-sheet").is(":checked")){
-					document.getElementById('div-fonts').className = "displayBlock";
-					}else{
-						document.getElementById('div-fonts').className = "displayNone";
-					}
-				}else{
-					document.getElementById('div-direction').className = "displayNone";
-					document.getElementById('div-section-1').className = "displayNone";
-					document.getElementById('div-section-2').className = "displayNone";
-					document.getElementById('div-section-3').className = "displayNone";
-					}
-			}
-
-
-			//Standard refinement (3)
-			if(data == 2){ 
-
-				document.getElementById('div-embossing').className = "displayNone";
-				if($("#embossment-cover-sheet").is(":checked")){
-					document.getElementById('div-template').className = "displayBlock";
-					document.getElementById('upload_custom_file').className = "displayBlock";
-				}else{
-					document.getElementById('div-template').className = "displayNone";
-					//document.getElementById('div-embossment-cover-sheet').className = "displayNone";
-					document.getElementById('upload_custom_logo').className = "displayNone";
-					document.getElementById('drop_file_zone_logo_info').className = "displayNone";
-					document.getElementById('div-remarks').className = "displayNone"; 
-					document.getElementById('upload_custom_file').className = "displayNone";
-					$("#div-display-image").empty();
-					document.getElementById('div-display-image').className = "displayNone";
-					document.getElementById('div-fonts').className = "displayNone";
-					document.getElementById('div-date-format').className = "displayNone";
-				}
-
-
-				
-				if($("#embossment-spine").is(":checked")){
-					document.getElementById('div-direction').className = "displayBlock";
-					document.getElementById('div-section-1').className = "displayBlock";
-					if(! $("#embossment-cover-sheet").is(":checked")){
-					document.getElementById('div-fonts').className = "displayBlock";
-					}else{
-						document.getElementById('div-fonts').className = "displayNone";
-					}
-					document.getElementById('input_1').className = "displayNone";
-					document.getElementById('input_2').className = "displayNone";
-					document.getElementById('input_3').className = "displayNone";
-				}else{
-					document.getElementById('div-direction').className = "displayNone";
-					document.getElementById('div-section-1').className = "displayNone";
-					document.getElementById('div-section-2').className = "displayNone";
-					document.getElementById('div-section-3').className = "displayNone";
-					}
-			}else{
-
-			}
+	if(embossment == "Embossment_Cover_Sheet"){
+		if($("#embossment-cover-sheet").is(":checked")){
+			document.getElementById('div-template').className = "displayBlock";
+		}else{
+			document.getElementById('div-template').className = "displayNone";
+			//document.getElementById('div-embossment-cover-sheet').className = "displayNone";
+			document.getElementById('upload_custom_logo').className = "displayNone";
+			document.getElementById('drop_file_zone_logo_info').className = "displayNone";
+			document.getElementById('div-remarks').className = "displayNone"; 
+			$("#div-display-image").empty();
+			document.getElementById('div-display-image').className = "displayNone";
+			document.getElementById('div-fonts').className = "displayNone";
+			document.getElementById('div-date-format').className = "displayNone";
 		}
-	}); 
+	}else if(embossment == "Embossment_spine"){
 
-}
-
-// Populate section 2
-function section2(){
-
-		if($("#fields_1").find(":selected").val() != "-1"){
-
-			document.getElementById('input_1').value = "Enter "+$("#fields_1").find(":selected").val();
-
-		}
-
-		if($("#pos_1").find(":selected").val() != "-1" && $("#fields_1").find(":selected").val() != "-1"){
-
-			document.getElementById('div-section-2').className = "displayBlock";
-
-			 var sec_2 =$("#fields_1").find('option').not(':selected').map(function() {
-    						return $(this).text();
-						}).toArray();
-			 var pos_2 = $("#pos_1").find('option').not(':selected').map(function() {
-    						return $(this).text();
-						}).toArray();
-
-			 $("#fields_2").empty();
-			 $("#fields_2").append("<option value='-1'>Select</option>");
-
-			 $("#pos_2").empty();
-			 $("#pos_2").append("<option value='-1'>Select</option>");
-
-			 for(var i=1; i< sec_2.length; i++){
-
-			 	$("#fields_2").append("<option value='"+sec_2[i]+"'>"+sec_2[i]+"</option>");
-
-			 }
-
-
-
-			 for(var i=1; i< pos_2.length; i++){
-
-			 	$("#pos_2").append("<option value='"+pos_2[i]+"'>"+pos_2[i]+"</option>");
-
-			 }
-
-
+		if($("#embossment-spine").is(":checked")){
 
 		}else{
 
 		}
-}	
 
+	}
 
-// Populate section 3
-function section3(){
-
-		if($("#fields_2").find(":selected").val() != "-1"){
-
-			document.getElementById('input_2').value = "Enter "+$("#fields_2").find(":selected").val();
-
-		}
-
-		if($("#pos_2").find(":selected").val() != "-1" && $("#fields_2").find(":selected").val() != "-1"){
-
-			document.getElementById('div-section-3').className = "displayBlock";
-
-			 var sec_3 =$("#fields_2").find('option').not(':selected').map(function() {
-    						return $(this).text();
-						}).toArray();
-			 var pos_3 = $("#pos_2").find('option').not(':selected').map(function() {
-    						return $(this).text();
-						}).toArray();
-
-			 $("#fields_3").empty();
-			 $("#fields_3").append("<option value='-1'>Select</option>");
-
-			 $("#pos_3").empty();
-			 $("#pos_3").append("<option value='-1'>Select</option>");
-
-			 for(var i=1; i< sec_3.length; i++){
-
-			 	$("#fields_3").append("<option value='"+sec_3[i]+"'>"+sec_3[i]+"</option>");
-
-			 }
+} 
 
 
 
-			 for(var i=1; i< pos_2.length; i++){
-
-			 	$("#pos_3").append("<option value='"+pos_3[i]+"'>"+pos_3[i]+"</option>");
-
-			 }
 
 
-
-		}else{
-
-		}
-}	
-
-
-function section4(){
-
-	if($("#fields_3").find(":selected").val() != "-1"){
-
-			document.getElementById('input_3').value = "Enter "+$("#fields_3").find(":selected").val();
-
-		}
-
-}
 
 function displayPopUp(template = ""){
 	 var title = template; 
@@ -663,22 +460,22 @@ function displayProductAttributes(field_flag = "", values = ""){
 	}else if(field_flag == "9"){
 		if($("#embossment-cover-sheet").is(":checked")){
 
-			if($("#prodkt-attrib li[value='Embossment Cover Sheet']").length > 0)
+			if($("#prodkt-attrib li[value='Refinement Cover Sheet']").length > 0)
 			{
-				$("#prodkt-attrib li[value='Embossment Cover Sheet']").text("Embossment Cover Sheet: Yes");
+				$("#prodkt-attrib li[value='Refinement Cover Sheet']").text("Refinement Cover Sheet: Yes");
 			}else{	
-				el.innerHTML = "Embossment Cover Sheet: Yes";
-				el.setAttribute("value","Embossment Cover Sheet");
+				el.innerHTML = "Refinement Cover Sheet: Yes";
+				el.setAttribute("value","Refinement Cover Sheet");
 			}
 
 		}else{
 
-			if($("#prodkt-attrib li[value='Embossment Cover Sheet']").length > 0)
+			if($("#prodkt-attrib li[value='Refinement Cover Sheet']").length > 0)
 			{
-				$("#prodkt-attrib li[value='Embossment Cover Sheet']").text("Embossment Cover Sheet: No");
+				$("#prodkt-attrib li[value='Refinement Cover Sheet']").text("Refinement Cover Sheet: No");
 			}else{	
-				el.innerHTML = "Embossment Cover Sheet: No";
-				el.setAttribute("value","Embossment Cover Sheet");
+				el.innerHTML = "Refinement Cover Sheet: No";
+				el.setAttribute("value","Refinement Cover Sheet");
 			}
 
 		}
@@ -686,26 +483,26 @@ function displayProductAttributes(field_flag = "", values = ""){
 
 		if($("#embossment-spine").is(":checked")){
 
-			if($("#prodkt-attrib li[value='Embossment Spine']").length > 0)
+			if($("#prodkt-attrib li[value='Refinement Spine']").length > 0)
 			{
-				$("#prodkt-attrib li[value='Embossment Spine']").text("Embossment Spine: Yes");
+				$("#prodkt-attrib li[value='Refinement Spine']").text("Refinement Spine: Yes");
 			}else{	
-				el.innerHTML = "Embossment Spine: Yes";
-				el.setAttribute("value","Embossment Spine");
+				el.innerHTML = "Refinement Spine: Yes";
+				el.setAttribute("value","Refinement Spine");
 			}
 
 		}else{
 
-			if($("#prodkt-attrib li[value='Embossment Spine']").length > 0)
+			if($("#prodkt-attrib li[value='Refinement Spine']").length > 0)
 			{
-				$("#prodkt-attrib li[value='Embossment Spine']").text("Embossment Spine: No");
+				$("#prodkt-attrib li[value='Refinement Spine']").text("Refinement Spine: No");
 			}else{	
-				el.innerHTML = "Embossment Spine: No";
-				el.setAttribute("value","Embossment Spine");
+				el.innerHTML = "Refinement Spine: No";
+				el.setAttribute("value","Refinement Spine");
 			}
 
 
-		}
+		}  
 		
 	}else if(field_flag == "11"){
 		if($("#prodkt-attrib li[value='Number of CDs']").length > 0)
@@ -720,7 +517,6 @@ function displayProductAttributes(field_flag = "", values = ""){
 
 	document.getElementById('prodkt-attrib').appendChild(el);
 }
-
 
 function displayPrice(binding = "", no_ofsheets = "", page_options = "", embossing_cover = "", embossing_spine="", paper_weight = "", A2="", A3="", nos_of_cds = "", data_check = "", cd_cover = "", no_of_colored_sheets = "", delivery_service = ''){
 
@@ -780,7 +576,7 @@ function displayPrice(binding = "", no_ofsheets = "", page_options = "", embossi
 	
 
 	$.ajax({
-		url: '/druckshop/get-price', 
+		url: '/get-price', 
 		type: 'GET', 
 		data: {'binding_type' : binding, 'no_of_sheets' : no_ofsheets, 'pageOptions' : page_options, 'embossingCover' : embossing_cover, 'embossingSpine' : embossing_spine, 'paperWeight' : paper_weight, 'A2_page' : A2, 'A3_page': A3, 'nosOfCds' : nos_of_cds, 'dataCheck' : data_check, 'coloredSheets' : no_of_colored_sheets, 'deliveryService' : delivery_service, 'cdCover':cdCover},
 		success: function (response){
@@ -947,63 +743,29 @@ function displayPrice(binding = "", no_ofsheets = "", page_options = "", embossi
 				}// end of else
 		 // end of tab 2 (content)
 		 // start of print finishing
-		}else if(tab == "3"){ 
+		}else if(tab == "3"){
 
-			if($("#embossment-cover-sheet").is(":checked")){  //$("#embossment-cover-sheet").addBack().addClass('invalid'); 
-			    if($("#template").find(":selected").val() == "-1"){  
+			if($("#embossment-cover-sheet").is(":checked")){$("#embossment-cover-sheet").addBack().addClass('invalid'); 
+			    if($("#template").find(":selected").val() == "-1"){
 			      $("#template").addClass('invalid'); $('#error_template').html('Template Field is required'); valid = false; return false;
-				}else if($("#template").find(":selected").val() == "Eigene Vorlage"){
-				if($("#selectfile_logo").val() == ""){ alert($("#selectfile_logo").val()); $("#upload_custom_logo").addBack().addClass('invalid'); $('#error_selectfile_logo').html('Field is required'); valid = false; return false;}	
-				}else{ 	
+				}else{valid = true; return true;}
+
+			}else{valid = true; return true;}
+
+			//template cases
+			if($("#template").find(":selected").val() == "-1"){$("#template").addClass('invalid'); $('#error_template').html('Template Field is required');valid = false; return false; }	
+			else if($("#template").find(":selected").val() == "Eigene Vorlage"){
+				if($("#selectfile_logo").val() == ""){ alert($("#selectfile_logo").val()); $("#upload_custom_logo").addBack().addClass('invalid'); $('#error_selectfile_logo').html('Field is required'); valid = false; return false;}else{valid = true;return true;}	
+			}else{ 	
 			    //fonts
 				if($("#fonts").find(":selected").val() == "-1"){$("#fonts").addClass('invalid'); $('#error_fonts').html('Fonts Field is required'); valid = false; return false;}	
 			
 				//Date Format
 				if($("#date-format").find(":selected").val() == "-1"){$("#date-format").addClass('invalid'); $('#error_date_format').html('Date Format Field is required'); valid = false; return false;}	
-				//valid = true; return true; 
+				valid = true; return true; 
 				// end of tab Print Finishing
 				// start of CD Bag
-				}
-
-			}else{}
-
-			if($("#embossment-spine").is(":checked")){     
-				
-					var allowed_letters = parseInt($('#spine-count-hidden').val());
-					var total = 0;
-					if($('#input_1').hasClass('displayBlock')){    
-
-						Total = parseInt($('#input_1').val().length);
-					}  
-
-					if($('#div-section-2').hasClass('displayBlock') && $('#input_2').hasClass('displayBlock')){   
-
-						Total += parseInt($('#input_2').val().length);
-					}   
-
-					if($('#div-section-3').hasClass('displayBlock') && $('#input_3').hasClass('displayBlock')){   
-
-						Total += parseInt($('#input_3').val().length);
-					}
-
-					  	if($('#input_1').hasClass('displayBlock')){    
-						if(Total >= allowed_letters){    
-							$("#input_1").addClass('invalid');
-							$("#input_2").addClass('invalid');
-							$("#input_3").addClass('invalid');
-							$('#error_sections').html('Letters in Spine should not exceed '+ allowed_letters);
-							 valid = false; return false;
-						}else{
-							valid = true; return true; 
-						}
-					}
-
-				}else{
-						valid = true; return true; 
-				}
-			
-
-
+			}
 			}else if(tab == "4"){
 
 				//data check
@@ -1056,8 +818,8 @@ function displayPrice(binding = "", no_ofsheets = "", page_options = "", embossi
 	  showTab(currentTab);
 	}
 
-	function showTab(n) {  
-
+	function showTab(n) {
+		
 		// clear validation messages from previous tab 
 		if(n==1){
 			$('#error_binding').html('');
@@ -1140,10 +902,6 @@ function displayPrice(binding = "", no_ofsheets = "", page_options = "", embossi
 			$('#error_fonts').html('');
 			$("#date-format").removeClass('invalid');
 			$('#error_date_format').html('');
-			$("#input_1").removeClass('invalid');
-			$("#input_2").removeClass('invalid');
-			$("#input_3").removeClass('invalid');
-			$('#error_sections').html('');
 
 
 		}else if(n==4){
@@ -1159,6 +917,7 @@ function displayPrice(binding = "", no_ofsheets = "", page_options = "", embossi
 			$('#error_cd_bag').html('');
 
 		}
+		
 	  // This function will display the specified tab of the form ...
 	  var x = document.getElementsByClassName("tab");
 	  x[n].style.display = "block";
@@ -1233,7 +992,7 @@ function setQuantity(count = ""){
 	// console.log(price_per_unit);
 
 	$.ajax({
-		url: '/druckshop/set-quantity', 
+		url: '/set-quantity', 
 		type: 'POST', 
 		data: {'qty': qty,'total_price_per_product' : total_price_per_product, 'count' : count},
 		success: function (response){
@@ -1320,7 +1079,7 @@ function incrementQuantity(id = "",count = ""){
     var status = true;
 
     $.ajax({ 
-		url: '/druckshop/paper-weight-sheets',  
+		url: '/paper-weight-sheets',  
 		type: 'POST', 
 		async: false,
 		data: {'binding': binding_val,'weight' : weight_val}, 
@@ -1336,8 +1095,8 @@ function incrementQuantity(id = "",count = ""){
 			//console.log(value+"-----"+min+"-----"+max);
 
 			// if(value > no_of_pages){
-			// 	status = false;
-			// }
+			 //	status = false;
+			 //}
 
 			if(value < min || value > max){
 				status = false;
@@ -1374,12 +1133,12 @@ function incrementQuantity(id = "",count = ""){
  	var cover_color = document.getElementById('cover-color').value;
 
  	$.ajax({
-		url: '/druckshop/binding-sample-image', 
+		url: '/binding-sample-image', 
 		type: 'POST', 
 		data: {'binding': binding,'page_format' : page_format, 'cover_color' : cover_color},
 		success: function (response){
 
-			//console.log(response);
+			//console.log(response); 
 			$("#sampleImage").css("display", "block");
 			$("#sampleImage").css({'background-image': 'url('+base_url+'/'+response+')', "background-size": "cover"});
 
@@ -1390,29 +1149,7 @@ function incrementQuantity(id = "",count = ""){
  } 
 
 
-// get min sheet count for spine 
-function getPaperWeightCount(){
- 
-	if($("#embossment-spine").is(":checked")){
 
-		if($("#paper-weight option:selected").val() != "-1"){
+    
 
-			var paper_weight = document.getElementById('paper-weight').value;
-			var binding = document.getElementById('binding').value;
-
-			$.ajax({
-			url: '/druckshop/get-spine-count', 
-			type: 'POST', 
-			data: {'binding': binding,'paper_weight': paper_weight},
-			success: function (response){  var data = JSON.parse(response); 
-
-				$("#spine-count").html("Minimum Number of letters for spine is "+ data);
-				$("#spine-count-hidden").val(data);
-
-
-			}
-		});
-
-		}
-	}	
-}
+	

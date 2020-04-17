@@ -49,6 +49,8 @@ Route::get('/config-cache', function() {
     $exitCode = Artisan::call('config:cache');
     return '<h1>Clear Config cleared</h1>'; 
 });
+
+ Auth::routes();
  
 Route::get('/', 'IndexController@sendData')->name('index');
 Route::get('/products', 'ProductController@sendData')->name('products');
@@ -66,6 +68,9 @@ Route::POST('/set-quantity','CheckoutController@setQuantity')->name('set-quantit
 Route::get('/remove-item/{id}','CheckoutController@removeItem')->name('remove-item');
 Route::POST('/paper-weight-sheets','CheckoutController@paperWeightSheets')->name('paper-weight-sheets');
 Route::get('/cart','CheckoutController@cart')->name('cart');
+Route::get('/clear-session','CheckoutController@clearSession')->name('clear-session');
+Route::get('/get-print-finishing-status','CheckoutController@getPrintfinishingStatus')->name('get-print-finishing-status');
+Route::post('/get-spine-count','CheckoutController@getSpineCount')->name('get-spine-count');
 
 // Binding Sample Image
 Route::POST('/binding-sample-image','BindingSampleImageController@getSampleImage')->name('binding-sample-image');
@@ -90,7 +95,7 @@ Route::get('/about-us','AboutController@index')->name('about-us');
 Route::get('/faq','FaqController@index')->name('faq');
 Route::get('/contact','ContactController@index')->name('contact');
 
-Route::get('/clear-session','CheckoutController@clearSession')->name('clear-session');
+
 
  
 Route::POST('/upload-file','UploadfileController@uploadFile')->name('upload-file');
@@ -119,7 +124,7 @@ Route::get('/payment-success','CheckoutController@paymentPaypalSuccess')->name('
  
  
 //Admin
-Route::group(['namespace'=>'Admin', 'prefix' => 'admin' ], function()
+Route::group(['namespace'=>'Admin', 'prefix' => 'admin'], function()
 {
 Route::get('/dashboard','DashboardController@index')->name('dashboard');
 
@@ -134,6 +139,10 @@ Route::post('/store-user','AdminUsersController@store')->name('store-user');
 Route::get('/edit-user/{id}','AdminUsersController@edit')->name('edit-user');
 Route::get('/update-user/{id}','AdminUsersController@update')->name('update-user');
 Route::post('/delete-user','AdminUsersController@destroy')->name('delete-user');
+
+// details about user
+Route::get('/change-password','AdminUsersController@changeAdminPassword')->name('change-password');
+
 
 
 Route::resource('/bindingsample','BindingSampleImageController');
@@ -199,7 +208,7 @@ Route::get('/dashboard-login', function () {
 
 //Route::get('/home', 'HomeController@index')->name('home');
    
- Auth::routes();
+
 
  //For change the language
  Route::get('lang/{locale}', 'HomeController@lang');

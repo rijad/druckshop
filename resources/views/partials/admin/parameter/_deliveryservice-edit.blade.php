@@ -30,7 +30,16 @@
                         <tr class="form-inline">
                             <input id="from" type="hidden" name="id[]" value="{{ $value['id'] }}" />
                             <td><input id="from" type="hidden" name="from[]" value="{{ $value['ds_from'] }}" />{{ $value['ds_from'] }}</td>
-                            <td><input class="form-control to_input" id="to" type="number" name="to[]" value="{{ $value['ds_to'] }}" required /></td>
+
+                            <td><?php  if(!empty($attributes[$key+1]['id'])){  ?>
+
+                                <input class="form-control to_input" id="to" type="hidden" name="to[]" value="{{ $value['ds_to'] }}" required />{{ $value['ds_to'] }}
+                                <?php }else{ ?>
+
+                                <input class="form-control to_input" id="to" type="number" name="to[]" value="{{ $value['ds_to'] }}" required />
+                                <?php } ?>
+                            </td>
+
                             <td><input class="form-control price_input" id="price" type="number" name="price[]" value="{{ $value['ds_price'] }}" required /></td>
                         </tr>
                         @endforeach
@@ -48,7 +57,7 @@
                 </div>
 
                 <div class="form-group">
-                    <button type="button" class="btn btn-primary btn-sm mr-2" id="delivery_edit_add_new_row" > <span>Add new row</span></button>
+                    <button type="button" class="btn btn-primary btn-sm mr-2" id="delivery_edit_add_new_row"    > <span>Add new row</span></button>
                     <button type="button" class="btn btn-danger btn-sm mr-2" id="delivery_edit_remove_last"> <span>Remove last row</span></button>
                 </div>
 
