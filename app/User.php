@@ -2,9 +2,13 @@
 
 namespace App;
 
+use App\Notifications\ResetPasswordNotification;
+
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+
+
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -74,5 +78,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function psOrderAttributes()
     {
         return $this->belongsToMany('App\OrderAttributes');
+    }
+
+
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new ResetPasswordNotification($token));
     }
 }
