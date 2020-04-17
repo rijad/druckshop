@@ -3,6 +3,7 @@
 <title>Home Page</title> 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="{{ asset('public/css/frontend/style.css') }}" rel="stylesheet" type="text/css" />  
+<link href="{{ asset('public/css/admin/custom.css') }}" rel="stylesheet" type="text/css" /> 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">  
 <link rel="stylesheet" href="{{ asset('public/css/frontend/bootstrap.min.css') }}">  
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700&display=swap" rel="stylesheet"> 
