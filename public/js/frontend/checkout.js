@@ -987,7 +987,7 @@ function displayPrice(binding = "", no_ofsheets = "", page_options = "", embossi
 					}
 
 					  	if($('#input_1').hasClass('displayBlock')){    
-						if(Total >= allowed_letters){    
+						if(Total <= allowed_letters){    
 							$("#input_1").addClass('invalid');
 							$("#input_2").addClass('invalid');
 							$("#input_3").addClass('invalid');
