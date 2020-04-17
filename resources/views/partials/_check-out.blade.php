@@ -286,7 +286,7 @@
 												</div>  
 												<p class="error" id="error_selectfile_file"></p>
 
-												<div id="drop_file_info" class="displayNone"><label id="file_name"></label> <label id="file_page_no"></label> <label> <a href={{url('/').'/public/link/Order_with_parameters_en.pdf'}} target="_blank" >Link for sample style sheet</a></label></div>
+												<div id="drop_file_info" class="displayNone"><label id="file_name"></label> <label id="file_page_no"></label> <label> <a href={{url('/').'/public/style_sheet/stylesheet.pdf'}} target="_blank" >Link for sample style sheet</a></label></div>
  
 													<div class="displayBlock" id="div-embossment-spine">
 														<label class="csCheckbtn">Refinement Spine<a href="#" data-toggle="tooltip" title="Data is taken from cover sheet" class="formToolTip">i</a>
