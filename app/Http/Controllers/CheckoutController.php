@@ -33,6 +33,7 @@ use App\PrintoutBasicPrice;
 use App\PrintoutPaperSurcharge;
 use App\DataCheckPrice;
 use App\CdCoverPrice;
+use App\ProductPrintFinishing;
 use App\User;
 use \Exception;
 use Auth;
@@ -253,18 +254,44 @@ class CheckoutController extends Controller
 
 
 	public function clearSession(Request $request){
+		
+		if($request->session()->has('binding_type')){
 		$request->session()->forget('binding_type');
+		}
+		if($request->session()->has('no_of_sheets')){
 		$request->session()->forget('no_of_sheets');
+		}
+		if($request->session()->has('pageOptions')){
 		$request->session()->forget('pageOptions');
+		}
+		if($request->session()->has('embossingCover')){
 		$request->session()->forget('embossingCover');
+		}
+		if($request->session()->has('embossingSpine')){
 		$request->session()->forget('embossingSpine');
+		}
+		if($request->session()->has('cdCover')){
 		$request->session()->forget('cdCover');
+		}
+		if($request->session()->has('A2_page')){
 		$request->session()->forget('A2_page');
+		}
+		if($request->session()->has('A3_page')){
 		$request->session()->forget('A3_page');
+		}
+		if($request->session()->has('nosOfCds')){
 		$request->session()->forget('nosOfCds');
+		}
+		if($request->session()->has('dataCheck')){
 		$request->session()->forget('dataCheck');
+		}
+		if($request->session()->has('coloredSheets')){
 		$request->session()->forget('coloredSheets');
+		}
+		if($request->session()->has('deliveryService')){
 		$request->session()->forget('deliveryService');
+		}
+		
 		$response = returnResponse([""],'200','Success');
 				print_r($response);
 	}
@@ -1156,10 +1183,45 @@ public function paperWeightSheets(Request $request){
 	$range = ProductPaperWeight::where(['product_id'=>$request->input('binding'),'paper_weight_id'=>$request->input('weight')])->get(['min_sheets','max_sheets']);
 
 	return json_encode($range);
-
-
-
 } 
+
+
+
+public function getPrintfinishingStatus(Request $request){
+	
+
+	try{
+
+		$data = ProductPrintFinishing::where(['product_id' => $request->binding_type])->first('print_finishing_id');
+
+		echo $data->print_finishing_id;
+
+	}catch (Exception $e) {
+
+		echo '0';
+
+	}
+	
+}
+
+
+public function getSpineCount(Request $request){
+
+
+	try{
+
+		$data = ProductPaperWeight::where(['paper_weight_id' => $request->paper_weight, 'product_id' => $request->binding])->first('min_sheets');
+
+		echo $data->min_sheets;
+
+	}catch (Exception $e) {
+
+		echo '0';
+
+	}
+
+
+}	
 		
 }
   

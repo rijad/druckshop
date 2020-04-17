@@ -68,6 +68,9 @@ Route::POST('/set-quantity','CheckoutController@setQuantity')->name('set-quantit
 Route::get('/remove-item/{id}','CheckoutController@removeItem')->name('remove-item');
 Route::POST('/paper-weight-sheets','CheckoutController@paperWeightSheets')->name('paper-weight-sheets');
 Route::get('/cart','CheckoutController@cart')->name('cart');
+Route::get('/clear-session','CheckoutController@clearSession')->name('clear-session');
+Route::get('/get-print-finishing-status','CheckoutController@getPrintfinishingStatus')->name('get-print-finishing-status');
+Route::post('/get-spine-count','CheckoutController@getSpineCount')->name('get-spine-count');
 
 // Binding Sample Image
 Route::POST('/binding-sample-image','BindingSampleImageController@getSampleImage')->name('binding-sample-image');
@@ -92,7 +95,7 @@ Route::get('/about-us','AboutController@index')->name('about-us');
 Route::get('/faq','FaqController@index')->name('faq');
 Route::get('/contact','ContactController@index')->name('contact');
 
-Route::get('/clear-session','CheckoutController@clearSession')->name('clear-session');
+
 
 
 Route::POST('/upload-file','UploadfileController@uploadFile')->name('upload-file');
@@ -216,17 +219,11 @@ Route::post('user-login','LoginController@authenticate')->name('user-login');
 Route::post('user-register','RegisterController@validateRegister')->name('user-register');
 Route::post('/user-logout','LoginController@logout')->name('user-logout');
 
-
 // forgot module
 Route::post('password.email', 'ForgotPasswordController@sendPasswordResetToken');
 Route::get('passwordReset', 'Auth\ForgotPasswordController@showPasswordResetForm'); 
 Route::post('updatePassword', 'Auth\ForgotPasswordController@updatePassword'); 
 
-
 // Testing mail
 Route::get('testMail/{email}', 'HomeController@testMail');
-
-
-
-
 
