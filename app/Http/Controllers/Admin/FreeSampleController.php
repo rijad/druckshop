@@ -12,6 +12,17 @@ use App\PageOptions;
 
 class FreeSampleController extends Controller
 {
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct() {
+
+        $this->middleware('auth:admin');
+    }
+    
     /**FreeSample
      * Display a listing of the resource.
      *

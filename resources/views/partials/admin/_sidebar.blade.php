@@ -14,11 +14,21 @@
                     </div>Admin Users
                 </a>
 
-                <a class="nav-link" href="{{ route('change-password') }}">
+                @if(Auth::user()->role == 0)
+                <a class="nav-link" href="{{ route('change-password', 1) }}">
                     <div class="sb-nav-link-icon">
                         <i class="fa fa-key"></i>
-                    </div>Change Password 
+                    </div>Change Admin Password 
                 </a>
+                @endif
+
+                @if(Auth::user()->role == 0 || Auth::user()->role == 1)
+                <a class="nav-link" href="{{ route('change-password', 2) }}">
+                    <div class="sb-nav-link-icon">
+                        <i class="fa fa-key"></i>
+                    </div>Change Employee Password 
+                </a>
+                @endif
 
                 <a class="nav-link" href="{{ route('slider.index') }}"> 
                     <div class="sb-nav-link-icon">
@@ -32,11 +42,14 @@
                     </div>Gallery
                 </a>
 
+                @if(Auth::user()->role == 0 || Auth::user()->role == 1)
                 <a class="nav-link" href="{{ route('parameter.index') }}">
                     <div class="sb-nav-link-icon">
                         <i class="fas fa-tachometer-alt"></i>
                     </div>Parameters
                 </a>
+                @endif
+
                 <a class="nav-link" href="{{ route('order') }}">
                     <div class="sb-nav-link-icon">
                         <i class="fa fa-shopping-cart"></i>

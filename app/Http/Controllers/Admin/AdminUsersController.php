@@ -36,7 +36,8 @@ class AdminUsersController extends Controller
 
         }
 
-        $users = UsersAdmin::all();
+        $users = UsersAdmin::orderBy('id', 'ASC')->get();
+
         return view('pages.admin.users.adminuser', compact('users'));
 
     }
@@ -200,11 +201,53 @@ class AdminUsersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function changeAdminPassword() {
+    public function changeAdminPassword(Request $request, $role = '') {
 
-        $data = UsersAdmin::where(['role' => 1, 'status' => 1])->get()->toArray();
+        $data = [];
+        if ($role == 1) {
+
+            $data = UsersAdmin::where(['role' => 1, 'status' => 1])->get()->toArray();
+            
+        }elseif ($role == 2) {
+
+            $data = UsersAdmin::where(['role' => 2, 'status' => 1])->get()->toArray();
+        }
 
         return view('pages.admin.users.change_admin_password', compact('data'));
 
     }
+
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function updatePassword(Request $request) {
+
+        $validator = Validator::make($request->all(), [
+            'user_id' => 'required',
+            'password' => 'required:min:6',
+            
+        ]);
+
+        if ($validator->fails()) {
+
+            return redirect()->back()
+            ->withErrors($validator)
+            ->withInput();
+        }
+
+        if ($validator->passes()){
+
+            $users = UsersAdmin::find($request->user_id);
+            $users->password = Hash::make($request->password);
+            $users->save();
+
+        }
+        return redirect('/admin/users');
+
+    }
+
+
 }

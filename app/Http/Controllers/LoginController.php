@@ -17,6 +17,7 @@ class LoginController extends Controller
     ]); 
 
     if($status){
+      
     	return redirect('/');
     } 
 

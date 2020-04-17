@@ -16,18 +16,17 @@
       </ul>
       @endif
       <div class="form-group col-md-6">
-        <form  class="form-group-inline" method="GET" action="" 
+        <form  class="form-group-inline" method="POST" action="{{ route('update-password') }}" 
         enctype="multipart/form-data" >
         @csrf
 
         <div class="form-group">
          <label class="small mb-1" for="name">Select User</label>
-          <select name="parent_id" class="select2 form-control" style="width: 100%; height:36px;">
+          <select name="user_id" class="select2 form-control" required>
 
-            <option value="0">Select</option>
             @if(!empty($data))
             @foreach($data as $key => $item)
-            <option value="{{ $key }}">{{ $item['email'] }}</option>
+            <option value="{{ $item['id'] }}">{{ $item['email'] }}</option>
             @endforeach
             @endif
 
@@ -36,7 +35,7 @@
 
       <div class="form-group">
         <label class="small mb-1" for="name">Password</label>
-        <input class="form-control" type="text" name="password" required>
+        <input class="form-control" type="password" name="password" required>
         <span class="text-danger">{{ $errors->first('password') }}</span>
       </div>
 
