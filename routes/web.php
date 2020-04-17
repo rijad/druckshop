@@ -173,6 +173,7 @@ Route::group(['namespace'=>'Admin', 'prefix' => 'admin'], function()
 
     Route::resource('/returnorder','ReturnOrdersController');
     Route::resource('/latest','LatestController');
+    Route::resource('/stylesheet','StyleSheetController');
 
 
     Route::resource('/FAQ','FAQController');

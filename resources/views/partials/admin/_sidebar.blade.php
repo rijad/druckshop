@@ -92,6 +92,12 @@
                     </div>Binding Sample Image
                 </a>
 
+                <a class="nav-link" href="{{ route('stylesheet.index') }}">
+                    <div class="sb-nav-link-icon">
+                        <i class="fas fa-tachometer-alt"></i>
+                    </div>Style Sheet
+                </a>
+
                 <a class="nav-link" href="{{ route('defectfile') }}">
                     <div class="sb-nav-link-icon">
                         <i class="fas fa-tachometer-alt"></i>
