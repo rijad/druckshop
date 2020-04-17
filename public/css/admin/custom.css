@@ -1,0 +1,23 @@
+/*rv file 17-04-2020*/
+
+/*PAPER WEIGHT CREATE FORM*/
+.form-group.rv-responsivetable {overflow-x: scroll;}
+table#paper_weight_table {border: 1px solid #ececec;min-width: 592px;width: 590px;}
+table#paper_weight_table tr.form-inline {border-bottom: 1px solid #ececec;display: inherit;}
+#paper_weight_table th.rv-headLt, #paper_weight_table th.rv-headRt {    width: 295px;display: inline-block;background-color: #e0e0e0;}
+#paper_weight_table td.rv-headLtchild1 {width: 10%;}
+#paper_weight_table td.rv-headLtchild {width: 250px;}
+#paper_weight_table td.rv-headLtchild input {width: 100%;}
+
+
+/*PAPER WEIGHT EDIT FORM*/
+.form-group.rv-responsivetable {overflow-x: scroll;}
+table#paper_weight_edit_table {border: 1px solid #ececec;min-width: 592px;width: 590px;}
+table#paper_weight_edit_table tr.form-inline {border-bottom: 1px solid #ececec;display: inherit;}
+#paper_weight_edit_table th.rv-headLt, #paper_weight_edit_table th.rv-headRt {    width: 295px;display: inline-block;background-color: #e0e0e0;}
+#paper_weight_edit_table td.rv-headLtchild1 {width: 10%;}
+#paper_weight_edit_table td.rv-headLtchild {width: 250px;}
+#paper_weight_edit_table td.rv-headLtchild input {width: 100%;}
+
+
+

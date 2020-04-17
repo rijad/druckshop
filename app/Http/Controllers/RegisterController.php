@@ -25,7 +25,7 @@ class RegisterController extends Controller
 		$input['password'] = \Hash::make($request['password']);
 
 		if ($validator->passes()){
-			
+
 			$response = returnResponse($input,'200','User Created Successfully');
 			$user = User::create($input);
 
@@ -50,7 +50,7 @@ class RegisterController extends Controller
 
 				} catch (Exception $e) {
 
-                //Avoid error
+                //Avoid error 
 
 				}
 			}

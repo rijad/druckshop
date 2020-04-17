@@ -33,7 +33,7 @@
 
 						<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
 							<a class="dropdown-item" href="{{ route('customer-area') }}" >
-								Customer Area
+								My Account
 							</a>
 							<a class="dropdown-item" href="{{ route('user-logout') }}"
 							onclick="event.preventDefault();
@@ -85,7 +85,7 @@
 
 </div>
 
-<div class="nav-wrapper"> 
+<div class="nav-wrapper" id="rv-myHeader"> 
 	<div class="container"> 
 
 		<nav class="site-nav navbar navbar-expand-md p-0">
@@ -114,3 +114,28 @@
 	</div>
 </div>
 </header>
+
+<style>
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 99;
+}
+</style>
+
+<script>
+window.onscroll = function() {myFunction()};
+
+var header = document.getElementById("rv-myHeader");
+var sticky = header.offsetTop;
+
+function myFunction() {
+  if (window.pageYOffset > sticky) {
+    header.classList.add("sticky");
+  } else {
+    header.classList.remove("sticky");
+  }
+}
+</script>
+

@@ -31,29 +31,40 @@
                     <input class="form-control min_sheets_for_spine" id="min_sheets_for_spine" name="min_sheets_for_spine" value="{{ $data->min_sheets_for_spine }}" type="number" value="0" placeholder="Min number of sheet for spine" required />
                 </div>
 
-                <div class="form-group">
+                <div class="form-group rv-responsivetable">
                     <h2><label class="small mb-1" for="name">Letters for spine</label></h2>
                     <table id="paper_weight_edit_table">
                         <tr>
-                            <th>Sheets</th>
-                            <th></th>
-                            <th>Letters</th>
+                            <th class="rv-headLt">Sheets</th>
+                            <th class="rv-headRt">Letters</th>
                         </tr>
 
                         @if(!empty($attributes))
                         @foreach ($attributes as $key => $value)
                         <tr class="form-inline">
                            <input id="from" type="hidden" name="id[]" value="{{ $value['id'] }}" />
-                           <td><input id="from" type="hidden" name="sheet_start[]" value="{{ $value['sheets_range_start'] }}" />{{ $value['sheets_range_start'] }}</td>
-                           <td><input class="sheet_end_input" id="from" type="hidden" name="sheet_end[]" value="{{ $value['sheets_range_end'] }}" />{{ $value['sheets_range_end'] }}</td>
-                           <td><input class="form-control latters_input" id="latters" type="number" name="latters[]" value="{{ $value['letters'] }}" /></td>
+                           <td class="rv-headLtchild1"><input id="from" type="hidden" name="sheet_start[]" value="{{ $value['sheets_range_start'] }}" />{{ $value['sheets_range_start'] }}</td>
+
+                           <!-- <td class="rv-headLtchild"><input class="sheet_end_input" id="from" type="hidden" name="sheet_end[]" value="{{ $value['sheets_range_end'] }}" />{{ $value['sheets_range_end'] }}</td> -->
+
+                           <td class="rv-headLtchild"><?php  if(!empty($attributes[$key+1]['id'])){  ?>
+
+                                <input id="from" type="hidden" name="sheet_start[]" value="{{ $value['sheets_range_start'] }}" />{{ $value['sheets_range_start'] }}
+                                <?php }else{ ?>
+
+                                <input id="from" type="number" name="sheet_start[]" value="{{ $value['sheets_range_start'] }}" />
+                                <?php } ?>
+                            </td>
+
+
+                           <td class="rv-headRtchild"><input class="form-control latters_input" id="latters" type="number" name="latters[]" value="{{ $value['letters'] }}" /></td>
                        </tr>
                        @endforeach
                        @else
                        <tr class="form-inline">
-                           <td><input id="from" type="hidden" name="sheet_start[]" value="0" />0</td>
-                           <td><input class="sheet_end_input" id="from" type="hidden" name="sheet_end[]" value="65" />65</td>
-                           <td><input class="form-control latters_input" id="latters" type="number" name="latters[]" value="40" /></td>
+                           <td class="rv-headLtchild1"><input id="from" type="hidden" name="sheet_start[]" value="0" />0</td>
+                           <td class="rv-headLtchild"><input class="sheet_end_input" id="from" type="hidden" name="sheet_end[]" value="65" />65</td>
+                           <td class="rv-headRtchild"><input class="form-control latters_input" id="latters" type="number" name="latters[]" value="40" /></td>
                        </tr>
                        @endif
 

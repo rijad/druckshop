@@ -22,10 +22,12 @@
 							<div class="tab" id="tab-fields">
 								<div class="displayBlock">
 									<label>{{ trans('checkout.binding_title') }}*:</label>
-									<p><select class = "" name = "binding" id = "binding" onclick="displayFields(this.value); displayProductAttributes('1',this); resetFields(this.id,this.value); sampleImage();" onchange="displayPrice(this.value,'','','','','','','','','','','','');">
+									<p><select class = "" name = "binding" id = "binding" onclick="displayFields(this.value); displayProductAttributes('1',this); resetFields(this.id,this.value); sampleImage();" onchange="getPrinting(); displayPrice(this.value,'','','','','','','','','','','',''); ">
 										<option value = "-1">Select</option>
 										@foreach ($product_listing as $key=>$listing)
+										@if($listing->id != 8 && $listing->id != 5)
 										<option value="{{$listing->id}}" @if($listing->id == request()->id) selected @endif>{{$listing->title_english}}</option>  
+										@endif
 										@endforeach
 									</select></p><p class="error" id="error_binding"></p>
 								</div>
@@ -46,7 +48,7 @@
 									<p><select class = "" onclick = "displayProductAttributes('5',this);uploadDisplay(this.id,this.value);hideBindingElements('cover-sheet');" id="cover-sheet" name="cover-sheet"><option value="-1">Select</option></select></p>
 									<p class="error" id="error_cover_sheet">
   
-								</div>  
+								</div>   
 
 								<div id="drop_file_zone_cover_sheet" ondrop="upload_file(event,this.id)" ondragover="return false" class="displayNone">
 									<div id="drag_upload_file_cover_sheet">
@@ -86,7 +88,7 @@
 								<div class="tab">
 									<div class="displayBlock">
 										<label>Side Options*:</label>
-										<p><select class = "" id = "page_options" name = "page_options" onclick="displayFieldsContent(this.value);"  onchange="displayPrice('','',this.value,'','','','','','','','','','');" >
+										<p><select class = "" id = "page_options" name = "page_options" onclick="displayFieldsContent(this.value);  displayProductAttributes('7',this);"  onchange="displayPrice('','',this.value,'','','','','','','','','','');" >
 											<option value = "-1">Select</option>
 											@foreach ($page_options as $key=>$listing)
 											<option value="{{$listing->id}}">{{$listing->name_english}}</option>  
@@ -109,7 +111,7 @@
 										<label>No of Pages*:<a href="#" data-toggle="tooltip" title="
 											number of the PDF file and &#013; only number of DIN A4
 											" class="formToolTip">i</a></label>
-										<p><input type = "text" class = "" name="no_of_pages" id="no-of-pages" placeholder="No of Pages"  oninput="displayPrice('',this.value,'','','','','','','','','','','');"></p>
+										<p><input type = "text" class = "" name="no_of_pages" id="no-of-pages" placeholder="No of Pages"  oninput="displayPrice('',this.value,'','','','','','','','','','',''); displayProductAttributes('8',this);"></p>
 										<p class="error" id="error_no_of_pages"></p>
 									</div>
  
@@ -212,9 +214,19 @@
 											</div>
 
 											<div class="tab">
+
+												<div class="displayNone" id="div-embossing">
+													<label>Embossing*:</label>
+													<p><select class = "" id = "embossing" name = "embossing">
+														<option value = "-1">Select</option>
+														<option value = "Edition">Edition</option>
+														<option value = "Classic">Classic</option>
+													</select></p> <p class="error" id=""></p>
+												</div>
+
 												<div class="displayBlock" id="div-embossment-cover-sheet">
-													<label class="csCheckbtn">Embossment Cover Sheet
-														<input name ="embossment-cover-sheet" id ="embossment-cover-sheet" type="checkbox" onclick="displayPrintFields('Embossment_Cover_Sheet'); displayPrice('','','',this.value,'','','','','','','','','');" >
+													<label class="csCheckbtn">Refinemenr Cover Sheet
+														<input class =""name ="embossment-cover-sheet" id ="embossment-cover-sheet" type="checkbox" onclick="displayPrintFields('Embossment_Cover_Sheet'); displayPrice('','','',this.value,'','','','','','','','',''); displayProductAttributes('9',this);" >
 														<span class="checkmark"></span>
 													</label>
 												</div> 
@@ -241,7 +253,7 @@
 												<p class="error" id="error_selectfile_logo"></p>
 
 												<div id="drop_file_zone_logo_info" class="displayNone"><label id="logo_file_name"><a href="#" data-toggle="tooltip" title="Data is taken from cover sheet" class="formToolTip">i</a></label>
-													<label id="logo_page_no"></label><label id="logo_del"></label></div>
+													<label id="logo_page_no"></label></div>
 												
 														
 													<div class="displayNone" id="div-fonts">
@@ -260,15 +272,99 @@
 															<option value="{{$listing->surname}}">{{$listing->date_format}}</option>  
 															@endforeach
 														</select></p> <p class="error" id="error_date_format">
-													</div>
+													</div>   
 
+													<div class="displayNone" id="upload_custom_file" ondrop="upload_file(event,this.id)" ondragover="return false" class="displayBlock">
+													<div id="drag_upload_file_file">
+														<p>Drop file here<a href="#" data-toggle="tooltip" title="The length X within 'spine X cm' is calculated by the thickness of the paper (to be set in the admin area under paper weight) times the number of sheets + 0.5 mm." class="formToolTip">i</a></p> 
+														<p>or</p>
+														<p><input type="button" value="Select File" onclick="file_explorer('upload_custom_file');"></p>
+														<input type="file" name ="selectfile" id="selectfile" accept="application/pdf">
+
+														<input type="hidden" name ="selectfile_file" id="selectfile_file" accept="image/x-png">
+													</div>
+												</div>  
+												<p class="error" id="error_selectfile_file"></p>
+
+												<div id="drop_file_info" class="displayNone"><label id="file_name"></label> <label id="file_page_no"></label> <label> <a href={{url('/').'/public/style_sheet/stylesheet.pdf'}} target="_blank" >Link for sample style sheet</a></label></div>
+ 
 													<div class="displayBlock" id="div-embossment-spine">
-														<label class="csCheckbtn">Embossment Spine<a href="#" data-toggle="tooltip" title="Data is taken from cover sheet" class="formToolTip">i</a>
-															<input class = "" type="checkbox" id = "embossment-spine" name = "embossment-spine" onclick = "displayPrice('','','','',this.value,'','','','','','','','');" disabled>
+														<label class="csCheckbtn">Refinement Spine<a href="#" data-toggle="tooltip" title="Data is taken from cover sheet" class="formToolTip">i</a>
+															<input class = "" type="checkbox" id = "embossment-spine" name = "embossment-spine" onclick = "displayPrice('','','','',this.value,'','','','','','','',''); displayProductAttributes('10',this); displayPrintFields('Embossment_spine'); getPaperWeightCount();" >
 															<span class="checkmark"></span>
 														</label>
-														<p>Minimum sheet number for having spine is 40</p>
+														<p id="spine-count"></p>
+														<input type = "hidden" id="spine-count-hidden" name="spine-count-hidden">
 													</div>
+
+													<div class="displayNone" id="div-direction">
+													<label>Direction:</label>
+													<p><select class = "" id = "direction" name = "direction">
+														<option value = "-1">Select</option>
+														<option value = "Top Down">Top Down</option>
+														<option value = "Bottom Up">Bottom Up</option>
+													</select></p> <p class="error" id="s"></p>
+													</div>
+
+													<div class="displayNone" id="div-section-1">
+													<label>Section 1:</label>
+
+													<label>Field 1:</label>
+													<p><select class = "" id = "fields_1" name = "fields_1" onchange="section2();">
+														<option value = "-1">Select</option>
+														<option value = "Name">Name</option>
+														<option value = "Title">Title</option>
+														<option value = "Date">Date</option>
+														<option value = "Topic">Topic</option>
+													</select></p>
+
+													<input type="text" id ="input_1" name = "input_1" class="displayBlock">
+													
+													<label>Position 1:</label>
+													<p><select class = "" id = "pos_1" name = "pos_1" onchange="section2();">
+														<option value = "-1">Select</option>
+														<option value = "Top">Top</option>
+														<option value = "Middle">Middle</option>
+														<option value = "Bottom">Bottom</option>
+													</select></p> 
+													<p class="error" id=""></p>
+													</div>
+
+													<div class="displayNone" id="div-section-2">
+													<label>Section 2:</label>
+
+													<label>Field 2:</label>
+													<p><select class = "" id = "fields_2" name = "fields_2" onchange="section3();">
+														<option value = "-1">Select</option>
+													</select></p>
+
+													<input type="text" id ="input_2" name = "input_2" class="displayBlock">
+													
+													<label>Position 2:</label>
+													<p><select class = "" id = "pos_2" name = "pos_2" onchange="section3();">
+														<option value = "-1">Select</option>
+													</select></p> 
+													<p class="error" id=""></p>
+													</div>
+
+													<div class="displayNone" id="div-section-3">
+													<label>Section 3:</label>
+
+													<label>Field 3:</label>
+													<p><select class = "" id = "fields_3" name = "fields_3" onchange="section4();">
+														<option value = "-1">Select</option>
+													</select></p>
+
+													<input type="text" id ="input_3" name = "input_3" class="displayBlock">
+													
+													<label>Position 3:</label>
+													<p><select class = "" id = "pos_3" name = "pos_3" onchange="section4();">
+														<option value = "-1">Select</option>
+													</select></p> 
+													
+													</div>
+
+													<div><p class="error" id="error_sections"></p></div>
 
 													<div class="displayNone" id="div-remarks">
 														<label>Remarks</label>
@@ -306,7 +402,7 @@
 
 													<div class="displayNone" id="div-number-of-cds">
 														<label>Number of CDs*:</label>
-														<p><input type = "text" class = "" name="number_of_cds" id="numbers-of-cds" placeholder="Number of CDs" oninput= "displayPrice('','','','','','','','',this.value,'','','','');"></p>
+														<p><input type = "text" class = "" name="number_of_cds" id="numbers-of-cds" placeholder="Number of CDs" oninput= "displayPrice('','','','','','','','',this.value,'','','',''); displayProductAttributes('11',this);"></p>
 														<p class="error" id="error_number_of_cds"></p>
 													</div> 
 
@@ -426,7 +522,7 @@
 														<ul id="prodkt-attrib">	</ul>
 													</div>
 													<div class="prodkt-info">
-														<div id="sampleImage" class="avatar avatar-original center-block"> hhhhhh
+														<div id="sampleImage" class="avatar avatar-original center-block"><!--  hhhhhh -->
 														</div>
 													</div>
 													<div class="servicePrice">

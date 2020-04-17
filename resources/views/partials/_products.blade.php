@@ -1,4 +1,4 @@
-			<div class="container">
+<div class="container">
 
 				@foreach ($product_listing as $key=>$listing)
 
@@ -8,17 +8,23 @@
 
 					<div class="product-item-img col-half text-left">
 						<span class="img-back"><img src="{{ asset($listing->image_path)}}" alt="" /></span>
+						<div class="rv-imagelist">
+							<span class="img-back">
+							 @foreach ($listing->psProductImages as $image)
+							 	<img class = "zoom"src="{{ asset($listing->image_path)}}" alt="" height="50" width="50" />
+							 @endforeach
+							 </span>
+						</div>	 
 					</div>
-					<div class="product-item-img col-half text-left">
+					<!-- <div class="product-item-img col-half text-left">
 						<span class="img-back">
 							@foreach ($listing->psProductImages as $image)
-							<img src="{{ asset($listing->image_path)}}" alt="" height="50" width="50" /></span>
+							<img class = "zoom"src="{{ asset($listing->image_path)}}" alt="" height="50" width="50" /></span>
 							@endforeach
-						</div>
+						</div> -->
 
 						<div class="product-item col-half">
 							<?php $locale = session()->get('locale'); 
-
 							if ($locale == 'gr') { ?>
 
 							<h2>{{$listing->title_german}}</h2>	
@@ -42,13 +48,20 @@
 
 						<div class="product-item-img col-half text-right pull-right">
 							<span class="img-back"><img src="{{ asset($listing->image_path)}}" alt="" /></span>
+							<div class="rv-imagelist">
+							<span class="img-back">
+							 @foreach ($listing->psProductImages as $image)
+							 	<img class="zoom" class = "zoom"src="{{ asset($listing->image_path)}}" alt="" height="50" width="50" />
+							 @endforeach
+							 </span>
+						</div>	 
 						</div>
-						<div class="product-item-img col-half text-left">
+						<!-- <div class="product-item-img col-half text-left">
 							<span class="img-back">
 								@foreach ($listing->psProductImages as $image)
-								<img src="{{ asset($listing->image_path)}}" alt="" height="50" width="50" /></span>
+								<img class = "zoom"src="{{ asset($listing->image_path)}}" alt="" height="50" width="50" /></span>
 								@endforeach
-							</div>
+							</div> -->
 
 							<div class="product-item col-half">
 								
@@ -76,3 +89,14 @@
 						@endforeach
 
 					</div>		 
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+    $('.zoom').hover(function() {
+        $(this).addClass('transition');
+    }, function() {
+        $(this).removeClass('transition');
+    });
+});
+</script>
