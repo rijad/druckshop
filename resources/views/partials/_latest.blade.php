@@ -4,16 +4,16 @@
 
 	@foreach ($latest as $key => $value)
 
-	<div class="latestpage-rv">
+	<div class="latestpage-rv" >
 
-		<div class="latest-header post-one" id="heading{{$key}}">
+		<div class="latest-header post-one" id="heading_{{@$key}}">
 			
 			<?php $locale = session()->get('locale'); 
 			if ($locale == 'gr') { ?>
 
 			<h2 class="mb-0">{{ $value->title_german  }}</h2>
 			<p class="latest-date">31 March, 2020</p>
-			<div class="latestpost-item-img text-left">
+			<div class="latestpost-item-img text-left" >
 				<span class="img-back">
 
 					<img src="{{ asset($value->image)}}" alt="Latest image" />
