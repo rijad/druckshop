@@ -362,7 +362,7 @@
 														<option value = "-1">Select</option>
 													</select></p> 
 													
-													</div>
+													</div> 
 
 													<div><p class="error" id="error_sections"></p></div>
 

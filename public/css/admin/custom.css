@@ -21,3 +21,16 @@ table#paper_weight_edit_table tr.form-inline {border-bottom: 1px solid #ececec;d
 
 
 
+
+/*DELIVERY CREATE FORM*/
+.form-group.rv-responsivetable {overflow-x: scroll;}
+table#dilivery_services_table {border: 1px solid #ececec;min-width: 510px;}
+table#dilivery_services_table tr.form-inline { border-bottom: 1px solid #ececec; width: 100%; display: table; }
+#dilivery_services_table th.rv-headLt, #dilivery_services_table th.rv-headRt { width: 254px; display: inline-block; background-color: #e0e0e0; }
+#dilivery_services_table td.rv-headLtchild1 { width: 110px; }
+#dilivery_services_table td.rv-headLtchild {width: 250px;}
+#dilivery_services_table td.rv-headLtchild input {width: 100%;}
+#dilivery_services_table td.rv-headLtchild {width: 140px;}
+
+
+

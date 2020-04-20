@@ -1416,3 +1416,97 @@ function getPaperWeightCount(){
 		}
 	}	
 }
+
+
+function addAddress(address_type = ""){
+
+	var first_name, last_name, company_name, street, city, zip_code, house_no, addition, state; 
+
+	if(address_type == "billing"){
+
+		first_name = document.getElementById('billing_first_name').value;
+		if(first_name == ""){
+			document.getElementById('error_billing_first_name').innerHTML = "First Name is compulsory Field.";
+		}
+		last_name = document.getElementById('billing_last_name').value;
+		if(last_name == ""){
+			document.getElementById('error_billing_last_name').innerHTML = "Last Name is compulsory Field.";
+		}
+		company_name = document.getElementById('billing_company_name').value;
+		
+		street = document.getElementById('billing_street').value;
+		if(street == ""){
+			document.getElementById('error_billing_street').innerHTML = "Street is compulsory Field.";
+		}
+		city = document.getElementById('billing_city').value;
+		if(city == ""){
+			document.getElementById('error_billing_city').innerHTML = "Street is compulsory Field.";
+		}
+		zip_code = document.getElementById('billing_zip_code').value;
+		if(zip_code == ""){
+			document.getElementById('error_billing_zip_code').innerHTML = "Zip Code is compulsory Field.";
+		}
+		house_no = document.getElementById('billing_house_no').value;
+		if(house_no == ""){
+			document.getElementById('error_billing_house_no').innerHTML = "House No is compulsory Field.";
+		}
+		addition = document.getElementById('billing_addition').value;
+
+		state = document.getElementById('billing_state').value;
+		if(state == ""){
+			document.getElementById('error_billing_state').innerHTML = "State is compulsory Field.";
+		}
+
+	}else{
+
+		first_name = document.getElementById('shipping_first_name').value;
+		if(first_name == ""){
+			document.getElementById('error_shipping_first_name').innerHTML = "First Name is compulsory Field.";
+		}
+		last_name = document.getElementById('shipping_last_name').value;
+		if(last_name == ""){
+			document.getElementById('error_shipping_last_name').innerHTML = "Last Name is compulsory Field.";
+		}
+		company_name = document.getElementById('shipping_company_name').value;
+		street = document.getElementById('shipping_street').value;
+		if(street == ""){
+			document.getElementById('error_shipping_street').innerHTML = "Street is compulsory Field.";
+		}
+		city = document.getElementById('shipping_city').value;
+		if(city == ""){
+			document.getElementById('error_shipping_city').innerHTML = "Street is compulsory Field.";
+		}
+		zip_code = document.getElementById('shipping_zip_code').value;
+		if(zip_code == ""){
+			document.getElementById('error_shipping_zip_code').innerHTML = "Zip Code is compulsory Field.";
+		}
+		house_no = document.getElementById('shipping_house_no').value;
+		if(house_no == ""){
+			document.getElementById('error_shipping_house_no').innerHTML = "House No is compulsory Field.";
+		}
+		addition = document.getElementById('shipping_addition').value;
+		state = document.getElementById('shipping_state').value;
+		if(state == ""){
+			document.getElementById('error_shipping_state').innerHTML = "State is compulsory Field.";
+		}
+
+	}
+
+
+	$.ajax({
+			url: '/druckshop/add-address', 
+			type: 'POST', 
+			data: {'address_type':address_type, 'first_name':first_name, 'last_name':last_name, 'company_name':company_name, 'street':street, 'city':city, 'zip_code':zip_code, 'house_no':house_no, 'addition':addition, 'state':state},
+			success: function (response){  
+				if(address_type == "billing"){
+					$('#rv-Modal-billing').css('display','none'); 
+				}else{
+					$('#rv-Modal-shipping').css('display','none');
+				}
+
+			}
+		});
+
+
+
+}
