@@ -731,17 +731,41 @@ public function cart(){
 	 $user_id = Auth::user()->id;
 	}else{$user_id = Session::get('user_id');}
 
-	$product_data = OrderAttributes::where(['status'=>'1','user_id'=>$user_id])->get();
-	$billing_address = CustomerArea::where(['status'=>'1','user_id'=>$user_id])->get('billing_address');
-	$shipping_address = CustomerArea::where(['status'=>'1','user_id'=>$user_id])->get('shipping_address');
-	$shipping_company = DeliveryService::all();
-	return view('/pages/front-end/cart',compact('product_data','shipping_company','billing_address','shipping_address'));
+	try{
+		$product_data = OrderAttributes::where(['status'=>'1','user_id'=>$user_id])->get();  
+	}catch(Exception $e){
+		$product_data = "";
+	}
+
+
+	try{
+		$billing_address_data = UserAddress::where(['address_type'=>'billing','user_id'=>$user_id])->get();
+	}catch(Exception $e){
+		$billing_address_data = "";
+	}
+
+	try{
+		$shipping_address_data = UserAddress::where(['address_type'=>'shipping','user_id'=>$user_id])->get();
+	}catch(Exception $e){
+		$shipping_address_data ="";
+	}	
+	
+	try{
+		$shipping_company = DeliveryService::all();
+	}catch(Exception $e){
+		$shipping_company ="";
+	}
+	
+	
+return view('/pages/front-end/cart',compact('product_data','shipping_company','billing_address_data','shipping_address_data'));
 
 }
 
 public function orderDetails(Request $request){
 
 	$total = 0;
+
+	//$total_cart = self::CartCount();  
  
 	if (Auth::check()) 
     {
@@ -757,6 +781,23 @@ public function orderDetails(Request $request){
  
 	}  
 
+
+	$validator = Validator::make($request->all(), [ 
+			'no_of_copies.*'=> 'required',
+			'no_of_cds.*' => 'nullable',
+			'shipping_company.*' => 'required|not_in:-1',
+			'shipping_address.*' => 'required|not_in:-1',             
+			'billing_address.*' => 'required|not_in:-1',
+			'email_id' => 'required|email',
+			'code' => 'nullable|exists:ps_discount',
+	], [
+    'no_of_copies.*.required' => 'No of Copies are required',
+    'shipping_company.*.not_in' => 'Shipping Company is required',
+    'shipping_address.*.not_in' => 'Shipping Address is required',
+    'billing_address.*.not_in' => 'Billing Address is required',
+]); 
+
+
 	// Check if Guest already exists (using email id)
 	// get already existing or new user_id
 	if($user_id == Session::get('user_id')){
@@ -768,23 +809,25 @@ public function orderDetails(Request $request){
 
 	}
 
-	$validator = Validator::make($request->all(), [ 
-			'no_of_copies' => 'required',
-			'no_of_cds' => 'required',
-			'email_id' => 'required|email',
-			'shipping_company' => 'required|not_in:-1',
-			'shipping_address' => 'required',                
-			'billing_address' => 'required',
-			'code' => 'nullable|exists:ps_discount',  
-		]); 
+    if ($validator->passes()){   
 
-		$input = $request->all();   
+			//dd($request->input());  
 
-		//dd($input);
+			foreach($product_data as $key=>$product_detail){
 
-		if ($validator->passes()){ 
+			$update_data = $product_detail;
+			$update_data->item_sequence = $key+1;
+			$update_data->no_of_copies = $request->no_of_copies[$key];
+			$update_data->no_of_cds = $request->no_of_cds[$key];
+			$update_data->shipping_company = $request->shipping_company[$key];
+			$update_data->shipping_address = $request->shipping_address[$key];
+			$update_data->billing_address = $request->billing_address[$key];
+			$update_data->save();
 
-		// handling promo code
+			}
+
+
+			// // handling promo code
 		  if($request->input('code') != "null" && ! empty($request->input('code'))){
 
 		  	$discount = Discount::where(['code' => $request->input('code')])->first(['by_price','by_percent']);
@@ -799,41 +842,31 @@ public function orderDetails(Request $request){
 		  	$discount_amt = 0.0;
 		  	$net_amt = $total - $discount_amt;
 		  }
-			
-			//dd($discount_amt);
-			$input['user_id'] = $user_id;
-			$input['order_id'] = $user_id.'_'.time();
-			$input['total'] = $total;
-			$input['promo_code'] = $request->input('code');
+
 
 			Session::put('order_id', $user_id.'_'.time());
+
+
+			$OrderDetailsvalue = new OrderDetails;
+			$OrderDetailsvalue->user_id = $user_id;
+			$OrderDetailsvalue->order_id= $user_id.'_'.time();
+			$OrderDetailsvalue->promo_code= $request->input('code');
+			$OrderDetailsvalue->email_id= $request->input('email_id');
+			$OrderDetailsvalue->total= $total;
+			$OrderDetailsvalue->save();
 			
-			$OrderDetailsvalue= OrderDetails::create($input);
+			//$OrderDetailsvalue= OrderDetails::create($input);
 			$product_data = OrderAttributes::where('user_id', $user_id)->get();
 
 			return view('/pages/front-end/order',compact('product_data','discount_amt','total','net_amt'));
-		}else{//dd($validator->errors());
+
+
+	}else{//dd($validator->errors('shipping_address.0'));
 			return back()->with('errors', $validator->errors());
-		}
+	}
 
 
-		// $OrderDetailsvalue = new OrderDetails;
-		// $OrderDetailsvalue->user_id = $user_id;
-		// $OrderDetailsvalue->order_id= $user_id.'_'.time();
-		// $OrderDetailsvalue->no_of_copies= $request->no_of_copies;
-		// $OrderDetailsvalue->no_of_cds= $request->no_of_cds;
-		// $OrderDetailsvalue->shipping_company= $request->no_of_cds;
-		// $OrderDetailsvalue->promo_code= $request->promo_code;
-		// $OrderDetailsvalue->shipping_address= $request->shipping_address;
-		// $OrderDetailsvalue->billing_address= $request->billing_address;
-		// $OrderDetailsvalue->total= $total;
-		// $OrderDetailsvalue->save();
-
-
-	// 	$product_data = OrderAttributes::where('user_id', $user_id)->get();
-	// return view('/pages/front-end/order',compact('product_data'));
-
-}   //trantor@123
+}   
  
 
 public function setQuantity(Request $request){
@@ -848,7 +881,7 @@ public function setQuantity(Request $request){
 	 //print_r($user_id);
 	 }else{$user_id = 0;}
 	 $data = OrderAttributes::where('user_id', $user_id)->take($request->input('count'))->get();
-	 //print_r($data);
+	 
 
 
 	 $i = 0;
@@ -940,12 +973,12 @@ public function paymentPaypalSuccess(Request $request){
 	$OrderDetailsFinal = new OrderDetailsFinal;
 		$OrderDetailsFinal->user_id = $user_id;
 		$OrderDetailsFinal->order_id= $OrderDetails->order_id;
-		$OrderDetailsFinal->no_of_copies= $OrderDetails->no_of_copies;
-		$OrderDetailsFinal->no_of_cds= $OrderDetails->no_of_cds;
-		$OrderDetailsFinal->shipping_company= $OrderDetails->shipping_company;
+		//$OrderDetailsFinal->no_of_copies= $OrderDetails->no_of_copies;
+		//$OrderDetailsFinal->no_of_cds= $OrderDetails->no_of_cds;
+		//$OrderDetailsFinal->shipping_company= $OrderDetails->shipping_company;
 		$OrderDetailsFinal->promo_code= $OrderDetails->promo_code;
-		$OrderDetailsFinal->shipping_address= $OrderDetails->shipping_address;
-		$OrderDetailsFinal->billing_address= $OrderDetails->billing_address;
+		//$OrderDetailsFinal->shipping_address= $OrderDetails->shipping_address;
+		//$OrderDetailsFinal->billing_address= $OrderDetails->billing_address;
 		$OrderDetailsFinal->total= $OrderDetails->total;
 		$OrderDetailsFinal->status= $_GET['st'];
 		$OrderDetailsFinal->txn= $_GET['tx'];
@@ -961,7 +994,13 @@ public function paymentPaypalSuccess(Request $request){
 	foreach($OrderAttributes as $order){
 		$OrderHistory = new OrderHistory;
 		$OrderHistory->user_id = $order->user_id;
+		$OrderHistory->item_sequence = $order->item_sequence;
 		$OrderHistory->product= $order->product;
+		$OrderHistory->no_of_copies = $order->no_of_copies;
+		$OrderHistory->no_of_cds = $order->no_of_cds;
+		$OrderHistory->shipping_company = $order->shipping_company;
+		$OrderHistory->shipping_address = $order->shipping_address;
+		$OrderHistory->billing_address = $order->billing_address;
 		$OrderHistory->attribute = $order->attribute;
 		$OrderHistory->order_history_id= $OrderDetailsFinal->id;
 		$OrderHistory->product_id =$order->product_id;
@@ -1028,12 +1067,12 @@ public function cashOnDelivery(Request $request){
 	$OrderDetailsFinal = new OrderDetailsFinal;
 		$OrderDetailsFinal->user_id = $user_id;
 		$OrderDetailsFinal->order_id= $OrderDetails->order_id;
-		$OrderDetailsFinal->no_of_copies= $OrderDetails->no_of_copies;
-		$OrderDetailsFinal->no_of_cds= $OrderDetails->no_of_cds;
-		$OrderDetailsFinal->shipping_company= $OrderDetails->shipping_company;
+		//$OrderDetailsFinal->no_of_copies= $OrderDetails->no_of_copies;
+		//$OrderDetailsFinal->no_of_cds= $OrderDetails->no_of_cds;
+		//$OrderDetailsFinal->shipping_company= $OrderDetails->shipping_company;
 		$OrderDetailsFinal->promo_code= $OrderDetails->promo_code;
-		$OrderDetailsFinal->shipping_address= $OrderDetails->shipping_address;
-		$OrderDetailsFinal->billing_address= $OrderDetails->billing_address;
+		//$OrderDetailsFinal->shipping_address= $OrderDetails->shipping_address;
+		//$OrderDetailsFinal->billing_address= $OrderDetails->billing_address;
 		$OrderDetailsFinal->total= $OrderDetails->total;
 		$OrderDetailsFinal->status= "Pending";
 		$OrderDetailsFinal->txn= $txn;
@@ -1050,7 +1089,13 @@ public function cashOnDelivery(Request $request){
 	foreach($OrderAttributes as $order){
 		$OrderHistory = new OrderHistory;
 		$OrderHistory->user_id = $order->user_id;
+		$OrderHistory->item_sequence = $order->item_sequence;
 		$OrderHistory->product= $order->product;
+		$OrderHistory->no_of_copies = $order->no_of_copies;
+		$OrderHistory->no_of_cds = $order->no_of_cds;
+		$OrderHistory->shipping_company = $order->shipping_company;
+		$OrderHistory->shipping_address = $order->shipping_address;
+		$OrderHistory->billing_address = $order->billing_address;
 		$OrderHistory->attribute = $order->attribute;
 		$OrderHistory->order_history_id= $OrderDetailsFinal->id;
 		$OrderHistory->product_id =$order->product_id;
@@ -1098,6 +1143,13 @@ public function setGuestUserid($user_id = ""){
 	$update_guest_id = OrderAttributes::where('user_id',Session::get('user_id'))->first();
 	$update_guest_id->user_id = $user_id;
 	$update_guest_id->save();
+
+
+	$update_guest_id_address = UserAddress::where('user_id',Session::get('user_id'))->first();
+	$update_guest_id_address->user_id = $user_id;
+	$update_guest_id_address->save();
+
+
 
 }
 
@@ -1237,19 +1289,6 @@ public function addAddress(Request $request){
 		$user_id = Session::get('user_id');
 	}
 
-
-	// Check if Guest already exists (using email id)
-	// get already existing or new user_id
-	if($user_id == Session::get('user_id')){
-
-		$user_id = self::checkGuest($request->input('email_id'));
-		// set new user id for Guest in tables
-		self::setGuestUserid($user_id);
-		//dd($user_id);
-
-	}
-
-//print_r($request->input());
 	$validator = Validator::make($request->all(), [ 
 			'first_name' => 'required',
 			'last_name' => 'required',
@@ -1263,16 +1302,16 @@ public function addAddress(Request $request){
 			'address_type' => 'required',
 		]); 
 
-		$input = $request->all();  print_r($input);
+		$input = $request->all(); 
 
-		if ($validator->passes()){   echo "passes";
+		if ($validator->passes()){   
 
 			$input['user_id'] = $user_id;
 
 			$UserAddress= UserAddress::create($input);
 
 		}else{
-			echo "fail";
+			
 		}
 
 }

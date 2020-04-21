@@ -2,6 +2,8 @@
 <div class="mycart cart-rv">
         <div class="container">
             <div class="Product_qeue">
+                <form method = "POST" action="{{route('orders-details')}}">
+                              @csrf
                 <div class="w-100">
                     <div class="w-65">
                         <div class="left_productdetail">   
@@ -11,7 +13,7 @@
  
                             <div class="product">
  
-
+                              @if(isset($product_data))
                               @foreach ($product_data as $key=>$data)
  
                                 <div class="product_listing">
@@ -22,52 +24,60 @@
                                     </div>
                                     <ul class="product_price" id="product_price">
                                         <li class="inputcard_quantity"><h6><strong>€ <span id="price_per_product_{{$data->id}}" class = "price_per_product">{{$data->price_per_product}}</span><span class="text-muted">x</span></strong></h6>
-                                            <input id ="qty_{{$data->id}}" name = "qty_{{$data->id}}" type="text" class="form-control input-sm" placeholder="" onchange ="setQuantity({{count($product_data)}});" value = "1"><div><span id="qty_msg"></span></div>
-                                        </li>
+                                            <input id ="qty_{{$data->id}}" name = "qty_{{$data->id}}" type="text" class="form-control input-sm" placeholder="" onchange ="setQuantity({{count($product_data)}});" value = "{{$data->quantity}}"><div><span id="qty_msg"></span></div>
+                                        </li> 
                                         <li>
-                                        <button class="remove_btn" onclick = "decrementQuantity('qty_{{$data->id}}',{{count($product_data)}})">-</button>
-                                        <button class="remove_btn" onclick = "incrementQuantity('qty_{{$data->id}}',{{count($product_data)}})">+</button>
+                                        <button class="remove_btn" type="button" onclick = "decrementQuantity('qty_{{$data->id}}',{{count($product_data)}})">-</button>
+                                        <button class="remove_btn" type="button" onclick = "incrementQuantity('qty_{{$data->id}}',{{count($product_data)}})">+</button>
                                         
-                                        <button onclick="window.location='{{route('remove-item',['id'=>$data->id]) }}'" class="remove_btn" > Remove </button> 
+                                        <button type="button" onclick="window.location='{{route('remove-item',['id'=>$data->id]) }}'" class="remove_btn" > Remove </button> 
                                     </li>
                                     </ul>
                                     <div class="rv-formCart">
                                       <div class="rv-casualBioFields">
                                         <div class="form-group">
                                       <label for="text">No of Copies*:</label>
-                                      <input type="text" name={{"no_of_copies_".$key}} id="no_of_copies" class="form-control" placeholder="enter here" >
-                                      @if($errors->has('no_of_copies'))
-                                      <div class="error">{{ $errors->first('no_of_copies') }}</div>
+                                      <input type="text" name={{"no_of_copies[".$key."]"}} id="no_of_copies" class="form-control" placeholder="enter here" value=<?php $array = json_decode($data->attribute);  echo $array->no_of_copies;  ?> >
+                                      @if($errors->has('no_of_copies.'.$key))
+                                      <div class="error">{{ $errors->first('no_of_copies.'.$key) }}</div>
                                       @endif 
                                     </div>
                                     <div class="form-group">
-                                      <label for="pwd">No of CDS*:</label>
-                                      <input type="text" name={{"no_of_cds_".$key}} id="no_of_cds" class="form-control" placeholder="enter here">
-                                       @if($errors->has('no_of_cds'))
-                                      <div class="error">{{ $errors->first('no_of_cds') }}</div>
+                                      <label for="pwd">No of CDS:</label>
+                                      <input type="text" name={{"no_of_cds[".$key."]"}} id="no_of_cds" class="form-control" placeholder="enter here" value=<?php $array = json_decode($data->attribute);  echo $array->number_of_cds;  ?>>
+                                       @if($errors->has('no_of_cds.'.$key))
+                                      <div class="error">{{ $errors->first('no_of_cds.'.$key) }}</div>
                                       @endif
                                     </div>
                                      <div class="form-group">
-                                      <label for="pwd">Shipping Address:</label>
-                                      <select class="form-control" name={{"shipping_address_".$key}} id="address_data" > <option value ="-1">Select</option>
-                                      @foreach($shipping_company as $value)<option value = "{{$value->delivery_service}}">{{$value->delivery_service}}</option> @endforeach
+                                      <label for="pwd">Shipping Address*:</label>
+                                      <select class="form-control" name={{"shipping_address[".$key."]"}} id="address_data" > <option value ="-1">Select</option>
+                                      @foreach($shipping_address_data as $keysss=>$shipping_address)<option value = "{{$shipping_address->first_name." ".$shipping_address->last_name.", Company Name: ".$shipping_address->company_name.", House No: ".$shipping_address->house_no.", City: ".$shipping_address->city.", State: ".$shipping_address->state.", Zip Code: ".$shipping_address->zip_code}}">{{$shipping_address->first_name." ".$shipping_address->last_name.", Company Name: ".$shipping_address->company_name.", House No: ".$shipping_address->house_no.", City: ".$shipping_address->city.", State: ".$shipping_address->state.", Zip Code: ".$shipping_address->zip_code}}</option> 
+                                      @endforeach
                                       </select>
+                                       @if($errors->has('shipping_address.'.$key))
+                                            <div class="error">{{ $errors->first('shipping_address.'.$key) }}</div>
+                                            @endif
                                     </div>
 
                                      <div class="form-group">
-                                      <label for="pwd">Billing Address:</label>
-                                      <select class="form-control" name={{"billing_address_".$key}} id="address_data" > <option value ="-1">Select</option>
-                                      @foreach($shipping_company as $value)<option value = "{{$value->delivery_service}}">{{$value->delivery_service}}</option> @endforeach
+                                      <label for="pwd">Billing Address*:</label>
+                                      <select class="form-control" name={{"billing_address[".$key."]"}} id="address_data" > <option value ="-1">Select</option>
+                                      @foreach($billing_address_data as $keyss=>$billing_address)<option value = "{{$billing_address->first_name." ".$billing_address->last_name.", Company Name: ".$billing_address->company_name.", House No: ".$billing_address->house_no.", City: ".$billing_address->city.", State: ".$billing_address->state.", Zip Code: ".$billing_address->zip_code}}">{{$billing_address->first_name." ".$billing_address->last_name.", Company Name: ".$billing_address->company_name.", House No: ".$billing_address->house_no.", City: ".$billing_address->city.", State: ".$billing_address->state.", Zip Code: ".$billing_address->zip_code}}</option> 
+                                      @endforeach
                                       </select>
+                                       @if($errors->has('billing_address.'.$key))
+                                            <div class="error">{{ $errors->first('billing_address.'.$key) }}</div>
+                                            @endif
                                     </div>
 
                                     <div class="form-group">
                                       <label for="email">Shipping Company*:</label>
-                                      <select class="form-control" name={{"shipping_company_".$key}} id="shipping_company" > <option value ="-1">Select</option>
+                                      <select class="form-control" name={{"shipping_company[".$key."]"}} id="shipping_company" > <option value ="-1">Select</option>
                                       @foreach($shipping_company as $value)<option value = "{{$value->delivery_service}}">{{$value->delivery_service}}</option> @endforeach
                                       </select>
-                                      @if($errors->has('shipping_company'))
-                                      <div class="error">{{ $errors->first('shipping_company') }}</div>
+                                      @if($errors->has('shipping_company.'.$key))
+                                      <div class="error">{{ $errors->first('shipping_company.'.$key) }}</div>
                                       @endif
                                     </div>
                                       </div>
@@ -81,18 +91,16 @@
                                               <span><i class="fa fa-edit"></i></span>
                                               <span><i class="fa fa-close"></i></span> -->
                                             </p>
-                                            <textarea name="shipping_address" id="shipping_address" class="form-control" data-toggle="modal" data-target="#rv-Modal-shipping"></textarea>
-                                             @if($errors->has('shipping_address'))
-                                            <div class="error">{{ $errors->first('shipping_address') }}</div>
-                                            @endif
+                                            <textarea name="shipping_address_click" id="shipping_address" class="form-control" data-toggle="modal" data-target="#rv-Modal-shipping"></textarea>
+                                            
                                           </div>
                                            <div class="form-group">
                                             <label for="email">Billing Address*:</label>
-                                            <p class="filled-billingAdress">1315 north avenue downtown cluster field sourceClint: 
+                                            <p class="filled-billingAdress">{{-- 1315 north avenue downtown cluster field sourceClint: 
                                               <span><i class="fa fa-edit"></i></span>
-                                              <span><i class="fa fa-close"></i></span>
+                                              <span><i class="fa fa-close"></i></span> --}}
                                             </p>
-                                            <textarea name="billing_address" id="billing_address" class="form-control" data-toggle="modal" data-target="#rv-Modal-billing"></textarea>
+                                            <textarea name="billing_address_click" id="billing_address" class="form-control" data-toggle="modal" data-target="#rv-Modal-billing"></textarea>
                                              @if($errors->has('billing_address'))
                                             <div class="error">{{ $errors->first('billing_address') }}</div>
                                             @endif
@@ -104,6 +112,8 @@
                                 </div>
                                 <hr>
                                 @endforeach  
+                                @endif
+
                             </div>
                         </div>
                     </div>
@@ -130,13 +140,23 @@
                             <div class="error">{{ $errors->first('code') }}</div>
                             @endif
                           </div> 
+
+                          <div class="form-group">
+                            <label for="email">Enter your E-mail here:</label>
+                             <input type="text" name="email_id" id="email_id" class="form-control" placeholder="enter here">
+                              @if($errors->has('email_id'))
+                              <div class="error">{{ $errors->first('email_id') }}</div>
+                              @endif
+                          </div>
+
                           <div class="text-right">
                               <button type= "submit" class="continue_btn">Proceed to Checkout</button>
                           </div>
                         </div>
                     </div>
-                    
+                 
                 </div> 
+              </form>
             </div>   
             <!-- <div class="cart-form-shop w-100">
                 <p>Please Fill in Details</p>
