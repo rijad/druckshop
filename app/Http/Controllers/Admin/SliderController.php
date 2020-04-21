@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller; 
 use Illuminate\Support\Facades\Validator;
 use App\Slider;
+use App\Latest;
 
 class SliderController extends Controller
 {
@@ -39,7 +40,9 @@ class SliderController extends Controller
     public function create()
     {
         //$data['slider'] = Slider::where('is_active', '1')->get();
-        return view('pages.admin.slider.create');
+        $latest = Latest::where(['status' => 1])->get()->toArray();
+
+        return view('pages.admin.slider.create', compact('latest'));
     }
 
     /**
@@ -49,7 +52,8 @@ class SliderController extends Controller
      * @return \Illuminate\Http\Response
      */ 
     public function store(Request $request)
-    {  //dd($request->file('image_path')->getClientOriginalName());
+    {  
+
 
         $validator = Validator::make($request->all(), [
             'image_path' => 'required|image:jpeg,png,jpg,gif',
@@ -63,34 +67,42 @@ class SliderController extends Controller
             'is_active' => 'nullable',
             'is_slide' => 'nullable',
         ]);
+
         if ($validator->fails()) {
+
             return redirect()->back()
-                        ->withErrors($validator)
-                        ->withInput();
+            ->withErrors($validator)
+            ->withInput();
         } 
 
         if ($validator->passes()){
-              // upload file
-              $file = $request->file('image_path'); 
-              //Move Uploaded File
-              $destinationPath = public_path().'/images';
-              $file->move($destinationPath,$file->getClientOriginalName());
+
+            // upload file
+            $file = $request->file('image_path'); 
+            //Move Uploaded File
+            $destinationPath = public_path().'/images';
+            $file->move($destinationPath,$file->getClientOriginalName());
 
 
             $input = $request->all();
             $input['image_path'] = "public/images/".$file->getClientOriginalName();
-           // dd($input);
+
             if($request->input('is_active') == "on"){
+
                 $input['is_active'] = 1;
             }else{
+
                 $input['is_active'] = 0;
             }
 
             if($request->input('is_slide') == "on"){
+
                 $input['is_slide'] = 1;
             }else{
+
                 $input['is_slide'] = 0;
             }
+
             $slider = Slider::create($input);
         }
 
@@ -117,9 +129,11 @@ class SliderController extends Controller
      */
     public function edit($id)
     {
-        
+
         $slider = Slider::find($id);
-        return view('pages.admin.slider.edit', compact('slider'));
+
+        $latest = Latest::get()->toArray();
+        return view('pages.admin.slider.edit', compact('slider', 'latest'));
     }
 
     /**
@@ -131,11 +145,10 @@ class SliderController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //dd($request->input());
-        
+
 
         $validator = Validator::make($request->all(), [
-            'image_path' => 'required|image:jpeg,png,jpg,gif',
+            // 'image_path' => 'required|image:jpeg,png,jpg,gif',
             'title_english' => 'required',
             'title_german' => 'required',
             'title_color' => 'required',
@@ -146,48 +159,63 @@ class SliderController extends Controller
             'is_active' => 'nullable',
             'is_slide' => 'nullable',
         ]);
+
         if ($validator->fails()) {
+
             return redirect()->back()
-                        ->withErrors($validator)
-                        ->withInput();
+            ->withErrors($validator)
+            ->withInput();
         }
 
+        $input = $request->all();
+        $slider = Slider::find($id);
         if ($validator->passes()){
-              // upload file
-              $file = $request->file('image_path'); 
-              //Move Uploaded File
-              $destinationPath = public_path().'/images';
-              $file->move($destinationPath,$file->getClientOriginalName());
+            // upload file
 
-            $input = $request->all();
-            $input['image_path'] = "public/images/".$file->getClientOriginalName();
-           // dd($input);
+            
+            if ($request->file('image_path')) {
+
+                $file = $request->file('image_path'); 
+                //Move Uploaded File
+                $destinationPath = public_path().'/images';
+                $file->move($destinationPath,$file->getClientOriginalName());
+
+                $input['image_path'] = "public/images/".$file->getClientOriginalName();
+
+                $slider->image_path = @$input['image_path'];
+            }
+
+
+
             if($request->input('is_active') == "on"){
+
                 $input['is_active'] = 1;
             }else{
+
                 $input['is_active'] = 0;
             }
 
             if($request->input('is_slide') == "on"){
+
                 $input['is_slide'] = 1;
             }else{
+
                 $input['is_slide'] = 0;
             }
- 
-            $slider = Slider::find($id);
+
             $slider->title_english = $input['title_english'];
             $slider->title_german = $input['title_german'];
             $slider->title_color = $input['title_color'];
             $slider->title_size = $input['title_size'];
             $slider->content_english = $input['content_english'];
             $slider->content_german = $input['content_german'];
+            $slider->redirect_url = $input['redirect_url'];
             $slider->is_active = $input['is_active'];
             $slider->is_slide = $input['is_slide'];
-            $slider->image_path = $input['image_path'];
             $slider->save();
         }
-                
-        return redirect()->back()->with('status' , 'Updated');
+
+        return redirect('admin/slider');
 
     }
 
