@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator; 
+use Illuminate\Support\Facades\Validator;  
 use App\BackCovers;
 use App\CdBag;
 use App\CoverColor;
@@ -34,6 +34,8 @@ use App\PrintoutPaperSurcharge;
 use App\DataCheckPrice;
 use App\CdCoverPrice;
 use App\ProductPrintFinishing;
+use App\CustomerArea;
+use App\UserAddress;
 use App\User;
 use \Exception;
 use Auth;
@@ -723,15 +725,17 @@ class CheckoutController extends Controller
 }
 
 public function cart(){  
-
+ 
 	if (Auth::check()) 
     {
 	 $user_id = Auth::user()->id;
 	}else{$user_id = Session::get('user_id');}
 
 	$product_data = OrderAttributes::where(['status'=>'1','user_id'=>$user_id])->get();
+	$billing_address = CustomerArea::where(['status'=>'1','user_id'=>$user_id])->get('billing_address');
+	$shipping_address = CustomerArea::where(['status'=>'1','user_id'=>$user_id])->get('shipping_address');
 	$shipping_company = DeliveryService::all();
-	return view('/pages/front-end/cart',compact('product_data','shipping_company'));
+	return view('/pages/front-end/cart',compact('product_data','shipping_company','billing_address','shipping_address'));
 
 }
 
@@ -1222,6 +1226,56 @@ public function getSpineCount(Request $request){
 
 
 }	
+
+
+public function addAddress(Request $request){
+
+	if (Auth::check()) 
+    {
+	 $user_id = Auth::user()->id;
+	}else{
+		$user_id = Session::get('user_id');
+	}
+
+
+	// Check if Guest already exists (using email id)
+	// get already existing or new user_id
+	if($user_id == Session::get('user_id')){
+
+		$user_id = self::checkGuest($request->input('email_id'));
+		// set new user id for Guest in tables
+		self::setGuestUserid($user_id);
+		//dd($user_id);
+
+	}
+
+//print_r($request->input());
+	$validator = Validator::make($request->all(), [ 
+			'first_name' => 'required',
+			'last_name' => 'required',
+			'company_name' => 'nullable',
+			'street' => 'required',
+			'city' => 'required',                
+			'zip_code' => 'required',
+			'house_no' => 'required',  
+			'addition' => 'nullable', 
+			'state' => 'required',
+			'address_type' => 'required',
+		]); 
+
+		$input = $request->all();  print_r($input);
+
+		if ($validator->passes()){   echo "passes";
+
+			$input['user_id'] = $user_id;
+
+			$UserAddress= UserAddress::create($input);
+
+		}else{
+			echo "fail";
+		}
+
+}
 		
 }
   
