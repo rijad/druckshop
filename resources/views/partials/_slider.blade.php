@@ -28,11 +28,25 @@
 						}
 
 						?>
-						<h5 style="color: {{ @$color  }}; font-size: {{ @$text_size  }}px; ">{{ $item->title_english }}</h5>
+						<h5 style="color: {{ @$color  }}; font-size: {{ @$text_size  }}px; ">
+							<?php $locale = session()->get('locale'); 
+							if ($locale == 'gr') { ?>
+							{{ $item->title_german }}
+							<?php } else  { ?>
+							{{ $item->title_english }}
+							<?php   } ?>
+						</h5>
 
-						<p>{{ $item->content_english }}</p>
+						<p>
+							<?php $locale = session()->get('locale'); 
+							if ($locale == 'gr') { ?>
+							{{ $item->content_german }}
+							<?php } else  { ?>
+							{{ $item->content_english }}
+							<?php   } ?>
+						</p>
 
-						<a href="{{  url('/latest/').'#heading_'.@$item->redirect_url }}">Read More</a>
+						<a href="{{  url('/latest/').'#heading_'.@$item->redirect_url }}">{{ trans('homepage.read_more')}}</a>
 					</div>
 				</div>
 			</div><!-- item ends -->
@@ -41,11 +55,11 @@
 		</div>
 		<a class="carousel-control-prev" href="#heroSlider" role="button" data-slide="prev">
 			<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-			<span class="sr-only">Previous</span>
+			<span class="sr-only">{{ trans('homepage.previous')}}</span>
 		</a>
 		<a class="carousel-control-next" href="#heroSlider" role="button" data-slide="next">
 			<span class="carousel-control-next-icon" aria-hidden="true"></span>
-			<span class="sr-only">Next</span>
+			<span class="sr-only">{{ trans('homepage.next')}}</span>
 		</a>
 	</div>
 </section>
