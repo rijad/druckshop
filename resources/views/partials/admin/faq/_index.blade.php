@@ -28,27 +28,19 @@
                                     <tr>
                                         <th>Title_english</th>
                                         <th>Title_german</th>
-                                        <th>Text_english</th>
-                                        <th>Text_german</th>
+                                        <!-- <th>Text_english</th> -->
+                                        <!-- <th>Text_german</th> -->
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
-                                <tfoot>
-                                    <tr>
-                                        <th>Title_english</th>
-                                        <th>Title_german</th>
-                                        <th>Text_english</th>
-                                        <th>Text_german</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </tfoot>
+                                
                                 <tbody>
                                 @foreach($faq as $fq)
                                     <tr>
                                         <td>{{ $fq->title_english }}</td>
                                         <td>{{ $fq->title_german }}</td>
-                                        <td>{{ substr(($fq->text_english),0,200) }}</td>
-                                        <td>{{ substr(($fq->text_german),0,200) }}</td>
+                                        <!-- <td>{{ substr(($fq->text_english),0,200) }}</td> -->
+                                        <!-- <td>{{ substr(($fq->text_german),0,200) }}</td> -->
                                         <td class="form-inline">
                                             <form method="GET" action="{{ route('FAQ.edit' , $fq->id) }}">
                                                 <input type="submit" value="edit" class="btn btn-success">

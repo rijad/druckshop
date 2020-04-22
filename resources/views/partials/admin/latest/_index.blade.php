@@ -12,34 +12,20 @@
                             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
                                     <tr>
-                                        <th>Image</th>
+                                        <!-- <th>Image</th> -->
                                         <th>Title English</th>
                                         <th>Title_german</th>
-                                        <th>Text English</th>
-                                        <th>Text_german</th>
                                         <th>Active</th>
                                         <th>Actions</th> 
                                     </tr>
                                 </thead> 
-                                <tfoot>
-                                    <tr>
-                                        <th>Image</th>
-                                        <th>Title English</th>
-                                        <th>Title_german</th>
-                                        <th>Text English</th>
-                                        <th>Text_german</th>
-                                        <th>Active</th>
-                                        <th>Actions</th>  
-                                    </tr>
-                                </tfoot> 
+                               
                                 <tbody>
                                 @foreach($latest as $lat)
                                     <tr>
-                                        <td><img src="{{ asset($lat->image)}}" height="50" width="100" alt="..."></td>
+                                        <!-- <td><img src="{{ asset($lat->image)}}" height="50" width="100" alt="..."></td> -->
                                         <td>{{ $lat->title_english }}</td>
                                         <td>{{ $lat->title_german }}</td>
-                                        <td>{{ substr(($lat->text_english),0,200) }}</td>
-                                        <td>{{ substr(($lat->text_german),0,200) }}</td>
                                         <td>{{ $lat->status }}</td>
                                         <td class="form-inline">
                                             <form method="GET" action="{{ route('latest.edit' , $lat->id) }}">

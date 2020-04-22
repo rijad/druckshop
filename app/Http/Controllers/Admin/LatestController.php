@@ -50,39 +50,59 @@ class LatestController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'image' => 'required|image:jpeg,png,jpg,gif',
+            // 'image' => 'required|image:jpeg,png,jpg,gif',
             'title_english' => 'required',
             'title_german' => 'required',
             'text_english' => 'required',
             'text_german' => 'required',
             'status' => 'nullable',
         ]);
+
+
         if ($validator->fails()) {
             return redirect()->back()
-                        ->withErrors($validator)
-                        ->withInput();
+            ->withErrors($validator)
+            ->withInput();
         } 
 
+        $data = [];
+        $input = $request->all();
+        
         if ($validator->passes()){
-              // upload file
-              $file = $request->file('image'); 
-              //Move Uploaded File
-              $destinationPath = public_path().'/latest';
-              $file->move($destinationPath,$file->getClientOriginalName());
 
+            // if ($request->file('image')) {
 
-            $input = $request->all();
-            $input['image'] = "public/latest/".$file->getClientOriginalName();
+            //      // upload file
+            //     $file = $request->file('image'); 
+            //     //Move Uploaded File
+            //     $destinationPath = public_path().'/latest';
+            //     $file->move($destinationPath,$file->getClientOriginalName());
+
+            //     $input['image'] = "public/latest/".$file->getClientOriginalName();
+            // }
 
             if($request->input('status') == "on"){
-                $input['status'] = 1;
+
+                $status = 1;
             }else{
-                $input['status'] = 0;
+
+                $status = 0;
             }
-            $latest = latest::create($input);
+
+            $data = [
+
+                'title_english' => trim(@$request->title_english),
+                'title_german' => trim(@$request->title_german),
+                'text_english' => trim(@$request->text_english),
+                'text_german' => trim(@$request->text_german),
+                'status' => $status,
+                // 'image' => @$input['image'],
+            ];
+
+            $latest = latest::create($data);
         }
 
-        return redirect()->back()->with('status' , 'Created');
+        return redirect('/admin/latest');
     }
 
     /**
@@ -118,7 +138,7 @@ class LatestController extends Controller
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'image' => 'required|image:jpeg,png,jpg,gif',
+
             'title_english' => 'required',
             'title_german' => 'required',
             'text_english' => 'required',
@@ -126,38 +146,44 @@ class LatestController extends Controller
             'status' => 'nullable',
         ]);
         if ($validator->fails()) {
+
             return redirect()->back()
-                        ->withErrors($validator)
-                        ->withInput();
+            ->withErrors($validator)
+            ->withInput();
         }
 
+        $input = $request->all();
         if ($validator->passes()){
-              // upload file
-              $file = $request->file('image'); 
-              //Move Uploaded File
-              $destinationPath = public_path().'/latest';
-              $file->move($destinationPath,$file->getClientOriginalName());
 
-            $input = $request->all();
-            $input['image'] = "public/latest/".$file->getClientOriginalName();
+            // if ($request->file('image')) {
+
+            //     // upload file
+            //     $file = $request->file('image'); 
+            //     //Move Uploaded File
+            //     $destinationPath = public_path().'/latest';
+            //     $file->move($destinationPath,$file->getClientOriginalName());
+
+            //     $input['image'] = "public/latest/".$file->getClientOriginalName();
+            // }
 
             if($request->input('status') == "on"){
-                $input['status'] = 1;
+
+                $status = 1;
             }else{
-                $input['status'] = 0;
+
+                $status = 0;
             }
- 
+
             $latest = Latest::find($id);
-            $latest->title_english = $input['title_english'];
-            $latest->title_german = $input['title_german'];
-            $latest->text_english = $input['text_english'];
-            $latest->text_german = $input['text_german'];
-            $latest->status = $input['status'];
-            $latest->image = $input['image'];
+            $latest->title_english = @$input['title_english'];
+            $latest->title_german = @$input['title_german'];
+            $latest->text_english = trim(@$input['text_english']);
+            $latest->text_german = trim(@$input['text_german']);
+            $latest->status = $status;
             $latest->save();
         }
-                
-        return redirect()->back()->with('status' , 'Updated');
+
+        return redirect('/admin/latest');
 
     }
 

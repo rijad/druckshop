@@ -12,25 +12,25 @@
 			if ($locale == 'gr') { ?>
 
 			<h2 class="mb-0">{{ $value->title_german  }}</h2>
-			<p class="latest-date">31 March, 2020</p>
+			<p class="latest-date">{{ date('d-m-Y', strtotime($value->created_at)) }}</p>
 			<div class="latestpost-item-img text-left" >
-				<span class="img-back">
+				<!-- <span class="img-back">
 
 					<img src="{{ asset($value->image)}}" alt="Latest image" />
-				</span>
-				<p>{{ $value->text_german }} </p>
+				</span> -->
+				<p>{!! @$value->text_german !!} </p>
 			</div>
 
 			<?php } else{  ?>
 
 			<h2 class="mb-0">{{ $value->title_english  }}</h2>
-			<p class="latest-date">31 March, 2020</p>
+			<p class="latest-date">{{ date('d-m-Y', strtotime($value->created_at)) }}</p>
 			<div class="latestpost-item-img text-left">
-				<span class="img-back">
+				<!-- <span class="img-back">
 
 					<img src="{{ asset($value->image)}}" alt="Latest image" />
-				</span>
-				<p>{{ $value->text_english }} </p>
+				</span> -->
+				<p>{!! @$value->text_english !!} </p>
 			</div>
 
 			<?php }  ?>
