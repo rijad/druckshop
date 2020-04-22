@@ -57,19 +57,20 @@ class FAQController extends Controller
             'text_german' => 'required',
         ]);
         if ($validator->fails()) {
+
             return redirect()->back()
-                        ->withErrors($validator)
-                        ->withInput();
+            ->withErrors($validator)
+            ->withInput();
         }
 
         $faq = FrequentlyAskedQuestion::create([
-            'title_english' => $request->title_english,
-            'title_german' => $request->title_german,
-            'text_english' => $request->text_english,
-            'text_german' => $request->text_german,
+            'title_english' => trim(@$request->title_english),
+            'title_german' => trim(@$request->title_german),
+            'text_english' => trim(@$request->text_english),
+            'text_german' => trim(@$request->text_german),
         ]);
 
-        return redirect()->back()->with('status' , 'Created');
+        return redirect('/admin/FAQ');
     }
 
     /**
@@ -113,18 +114,19 @@ class FAQController extends Controller
             'text_german' => 'required',
         ]);
         if ($validator->fails()) {
+
             return redirect()->back()
-                        ->withErrors($validator)
-                        ->withInput();
+            ->withErrors($validator)
+            ->withInput();
         }
-        $faq->title_english = $request->title_english;
-        $faq->title_german = $request->title_german;
-        $faq->text_english = $request->text_english;
-        $faq->text_german = $request->text_german;
+        $faq->title_english = trim($request->title_english);
+        $faq->title_german = trim($request->title_german);
+        $faq->text_english = trim($request->text_english);
+        $faq->text_german = trim($request->text_german);
 
         $faq->save();
 
-        return redirect()->back()->with('status' , 'Updated');
+        return redirect('/admin/FAQ');
 
     }
 
