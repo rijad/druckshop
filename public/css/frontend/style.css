@@ -1560,9 +1560,7 @@ img.zoom:hover {
 .rv-DiscountCheckout .form-group input {margin: 0;}
 .rv-DiscountCheckout {clear: both;text-align: right;float: right;margin: 40px 0;}
 
-.Product_qeue .product ul.product_price li .remove_btn {
-    padding: 0px 12px !important;
-}
+.Product_qeue .product ul.product_price li .remove_btn {padding: 0px 12px !important;}
 
 /*.transition {
     -webkit-transform: scale(4.8);
@@ -1570,6 +1568,9 @@ img.zoom:hover {
     -o-transform: scale(4.8);
     transform: scale(4.8);
 }*/
+
+#heroSlider .carousel-control-next, #heroSlider .carousel-control-prev {width: 30px;}
+#heroSlider .carousel-item img { max-height: 400px;}
 
 
 
@@ -1683,6 +1684,13 @@ img.zoom:hover {
       margin-top: 0 !important;
       /*width: 50% !important;*/
     }
+
+	#heroSlider .carousel-control-next, #heroSlider .carousel-control-prev {
+	    width: 50px;
+	}
+
+
+
 }
 
 

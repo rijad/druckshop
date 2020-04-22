@@ -24,6 +24,6 @@ class UserAddress extends Model
      * @var array
      */
 
-    protected $fillable = ['user_id','address_type','first_name','last_name','company_name','street','house_no','zip_code', 'addition', 'city', 'created_at', 'updated_at','deleted_at'];
+    protected $fillable = ['user_id','address_type','first_name','last_name','company_name','street','house_no','zip_code', 'addition', 'city', 'created_at', 'updated_at','deleted_at','state'];
 }
  
