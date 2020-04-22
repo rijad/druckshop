@@ -226,6 +226,14 @@ Route::post('password.email', 'ForgotPasswordController@sendPasswordResetToken')
 Route::get('passwordReset', 'Auth\ForgotPasswordController@showPasswordResetForm'); 
 Route::post('updatePassword', 'Auth\ForgotPasswordController@updatePassword'); 
 
+
+// For Admin
+Route::get('admin_password/reset', 'Auth\ForgotPasswordController@adminEmail')->name('admin_password.reset');
+Route::post('admin_password.email', 'Auth\ForgotPasswordController@sendAdminEmail')->name('admin_password.email');
+Route::get('adminPasswordReset', 'Auth\ForgotPasswordController@adminPasswordReset'); 
+Route::post('updateAdminPassword', 'Auth\ForgotPasswordController@updateAdminPassword'); 
+
+
 // Testing mail
 Route::get('testMail/{email}', 'HomeController@testMail');
 
