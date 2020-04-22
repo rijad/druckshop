@@ -22,6 +22,12 @@
                 </a>
                 @endif
 
+                <a class="nav-link" href="{{ route('customer.index') }}"> 
+                    <div class="sb-nav-link-icon">
+                        <i class="fa fa-sliders"></i>
+                    </div>Customers
+                </a>
+
                 @if(Auth::user()->role == 0 || Auth::user()->role == 1)
                 <a class="nav-link" href="{{ route('change-password', 2) }}">
                     <div class="sb-nav-link-icon">
@@ -60,6 +66,13 @@
                         <i class="fa fa-shopping-cart"></i>
                     </div>Return Orders
                 </a>
+
+                <a class="nav-link" href="{{ route('newsletter.index') }}"> 
+                    <div class="sb-nav-link-icon">
+                        <i class="fa fa-sliders"></i>
+                    </div>NewsLetter
+                </a>
+
                 <a class="nav-link" href="{{ route('FAQ.index') }}">
                     <div class="sb-nav-link-icon">
                         <i class="fa fa-question-circle"></i>

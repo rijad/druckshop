@@ -145,8 +145,6 @@ Route::group(['namespace'=>'Admin', 'prefix' => 'admin'], function()
     Route::get('/change-password/{role}','AdminUsersController@changeAdminPassword')->name('change-password');
     Route::post('/update-password','AdminUsersController@updatePassword')->name('update-password');
 
-
-
     Route::resource('/bindingsample','BindingSampleImageController');
 
 //About
@@ -177,6 +175,8 @@ Route::group(['namespace'=>'Admin', 'prefix' => 'admin'], function()
     Route::resource('/stylesheet','StyleSheetController');
 
 
+    Route::resource('/customer','UsersController');
+    Route::resource('/newsletter','NewsletterController');
     Route::resource('/FAQ','FAQController');
     Route::resource('/product','ProductController');
     Route::get('/payment','PaymentController@index')->name('payment');
@@ -187,7 +187,7 @@ Route::group(['namespace'=>'Admin', 'prefix' => 'admin'], function()
     Route::get('/freesample-details/{id}','FreeSampleController@edit')->name('freesample-details');
     Route::post('/freesample-edit/{id}','FreeSampleController@update')->name('freesample-edit');
 
-
+//dashboard
     Route::post('/dashboard-login-data','LoginController@authenticate')->name('dashboard-login-data');
     Route::get('/dashboard-logout-data','LoginController@logout')->name('dashboard-logout-data');
 
