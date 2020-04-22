@@ -59,11 +59,15 @@
 	<div class="site-login">
 		<ul class="headerCart d-flex float-right">
 			<li class="">
+			
+			<form action="{{ URL::to('/search')}}" method="POST">
+			@csrf
 				<div class="searchInput">
-					<input type="text" placeholder="Search by name ..." />	
-					<button><i class="fa fa-search"></i></button>
-
-				</div>								
+					<input type="text" name="search" placeholder="Search by name ..." />	
+					<button type="submit"><i class="fa fa-search"></i></button>
+				</div>
+			</form>
+			
 			</li>
 			<li class="cart-relative-count"><a @if(\App\Http\Controllers\CheckoutController::CartCount() > 0) href="{{route('cart')}}" @endif><i class="fa fa-shopping-cart"></i><span class="cart-product-count">@if(\App\Http\Controllers\CheckoutController::CartCount() >0 ) @if(\App\Http\Controllers\CheckoutController::CartCount() > 0) {{\App\Http\Controllers\CheckoutController::CartCount()}} @endif @endif</span> </a></li>
 			@php $locale = session()->get('locale'); $active_lang_en = ''; $active_lang_gr=''; @endphp
