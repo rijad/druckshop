@@ -47,10 +47,9 @@
         <tr>
             <td>{{showDetails($key , $value)}}</td>
             <td>@if($key == "selectfile" || $key == "selectfile_coversheet" || $key == "selectfile_content" || $key == "selectfile_din_A3" || $key == "selectfile_din_A2" || $key == "selectfile_logo") @if($value != null ) <a href={{url('/').'/public/uploads/'.$value}} target="_blank" >Download</a> @endif @endif</td>
-            <td>@if($key == "selectfile" || $key == "selectfile_coversheet" || $key == "selectfile_content" || $key == "selectfile_din_A3" || $key == "selectfile_din_A2" || $key == "selectfile_logo") @if($value != null )
-                <a href="{{ route('defected-order-email', ['order_id'=>$order->order_id,'old_file_name'=>$value, 'user_id' => $order->user_id ])}}" role="button">   |   Send Mail
-                </a>
-                 @endif @endif</td>
+
+            <td>@if($key == "selectfile" || $key == "selectfile_coversheet" || $key == "selectfile_content" || $key == "selectfile_din_A3" || $key == "selectfile_din_A2" || $key == "selectfile_logo") @if($value != null )<a href="{{route('defected-order-email',['user_id'=>$order->user_id,'order_id'=>$order->order_id,'old-file-name'=>$value])}}" >Send Mail</a> @endif @endif</td>
+
         </tr>
         @endforeach                                                                     
     @endforeach

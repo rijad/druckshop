@@ -172,7 +172,7 @@ Route::group(['namespace'=>'Admin', 'prefix' => 'admin'], function()
     Route::resource('/coversheet','CoverSheetController');
     Route::resource('/backcover','BackCoverController');
     Route::resource('/cdbag','CdBagController');
-    Route::resource('/datacheck','DataCheckController');
+    Route::resource('/datacheck','DataCheckController'); 
     Route::resource('/art','ArtController'); 
     Route::resource('/discount','DiscountController'); 
     Route::resource('/gallery','GalleryController');
@@ -183,7 +183,9 @@ Route::group(['namespace'=>'Admin', 'prefix' => 'admin'], function()
     Route::get('/order','OrderController@index')->name('order');
     Route::get('/order-details/{order_id}','OrderController@edit')->name('order-details');
     Route::post('/order-edit/{id}','OrderController@update')->name('order-edit'); 
-    Route::get('/defected-order-email/{order_id}/{old_file_name}/{user_id}','OrderController@sendDefectedOrderEmail')->name('defected-order-email'); 
+
+    Route::get('/defected-order-email/{user-id}/{order-id}/{old-file-name}','OrderController@sendDefectedOrderEmail')->name('defected-order-email'); 
+
 
     Route::resource('/returnorder','ReturnOrdersController');
     Route::resource('/latest','LatestController');

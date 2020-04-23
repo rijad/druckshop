@@ -78,21 +78,20 @@ class FreeSampleController extends Controller
                         ->withInput();
         } 
 
-        if ($validator->passes()){ 
-
-            $input = $request->all();
-            
-            if($request->input('sample_status') == "on"){
-                $input['sample_status'] = 'done';
-            }else{
-                $input['sample_status'] = 'in-progress';
+            if ($validator->passes()){ 
+     
+            if (!file_exists(public_path().'/uploads')) {
+                mkdir(public_path().'/uploads', 0777); 
             }
 
-            $input['document'] = 'public/uploads/'.$request->input('selectfile_free_sample');
-            $input['status'] = 1;
+                $input = $request->all(); 
+                $input['order_id'] =  "free_".time();
+                $input['sample_status'] = 'New';
+                $input['document'] = 'public/uploads/'.$request->input('selectfile_free_sample');
+                $input['status'] = 1;
 
-            $freesample = FreeSample::create($input);
-        }
+                $freesample = FreeSample::create($input);
+            }
 
         return redirect()->back()->with('status' , 'Requested');
     }
@@ -107,7 +106,7 @@ class FreeSampleController extends Controller
     {
         //
     }
-
+ 
     /**
      * Show the form for editing the specified resource.
      *
