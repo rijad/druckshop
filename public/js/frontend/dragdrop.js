@@ -52,7 +52,7 @@ alert("2"+id);
 
 function file_explorer(id) {  
 
-  if(id == "upload_cd"){ 
+  if(id == "upload_cd"){  // multifile uploading
      document.getElementById('selectfile').click();
      document.getElementById('selectfile').onchange = function() {
       file = document.getElementById('selectfile');
@@ -81,12 +81,13 @@ function ajaxFileUpload(file_obj,id) {  alert(id);
     type: 'POST',
     url: '/druckshop/upload-file',
     contentType: false,
-    processData: false,
+    processData: false, 
     data: form_data, 
-    success:function(response) {  console.log(response);
+    success:function(response) {  
  
       $('#selectfile').val('');
       var data = JSON.parse(response); 
+      console.log(data);
 
       if(id == "drop_file_zone_cover_sheet"){
 
@@ -131,7 +132,7 @@ function ajaxFileUpload(file_obj,id) {  alert(id);
         $('#A3_del').attr('onclick',"removeFile('"+data['data']['edit_name']+"','"+id+"')");
 
       }else if(id == "drop_file_din_A2"){
-        // $('#drop_file_din_A2').empty();
+        // $('#drop_file_din_A2').empty(); 
         document.getElementById('drag_upload_file_A2').className = "displayNone";
         $('#drop_file_din_A2').append('<div id="del_A2" class="displayBlock"><span class="upload-msg">File Uploaded</span><span id="A2_del"><i class="fa fa-trash"></i></span></div>');
         document.getElementById('drop_file_din_A2_info').className = "displayBlock";
@@ -155,11 +156,12 @@ function ajaxFileUpload(file_obj,id) {  alert(id);
         
         // $('#upload_cd').empty();
         document.getElementById('drag_upload_file_cd').className = "displayNone";
+        $("#del_cd").remove();
         $('#upload_cd').append('<div id="del_cd" class="displayBlock"><span class="upload-msg">File Uploaded</span><span id="cd_del"><i class="fa fa-trash"></i></span></div>');
         document.getElementById('drop_file_zone_cd').className = "displayBlock";
-        document.getElementById('cd_file_name').innerHTML = "File Name:"+data['data']['file_name'];
-        document.getElementById('cd_page_no').innerHTML = "No of Pages:"+data['data']['no_of_pages'];
-        document.getElementById('selectfile_cd').value = data['data']['edit_name'];
+        document.getElementById('cd_file_name').innerHTML += "  File Name:"+data['data']['file_name'];
+        document.getElementById('cd_page_no').innerHTML += " No of Pages:"+data['data']['no_of_pages'];
+        document.getElementById('selectfile_cd').value += data['data']['edit_name']+",";
         $('#cd_del').attr('onclick',"removeFile('"+data['data']['edit_name']+"','"+id+"')");
         
       }else if(id == "drop_pdf"){  // free sample page

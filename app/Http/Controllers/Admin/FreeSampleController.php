@@ -73,24 +73,89 @@ class FreeSampleController extends Controller
         'selectfile_free_sample.required' => 'Upload document to be printed as sample',
         ]);
         if ($validator->fails()) {
-        return redirect()->back()
-        ->withErrors($validator)
-        ->withInput();
+          return redirect()->back()
+          ->withErrors($validator)
+          ->withInput();
         }
 
-        if ($validator->passes()){
+        //if ($validator->passes()){
 
-        if (!file_exists(public_path().'/uploads')) {
-        mkdir(public_path().'/uploads', 0777);
+          //if (!file_exists(public_path().'/uploads')) {
+              //mkdir(public_path().'/uploads', 0777);
+          //}
+            
+          //return redirect()->back()
+                        //->withErrors($validator)
+                        //->withInput();
+        //} 
+
+        if ($validator->passes()){ 
+
+          if (!file_exists(public_path().'/uploads')) {
+              mkdir(public_path().'/uploads', 0777); 
+          }
+
+          $input = $request->all(); 
+          $input['order_id'] =  "free_".time();
+          $input['sample_status'] = 'New';
+          $input['document'] = 'public/uploads/'.$request->input('selectfile_free_sample');
+          $input['status'] = 1;
+
+          $freesample = FreeSample::create($input);
         }
 
-        $input = $request->all();
-        $input['order_id'] = "free_".time();
-        $input['sample_status'] = 'New';
-        $input['document'] = 'public/uploads/'.$request->input('selectfile_free_sample');
-        $input['status'] = 1;
+        //$input = $request->all();
+        //$input['order_id'] = "free_".time();
+        //$input['sample_status'] = 'New';
+        //$input['document'] = 'public/uploads/'.$request->input('selectfile_free_sample');
+        //$input['status'] = 1;
 
-        $freesample = FreeSample::create($input);
+
+        //$freesample = FreeSample::create($input);
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+    }
+ 
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Request $request, $id)
+    { 
+        // dd($id);
+        $freesample = FreeSample::where(['id' => $request->id ])->get();
+        $orderstate = OrderState ::where('status', '1')->get();
+        return view('/pages/admin/freesampledetails',compact('freesample' , 'orderstate', 'id'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {  
+        $freesample = FreeSample::find($id);
+        // dd($freesample);
+        $validator = Validator::make($request->all(), [
+            'sample_status' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return redirect()->back()
+                        ->withErrors($validator)
+                        ->withInput();
         }
 
         return redirect()->back()->with('status' , 'Requested');

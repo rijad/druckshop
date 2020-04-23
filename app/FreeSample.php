@@ -10,5 +10,5 @@ class FreeSample extends Model
 
     protected $fillable = ['side_option', 'paper_weight', 'last_name', 'first_name', 'company', 
     'street', 'house_number', 'addition_to_address', 'zip_code', 'city', 'document',
-    'sample_status', 'status', 'created_at', 'updated_at', 'deleted_at'];
+    'sample_status', 'status','order_id', 'created_at', 'updated_at', 'deleted_at'];
 }

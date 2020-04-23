@@ -1496,7 +1496,7 @@ function addAddress(address_type = ""){
 	$.ajax({
 			url: '/druckshop/add-address', 
 			type: 'POST', 
-			data: {'address_type':address_type, 'first_name':first_name, 'last_name':last_name, 'company_name':company_name, 'street':street, 'city':city, 'zip_code':zip_code, 'house_no':house_no, 'addition':addition, 'state':state},
+			data: {'default':0,'address_type':address_type, 'first_name':first_name, 'last_name':last_name, 'company_name':company_name, 'street':street, 'city':city, 'zip_code':zip_code, 'house_no':house_no, 'addition':addition, 'state':state},
 			success: function (response){  
 				if(address_type == "billing"){
 					$('#rv-Modal-billing').css('display','none'); 
@@ -1509,4 +1509,4 @@ function addAddress(address_type = ""){
 
 
 
-}
+} 
