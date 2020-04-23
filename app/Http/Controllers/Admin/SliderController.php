@@ -77,6 +77,10 @@ class SliderController extends Controller
 
         if ($validator->passes()){
 
+            if (!file_exists(public_path().'/images')) {
+                mkdir(public_path().'/images', 0777);
+                }
+
             // upload file
             $file = $request->file('image_path'); 
             //Move Uploaded File

@@ -54,11 +54,12 @@ class StyleSheetController extends Controller
       }
 
         if ($validator->passes()){
-
-            $file = $request->file('newfile');
             if (!file_exists(public_path().'/style_sheet')) {
                 mkdir(public_path().'/style_sheet', 0777); 
             }
+
+            $file = $request->file('newfile');
+            
               //Move Uploaded File
               $destinationPath = public_path().'/style_sheet';
               $file->move($destinationPath,'stylesheet.pdf');

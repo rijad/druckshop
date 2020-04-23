@@ -66,6 +66,10 @@ class GalleryController extends Controller
         } 
 
         if ($validator->passes()){
+
+            if (!file_exists(public_path().'/gallery')) {
+                mkdir(public_path().'/gallery', 0777);
+                }
               // upload file
               $file = $request->file('image'); 
               //Move Uploaded File

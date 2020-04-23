@@ -8,18 +8,14 @@
                 <thead>
                     <tr>
                         <th>State</th>
-                        <th>First Name</th>
-                        <th>City</th>
-                        <th>Street</th>
+                        <th>Order_id</th>
                         <th>Actions</th>
                     </tr>
                 </thead> 
                 <tfoot>
                     <tr>
                         <th>State</th>
-                        <th>First Name</th>
-                        <th>City</th>
-                        <th>Street</th>
+                        <th>Order_id</th>
                         <th>Actions</th> 
                     </tr>
                 </tfoot>
@@ -28,9 +24,7 @@
                     @foreach($freesample as $sample)
                     <tr>
                         <td>{{ $sample->sample_status }}</td>
-                        <td>{{ $sample->first_name }}</td>
-                        <td>{{ $sample->city }}</td>
-                        <td>{{ $sample->street }}</td>
+                        <td>{{ $sample->order_id }}</td>
                         <td>
                             <button onclick="window.location='{{route('freesample-details' , 
                                     ['id'=>$sample->id ]) }}'" class="remove_btn"> Details </button>
