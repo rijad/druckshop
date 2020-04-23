@@ -36,7 +36,6 @@ class OrderController extends Controller
 
     public static function users($id)  
     {
-        // dd($id);
         $user = UsersAdmin::where(['id' => $id])->first();
         //dd($user);
 
@@ -136,5 +135,16 @@ class OrderController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function sendDefectedOrderEmail(Request $request){
+
+        $order_id = $request->input('order-id');
+        $old_file = $request->input('old-file-name');
+        $url = url("/defectfile/".$order_id."/".$old_file);
+
+
+        dd($order_id . $old_file . $url);
+
     }
 }

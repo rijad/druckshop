@@ -11,6 +11,9 @@
 |
 */
 
+use Illuminate\Support\Facades\Input;
+use App\Product;
+
 header('Access-Control-Allow-Origin: *');
 header( 'Access-Control-Allow-Headers: Authorization, Content-Type' ); 
 
@@ -52,6 +55,16 @@ Route::get('/config-cache', function() {
 
 Auth::routes();
 
+//Search
+Route::any('/search',function(){
+    $search = Input::get( 'search' );
+    $product = Product::where('title_english' , 'LIKE' , '%'.$search.'%')->get();
+    if(count($product) > 0)
+        return view('pages.front-end.search')->withDetails($product)->withQuery( $search );
+    else return view ('pages.front-end.search')->withMessage('No Products found. Try to search again !');
+});
+
+//Frontend
 Route::get('/', 'IndexController@sendData')->name('index');
 Route::get('/products', 'ProductController@sendData')->name('products');
 Route::get('/product-information', 'ProductInfoController@sendData')->name('product-information');
@@ -77,7 +90,7 @@ Route::post('/add-address','CheckoutController@addAddress')->name('add-address')
 Route::POST('/binding-sample-image','BindingSampleImageController@getSampleImage')->name('binding-sample-image');
 
 //Defect File
-Route::get('/defectfile','DefectFileController@index')->name('defectfile');
+Route::get('/defectfile/{order_id}/{old_file}','DefectFileController@index')->name('defectfile');
 Route::post('/defectfile-update','DefectFileController@update')->name('defectfile-update'); 
 
 //Customer-area
@@ -95,9 +108,6 @@ Route::get('/latest','LatestController@index')->name('latest');
 Route::get('/about-us','AboutController@index')->name('about-us');
 Route::get('/faq','FaqController@index')->name('faq');
 Route::get('/contact','ContactController@index')->name('contact');
-
-
-
 
 Route::POST('/upload-file','UploadfileController@uploadFile')->name('upload-file');
 Route::POST('/remove-file','UploadfileController@removeFile')->name('remove-file');
@@ -128,10 +138,16 @@ Route::get('/payment-success','CheckoutController@paymentPaypalSuccess')->name('
 Route::group(['namespace'=>'Admin', 'prefix' => 'admin'], function()
 {
     Route::get('/dashboard','DashboardController@index')->name('dashboard');
-
     Route::resource('/slider','SliderController');
-
-
+    Route::resource('/bindingsample','BindingSampleImageController');
+    Route::resource('/latest','LatestController');
+    Route::resource('/stylesheet','StyleSheetController');
+    Route::resource('/customer','UsersController');
+    Route::resource('/newsletter','NewsletterController');
+    Route::resource('/FAQ','FAQController');
+    Route::resource('/product','ProductController');
+    Route::get('/payment','PaymentController@index')->name('payment');
+    Route::get('/delivery','DeliveryController@index')->name('delivery');
 
 //Users
     Route::get('/users','AdminUsersController@index')->name('users');
@@ -144,8 +160,6 @@ Route::group(['namespace'=>'Admin', 'prefix' => 'admin'], function()
 // details about user
     Route::get('/change-password/{role}','AdminUsersController@changeAdminPassword')->name('change-password');
     Route::post('/update-password','AdminUsersController@updatePassword')->name('update-password');
-
-    Route::resource('/bindingsample','BindingSampleImageController');
 
 //About
     Route::get('/about-edit','PagesController@about')->name('about-edit');
@@ -168,7 +182,8 @@ Route::group(['namespace'=>'Admin', 'prefix' => 'admin'], function()
 //order
     Route::get('/order','OrderController@index')->name('order');
     Route::get('/order-details/{order_id}','OrderController@edit')->name('order-details');
-    Route::post('/order-edit/{id}','OrderController@update')->name('order-edit');
+    Route::post('/order-edit/{id}','OrderController@update')->name('order-edit'); 
+    Route::post('/defected-order-email/{order-id}/{old-file-name}','OrderController@sendDefectedOrderEmail')->name('defected-order-email'); 
 
     Route::resource('/returnorder','ReturnOrdersController');
     Route::resource('/latest','LatestController');

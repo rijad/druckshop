@@ -59,11 +59,15 @@
 	<div class="site-login">
 		<ul class="headerCart d-flex float-right">
 			<li class="">
+			
+			<form action="{{ URL::to('/search')}}" method="POST">
+			@csrf
 				<div class="searchInput">
-					<input type="text" placeholder="Search by name ..." />	
-					<button><i class="fa fa-search"></i></button>
-
-				</div>								
+					<input type="text" name="search" placeholder="Search by name ..." />	
+					<button type="submit"><i class="fa fa-search"></i></button>
+				</div>
+			</form>
+			
 			</li>
 			<li class="cart-relative-count"><a @if(\App\Http\Controllers\CheckoutController::CartCount() > 0) href="{{route('cart')}}" @endif><i class="fa fa-shopping-cart"></i><span class="cart-product-count">@if(\App\Http\Controllers\CheckoutController::CartCount() >0 ) @if(\App\Http\Controllers\CheckoutController::CartCount() > 0) {{\App\Http\Controllers\CheckoutController::CartCount()}} @endif @endif</span> </a></li>
 			@php $locale = session()->get('locale'); $active_lang_en = ''; $active_lang_gr=''; @endphp
@@ -106,10 +110,16 @@
 					<li><a href="{{ route('contact') }}">{{ trans('header.contact')}}</a></li>
 				</ul>  
 			</div>
-
+			@if (Auth::guard('admin')->check())
+			<div class="loginBtn my-lg-0">					    
+				<button onclick="window.location='{{route('dashboard')}}'" >Administration</button>			
+			</div>
+			@else
 			<div class="loginBtn my-lg-0">					    
 				<button onclick="window.location='{{route('dashboard-login')}}'"  data-toggle="modal" data-target="#exampleModal"><i class="fa fa-sign-out"></i></button>						 
 			</div>
+			@endif
+			
 		</nav>
 	</div>
 </div>

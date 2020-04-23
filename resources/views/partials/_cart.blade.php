@@ -13,7 +13,7 @@
  
                             <div class="product">
  
-                              @if(isset($product_data))
+                              @if(isset($product_data)) 
                               @foreach ($product_data as $key=>$data)
  
                                 <div class="product_listing">
@@ -91,7 +91,7 @@
                                               <span><i class="fa fa-edit"></i></span>
                                               <span><i class="fa fa-close"></i></span> -->
                                             </p>
-                                            <textarea name="shipping_address_click" id="shipping_address" class="form-control" data-toggle="modal" data-target="#rv-Modal-shipping"></textarea>
+                                            <button type = "button" name="shipping_address_click" id="shipping_address" class="form-control" data-toggle="modal" data-target="#rv-Modal-shipping"></button>
                                             
                                           </div>
                                            <div class="form-group">
@@ -100,7 +100,7 @@
                                               <span><i class="fa fa-edit"></i></span>
                                               <span><i class="fa fa-close"></i></span> --}}
                                             </p>
-                                            <textarea name="billing_address_click" id="billing_address" class="form-control" data-toggle="modal" data-target="#rv-Modal-billing"></textarea>
+                                            <button type = "button" name="billing_address_click" id="billing_address" class="form-control" data-toggle="modal" data-target="#rv-Modal-billing"></button>
                                              @if($errors->has('billing_address'))
                                             <div class="error">{{ $errors->first('billing_address') }}</div>
                                             @endif
