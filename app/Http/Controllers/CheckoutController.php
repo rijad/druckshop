@@ -435,8 +435,8 @@ class CheckoutController extends Controller
 					}catch(\Exception $e){
 						$b_price = 0;
 					}
-					$colored_price_A2 = intval($request->session()->has('A2_page')) * intval($c_price);
-					$b_w_price_A2 = $b_w * intval($b_price);
+					$colored_price_A2 = floatval($request->session()->has('A2_page')) * floatval($c_price);
+					$b_w_price_A2 = $b_w * floatval($b_price);
 				}else{
 					$b_w = $sheets;
 					try{
@@ -446,7 +446,7 @@ class CheckoutController extends Controller
 					}catch(\Exception $e){
 						$b_price = 0;
 					}
-					$b_w_price_A2 = $b_w * intval($b_price);
+					$b_w_price_A2 = $b_w * floatval($b_price);
 				}
 		}
 
@@ -482,8 +482,8 @@ class CheckoutController extends Controller
 					}catch(\Exception $e){
 						$b_price = 0;
 					}
-					$colored_price_A3 = intval($request->session()->has('A3_page')) * intval($c_price);
-					$b_w_price_A3 = $b_w * intval($b_price);
+					$colored_price_A3 = floatval($request->session()->has('A3_page')) * floatval($c_price);
+					$b_w_price_A3 = $b_w * floatval($b_price);
 				}else{
 					$b_w = $sheets;
 					try{
@@ -493,7 +493,7 @@ class CheckoutController extends Controller
 					}catch(\Exception $e){
 						$b_price = 0;
 					}
-					$b_w_price_A3 = $b_w * intval($b_price);
+					$b_w_price_A3 = $b_w * floatval($b_price);
 				}
 		}
 
@@ -528,8 +528,8 @@ class CheckoutController extends Controller
 					}catch(\Exception $e){
 						$b_price = 0;
 					}
-					$colored_price_A4 = $colored * intval($c_price);
-					$b_w_price_A4 = $b_w * intval($b_price);
+					$colored_price_A4 = $colored * floatval($c_price);
+					$b_w_price_A4 = $b_w * floatval($b_price);
 				}else{
 					$b_w = $sheets;
 					try{
@@ -539,7 +539,7 @@ class CheckoutController extends Controller
 					}catch(\Exception $e){
 						$b_price = 0;
 					}
-					$b_w_price_A4 = $b_w * intval($b_price);
+					$b_w_price_A4 = $b_w * floatval($b_price);
 				}
 		}
 		$printout_basic = $colored_price_A3 + $b_w_price_A3 + $colored_price_A2 + $b_w_price_A2 + $colored_price_A4 + $b_w_price_A4;
@@ -634,7 +634,7 @@ class CheckoutController extends Controller
 			$cd = 2;
 			try{
 			$cd_dvd_val = CdCoverPrice::where('cd_bag_id',$request->session()->get('cdCover'))->first('price')->price;
-			$cd_dvd = intval($cd_dvd_val) * 2;
+			$cd_dvd = floatval($cd_dvd_val) * 2;
 			}catch(\Exception $e){
 				$cd_dvd = 0;
 			}
@@ -702,8 +702,8 @@ class CheckoutController extends Controller
 		$OrderAttributes->product_id = $request->input('binding');
 		$OrderAttributes->quantity= $qty;
 		$OrderAttributes->attribute_desc= $product_details;
-		$OrderAttributes->price_per_product= intval($request->total);
-		$OrderAttributes->price_product_qty= $request->total * $qty;
+		$OrderAttributes->price_per_product=floatval($request->total);
+		$OrderAttributes->price_product_qty= floatval($request->total) * $qty;
 		$OrderAttributes->quantity= 1; 
 		$OrderAttributes->status= 1;
 		$OrderAttributes->save();

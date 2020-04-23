@@ -3,22 +3,17 @@
         <h2>Upload File</h2>
 
         <div class="card-body col-md-6">
-
+ 
     @if (session('status'))
     <div class="alert alert-success" role="alert">
-        {{ session('status') }}
+        {{ session('status') }} 
     </div>
     @endif  
-    @if ($errors->any())
-        <ul>
-            @foreach ($errors->all() as $error)
-            @endforeach
-        </ul>
-    @endif
+
         <form class="form-group-inline" method="post" action="{{route('defectfile-update')}}" enctype="multipart/form-data">
             @csrf
-            <input type="hidden" id="order_id" name="order_id" />
-            <input type="hidden" id="oldfile" name="oldfile" />
+            <input type="hidden" id="order_id" name="order_id" value={{ Request()->order_id }}>  
+            <input type="hidden" id="oldfile" name="oldfile" value={{ Request()->old_file }}>
             <div class="form-group">
                 <label class="small mb-1" for="image">Upload File</label>
                 <input type="file" name="newfile" id="newfile" accept="application/pdf"/>

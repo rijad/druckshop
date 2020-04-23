@@ -1,5 +1,5 @@
 			@if(isset($details))
-			<h2> The Search results for your query <b> {{ $query }} </b> are :</h2>
+			<h2> The Search results for <b> {{ $query }} </b> are following:</h2>
 				<table class="table table-striped">
 					<thead>
 						<tr>

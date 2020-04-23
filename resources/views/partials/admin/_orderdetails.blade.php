@@ -25,7 +25,7 @@
 
 <select name="priority">
     <option>Priority</option>
-    <option value="highest">Highest</option>
+    <option value="highest">Highest</option> 
     <option value="high">High</option>
     <option value="normal">Normal</option>
     <option value="low">Low</option>
@@ -47,7 +47,7 @@
         <tr>
             <td>{{showDetails($key , $value)}}</td>
             <td>@if($key == "selectfile" || $key == "selectfile_coversheet" || $key == "selectfile_content" || $key == "selectfile_din_A3" || $key == "selectfile_din_A2" || $key == "selectfile_logo") @if($value != null ) <a href={{url('/').'/public/uploads/'.$value}} target="_blank" >Download</a> @endif @endif</td>
-            <td>@if($key == "selectfile" || $key == "selectfile_coversheet" || $key == "selectfile_content" || $key == "selectfile_din_A3" || $key == "selectfile_din_A2" || $key == "selectfile_logo") @if($value != null )<a href="#">Send Mail</a> @endif @endif</td>
+            <td>@if($key == "selectfile" || $key == "selectfile_coversheet" || $key == "selectfile_content" || $key == "selectfile_din_A3" || $key == "selectfile_din_A2" || $key == "selectfile_logo") @if($value != null )<a href="{{route('defected-order-email',['order_id'=>$order->order_id,'old-file-name'=>$value])}}" role="button">Send Mail</a> @endif @endif</td>
         </tr>
         @endforeach                                                                     
     @endforeach

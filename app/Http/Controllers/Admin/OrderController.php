@@ -136,4 +136,15 @@ class OrderController extends Controller
     {
         //
     }
+
+    public function sendDefectedOrderEmail(Request $request){
+
+        $order_id = $request->input('order-id');
+        $old_file = $request->input('old-file-name');
+        $url = url("/defectfile/".$order_id."/".$old_file);
+
+
+        dd($order_id . $old_file . $url);
+
+    }
 }
