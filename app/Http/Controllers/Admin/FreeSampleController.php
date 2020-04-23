@@ -53,98 +53,47 @@ class FreeSampleController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {  
+    {
         // dd($request->input());
         $validator = Validator::make($request->all(), [
-            'side_option' => 'required',
-            'paper_weight' => 'required',
-            'last_name' => 'required',
-            'first_name' => 'required',
-            'company' => 'sometimes',
-            'street' => 'required',
-            'house_number' => 'required',
-            'addition_to_address' => 'sometimes',
-            'zip_code' => 'required',
-            'city' => 'required',
-            'selectfile_free_sample' => 'required',
-            'sample_status' => 'nullable', 
-            'status' => 'nullable',
+        'side_option' => 'required',
+        'paper_weight' => 'required',
+        'last_name' => 'required',
+        'first_name' => 'required',
+        'company' => 'sometimes',
+        'street' => 'required',
+        'house_number' => 'required',
+        'addition_to_address' => 'sometimes',
+        'zip_code' => 'required',
+        'city' => 'required',
+        'selectfile_free_sample' => 'required',
+        'sample_status' => 'nullable',
+        'status' => 'nullable',
         ], [
-            'selectfile_free_sample.required' => 'Upload document to be printed as sample',
-            ]); 
+        'selectfile_free_sample.required' => 'Upload document to be printed as sample',
+        ]);
         if ($validator->fails()) {
-            return redirect()->back()
-                        ->withErrors($validator)
-                        ->withInput();
-        } 
+        return redirect()->back()
+        ->withErrors($validator)
+        ->withInput();
+        }
 
-        if ($validator->passes()){ 
+        if ($validator->passes()){
 
-            $input = $request->all();
-            
-            if($request->input('sample_status') == "on"){
-                $input['sample_status'] = 'done';
-            }else{
-                $input['sample_status'] = 'in-progress';
-            }
+        if (!file_exists(public_path().'/uploads')) {
+        mkdir(public_path().'/uploads', 0777);
+        }
 
-            $input['document'] = 'public/uploads/'.$request->input('selectfile_free_sample');
-            $input['status'] = 1;
+        $input = $request->all();
+        $input['order_id'] = "free_".time();
+        $input['sample_status'] = 'New';
+        $input['document'] = 'public/uploads/'.$request->input('selectfile_free_sample');
+        $input['status'] = 1;
 
-            $freesample = FreeSample::create($input);
+        $freesample = FreeSample::create($input);
         }
 
         return redirect()->back()->with('status' , 'Requested');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Request $request, $id)
-    { 
-        // dd($id);
-        $freesample = FreeSample::where(['id' => $request->id ])->get();
-        $orderstate = OrderState ::where('status', '1')->get();
-        return view('/pages/admin/freesampledetails',compact('freesample' , 'orderstate', 'id'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {  
-        $freesample = FreeSample::find($id);
-        // dd($freesample);
-        $validator = Validator::make($request->all(), [
-            'sample_status' => 'required',
-        ]);
-        if ($validator->fails()) {
-            return redirect()->back()
-                        ->withErrors($validator)
-                        ->withInput();
-        }
-        $freesample->sample_status = $request->sample_status;
-        $freesample->save();
-
-        return redirect()->back()->with('status' , 'Updated');
     }
 
     /**
