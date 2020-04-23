@@ -177,6 +177,7 @@ Route::group(['namespace'=>'Admin', 'prefix' => 'admin'], function()
 
     Route::resource('/customer','UsersController');
     Route::resource('/newsletter','NewsletterController');
+    Route::post('/newsLetterSendMail','NewsletterController@sendMail')->name('newsLetterSendMail');
     Route::resource('/FAQ','FAQController');
     Route::resource('/product','ProductController');
     Route::get('/payment','PaymentController@index')->name('payment');
