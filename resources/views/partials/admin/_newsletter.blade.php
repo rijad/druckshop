@@ -26,9 +26,8 @@
                         <td>{{ $news->email }}</td>
                         <td>{{ $news->created_at->format('d M,Y') }}</td>
                         <td>
-                            <form method="GET" action="#">              
-                                <input type="submit" value="reply" class="btn btn-success">
-                          </form>
+                            <button type="button" class="btn btn-success btn-sm"  onclick="replyModal('<?php echo $news->id ?>', '<?php echo $news->email ?>');" data-toggle="modal" data-target="#myModal"> Reply</button>
+
                         </td>
                     </tr>  
                     @endforeach
@@ -37,3 +36,46 @@
         </div>
     </div>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title"><center>Reply to user</center></h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <form action="{{ route('newsLetterSendMail') }}" method="POST">
+
+        {{ csrf_field() }}
+        <div class="modal-body">
+          <center><h6>User Email: <span id="setEmail"></span></h6></center>
+          
+
+
+          <input type="hidden" id='email' name="email" value="" >
+          <textarea name='description' class="form-control" required></textarea>
+      </div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <input type="submit" class="btn btn-default" value="Submit">
+      </div>
+  </form>
+</div>
+
+</div>
+</div>
+
+
+<script>
+    function replyModal(id, email) {
+        $('input#email').val(email);
+        $('#setEmail').html(email);
+
+
+    }
+
+
+</script>
