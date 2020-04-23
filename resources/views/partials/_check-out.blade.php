@@ -412,7 +412,7 @@
 															<p>or</p>
 															<p><input type="button" value="Select File" onclick="file_explorer('upload_cd');"></p>
 															<input type="file" id="selectfile" name="selectfile" multiple>
-															<input type="hidden" id="selectfile_cd" name="selectfile_cd">
+															<input type="hidden" id="selectfile_cd" name="selectfile_cd[]">
 														</div>
 													</div> 
 													<p class="error" id="error_selectfile_cd"></p> 
@@ -571,7 +571,7 @@ $(document).ready(function(){
 			url: '/druckshop/clear-session', 
 			type: 'GET', 
 			success: function (response){
-				console.log(response);
+				console.log(response); 
 			}
 		}); 
 });  

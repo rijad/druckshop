@@ -52,7 +52,7 @@
                                      <div class="form-group">
                                       <label for="pwd">Shipping Address*:</label>
                                       <select class="form-control" name={{"shipping_address[".$key."]"}} id="address_data" > <option value ="-1">Select</option>
-                                      @foreach($shipping_address_data as $keysss=>$shipping_address)<option value = "{{$shipping_address->first_name." ".$shipping_address->last_name.", Company Name: ".$shipping_address->company_name.", House No: ".$shipping_address->house_no.", City: ".$shipping_address->city.", State: ".$shipping_address->state.", Zip Code: ".$shipping_address->zip_code}}">{{$shipping_address->first_name." ".$shipping_address->last_name.", Company Name: ".$shipping_address->company_name.", House No: ".$shipping_address->house_no.", City: ".$shipping_address->city.", State: ".$shipping_address->state.", Zip Code: ".$shipping_address->zip_code}}</option> 
+                                      @foreach($shipping_address_data as $keysss=>$shipping_address)<option value = "{{$shipping_address->first_name." ".$shipping_address->last_name.", Company Name: ".$shipping_address->company_name.", House No: ".$shipping_address->house_no.", City: ".$shipping_address->city.", State: ".$shipping_address->state.", Zip Code: ".$shipping_address->zip_code}}" @if($shipping_address->default == 1) selected @endif>{{$shipping_address->first_name." ".$shipping_address->last_name.", Company Name: ".$shipping_address->company_name.", House No: ".$shipping_address->house_no.", City: ".$shipping_address->city.", State: ".$shipping_address->state.", Zip Code: ".$shipping_address->zip_code}}</option> 
                                       @endforeach
                                       </select>
                                        @if($errors->has('shipping_address.'.$key))
@@ -63,7 +63,7 @@
                                      <div class="form-group">
                                       <label for="pwd">Billing Address*:</label>
                                       <select class="form-control" name={{"billing_address[".$key."]"}} id="address_data" > <option value ="-1">Select</option>
-                                      @foreach($billing_address_data as $keyss=>$billing_address)<option value = "{{$billing_address->first_name." ".$billing_address->last_name.", Company Name: ".$billing_address->company_name.", House No: ".$billing_address->house_no.", City: ".$billing_address->city.", State: ".$billing_address->state.", Zip Code: ".$billing_address->zip_code}}">{{$billing_address->first_name." ".$billing_address->last_name.", Company Name: ".$billing_address->company_name.", House No: ".$billing_address->house_no.", City: ".$billing_address->city.", State: ".$billing_address->state.", Zip Code: ".$billing_address->zip_code}}</option> 
+                                      @foreach($billing_address_data as $keyss=>$billing_address)<option value = "{{$billing_address->first_name." ".$billing_address->last_name.", Company Name: ".$billing_address->company_name.", House No: ".$billing_address->house_no.", City: ".$billing_address->city.", State: ".$billing_address->state.", Zip Code: ".$billing_address->zip_code}}" @if($billing_address->default == 1) selected @endif>{{$billing_address->first_name." ".$billing_address->last_name.", Company Name: ".$billing_address->company_name.", House No: ".$billing_address->house_no.", City: ".$billing_address->city.", State: ".$billing_address->state.", Zip Code: ".$billing_address->zip_code}}</option> 
                                       @endforeach
                                       </select>
                                        @if($errors->has('billing_address.'.$key))
@@ -91,7 +91,7 @@
                                               <span><i class="fa fa-edit"></i></span>
                                               <span><i class="fa fa-close"></i></span> -->
                                             </p>
-                                            <button type = "button" name="shipping_address_click" id="shipping_address" class="form-control" data-toggle="modal" data-target="#rv-Modal-shipping"></button>
+                                            <button type = "button" name="shipping_address_click" id="shipping_address" class="form-control" data-toggle="modal" data-target="#rv-Modal-shipping">Add Shipping address</button>
                                             
                                           </div>
                                            <div class="form-group">
@@ -100,7 +100,7 @@
                                               <span><i class="fa fa-edit"></i></span>
                                               <span><i class="fa fa-close"></i></span> --}}
                                             </p>
-                                            <button type = "button" name="billing_address_click" id="billing_address" class="form-control" data-toggle="modal" data-target="#rv-Modal-billing"></button>
+                                            <button type = "button" name="billing_address_click" id="billing_address" class="form-control" data-toggle="modal" data-target="#rv-Modal-billing">Add Billing Address</button>
                                              @if($errors->has('billing_address'))
                                             <div class="error">{{ $errors->first('billing_address') }}</div>
                                             @endif

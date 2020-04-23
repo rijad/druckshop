@@ -172,7 +172,7 @@ Route::group(['namespace'=>'Admin', 'prefix' => 'admin'], function()
     Route::resource('/coversheet','CoverSheetController');
     Route::resource('/backcover','BackCoverController');
     Route::resource('/cdbag','CdBagController');
-    Route::resource('/datacheck','DataCheckController');
+    Route::resource('/datacheck','DataCheckController'); 
     Route::resource('/art','ArtController'); 
     Route::resource('/discount','DiscountController'); 
     Route::resource('/gallery','GalleryController');

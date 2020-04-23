@@ -681,7 +681,7 @@ class CheckoutController extends Controller
 				$product_details .= $key ." ".$attribute_value." ,";
 			}
  
-		}
+		} 
  
 		$qty = 1;
 
@@ -729,7 +729,7 @@ public function cart(){
 	if (Auth::check()) 
     {
 	 $user_id = Auth::user()->id;
-	}else{$user_id = Session::get('user_id');}
+	}else{$user_id = Session::get('user_id');} 
 
 	try{
 		$product_data = OrderAttributes::where(['status'=>'1','user_id'=>$user_id])->get();  
@@ -821,7 +821,7 @@ public function orderDetails(Request $request){
 			$update_data->no_of_cds = $request->no_of_cds[$key];
 			$update_data->shipping_company = $request->shipping_company[$key];
 			$update_data->shipping_address = $request->shipping_address[$key];
-			$update_data->billing_address = $request->billing_address[$key];
+			$update_data->billing_address = $request->billing_address[$key]; 
 			$update_data->save();
 
 			}
@@ -837,7 +837,12 @@ public function orderDetails(Request $request){
 			}else{
 				$discount_amt = ($total / 100 ) * $discount->by_percent;
 			}
-				$net_amt = $total - $discount_amt;
+
+			if($discount_amt > $total){ // discount is more then total i.e no code will be applied
+				$net_amt = $total - 0.00;
+			}else{
+				$net_amt = $total - $discount_amt; 
+			}
 		  }else{
 		  	$discount_amt = 0.0;
 		  	$net_amt = $total - $discount_amt;
