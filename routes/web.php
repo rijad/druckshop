@@ -90,7 +90,7 @@ Route::post('/add-address','CheckoutController@addAddress')->name('add-address')
 Route::POST('/binding-sample-image','BindingSampleImageController@getSampleImage')->name('binding-sample-image');
 
 //Defect File
-Route::get('/defectfile','DefectFileController@index')->name('defectfile');
+Route::get('/defectfile/{order_id}/{old_file}','DefectFileController@index')->name('defectfile');
 Route::post('/defectfile-update','DefectFileController@update')->name('defectfile-update'); 
 
 //Customer-area
@@ -182,7 +182,8 @@ Route::group(['namespace'=>'Admin', 'prefix' => 'admin'], function()
 //order
     Route::get('/order','OrderController@index')->name('order');
     Route::get('/order-details/{order_id}','OrderController@edit')->name('order-details');
-    Route::post('/order-edit/{id}','OrderController@update')->name('order-edit');
+    Route::post('/order-edit/{id}','OrderController@update')->name('order-edit'); 
+    Route::post('/defected-order-email/{order-id}/{old-file-name}','OrderController@sendDefectedOrderEmail')->name('defected-order-email'); 
 
     Route::resource('/returnorder','ReturnOrdersController');
 

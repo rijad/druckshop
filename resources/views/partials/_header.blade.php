@@ -110,10 +110,16 @@
 					<li><a href="{{ route('contact') }}">{{ trans('header.contact')}}</a></li>
 				</ul>  
 			</div>
-
+			@if (Auth::guard('admin')->check())
+			<div class="loginBtn my-lg-0">					    
+				<button onclick="window.location='{{route('dashboard')}}'" >Administration</button>			
+			</div>
+			@else
 			<div class="loginBtn my-lg-0">					    
 				<button onclick="window.location='{{route('dashboard-login')}}'"  data-toggle="modal" data-target="#exampleModal"><i class="fa fa-sign-out"></i></button>						 
 			</div>
+			@endif
+			
 		</nav>
 	</div>
 </div>

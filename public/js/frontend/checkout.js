@@ -1212,7 +1212,7 @@ function setQuantity(count = ""){
     var i = 0;
 	y.each(function(e) {
          price_per_unit.push($(this).html());  
-         total_price_per_product[i] = parseInt(qty[i]) * parseInt($(this).html());  
+         total_price_per_product[i] = parseFloat(qty[i]) * parseFloat($(this).html());  
          i++;
 	});
 
@@ -1225,7 +1225,7 @@ function setQuantity(count = ""){
 	});
 
 	for(var i = 0; i<count; i++){ 
-	total = parseInt(total) + parseInt(total_price_per_product[i]);
+	total =  (parseFloat(total) + parseFloat(total_price_per_product[i])).toFixed(2);
 	document.getElementById('checkout_total').innerHTML = total;
 	}
 
@@ -1238,7 +1238,7 @@ function setQuantity(count = ""){
 		data: {'qty': qty,'total_price_per_product' : total_price_per_product, 'count' : count},
 		success: function (response){
 		}
-	});
+	}); 
 }
 
 
