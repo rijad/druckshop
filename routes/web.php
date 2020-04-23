@@ -183,7 +183,7 @@ Route::group(['namespace'=>'Admin', 'prefix' => 'admin'], function()
     Route::get('/order','OrderController@index')->name('order');
     Route::get('/order-details/{order_id}','OrderController@edit')->name('order-details');
     Route::post('/order-edit/{id}','OrderController@update')->name('order-edit'); 
-    Route::post('/defected-order-email/{order-id}/{old-file-name}','OrderController@sendDefectedOrderEmail')->name('defected-order-email'); 
+    Route::get('/defected-order-email/{order_id}/{old_file_name}/{user_id}','OrderController@sendDefectedOrderEmail')->name('defected-order-email'); 
 
     Route::resource('/returnorder','ReturnOrdersController');
     Route::resource('/latest','LatestController');

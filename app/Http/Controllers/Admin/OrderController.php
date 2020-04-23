@@ -5,10 +5,14 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
+
+use App\User;
 use App\OrderDetailsFinal;
 use App\UsersAdmin;
 use App\OrderState;
+
 use Auth;
+use Mail;
 
 class OrderController extends Controller
 {
@@ -53,7 +57,7 @@ class OrderController extends Controller
      */
     public function create()
     {
- 
+
     }
 
     /**
@@ -90,8 +94,8 @@ class OrderController extends Controller
         $users = UsersAdmin::where('status', '1')->get();
         $orderstate = OrderState::where('status', '1')->get();
         $orderhistory = OrderDetailsFinal::with('orderProductHistory')
-                        ->where(['order_id' => $request->order_id ])
-                        ->first();
+        ->where(['order_id' => $request->order_id ])
+        ->first();
         return view('/pages/admin/orderdetails',compact('orderhistory', 'users', 'orderstate'));
     }
 
@@ -114,8 +118,8 @@ class OrderController extends Controller
         ]);
         if ($validator->fails()) {
             return redirect()->back()
-                        ->withErrors($validator)
-                        ->withInput();
+            ->withErrors($validator)
+            ->withInput();
         }
         $order->state = $request->state;
         $order->priority = $request->priority;
@@ -137,14 +141,52 @@ class OrderController extends Controller
         //
     }
 
-    public function sendDefectedOrderEmail(Request $request){
-
-        $order_id = $request->input('order-id');
-        $old_file = $request->input('old-file-name');
-        $url = url("/defectfile/".$order_id."/".$old_file);
+    public function sendDefectedOrderEmail(Request $request, $order_id = '', $old_file_name = '', $user_id = ''){
 
 
-        dd($order_id . $old_file . $url);
+
+        if (!empty($order_id) && !empty($old_file_name) && !empty($user_id)) {
+
+            $data = User::where(['id' => $user_id])->first();
+
+            $url = url("/defectfile/".$order_id."/".$old_file_name);
+
+            if (!empty($data)) {
+
+                $user_data = [
+
+                    'name' => @$data->name,
+                    'email' => @$data->email,
+                    'order_id' => $order_id,
+                    'action_url' => @$url,
+                    'base_url' => \URL::to('/'),
+                    'logo_url' => \URL::to('/'). '/public/images/logo.png',
+                ];
+
+                try {
+
+                    $sent = Mail::send('emails.defect_file', $user_data, function($message) use ($user_data) {
+
+                        $message->to($user_data['email'], $user_data['name'])->subject('Druckshop - Defect File');
+                        $message->from(env('MAIL_USERNAME'), env('MAIL_FROM_NAME'));
+                    });
+
+                    return redirect()->back()->with('status' , 'Mail Sent !!');
+
+                } catch (Exception $e) {
+
+                //Avoid error 
+
+                }
+
+
+            }
+            
+        }
+
+        return redirect()->back()->with('error' , 'Something went wrong, Please try again !!');
+        
+
 
     }
 }
