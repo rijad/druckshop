@@ -6,8 +6,21 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\NewsLetter;
 
+use Mail;
+
 class NewsletterController extends Controller
 {
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+
+    public function __construct() {
+
+        $this->middleware('auth:admin');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -84,4 +97,47 @@ class NewsletterController extends Controller
     {
         //
     }
+
+
+
+    public function sendMail(Request $request) {
+
+        if ($request) {
+
+            $data = NewsLetter::where('email', $request->email)->first();
+
+            if (!empty($data)) {
+
+                $user_data = [
+
+                    'name' => 'User',
+                    'email' => $data->email,
+                    'description' => @$request->description,
+                    'base_url' => \URL::to('/'),
+                    'logo_url' => \URL::to('/'). '/public/images/logo.png',
+                ];
+
+                try {
+
+                    $sent = Mail::send('emails.newsletter', $user_data, function($message) use ($user_data) {
+
+                        $message->to(@$user_data['email'], $user_data['name'])->subject('Druckshop - Newsletter Reply');
+                        $message->from(env('MAIL_USERNAME'), env('MAIL_FROM_NAME'));
+                    });
+
+                } catch (Exception $e) {
+
+                //Avoid error 
+
+                }               
+            }
+        }
+
+        return redirect('/admin/newsletter');
+
+    }
+
+
+
+
 }

@@ -183,9 +183,22 @@ Route::group(['namespace'=>'Admin', 'prefix' => 'admin'], function()
     Route::get('/order','OrderController@index')->name('order');
     Route::get('/order-details/{order_id}','OrderController@edit')->name('order-details');
     Route::post('/order-edit/{id}','OrderController@update')->name('order-edit'); 
+
     Route::get('/defected-order-email/{user-id}/{order-id}/{old-file-name}','OrderController@sendDefectedOrderEmail')->name('defected-order-email'); 
 
+
     Route::resource('/returnorder','ReturnOrdersController');
+    Route::resource('/latest','LatestController');
+    Route::resource('/stylesheet','StyleSheetController');
+
+
+    Route::resource('/customer','UsersController');
+    Route::resource('/newsletter','NewsletterController');
+    Route::post('/newsLetterSendMail','NewsletterController@sendMail')->name('newsLetterSendMail');
+    Route::resource('/FAQ','FAQController');
+    Route::resource('/product','ProductController');
+    Route::get('/payment','PaymentController@index')->name('payment');
+    Route::get('/delivery','DeliveryController@index')->name('delivery');
 
 //free sample
     Route::get('/freesample','FreeSampleController@index')->name('freesample');

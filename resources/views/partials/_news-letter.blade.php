@@ -10,7 +10,7 @@
 					<div class="newsletter-input">
 						<form method="POST" action="{{route('news-letter')}}">
 							@csrf
-							<input name="email" type="e-mail" placeholder="{{ trans('newslatter.email_palceholder')}}" />
+							<input name="email" type="email" placeholder="{{ trans('newslatter.email_palceholder')}}" />
 							<input type ="submit" value="{{ trans('newslatter.subscribe_button')}}" >  </input>
 						</form>
 						@if(Session::has("success"))
