@@ -45,7 +45,7 @@ class CustomerAreaController extends Controller
             'image' => 'nullable',
             'dob' => 'nullable',
             'email' => 'nullable',
-            'address' => 'nullable',
+            //'address' => 'nullable',
             'phone' => 'nullable',
             'shipping_address' => 'nullable',
             'billing_address' => 'nullable',
@@ -85,24 +85,24 @@ class CustomerAreaController extends Controller
                 $area = CustomerArea::where(['user_id' => $user_id])->first();
                 $area->dob = $input['dob'];
                 $area->email = $input['email'];
-                $area->address = $input['address'];
+                //$area->address = $input['address'];
                 $area->phone = $input['phone'];
-                $area->shipping_address = $input['shipping_address'];
-                $area->billing_address = $input['billing_address'];
+                // $area->shipping_address = $input['shipping_address'];
+                // $area->billing_address = $input['billing_address'];
                 $area->status = 1;
                 $area->image =  $input['image'];
                 $area->save();
-
+ 
               }catch(\Exception $e){
-
+ 
                 $area = new CustomerArea;
                 $area->user_id = $user_id;
                 $area->dob = $input['dob'];
                 $area->email = $input['email'];
-                $area->address = $input['address'];
+               // $area->address = $input['address'];
                 $area->phone = $input['phone'];
-                $area->shipping_address = $input['shipping_address'];
-                $area->billing_address = $input['billing_address'];
+                // $area->shipping_address = $input['shipping_address'];
+                // $area->billing_address = $input['billing_address'];
                 $area->status = 1;
                 $area->image = 'public/customerprofile/' . time() . '_' . $_FILES['image']['name'];
                 $area->save();

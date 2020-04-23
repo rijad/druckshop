@@ -1301,14 +1301,61 @@ public function addAddress(Request $request){
 			'state' => 'required',
 			'address_type' => 'required',
 		]); 
-
+ 
 		$input = $request->all(); 
 
-		if ($validator->passes()){   
+		if ($validator->passes()){    
 
 			$input['user_id'] = $user_id;
 
-			$UserAddress= UserAddress::create($input);
+			if($request->default == 0){
+	
+				$input['default'] = 0;
+
+				$UserAddress= UserAddress::create($input);
+
+			}else{
+
+				$input['default'] = 1;
+
+				$UserAddress= UserAddress::create($input);
+
+				try{
+
+                $area = CustomerArea::where(['user_id' => $user_id])->first();
+                if($request->address_type == "billing"){
+
+                	$area->billing_address = $request->first_name." ".$request->last_name.", Company Name: ".$request->company_name.", House No: ".$request->house_no.", City: ".$request->city.", State: ".$request->state.", Zip Code: ".$request->zip_code;
+
+                }else{
+
+                	$area->shipping_address = $request->first_name." ".$request->last_name.", Company Name: ".$request->company_name.", House No: ".$request->house_no.", City: ".$request->city.", State: ".$request->state.", Zip Code: ".$request->zip_code;
+
+                }
+                
+                $area->save();
+ 
+              }catch(\Exception $e){
+ 
+                $area = new CustomerArea;
+                $area->user_id = $user_id;
+                $area->status = 1;
+
+                if($request->address_type == "billing"){
+
+                	 $area->billing_address = $request->first_name." ".$request->last_name.", Company Name: ".$request->company_name.", House No: ".$request->house_no.", City: ".$request->city.", State: ".$request->state.", Zip Code: ".$request->zip_code;
+
+                }else{
+
+                	$area->shipping_address = $request->first_name." ".$request->last_name.", Company Name: ".$request->company_name.", House No: ".$request->house_no.", City: ".$request->city.", State: ".$request->state.", Zip Code: ".$request->zip_code;
+
+                }
+     
+                $area->save();
+
+              }
+
+			}
 
 		}else{
 			
