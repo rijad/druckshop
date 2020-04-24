@@ -21,52 +21,52 @@
         @csrf
             <div class="form-group">
                 <label class="small mb-1" for="code">Name</label>
-                <input class="form-control" type="text" name="code" value="{{ $discount->code }}">
+                <input class="form-control" type="text" name="code" value="{{ $discount->code }}" required>
                 <span class="text-danger">{{ $errors->first('code') }}</span>
             </div>
             <div class="form-group">
                 <label class="small mb-1" for="name_english">Name in English</label>
-                <input class="form-control" type="text" name="name_english" value="{{ $discount->name_english }}">
+                <input class="form-control" type="text" name="name_english" value="{{ $discount->name_english }}" required>
                 <span class="text-danger">{{ $errors->first('name_english') }}</span>
             </div>
             <div class="form-group">
                 <label class="small mb-1" for="name_german">Name in German</label>
-                <input class="form-control" type="text" name="name_german" value="{{ $discount->name_german }}">
+                <input class="form-control" type="text" name="name_german" value="{{ $discount->name_german }}" required>
                 <span class="text-danger">{{ $errors->first('name_german') }}</span>
             </div>
             <div class="form-group">
                 <label class="small mb-1" for="name_german">From Date</label>
-                <input class="form-control" type="date" id="from_date" name="from_date" value="{{ $discount->from_date }}">
+                <input class="form-control" type="date" id="from_date" name="from_date" value="{{ $discount->from_date }}" required>
             </div>
             <div class="form-group">
                 <label class="small mb-1" for="to_date">To Date</label>
-                <input class="form-control" type="date" id="to_date" name="to_date" value="{{ $discount->to_date }}">
+                <input class="form-control" type="date" id="to_date" name="to_date" value="{{ $discount->to_date }}" required>
             </div>
             <div class="form-group">
-                <input type="radio" id="by_price" name="by_discount" value="by_price">
+                <input type="radio" id="by_price" name="by_discount" value="by_price" <?php echo ($discount->by_price) ? 'checked' : ''; ?>>
                 <label for="by_price">By_Price</label><br>
-                <input type="radio" id="by_percent" name="by_discount" value="by_percent">
+                <input type="radio" id="by_percent" name="by_discount" value="by_percent" <?php echo ($discount->by_percent) ? 'checked' : ''; ?>>
                 <label for="by_percent">By_Percent</label><br>
             </div>
             <div class="form-group">
                 <label class="small mb-1" for="discount">Discount</label>
-                <input class="form-control" type="text" name="discount" value="{{ $discount->discount }}">
+                <input class="form-control" type="text" name="discount" value="<?php if($discount->by_price) { echo @$discount->by_price ; } else { echo @$discount->by_percent; } ?> " required>
                 <span class="text-danger">{{ $errors->first('discount') }}</span>
             </div>
             <div class="form-group">
                 <div class="custom-control custom-checkbox small">
-                    <input class="custom-control-input" type="checkbox" id="needs_code" name="needs_code" checked>
+                    <input class="custom-control-input" type="checkbox" id="needs_code" name="needs_code" <?php echo ($discount->needs_code) ? 'checked' : ''; ?> >
                     <label class="custom-control-label" for="needs_code">Needs Code</label>
                 </div>
             </div>
             <div class="form-group">
                 <div class="custom-control custom-checkbox small">
-                    <input class="custom-control-input"<?php echo ($discount->status) ? 'checked' : ''; ?> type="checkbox" id="status" name="status">
+                    <input class="custom-control-input" <?php echo ($discount->status) ? 'checked' : ''; ?> type="checkbox" id="status" name="status">
                     <label class="custom-control-label" for="status">Active</label>
                 </div>
             </div>
             <div class="form-inline">
-                <a href="{{ URL::previous() }}" class="btn btn-secondary btn-user btn-block col-md-3">Back</a>
+                <a href="{{ url('/admin/details/Discount/10') }}" class="btn btn-secondary btn-user btn-block col-md-3">Back</a>
                 <input type="submit" class="btn btn-primary btn-user btn-block col-md-3" value="Update">
             </div>
       </form>

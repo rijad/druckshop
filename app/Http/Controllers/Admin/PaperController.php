@@ -82,7 +82,7 @@ class PaperController extends Controller
             'paper_weight' => $request->name,
             'name_english' => $request->name_in_en,
             'name_german' => $request->name_in_dh,
-            'weight_per_sheet' => $request->weight_per_sheet,
+            'weight_per_sheet' => @$request->weight_per_sheet,
             'min_sheets_for_spine' => $request->min_sheets_for_spine,
             'status' => $active_status
         ]);
@@ -169,7 +169,7 @@ class PaperController extends Controller
             $paper->paper_weight = $request->name;
             $paper->name_english = $request->name_in_en;
             $paper->name_german = $request->name_in_dh;
-            $paper->weight_per_sheet = $request->weight_per_sheet;
+            $paper->weight_per_sheet = @$request->weight_per_sheet;
             $paper->min_sheets_for_spine = $request->min_sheets_for_spine;
             $paper->status = $active_status;
 

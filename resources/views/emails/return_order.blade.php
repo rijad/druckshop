@@ -25,7 +25,7 @@
 					</tr>
 					<tr>
 
-						<td><p>Your order "{{ @$order_id }}" has been success !!</p></td>
+						<td><p>Your order id "{{ @$order_id }}" has been Cancelled !!</p></td>
 					</tr>
 
 					<?php $count = 1; ?>
@@ -35,22 +35,6 @@
 						<td><span><h4>{{ @$count }} - Product :   {{ @$value['product'] }} <h4></span>
 						</td>
 					</tr>
-					<tr>
-						<td><span><h4>Shipping Company :   {{ @$value['shipping_company'] }} <h4></span>
-						</td>
-					</tr>
-
-					<tr>
-						<td><span><h4>Billing Address :   {{ @$value['billing_address'] }} <h4></span>
-						</td>
-					</tr>
-
-					<tr>
-						<td><span><h4>Shipping Address :   {{ @$value['shipping_address'] }} <h4></span>
-						</td>
-					</tr>
-
-
 
 					<?php $count++; ?>
 					@endforeach
