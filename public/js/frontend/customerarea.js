@@ -3,7 +3,7 @@
 
         $.ajax({ 
           type: 'get', 
-          url: '/druckshop/customer-area-data',
+          url: base_url+'/customer-area-data',
           success:function(response) { 
            var data = JSON.parse(response);  
            document.getElementById('userIdBirth').value = data['dob'];
@@ -50,7 +50,7 @@ function saveProfile(){
 
 	$.ajax({ 
         type: 'POST',
-        url: '/druckshop/customer-area-update',
+        url: base_url+'/customer-area-update',
         contentType: false,
         processData: false,
         data: form_data,
@@ -101,7 +101,7 @@ $('#returnModal').on('show.bs.modal', function(e) {
       form_data.append( "_token", "{{ csrf_token() }}");
         $.ajax({ 
           type: 'POST', 
-          url: '/print-shop/return-order',
+          url: base_url+'/return-order',
           contentType: false,
           processData: false,
           data: form_data,
@@ -191,7 +191,7 @@ function addAddress(address_type = ""){
 
 
   $.ajax({
-      url: '/druckshop/add-address', 
+      url: base_url+'/add-address', 
       headers: {
       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       },

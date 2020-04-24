@@ -65,7 +65,7 @@ function getProductAttributes(binding){
 	var product_attributes = "";
 
 	$.ajax({
-		url: '/druckshop/get-relations', 
+		url: base_url+'/get-relations', 
 		type: 'GET', 
 		data: {'id': binding},
 		async: false,
@@ -84,7 +84,7 @@ function getContentAttributes(page_options){
 	var content_attributes = "";
 
 	$.ajax({
-		url: '/druckshop/get-relations-content', 
+		url: base_url+'/get-relations-content', 
 		type: 'GET', 
 		data: {'id': page_options},
 		async: false,
@@ -144,7 +144,7 @@ function getPrinting(value){
 
 binding = document.getElementById('binding').value;
 	$.ajax({
-		url: '/druckshop/get-print-finishing-status', 
+		url: base_url+'/get-print-finishing-status', 
 		type: 'GET', 
 		data: {'binding_type' : binding},
 		success: function (response){
@@ -179,7 +179,7 @@ function displayPrintFields(embossment = ""){
 	var binding = document.getElementById('binding').value;
 
 	$.ajax({
-		url: '/druckshop/get-print-finishing-status', 
+		url: base_url+'/get-print-finishing-status', 
 		type: 'GET', 
 		data: {'binding_type' : binding},
 		success: function (response){
@@ -780,7 +780,7 @@ function displayPrice(binding = "", no_ofsheets = "", page_options = "", embossi
 	
 
 	$.ajax({
-		url: '/druckshop/get-price', 
+		url: base_url+'/get-price', 
 		type: 'GET', 
 		data: {'binding_type' : binding, 'no_of_sheets' : no_ofsheets, 'pageOptions' : page_options, 'embossingCover' : embossing_cover, 'embossingSpine' : embossing_spine, 'paperWeight' : paper_weight, 'A2_page' : A2, 'A3_page': A3, 'nosOfCds' : nos_of_cds, 'dataCheck' : data_check, 'coloredSheets' : no_of_colored_sheets, 'deliveryService' : delivery_service, 'cdCover':cdCover},
 		success: function (response){
@@ -1233,7 +1233,7 @@ function setQuantity(count = ""){
 	// console.log(price_per_unit);
 
 	$.ajax({
-		url: '/druckshop/set-quantity', 
+		url: base_url+'/set-quantity', 
 		type: 'POST', 
 		data: {'qty': qty,'total_price_per_product' : total_price_per_product, 'count' : count},
 		success: function (response){
@@ -1273,8 +1273,7 @@ function incrementQuantity(id = "",count = ""){
 
 } 
 
- function checkPageRange(id1 = '', id2 = '' ,value_id = ''){  //alert("1");
- 
+  function checkPageRange(id1 = '', id2 = '' ,value_id = ''){  
      var count_of_pages = 0; var range = 0; var val = [];
      document.getElementById('error_range').innerHTML = ""; 
      var value = document.getElementById(value_id).value;
@@ -1284,32 +1283,52 @@ function incrementQuantity(id = "",count = ""){
      	count_of_pages =parseInt(document.getElementById(id2).innerHTML.split(":")[1]);
      }
 
-     if(value.includes("-")){
-     	val = value.split("-");  
-     	range = Math.abs(parseInt(val[0]) - parseInt(val[1])); //alert(range);
-     }else if(value.includes(",")){
-     	val = value.split(",");  
-     	range = val.length;   
-     }else if(value.match(/^\d+$/)){
-     	range = parseInt(value);
+     if(value.includes("-")){   // range seperation using '-'
+	     	val = value.split("-");  
+	     	if(parseInt(val[0])<count_of_pages && parseInt(val[1])<=count_of_pages){
+	     		range = Math.abs(parseInt(val[0]) - parseInt(val[1])) + 1; 
+	     	}else{
+	     		range = -1; 
+	     	}
+     	
+     }else if(value.includes(",")){   // range seperation using ','
+	     	val = value.split(",");  
+	     	var status = 1;
+	     	for(var i=0; i<val.length; i++){
+	     		if(val[i] > count_of_pages){
+	     			status = 0;
+	     		}
+	     	}
+
+	     	if(status == 0){
+	     		range = -1;
+	     	}else{
+	     		range = val.length;
+	     	}
+     	   
+     }else if(value.match(/^\d+$/)){  // single value case
+	     	//range = parseInt(value);
+	     	if(parseInt(value)<=count_of_pages){
+	     	    range = 1;  
+	     	}else{
+	     		range = -1; 
+	     	}
      }else{
-     	range = -1;
+     	    range = -1; 
      }
 
-
-     if(range > count_of_pages){
+     if(range > count_of_pages){ 
      		document.getElementById('error_range').innerHTML = "Please check the range for number of pages";
      		return false;
-     }else if(range <= 0){
+     }else if(range <= 0){   
      		document.getElementById('error_range').innerHTML = "Invalid Expression";
      		return false;
-     }else{
+     }else{  
      	document.getElementById('error_range').innerHTML = "No of Colored Pages:"+range;
      	return true;
      }
 
  }
- 
 
  // step 2 Number of pages dependency C
  function NumberOfPages(binding = "", weight = "", no_pages=""){
@@ -1320,7 +1339,7 @@ function incrementQuantity(id = "",count = ""){
     var status = true;
 
     $.ajax({ 
-		url: '/druckshop/paper-weight-sheets',  
+		url: base_url+'/paper-weight-sheets',  
 		type: 'POST', 
 		async: false,
 		data: {'binding': binding_val,'weight' : weight_val}, 
@@ -1374,7 +1393,7 @@ function incrementQuantity(id = "",count = ""){
  	var cover_color = document.getElementById('cover-color').value;
 
  	$.ajax({
-		url: '/druckshop/binding-sample-image', 
+		url: base_url+'/binding-sample-image', 
 		type: 'POST', 
 		data: {'binding': binding,'page_format' : page_format, 'cover_color' : cover_color},
 		success: function (response){
@@ -1401,7 +1420,7 @@ function getPaperWeightCount(){
 			var binding = document.getElementById('binding').value;
 
 			$.ajax({
-			url: '/druckshop/get-spine-count', 
+			url: base_url+'/get-spine-count', 
 			type: 'POST', 
 			data: {'binding': binding,'paper_weight': paper_weight},
 			success: function (response){  var data = JSON.parse(response); 
@@ -1494,7 +1513,7 @@ function addAddress(address_type = ""){
 
 
 	$.ajax({
-			url: '/druckshop/add-address', 
+			url: base_url+'/add-address', 
 			type: 'POST', 
 			data: {'default':0,'address_type':address_type, 'first_name':first_name, 'last_name':last_name, 'company_name':company_name, 'street':street, 'city':city, 'zip_code':zip_code, 'house_no':house_no, 'addition':addition, 'state':state},
 			success: function (response){  

@@ -129,7 +129,7 @@
 									<p class="error" id="error_selectfile_content"></p>
 
 									<div id="drop_file_zone_content_info" class="displayNone"><label id="content_file_name"></label>
-										<label id="content_page_no"></label><label id="content_del"></label></div>
+										<label id="content_page_no"></label><label id="content_del"></label></div> 
 
 
 										<p></p>
@@ -143,7 +143,7 @@
 										<div class="displayNone" id="div-page-numbers">
 											<label>Page Numbers to be printed in Colored *:<a href="#" data-toggle="tooltip" title="Page numbers of the PDF file, not of &#013; the thesis (document)" class="formToolTip">i</a></label>
 
-											<p><input type = "text" class= "" name="page_numbers" id="page-numbers" placeholder="Page Numbers" value = "" oninput = "displayPrice('','','','','','','','','','','',this.value,'');">
+											<p><input type = "text" class= "" name="page_numbers" id="page-numbers" placeholder="Page Numbers" value = "" oninput = "displayPrice('','','','','','','','','','','',this.value,''), checkPageRange('selectfile_content','content_page_no','page-numbers')">
 												<p class="error" id="error_page_numbers"></p>
 												<p class="error" id="error_range"></p><label>Example : 3,12,15-23,37</label></p>
 										</div>
