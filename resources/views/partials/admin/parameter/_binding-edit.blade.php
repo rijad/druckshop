@@ -44,22 +44,22 @@
                 </div>
                 
                 <div class="border_dashed">
-                    <div class="form-group">
+                    <div class="form-group rv-file_upload">
                         <label class="small mb-1" for="name">Upload Binding Image</label>
-                        <input class="form-control" type="file" id="product_file" name="product_file" />
+                        <input class="rv-custom-file-input" type="file" id="product_file" name="product_file" />
                     </div>
 
                     <div class="form-group">
                         <label class="small mb-1" for="name">Upload Others Images</label>
-                        <input class="form-control" type="file" id="name_in_dh" name="name_in_dh" multiple />
+                        <input class="rv-custom-file-input" type="file" id="name_in_dh" name="name_in_dh" multiple />
                     </div>
                 </div>
 
                 <br>
 
-                <div class="border_dashed">
+                <div class="border_dashed rv-RelativeBorder">
                     <div class="form-group">
-                        <label class="small mb-1" for="name">Page Format</label>
+                        <label class="small mb-1 " for="name">Page Format</label>
                         <div class="form-inline">
                             @foreach ($pageFormat as $key => $value)
 
@@ -81,7 +81,7 @@
              </div>
              <br>
 
-             <div class="border_dashed">
+             <div class="border_dashed rv-RelativeBorder">
 
                 <div class="form-group">
                     <label class="small mb-1" for="name">Cover Settings</label>
@@ -182,7 +182,7 @@
 </div>
 <br>
 
-<div class="border_dashed">
+<div class="border_dashed rv-RelativeBorder">
 
  <div class="form-group">
      <label class="small mb-1" for="cover_weight">Cover Weight</label>
@@ -192,7 +192,7 @@
 </div>
 <br>
 
-<div class="border_dashed">
+<div class="border_dashed rv-RelativeBorder">
  <div class="form-group ">
      <h2><label class="small mb-1" for="name">Paper Weight</label></h2>
      <table id="paper_weight_table">
@@ -229,9 +229,9 @@
 <br>
 
 
-<div class="border_dashed">
+<div class="border_dashed rv-RelativeBorder">
  <div class="form-group">
-     <label class="small mb-1" for="name">Print Finishing</label>
+     <label class="small mb-1 rv-AbsoluteBorder" for="name">Print Finishing</label>
      <div class="form-inline">
          @foreach ($printFinishing as $key5 => $value5)
 
@@ -361,7 +361,7 @@
 </div>
 
 <div class="form-inline">
-    <a href="{{ URL::previous() }}" class="btn btn-secondary btn-user btn-block col-md-3">Back</a>
+    <a href="{{ url('/admin/details/Product/1') }}" class="btn btn-secondary btn-user btn-block col-md-3">Back</a>
     <input type="submit" class="btn btn-primary btn-user btn-block col-md-3" value="Update">
 </div>
 

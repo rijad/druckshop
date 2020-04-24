@@ -18,10 +18,7 @@ class FreeSampleController extends Controller
      *
      * @return void
      */
-    public function __construct() {
-
-        $this->middleware('auth:admin');
-    }
+ 
     
     /**FreeSample
      * Display a listing of the resource.
@@ -29,7 +26,7 @@ class FreeSampleController extends Controller
      * @return \Illuminate\Http\Response 
      */
     public function index()
-    {
+    {   $this->middleware('auth:admin');
         $freesample = FreeSample::where('status', '1')->get();
         return view('pages.admin.freesample', compact('freesample'));
     }
@@ -78,16 +75,7 @@ class FreeSampleController extends Controller
           ->withInput();
         }
 
-        //if ($validator->passes()){
-
-          //if (!file_exists(public_path().'/uploads')) {
-              //mkdir(public_path().'/uploads', 0777);
-          //}
-            
-          //return redirect()->back()
-                        //->withErrors($validator)
-                        //->withInput();
-        //} 
+     
 
         if ($validator->passes()){ 
 
@@ -96,13 +84,15 @@ class FreeSampleController extends Controller
           }
 
           $input = $request->all(); 
-          $input['order_id'] =  "free_".time();
+          $input['order_id'] =  "free_".time(); 
           $input['sample_status'] = 'New';
           $input['document'] = 'public/uploads/'.$request->input('selectfile_free_sample');
           $input['status'] = 1;
 
           $freesample = FreeSample::create($input);
         }
+
+        return redirect()->back()->with('status' , 'Requested');
     }
     /**
      * Display the specified resource.
@@ -124,6 +114,7 @@ class FreeSampleController extends Controller
     public function edit(Request $request, $id)
     { 
         // dd($id);
+        $this->middleware('auth:admin');
         $freesample = FreeSample::where(['id' => $request->id ])->get();
         $orderstate = OrderState ::where('status', '1')->get();
         return view('/pages/admin/freesampledetails',compact('freesample' , 'orderstate', 'id'));

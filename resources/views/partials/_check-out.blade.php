@@ -383,7 +383,7 @@
 																</div>
 																<div class="modal-footer">
 																	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-																	<button type="button" class="btn btn-primary">Save changes</button>
+																	<button type="button" class="btn btn-primary" data-dismiss="modal">Save changes</button>
 																</div>
 															</div><!-- /.modal-content -->
 														</div><!-- /.modal-dialog -->
@@ -404,22 +404,7 @@
 														<label>Number of CDs*:</label>
 														<p><input type = "text" class = "" name="number_of_cds" id="numbers-of-cds" placeholder="Number of CDs" oninput= "displayPrice('','','','','','','','',this.value,'','','',''); displayProductAttributes('11',this);"></p>
 														<p class="error" id="error_number_of_cds"></p>
-													</div> 
-
-													<div class="displayNone" id="upload_cd" ondrop="upload_file(event,this.id)" ondragover="return false" class="displayBlock">
-														<div id="drag_upload_file_cd">
-															<p>Drop file here</p>   
-															<p>or</p>
-															<p><input type="button" value="Select File" onclick="file_explorer('upload_cd');"></p>
-															<input type="file" id="selectfile" name="selectfile" multiple>
-															<input type="hidden" id="selectfile_cd" name="selectfile_cd[]">
-														</div>
-													</div> 
-													<p class="error" id="error_selectfile_cd"></p> 
-
-													<div id="drop_file_zone_cd" class="displayNone"><label id="cd_file_name"></label>
-														<label id="cd_page_no"></label><label id="cd_del"></label></div>
-
+													</div>
 
 														<div class="displayNone" id="div-cd-imprint">
 															<label class="csCheckbtn">CD Imprint
@@ -437,7 +422,21 @@
 
 															<div class="displayNone" id="div-display-image-cd"></div>
 
-														<div class="displayNone" id="upload_custom_logo_cd" ondrop="upload_file(event,this.id)" ondragover="return false" class="displayBlock">
+														<div class="displayNone" id="upload_cd" ondrop="upload_file(event,this.id)" ondragover="return false" class="displayBlock">
+														<div id="drag_upload_file_cd">
+															<p>Drop file here</p>   
+															<p>or</p>
+															<p><input type="button" value="Select File" onclick="file_explorer('upload_cd');"></p>
+															<input type="file" id="selectfile" name="selectfile" multiple>
+															<input type="hidden" id="selectfile_cd" name="selectfile_cd">
+														</div>
+													</div> 
+													<p class="error" id="error_selectfile_cd"></p> 
+
+													<div id="drop_file_zone_cd" class="displayNone"><label id="cd_file_name"></label>
+														<label id="cd_page_no"></label><label id="cd_del"></label></div>
+
+													<div class="displayNone" id="upload_custom_logo_cd" ondrop="upload_file(event,this.id)" ondragover="return false" class="displayBlock">
 														<div id="drag_upload_file_logo">
 															<p>Drop file here<a href="#" data-toggle="tooltip" title="jpeg,jpg,png" class="formToolTip">i</a></p> 
 															<p>or</p>
@@ -449,7 +448,7 @@
 													</div>  
 													<p class="error" id="error_selectfile_logo_cd"></p>
 
-													<div id="drop_file_zone_logo_info_cd" class="displayNone"><label id="logo_file_name_cd"><a href="#" data-toggle="tooltip" title="Data is taken from cover sheet" class="formToolTip">i</a></label>
+													<div id="drop_file_zone_logo_info_cd" class="displayNone"><label id="logo_file_name_cd"></label>
 													<label id="logo_page_no_cd"></label><label id="logo_del_cd"></label></div>
 												
 														
@@ -466,7 +465,7 @@
 																</div>
 																<div class="modal-footer">
 																	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-																	<button type="button" class="btn btn-primary">Save changes</button>
+																	<button type="button" class="btn btn-primary" data-dismiss="modal">Save changes</button>
 																</div>
 															</div><!-- /.modal-content -->
 														</div><!-- /.modal-dialog -->
@@ -491,7 +490,7 @@
 														</div>
 
 														<div class="displayNone" id="div-pos-cd-bag">
-															<label>CD BAG POSITION</label>
+															<label>CD Bag Position</label>
 															<p><textarea class = ""  name="pos-cd-bag" id="pos-cd-bag" placeholder="At the end of the work inside the cover" ></textarea></p>
 														</div>
 			 
