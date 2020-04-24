@@ -40,17 +40,20 @@ use App\User;
 use \Exception;
 use Auth;
 use Session; 
- 
+
+
+use Mail;
+
 
 class CheckoutController extends Controller
 {
 	public function sendData()  
 	{ 
 		// $back_covers = BackCovers::where('status', '1')->get();
-		 $cd_bag = CdBag::where('status', '1')->get();
+		$cd_bag = CdBag::where('status', '1')->get();
 		// $cover_color = CoverColor::where('status', '1')->get();
 		// $cover_sheet = CoverSheet::where('status', '1')->get();
-		 $data_check = DataCheck::where('status', '1')->get();
+		$data_check = DataCheck::where('status', '1')->get();
 		// $delivery_service = DeliveryService::where('status', '1')->get();
 		// $discount = Discount::where('status', '1')->get();
 		// $kind_list = KindList::where('status', '1')->get();
@@ -122,7 +125,7 @@ class CheckoutController extends Controller
 			$response = returnResponse('','404','No Data Found');
 			print_r($response); exit;
 		}
- 
+
 	} 
 
 
@@ -146,7 +149,7 @@ class CheckoutController extends Controller
 			} 
 		}
 
-			$data = compact('paper_weight','mirror');	 
+		$data = compact('paper_weight','mirror');	 
 
 		if (! empty($data)) {
 			$response = returnResponse($data,'200','Success');
@@ -156,7 +159,7 @@ class CheckoutController extends Controller
 			print_r($response); exit;
 		}
 
-}
+	}
 
 
 	public function getPageFormat($id = "", $call_by = 'self'){
@@ -185,7 +188,7 @@ class CheckoutController extends Controller
 		}catch (Exception $e) {
 			return [];
 		}
- 
+
 	}
 
 	public function getCoverSheet($id = "", $call_by = 'self'){
@@ -258,44 +261,44 @@ class CheckoutController extends Controller
 	public function clearSession(Request $request){
 		
 		if($request->session()->has('binding_type')){
-		$request->session()->forget('binding_type');
+			$request->session()->forget('binding_type');
 		}
 		if($request->session()->has('no_of_sheets')){
-		$request->session()->forget('no_of_sheets');
+			$request->session()->forget('no_of_sheets');
 		}
 		if($request->session()->has('pageOptions')){
-		$request->session()->forget('pageOptions');
+			$request->session()->forget('pageOptions');
 		}
 		if($request->session()->has('embossingCover')){
-		$request->session()->forget('embossingCover');
+			$request->session()->forget('embossingCover');
 		}
 		if($request->session()->has('embossingSpine')){
-		$request->session()->forget('embossingSpine');
+			$request->session()->forget('embossingSpine');
 		}
 		if($request->session()->has('cdCover')){
-		$request->session()->forget('cdCover');
+			$request->session()->forget('cdCover');
 		}
 		if($request->session()->has('A2_page')){
-		$request->session()->forget('A2_page');
+			$request->session()->forget('A2_page');
 		}
 		if($request->session()->has('A3_page')){
-		$request->session()->forget('A3_page');
+			$request->session()->forget('A3_page');
 		}
 		if($request->session()->has('nosOfCds')){
-		$request->session()->forget('nosOfCds');
+			$request->session()->forget('nosOfCds');
 		}
 		if($request->session()->has('dataCheck')){
-		$request->session()->forget('dataCheck');
+			$request->session()->forget('dataCheck');
 		}
 		if($request->session()->has('coloredSheets')){
-		$request->session()->forget('coloredSheets');
+			$request->session()->forget('coloredSheets');
 		}
 		if($request->session()->has('deliveryService')){
-		$request->session()->forget('deliveryService');
+			$request->session()->forget('deliveryService');
 		}
 		
 		$response = returnResponse([""],'200','Success');
-				print_r($response);
+		print_r($response);
 	}
 
 	public function getPrice(Request $request){
@@ -394,12 +397,12 @@ class CheckoutController extends Controller
 			}
 
 			try{
-			$binding_price = ProductPrice::where('min_range','<=',$sheets)
-											->where('max_range','>=',$sheets)
-											->where('ps_product_id',$request->session()->get('binding_type'))
-											->where('status','1')->first('price')->price;
+				$binding_price = ProductPrice::where('min_range','<=',$sheets)
+				->where('max_range','>=',$sheets)
+				->where('ps_product_id',$request->session()->get('binding_type'))
+				->where('status','1')->first('price')->price;
 			}catch(\Exception $e){
-					$binding_price = 0;
+				$binding_price = 0;
 			}	    
 		} 
 
@@ -409,29 +412,29 @@ class CheckoutController extends Controller
 
 			$colored = 0; $b_w = 0; 
 
-				if($request->session()->get('pageOptions') == "1"){
-					$sheets = $request->session()->get('no_of_sheets');
-					$sided = "one-sided";
-				}else if($request->session()->get('pageOptions') == "2"){
-					$sheets = intval($request->session()->get('no_of_sheets')) / 2;
-					$sided = "two-sided";
+			if($request->session()->get('pageOptions') == "1"){
+				$sheets = $request->session()->get('no_of_sheets');
+				$sided = "one-sided";
+			}else if($request->session()->get('pageOptions') == "2"){
+				$sheets = intval($request->session()->get('no_of_sheets')) / 2;
+				$sided = "two-sided";
 				}  //print_r("2---".$sheets);
 
 				if($request->session()->has('coloredSheets')){
 					$colored = intval($request->session()->get('coloredSheets'));
 					$b_w = $sheets - $colored;
 					try{
-					$c_price = PrintoutBasicPrice::where('din','A2')
-														->where('color','colored')
-														->where('sided',$sided)->first('price')->price;
+						$c_price = PrintoutBasicPrice::where('din','A2')
+						->where('color','colored')
+						->where('sided',$sided)->first('price')->price;
 					}catch(\Exception $e){
 						$c_price = 0;
 					}
 
 					try{
-					$b_price = PrintoutBasicPrice::where('din','A2')
-														->where('color','B/W')
-														->where('sided',$sided)->first('price')->price;
+						$b_price = PrintoutBasicPrice::where('din','A2')
+						->where('color','B/W')
+						->where('sided',$sided)->first('price')->price;
 					}catch(\Exception $e){
 						$b_price = 0;
 					}
@@ -440,20 +443,20 @@ class CheckoutController extends Controller
 				}else{
 					$b_w = $sheets;
 					try{
-					$b_price = PrintoutBasicPrice::where('din','A2')
-														->where('color','B/W')
-														->where('sided',$sided)->first('price')->price;
+						$b_price = PrintoutBasicPrice::where('din','A2')
+						->where('color','B/W')
+						->where('sided',$sided)->first('price')->price;
 					}catch(\Exception $e){
 						$b_price = 0;
 					}
 					$b_w_price_A2 = $b_w * floatval($b_price);
 				}
-		}
+			}
 
 		// printout basic price A3
-		if($request->session()->has('pageOptions') && $request->session()->has('A3_page') ){  
+			if($request->session()->has('pageOptions') && $request->session()->has('A3_page') ){  
 
-			$colored = 0; $b_w = 0; 
+				$colored = 0; $b_w = 0; 
 
 				if($request->session()->get('pageOptions') == "1"){
 					$sheets = $request->session()->get('no_of_sheets');
@@ -468,17 +471,17 @@ class CheckoutController extends Controller
 					$b_w = $sheets - $colored;
 
 					try{
-					$c_price = PrintoutBasicPrice::where('din','A3')
-														->where('color','colored')
-														->where('sided',$sided)->first('price')->price;
+						$c_price = PrintoutBasicPrice::where('din','A3')
+						->where('color','colored')
+						->where('sided',$sided)->first('price')->price;
 					}catch(\Exception $e){
 						$c_price = 0;
 					}
 
 					try{
-					$b_price = PrintoutBasicPrice::where('din','A3')
-														->where('color','B/W')
-														->where('sided',$sided)->first('price')->price;
+						$b_price = PrintoutBasicPrice::where('din','A3')
+						->where('color','B/W')
+						->where('sided',$sided)->first('price')->price;
 					}catch(\Exception $e){
 						$b_price = 0;
 					}
@@ -487,20 +490,20 @@ class CheckoutController extends Controller
 				}else{
 					$b_w = $sheets;
 					try{
-					$b_price = PrintoutBasicPrice::where('din','A3')
-														->where('color','B/W')
-														->where('sided',$sided)->first('price')->price;
+						$b_price = PrintoutBasicPrice::where('din','A3')
+						->where('color','B/W')
+						->where('sided',$sided)->first('price')->price;
 					}catch(\Exception $e){
 						$b_price = 0;
 					}
 					$b_w_price_A3 = $b_w * floatval($b_price);
 				}
-		}
+			}
 
 		// printout basic price A4
-		if($request->session()->has('pageOptions') && ! $request->session()->has('A3_page') && ! $request->session()->has('A2_page') ){  
+			if($request->session()->has('pageOptions') && ! $request->session()->has('A3_page') && ! $request->session()->has('A2_page') ){  
 
-			$colored = 0; $b_w = 0; 
+				$colored = 0; $b_w = 0; 
 
 				if($request->session()->get('pageOptions') == "1"){
 					$sheets = $request->session()->get('no_of_sheets');
@@ -514,17 +517,17 @@ class CheckoutController extends Controller
 					$colored = intval($request->session()->get('coloredSheets'));
 					$b_w = $sheets - $colored;
 					try{
-					$c_price = PrintoutBasicPrice::where('din','A4')
-														->where('color','colored')
-														->where('sided',$sided)->first('price')->price;
+						$c_price = PrintoutBasicPrice::where('din','A4')
+						->where('color','colored')
+						->where('sided',$sided)->first('price')->price;
 					}catch(\Exception $e){
 						$c_price = 0;
 					}
 
 					try{
-					$b_price = PrintoutBasicPrice::where('din','A4')
-														->where('color','B/W')
-														->where('sided',$sided)->first('price')->price;
+						$b_price = PrintoutBasicPrice::where('din','A4')
+						->where('color','B/W')
+						->where('sided',$sided)->first('price')->price;
 					}catch(\Exception $e){
 						$b_price = 0;
 					}
@@ -533,22 +536,22 @@ class CheckoutController extends Controller
 				}else{
 					$b_w = $sheets;
 					try{
-					$b_price = PrintoutBasicPrice::where('din','A4')
-														->where('color','B/W')
-														->where('sided',$sided)->first('price')->price;
+						$b_price = PrintoutBasicPrice::where('din','A4')
+						->where('color','B/W')
+						->where('sided',$sided)->first('price')->price;
 					}catch(\Exception $e){
 						$b_price = 0;
 					}
 					$b_w_price_A4 = $b_w * floatval($b_price);
 				}
-		}
-		$printout_basic = $colored_price_A3 + $b_w_price_A3 + $colored_price_A2 + $b_w_price_A2 + $colored_price_A4 + $b_w_price_A4;
+			}
+			$printout_basic = $colored_price_A3 + $b_w_price_A3 + $colored_price_A2 + $b_w_price_A2 + $colored_price_A4 + $b_w_price_A4;
 
 
 		// paper surcharge price A2
-		if($request->session()->has('pageOptions') && $request->session()->has('A2_page') && $request->session()->has('paperWeight') ){  
+			if($request->session()->has('pageOptions') && $request->session()->has('A2_page') && $request->session()->has('paperWeight') ){  
 
-			$paperWeight = PaperWeight::where('id',$request->session()->get('paperWeight'))->first('paper_weight',$request->session()->get('paperWeight'))->paper_weight;
+				$paperWeight = PaperWeight::where('id',$request->session()->get('paperWeight'))->first('paper_weight',$request->session()->get('paperWeight'))->paper_weight;
 
 				if($request->session()->get('pageOptions') == "1"){
 					$sheets = $request->session()->get('no_of_sheets');
@@ -561,19 +564,19 @@ class CheckoutController extends Controller
 
 				try{
 					$Price_surcharge_A2 = PrintoutPaperSurcharge::where('din','A2')
-																->where('papier',$paperWeight)
-																->where('sided',$sided)->first('price')->price;	
+					->where('papier',$paperWeight)
+					->where('sided',$sided)->first('price')->price;	
 				}catch(\Exception $e){
 					$Price_surcharge_A2 = 0;
 				}
 
 
-}
+			}
 
 		// paper surcharge price A3
-		if($request->session()->has('pageOptions') && $request->session()->has('A3_page') && $request->session()->has('paperWeight') ){  
+			if($request->session()->has('pageOptions') && $request->session()->has('A3_page') && $request->session()->has('paperWeight') ){  
 
-			$paperWeight = PaperWeight::where('id',$request->session()->get('paperWeight'))->first('paper_weight',$request->session()->get('paperWeight'))->paper_weight;
+				$paperWeight = PaperWeight::where('id',$request->session()->get('paperWeight'))->first('paper_weight',$request->session()->get('paperWeight'))->paper_weight;
 
 				if($request->session()->get('pageOptions') == "1"){
 					$sheets = $request->session()->get('no_of_sheets');
@@ -584,18 +587,18 @@ class CheckoutController extends Controller
 				}
 
 				try{
-				$Price_surcharge_A3 = PrintoutPaperSurcharge::where('din','A3')
-														->where('papier',$paperWeight)
-														->where('sided',$sided)->first('price')->price;	
+					$Price_surcharge_A3 = PrintoutPaperSurcharge::where('din','A3')
+					->where('papier',$paperWeight)
+					->where('sided',$sided)->first('price')->price;	
 				}catch(\Exception $e){
 					$Price_surcharge_A3 = 0;
 				}	
-		}
+			}
 
 		// paper surcharge price A4
-		if($request->session()->has('pageOptions') && !$request->session()->has('A2_page') && !$request->session()->has('A3_page') && $request->session()->has('paperWeight') ){  
+			if($request->session()->has('pageOptions') && !$request->session()->has('A2_page') && !$request->session()->has('A3_page') && $request->session()->has('paperWeight') ){  
 
-			$paperWeight = PaperWeight::where('id',$request->session()->get('paperWeight'))->first('paper_weight',$request->session()->get('paperWeight'))->paper_weight;
+				$paperWeight = PaperWeight::where('id',$request->session()->get('paperWeight'))->first('paper_weight',$request->session()->get('paperWeight'))->paper_weight;
 
 				if($request->session()->get('pageOptions') == "1"){
 					$sheets = $request->session()->get('no_of_sheets');
@@ -606,57 +609,57 @@ class CheckoutController extends Controller
 				}
 
 				try{
-				$Price_surcharge_A4 = PrintoutPaperSurcharge::where('din','A4')
-														->where('papier',$paperWeight)
-														->where('sided',$sided)->first('price')->price;		
+					$Price_surcharge_A4 = PrintoutPaperSurcharge::where('din','A4')
+					->where('papier',$paperWeight)
+					->where('sided',$sided)->first('price')->price;		
 				}catch(\Exception $e){
 					$Price_surcharge_A4 = 0;
 				}
-		}
+			}
 
-		$printout_surcharge = $Price_surcharge_A2 + $Price_surcharge_A3 + $Price_surcharge_A4;
+			$printout_surcharge = $Price_surcharge_A2 + $Price_surcharge_A3 + $Price_surcharge_A4;
 
-		$printout = $printout_basic + $printout_surcharge;
+			$printout = $printout_basic + $printout_surcharge;
 
 		// price data check
-		if($request->session()->has('dataCheck')){ 
-			$data_check_value = DataCheck::where('id',$request->session()->get('dataCheck'))->first('check_list')->check_list;
-			try {
-				$data_check_price = DataCheckPrice::where('type',$data_check_value)->first('price')->price;
-			} catch (\Exception $e) {
-				$data_check_price = 0;
+			if($request->session()->has('dataCheck')){ 
+				$data_check_value = DataCheck::where('id',$request->session()->get('dataCheck'))->first('check_list')->check_list;
+				try {
+					$data_check_price = DataCheckPrice::where('type',$data_check_value)->first('price')->price;
+				} catch (\Exception $e) {
+					$data_check_price = 0;
+				}
+
 			}
-			
-		}
 
 		// price cd/dvd   
-		if($request->session()->has('nosOfCds') && $request->session()->has('cdCover')){ 
-			$cd = 2;
-			try{
-			$cd_dvd_val = CdCoverPrice::where('cd_bag_id',$request->session()->get('cdCover'))->first('price')->price;
-			$cd_dvd = floatval($cd_dvd_val) * 2;
-			}catch(\Exception $e){
-				$cd_dvd = 0;
+			if($request->session()->has('nosOfCds') && $request->session()->has('cdCover')){ 
+				$cd = 2;
+				try{
+					$cd_dvd_val = CdCoverPrice::where('cd_bag_id',$request->session()->get('cdCover'))->first('price')->price;
+					$cd_dvd = floatval($cd_dvd_val) * 2;
+				}catch(\Exception $e){
+					$cd_dvd = 0;
+				}
 			}
-		}
 
-		$total = $binding_price + $printout + $data_check_price + $cd_dvd;
+			$total = $binding_price + $printout + $data_check_price + $cd_dvd;
 
-		$data = compact('binding_price','printout','data_check_price','cd_dvd','total');
-		$response = returnResponse($data,'200','Success');
+			$data = compact('binding_price','printout','data_check_price','cd_dvd','total');
+			$response = returnResponse($data,'200','Success');
 			print_r($response); exit;
 
-	}
+		}
 
-	public function saveOrder(Request $request){
+		public function saveOrder(Request $request){
 
 		//$count = count($request->input());
 		//dd(Auth::user()->id);   
 		//dd($request->input()); 
-		 
-		$product_attribute = json_encode($request->input());
-		
-		$product = Product::where('id', $request->input('binding'))->first()->title_english;
+
+			$product_attribute = json_encode($request->input());
+
+			$product = Product::where('id', $request->input('binding'))->first()->title_english;
 
 		// foreach($request->input() as $key => $value){
 
@@ -665,285 +668,285 @@ class CheckoutController extends Controller
 		// 	$OrderAttributes->attribute = $key;
 		// 	$OrderAttributes->value = $value;
 		// 	$OrderAttributes->save();
- 
+
 		// }
- 
-		$product_details = "";
 
-		foreach($request->input() as $key => $value){
+			$product_details = "";
 
-			$str_arr = explode ("_", $key);  
+			foreach($request->input() as $key => $value){
 
-			if(!is_null($value) && $value != "-1" && $key != "_token" && $key != "selectfile" && $str_arr[0] != "selectfile" && $key != "total"){
+				$str_arr = explode ("_", $key);  
 
-				$attribute_value = self::makeOrderDetails($key,$value);
+				if(!is_null($value) && $value != "-1" && $key != "_token" && $key != "selectfile" && $str_arr[0] != "selectfile" && $key != "total"){
+
+					$attribute_value = self::makeOrderDetails($key,$value);
 				// make scentence for product details
-				$product_details .= $key ." ".$attribute_value." ,";
-			}
- 
-		} 
- 
-		$qty = 1;
+					$product_details .= $key ." ".$attribute_value." ,";
+				}
 
-		if (Auth::check())
-		{
-			$user_id = Auth::user()->id;
+			} 
+
+			$qty = 1;
+
+			if (Auth::check())
+				{
+					$user_id = Auth::user()->id;
 	 //print_r($user_id);
-		}else{
-			$user_id = time();
-			Session::put('user_id', $user_id);
-		}
+				}else{
+					$user_id = time();
+					Session::put('user_id', $user_id);
+				}
  //dd($product_attribute);
-		$OrderAttributes = new OrderAttributes;
-		$OrderAttributes->user_id = $user_id;
-		$OrderAttributes->product= $product;
-		$OrderAttributes->attribute = $product_attribute;
+				$OrderAttributes = new OrderAttributes;
+				$OrderAttributes->user_id = $user_id;
+				$OrderAttributes->product= $product;
+				$OrderAttributes->attribute = $product_attribute;
 		//$OrderAttributes->product_id= $product."_".$user_id."_".time();
-		$OrderAttributes->product_id = $request->input('binding');
-		$OrderAttributes->quantity= $qty;
-		$OrderAttributes->attribute_desc= $product_details;
-		$OrderAttributes->price_per_product=floatval($request->total);
-		$OrderAttributes->price_product_qty= floatval($request->total) * $qty;
-		$OrderAttributes->quantity= 1; 
-		$OrderAttributes->status= 1;
-		$OrderAttributes->save();
+				$OrderAttributes->product_id = $request->input('binding');
+				$OrderAttributes->quantity= $qty;
+				$OrderAttributes->attribute_desc= $product_details;
+				$OrderAttributes->price_per_product=floatval($request->total);
+				$OrderAttributes->price_product_qty= floatval($request->total) * $qty;
+				$OrderAttributes->quantity= 1; 
+				$OrderAttributes->status= 1;
+				$OrderAttributes->save();
 
 
-		session(['product_id' =>  $product."_".$user_id."_".time()]);
+				session(['product_id' =>  $product."_".$user_id."_".time()]);
 
-		
+
 
 		//echo $product_details; 
 
 		 //return view('/pages/front-end/cart',compact('product_data'));
 
-		 return redirect()->route('cart');
+				return redirect()->route('cart');
 
 
 		//dd($request->input()); 
- 
-}
 
-public function cart(){  
- 
-	if (Auth::check()) 
-    {
-	 $user_id = Auth::user()->id;
-	}else{$user_id = Session::get('user_id');} 
+			}
 
-	try{
-		$product_data = OrderAttributes::where(['status'=>'1','user_id'=>$user_id])->get();  
-	}catch(Exception $e){
-		$product_data = "";
-	}
+			public function cart(){  
+
+				if (Auth::check()) 
+					{
+						$user_id = Auth::user()->id;
+					}else{$user_id = Session::get('user_id');} 
+
+					try{
+						$product_data = OrderAttributes::where(['status'=>'1','user_id'=>$user_id])->get();  
+					}catch(Exception $e){
+						$product_data = "";
+					}
 
 
-	try{
-		$billing_address_data = UserAddress::where(['address_type'=>'billing','user_id'=>$user_id])->get();
-	}catch(Exception $e){
-		$billing_address_data = "";
-	}
+					try{
+						$billing_address_data = UserAddress::where(['address_type'=>'billing','user_id'=>$user_id])->get();
+					}catch(Exception $e){
+						$billing_address_data = "";
+					}
 
-	try{
-		$shipping_address_data = UserAddress::where(['address_type'=>'shipping','user_id'=>$user_id])->get();
-	}catch(Exception $e){
-		$shipping_address_data ="";
-	}	
-	
-	try{
-		$shipping_company = DeliveryService::all();
-	}catch(Exception $e){
-		$shipping_company ="";
-	}
-	
-	
-return view('/pages/front-end/cart',compact('product_data','shipping_company','billing_address_data','shipping_address_data'));
+					try{
+						$shipping_address_data = UserAddress::where(['address_type'=>'shipping','user_id'=>$user_id])->get();
+					}catch(Exception $e){
+						$shipping_address_data ="";
+					}	
 
-}
+					try{
+						$shipping_company = DeliveryService::all();
+					}catch(Exception $e){
+						$shipping_company ="";
+					}
 
-public function orderDetails(Request $request){
 
-	$total = 0;
+					return view('/pages/front-end/cart',compact('product_data','shipping_company','billing_address_data','shipping_address_data'));
+
+				}
+
+				public function orderDetails(Request $request){
+
+					$total = 0;
 
 	//$total_cart = self::CartCount();  
- 
-	if (Auth::check()) 
-    {
-	 $user_id = Auth::user()->id;
-	}else{
-		$user_id = Session::get('user_id');
-	}
 
-	$product_data = OrderAttributes::where('user_id', $user_id)->get();
-	foreach($product_data as $value){
+					if (Auth::check()) 
+						{
+							$user_id = Auth::user()->id;
+						}else{
+							$user_id = Session::get('user_id');
+						}
 
-		$total += $value->price_product_qty;
- 
-	}  
+						$product_data = OrderAttributes::where('user_id', $user_id)->get();
+						foreach($product_data as $value){
+
+							$total += $value->price_product_qty;
+
+						}  
 
 
-	$validator = Validator::make($request->all(), [ 
-			'no_of_copies.*'=> 'required',
-			'no_of_cds.*' => 'nullable',
-			'shipping_company.*' => 'required|not_in:-1',
-			'shipping_address.*' => 'required|not_in:-1',             
-			'billing_address.*' => 'required|not_in:-1',
-			'email_id' => 'required|email',
-			'code' => 'nullable|exists:ps_discount',
-	], [
-    'no_of_copies.*.required' => 'No of Copies are required',
-    'shipping_company.*.not_in' => 'Shipping Company is required',
-    'shipping_address.*.not_in' => 'Shipping Address is required',
-    'billing_address.*.not_in' => 'Billing Address is required',
-]); 
+						$validator = Validator::make($request->all(), [ 
+							'no_of_copies.*'=> 'required',
+							'no_of_cds.*' => 'nullable',
+							'shipping_company.*' => 'required|not_in:-1',
+							'shipping_address.*' => 'required|not_in:-1',             
+							'billing_address.*' => 'required|not_in:-1',
+							'email_id' => 'required|email',
+							'code' => 'nullable|exists:ps_discount',
+						], [
+							'no_of_copies.*.required' => 'No of Copies are required',
+							'shipping_company.*.not_in' => 'Shipping Company is required',
+							'shipping_address.*.not_in' => 'Shipping Address is required',
+							'billing_address.*.not_in' => 'Billing Address is required',
+						]); 
 
 
 	// Check if Guest already exists (using email id)
 	// get already existing or new user_id
-	if($user_id == Session::get('user_id')){
+						if($user_id == Session::get('user_id')){
 
-		$user_id = self::checkGuest($request->input('email_id'));
+							$user_id = self::checkGuest($request->input('email_id'));
 		// set new user id for Guest in tables
-		self::setGuestUserid($user_id);
+							self::setGuestUserid($user_id);
 		//dd($user_id);
 
-	}
+						}
 
-    if ($validator->passes()){   
+						if ($validator->passes()){   
 
 			//dd($request->input());  
 
-			foreach($product_data as $key=>$product_detail){
+							foreach($product_data as $key=>$product_detail){
 
-			$update_data = $product_detail;
-			$update_data->item_sequence = $key+1;
-			$update_data->no_of_copies = $request->no_of_copies[$key];
-			$update_data->no_of_cds = $request->no_of_cds[$key];
-			$update_data->shipping_company = $request->shipping_company[$key];
-			$update_data->shipping_address = $request->shipping_address[$key];
-			$update_data->billing_address = $request->billing_address[$key]; 
-			$update_data->save();
+								$update_data = $product_detail;
+								$update_data->item_sequence = $key+1;
+								$update_data->no_of_copies = $request->no_of_copies[$key];
+								$update_data->no_of_cds = $request->no_of_cds[$key];
+								$update_data->shipping_company = $request->shipping_company[$key];
+								$update_data->shipping_address = $request->shipping_address[$key];
+								$update_data->billing_address = $request->billing_address[$key]; 
+								$update_data->save();
 
-			}
+							}
 
 
 			// // handling promo code
-		  if($request->input('code') != "null" && ! empty($request->input('code'))){
+							if($request->input('code') != "null" && ! empty($request->input('code'))){
 
-		  	$discount = Discount::where(['code' => $request->input('code')])->first(['by_price','by_percent']);
+								$discount = Discount::where(['code' => $request->input('code')])->first(['by_price','by_percent']);
 			//dd($discount->by_price);
-			if($discount->by_price != "null" && ! empty($discount->by_price)){
-				$discount_amt = $discount->by_price;
-			}else{
-				$discount_amt = ($total / 100 ) * $discount->by_percent;
-			}
+								if($discount->by_price != "null" && ! empty($discount->by_price)){
+									$discount_amt = $discount->by_price;
+								}else{
+									$discount_amt = ($total / 100 ) * $discount->by_percent;
+								}
 
 			if($discount_amt > $total){ // discount is more then total i.e no code will be applied
 				$net_amt = $total - 0.00;
 			}else{
 				$net_amt = $total - $discount_amt; 
 			}
-		  }else{
-		  	$discount_amt = 0.0;
-		  	$net_amt = $total - $discount_amt;
-		  }
+		}else{
+			$discount_amt = 0.0;
+			$net_amt = $total - $discount_amt;
+		}
 
 
-			Session::put('order_id', $user_id.'_'.time());
+		Session::put('order_id', $user_id.'_'.time());
 
 
-			$OrderDetailsvalue = new OrderDetails;
-			$OrderDetailsvalue->user_id = $user_id;
-			$OrderDetailsvalue->order_id= $user_id.'_'.time();
-			$OrderDetailsvalue->promo_code= $request->input('code');
-			$OrderDetailsvalue->email_id= $request->input('email_id');
-			$OrderDetailsvalue->total= $total;
-			$OrderDetailsvalue->save();
-			
+		$OrderDetailsvalue = new OrderDetails;
+		$OrderDetailsvalue->user_id = $user_id;
+		$OrderDetailsvalue->order_id= $user_id.'_'.time();
+		$OrderDetailsvalue->promo_code= $request->input('code');
+		$OrderDetailsvalue->email_id= $request->input('email_id');
+		$OrderDetailsvalue->total= $total;
+		$OrderDetailsvalue->save();
+
 			//$OrderDetailsvalue= OrderDetails::create($input);
-			$product_data = OrderAttributes::where('user_id', $user_id)->get();
+		$product_data = OrderAttributes::where('user_id', $user_id)->get();
 
-			return view('/pages/front-end/order',compact('product_data','discount_amt','total','net_amt'));
+		return view('/pages/front-end/order',compact('product_data','discount_amt','total','net_amt'));
 
 
 	}else{//dd($validator->errors('shipping_address.0'));
-			return back()->with('errors', $validator->errors());
-	}
+	return back()->with('errors', $validator->errors());
+}
 
 
 }   
- 
+
 
 public function setQuantity(Request $request){
 
 	//print_r($request->input('qty'));
 
-	 $qty = $request->input('qty');
-	 $total_price_per_product = $request->input('total_price_per_product');
-	 if (Auth::check())
-	 {
-	 	$user_id = Auth::user()->id;
+	$qty = $request->input('qty');
+	$total_price_per_product = $request->input('total_price_per_product');
+	if (Auth::check())
+		{
+			$user_id = Auth::user()->id;
 	 //print_r($user_id);
-	 }else{$user_id = 0;}
-	 $data = OrderAttributes::where('user_id', $user_id)->take($request->input('count'))->get();
-	 
+		}else{$user_id = 0;}
+		$data = OrderAttributes::where('user_id', $user_id)->take($request->input('count'))->get();
 
 
-	 $i = 0;
-	 foreach($data as $value){
 
-	 	$update_data = $value;
-	 	$update_data->quantity = $qty[$i];
-	 	$update_data->price_product_qty = $total_price_per_product[$i];
-	 	$update_data->save();
-	 	$i++;
+		$i = 0;
+		foreach($data as $value){
 
-	 }
+			$update_data = $value;
+			$update_data->quantity = $qty[$i];
+			$update_data->price_product_qty = $total_price_per_product[$i];
+			$update_data->save();
+			$i++;
 
-	exit;
+		}
 
-}
+		exit;
+
+	}
 
 
-public function removeItem(Request $request){
+	public function removeItem(Request $request){
 
 	//dd($request->id);
 
-	if (Auth::check())
-	{
-		$user_id = Auth::user()->id;
+		if (Auth::check())
+			{
+				$user_id = Auth::user()->id;
 	 //print_r($user_id);
-	}else{$user_id = 0;}
+			}else{$user_id = 0;}
 
-	$delete = OrderAttributes::destroy($request->id);
+			$delete = OrderAttributes::destroy($request->id);
 	// $product_data = OrderAttributes::where('user_id', $user_id)->get();
 	// return view('/pages/front-end/cart',compact('product_data'));
-	return redirect()->route('cart');
+			return redirect()->route('cart');
 
-}
-
-
-public function paymentPaypal(){
-
-	if(Auth::check())
-	{
-	$user_id = Auth::user()->id;
-	}else{return redirect()->route('index'); }
-
-	$product_data = OrderAttributes::where('user_id', $user_id)->get();
-	$order_details = OrderDetails::where(['user_id'=> $user_id , 'order_id' => Session::get('order_id')])->first();
-	$net_amt = $order_details->total; 
-	// handling promo code
-	if($order_details->promo_code != "null" && ! empty($order_details->promo_code)){  
-
-		$discount = Discount::where(['code' => $order_details->promo_code])->first(['by_price','by_percent']);
-			//dd($discount->by_price);
-		if($discount->by_price != "null" && ! empty($discount->by_price)){
-			$discount_amt = $discount->by_price;
-		}else{
-			$discount_amt = ($order_details->total / 100 ) * $discount->by_percent;
 		}
-		$net_amt = $order_details->total - $discount_amt;
+
+
+		public function paymentPaypal(){
+
+			if(Auth::check())
+				{
+					$user_id = Auth::user()->id;
+				}else{return redirect()->route('index'); }
+
+				$product_data = OrderAttributes::where('user_id', $user_id)->get();
+				$order_details = OrderDetails::where(['user_id'=> $user_id , 'order_id' => Session::get('order_id')])->first();
+				$net_amt = $order_details->total; 
+	// handling promo code
+				if($order_details->promo_code != "null" && ! empty($order_details->promo_code)){  
+
+					$discount = Discount::where(['code' => $order_details->promo_code])->first(['by_price','by_percent']);
+			//dd($discount->by_price);
+					if($discount->by_price != "null" && ! empty($discount->by_price)){
+						$discount_amt = $discount->by_price;
+					}else{
+						$discount_amt = ($order_details->total / 100 ) * $discount->by_percent;
+					}
+					$net_amt = $order_details->total - $discount_amt;
 	}  //dd($net_amt);
 	return view('/pages/front-end/payment_paypal',compact('product_data','order_details','net_amt'));
 
@@ -953,29 +956,30 @@ public function paymentPaypal(){
 public function paymentPaypalSuccess(Request $request){
 
 	if(Auth::check())
-	{ 
-	$user_id = Auth::user()->id;
-	}else{return redirect()->route('index'); }
+  {
+    $user_id = Auth::user()->id;
+  }else{
+    return redirect()->route('index'); 
+  }
+
+		$order_details = OrderDetails::where('user_id', $user_id)->first();
+
+		$order_details_amt = $order_details->total;
+		$txn = $_GET['tx'];
 
 
-	$order_details = OrderDetails::where('user_id', $user_id)->first();
+    $payment = new Payment;
+    $payment->order_id = $order_details->order_id;
+    $payment->txn = $_GET['tx'];
+    $payment->status = $_GET['st'];
+    $payment->user_id = $user_id;
+    $payment->amount = $_GET['amt']; 
+    $payment->type = "paypal";
+    $payment->save();
 
-	$order_details_amt = $order_details->total;
-	$txn = $_GET['tx'];
+		$OrderDetails = OrderDetails::where('user_id', $user_id)->first();
 
-	$payment = new Payment;
-	$payment->order_id = $order_details->order_id;
-	$payment->txn = $_GET['tx'];
-	$payment->status = $_GET['st'];
-	$payment->user_id = $user_id;
-	$payment->amount = $_GET['amt']; 
-	$payment->type = "paypal";
-	$payment->save();
- 
-
-	$OrderDetails = OrderDetails::where('user_id', $user_id)->first();
-
-	$OrderDetailsFinal = new OrderDetailsFinal;
+		$OrderDetailsFinal = new OrderDetailsFinal;
 		$OrderDetailsFinal->user_id = $user_id;
 		$OrderDetailsFinal->order_id= $OrderDetails->order_id;
 		//$OrderDetailsFinal->no_of_copies= $OrderDetails->no_of_copies;
@@ -994,63 +998,104 @@ public function paymentPaypalSuccess(Request $request){
 
 	//$OrderDetailsFinal = $OrderDetails;
 
-	$OrderAttributes = OrderAttributes::where(['status'=>'1','user_id'=>$user_id])->get();
+		$OrderAttributes = OrderAttributes::where(['status'=>'1','user_id'=>$user_id])->get();
 
-	foreach($OrderAttributes as $order){
-		$OrderHistory = new OrderHistory;
-		$OrderHistory->user_id = $order->user_id;
-		$OrderHistory->item_sequence = $order->item_sequence;
-		$OrderHistory->product= $order->product;
-		$OrderHistory->no_of_copies = $order->no_of_copies;
-		$OrderHistory->no_of_cds = $order->no_of_cds;
-		$OrderHistory->shipping_company = $order->shipping_company;
-		$OrderHistory->shipping_address = $order->shipping_address;
-		$OrderHistory->billing_address = $order->billing_address;
-		$OrderHistory->attribute = $order->attribute;
-		$OrderHistory->order_history_id= $OrderDetailsFinal->id;
-		$OrderHistory->product_id =$order->product_id;
-		$OrderHistory->quantity= $order->quantity;
-		$OrderHistory->attribute_desc= $order->attribute_desc;
-		$OrderHistory->price_per_product= $order->price_per_product;
-		$OrderHistory->price_product_qty= $order->price_product_qty;
-		$OrderHistory->quantity= $order->quantity; 
-		$OrderHistory->status= $order->status;
-		$OrderHistory->order_id= $OrderDetails->order_id;;
-		$OrderHistory->save();
-}
-
-
-	$delete_cart = OrderAttributes::where(['user_id'=>$user_id])->delete();
-	$delete_order_details = OrderDetails::where(['user_id'=>$user_id])->delete();
-
-	$request->session()->forget('user_id');
-	$request->session()->forget('order_id');
-
-	return view('/pages/front-end/paypalsuccess',compact('order_details','order_details_amt','txn'));
-	
-}
-
-
-public function cashOnDelivery(Request $request){
-   
-	if(Auth::check()) 
-	{
-	$user_id = Auth::user()->id; 
-	}else{return redirect()->route('index');}
-	
-	$OrderDetails = OrderDetails::where(['user_id'=> $user_id , 'order_id' => Session::get('order_id')])->first();
-	$net_amt = $OrderDetails->total; 
-	// handling promo code
-	if($OrderDetails->promo_code != "null" && ! empty($OrderDetails->promo_code)){  
-
-		$discount = Discount::where(['code' => $OrderDetails->promo_code])->first(['by_price','by_percent']);
-			//dd($discount->by_price);
-		if($discount->by_price != "null" && ! empty($discount->by_price)){
-			$discount_amt = $discount->by_price;
-		}else{
-			$discount_amt = ($OrderDetails->total / 100 ) * $discount->by_percent;
+		foreach($OrderAttributes as $order){
+			$OrderHistory = new OrderHistory;
+			$OrderHistory->user_id = $order->user_id;
+			$OrderHistory->item_sequence = $order->item_sequence;
+			$OrderHistory->product= $order->product;
+			$OrderHistory->no_of_copies = $order->no_of_copies;
+			$OrderHistory->no_of_cds = $order->no_of_cds;
+			$OrderHistory->shipping_company = $order->shipping_company;
+			$OrderHistory->shipping_address = $order->shipping_address;
+			$OrderHistory->billing_address = $order->billing_address;
+			$OrderHistory->attribute = $order->attribute;
+			$OrderHistory->order_history_id= $OrderDetailsFinal->id;
+			$OrderHistory->product_id =$order->product_id;
+			$OrderHistory->quantity= $order->quantity;
+			$OrderHistory->attribute_desc= $order->attribute_desc;
+			$OrderHistory->price_per_product= $order->price_per_product;
+			$OrderHistory->price_product_qty= $order->price_product_qty;
+			$OrderHistory->quantity= $order->quantity; 
+			$OrderHistory->status= $order->status;
+			$OrderHistory->order_id= $OrderDetails->order_id;
+			$OrderHistory->save();
 		}
-		$net_amt = $OrderDetails->total - $discount_amt;
+
+
+		//send mail for order place
+		if ($OrderDetails->order_id) {
+
+			$order_history = OrderHistory::where(['order_id' => $OrderDetails->order_id])->get()->toArray();
+
+			$data = User::where(['id' => $user_id])->first();
+
+			if (!empty($data) && !empty($order_history)) {
+
+				$user_data = [
+
+					'name' => @$data->name,
+					'email' => @$data->email,
+					'order_id' => $OrderDetails->order_id,
+					'base_url' => \URL::to('/'),
+					'logo_url' => \URL::to('/'). '/public/images/logo.png',
+					'order_history' => $order_history,
+				];
+
+
+				try {
+
+					$sent = Mail::send('emails.place_order_paypal', $user_data, function($message) use ($user_data) {
+
+						$message->to($user_data['email'], $user_data['name'])->subject('Druckshop - Order Success');
+						$message->from(env('MAIL_USERNAME'), env('MAIL_FROM_NAME'));
+					});
+
+				} catch (Exception $e) {
+
+                //Avoid error 
+
+				}
+
+
+			}
+
+		}
+		// End send mail
+
+
+		$delete_cart = OrderAttributes::where(['user_id'=>$user_id])->delete();
+		$delete_order_details = OrderDetails::where(['user_id'=>$user_id])->delete();
+
+		$request->session()->forget('user_id');
+		$request->session()->forget('order_id');
+
+		return view('/pages/front-end/paypalsuccess',compact('order_details','order_details_amt','txn'));
+
+	}
+
+
+	public function cashOnDelivery(Request $request){
+
+		if(Auth::check()) 
+			{
+				$user_id = Auth::user()->id; 
+			}else{return redirect()->route('index');}
+
+			$OrderDetails = OrderDetails::where(['user_id'=> $user_id , 'order_id' => Session::get('order_id')])->first();
+			$net_amt = $OrderDetails->total; 
+	// handling promo code
+			if($OrderDetails->promo_code != "null" && ! empty($OrderDetails->promo_code)){  
+
+				$discount = Discount::where(['code' => $OrderDetails->promo_code])->first(['by_price','by_percent']);
+			//dd($discount->by_price);
+				if($discount->by_price != "null" && ! empty($discount->by_price)){
+					$discount_amt = $discount->by_price;
+				}else{
+					$discount_amt = ($OrderDetails->total / 100 ) * $discount->by_percent;
+				}
+				$net_amt = $OrderDetails->total - $discount_amt;
 	}  //dd($net_amt);
 
 
@@ -1065,26 +1110,26 @@ public function cashOnDelivery(Request $request){
 	$payment->amount = $net_amt;  
 	$payment->type = "COD";
 	$payment->save();
- 
+
 
 	$OrderDetails = OrderDetails::where(['user_id'=> $user_id , 'order_id' => Session::get('order_id')])->first();
 
 	$OrderDetailsFinal = new OrderDetailsFinal;
-		$OrderDetailsFinal->user_id = $user_id;
-		$OrderDetailsFinal->order_id= $OrderDetails->order_id;
+	$OrderDetailsFinal->user_id = $user_id;
+	$OrderDetailsFinal->order_id= $OrderDetails->order_id;
 		//$OrderDetailsFinal->no_of_copies= $OrderDetails->no_of_copies;
 		//$OrderDetailsFinal->no_of_cds= $OrderDetails->no_of_cds;
 		//$OrderDetailsFinal->shipping_company= $OrderDetails->shipping_company;
-		$OrderDetailsFinal->promo_code= $OrderDetails->promo_code;
+	$OrderDetailsFinal->promo_code= $OrderDetails->promo_code;
 		//$OrderDetailsFinal->shipping_address= $OrderDetails->shipping_address;
 		//$OrderDetailsFinal->billing_address= $OrderDetails->billing_address;
-		$OrderDetailsFinal->total= $OrderDetails->total;
-		$OrderDetailsFinal->status= "Pending";
-		$OrderDetailsFinal->txn= $txn;
-		$OrderDetailsFinal->state="New";
-		$OrderDetailsFinal->assigned_to = 0;
-		$OrderDetailsFinal->priority= "Normal";
-		$OrderDetailsFinal->save();
+	$OrderDetailsFinal->total= $OrderDetails->total;
+	$OrderDetailsFinal->status= "Pending";
+	$OrderDetailsFinal->txn= $txn;
+	$OrderDetailsFinal->state="New";
+	$OrderDetailsFinal->assigned_to = 0;
+	$OrderDetailsFinal->priority= "Normal";
+	$OrderDetailsFinal->save();
 
 	//$OrderDetailsFinal = $OrderDetails;
 
@@ -1114,6 +1159,48 @@ public function cashOnDelivery(Request $request){
 		$OrderHistory->save();
 	}
 
+	//send mail for order place
+	if ($OrderDetails->order_id) {
+
+		$order_history = OrderHistory::where(['order_id' => $OrderDetails->order_id])->get()->toArray();
+
+		$data = User::where(['id' => $user_id])->first();
+
+		if (!empty($data) && !empty($order_history)) {
+
+			$user_data = [
+
+				'name' => @$data->name,
+				'email' => @$data->email,
+				'order_id' => $OrderDetails->order_id,
+				'base_url' => \URL::to('/'),
+				'logo_url' => \URL::to('/'). '/public/images/logo.png',
+				'order_history' => $order_history,
+			];
+
+
+			try {
+
+				$sent = Mail::send('emails.place_order_cod', $user_data, function($message) use ($user_data) {
+
+					$message->to($user_data['email'], $user_data['name'])->subject('Druckshop - Order Success');
+					$message->from(env('MAIL_USERNAME'), env('MAIL_FROM_NAME'));
+				});
+
+			} catch (Exception $e) {
+
+                //Avoid error 
+
+			}
+
+
+		}
+
+	}
+		// End send mail
+
+
+
 	$delete_cart = OrderAttributes::where(['user_id'=>$user_id])->delete();
 	$delete_order_details = OrderDetails::where(['user_id'=>$user_id])->delete();
 
@@ -1141,7 +1228,6 @@ public function checkGuest($email_id = ""){
 		return $GuestUser->id;
 	}
 } 
-
  
 public function setGuestUserid($user_id = ""){  //dd(Session::get('user_id'));
 
@@ -1203,7 +1289,7 @@ public function makeOrderDetails($model = "", $attribute=""){
 		$attribute = PageOptions::find($id)->first();
 		return "is ".$attribute->page_options;
 	}
- 
+
 	if($model == "paper-weight"){
 		$attribute = PaperWeight::find($id)->first();
 		return "is ".$attribute->paper_weight . " g/m²";
@@ -1235,149 +1321,148 @@ public function makeOrderDetails($model = "", $attribute=""){
 	return "are ".$attribute;
 
 }
-  
- 
+
+
 public static function CartCount(){
 
 	if(Auth::check()) 
-	{
-	$user_id = Auth::user()->id; 
-	$cart = count(OrderAttributes::where(['status'=>'1','user_id'=>$user_id])->get());
-	return $cart;
-	}else{
-		return 0;
-	}
-} 
+		{
+			$user_id = Auth::user()->id; 
+			$cart = count(OrderAttributes::where(['status'=>'1','user_id'=>$user_id])->get());
+			return $cart;
+		}else{
+			return 0;
+		}
+	} 
 
 
-public function paperWeightSheets(Request $request){
+	public function paperWeightSheets(Request $request){
 
-	$range = ProductPaperWeight::where(['product_id'=>$request->input('binding'),'paper_weight_id'=>$request->input('weight')])->get(['min_sheets','max_sheets']);
+		$range = ProductPaperWeight::where(['product_id'=>$request->input('binding'),'paper_weight_id'=>$request->input('weight')])->get(['min_sheets','max_sheets']);
 
-	return json_encode($range);
-} 
-
-
-
-public function getPrintfinishingStatus(Request $request){
-	
-
-	try{
-
-		$data = ProductPrintFinishing::where(['product_id' => $request->binding_type])->first('print_finishing_id');
-
-		echo $data->print_finishing_id;
-
-	}catch (Exception $e) {
-
-		echo '0';
-
-	}
-	
-}
+		return json_encode($range);
+	} 
 
 
-public function getSpineCount(Request $request){
+
+	public function getPrintfinishingStatus(Request $request){
 
 
-	try{
+		try{
 
-		$data = ProductPaperWeight::where(['paper_weight_id' => $request->paper_weight, 'product_id' => $request->binding])->first('min_sheets');
+			$data = ProductPrintFinishing::where(['product_id' => $request->binding_type])->first('print_finishing_id');
 
-		echo $data->min_sheets;
+			echo $data->print_finishing_id;
 
-	}catch (Exception $e) {
+		}catch (Exception $e) {
 
-		echo '0';
+			echo '0';
+
+		}
 
 	}
 
 
-}	
+	public function getSpineCount(Request $request){
 
 
-public function addAddress(Request $request){
+		try{
 
-	if (Auth::check()) 
-    {
-	 $user_id = Auth::user()->id;
-	}else{
-		$user_id = Session::get('user_id');
-	}
+			$data = ProductPaperWeight::where(['paper_weight_id' => $request->paper_weight, 'product_id' => $request->binding])->first('min_sheets');
 
-	$validator = Validator::make($request->all(), [ 
-			'first_name' => 'required',
-			'last_name' => 'required',
-			'company_name' => 'nullable',
-			'street' => 'required',
-			'city' => 'required',                
-			'zip_code' => 'required',
-			'house_no' => 'required',  
-			'addition' => 'nullable', 
-			'state' => 'required',
-			'address_type' => 'required',
-		]); 
- 
-		$input = $request->all(); 
+			echo $data->min_sheets;
 
-		if ($validator->passes()){    
+		}catch (Exception $e) {
 
-			$input['user_id'] = $user_id;
+			echo '0';
 
-			if($request->default == 0){
-	
-				$input['default'] = 0;
+		}
 
-				$UserAddress= UserAddress::create($input);
+
+	}	
+
+
+	public function addAddress(Request $request){
+
+		if (Auth::check()) 
+			{
+				$user_id = Auth::user()->id;
+			}else{
+				$user_id = Session::get('user_id');
+			}
+
+			$validator = Validator::make($request->all(), [ 
+				'first_name' => 'required',
+				'last_name' => 'required',
+				'company_name' => 'nullable',
+				'street' => 'required',
+				'city' => 'required',                
+				'zip_code' => 'required',
+				'house_no' => 'required',  
+				'addition' => 'nullable', 
+				'state' => 'required',
+				'address_type' => 'required',
+			]); 
+
+			$input = $request->all(); 
+
+			if ($validator->passes()){    
+
+				$input['user_id'] = $user_id;
+
+				if($request->default == 0){
+
+					$input['default'] = 0;
+
+					$UserAddress= UserAddress::create($input);
+
+				}else{
+
+					$input['default'] = 1;
+
+					$UserAddress= UserAddress::create($input);
+
+					try{
+
+						$area = CustomerArea::where(['user_id' => $user_id])->first();
+						if($request->address_type == "billing"){
+
+							$area->billing_address = $request->first_name." ".$request->last_name.", Company Name: ".$request->company_name.", House No: ".$request->house_no.", City: ".$request->city.", State: ".$request->state.", Zip Code: ".$request->zip_code;
+
+						}else{
+
+							$area->shipping_address = $request->first_name." ".$request->last_name.", Company Name: ".$request->company_name.", House No: ".$request->house_no.", City: ".$request->city.", State: ".$request->state.", Zip Code: ".$request->zip_code;
+
+						}
+
+						$area->save();
+
+					}catch(\Exception $e){
+
+						$area = new CustomerArea;
+						$area->user_id = $user_id;
+						$area->status = 1;
+
+						if($request->address_type == "billing"){
+
+							$area->billing_address = $request->first_name." ".$request->last_name.", Company Name: ".$request->company_name.", House No: ".$request->house_no.", City: ".$request->city.", State: ".$request->state.", Zip Code: ".$request->zip_code;
+
+						}else{
+
+							$area->shipping_address = $request->first_name." ".$request->last_name.", Company Name: ".$request->company_name.", House No: ".$request->house_no.", City: ".$request->city.", State: ".$request->state.", Zip Code: ".$request->zip_code;
+
+						}
+
+						$area->save();
+
+					}
+
+				}
 
 			}else{
 
-				$input['default'] = 1;
-
-				$UserAddress= UserAddress::create($input);
-
-				try{
-
-                $area = CustomerArea::where(['user_id' => $user_id])->first();
-                if($request->address_type == "billing"){
-
-                	$area->billing_address = $request->first_name." ".$request->last_name.", Company Name: ".$request->company_name.", House No: ".$request->house_no.", City: ".$request->city.", State: ".$request->state.", Zip Code: ".$request->zip_code;
-
-                }else{
-
-                	$area->shipping_address = $request->first_name." ".$request->last_name.", Company Name: ".$request->company_name.", House No: ".$request->house_no.", City: ".$request->city.", State: ".$request->state.", Zip Code: ".$request->zip_code;
-
-                }
-                
-                $area->save();
- 
-              }catch(\Exception $e){
- 
-                $area = new CustomerArea;
-                $area->user_id = $user_id;
-                $area->status = 1;
-
-                if($request->address_type == "billing"){
-
-                	 $area->billing_address = $request->first_name." ".$request->last_name.", Company Name: ".$request->company_name.", House No: ".$request->house_no.", City: ".$request->city.", State: ".$request->state.", Zip Code: ".$request->zip_code;
-
-                }else{
-
-                	$area->shipping_address = $request->first_name." ".$request->last_name.", Company Name: ".$request->company_name.", House No: ".$request->house_no.", City: ".$request->city.", State: ".$request->state.", Zip Code: ".$request->zip_code;
-
-                }
-     
-                $area->save();
-
-              }
-
 			}
 
-		}else{
-			
 		}
-
-}
 		
-}
-  
+	}

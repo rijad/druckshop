@@ -19,29 +19,29 @@
                 @csrf
                 <div class="form-group">
                     <label class="small mb-1" for="code">Name</label>
-                    <input class="form-control" type="text" name="code" value="{{ old('code') }}">
+                    <input class="form-control" type="text" name="code" value="{{ old('code') }}" required>
                     <span class="text-danger">{{ $errors->first('code') }}</span>
                 </div>
                 <div class="form-group">
                     <label class="small mb-1" for="name_english">Name in English</label>
-                    <input class="form-control" type="text" name="name_english" value="{{ old('name_english') }}">
+                    <input class="form-control" type="text" name="name_english" value="{{ old('name_english') }}" required>
                     <span class="text-danger">{{ $errors->first('name_english') }}</span>
                 </div>
                 <div class="form-group">
                     <label class="small mb-1" for="name_german">Name in German</label>
-                    <input class="form-control" type="text" name="name_german" value="{{ old('name_german') }}">
+                    <input class="form-control" type="text" name="name_german" value="{{ old('name_german') }}" required>
                     <span class="text-danger">{{ $errors->first('name_german') }}</span>
                 </div>
                 <div class="form-group">
                     <label class="small mb-1" for="from_date">From Date</label>
-                    <input type="date" id="from_date" name="from_date" value="{{ old('from_date') }}">
+                    <input type="date" id="from_date" name="from_date" value="{{ old('from_date') }}" required>
                 </div>
                 <div class="form-group">
                     <label class="small mb-1" for="to_date">To Date</label>
-                    <input type="date" id="to_date" name="to_date" value="{{ old('to_date') }}">
+                    <input type="date" id="to_date" name="to_date" value="{{ old('to_date') }}" required>
                 </div>
                 <div class="form-group">
-                    <input type="radio" id="by_price" name="by_discount" value="by_price">
+                    <input type="radio" id="by_price" name="by_discount" value="by_price" checked>
                     <label class="small mb-1" for="by_price">By_Price</label><br>
                     <input type="radio" id="by_percent" name="by_discount" value="by_percent">
                     <label class="small mb-1" for="by_percent">By_Percent</label><br>
@@ -49,7 +49,7 @@
                 </div>
                 <div class="form-group">
                     <label class="small mb-1" for="discount">Discount</label>
-                    <input class="form-control" type="text" name="discount" value="{{ old('discount') }}">
+                    <input class="form-control" type="text" name="discount" value="{{ old('discount') }}" required>
                     <span class="text-danger">{{ $errors->first('discount') }}</span>
                 </div>
                 <div class="form-group">
@@ -65,7 +65,7 @@
                     </div>
                 </div>
                 <div class="form-inline">
-                    <a href="{{ URL::previous() }}" class="btn btn-secondary btn-user btn-block col-md-3">Back</a>
+                    <a href="{{ url('/admin/details/Discount/10') }}" class="btn btn-secondary btn-user btn-block col-md-3">Back</a>
                     <input type="submit" class="btn btn-primary btn-user btn-block col-md-3" value="Add">
                 </div>
             </form>

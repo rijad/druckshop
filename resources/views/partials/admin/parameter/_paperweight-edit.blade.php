@@ -21,10 +21,10 @@
                     <input class="form-control" id="name_in_dh" name="name_in_dh" value="{{ $data->name_german }}" type="text" placeholder="Name" required />
                 </div>
 
-                <div class="form-group">
+                <!-- <div class="form-group">
                     <label class="small mb-1" for="name">Weight per sheet</label>
                     <input class="form-control" id="weight_per_sheet" name="weight_per_sheet" value="{{ $data->weight_per_sheet }}" type="text" value="0" placeholder="Weight per sheet" required />
-                </div>
+                </div> -->
 
                 <div class="form-group">
                     <label class="small mb-1" for="name">Minimum number of sheets for spine</label>
@@ -49,10 +49,10 @@
 
                            <td class="rv-headLtchild"><?php  if(!empty($attributes[$key+1]['id'])){  ?>
 
-                                <input id="from" type="hidden" name="sheet_start[]" value="{{ $value['sheets_range_start'] }}" />{{ $value['sheets_range_start'] }}
+                                <input id="from" type="hidden" name="sheet_end[]" value="{{ $value['sheets_range_end'] }}" />{{ $value['sheets_range_end'] }}
                                 <?php }else{ ?>
 
-                                <input id="from" type="number" name="sheet_start[]" value="{{ $value['sheets_range_start'] }}" />
+                                <input id="from" type="number" name="sheet_end[]" value="{{ $value['sheets_range_end'] }}" />
                                 <?php } ?>
                             </td>
 
@@ -84,7 +84,7 @@
             </div>
 
             <div class="form-inline">
-                <a href="{{ URL::previous() }}" class="btn btn-secondary btn-user btn-block col-md-3">Back</a>
+                <a href="{{ url('/admin/details/PaperWeight/6') }}" class="btn btn-secondary btn-user btn-block col-md-3">Back</a>
                 <input type="submit" class="btn btn-primary btn-user btn-block col-md-3" value="Update">
             </div>
 
