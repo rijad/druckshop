@@ -1109,7 +1109,7 @@ public function cashOnDelivery(Request $request){
 		$OrderHistory->price_per_product= $order->price_per_product;
 		$OrderHistory->price_product_qty= $order->price_product_qty;
 		$OrderHistory->quantity= $order->quantity; 
-		$OrderHistory->status= $order->status;
+		$OrderHistory->status= $order->status; 
 		$OrderHistory->order_id= $OrderDetails->order_id;;
 		$OrderHistory->save();
 	}

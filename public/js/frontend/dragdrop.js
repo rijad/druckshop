@@ -19,9 +19,9 @@ $.ajaxSetup({
 
  
  function upload_file(e,id) {
-  e.preventDefault();  alert("1"+id);
+  e.preventDefault();  
 if(id == "upload_cd"){  // multiple file uploading
-alert("2"+id);
+
   file = e.dataTransfer;
          for (var i = 0; i < file.files.length; i++) {
              ajaxFileUpload(file.files[i], id);
@@ -79,7 +79,7 @@ function ajaxFileUpload(file_obj,id) {  alert(id);
   //form_data.append( "_token", "{{ csrf_token() }}");
   $.ajax({ 
     type: 'POST',
-    url: '/druckshop/upload-file',
+    url: base_url+'/upload-file',
     contentType: false,
     processData: false, 
     data: form_data, 
@@ -226,7 +226,7 @@ function removeFile(file_name,id){   alert(id);
     // remove previously uploaded file
 
     $.ajax({
-    url: '/druckshop/remove-file', 
+    url: base_url+'/remove-file', 
     type: 'POST',
     data: {'file_name': file_name},
     success: function (response){
