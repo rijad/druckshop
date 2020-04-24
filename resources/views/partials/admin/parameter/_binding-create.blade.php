@@ -15,7 +15,7 @@
                     <label class="small mb-1" for="name">Name In English</label>
                     <input class="form-control" id="name_in_en" name="name_in_en" type="text" placeholder="Name" required />
                 </div>
-
+ 
                 <div class="form-group">
                     <label class="small mb-1" for="name">Name In DEUTSCH</label>
                     <input class="form-control" id="name_in_dh" name="name_in_dh" type="text" placeholder="Name" required />
@@ -45,12 +45,12 @@
                 <div class="border_dashed">
                     <div class="form-group rv-file_upload">
                         <label class="small mb-1" for="name">Upload Binding Image</label>
-                        <input class="form-control" type="file" id="product_file" name="product_file" required />
+                        <input class="rv-custom-file-input" type="file" id="product_file" name="product_file" required />
                     </div>
 
                     <div class="form-group rv-file_upload">
                         <label class="small mb-1" for="otherImages">Upload Others Images</label>
-                        <input class="form-control" type="file" id="otherImages" name="otherImages[]" multiple />
+                        <input class="rv-custom-file-input" type="file" id="otherImages" name="otherImages[]" multiple />
                     </div>
                 </div>
 
@@ -243,7 +243,7 @@
                 </div>
 
                 <div class="form-inline">
-                    <a href="{{ URL::previous() }}" class="btn btn-secondary btn-user btn-block col-md-3">Back</a>
+                    <a href="{{ url('/admin/details/Product/1') }}" class="btn btn-secondary btn-user btn-block col-md-3">Back</a>
                     <input type="submit" class="btn btn-primary btn-user btn-block col-md-3" value="Add">
                 </div>
 

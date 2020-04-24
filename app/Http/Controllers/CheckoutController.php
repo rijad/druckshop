@@ -956,25 +956,26 @@ public function setQuantity(Request $request){
 public function paymentPaypalSuccess(Request $request){
 
 	if(Auth::check())
-		{
-			$user_id = Auth::user()->id;
-		}else{return redirect()->route('index'); }
-
+  {
+    $user_id = Auth::user()->id;
+  }else{
+    return redirect()->route('index'); 
+  }
 
 		$order_details = OrderDetails::where('user_id', $user_id)->first();
 
 		$order_details_amt = $order_details->total;
 		$txn = $_GET['tx'];
 
-		$payment = new Payment;
-		$payment->order_id = $order_details->order_id;
-		$payment->txn = $_GET['tx'];
-		$payment->status = $_GET['st'];
-		$payment->user_id = $user_id;
-		$payment->amount = $_GET['amt']; 
-		$payment->type = "paypal";
-		$payment->save();
 
+    $payment = new Payment;
+    $payment->order_id = $order_details->order_id;
+    $payment->txn = $_GET['tx'];
+    $payment->status = $_GET['st'];
+    $payment->user_id = $user_id;
+    $payment->amount = $_GET['amt']; 
+    $payment->type = "paypal";
+    $payment->save();
 
 		$OrderDetails = OrderDetails::where('user_id', $user_id)->first();
 
@@ -1227,18 +1228,28 @@ public function checkGuest($email_id = ""){
 		return $GuestUser->id;
 	}
 } 
+ 
+public function setGuestUserid($user_id = ""){  //dd(Session::get('user_id'));
+
+	$update_guest_id = OrderAttributes::where(['user_id'=>Session::get('user_id')])->get();
+	foreach($update_guest_id as $data){
+
+		$data->user_id = $user_id;
+		$data->save();
+
+	}
+	
 
 
-public function setGuestUserid($user_id = ""){
+	$update_guest_id_address = UserAddress::where(['user_id'=>Session::get('user_id')])->get();
 
-	$update_guest_id = OrderAttributes::where('user_id',Session::get('user_id'))->first();
-	$update_guest_id->user_id = $user_id;
-	$update_guest_id->save();
+	foreach ($update_guest_id_address as $data) {
+		
+		$data->user_id = $user_id;
+		$data->save();
 
-
-	$update_guest_id_address = UserAddress::where('user_id',Session::get('user_id'))->first();
-	$update_guest_id_address->user_id = $user_id;
-	$update_guest_id_address->save();
+	}
+	
 
 
 
