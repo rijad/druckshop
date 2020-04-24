@@ -16,8 +16,7 @@
                 @endforeach
             </ul>
         @endif
-        <form class="form-group-inline" method="POST" action="{{ route('covercolor.store') }}" enctype="multipart/form-data" 
-            target="_blank">
+        <form class="form-group-inline" method="POST" action="{{ route('covercolor.store') }}" enctype="multipart/form-data" >
         @csrf
             <div class="form-group">
                 <label class="small mb-1" for="back_cover">Name</label>
@@ -41,7 +40,7 @@
                     </div>
                 </div>
                 <div class="form-inline">
-                    <a href="{{ URL::previous() }}" class="btn btn-secondary btn-user btn-block col-md-3">Back</a>
+                    <a href="{{ url('//admin/details/CoverColor/3') }}" class="btn btn-secondary btn-user btn-block col-md-3">Back</a>
                     <input type="submit" class="btn btn-primary btn-user btn-block col-md-3" value="Add">
                 </div>
       </form>

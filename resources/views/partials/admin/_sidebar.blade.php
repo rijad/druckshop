@@ -42,11 +42,11 @@
                     </div>Sliders
                 </a>
 
-                <a class="nav-link" href="{{ route('gallery.index') }}">
+                <!-- <a class="nav-link" href="{{ route('gallery.index') }}">
                     <div class="sb-nav-link-icon">
                         <i class="fa fa-sliders"></i>
                     </div>Gallery
-                </a>
+                </a> -->
 
                 @if(Auth::user()->role == 0 || Auth::user()->role == 1)
                 <a class="nav-link" href="{{ route('parameter.index') }}">

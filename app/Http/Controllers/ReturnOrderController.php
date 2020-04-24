@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\OrderReturn;
 use App\OrderDetailsFinal;
+use App\OrderHistory; 
+use App\User;
+
+use Mail;
  
 class ReturnOrderController extends Controller
 {
@@ -32,7 +36,46 @@ class ReturnOrderController extends Controller
 
 		$status = $ReturnOrderStatus;
 		$status->state = "Reversal Request";
-		$status->save();
+		$update = $status->save();
+
+		if ($update) {
+
+             $order_history = OrderHistory::where(['order_id' => $request->input('order_id')])->get()->toArray();
+
+             $data = User::where(['id' => $request->input('user_id')])->first();
+
+             if (!empty($data) && !empty($order_history)) {
+
+                $user_data = [
+
+                    'name' => @$data->name,
+                    'email' => @$data->email,
+                    'order_id' => $request->input('order_id'),
+                    'base_url' => \URL::to('/'),
+                    'logo_url' => \URL::to('/'). '/public/images/logo.png',
+                    'order_history' => $order_history,
+                ];
+
+
+                try {
+
+                    $sent = Mail::send('emails.return_order', $user_data, function($message) use ($user_data) {
+
+                        $message->to($user_data['email'], $user_data['name'])->subject('Druckshop - Order Cancelled');
+                        $message->from(env('MAIL_USERNAME'), env('MAIL_FROM_NAME'));
+                    });
+
+                    return redirect()->route('customer-area');
+                } catch (Exception $e) {
+
+                //Avoid error 
+
+                }
+
+
+            }
+
+        }
 
 		$response = returnResponse('','200','Success');
 		print_r($response); exit;

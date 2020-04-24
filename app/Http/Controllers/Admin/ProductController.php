@@ -63,17 +63,17 @@ class ProductController extends Controller
     public function create()
     {
         //
-        $pageFormat = PageFormat::where('status', 1)->limit(4)->get();
-        $coverSetting = CoverSetting::where('status', 1)->orderBy('id', 'DESC')->limit(4)->get();
+        $pageFormat = PageFormat::where('status', 1)->orderBy('id', 'ASC')->limit(10)->get();
+        $coverSetting = CoverSetting::where('status', 1)->orderBy('id', 'DESC')->limit(10)->get();
 
-        $coverColor = CoverColor::where('status', 1)->orderBy('id', 'ASC')->limit(5)->get();
-        $coverSheet = CoverSheet::where('status', 1)->orderBy('id', 'ASC')->limit(5)->get();
-        $backCover = BackCovers::where('status', 1)->orderBy('id', 'ASC')->limit(5)->get();
+        $coverColor = CoverColor::where('status', 1)->orderBy('id', 'ASC')->limit(10)->get();
+        $coverSheet = CoverSheet::where('status', 1)->orderBy('id', 'ASC')->limit(10)->get();
+        $backCover = BackCovers::where('status', 1)->orderBy('id', 'ASC')->limit(10)->get();
 
-        $paperWeight = PaperWeight::where('status', 1)->orderBy('id', 'ASC')->limit(3)->get();
-        $printFinishing = PrintFinishing::where('status', 1)->orderBy('id', 'DESC')->limit(5)->get();
+        $paperWeight = PaperWeight::where('status', 1)->orderBy('id', 'ASC')->limit(10)->get();
+        $printFinishing = PrintFinishing::where('status', 1)->orderBy('id', 'DESC')->limit(10)->get();
 
-        $artList = ArtList::where('status', 1)->orderBy('id', 'ASC')->limit(5)->get();
+        $artList = ArtList::where('status', 1)->orderBy('id', 'ASC')->limit(10)->get();
 
         return view('pages.admin.parameter.binding-create', compact('pageFormat', 'coverSetting', 'coverColor', 'coverSheet', 'backCover', 'printFinishing', 'artList', 'paperWeight'));
     }
@@ -353,30 +353,30 @@ class ProductController extends Controller
 
         $product = Product::find($id);
 
-        $pageFormat = PageFormat::where(['status'=> 1])->limit(4)->get();
+        $pageFormat = PageFormat::where(['status'=> 1])->orderBy('id', 'ASC')->limit(10)->get();
         $slectedPageFormat = ProductPageFormat::where(['product_id'=> $id, 'status' => 1])->pluck('paper_format')->toArray();
 
-        $coverSetting = CoverSetting::where('status', 1)->orderBy('id', 'DESC')->limit(4)->get();
+        $coverSetting = CoverSetting::where('status', 1)->orderBy('id', 'DESC')->limit(10)->get();
         $coverSettingSelected = ProductCoverSetting::where(['ps_product_id'=> $id, 'status' => 1])->pluck('ps_cover_setting_id')->toArray();
 
-        $coverColor = CoverColor::where('status', 1)->orderBy('id', 'ASC')->limit(5)->get();
+        $coverColor = CoverColor::where('status', 1)->orderBy('id', 'ASC')->limit(10)->get();
         $selectedCoverColor = ProductCoverColor::where(['product_id'=> $id, 'status'=> 1])->pluck('color_id')->toArray();
 
-        $coverSheet = CoverSheet::where('status', 1)->orderBy('id', 'ASC')->limit(5)->get();
+        $coverSheet = CoverSheet::where('status', 1)->orderBy('id', 'ASC')->limit(10)->get();
         $selectedCoverSheet = ProductCoverSheet::where(['product_id'=> $id, 'status'=> 1])->pluck('cover_sheet_id')->toArray();
 
-        $backCover = BackCovers::where('status', 1)->orderBy('id', 'ASC')->limit(5)->get();
+        $backCover = BackCovers::where('status', 1)->orderBy('id', 'ASC')->limit(10)->get();
         $selectedBackCover = ProductBackSheet::where(['product_id'=> $id, 'status'=> 1])->pluck('back_cover_id')->toArray();
 
-        $paperWeight = PaperWeight::where('status', 1)->orderBy('id', 'ASC')->limit(3)->get();
+        $paperWeight = PaperWeight::where('status', 1)->orderBy('id', 'ASC')->limit(10)->get();
         $selectedPaperWeight = ProductPaperWeight::where(['product_id'=> $id, 'status'=> 1])->pluck('paper_weight_id')->toArray();
         $selectedPaperWeightData = ProductPaperWeight::where(['product_id'=> $id, 'status'=> 1])->get()->toArray();
 
-        $printFinishing = PrintFinishing::where('status', 1)->orderBy('id', 'DESC')->limit(5)->get();
+        $printFinishing = PrintFinishing::where('status', 1)->orderBy('id', 'DESC')->limit(10)->get();
         $selectedPrintFinishing = ProductPrintFinishing::where(['product_id'=> $id, 'status'=> 1])->pluck('print_finishing_id')->toArray();
 
 
-        $artList = ArtList::where('status', 1)->orderBy('id', 'ASC')->limit(5)->get();
+        $artList = ArtList::where('status', 1)->orderBy('id', 'ASC')->limit(10)->get();
         if (!empty($selectedPrintFinishing[0])) {
 
             $selectedArtList = ProductPrintFinishingArtList::where(['ps_product_pf_id'=> $selectedPrintFinishing[0]])->pluck('ps_art_list_id')->toArray();

@@ -20,10 +20,10 @@
                     <input class="form-control" id="name_in_dh" name="name_in_dh" type="text" placeholder="Name" required />
                 </div>
 
-                <div class="form-group">
+                <!-- <div class="form-group">
                     <label class="small mb-1" for="name">Weight per sheet</label>
                     <input class="form-control" id="weight_per_sheet" name="weight_per_sheet" type="text" value="0" placeholder="Weight per sheet" required />
-                </div>
+                </div> -->
 
                 <div class="form-group">
                     <label class="small mb-1" for="name">Minimum number of sheets for spine</label>
@@ -93,7 +93,7 @@
                 </div>
 
                 <div class="form-inline">
-                    <a href="{{ URL::previous() }}" class="btn btn-secondary btn-user btn-block col-md-3">Back</a>
+                    <a href="{{ url('/admin/details/PaperWeight/6') }}" class="btn btn-secondary btn-user btn-block col-md-3">Back</a>
                     <input type="submit" class="btn btn-primary btn-user btn-block col-md-3" value="Add">
                 </div>
 
