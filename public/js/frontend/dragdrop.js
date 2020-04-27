@@ -50,8 +50,8 @@ if(id == "upload_cd"){  // multiple file uploading
 //     };
 // }
 
-function file_explorer(id) {  
-
+function file_explorer(id) {   //alert(id);
+ 
   if(id == "upload_cd"){  // multifile uploading
      document.getElementById('selectfile').click();
      document.getElementById('selectfile').onchange = function() {
@@ -71,7 +71,7 @@ function file_explorer(id) {
    
 }
 
-function ajaxFileUpload(file_obj,id) {  alert(id);
+function ajaxFileUpload(file_obj,id) {  //alert(id);
  
  if(file_obj != undefined) {
   var form_data = new FormData();                  

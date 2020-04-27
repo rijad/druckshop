@@ -25,7 +25,7 @@ function displayFields(binding){
 	}else{ 
 		document.getElementById('div-cover-color').className = "displayNone";
 	}
-
+ 
 
 	//Get data for cover sheet
 	if (typeof $product_attributes['cover_sheet'] !== 'undefined' && $product_attributes['cover_sheet'].length > 0) {
@@ -278,13 +278,14 @@ function section2(){
 
 		if($("#fields_1").find(":selected").val() != "-1"){
 
-			document.getElementById('input_1').value = "Enter "+$("#fields_1").find(":selected").val();
+			//document.getElementById('input_1').value = "Enter "+$("#fields_1").find(":selected").val();
+			$("#input_1").attr("placeholder", "Enter "+$("#fields_1").find(":selected").val());
 
 		}
 
 		if($("#pos_1").find(":selected").val() != "-1" && $("#fields_1").find(":selected").val() != "-1"){
 
-			document.getElementById('div-section-2').className = "displayBlock";
+			//document.getElementById('div-section-2').className = "displayBlock";
 
 			 var sec_2 =$("#fields_1").find('option').not(':selected').map(function() {
     						return $(this).text();
@@ -299,7 +300,7 @@ function section2(){
 			 $("#pos_2").empty();
 			 $("#pos_2").append("<option value='-1'>Select</option>");
 
-			 for(var i=1; i< sec_2.length; i++){
+			 for(var i=1; i< sec_2.length; i++){ 
 
 			 	$("#fields_2").append("<option value='"+sec_2[i]+"'>"+sec_2[i]+"</option>");
 
@@ -326,13 +327,14 @@ function section3(){
 
 		if($("#fields_2").find(":selected").val() != "-1"){
 
-			document.getElementById('input_2').value = "Enter "+$("#fields_2").find(":selected").val();
+			//document.getElementById('input_2').value = "Enter "+$("#fields_2").find(":selected").val();
+			$("#input_2").attr("placeholder", "Enter "+$("#fields_2").find(":selected").val());
 
 		}
 
 		if($("#pos_2").find(":selected").val() != "-1" && $("#fields_2").find(":selected").val() != "-1"){
 
-			document.getElementById('div-section-3').className = "displayBlock";
+			//document.getElementById('div-section-3').className = "displayBlock";
 
 			 var sec_3 =$("#fields_2").find('option').not(':selected').map(function() {
     						return $(this).text();
@@ -355,7 +357,7 @@ function section3(){
 
 
 
-			 for(var i=1; i< pos_2.length; i++){
+			 for(var i=1; i< pos_3.length; i++){
 
 			 	$("#pos_3").append("<option value='"+pos_3[i]+"'>"+pos_3[i]+"</option>");
 
@@ -373,11 +375,31 @@ function section4(){
 
 	if($("#fields_3").find(":selected").val() != "-1"){
 
-			document.getElementById('input_3').value = "Enter "+$("#fields_3").find(":selected").val();
+			//document.getElementById('input_3').value = "Enter "+$("#fields_3").find(":selected").val();
+			$("#input_3").attr("placeholder", "Enter "+$("#fields_3").find(":selected").val());
 
 		}
+}
+
+
+function addSection(id = ""){
+
+	document.getElementById(id).className = "displayBlock";
 
 }
+
+
+
+function removeSection(id = "",field="",pos=""){
+
+	document.getElementById(id).className = "displayNone";
+	document.getElementById(field).value = -1;
+	document.getElementById(pos) = -1;
+
+}
+
+
+
 
 function displayPopUp(template = ""){
 	 var title = template; 
@@ -980,9 +1002,19 @@ function displayPrice(binding = "", no_ofsheets = "", page_options = "", embossi
 				// start of CD Bag
 				}
 
+				if($("#fields_1").find(":selected").val() == "-1" || $("#pos_1").find(":selected").val() == "-1" ){
+					 $("#fields_1").addClass('invalid'); 
+					 $("#pos_1").addClass('invalid'); $('#error-section-1').html('Select both field and position in this section'); valid = false; return false;
+				}
+
 			}else{}
 
-			if($("#embossment-spine").is(":checked")){     
+			if($("#embossment-spine").is(":checked")){    
+
+				if($("#fields_1").find(":selected").val() == "-1" || $("#pos_1").find(":selected").val() == "-1" || $("#input_1").val() == ""){
+					 $("#fields_1").addClass('invalid'); 
+					 $("#pos_1").addClass('invalid'); $('#error-section-1').html('Select both field and position in this section'); valid = false; return false;
+				} 
 				
 					var allowed_letters = parseInt($('#spine-count-hidden').val());
 					var total = 0;
@@ -1365,7 +1397,7 @@ function incrementQuantity(id = "",count = ""){
 			var max  = parseInt(data['max_sheets']);
 			var no_of_pages = document.getElementById('pg_no').value;
 
-			document.getElementById('error_no_of_pages').innerHTML = "Range is "+ min + " - " + max + " and Uploaded file contains "+ no_of_pages + " Range should not exceed this count.";
+			document.getElementById('error_no_of_pages').innerHTML = "Range is "+ min + " - " + max + " and Uploaded file contains "+ no_of_pages + " Page(s), Range should not exceed this count.";
 			
 			//console.log(value+"-----"+min+"-----"+max);
 

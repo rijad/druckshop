@@ -46,7 +46,7 @@
 							<?php   } ?>
 						</p>
 
-						<a href="{{  url('/latest/').'#heading_'.@$item->redirect_url }}">{{ trans('homepage.read_more')}}</a>
+						<a href="{{  url('/latest-page/').'#heading_'.@$item->redirect_url }}">{{ trans('homepage.read_more')}}</a>
 					</div>
 				</div>
 			</div><!-- item ends -->

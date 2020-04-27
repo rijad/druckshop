@@ -7,10 +7,10 @@
                                     <tr>
                                         <th>State</th>
                                         <th>Order Id</th>
-                                        <th>Shipping Address</th>
+                                        {{-- <th>Shipping Address</th>
                                         <th>Billing Address</th>
                                         <th>CD</th>
-                                        <th>No. of copies</th>
+                                        <th>No. of copies</th> --}}
                                         <th>Order Assigned To</th>
                                         <th>Priority</th>
                                         <th>Actions</th>
@@ -20,10 +20,10 @@
                                     <tr>
                                         <th>State</th>
                                         <th>Order Id</th>
-                                        <th>Shipping Address</th>
+                                        {{-- <th>Shipping Address</th>
                                         <th>Billing Address</th>
                                         <th>CD</th>
-                                        <th>No. of copies</th>
+                                        <th>No. of copies</th> --}}
                                         <th>Order Assigned To</th>
                                         <th>Priority</th>
                                         <th>Actions</th>
@@ -34,10 +34,10 @@
                                     <tr>
                                         <td>{{ $odr->state }}</td>
                                         <td>{{$odr->order_id}}</td>
-                                        <td>{{ $odr->billing_address }}</td>
+                                        {{-- <td>{{ $odr->billing_address }}</td>
                                         <td>{{ $odr->shipping_address }}</td>
                                         <td>{{ $odr->no_of_cds }}</td>
-                                        <td>{{ $odr->no_of_copies }}</td>
+                                        <td>{{ $odr->no_of_copies }}</td> --}}
                                         <td>    @php
                                                 echo App\Http\Controllers\Admin\OrderController::users($odr->assigned_to);
                                                 @endphp

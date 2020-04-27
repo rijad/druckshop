@@ -104,7 +104,7 @@ Route::get('/repeat-order/{order_id}','RepeatOrderController@RepeatOrder')->name
 Route::get('/cancel-order/{order_id}','CancelOrderController@CancelOrder')->name('cancel-order');
 Route::POST('/return-order','ReturnOrderController@ReturnOrder')->name('return-order');
 
-Route::get('/latest','LatestController@index')->name('latest');
+Route::get('/latest-page','LatestController@index')->name('latest-page');
 Route::get('/about-us','AboutController@index')->name('about-us');
 Route::get('/faq','FaqController@index')->name('faq');
 Route::get('/contact','ContactController@index')->name('contact');
@@ -188,7 +188,6 @@ Route::group(['namespace'=>'Admin', 'prefix' => 'admin'], function()
 
 
     Route::resource('/returnorder','ReturnOrdersController');
-    Route::resource('/latest','LatestController');
     Route::resource('/stylesheet','StyleSheetController');
 
 

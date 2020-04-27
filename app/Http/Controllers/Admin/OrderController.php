@@ -48,7 +48,7 @@ class OrderController extends Controller
         }else{
             return "";
         }
-    }
+    } 
 
     /**
      * Show the form for creating a new resource.
