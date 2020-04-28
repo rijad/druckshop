@@ -589,7 +589,7 @@ $(document).ready(function(){
 
 
 	    $.ajax({
-			url: '/druckshop/clear-session', 
+			url: base_url+'/clear-session', 
 			type: 'GET', 
 			success: function (response){
 				console.log(response); 

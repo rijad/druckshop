@@ -40,7 +40,7 @@ Route::get('/route-clear', function() {
     $exitCode = Artisan::call('route:clear');
     return '<h1>Route cache cleared</h1>';
 });
-
+ 
 //Clear View cache:
 Route::get('/view-clear', function() {
     $exitCode = Artisan::call('view:clear');

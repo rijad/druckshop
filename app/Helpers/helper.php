@@ -59,6 +59,11 @@ function listById($list_id){
 	return $list->check_list;
 }
 
+function deliveryServiceById($list_id){
+	$list = \App\DeliveryService::find($list_id);
+	return $list->delivery_service;
+}
+
 function showDetails($key, $id){
 	if($id == -1){
 		echo $key . ': ' . " N/A";

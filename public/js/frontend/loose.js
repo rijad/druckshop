@@ -517,7 +517,7 @@ function setQuantity(count = ""){
 	$.ajax({
 		url: base_url+'/set-quantity', 
 		type: 'POST', 
-		data: {'qty': qty,'total_price_per_product' : total_price_per_product, 'count' : count},
+		data: {'qty': qty,'total_price_per_product' : total_price_per_product, 'count' : count, '_token': '{{ csrf_token() }}'},
 		success: function (response){
 		}
 	});
@@ -605,7 +605,7 @@ function incrementQuantity(id = "",count = ""){
 		url: base_url+'/paper-weight-sheets',  
 		type: 'POST', 
 		async: false,
-		data: {'binding': binding_val,'weight' : weight_val},
+		data: {'binding': binding_val,'weight' : weight_val, '_token': '{{ csrf_token() }}'},
 		success: function (response){
 
 			var data = JSON.parse(response)[0];

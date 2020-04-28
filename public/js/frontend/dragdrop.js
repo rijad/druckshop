@@ -1,8 +1,8 @@
-$.ajaxSetup({
-  headers: {
-    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-  }
-});
+// $.ajaxSetup({
+//   headers: {
+//     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+//   }
+// });
 
  var fileobj; 
 //  function upload_file(e,id) {
@@ -76,7 +76,7 @@ function ajaxFileUpload(file_obj,id) {  //alert(id);
  if(file_obj != undefined) {
   var form_data = new FormData();                  
   form_data.append('file', file_obj);
-  //form_data.append( "_token", "{{ csrf_token() }}");
+  form_data.append( "_token",  $('meta[name="csrf-token"]').attr('content'));
   $.ajax({ 
     type: 'POST',
     url: base_url+'/upload-file',
@@ -90,7 +90,7 @@ function ajaxFileUpload(file_obj,id) {  //alert(id);
       console.log(data);
 
       if(id == "drop_file_zone_cover_sheet"){
-
+ 
         //$('#drag_upload_file').empty();
         document.getElementById('drag_upload_file_cover_sheet').className = "displayNone";
         $('#drop_file_zone_cover_sheet').append('<div id="del_cover_sheet" class="displayBlock"><span class="upload-msg">File Uploaded</span><span id="cover_sheet_del"><i class="fa fa-trash"></i></span></div>');
@@ -220,15 +220,15 @@ function uploadDisplay(node,value){
 }
  
 
-function removeFile(file_name,id){   alert(id);
+function removeFile(file_name,id){   //alert(id);
 
   if (confirm("Do You Want to delete the file?")) {
     // remove previously uploaded file
 
     $.ajax({
     url: base_url+'/remove-file', 
-    type: 'POST',
-    data: {'file_name': file_name},
+    type: 'POST',   
+    data: {'file_name': file_name, '_token': $('meta[name="csrf-token"]').attr('content')},
     success: function (response){
       var data = JSON.parse(response); 
       if(id == "drop_file_zone_cover_sheet"){

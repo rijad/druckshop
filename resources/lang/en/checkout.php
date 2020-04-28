@@ -46,7 +46,7 @@ return [
     'field' => 'Field',
     'position' => 'Position',
     'add_section' => 'Add Section',
-    'remove_section' => 'Remove Section'
+    'remove_section' => 'Remove Section',
     'remarks' => 'Remarks',
     'number_of_cds' => 'Number of CDs',
     'cd_imprint' => 'CD Imprint',

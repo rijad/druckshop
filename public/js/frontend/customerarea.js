@@ -46,7 +46,8 @@ function saveProfile(){
         form_data.append('phone', phone);
         form_data.append('shipping_address', shipping_address);
         form_data.append('billing_address', billing_address);
-        form_data.append( "_token", "{{ csrf_token() }}");
+        //form_data.append( "_token", "{{ csrf_token() }}");
+        form_data.append( "_token",  $('meta[name="csrf-token"]').attr('content'));
 
 	$.ajax({ 
         type: 'POST',
@@ -98,7 +99,8 @@ $('#returnModal').on('show.bs.modal', function(e) {
       form_data.append('order_id', order_id);
       form_data.append('user_id', user_id);
       form_data.append('desc', desc);
-      form_data.append( "_token", "{{ csrf_token() }}");
+     // form_data.append( "_token", "{{ csrf_token() }}");
+     form_data.append( "_token",  $('meta[name="csrf-token"]').attr('content'));
         $.ajax({ 
           type: 'POST', 
           url: base_url+'/return-order',
