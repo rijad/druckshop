@@ -19,5 +19,11 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
 
         
+        {{-- baseurl for javascript --}}
+<script>
+
+        var base_url = '<?php echo URL::to('/'); ?>';
+
         
+</script>
        

@@ -37,21 +37,30 @@
                     <textarea class="form-control summernote" id="long_description_english" name="long_description_english" placeholder="Long Description English" required>{{ @$product->description_english }}</textarea>
                     
                 </div>
-
+ 
                 <div class="form-group">
                     <label class="small mb-1" for="name">Long Description German</label>
                     <textarea class="form-control summernote" id="long_description_german" name="long_description_german" placeholder="Long Description German" required>{{ @$product->description_german }}</textarea>
                 </div>
                 
                 <div class="border_dashed">
+                    <div class="container_image">
+                       <img src="{{  url(@$product->image_path)}}" />
+                    </div>
                     <div class="form-group rv-file_upload">
                         <label class="small mb-1" for="name">Upload Binding Image</label>
                         <input class="rv-custom-file-input" type="file" id="product_file" name="product_file" />
                     </div>
 
-                    <div class="form-group">
+                    @foreach($product_image as $value)
+                    <div class="container_image">
+                       <img src="{{  url('/public/images/'.@$value->image_path)}}" />
+                      <button class="btn" type="button" onclick="javascript:removeImage('{{$value->image_path}}',{{$value->id}});" >Remove Image </button>
+                    </div>
+                    @endforeach
+                    <div class="form-group rv-file_upload">
                         <label class="small mb-1" for="name">Upload Others Images</label>
-                        <input class="rv-custom-file-input" type="file" id="name_in_dh" name="name_in_dh" multiple />
+                        <input class="rv-custom-file-input" type="file" id="otherImages" name="otherImages" multiple />
                     </div>
                 </div>
 
@@ -59,7 +68,7 @@
 
                 <div class="border_dashed rv-RelativeBorder">
                     <div class="form-group">
-                        <label class="small mb-1 " for="name">Page Format</label>
+                        <label class="small mb-1 rv-AbsoluteBorder" for="name">Page Format</label>
                         <div class="form-inline">
                             @foreach ($pageFormat as $key => $value)
 
@@ -84,7 +93,7 @@
              <div class="border_dashed rv-RelativeBorder">
 
                 <div class="form-group">
-                    <label class="small mb-1" for="name">Cover Settings</label>
+                    <label class="small mb-1 rv-AbsoluteBorder" for="name">Cover Settings</label>
                     <div class="form-inline">
                         @foreach ($coverSetting as $key1 => $value1)
 
@@ -111,7 +120,7 @@
             </div>
 
             <div class="form-group cover_color" style="display: none;">
-                <label class="small mb-1" for="name">Cover Color</label>
+                <label class="small mb-1 " for="name">Cover Color</label>
                 <div class="form-inline">
                     @foreach ($coverColor as $key => $value2)
 
@@ -185,7 +194,7 @@
 <div class="border_dashed rv-RelativeBorder">
 
  <div class="form-group">
-     <label class="small mb-1" for="cover_weight">Cover Weight</label>
+     <label class="small mb-1 rv-AbsoluteBorder" for="cover_weight">Cover Weight</label>
      <p>Grams per piece</p>
      <input class="form-control" type="text" id="cover_weight" name="cover_weight" value="{{ $product->cover_weight }}"  placeholder="binding weight" required />
  </div>
@@ -193,13 +202,14 @@
 <br>
 
 <div class="border_dashed rv-RelativeBorder">
+<div class="rv-tableResponsive">
  <div class="form-group ">
-     <h2><label class="small mb-1" for="name">Paper Weight</label></h2>
+     <h2><label class="small mb-1 rv-AbsoluteBorder" for="name">Paper Weight</label></h2>
      <table id="paper_weight_table">
          <tr>
-             <th>Paper Weights</th>
-             <th>Min Sheets</th>
-             <th>Max Sheets</th>
+             <th class="rv-bindingswidth">Paper Weights</th>
+             <th class="rv-bindingswidth">Min Sheets</th>
+             <th class="rv-bindingswidth">Max Sheets</th>
          </tr>
 
          @foreach ($paperWeight as $key_pw => $value_pw)
@@ -216,14 +226,14 @@
 
          ?>
 
-         <td><span class="ml-4"><input type="checkbox" class="form-control" name="paper_weight[]" value="{{ $value_pw->id }}" {{ $bc_selected }} />{{ $value_pw->paper_weight }}  g/m<sup>2</sup></span></td>
-         <td><input id="from" type="number" name="p_min_sheet[]" value="{{ @$selectedPaperWeightData[$key_pw]['min_sheets'] }}" /></td>
-         <td><input id="from" type="number" name="p_max_sheet[]" value="{{ @$selectedPaperWeightData[$key_pw]['max_sheets'] }}" /></td>
+         <td class="rv-bindingswidth"><span class="ml-4"><input type="checkbox" class="form-control" name="paper_weight[]" value="{{ $value_pw->id }}" {{ $bc_selected }} />{{ $value_pw->paper_weight }}  g/m<sup>2</sup></span></td>
+         <td class="rv-bindingswidth"> <input id="from" type="number" name="p_min_sheet[]" value="{{ @$selectedPaperWeightData[$key_pw]['min_sheets'] }}" /></td>
+         <td class="rv-bindingswidth"><input id="from" type="number" name="p_max_sheet[]" value="{{ @$selectedPaperWeightData[$key_pw]['max_sheets'] }}" /></td>
      </tr>
      @endforeach
 
  </table>
-
+</div>
 </div>
 </div>
 <br>
@@ -280,14 +290,15 @@
 <br>
 
 
-<div class="border_dashed">
+<div class="border_dashed rv-RelativeBorder">
+<div class="form-group rv-overflow-y">
  <div class="form-group ">
-     <h2><label class="small mb-1" for="name">Price</label></h2>
+     <h2><label class="small mb-1 rv-AbsoluteBorder" for="name">Price</label></h2>
      <table id="binding_table">
          <tr>
-             <th>Sheets</th>
-             <th></th>
-             <th>Per Product</th>
+             <th class="rv-headLt">Sheets</th>
+             <!-- <th></th> -->
+             <th class="rv-headRt">Per Product</th>
          </tr>
 
          @if(!empty($product_price))
@@ -295,7 +306,7 @@
 
          <tr class="form-inline">
             <input id="from" type="hidden" name="product_price_id[]" value="{{ $value_pp['id'] }}" />
-            <td><input id="start" type="hidden" name="sheet_start[]" value="{{ $value_pp['min_range'] }}" />{{ $value_pp['min_range'] }} - </td>
+            <td class="rv-headLtchild1" ><input id="start" type="hidden" name="sheet_start[]" value="{{ $value_pp['min_range'] }}" />{{ $value_pp['min_range'] }} - </td>
             <td><input class="form-control end" id="end" type="hidden" name="sheet_end[]" value="{{ $value_pp['max_range'] }}" placeholder="page range" />{{ $value_pp['max_range'] }}</td>
             <td><input class="form-control product_price" id="product_price" type="number" name="product_price[]" value="{{ $value_pp['price'] }}" required placeholder="price" /></td>
         </tr>
@@ -304,43 +315,44 @@
         @else
 
         <tr class="form-inline">
-         <td><input id="start" type="hidden" name="sheet_start[]" value="1" />1 - </td>
-         <td><input class="form-control end" id="end" type="hidden" name="sheet_end[]" value="50" placeholder="page range" />50</td>
-         <td><input class="form-control product_price" id="product_price" type="number" name="product_price[]" value="10" required placeholder="price" /></td>
+         <td class="rv-headLtchild1"><input id="start" type="hidden" name="sheet_start[]" value="1" />1 - </td>
+         <td class="rv-headLtchild"><input class="form-control end" id="end" type="hidden" name="sheet_end[]" value="50" placeholder="page range" />50</td>
+         <td class="rv-headRtchild"><input class="form-control product_price" id="product_price" type="number" name="product_price[]" value="10" required placeholder="price" /></td>
      </tr>
 
      <tr class="form-inline">
-         <td><input id="start" type="hidden" name="sheet_start[]" value="51" />51 - </td>
-         <td><input class="form-control end" id="end" type="hidden" name="sheet_end[]" value="100" placeholder="page range" />100</td>
-         <td><input class="form-control product_price" id="product_price" type="number" name="product_price[]" value="11" required placeholder="price" /></td>
+         <td class="rv-headLtchild1"><input id="start" type="hidden" name="sheet_start[]" value="51" />51 - </td>
+         <td class="rv-headLtchild"><input class="form-control end" id="end" type="hidden" name="sheet_end[]" value="100" placeholder="page range" />100</td>
+         <td class="rv-headRtchild"><input class="form-control product_price" id="product_price" type="number" name="product_price[]" value="11" required placeholder="price" /></td>
      </tr>
 
      <tr class="form-inline">
-         <td><input id="start" type="hidden" name="sheet_start[]" value="101" />101 - </td>
-         <td><input class="form-control end" id="end" type="hidden" name="sheet_end[]" value="150" placeholder="page range" />150</td>
-         <td><input class="form-control product_price" id="product_price" type="number" name="product_price[]" value="12" required placeholder="price" /></td>
+         <td class="rv-headLtchild1"><input id="start" type="hidden" name="sheet_start[]" value="101" />101 - </td>
+         <td class="rv-headLtchild"><input class="form-control end" id="end" type="hidden" name="sheet_end[]" value="150" placeholder="page range" />150</td>
+         <td class="rv-headRtchild"><input class="form-control product_price" id="product_price" type="number" name="product_price[]" value="12" required placeholder="price" /></td>
      </tr>
 
      <tr class="form-inline">
-         <td><input id="start" type="hidden" name="sheet_start[]" value="191" />191 - </td>
-         <td><input class="form-control end" id="end" type="hidden" name="sheet_end[]" value="250" placeholder="page range" />250</td>
-         <td><input class="form-control product_price" id="product_price" type="number" name="product_price[]" value="13" required placeholder="price" /></td>
+         <td class="rv-headLtchild1"><input id="start" type="hidden" name="sheet_start[]" value="191" />191 - </td>
+         <td class="rv-headLtchild"><input class="form-control end" id="end" type="hidden" name="sheet_end[]" value="250" placeholder="page range" />250</td>
+         <td class="rv-headRtchild"><input class="form-control product_price" id="product_price" type="number" name="product_price[]" value="13" required placeholder="price" /></td>
      </tr>
 
      <tr class="form-inline">
-         <td><input id="start" type="hidden" name="sheet_start[]" value="201" />201 - </td>
-         <td><input class="form-control end" id="end" type="hidden" name="sheet_end[]" value="250" placeholder="page range" />250</td>
-         <td><input class="form-control product_price" id="product_price" type="number" name="product_price[]" value="14" required placeholder="price" /></td>
+         <td class="rv-headLtchild1"><input id="start" type="hidden" name="sheet_start[]" value="201" />201 - </td>
+         <td class="rv-headLtchild"><input class="form-control end" id="end" type="hidden" name="sheet_end[]" value="250" placeholder="page range" />250</td>
+         <td class="rv-headRtchild"><input class="form-control product_price" id="product_price" type="number" name="product_price[]" value="14" required placeholder="price" /></td>
      </tr>
 
      <tr class="form-inline">
-         <td><input class="form-control start" id="start" type="hidden" name="sheet_start[]" value="251" />251 - </td>
-         <td><input class="form-control end" id="end" name="sheet_end[]"  placeholder="page range" type="number"  /></td>
-         <td><input class="form-control product_price" id="product_price" type="number" name="product_price[]" placeholder="price" /></td>
+         <td class="rv-headLtchild1"><input class="form-control start" id="start" type="hidden" name="sheet_start[]" value="251" />251 - </td>
+         <td class="rv-headLtchild"><input class="form-control end" id="end" name="sheet_end[]"  placeholder="page range" type="number"  /></td>
+         <td class="rv-headRtchild"><input class="form-control product_price" id="product_price" type="number" name="product_price[]" placeholder="price" /></td>
      </tr>
      @endif
 
  </table>
+</div>
 </div>
 
 <div class="form-group">
@@ -361,7 +373,7 @@
 </div>
 
 <div class="form-inline">
-    <a href="{{ url('/admin/details/Product/1') }}" class="btn btn-secondary btn-user btn-block col-md-3">Back</a>
+    <a href="{{ URL::previous() }}" class="btn btn-secondary btn-user btn-block col-md-3">Back</a>
     <input type="submit" class="btn btn-primary btn-user btn-block col-md-3" value="Update">
 </div>
 
@@ -372,7 +384,7 @@
 
 </div>
 
-
+ 
 <style>
 tr>th {
     padding: 8px;
@@ -387,3 +399,18 @@ tr>td {
 }
 body .popover{display:none !important; }
 </style>
+
+
+<script type="text/javascript">  
+    function removeImage(image_path = "" ,id = ""){   alert(id);
+
+        $.ajax({
+        url: base_url+'/admin/removeProductImage', 
+        type: 'POST', 
+        data: {'rid' : id, 'path': image_path, '_token': $('meta[name="csrf-token"]').attr('content')},
+        success: function (response){
+        }
+    });  
+
+    } 
+</script>

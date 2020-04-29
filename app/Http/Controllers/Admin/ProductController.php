@@ -346,12 +346,14 @@ class ProductController extends Controller
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
-     */
+     */ 
     public function edit($id)
     {
         //
 
         $product = Product::find($id);
+
+        $product_image = ProductImage::where(['product_id' => $id])->get();
 
         $pageFormat = PageFormat::where(['status'=> 1])->orderBy('id', 'ASC')->limit(10)->get();
         $slectedPageFormat = ProductPageFormat::where(['product_id'=> $id, 'status' => 1])->pluck('paper_format')->toArray();
@@ -383,11 +385,11 @@ class ProductController extends Controller
         }else{
 
             $selectedArtList = [];
-        }
+        } 
 
         $product_price = ProductPrice::where(['ps_product_id' => $id])->get()->toArray();
 
-        return view('pages.admin.parameter.binding-edit', compact('product',  'pageFormat', 'slectedPageFormat', 'coverSetting', 'coverSettingSelected', 'coverColor', 'selectedCoverColor', 'coverSheet', 'selectedCoverSheet', 'selectedBackCover', 'backCover', 'printFinishing', 'selectedPrintFinishing', 'artList', 'selectedArtList', 'paperWeight', 'selectedPaperWeight', 'selectedPaperWeightData', 'product_price'));
+        return view('pages.admin.parameter.binding-edit', compact('id','product',  'pageFormat', 'slectedPageFormat', 'coverSetting', 'coverSettingSelected', 'coverColor', 'selectedCoverColor', 'coverSheet', 'selectedCoverSheet', 'selectedBackCover', 'backCover', 'printFinishing', 'selectedPrintFinishing', 'artList', 'selectedArtList', 'paperWeight', 'selectedPaperWeight', 'selectedPaperWeightData', 'product_price','product_image'));
     }
 
     /**
@@ -398,7 +400,7 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
+    {  
         //
         $validator = Validator::make($request->all(), [
 
@@ -437,7 +439,7 @@ class ProductController extends Controller
         //update values
         $product->save();
 
-        if ($id) {
+        if ($id) {  //dd($id);  
 
             //update file
             if($request->hasFile('product_file')) {
@@ -447,7 +449,7 @@ class ProductController extends Controller
                     'product_file' => 'required|image|mimes:jpeg,png,jpg|max:2048',
 
                 ]);
-
+ 
                 $image = $request->file('product_file');
                 $input['imagename'] = time().@$id.'.'.@$image->getClientOriginalExtension();
 
@@ -455,11 +457,15 @@ class ProductController extends Controller
 
                 $image->move($destinationPath, $input['imagename']);
 
+                $product = Product::find($id)->image_path;  
+
+                unlink(url($product));
+
                 $update = Product::where('id', @$id)->update(['image_path' => @$input['imagename']]);
             }
 
             //update more files
-            if($request->file('otherImages')) {
+            if($request->file('otherImages')) {   
 
                 foreach ($request->file('otherImages') as $key => $value) {
 
@@ -468,9 +474,9 @@ class ProductController extends Controller
 
                     $destinationPathImg = public_path('/images');
 
-                    // $other_image->move($destinationPathImg, $inputImage['imagename']);
+                     $other_image->move($destinationPathImg, $inputImage['imagename']);
 
-                    // $update = ProductImage::create(['product_id'=>$insert->id, 'image_path' => @$inputImage['imagename'] ]);
+                     $update = ProductImage::create(['product_id'=>$insert->id, 'image_path' => @$inputImage['imagename'] ]);
                 }
             }
 
@@ -772,7 +778,7 @@ class ProductController extends Controller
 
                             $attr_data = [
 
-                                'ps_product_id' => $insert->id,
+                                'ps_product_id' => $insert->id, 
                                 'min_range' => $request['sheet_start'][$key],
                                 'max_range' => $request['sheet_end'][$key],
                                 'price' => $request['product_price'][$key],
@@ -795,8 +801,20 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id) 
     {
         //
     }
+
+
+    public function removeProductImage(Request $request){
+
+       ProductImage::find($request->rid)->delete();
+
+       unlink(public_path()."/images/".$request->path);
+
+       echo "success";
+
+    } 
 }
+ 

@@ -45,7 +45,7 @@ table#dilivery_services_table_edit tr.form-inline { border-bottom: 1px solid #ec
 
 
 
-/*BINDING CREATE FORM*/
+/*BINDING CREATE AND EDIT FORM */
 .rv-RelativeBorder {position: relative;padding: 20px 15px 10px;}
 .rv-AbsoluteBorder {position: absolute;top: -13px;left: 10px;font-size: 15px;background: #f7f7f7;padding: 0 10px;}
 .form-group.rv-file_upload {background-color: #EEE;border: #999 5px dashed;padding: 8px;font-size: 18px;clear: both;margin: 20px 25px;text-align: center;}
@@ -70,3 +70,34 @@ table#binding_table tr.form-inline {border-bottom: 1px solid #ececec;display: in
 
 .card .form-inline input[type=checkbox], .card .form-inline input[type=radio] {margin-right: 7px;}
 .card .form-inline input[type=checkbox]:focus, .card .form-inline input[type=radio]:focus{   box-shadow: none !important;}
+
+
+
+/* -----------------------------------------------28-04-2020------------------------------- */
+
+.container_image {
+  position: relative;
+  width: 100%;
+  max-width: 150px;
+}
+
+.container_image img {
+  width: 100%;
+  height: auto;
+}
+
+.container_image .btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  background-color: #555;
+  color: white;
+  font-size: 10px;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  text-align: center;
+}

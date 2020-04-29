@@ -19,7 +19,7 @@
 					<!-- <div class="product-item-img col-half text-left">
 						<span class="img-back">
 							@foreach ($listing->psProductImages as $image)
-							<img class = "zoom"src="{{ asset($listing->image_path)}}" alt="" height="50" width="50" /></span>
+							<img class = "zoom" src="{{ asset($listing->image_path)}}" alt="" height="50" width="50" /></span>
 							@endforeach
 						</div> -->
 

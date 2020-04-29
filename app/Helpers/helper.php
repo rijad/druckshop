@@ -64,6 +64,12 @@ function deliveryServiceById($list_id){
 	return $list->delivery_service;
 }
 
+
+function emailById($list_id){
+	$list = \App\User::find($list_id);
+	return $list->email;
+}
+
 function showDetails($key, $id){
 	if($id == -1){
 		echo $key . ': ' . " N/A";

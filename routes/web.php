@@ -174,10 +174,11 @@ Route::group(['namespace'=>'Admin', 'prefix' => 'admin'], function()
     Route::resource('/cdbag','CdBagController');
     Route::resource('/datacheck','DataCheckController'); 
     Route::resource('/art','ArtController'); 
-    Route::resource('/discount','DiscountController'); 
+    Route::resource('/discount','DiscountController');  
     Route::resource('/gallery','GalleryController');
     Route::resource('/pageformat','PageFormatController');
     Route::get('/details/{model}/{id}','ParameterController@details')->name('details'); 
+    Route::post('/removeProductImage','ProductController@removeProductImage')->name('removeProductImage'); 
 
 //order
     Route::get('/order','OrderController@index')->name('order');
@@ -185,6 +186,7 @@ Route::group(['namespace'=>'Admin', 'prefix' => 'admin'], function()
     Route::post('/order-edit/{id}','OrderController@update')->name('order-edit'); 
 
     Route::get('/defected-order-email/{user-id}/{order-id}/{old-file-name}','OrderController@sendDefectedOrderEmail')->name('defected-order-email'); 
+    Route::post('/trackingNumberSendMail','OrderController@trackingNumberSendMail')->name('trackingNumberSendMail');
 
 
     Route::resource('/returnorder','ReturnOrdersController');
