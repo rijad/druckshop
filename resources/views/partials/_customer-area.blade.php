@@ -9,7 +9,7 @@
                             <!-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed dod tempor incididunt labore.</p> -->
                             </div>
                             <div class="customer-profile-info"> 
-                            <h2>General Info</h2> 
+                            <h2>General Info</h2>  
                             <div class="UserIdEdit">
                                 <button onclick="enableFieldFunction()">Edit Info</button>
                                 <input type="button" onclick="javascript:saveProfile();" class="userSaveInfo" value="Save">

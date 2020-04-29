@@ -60,7 +60,7 @@
                     @endforeach
                     <div class="form-group rv-file_upload">
                         <label class="small mb-1" for="name">Upload Others Images</label>
-                        <input class="rv-custom-file-input" type="file" id="otherImages" name="otherImages" multiple />
+                        <input class="rv-custom-file-input" type="file" id="otherImages" name="otherImages[]" multiple />
                     </div>
                 </div>
 

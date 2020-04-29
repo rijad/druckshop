@@ -3,25 +3,14 @@
 				@foreach ($product_listing as $key=>$listing)
 
 				@if(($key)%2 == 0)
-
+ 
 				<div class="col-row mb-5"> 
 
 					<div class="product-item-img col-half text-left">
 						<span class="img-back"><img src="{{ asset($listing->image_path)}}" alt="" /></span>
-						<div class="rv-imagelist">
-							<span class="img-back">
-							 @foreach ($listing->psProductImages as $image)
-							 	<img class = "zoom"src="{{ asset($listing->image_path)}}" alt="" height="50" width="50" />
-							 @endforeach
-							 </span>
-						</div>	 
+							 
 					</div>
-					<!-- <div class="product-item-img col-half text-left">
-						<span class="img-back">
-							@foreach ($listing->psProductImages as $image)
-							<img class = "zoom" src="{{ asset($listing->image_path)}}" alt="" height="50" width="50" /></span>
-							@endforeach
-						</div> -->
+					
 
 						<div class="product-item col-half">
 							<?php $locale = session()->get('locale'); 
@@ -48,20 +37,9 @@
 
 						<div class="product-item-img col-half text-right pull-right">
 							<span class="img-back"><img src="{{ asset($listing->image_path)}}" alt="" /></span>
-							<div class="rv-imagelist">
-							<span class="img-back">
-							 @foreach ($listing->psProductImages as $image)
-							 	<img class="zoom" class = "zoom"src="{{ asset($listing->image_path)}}" alt="" height="50" width="50" />
-							 @endforeach
-							 </span>
-						</div>	 
+								 
 						</div>
-						<!-- <div class="product-item-img col-half text-left">
-							<span class="img-back">
-								@foreach ($listing->psProductImages as $image)
-								<img class = "zoom"src="{{ asset($listing->image_path)}}" alt="" height="50" width="50" /></span>
-								@endforeach
-							</div> -->
+						
 
 							<div class="product-item col-half">
 								

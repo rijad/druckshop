@@ -190,7 +190,7 @@ Route::group(['namespace'=>'Admin', 'prefix' => 'admin'], function()
 
 
     Route::resource('/returnorder','ReturnOrdersController');
-    Route::resource('/stylesheet','StyleSheetController');
+    Route::resource('/stylesheet','StyleSheetController'); 
 
 
     Route::resource('/customer','UsersController');

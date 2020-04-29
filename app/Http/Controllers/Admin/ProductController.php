@@ -463,7 +463,7 @@ class ProductController extends Controller
 
                 $update = Product::where('id', @$id)->update(['image_path' => @$input['imagename']]);
             }
-
+       
             //update more files
             if($request->file('otherImages')) {   
 
@@ -476,7 +476,7 @@ class ProductController extends Controller
 
                      $other_image->move($destinationPathImg, $inputImage['imagename']);
 
-                     $update = ProductImage::create(['product_id'=>$insert->id, 'image_path' => @$inputImage['imagename'] ]);
+                     $update = ProductImage::create(['product_id'=>$id, 'image_path' => @$inputImage['imagename'] ]);
                 }
             }
 

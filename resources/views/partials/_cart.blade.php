@@ -9,7 +9,7 @@
                         <div class="left_productdetail">   
                             <div class="text-center quote_heading">
                                 <p>Product list</p>
-                            </div>
+                            </div> 
  
                             <div class="product">
  

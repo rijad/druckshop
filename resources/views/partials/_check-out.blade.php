@@ -14,7 +14,7 @@
 							<div class="step"><span>3</span></div>
 							<div class="step"><span>4</span></div>
 						</div> 
-   
+    
 						<div class="checkoutBlock col-half text-left">
 							{{-- <h1>Register:</h1> --}}
 
@@ -543,12 +543,13 @@
 														</div>
 													</div>
 													<div class="servicePrice">
-														<ul>
-															<li><p>{{ trans('checkout.binding_price') }}</p><span id="binding_price"><big>0.00 €</big></span></li>
-															<li><p>{{ trans('checkout.printouts') }}</p><span id="printout"><big>0.00 €</big></span></li>
-															<li><p>{{ trans('checkout.data_checks') }}</p><span id="data_check_price"><big>0.00 €</big></span></li>
-															<li><p>{{ trans('checkout.cds') }}</p><span id="cd_dvd"><big>0.00 €</big></span></li>
-															<li><p>{{ trans('checkout.total') }}</p><span id="total"><big>0.00 €</big></span></li>
+														<ul> 
+															<li id="no_toggle"><p>{{ trans('checkout.total') }}</p><span id="total"><big>0.00 €</big></span></li>
+															<li class="displayNone"><p>{{ trans('checkout.binding_price') }}</p><span id="binding_price"><big>0.00 €</big></span></li>
+															<li class="displayNone"><p>{{ trans('checkout.printouts') }}</p><span id="printout"><big>0.00 €</big></span></li>
+															<li class="displayNone"><p>{{ trans('checkout.data_checks') }}</p><span id="data_check_price"><big>0.00 €</big></span></li>
+															<li class="displayNone"><p>{{ trans('checkout.cds') }}</p><span id="cd_dvd"><big>0.00 €</big></span></li>
+															<li id="toggle" class="morelink" onclick="openTray(this);"><p>View More...</p></li>
 															<input type="hidden" name="total" id="total_price" value="">
 														</ul>
 
@@ -599,5 +600,62 @@ $(document).ready(function(){
 
 });
 
-</script>
-							
+ // $(".morelink").click(function(){
+
+
+	// if($(".servicePrice").find('ul').find('li').hasClass('morelink')){  
+ // 		$(".servicePrice").find('ul').find('li').removeClass('morelink');
+ // 		$("#toggle").addClass('lesslink').find('p').text('View Less...');
+ // 	}
+
+ // 	if($(".servicePrice").find('ul').find('li').hasClass('displayNone')){
+ // 		$(".servicePrice").find('ul').find('li').removeClass('displayNone');
+ // 	}
+
+ 	
+    
+ //  });
+
+ // $("#lesslink").click(function(){  alert('ss');
+
+
+ // 	$(".servicePrice").find('ul').find('li').addBack().addClass('displayNone');
+
+ // 	 if($(".servicePrice").find('ul').find('li').hasClass('lesslink')){
+ // 		$(".servicePrice").find('ul').find('li').removeClass('lesslink');
+ // 		$("#toggle").removeClass('displayNone');
+ // 		$("#toggle").addClass('morelink').text('View More..');
+ // }
+
+    
+ //  });
+
+
+ function openTray(elem){
+ 	if($(elem).attr("class") == "morelink"){
+ 		if($(".servicePrice").find('ul').find('li').hasClass('morelink')){  
+	 		$(".servicePrice").find('ul').find('li').removeClass('morelink');
+	 		$("#toggle").addClass('lesslink').find('p').text('View Less...');
+ 		}
+
+	 	if($(".servicePrice").find('ul').find('li').hasClass('displayNone')){
+	 		$(".servicePrice").find('ul').find('li').removeClass('displayNone');
+	 	}
+ 	}else if($(elem).attr("class") == "lesslink"){
+
+ 		$(".servicePrice li").addBack().addClass('displayNone');
+ 		$("#no_toggle").removeClass('displayNone');
+
+	 	 if($(".servicePrice").find('ul').find('li').hasClass('lesslink')){
+	 		$(".servicePrice").find('ul').find('li').removeClass('lesslink');
+	 		$("#toggle").removeClass('displayNone');
+	 		$("#toggle").addClass('morelink').text('View More..');
+	 	}
+
+ 	}
+ }
+
+
+</script> 
+
+
