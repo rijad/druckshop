@@ -103,7 +103,7 @@
 
 					<li class="nav-item active"><a href="{{ route('index') }}"><i class="fa fa-home"></i></a></li>
 					<li><a href="{{ route('products') }}">{{ trans('header.products')}}</a></li>
-					<li><a href="{{ route('latest') }}">{{ trans('header.latest')}}</a></li>
+					<li><a href="{{ route('latest-page') }}">{{ trans('header.latest')}}</a></li>
 					<li><a href="{{ route('about-us') }}">{{ trans('header.about')}}</a></li>
 					<li><a href="{{ route('faq') }}">{{ trans('header.faq')}}</a></li>
 					{{-- <li><a href="{{ route('gallery-images') }}">Gallery</a></li> --}}

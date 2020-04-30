@@ -40,7 +40,7 @@ Route::get('/route-clear', function() {
     $exitCode = Artisan::call('route:clear');
     return '<h1>Route cache cleared</h1>';
 });
-
+ 
 //Clear View cache:
 Route::get('/view-clear', function() {
     $exitCode = Artisan::call('view:clear');
@@ -104,7 +104,7 @@ Route::get('/repeat-order/{order_id}','RepeatOrderController@RepeatOrder')->name
 Route::get('/cancel-order/{order_id}','CancelOrderController@CancelOrder')->name('cancel-order');
 Route::POST('/return-order','ReturnOrderController@ReturnOrder')->name('return-order');
 
-Route::get('/latest','LatestController@index')->name('latest');
+Route::get('/latest-page','LatestController@index')->name('latest-page');
 Route::get('/about-us','AboutController@index')->name('about-us');
 Route::get('/faq','FaqController@index')->name('faq');
 Route::get('/contact','ContactController@index')->name('contact');
@@ -174,10 +174,11 @@ Route::group(['namespace'=>'Admin', 'prefix' => 'admin'], function()
     Route::resource('/cdbag','CdBagController');
     Route::resource('/datacheck','DataCheckController'); 
     Route::resource('/art','ArtController'); 
-    Route::resource('/discount','DiscountController'); 
+    Route::resource('/discount','DiscountController');  
     Route::resource('/gallery','GalleryController');
     Route::resource('/pageformat','PageFormatController');
     Route::get('/details/{model}/{id}','ParameterController@details')->name('details'); 
+    Route::post('/removeProductImage','ProductController@removeProductImage')->name('removeProductImage'); 
 
 //order
     Route::get('/order','OrderController@index')->name('order');
@@ -185,11 +186,11 @@ Route::group(['namespace'=>'Admin', 'prefix' => 'admin'], function()
     Route::post('/order-edit/{id}','OrderController@update')->name('order-edit'); 
 
     Route::get('/defected-order-email/{user-id}/{order-id}/{old-file-name}','OrderController@sendDefectedOrderEmail')->name('defected-order-email'); 
+    Route::post('/trackingNumberSendMail','OrderController@trackingNumberSendMail')->name('trackingNumberSendMail');
 
 
     Route::resource('/returnorder','ReturnOrdersController');
-    Route::resource('/latest','LatestController');
-    Route::resource('/stylesheet','StyleSheetController');
+    Route::resource('/stylesheet','StyleSheetController'); 
 
 
     Route::resource('/customer','UsersController');

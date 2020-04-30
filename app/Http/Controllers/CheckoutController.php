@@ -278,7 +278,7 @@ class CheckoutController extends Controller
 		if($request->session()->has('cdCover')){
 			$request->session()->forget('cdCover');
 		}
-		if($request->session()->has('A2_page')){
+		if($request->session()->has('A2_page')){ 
 			$request->session()->forget('A2_page');
 		}
 		if($request->session()->has('A3_page')){
@@ -291,7 +291,7 @@ class CheckoutController extends Controller
 			$request->session()->forget('dataCheck');
 		}
 		if($request->session()->has('coloredSheets')){
-			$request->session()->forget('coloredSheets');
+			$request->session()->forget('coloredSheets'); 
 		}
 		if($request->session()->has('deliveryService')){
 			$request->session()->forget('deliveryService');
@@ -517,7 +517,7 @@ class CheckoutController extends Controller
 					$colored = intval($request->session()->get('coloredSheets'));
 					$b_w = $sheets - $colored;
 					try{
-						$c_price = PrintoutBasicPrice::where('din','A4')
+						$c_price = PrintoutBasicPrice::where('din','A4') 
 						->where('color','colored')
 						->where('sided',$sided)->first('price')->price;
 					}catch(\Exception $e){
@@ -617,7 +617,7 @@ class CheckoutController extends Controller
 				}
 			}
 
-			$printout_surcharge = $Price_surcharge_A2 + $Price_surcharge_A3 + $Price_surcharge_A4;
+			$printout_surcharge = $Price_surcharge_A2 + $Price_surcharge_A3 + $Price_surcharge_A4; 
 
 			$printout = $printout_basic + $printout_surcharge;
 
@@ -631,7 +631,7 @@ class CheckoutController extends Controller
 				}
 
 			}
-
+ 
 		// price cd/dvd   
 			if($request->session()->has('nosOfCds') && $request->session()->has('cdCover')){ 
 				$cd = 2;
@@ -651,7 +651,7 @@ class CheckoutController extends Controller
 
 		}
 
-		public function saveOrder(Request $request){
+		public function saveOrder(Request $request){ 
 
 		//$count = count($request->input());
 		//dd(Auth::user()->id);   
@@ -727,150 +727,177 @@ class CheckoutController extends Controller
 
 			}
 
-			public function cart(){  
+public function cart(){  
 
-				if (Auth::check()) 
-					{
-						$user_id = Auth::user()->id;
-					}else{$user_id = Session::get('user_id');} 
+	if (Auth::check()) 
+		{
+			$user_id = Auth::user()->id;
+		}else{$user_id = Session::get('user_id');} 
 
-					try{
-						$product_data = OrderAttributes::where(['status'=>'1','user_id'=>$user_id])->get();  
-					}catch(Exception $e){
-						$product_data = "";
-					}
-
-
-					try{
-						$billing_address_data = UserAddress::where(['address_type'=>'billing','user_id'=>$user_id])->get();
-					}catch(Exception $e){
-						$billing_address_data = "";
-					}
-
-					try{
-						$shipping_address_data = UserAddress::where(['address_type'=>'shipping','user_id'=>$user_id])->get();
-					}catch(Exception $e){
-						$shipping_address_data ="";
-					}	
-
-					try{
-						$shipping_company = DeliveryService::all();
-					}catch(Exception $e){
-						$shipping_company ="";
-					}
+		try{
+			$product_data = OrderAttributes::where(['status'=>'1','user_id'=>$user_id])->get();  
+		}catch(Exception $e){
+			$product_data = "";
+		}
 
 
-					return view('/pages/front-end/cart',compact('product_data','shipping_company','billing_address_data','shipping_address_data'));
+		try{
+			$billing_address_data = UserAddress::where(['address_type'=>'billing','user_id'=>$user_id])->get();
+		}catch(Exception $e){
+			$billing_address_data = "";
+		}
 
-				}
+		try{
+			$shipping_address_data = UserAddress::where(['address_type'=>'shipping','user_id'=>$user_id])->get();
+		}catch(Exception $e){
+			$shipping_address_data ="";
+		}	
 
-				public function orderDetails(Request $request){
-
-					$total = 0;
-
-	//$total_cart = self::CartCount();  
-
-					if (Auth::check()) 
-						{
-							$user_id = Auth::user()->id;
-						}else{
-							$user_id = Session::get('user_id');
-						}
-
-						$product_data = OrderAttributes::where('user_id', $user_id)->get();
-						foreach($product_data as $value){
-
-							$total += $value->price_product_qty;
-
-						}  
+		try{
+			$shipping_company = DeliveryService::all();
+		}catch(Exception $e){
+			$shipping_company ="";
+		}
 
 
-						$validator = Validator::make($request->all(), [ 
-							'no_of_copies.*'=> 'required',
-							'no_of_cds.*' => 'nullable',
-							'shipping_company.*' => 'required|not_in:-1',
-							'shipping_address.*' => 'required|not_in:-1',             
-							'billing_address.*' => 'required|not_in:-1',
-							'email_id' => 'required|email',
-							'code' => 'nullable|exists:ps_discount',
-						], [
-							'no_of_copies.*.required' => 'No of Copies are required',
-							'shipping_company.*.not_in' => 'Shipping Company is required',
-							'shipping_address.*.not_in' => 'Shipping Address is required',
-							'billing_address.*.not_in' => 'Billing Address is required',
-						]); 
+		return view('/pages/front-end/cart',compact('product_data','shipping_company','billing_address_data','shipping_address_data'));
+
+	}
+
+public function orderDetails(Request $request){
+
+$total = 0;
+
+//$total_cart = self::CartCount();  
+
+if (Auth::check()) 
+	{
+		$user_id = Auth::user()->id;
+	}else{
+		$user_id = Session::get('user_id');
+	}
+
+	$product_data = OrderAttributes::where('user_id', $user_id)->get();
+	foreach($product_data as $value){
+
+		$total += $value->price_product_qty;
+
+	}  
+
+
+	$validator = Validator::make($request->all(), [ 
+		'no_of_copies.*'=> 'required',
+		'no_of_cds.*' => 'nullable',
+		'shipping_company.*' => 'required|not_in:-1',
+		'shipping_address.*' => 'required|not_in:-1',             
+		'billing_address.*' => 'required|not_in:-1',
+		'email_id' => 'required|email',
+		'code' => 'nullable|exists:ps_discount',
+	], [
+		'no_of_copies.*.required' => 'No of Copies are required',
+		'shipping_company.*.not_in' => 'Shipping Company is required',
+		'shipping_address.*.not_in' => 'Shipping Address is required',
+		'billing_address.*.not_in' => 'Billing Address is required',
+	]); 
 
 
 	// Check if Guest already exists (using email id)
-	// get already existing or new user_id
-						if($user_id == Session::get('user_id')){
+// get already existing or new user_id
+	if($user_id == Session::get('user_id')){
+		$user_id = self::checkGuest($request->input('email_id'));
+	// set new user id for Guest in tables
+		self::setGuestUserid($user_id);
+	}
 
-							$user_id = self::checkGuest($request->input('email_id'));
-		// set new user id for Guest in tables
-							self::setGuestUserid($user_id);
-		//dd($user_id);
+	if ($validator->passes()){   
 
-						}
+		foreach($product_data as $key=>$product_detail){
 
-						if ($validator->passes()){   
+			$update_data = $product_detail;
+			$update_data->item_sequence = $key+1;
+			$update_data->no_of_copies = $request->no_of_copies[$key];
+			$update_data->no_of_cds = $request->no_of_cds[$key];
+			$update_data->shipping_company = deliveryServiceById($request->shipping_company[$key]);
+			$update_data->shipping_address = $request->shipping_address[$key];
+			$update_data->billing_address = $request->billing_address[$key]; 
+			$update_data->save();
 
-			//dd($request->input());  
-
-							foreach($product_data as $key=>$product_detail){
-
-								$update_data = $product_detail;
-								$update_data->item_sequence = $key+1;
-								$update_data->no_of_copies = $request->no_of_copies[$key];
-								$update_data->no_of_cds = $request->no_of_cds[$key];
-								$update_data->shipping_company = $request->shipping_company[$key];
-								$update_data->shipping_address = $request->shipping_address[$key];
-								$update_data->billing_address = $request->billing_address[$key]; 
-								$update_data->save();
-
-							}
+		}
 
 
-			// // handling promo code
-							if($request->input('code') != "null" && ! empty($request->input('code'))){
+		//handling promo code
+		if($request->input('code') != "null" && ! empty($request->input('code'))){
 
-								$discount = Discount::where(['code' => $request->input('code')])->first(['by_price','by_percent']);
-			//dd($discount->by_price);
-								if($discount->by_price != "null" && ! empty($discount->by_price)){
-									$discount_amt = $discount->by_price;
-								}else{
-									$discount_amt = ($total / 100 ) * $discount->by_percent;
-								}
+			$discount = Discount::where(['code' => $request->input('code')])->first(['by_price','by_percent']);
+		
+			if($discount->by_price != "null" && ! empty($discount->by_price)){
+				$discount_amt = $discount->by_price;
+			}else{
+				$discount_amt = ($total / 100 ) * $discount->by_percent;
+			}
 
-			if($discount_amt > $total){ // discount is more then total i.e no code will be applied
+			// discount is more then total i.e no code will be applied
+
+			if($discount_amt > $total){ 
 				$net_amt = $total - 0.00;
 			}else{
 				$net_amt = $total - $discount_amt; 
 			}
-		}else{
+		}else{ 
 			$discount_amt = 0.0;
 			$net_amt = $total - $discount_amt;
 		}
 
+		// handling delivery service costing
 
-		Session::put('order_id', $user_id.'_'.time());
+		$delivery_cost = []; $total_delivery_service = 0;
+		foreach($product_data as $key=>$product_detail){
+
+			$quantity[$key] = $request->no_of_copies[$key] + $request->no_of_cds[$key];
+
+			try{
+
+				$delivery_cost[$key] = LettesOfSpine::where('delivery_service_id' ,'=', $request->shipping_company[$key])
+			                               ->where('ds_from','<=',$quantity[$key])
+			                               ->where('ds_to','>=',$quantity[$key])
+			                               ->where('ds_del_status','=','1')->first()->ds_price; 
+
+			}catch(Exception $e){
+
+				$delivery_cost[$key] = 0;
+
+			}
+
+			$total_delivery_service +=  floatval($delivery_cost[$key]);
+
+			
+		}  
+
+   $net_amt_after_delivery_service = $net_amt + $total_delivery_service;
 
 
-		$OrderDetailsvalue = new OrderDetails;
-		$OrderDetailsvalue->user_id = $user_id;
-		$OrderDetailsvalue->order_id= $user_id.'_'.time();
-		$OrderDetailsvalue->promo_code= $request->input('code');
-		$OrderDetailsvalue->email_id= $request->input('email_id');
-		$OrderDetailsvalue->total= $total;
-		$OrderDetailsvalue->save();
-
-			//$OrderDetailsvalue= OrderDetails::create($input);
-		$product_data = OrderAttributes::where('user_id', $user_id)->get();
-
-		return view('/pages/front-end/order',compact('product_data','discount_amt','total','net_amt'));
+	Session::put('order_id', $user_id.'_'.time());
 
 
-	}else{//dd($validator->errors('shipping_address.0'));
-	return back()->with('errors', $validator->errors());
+	$OrderDetailsvalue = new OrderDetails;
+	$OrderDetailsvalue->user_id = $user_id;
+	$OrderDetailsvalue->order_id= $user_id.'_'.time();
+	$OrderDetailsvalue->promo_code= $request->input('code');
+	$OrderDetailsvalue->email_id= $request->input('email_id');
+	$OrderDetailsvalue->total= $total;
+	$OrderDetailsvalue->net_amt= $net_amt_after_delivery_service;
+	$OrderDetailsvalue->save();
+
+
+
+
+	$product_data = OrderAttributes::where('user_id', $user_id)->get();
+
+	return view('/pages/front-end/order',compact('product_data','discount_amt','total','net_amt','delivery_cost','net_amt_after_delivery_service'));
+
+
+}else{//dd($validator->errors('shipping_address.0'));
+return back()->with('errors', $validator->errors());
 }
 
 
@@ -926,29 +953,30 @@ public function setQuantity(Request $request){
 		}
 
 
-		public function paymentPaypal(){
+public function paymentPaypal(){
 
-			if(Auth::check())
-				{
-					$user_id = Auth::user()->id;
-				}else{return redirect()->route('index'); }
+	if(Auth::check())
+		{
+			$user_id = Auth::user()->id;
+		}else{return redirect()->route('index'); }
 
-				$product_data = OrderAttributes::where('user_id', $user_id)->get();
-				$order_details = OrderDetails::where(['user_id'=> $user_id , 'order_id' => Session::get('order_id')])->first();
-				$net_amt = $order_details->total; 
-	// handling promo code
-				if($order_details->promo_code != "null" && ! empty($order_details->promo_code)){  
+		$product_data = OrderAttributes::where('user_id', $user_id)->get();
+		$order_details = OrderDetails::where(['user_id'=> $user_id , 'order_id' => Session::get('order_id')])->first();
+		// $net_amt = $order_details->total; 
+		$net_amt = $order_details->net_amt; 
+// // handling promo code
+// 		if($order_details->promo_code != "null" && ! empty($order_details->promo_code)){  
 
-					$discount = Discount::where(['code' => $order_details->promo_code])->first(['by_price','by_percent']);
-			//dd($discount->by_price);
-					if($discount->by_price != "null" && ! empty($discount->by_price)){
-						$discount_amt = $discount->by_price;
-					}else{
-						$discount_amt = ($order_details->total / 100 ) * $discount->by_percent;
-					}
-					$net_amt = $order_details->total - $discount_amt;
-	}  //dd($net_amt);
-	return view('/pages/front-end/payment_paypal',compact('product_data','order_details','net_amt'));
+// 			$discount = Discount::where(['code' => $order_details->promo_code])->first(['by_price','by_percent']);
+// 	//dd($discount->by_price);
+// 			if($discount->by_price != "null" && ! empty($discount->by_price)){
+// 				$discount_amt = $discount->by_price;
+// 			}else{
+// 				$discount_amt = ($order_details->total / 100 ) * $discount->by_percent;
+// 			}
+// 			$net_amt = $order_details->total - $discount_amt;
+// }  //dd($net_amt);
+return view('/pages/front-end/payment_paypal',compact('product_data','order_details','net_amt'));
 
 } 
 
@@ -964,7 +992,8 @@ public function paymentPaypalSuccess(Request $request){
 
 		$order_details = OrderDetails::where('user_id', $user_id)->first();
 
-		$order_details_amt = $order_details->total;
+		// $order_details_amt = $order_details->total;
+		$order_details_amt = $order_details->net_amt;
 		$txn = $_GET['tx'];
 
 
@@ -989,6 +1018,7 @@ public function paymentPaypalSuccess(Request $request){
 		//$OrderDetailsFinal->shipping_address= $OrderDetails->shipping_address;
 		//$OrderDetailsFinal->billing_address= $OrderDetails->billing_address;
 		$OrderDetailsFinal->total= $OrderDetails->total;
+		$OrderDetailsFinal->net_amt= $OrderDetails->net_amt;
 		$OrderDetailsFinal->status= $_GET['st'];
 		$OrderDetailsFinal->txn= $_GET['tx'];
 		$OrderDetailsFinal->state="New";
@@ -1084,22 +1114,24 @@ public function paymentPaypalSuccess(Request $request){
 			}else{return redirect()->route('index');}
 
 			$OrderDetails = OrderDetails::where(['user_id'=> $user_id , 'order_id' => Session::get('order_id')])->first();
-			$net_amt = $OrderDetails->total; 
-	// handling promo code
-			if($OrderDetails->promo_code != "null" && ! empty($OrderDetails->promo_code)){  
+			// $net_amt = $OrderDetails->total; 
+			$net_amt = $OrderDetails->net_amt; 
+	// // handling promo code
+	// 		if($OrderDetails->promo_code != "null" && ! empty($OrderDetails->promo_code)){  
 
-				$discount = Discount::where(['code' => $OrderDetails->promo_code])->first(['by_price','by_percent']);
-			//dd($discount->by_price);
-				if($discount->by_price != "null" && ! empty($discount->by_price)){
-					$discount_amt = $discount->by_price;
-				}else{
-					$discount_amt = ($OrderDetails->total / 100 ) * $discount->by_percent;
-				}
-				$net_amt = $OrderDetails->total - $discount_amt;
-	}  //dd($net_amt);
+	// 			$discount = Discount::where(['code' => $OrderDetails->promo_code])->first(['by_price','by_percent']);
+	// 		//dd($discount->by_price);
+	// 			if($discount->by_price != "null" && ! empty($discount->by_price)){
+	// 				$discount_amt = $discount->by_price;
+	// 			}else{
+	// 				$discount_amt = ($OrderDetails->total / 100 ) * $discount->by_percent;
+	// 			}
+	// 			$net_amt = $OrderDetails->total - $discount_amt;
+	// }  //dd($net_amt);
 
 
-	$order_details_amt = $OrderDetails->total;
+	// $order_details_amt = $OrderDetails->total;
+	$order_details_amt = $OrderDetails->net_amt;
 	$txn = time();
 
 	$payment = new Payment;
@@ -1124,6 +1156,7 @@ public function paymentPaypalSuccess(Request $request){
 		//$OrderDetailsFinal->shipping_address= $OrderDetails->shipping_address;
 		//$OrderDetailsFinal->billing_address= $OrderDetails->billing_address;
 	$OrderDetailsFinal->total= $OrderDetails->total;
+	$OrderDetailsFinal->net_amt= $OrderDetails->net_amt;
 	$OrderDetailsFinal->status= "Pending";
 	$OrderDetailsFinal->txn= $txn;
 	$OrderDetailsFinal->state="New";

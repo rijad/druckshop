@@ -1,7 +1,14 @@
-				@foreach ($product_listing as $listing)
+				@foreach ($product_listing as $listing) 
 
 				<div class="product-item-img col-half text-left" id="{{$listing->title_english}}">
 					 <img src="{{ asset($listing->image_path)}}" alt="" />
+					 <div class="rv-imagelist">
+							<span class="img-back">
+							 @foreach ($listing->psProductImages as $image)
+							 	<img class="zoom" class = "zoom"src="{{ asset($listing->image_path)}}" alt="" height="50" width="50" />
+							 @endforeach
+							 </span>
+						</div>
 				</div>
 
 				<div class="productDetail col-half">

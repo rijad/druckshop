@@ -39,18 +39,26 @@
         @endforeach
 </select>
     <input type="submit" value="update">
-</form>
+</form> 
 
 <table>
-    @foreach($orderhistory->orderProductHistory as $order)
+    <tr> <th colspan="3">Order ID {{ Request()->order_id }}</th> </tr>
+    @foreach($orderhistory->orderProductHistory as $count=>$order)
+    <tr> <th colspan="3">Product {{$count + 1}}</th></tr>
+    <tr> <th colspan="3">No of Copies {{ $order->no_of_copies }}</th></tr>
+    <tr> <th colspan="3">No of CDs {{ $order->no_of_cds }}</th></tr>
+    <tr> <th colspan="3">Shipping Addresss {{ $order->shipping_address }}</th></tr>
+    <tr> <th colspan="3">Billing Address {{ $order->billing_address }}</th></tr>
+    <tr><th>Product Attributes</th> <th>Actions</th></tr>
         @foreach(json_decode($order->attribute ,true) as $key=>$value)
+        @if($key != "_token")
         <tr>
             <td>{{showDetails($key , $value)}}</td>
-            <td>@if($key == "selectfile" || $key == "selectfile_coversheet" || $key == "selectfile_content" || $key == "selectfile_din_A3" || $key == "selectfile_din_A2" || $key == "selectfile_logo") @if($value != null ) <a href={{url('/').'/public/uploads/'.$value}} target="_blank" >Download</a> @endif @endif</td>
+            <td>@if($key == "selectfile_backcover" || $key == "selectfile_coversheet" || $key == "selectfile_content" || $key == "selectfile_din_A3" || $key == "selectfile_din_A2" || $key == "selectfile_logo" || $key == "selectfile_file" || $key == "selectfile_cd" || $key == "selectfile_logo_cd") @if($value != null ) <a href={{url('/').'/public/uploads/'.$value}} target="_blank" >Download</a> @endif @endif
 
-            <td>@if($key == "selectfile" || $key == "selectfile_coversheet" || $key == "selectfile_content" || $key == "selectfile_din_A3" || $key == "selectfile_din_A2" || $key == "selectfile_logo") @if($value != null )<a href="{{route('defected-order-email',['user_id'=>$order->user_id,'order_id'=>$order->order_id,'old-file-name'=>$value])}}" >Send Mail</a> @endif @endif</td>
-
+            @if($key == "selectfile_backcover" || $key == "selectfile_coversheet" || $key == "selectfile_content" || $key == "selectfile_din_A3" || $key == "selectfile_din_A2" || $key == "selectfile_logo" || $key == "selectfile_file" || $key == "selectfile_cd" || $key == "selectfile_logo_cd") @if($value != null )<a href="{{route('defected-order-email',['user_id'=>$order->user_id,'order_id'=>$order->order_id,'old-file-name'=>$value])}}" >Send Mail</a> @endif @endif</td>
         </tr>
+        @endif
         @endforeach                                                                     
     @endforeach
 </table> 

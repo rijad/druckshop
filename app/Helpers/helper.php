@@ -40,8 +40,8 @@ function backcoverById($backcover_id){
 }
 
 function optionsById($options_id){
-	$options = \App\PageOptions::find($options_id);
-	return $options->page_options;
+	$options = \App\PageOptions::find($options_id);  
+	return $options->page_options;  
 }
 
 function mirrorById($mirror_id){
@@ -59,55 +59,66 @@ function listById($list_id){
 	return $list->check_list;
 }
 
+function deliveryServiceById($list_id){
+	$list = \App\DeliveryService::find($list_id);
+	return $list->delivery_service;
+}
+
+
+function emailById($list_id){
+	$list = \App\User::find($list_id);
+	return $list->email;
+}
+
 function showDetails($key, $id){
 	if($id == -1){
-		echo $key . ':' . $id;
+		echo $key . ': ' . " N/A";
 		return;
 	}
 
 	switch ($key) {
 		case 'binding':
-			echo $key . ':' . productNameById($id);
+			echo $key . ': ' . productNameById($id);
 			break;
 
 		case 'page-format':
-			echo $key . ':' . pageformatById($id);
+			echo $key . ': ' . pageformatById($id);
 			break;
 
 		case 'cover-color':
-			echo $key . ':' . colorById($id);
+			echo $key . ': ' . colorById($id);
 			break;
 
 		case 'cover-sheet':
-			echo $key . ':' . sheetById($id);
+			echo $key . ': ' . sheetById($id);
 			break;
 
 		case 'paper-weight':
-			echo $key . ':' . weightById($id) . " g/m²";
+			echo $key . ': ' . weightById($id) . " g/m²";
 			break;
 			
 		case 'back-cover':
-			echo $key . ':' . backcoverById($id);
+			echo $key . ': ' . backcoverById($id);
 			break;
 			
-		case 'paper-options':
-			echo $key . ':' . optionsById($id);
+		case 'page_options':
+			echo $key . ': ' .optionsById($id);
 			break;
-			
+			 
 		case 'mirror':
-			echo $key . ':' . mirrorById($id);
+			echo $key . ': ' . mirrorById($id);
 			break;
 			
 		case 'cd-bag':
-			echo $key . ':' . bagById($id);
+			echo $key . ': ' . bagById($id);
 			break;
 			
 		case 'data_check':
-			echo $key . ':' . listById($id);
+			echo $key . ': ' . listById($id);
 			break;
 		
 		default:
-		 echo $key . ':' . $id;
+		 echo $key . ': ' . $id;
 			break;
 	}
 
