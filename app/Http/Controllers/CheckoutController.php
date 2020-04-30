@@ -260,9 +260,13 @@ class CheckoutController extends Controller
 
 	public function clearSession(Request $request){
 		
+		if($request->session()->has('no_of_copies')){
+			$request->session()->forget('no_of_copies');
+		}
+
 		if($request->session()->has('binding_type')){
 			$request->session()->forget('binding_type');
-		}
+		}  
 		if($request->session()->has('no_of_sheets')){
 			$request->session()->forget('no_of_sheets');
 		}
@@ -306,9 +310,14 @@ class CheckoutController extends Controller
 		//print_r($request->input());
 
 		$binding_price = 0; $embosing_spine = 0; $embosing_cover = 0; $printout = 0; $printout_basic = 0; 
-		$printout_surcharge = 0; $cd_dvd = 0; $delivery_cost = 0; $colored_price_A2 = 0; $b_w_price_A2 = 0; $colored_price_A3 = 0; $b_w_price_A3 = 0; $colored_price_A4 = 0; $b_w_price_A4 = 0; $Price_surcharge_A2 = 0; $Price_surcharge_A3 = 0; $Price_surcharge_A4 = 0; $data_check_price =0;
+		$printout_surcharge = 0; $cd_dvd = 0; $delivery_cost = 0; $colored_price_A2 = 0; $b_w_price_A2 = 0; $colored_price_A3 = 0; $b_w_price_A3 = 0; $colored_price_A4 = 0; $b_w_price_A4 = 0; $Price_surcharge_A2 = 0; $Price_surcharge_A3 = 0; $Price_surcharge_A4 = 0; $data_check_price =0; $no_of_copies=1 ;
 
 		// save values in session
+		if($request->input('no_of_copies') != ""){
+			$request->session()->forget('no_of_copies');
+			$request->session()->put('no_of_copies', $request->input('no_of_copies'));
+			$request->session()->save();
+		}
 		if($request->input('binding_type') != ""){
 			$request->session()->forget('binding_type');
 			$request->session()->put('binding_type', $request->input('binding_type'));
@@ -367,7 +376,7 @@ class CheckoutController extends Controller
 			$request->session()->forget('nosOfCds');
 			$request->session()->put('nosOfCds', $request->input('nosOfCds'));
 			$request->session()->save();
-		}
+		}  
 
 		if($request->input('dataCheck') != ""){
 			$request->session()->forget('dataCheck');
@@ -643,7 +652,15 @@ class CheckoutController extends Controller
 				}
 			}
 
-			$total = $binding_price + $printout + $data_check_price + $cd_dvd;
+
+			// no of copies
+			  if($request->session()->has('no_of_copies')){
+
+			  	$no_of_copies = $request->session()->get('no_of_copies');
+
+			  }
+
+			$total = (($no_of_copies) * ($binding_price + $printout + $data_check_price)) + $cd_dvd;
 
 			$data = compact('binding_price','printout','data_check_price','cd_dvd','total');
 			$response = returnResponse($data,'200','Success');
@@ -1451,9 +1468,54 @@ public static function CartCount(){
 
 				}else{
 
-					$input['default'] = 1;
+					if($input['address_type'] == "billing"){
 
-					$UserAddress= UserAddress::create($input);
+						try{
+
+						$exist = UserAddress::where(['user_id' => $user_id, 'default' => 1, 'address_type' => 'shipping'])->first();
+							$update_address = $exist;
+							$update_address->address_type = "shipping";
+							$update_address->first_name = $input['first_name'];
+							$update_address->last_name = $input['last_name'];
+							$update_address->company_name = $input['company_name'];
+							$update_address->street = $input['street'];
+							$update_address->city = $input['city'];
+							$update_address->zip_code = $input['zip_code'];
+							$update_address->house_no = $input['house_no'];
+							$update_address->addition = $input['addition'];
+							$update_address->state = $input['state'];
+							$update_address->save();
+						}catch(Exception $e){ 
+							$input['default'] = 1;
+							$UserAddress= UserAddress::create($input);
+						}
+
+						try{
+							$exist = UserAddress::where(['user_id' => $user_id, 'default' => 1, 'address_type' => 'billing'])->first();
+
+							$update_address = $exist;
+							$update_address->address_type = "billing";
+							$update_address->first_name = $input['first_name'];
+							$update_address->last_name = $input['last_name'];
+							$update_address->company_name = $input['company_name'];
+							$update_address->street = $input['street'];
+							$update_address->city = $input['city'];
+							$update_address->zip_code = $input['zip_code'];
+							$update_address->house_no = $input['house_no'];
+							$update_address->addition = $input['addition'];
+							$update_address->state = $input['state'];
+							$update_address->save();
+						}catch(Exception $e){
+							$input['default'] = 1;
+							$input['address_type'] = "billing";
+							$UserAddress= UserAddress::create($input);
+						}
+
+					}
+
+					
+
+						
 
 					try{
 
@@ -1462,11 +1524,11 @@ public static function CartCount(){
 
 							$area->billing_address = $request->first_name." ".$request->last_name.", Company Name: ".$request->company_name.", House No: ".$request->house_no.", City: ".$request->city.", State: ".$request->state.", Zip Code: ".$request->zip_code;
 
-						}else{
+						 }//else{
 
-							$area->shipping_address = $request->first_name." ".$request->last_name.", Company Name: ".$request->company_name.", House No: ".$request->house_no.", City: ".$request->city.", State: ".$request->state.", Zip Code: ".$request->zip_code;
+						// 	$area->shipping_address = $request->first_name." ".$request->last_name.", Company Name: ".$request->company_name.", House No: ".$request->house_no.", City: ".$request->city.", State: ".$request->state.", Zip Code: ".$request->zip_code;
 
-						}
+						// }
 
 						$area->save();
 
@@ -1480,11 +1542,12 @@ public static function CartCount(){
 
 							$area->billing_address = $request->first_name." ".$request->last_name.", Company Name: ".$request->company_name.", House No: ".$request->house_no.", City: ".$request->city.", State: ".$request->state.", Zip Code: ".$request->zip_code;
 
-						}else{
+						 }
+							//else{
 
-							$area->shipping_address = $request->first_name." ".$request->last_name.", Company Name: ".$request->company_name.", House No: ".$request->house_no.", City: ".$request->city.", State: ".$request->state.", Zip Code: ".$request->zip_code;
+						// 	$area->shipping_address = $request->first_name." ".$request->last_name.", Company Name: ".$request->company_name.", House No: ".$request->house_no.", City: ".$request->city.", State: ".$request->state.", Zip Code: ".$request->zip_code;
 
-						}
+						// }
 
 						$area->save();
 

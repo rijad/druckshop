@@ -1,3 +1,4 @@
+			<div class="rv-searchHead">
 			@if(isset($details))
 			<h2> The Search results for <b> {{ $query }} </b> are following:</h2>
 				<table class="table table-striped">
@@ -18,3 +19,4 @@
 			@elseif(isset($message))
 				<h3>{{ $message }}</h3>
 			@endif
+			</div>

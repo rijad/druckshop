@@ -773,10 +773,14 @@ function displayProductAttributes(field_flag = "", values = ""){
 }
 
 
-function displayPrice(binding = "", no_ofsheets = "", page_options = "", embossing_cover = "", embossing_spine="", paper_weight = "", A2="", A3="", nos_of_cds = "", data_check = "", cd_cover = "", no_of_colored_sheets = "", delivery_service = ''){
+function displayPrice(binding = "", no_ofsheets = "", page_options = "", embossing_cover = "", embossing_spine="", paper_weight = "", A2="", A3="", nos_of_cds = "", data_check = "", cd_cover = "", no_of_colored_sheets = "", delivery_service = '', no_ofcopies = ''){
 
 
-	var binding_type = "",no_of_sheets = "", pageOptions = "", embossingCover = "", embossingSpine="", paperWeight = "", A2_page="", A3_page="", nosOfCds = "", dataCheck = "", cdCover = "", coloredSheets = "", deliveryService = '';
+	var binding_type = "",no_of_sheets = "", pageOptions = "", embossingCover = "", embossingSpine="", paperWeight = "", A2_page="", A3_page="", nosOfCds = "", dataCheck = "", cdCover = "", coloredSheets = "", deliveryService = '', no_of_copies = '';
+
+	if(no_ofcopies != ""){
+		no_of_copies = no_ofcopies; 
+	}
 
 	if(binding != ""){
 		binding_type = binding;
@@ -828,12 +832,12 @@ function displayPrice(binding = "", no_ofsheets = "", page_options = "", embossi
 		cdCover = cd_cover;
 
 	}
-	 
+	  
 
 	$.ajax({
 		url: base_url+'/get-price', 
 		type: 'GET', 
-		data: {'binding_type' : binding, 'no_of_sheets' : no_ofsheets, 'pageOptions' : page_options, 'embossingCover' : embossing_cover, 'embossingSpine' : embossing_spine, 'paperWeight' : paper_weight, 'A2_page' : A2, 'A3_page': A3, 'nosOfCds' : nos_of_cds, 'dataCheck' : data_check, 'coloredSheets' : no_of_colored_sheets, 'deliveryService' : delivery_service, 'cdCover':cdCover},
+		data: {'no_of_copies':no_of_copies,'binding_type' : binding, 'no_of_sheets' : no_ofsheets, 'pageOptions' : page_options, 'embossingCover' : embossing_cover, 'embossingSpine' : embossing_spine, 'paperWeight' : paper_weight, 'A2_page' : A2, 'A3_page': A3, 'nosOfCds' : nos_of_cds, 'dataCheck' : data_check, 'coloredSheets' : no_of_colored_sheets, 'deliveryService' : delivery_service, 'cdCover':cdCover},
 		success: function (response){
 			var data = JSON.parse(response); 
 			//console.log(response);
@@ -848,7 +852,7 @@ function displayPrice(binding = "", no_ofsheets = "", page_options = "", embossi
 		}
 	}); 
 
-}
+}  
 
 
 // -------     Code to handle checkout page pagination Starts----------- //
@@ -1230,7 +1234,7 @@ function displayPrice(binding = "", no_ofsheets = "", page_options = "", embossi
 	  	document.getElementById("prevBtn").style.display = "inline";
 	  }
 	  if (n == (x.length - 1)) {
-	  	document.getElementById("nextBtn").innerHTML = "Submit";
+	  	document.getElementById("nextBtn").innerHTML = "Submit"; 
 	  } else { 
 	  	document.getElementById("nextBtn").innerHTML = "Next";
 	  }
@@ -1238,17 +1242,23 @@ function displayPrice(binding = "", no_ofsheets = "", page_options = "", embossi
 	  fixStepIndicator(n)
 	}
 
-	
-	function fixStepIndicator(n) {  //alert(n); 
+	 
+	function fixStepIndicator(n) {  
 	  // This function removes the "active" class of all steps...
 	  var i, x = document.getElementsByClassName("step");
-	  for (i = 0; i < x.length; i++) {
+	  for (i = 0; i < x.length; i++) {   
 	  	x[i].className = x[i].className.replace(" active", "");
 	  }
 	  //... and adds the "active" class to the current step:
 	 // document.getElementsByClassName("step")[currentTab].className += " finish";
-	  x[n-1].className += " finish";
-	  x[n].className += " active";
+
+	  if(n > 0){
+	  	x[n-1].className += " finish";  
+	  }
+
+	  // going previous
+	  x[n].className = x[n].className.replace(" finish", " active");
+	  x[n].className += " active";  
 	}
 
 

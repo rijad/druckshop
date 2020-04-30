@@ -1,7 +1,7 @@
 // fetch data for customer profile
     window.onload = function WindowLoad(event) {
 
-        $.ajax({ 
+        $.ajax({  
           type: 'get', 
           url: base_url+'/customer-area-data',
           success:function(response) { 
@@ -10,7 +10,7 @@
           // document.getElementById('userIdAddress').value = data['address'];
            document.getElementById('userIdEmail').value = data['email'];
            document.getElementById('userIdPhone').value = data['phone'];
-           document.getElementById('userIdshipping').value = data['shipping_address'];
+          // document.getElementById('userIdshipping').value = data['shipping_address'];
            document.getElementById('userIdBilling').value = data['billing_address'];
            $("#img-preview-block").css({'background-image': 'url('+ data['image'] +')', "background-size": "cover"});
         }
@@ -44,7 +44,7 @@ function saveProfile(){
       //  form_data.append('address', address);
         form_data.append('email', email);
         form_data.append('phone', phone);
-        form_data.append('shipping_address', shipping_address);
+        //form_data.append('shipping_address', shipping_address);
         form_data.append('billing_address', billing_address);
         //form_data.append( "_token", "{{ csrf_token() }}");
         form_data.append( "_token",  $('meta[name="csrf-token"]').attr('content'));
@@ -60,8 +60,8 @@ function saveProfile(){
                // document.getElementById("userIdAddress").disabled = true;
                 document.getElementById("userIdEmail").disabled = true;
                 document.getElementById("userIdPhone").disabled = true;
-                document.getElementById("userIdAddress").disabled = true;
-                document.getElementById("userIdshipping").disabled = true;
+               // document.getElementById("userIdAddress").disabled = true;
+               // document.getElementById("userIdshipping").disabled = true;
                 document.getElementById("userIdBilling").disabled = true;
         }
 	});
@@ -156,45 +156,45 @@ function addAddress(address_type = ""){
       document.getElementById('error_billing_state').innerHTML = "State is compulsory Field.";
     }
 
-  }else{
+  // }else{
 
-    first_name = document.getElementById('shipping_first_name').value;
-    if(first_name == ""){
-      document.getElementById('error_shipping_first_name').innerHTML = "First Name is compulsory Field.";
-    }
-    last_name = document.getElementById('shipping_last_name').value;
-    if(last_name == ""){
-      document.getElementById('error_shipping_last_name').innerHTML = "Last Name is compulsory Field.";
-    }
-    company_name = document.getElementById('shipping_company_name').value;
-    street = document.getElementById('shipping_street').value;
-    if(street == ""){
-      document.getElementById('error_shipping_street').innerHTML = "Street is compulsory Field.";
-    }
-    city = document.getElementById('shipping_city').value;
-    if(city == ""){
-      document.getElementById('error_shipping_city').innerHTML = "Street is compulsory Field.";
-    }
-    zip_code = document.getElementById('shipping_zip_code').value;
-    if(zip_code == ""){
-      document.getElementById('error_shipping_zip_code').innerHTML = "Zip Code is compulsory Field.";
-    }
-    house_no = document.getElementById('shipping_house_no').value;
-    if(house_no == ""){
-      document.getElementById('error_shipping_house_no').innerHTML = "House No is compulsory Field.";
-    }
-    addition = document.getElementById('shipping_addition').value;
-    state = document.getElementById('shipping_state').value;
-    if(state == ""){
-      document.getElementById('error_shipping_state').innerHTML = "State is compulsory Field.";
-    }
+  //   first_name = document.getElementById('shipping_first_name').value;
+  //   if(first_name == ""){
+  //     document.getElementById('error_shipping_first_name').innerHTML = "First Name is compulsory Field.";
+  //   }
+  //   last_name = document.getElementById('shipping_last_name').value;
+  //   if(last_name == ""){
+  //     document.getElementById('error_shipping_last_name').innerHTML = "Last Name is compulsory Field.";
+  //   }
+  //   company_name = document.getElementById('shipping_company_name').value;
+  //   street = document.getElementById('shipping_street').value;
+  //   if(street == ""){
+  //     document.getElementById('error_shipping_street').innerHTML = "Street is compulsory Field.";
+  //   }
+  //   city = document.getElementById('shipping_city').value;
+  //   if(city == ""){
+  //     document.getElementById('error_shipping_city').innerHTML = "Street is compulsory Field.";
+  //   }
+  //   zip_code = document.getElementById('shipping_zip_code').value;
+  //   if(zip_code == ""){
+  //     document.getElementById('error_shipping_zip_code').innerHTML = "Zip Code is compulsory Field.";
+  //   }
+  //   house_no = document.getElementById('shipping_house_no').value;
+  //   if(house_no == ""){
+  //     document.getElementById('error_shipping_house_no').innerHTML = "House No is compulsory Field.";
+  //   }
+  //   addition = document.getElementById('shipping_addition').value;
+  //   state = document.getElementById('shipping_state').value;
+  //   if(state == ""){
+  //     document.getElementById('error_shipping_state').innerHTML = "State is compulsory Field.";
+  //   }
 
   }
 
 
   $.ajax({
       url: base_url+'/add-address', 
-      headers: {
+      headers: { 
       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       },
       type: 'POST', 

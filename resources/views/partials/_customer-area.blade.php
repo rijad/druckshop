@@ -8,7 +8,7 @@
                             <h2>{{ Auth::user()->name }}</h2>
                             <!-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed dod tempor incididunt labore.</p> -->
                             </div>
-                            <div class="customer-profile-info"> 
+                            <div class="customer-profile-info">  
                             <h2>General Info</h2>  
                             <div class="UserIdEdit">
                                 <button onclick="enableFieldFunction()">Edit Info</button>
@@ -22,12 +22,12 @@
                                 <span><input name="email" id="userIdEmail" value="" disabled></span></li>
                             <li><span>Phone </span>
                                 <span><input name="phone" id="userIdPhone" value="" disabled></span></li>
-                            <li><span>Shipping Address </span>
+                           {{--  <li><span>Shipping Address </span>
                                 <span><textarea name="shipping_address" id="userIdshipping" value="" disabled></textarea>
                                     <a  type = "button" name="billing_address_click" id="billing_address" class="form-control" data-toggle="modal" data-target="#rv-Modal-shipping">Edit Address</a>
                                 </span>
-                            </li>
-                            <li><span>Billing Address </span>
+                            </li> --}}
+                            <li><span>Address </span>
                                 <span><textarea name="billing_address" id="userIdBilling" value="" disabled></textarea>
                                 <a  type = "button" name="billing_address_click" id="billing_address" class="form-control" data-toggle="modal" data-target="#rv-Modal-billing">Edit Address</a>
                             </span></li>

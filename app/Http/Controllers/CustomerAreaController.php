@@ -47,7 +47,7 @@ class CustomerAreaController extends Controller
             'email' => 'nullable',
             //'address' => 'nullable',
             'phone' => 'nullable',
-            'shipping_address' => 'nullable',
+            //'shipping_address' => 'nullable',
             'billing_address' => 'nullable',
             'status' => 'nullable',
         ]);
@@ -125,22 +125,22 @@ class CustomerAreaController extends Controller
 
     try{
       $details = CustomerArea::where(['user_id' => $user_id])->first();
-      $details_data = ['user_id'=>$user_id, 'dob'=>$details->dob, 'email'=>$details->email, 'address' => $details->address, 'phone' => $details->phone, 'image' => $details->image, 'shipping_address' => $details->shipping_address, 'billing_address' => $details->billing_address];
+      $details_data = ['user_id'=>$user_id, 'dob'=>$details->dob, 'email'=>$details->email, 'address' => $details->address, 'phone' => $details->phone, 'image' => $details->image, 'billing_address' => $details->billing_address];
 
     }catch(\Exception $e){
 
-      $details_initial = ['user_id'=>$user_id, 'dob'=>'DOB', 'email'=>'Email', 'address' => 'Address', 'phone' => 'Phone', 'image' => 'public/customerprofile/1.jpg', 'shipping_address' => 'Shipping Address', 'billing_address' => 'Billing Address'];
+      $details_initial = ['user_id'=>$user_id, 'dob'=>'DOB', 'email'=>'Email', 'address' => 'Address', 'phone' => 'Phone', 'image' => 'public/customerprofile/1.jpg','billing_address' => 'Billing Address'];
 
       print_r(json_encode($details_initial));  exit;
           
     }
     if(! empty($details)){
-
+  
       print_r(json_encode($details_data));  exit;
 
     }else{
 
-      $details_initial = ['user_id'=>$user_id, 'dob'=>'DOB', 'email'=>'Email', 'address' => 'Address', 'phone' => 'Phone', 'image' => 'public/customerprofile/1.jpg', 'shipping_address' => 'Shipping Address', 'billing_address' => 'Billing Address'];
+      $details_initial = ['user_id'=>$user_id, 'dob'=>'DOB', 'email'=>'Email', 'address' => 'Address', 'phone' => 'Phone', 'image' => 'public/customerprofile/1.jpg','billing_address' => 'Billing Address'];
       print_r(json_encode($details_initial));  exit;
 
     }
