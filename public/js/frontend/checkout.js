@@ -152,12 +152,14 @@ binding = document.getElementById('binding').value;
 			
 			if(data == 1){ // page 4
 
-				$("#embossment-cover-sheet").removeAttr('disabled');
+				//$("#embossment-cover-sheet").removeAttr('disabled');   // comment this
 				$("#embossment-spine").removeAttr('disabled');
+
+
 
 			}else if(data == 2){ //page 3
 
-				$("#embossment-spine").removeAttr('disabled');
+				//$("#embossment-spine").removeAttr('disabled');  // comment this
 				$("#embossment-cover-sheet").removeAttr('disabled');
 
 			}else if(data == 3){
@@ -189,7 +191,8 @@ function displayPrintFields(embossment = ""){
 			//Refine with embossing (4)
 			if(data == 1){ 
 
-				document.getElementById('div-embossing').className = "displayBlock";
+				//document.getElementById('div-embossing').className = "displayBlock";
+				document.getElementById('div-embossing').className = "displayNone";
 
 				if($("#embossment-cover-sheet").is(":checked")){
 					document.getElementById('div-template').className = "displayBlock";
@@ -229,7 +232,8 @@ function displayPrintFields(embossment = ""){
 			//Standard refinement (3)
 			if(data == 2){ 
 
-				document.getElementById('div-embossing').className = "displayNone";
+				//document.getElementById('div-embossing').className = "displayNone";
+				document.getElementById('div-embossing').className = "displayBlock";
 				if($("#embossment-cover-sheet").is(":checked")){
 					document.getElementById('div-template').className = "displayBlock";
 					document.getElementById('upload_custom_file').className = "displayBlock";
@@ -428,6 +432,7 @@ function displayPopUp(template = ""){
 		document.getElementById('div-embossment-spine').className = "displayBlock";
 		document.getElementById('div-remarks').className = "displayBlock";
 		document.getElementById('upload_custom_logo').className = "displayBlock";
+		document.getElementById('div-date-format').className = "displayBlock";
 	}else if(template == "Standardvorlage ohne Logo"){
 		 $('#modal-logo').modal('show');
 		// if($('#embossing'.find(":selected").val() != "-1"){
@@ -444,6 +449,7 @@ function displayPopUp(template = ""){
 		document.getElementById('div-date-format').className = "displayBlock";
 		document.getElementById('div-embossment-spine').className = "displayBlock";
 		document.getElementById('div-remarks').className = "displayBlock";
+		document.getElementById('div-date-format').className = "displayBlock";
 
 		document.getElementById('upload_custom_logo').className = "displayNone";
 	}else if(template == "Eigene Vorlage"){
@@ -451,6 +457,7 @@ function displayPopUp(template = ""){
 		document.getElementById('div-remarks').className = "displayBlock";
 		$("#div-display-image").empty();
 		document.getElementById('div-display-image').className = "displayNone"; 
+		document.getElementById('div-date-format').className = "displayNone";
 	}
 
 	if($("#template").find(":selected").val() == "-1"){
@@ -564,6 +571,7 @@ function displayContentInput(option = ""){
 			document.getElementById('div-page-numbers').className = "displayBlock";  
 		}else{
 			document.getElementById('div-page-numbers').className = "displayNone";
+			document.getElementById('page-numbers').value = "";
 		}
 	}else if(option == "A3_Pages"){
 		if($("#A3-pages").is(":checked")){
@@ -576,6 +584,18 @@ function displayContentInput(option = ""){
 		document.getElementById('div-pos-A3-pages').className = "displayNone";
 		document.getElementById('drop_file_din_A3').className = "displayNone";
 		document.getElementById('A3_msg').className = "displayNone";	
+
+		// remove file
+		file_name = $('#selectfile_din_A3').val(); 
+   		id = "drop_file_din_A3";
+
+     	removeFile(file_name,id,'1');
+
+     	// empty text field
+	    document.getElementById('numbers-of-pages').value = "";
+	    //$('#pos-of-A3-pages').text('');
+	    document.getElementById("pos-of-A3-pages").value = "";
+
 		}
 		
 	}else if(option == "A2_Pages"){
@@ -588,7 +608,17 @@ function displayContentInput(option = ""){
 		document.getElementById('div-number-of-A2-pages').className = "displayNone";
 		document.getElementById('drop_file_din_A2').className = "displayNone";
 		//document.getElementById('drop_file_zone_A2').className = "displayNone";
-		document.getElementById('A2_msg').className = "displayNone";
+		document.getElementById('A2_msg').className = "displayNone";   
+
+		//Remove uploaded file
+		file_name = $('#selectfile_din_A2').val(); 
+	    id = "drop_file_din_A2";
+	    removeFile(file_name,id,'1');
+
+	    // empty text field
+	    document.getElementById('numbers-of-A2-pages').value = ""; 
+
+
 		}
 	}
 }
@@ -1022,7 +1052,7 @@ function displayPrice(binding = "", no_ofsheets = "", page_options = "", embossi
 
 				if($("#fields_1").find(":selected").val() == "-1" || $("#pos_1").find(":selected").val() == "-1" ){
 					 $("#fields_1").addClass('invalid'); 
-					 $("#pos_1").addClass('invalid'); $('#error-section-1').html('Select both field and position in this section'); valid = false; return false;
+					 $("#pos_1").addClass('invalid'); $('#error-section-1').html('Fill all Fields in this section 1'); valid = false; return false;
 				}
 
 			}else{}
@@ -1031,7 +1061,7 @@ function displayPrice(binding = "", no_ofsheets = "", page_options = "", embossi
 
 				if($("#fields_1").find(":selected").val() == "-1" || $("#pos_1").find(":selected").val() == "-1" || $("#input_1").val() == ""){
 					 $("#fields_1").addClass('invalid'); 
-					 $("#pos_1").addClass('invalid'); $('#error-section-1').html('Select both field and position in this section'); valid = false; return false;
+					 $("#pos_1").addClass('invalid'); $('#error-section-1').html('Fill all Fields in this section 1'); valid = false; return false;
 				} 
 				
 					var allowed_letters = parseInt($('#spine-count-hidden').val());
@@ -1052,7 +1082,7 @@ function displayPrice(binding = "", no_ofsheets = "", page_options = "", embossi
 					}
 
 					  	if($('#input_1').hasClass('displayBlock')){    
-						if(Total <= allowed_letters){    
+						if(Total >= allowed_letters){    
 							$("#input_1").addClass('invalid');
 							$("#input_2").addClass('invalid');
 							$("#input_3").addClass('invalid');
@@ -1439,21 +1469,103 @@ function incrementQuantity(id = "",count = ""){
 	return(status);
  }
 
- function resetFields(id,value){  
+ function resetFields(id,value){   
 
+if($('#selectfile_coversheet').val() != ""){
+
+    file_name = $('#selectfile_coversheet').val();
+    id = "drop_file_zone_cover_sheet";   
+
+     removeFile(file_name,id,'1');
+
+}
+
+if($('#selectfile_backcover').val() != ""){
+
+    file_name = $('#selectfile_backcover').val(); 
+    id = "drop_file_zone_back_cover";
+
+     removeFile(file_name,id,'1');
+
+}
+
+if($('#selectfile_content').val() != ""){
+
+    file_name = $('#selectfile_content').val(); 
+    id = "drop_file_zone_content";
+
+     removeFile(file_name,id,'1');
+}
+
+
+if($('#selectfile_din_A3').val() != ""){
+
+    file_name = $('#selectfile_din_A3').val(); 
+    id = "drop_file_din_A3";
+
+     removeFile(file_name,id,'1');
+
+}
+
+if($('#selectfile_din_A2').val() != ""){
+
+    file_name = $('#selectfile_din_A2').val(); 
+    id = "drop_file_din_A2";
+
+     removeFile(file_name,id,'1');
+
+}
+
+if($('#selectfile_logo').val() != ""){
+
+    file_name = $('#selectfile_logo').val(); 
+    id = "upload_custom_logo";
+
+     removeFile(file_name,id,'1');
+
+}
+
+if($('#selectfile_cd').val() != ""){
+
+    file_name = $('#selectfile_cd').val(); 
+    id = "upload_cd";
+
+     removeFile(file_name,id,'1');
+
+}
+
+if($('#selectfile_logo_cd').val() != ""){
+
+    file_name = $('#selectfile_logo_cd').val(); 
+    id = "upload_custom_logo_cd";
+
+     removeFile(file_name,id,'1');
+
+}
+
+
+if($('#selectfile_file').val() != ""){
+
+    file_name = $('#selectfile_file').val(); 
+    id = "upload_custom_file";
+
+     removeFile(file_name,id,'1');
+
+}
 
   $("#regForm").trigger("reset");
   document.getElementById(id).value = value;
-
-  //$('#block1').load("index.html");
-  //$("#regForm").load("#regForm>*","");
-
- 	// $('#regForm input[type="text"]').val('');  
- 	// $('#regForm textarea').val('');
- 	// $('#regForm input[type="checkbox"]').prop("checked", false); 
- 	// $('#regForm input[type="checkbox"]').trigger('onchange');
- 	// $('#regForm input[type="hidden"]').val('');  
-
+  $('#color-pages').trigger('onchange');
+  $('#A3-pages').trigger('onchange');
+  $('#A2-pages').trigger('onchange');
+  $('#embossment-cover-sheet').trigger('onchange');  
+  $('#embossment-spine').trigger('onchange');
+  $('#cd-check').trigger('onchange');
+  $('#imprint').trigger('onchange');
+  $("#div-display-image").empty();
+  document.getElementById('div-display-image').className = "displayNone";
+  $("#div-display-image-cd").empty();
+  document.getElementById('div-display-image-cd').className = "displayNone";
  }
 
 

@@ -22,7 +22,7 @@
 							<div class="tab" id="tab-fields">
 								<div class="displayBlock">
 									<label>{{ trans('checkout.binding_title') }}*:</label>
-									<p><select class = "" name = "binding" id = "binding" onclick="displayFields(this.value); displayProductAttributes('1',this); resetFields(this.id,this.value); sampleImage();" onchange="getPrinting(); displayPrice(this.value,'','','','','','','','','','','','',''); ">
+									<p><select class = "" name = "binding" id = "binding" onclick="" onchange="getPrinting(); displayPrice(this.value,'','','','','','','','','','','','',''); resetFields(this.id,this.value); displayFields(this.value); displayProductAttributes('1',this);  sampleImage(); ">
 										<option value = "-1">Select</option>
 										@foreach ($product_listing as $key=>$listing)
 										@if($listing->id != 8 && $listing->id != 5)
@@ -153,7 +153,7 @@
 										</div>
 											<div class="displayBlock" id="div-A3-pages">
 												<label class="csCheckbtn">{{ trans('checkout.din_A3_pages') }}
-													<input class = ""  name = "A3-pages" id = "A3-pages" type="checkbox" onclick="displayContentInput('A3_Pages');"  > 
+													<input class = ""  name = "A3-pages" id = "A3-pages" type="checkbox" onchange="displayContentInput('A3_Pages');"  > 
 													<span class="checkmark"></span>
 												</label>
 											</div>
@@ -167,7 +167,7 @@
 											</div>
 											<div class="displayNone" id="div-pos-A3-pages">
 												<label>{{ trans('checkout.position_din_A3_pages') }}</label>
-												<p><textarea class = ""  name="pos_of_A3_pages" id=" pos-of-A3-pages" placeholder="Number of Pages" ></textarea></p>
+												<p><textarea class = ""  name="pos_of_A3_pages" id="pos-of-A3-pages" placeholder="Number of Pages" ></textarea></p>
 											</div>
 											<div class="displayNone" id="drop_file_din_A3" ondrop="upload_file(event,this.id)" ondragover="return false" class="displayBlock">
 												<div id="drag_upload_file_A3" >
@@ -187,7 +187,7 @@
 
 												<div class="displayBlock" id="div-A2-pages">
 													<label class="csCheckbtn">Din A2 Pages
-														<input class = "" name = "A2-pages" id = "A2-pages" type="checkbox" onclick="displayContentInput('A2_Pages');" >
+														<input class = "" name = "A2-pages" id = "A2-pages" type="checkbox" onchange="displayContentInput('A2_Pages');" >
 														<span class="checkmark"></span>
 													</label> 
 												</div>
@@ -232,7 +232,7 @@
 
 												<div class="displayBlock" id="div-embossment-cover-sheet">
 													<label class="csCheckbtn">{{ trans('checkout.refinement_cover_sheet') }}
-														<input class =""name ="embossment-cover-sheet" id ="embossment-cover-sheet" type="checkbox" onclick="displayPrintFields('Embossment_Cover_Sheet'); displayPrice('','','',this.value,'','','','','','','','','',''); displayProductAttributes('9',this);" >
+														<input class =""name ="embossment-cover-sheet" id ="embossment-cover-sheet" type="checkbox" onchange="displayPrintFields('Embossment_Cover_Sheet'); displayPrice('','','',this.value,'','','','','','','','','',''); displayProductAttributes('9',this);" disabled>
 														<span class="checkmark"></span>
 													</label>
 												</div> 
@@ -298,7 +298,7 @@
  
 													<div class="displayBlock" id="div-embossment-spine">
 														<label class="csCheckbtn">{{ trans('checkout.refinement_spine') }}<a href="#" data-toggle="tooltip" title="Data is taken from cover sheet" class="formToolTip">i</a>
-															<input class = "" type="checkbox" id = "embossment-spine" name = "embossment-spine" onclick = "displayPrice('','','','',this.value,'','','','','','','','',''); displayProductAttributes('10',this); displayPrintFields('Embossment_spine'); getPaperWeightCount();" >
+															<input class = "" type="checkbox" id = "embossment-spine" name = "embossment-spine" onchange = "displayPrice('','','','',this.value,'','','','','','','','',''); displayProductAttributes('10',this); displayPrintFields('Embossment_spine'); getPaperWeightCount();" disabled>
 															<span class="checkmark"></span>
 														</label>
 														<p id="spine-count"></p>
@@ -325,8 +325,6 @@
 														<option value = "Date">Date</option>
 														<option value = "Topic">Topic</option>
 													</select></p>
-
-													<p><input type="text" id ="input_1" name = "input_1" class="displayBlock" placeholder=""></p>
 													
 													<label>{{ trans('checkout.position') }} 1:</label>
 													<p><select class = "" id = "pos_1" name = "pos_1" onchange="section2();">
@@ -335,6 +333,8 @@
 														<option value = "Middle">Middle</option>
 														<option value = "Bottom">Bottom</option>
 													</select></p> 
+
+													<p><input type="text" id ="input_1" name = "input_1" class="displayBlock" placeholder=""></p>
 													<div>
 													<button type="button" onclick="addSection('div-section-2')">{{ trans('checkout.add_section') }}</button> 
 													</div>
@@ -348,13 +348,14 @@
 													<p><select class = "" id = "fields_2" name = "fields_2" onchange="section3();">
 														<option value = "-1">Select</option>
 													</select></p>
-
-													<p><input type="text" id ="input_2" name = "input_2" class="displayBlock" placeholder=""></p>
 													
 													<label>{{ trans('checkout.position') }} 2:</label>
 													<p><select class = "" id = "pos_2" name = "pos_2" onchange="section3();">
 														<option value = "-1">Select</option>
 													</select></p> 
+
+													<p><input type="text" id ="input_2" name = "input_2" class="displayBlock" placeholder=""></p>
+
 													<div>
 													<button type="button" onclick="addSection('div-section-3')">{{ trans('checkout.add_section') }}</button> <button type="button" onclick = "removeSection('div-section-2','fields_2','pos_2')">{{ trans('checkout.remove_section') }}</button>
 													</div>
@@ -368,13 +369,14 @@
 													<p><select class = "" id = "fields_3" name = "fields_3" onchange="section4();">
 														<option value = "-1">Select</option>
 													</select></p>
-
-													<p><input type="text" id ="input_3" name = "input_3" class="displayBlock" placeholder=""></p>
 													
 													<label>{{ trans('checkout.position') }} 3</label>
 													<p><select class = "" id = "pos_3" name = "pos_3" onchange="section4();">
 														<option value = "-1">Select</option>
 													</select></p> 
+
+													<p><input type="text" id ="input_3" name = "input_3" class="displayBlock" placeholder=""></p>
+
 													<div>
 													<button type="button" onclick = "removeSection('div-section-3','fields_3','pos_3')">{{ trans('checkout.remove_section') }}</button>
 													</div>
@@ -411,7 +413,7 @@
 												<div class="tab">
 													<div class="displayBlock" id="div-cd">
 														<label class="csCheckbtn">CD
-															<input class = ""  name = "cd-check" id = "cd-check" type="checkbox" onclick="displayCDFields('cd');">
+															<input class = ""  name = "cd-check" id = "cd-check" type="checkbox" onchange="displayCDFields('cd');">
 															<span class="checkmark"></span>
 														</label>
 													</div> 
@@ -424,7 +426,7 @@
 
 														<div class="displayNone" id="div-cd-imprint">
 															<label class="csCheckbtn">{{ trans('checkout.cd_imprint') }}
-																<input id= "imprint" name = "imprint" class = "" type="checkbox" onclick="displayCDFields('imprint');">
+																<input id= "imprint" name = "imprint" class = "" type="checkbox" onchange="displayCDFields('imprint');">
 																<span class="checkmark"></span>
 															</label>
 														</div>	
