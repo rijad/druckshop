@@ -13,6 +13,15 @@
           // document.getElementById('userIdshipping').value = data['shipping_address'];
            document.getElementById('userIdBilling').value = data['billing_address'];
            $("#img-preview-block").css({'background-image': 'url('+ data['image'] +')', "background-size": "cover"});
+           $('.modal-body input[id=billing_first_name]').val(data['first_name']);
+           $('.modal-body input[id=billing_last_name]').val(data['last_name']);
+           $('.modal-body input[id=billing_company_name]').val(data['company_name']);
+           $('.modal-body input[id=billing_street]').val(data['street']);
+           $('.modal-body input[id=billing_house_no]').val(data['house_no']);
+           $('.modal-body input[id=billing_zip_code]').val(data['zip_code']);
+           $('.modal-body input[id=billing_city]').val(data['city']);
+           $('.modal-body input[id=billing_state]').val(data['state']);
+           $('.modal-body input[id=billing_addition]').val(data['addition']);
         }
 
       });
@@ -190,7 +199,7 @@ function addAddress(address_type = ""){
   //   }
 
   }
-
+ 
 
   $.ajax({
       url: base_url+'/add-address', 
@@ -201,9 +210,9 @@ function addAddress(address_type = ""){
       data: {'default':1,'address_type':address_type, 'first_name':first_name, 'last_name':last_name, 'company_name':company_name, 'street':street, 'city':city, 'zip_code':zip_code, 'house_no':house_no, 'addition':addition, 'state':state},
       success: function (response){  
         if(address_type == "billing"){
-          $('#rv-Modal-billing').css('display','none'); 
+          $('#rv-Modal-billing').modal('toggle');
         }else{
-          $('#rv-Modal-shipping').css('display','none');
+          $('#rv-Modal-shipping').modal('toggle');
         }
 
       }

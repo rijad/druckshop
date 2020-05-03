@@ -117,7 +117,7 @@
                     
                     <!-- =============== modal form  =============== -->
 
-<!-- Modal -->
+{{-- <!-- Modal -->
 <div class="modal fade rv-modalFormCustom" id="rv-Modal-shipping" role="dialog">
     <div class="modal-dialog">
        <div class="modal-content">
@@ -181,11 +181,11 @@
           </div>
       </div>
   </div>
-</div>
+</div> --}}
  
 
 <!-- Modal -->
-<div class="modal fade rv-modalFormCustom" id="rv-Modal-billing" role="dialog">
+<div class="modal fade rv-modalFormCustom" data-backdrop="false" id="rv-Modal-billing" role="dialog">
     <div class="modal-dialog">
        <div class="modal-content">
           <div class="modal-header">
@@ -224,7 +224,7 @@
                      
                       <div class="form-group">
                           <label for="text">Zip Code*</label>
-                           <input type="text"  class="form-control" placeholder="ename="billing_zip_code" id="billing_zip_code">
+                           <input type="text"  class="form-control" placeholder="Zip Code" name="billing_zip_code" id="billing_zip_code">
                         <p class="error" id="error_billing_zip_code"></p>
                       </div>
                       <div class="form-group">

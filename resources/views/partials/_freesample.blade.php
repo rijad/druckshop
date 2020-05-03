@@ -20,7 +20,7 @@
                 <p>Drop file here*<a href="#" data-toggle="tooltip" title="PDF" class="formToolTip">i</a></p> 
 				<p>or</p>
 				<p><input  type="button" value="Select File" onclick="file_explorer('drop_pdf');"></p>
-				<input class="displayNone" type="file" name="selectfile" id="selectfile" accept="application/pdf" required>
+				<input type="file" name="selectfile" id="selectfile" accept="application/pdf">
 			</div>
 		</div>
         <span class="text-danger">{{ $errors->first('selectfile_free_sample') }}</span>

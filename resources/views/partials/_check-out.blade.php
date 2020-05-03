@@ -12,7 +12,7 @@
 							<div class="step active"><span>1</span></div> 
 							<div class="step"><span>2</span></div>
 							<div class="step"><span>3</span></div>
-							<div class="step"><span>4</span></div>
+							<div class="step"><span>4</span></div> 
 						</div> 
     
 						<div class="checkoutBlock col-half text-left">
@@ -37,7 +37,7 @@
 								</div>
 								<div class="displayBlock" id="div-page-format">
 									<label>{{ trans('checkout.page_format') }}*:</label>
-									<p><select class = "" onclick = "displayProductAttributes('3',this); sampleImage();" id="page-format" name="page-format" onchange="" ><option value="-1">Select</option></select></p><p class="error" id="error_page_format"></p>
+									<p><select class = "" onclick = "displayProductAttributes('3',this); sampleImage();" id="page-format" name="page-format" onchange="addTooltip(this);" ><option value="-1">Select</option></select></p><p class="error" id="error_page_format"></p>
 								</div>
 								<div class="displayNone" id="div-cover-color">
 									<label>{{ trans('checkout.cover_color') }}*:</label> 
@@ -111,9 +111,7 @@
 									</div>  
 
 									<div class="displayBlock" id="div-no-of-copies">
-										<label> {{ trans('checkout.no_of_pages') }}*:<a href="#" data-toggle="tooltip" title="
-											number of the PDF file and &#013; only number of DIN A4
-											" class="formToolTip">i</a></label>
+										<label> {{ trans('checkout.no_of_pages') }}*:<a id="page-format-tooltip" href="#" data-toggle="tooltip" title="" class="formToolTip">i</a></label>
 										<p><input type = "text" class = "" name="no_of_pages" id="no-of-pages" placeholder="No of Pages"  oninput="displayPrice('',this.value,'','','','','','','','','','','',''); displayProductAttributes('8',this);"></p>
 										<p class="error" id="error_no_of_pages"></p>
 									</div>
@@ -156,7 +154,7 @@
 													<input class = ""  name = "A3-pages" id = "A3-pages" type="checkbox" onchange="displayContentInput('A3_Pages');"  > 
 													<span class="checkmark"></span>
 												</label>
-											</div>
+											</div> 
  
 											<div class="displayNone" id="div-number-of-pages">
 												<label>{{ trans('checkout.number_din_A3_pages') }}*:<a href="#" data-toggle="tooltip" title=" It is printed with the same paper type and one-sided. &#013; It is printed with the same paper type and one-sided. " class="formToolTip">i</a></label>
@@ -164,11 +162,11 @@
 												</p>
 												<p id="A3_msg" class="displayNone">The maximum number of DIN A3 pages is: 10</p>
 												<p class="error" id="error_number_of_pages"></p>
-											</div>
+											</div> 
 											<div class="displayNone" id="div-pos-A3-pages">
 												<label>{{ trans('checkout.position_din_A3_pages') }}</label>
 												<p><textarea class = ""  name="pos_of_A3_pages" id="pos-of-A3-pages" placeholder="Number of Pages" ></textarea></p>
-											</div>
+											</div> 
 											<div class="displayNone" id="drop_file_din_A3" ondrop="upload_file(event,this.id)" ondragover="return false" class="displayBlock">
 												<div id="drag_upload_file_A3" >
 													<label>{{ trans('checkout.upload_din_A3_pages') }}</label>
@@ -176,7 +174,7 @@
 													<p>or</p>
 													<p><input type="button" value="Select File" onclick="file_explorer('drop_file_din_A3');"></p>
 													<input type="file" name ="selectfile" id="selectfile" accept="application/pdf">
-													<input type="hidden" name="selectfile_din_A3" id="selectfile_din_A3" accept="application/pdf">
+													<input type="hidden" name="selectfile_din_A3" id="selectfile_din_A3">
 												</div>
 											</div>
 											<p class="error" id="error_selectfile_din_A3"></p>
@@ -287,14 +285,14 @@
 														<p>Drop file here<a href="#" data-toggle="tooltip" title="The length X within 'spine X cm' is calculated by the thickness of the paper (to be set in the admin area under paper weight) times the number of sheets + 0.5 mm." class="formToolTip">i</a></p> 
 														<p>or</p>
 														<p><input type="button" value="Select File" onclick="file_explorer('upload_custom_file');"></p>
-														<input type="file" name ="selectfile" id="selectfile" accept="application/pdf">
+														<input  class="displayNone" type="file" name ="selectfile" id="selectfile" accept="application/pdf">
 
 														<input type="hidden" name ="selectfile_file" id="selectfile_file" accept="image/x-png">
 													</div>
 												</div>  
 												<p class="error" id="error_selectfile_file"></p>
 
-												<div id="drop_file_info" class="displayNone"><label id="file_name"></label> <label id="file_page_no"></label> <label> <a href={{url('/').'/public/style_sheet/stylesheet.pdf'}} target="_blank" >Link for sample style sheet</a></label></div>
+												<div id="drop_file_info" class="displayNone"><label id="file_name"></label> <label id="file_page_no"></label> <label class = "displayNone" id="download_stylesheet"> <a href={{url('/').'/public/style_sheet/stylesheet.pdf'}} target="_blank" >Link for sample style sheet</a></label></div>
  
 													<div class="displayBlock" id="div-embossment-spine">
 														<label class="csCheckbtn">{{ trans('checkout.refinement_spine') }}<a href="#" data-toggle="tooltip" title="Data is taken from cover sheet" class="formToolTip">i</a>
@@ -460,7 +458,7 @@
 															<p>{{ trans('checkout.upload_file') }}</p>
 															<p>Drop file here<a href="#" data-toggle="tooltip" title="jpeg,jpg,png" class="formToolTip">i</a></p> 
 															<p>or</p>
-															<p><input type="button" value="Select File" onclick="file_explorer('upload_custom_logo_cd');"></p>
+															<p><input type="button" value="Select File" onclick=" file_explorer('upload_custom_logo_cd');"></p>
 															<input type="file" name ="selectfile" id="selectfile" accept="image/x-png">
  
 															<input type="hidden" name ="selectfile_logo_cd" id="selectfile_logo_cd" accept="image/x-png">
