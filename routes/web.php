@@ -168,7 +168,7 @@ Route::group(['namespace'=>'Admin', 'prefix' => 'admin'], function()
 //Parameters
     Route::resource('/parameter','ParameterController');
     Route::get('/details/{model}/{id}','ParameterController@details')->name('details');
-    Route::resource('/covercolor','CoverColorController');
+    Route::resource('/covercolor','CoverColorController'); 
     Route::resource('/coversheet','CoverSheetController');
     Route::resource('/backcover','BackCoverController');
     Route::resource('/cdbag','CdBagController');
@@ -185,7 +185,7 @@ Route::group(['namespace'=>'Admin', 'prefix' => 'admin'], function()
     Route::get('/order-details/{order_id}','OrderController@edit')->name('order-details');
     Route::post('/order-edit/{id}','OrderController@update')->name('order-edit'); 
 
-    Route::get('/defected-order-email/{user-id}/{order-id}/{old-file-name}','OrderController@sendDefectedOrderEmail')->name('defected-order-email'); 
+    Route::get('/defected-order-email/{user_id}/{order_id}/{old_file_name}','OrderController@sendDefectedOrderEmail')->name('defected-order-email'); 
     Route::post('/trackingNumberSendMail','OrderController@trackingNumberSendMail')->name('trackingNumberSendMail');
 
 

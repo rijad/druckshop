@@ -143,9 +143,7 @@ class OrderController extends Controller
         //
     }
 
-    public function sendDefectedOrderEmail(Request $request, $order_id = '', $old_file_name = '', $user_id = ''){
-
-
+    public function sendDefectedOrderEmail(Request $request, $user_id = '', $order_id = '', $old_file_name = ''){
 
         if (!empty($order_id) && !empty($old_file_name) && !empty($user_id)) {
 

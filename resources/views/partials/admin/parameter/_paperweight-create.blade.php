@@ -59,7 +59,7 @@
                         <tr class="form-inline">
                             <td class="rv-headLtchild1"><input id="from" type="hidden" name="sheet_start[]" value="191" />191</td>
                             <td class="rv-headLtchild"><input class="sheet_end_input" id="from" type="hidden" name="sheet_end[]" value="250" />250</td>
-                            <td class="rv-headRtchild"><input class="form-control latters_input" id="latters" type="number" name="latters[]" value="160" required /></td>
+                            <td class="rv-headRtchild"><input class="form-control latters_input" id="latters" type="number" name="latters[]" value="205" required /></td>
                         </tr>
 
                         <tr class="form-inline">

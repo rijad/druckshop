@@ -45,22 +45,22 @@
                 
                 <div class="border_dashed">
                     <div class="container_image">
-                       <img src="{{  url('public/images/'.@$product->image_path)}}" />
+                       <img id = "product_img" src="{{  url('public/images/'.@$product->image_path)}}" />
                     </div>
                     <div class="form-group rv-file_upload">
                         <label class="small mb-1" for="name">Upload Binding Image</label>
-                        <input class="rv-custom-file-input" type="file" id="product_file" name="product_file" />
+                        <input class="rv-custom-file-input" type="file" id="product_file" name="product_file" onchange="readURL(this);"/>
                     </div>
 
-                    @foreach($product_image as $value)
+                    @foreach($product_image as $key => $value)
                     <div class="container_image">
-                       <img src="{{  url('/public/images/'.@$value->image_path)}}" />
+                       <img id="{{'product_img_multi'.$key}}" src="{{  url('/public/images/'.@$value->image_path)}}" />
                       <button class="btn" type="button" onclick="javascript:removeImage('{{$value->image_path}}',{{$value->id}});" >Remove Image </button>
                     </div>
                     @endforeach
                     <div class="form-group rv-file_upload">
                         <label class="small mb-1" for="name">Upload Others Images</label>
-                        <input class="rv-custom-file-input" type="file" id="otherImages" name="otherImages[]" multiple />
+                        <input class="rv-custom-file-input" type="file" id="otherImages" onchange="readURLMultiple(this);" name="otherImages[]"  multiple />
                     </div>
                 </div>
 
@@ -102,7 +102,7 @@
                         if(in_array($value1->id, $coverSettingSelected)){
 
                             $cs_selected = "checked";
-                        } else{
+                        } else{ 
 
                          $cs_selected = "";
                      } 
@@ -402,9 +402,9 @@ body .popover{display:none !important; }
 
 
 <script type="text/javascript">  
-    function removeImage(image_path = "" ,id = ""){   alert(id);
+    function removeImage(image_path = "" ,id = ""){  
 
-        $.ajax({
+        $.ajax({ 
         url: base_url+'/admin/removeProductImage', 
         type: 'POST', 
         data: {'rid' : id, 'path': image_path, '_token': $('meta[name="csrf-token"]').attr('content')},
@@ -412,5 +412,53 @@ body .popover{display:none !important; }
         }
     });  
 
-    } 
+    }  
+
+
+    // document.getElementById('product_file').addEventListener('change', () => {
+    //     alert("1");
+    // });
+
+    // document.getElementById('otherImages').addEventListener('change', () => {
+    // alert("2");
+    // });
+
+
+function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#product_img')
+                    .attr('src', e.target.result)
+                    .width(150)
+                    .height(150);
+            };
+
+        reader.readAsDataURL(input.files[0]);
+        }
+    }
+ 
+
+    function readURLMultiple(input) {  alert("1");
+        if (input.files && input.files[0]) {  alert("22");
+
+            for(var i = 0 ; i<input.files.length; i++){  alert(i);
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#product_img_multi'+i)
+                        .attr('src', e.target.result)
+                        .width(150)
+                        .height(150);
+                };
+
+            reader.readAsDataURL(input.files[i]);
+            }
+            
+        }
+    }
 </script>
+
+
+ 

@@ -54,7 +54,7 @@
 </div>
 <div class="container">
 
-	<div class="site-logo"><a href="#"><img src="{{ asset('public/images/logo.png') }}" alt="" /></a></div>
+	<div class="site-logo"><a href="{{ route('index') }}"><img src="{{ asset('public/images/logo.png') }}" alt="" /></a></div>
 
 	<div class="site-login">
 		<ul class="headerCart d-flex float-right">
@@ -62,11 +62,11 @@
 			
 			<form action="{{ URL::to('/search')}}" method="POST">
 			@csrf
-				<div class="searchInput">
+				<div class="searchInput"> 
 					<input type="text" name="search" placeholder="Search by name ..." />	
 					<button type="submit"><i class="fa fa-search"></i></button>
 				</div>
-			</form>
+			</form> 
 			
 			</li>
 			<li class="cart-relative-count"><a @if(\App\Http\Controllers\CheckoutController::CartCount() > 0) href="{{route('cart')}}" @endif><i class="fa fa-shopping-cart"></i><span class="cart-product-count">@if(\App\Http\Controllers\CheckoutController::CartCount() >0 ) @if(\App\Http\Controllers\CheckoutController::CartCount() > 0) {{\App\Http\Controllers\CheckoutController::CartCount()}} @endif @endif</span> </a></li>
