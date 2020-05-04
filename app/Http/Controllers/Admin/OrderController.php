@@ -96,6 +96,8 @@ class OrderController extends Controller
         $orderhistory = OrderDetailsFinal::with('orderProductHistory')
         ->where(['order_id' => $request->order_id ])
         ->first();
+
+       // dd($orderhistory);
         return view('/pages/admin/orderdetails',compact('orderhistory', 'users', 'orderstate'));
     }
 

@@ -152,12 +152,14 @@ binding = document.getElementById('binding').value;
 			
 			if(data == 1){ // page 4
 
-				$("#embossment-cover-sheet").removeAttr('disabled');
+				//$("#embossment-cover-sheet").removeAttr('disabled');   // comment this
 				$("#embossment-spine").removeAttr('disabled');
+
+
 
 			}else if(data == 2){ //page 3
 
-				$("#embossment-spine").removeAttr('disabled');
+				//$("#embossment-spine").removeAttr('disabled');  // comment this
 				$("#embossment-cover-sheet").removeAttr('disabled');
 
 			}else if(data == 3){
@@ -189,7 +191,8 @@ function displayPrintFields(embossment = ""){
 			//Refine with embossing (4)
 			if(data == 1){ 
 
-				document.getElementById('div-embossing').className = "displayBlock";
+				//document.getElementById('div-embossing').className = "displayBlock";
+				document.getElementById('div-embossing').className = "displayNone";
 
 				if($("#embossment-cover-sheet").is(":checked")){
 					document.getElementById('div-template').className = "displayBlock";
@@ -229,7 +232,8 @@ function displayPrintFields(embossment = ""){
 			//Standard refinement (3)
 			if(data == 2){ 
 
-				document.getElementById('div-embossing').className = "displayNone";
+				//document.getElementById('div-embossing').className = "displayNone";
+				document.getElementById('div-embossing').className = "displayBlock";
 				if($("#embossment-cover-sheet").is(":checked")){
 					document.getElementById('div-template').className = "displayBlock";
 					document.getElementById('upload_custom_file').className = "displayBlock";
@@ -410,53 +414,58 @@ function displayPopUp(template = ""){
 
  
   $("#modal-body").empty(); 
-	if(template == "Standardvorlage mit Logo"){
+	if(template == "Standardvorlage mit Logo"){ 
 		 $('#modal-logo').modal('show');
 		 //if($('#embossing'.find(":selected").val() != "-1"){
 		 	if(embossing == "Edition"){
-		 		$("#modal-body").append("<p>Choose layout for standard cover with logo.</p><br><img id='mit_1' src='"+base_url+"/public/templates/Binding_template/Edition-mit-Logo-1.jpg' onclick = displayImage('"+base_url+"/public/templates/Binding_template/Edition-mit-Logo-1.jpg','Edition-mit-Logo-1.jpg');> <img id='mit_2' src='"+base_url+"/public/templates/Binding_template/Edition-mit-Logo-2.jpg' onclick = displayImage('"+base_url+"/public/templates/Binding_templates/Edition-mit-Logo-2.jpg','Edition-mit-Logo-2.jpg');> <img id='mit_3' src='"+base_url+"/public/templates/Binding_template/Edition-mit-Logo-3.jpg' onclick = displayImage('"+base_url+"/public/templates/Binding_template/Edition-mit-Logo-3.jpg','Edition-mit-Logo-2.jpg');> ");
+		 		$("#modal-body").append("<p>Choose layout for standard cover with logo.</p><br><img id='mit_1' src='"+base_url+"/public/templates/Binding_template/Edition-mit-Logo-1.jpg' onclick = displayImage('"+base_url+"/public/templates/Binding_template/Edition-mit-Logo-1.jpg','Edition-mit-Logo-1.jpg',this);> <img id='mit_2' src='"+base_url+"/public/templates/Binding_template/Edition-mit-Logo-2.jpg' onclick = displayImage('"+base_url+"/public/templates/Binding_templates/Edition-mit-Logo-2.jpg','Edition-mit-Logo-2.jpg',this);> <img id='mit_3' src='"+base_url+"/public/templates/Binding_template/Edition-mit-Logo-3.jpg' onclick = displayImage('"+base_url+"/public/templates/Binding_template/Edition-mit-Logo-3.jpg','Edition-mit-Logo-2.jpg',this);> ");
 			 }else if(embossing == "Classic"){
-			 	$("#modal-body").append("<p>Choose layout for standard cover with logo.</p><br><img id='classic_1' src='"+base_url+"/public/templates/Binding_template/Klassik-1.jpg' onclick = displayImage('"+base_url+"/public/templates/Binding_template/Klassik-1.jpg','Klassik-1.jpg');> <img id='classic_2' src='"+base_url+"/public/templates/Binding_template/Klassik-2.jpg' onclick = displayImage('"+base_url+"/public/templates/Binding_template/Klassik-2.jpg','Klassik-2.jpg');> <img id='classic_3' src='"+base_url+"/public/templates/Binding_template/Klassik-3.jpg' onclick = displayImage('"+base_url+"/public/templates/Binding_template/Klassik-3.jpg','Klassik-3.jpg');> ");
+			 	$("#modal-body").append("<p>Choose layout for standard cover with logo.</p><br><img id='classic_1' src='"+base_url+"/public/templates/Binding_template/Klassik-1.jpg' onclick = displayImage('"+base_url+"/public/templates/Binding_template/Klassik-1.jpg','Klassik-1.jpg',this);> <img id='classic_2' src='"+base_url+"/public/templates/Binding_template/Klassik-2.jpg' onclick = displayImage('"+base_url+"/public/templates/Binding_template/Klassik-2.jpg','Klassik-2.jpg',this);> <img id='classic_3' src='"+base_url+"/public/templates/Binding_template/Klassik-3.jpg' onclick = displayImage('"+base_url+"/public/templates/Binding_template/Klassik-3.jpg','Klassik-3.jpg',this);> ");
 			 }else{
-			 	$("#modal-body").append("<p>Choose layout for standard cover without logo.</p><br><img id='ohne_1' src='"+base_url+"/public/templates/Binding_template/Edition-ohne-Logo-1.jpg' onclick = displayImage('"+base_url+"/public/templates/Binding_template/Edition-ohne-Logo-1.jpg','Edition-ohne-Logo-1.jpg');> <img id='ohne_2' src='"+base_url+"/public/templates/Binding_template/Edition-ohne-Logo-2.jpg' onclick = displayImage('"+base_url+"/public/templates/Binding_template/Edition-ohne-Logo-2.jpg','Edition-ohne-Logo-2.jpg');> <img id='ohne_3' src='"+base_url+"/public/templates/Binding_template/Edition-ohne-Logo-3.jpg' onclick = displayImage('"+base_url+"/public/templates/Binding_template/Edition-ohne-Logo-3.jpg','Edition-ohne-Logo-3.jpg');> ");
+			 	$("#modal-body").append("<p>Choose layout for standard cover without logo.</p><br><img id='ohne_1' src='"+base_url+"/public/templates/Binding_template/Edition-ohne-Logo-1.jpg' onclick = displayImage('"+base_url+"/public/templates/Binding_template/Edition-ohne-Logo-1.jpg','Edition-ohne-Logo-1.jpg',this);> <img id='ohne_2' src='"+base_url+"/public/templates/Binding_template/Edition-ohne-Logo-2.jpg' onclick = displayImage('"+base_url+"/public/templates/Binding_template/Edition-ohne-Logo-2.jpg','Edition-ohne-Logo-2.jpg',this);> <img id='ohne_3' src='"+base_url+"/public/templates/Binding_template/Edition-ohne-Logo-3.jpg' onclick = displayImage('"+base_url+"/public/templates/Binding_template/Edition-ohne-Logo-3.jpg','Edition-ohne-Logo-3.jpg',this);> ");
 			 }
 		// }
 		 
-		
+		document.getElementById('download_stylesheet').className = "displayNone";
 		document.getElementById('div-fonts').className = "displayBlock";
 		document.getElementById('div-date-format').className = "displayBlock";
 		document.getElementById('div-embossment-spine').className = "displayBlock";
 		document.getElementById('div-remarks').className = "displayBlock";
 		document.getElementById('upload_custom_logo').className = "displayBlock";
+		document.getElementById('div-date-format').className = "displayBlock";
 	}else if(template == "Standardvorlage ohne Logo"){
 		 $('#modal-logo').modal('show');
 		// if($('#embossing'.find(":selected").val() != "-1"){
 		 	if(embossing == "Edition"){
-		 		$("#modal-body").append("<p>Choose layout for standard cover without logo.</p><br><img id='ohne_1' src='"+base_url+"/public/templates/Binding_template/Edition-ohne-Logo-1.jpg' onclick = displayImage('"+base_url+"/public/templates/Binding_template/Edition-ohne-Logo-1.jpg','Edition-ohne-Logo-1.jpg');> <img id='ohne_2' src='"+base_url+"/public/templates/Binding_template/Edition-mit-Logo-2.jpg' onclick = displayImage('"+base_url+"/public/templates/Binding_template/Edition-mit-Logo-2.jpg','Edition-mit-Logo-2.jpg');> <img id='ohne_3' src='"+base_url+"/public/templates/Binding_template/Edition-ohne-Logo-3.jpg' onclick = displayImage('"+base_url+"/public/templates/Binding_template/Edition-ohne-Logo-3.jpg','Edition-ohne-Logo-3.jpg');> ");
+		 		$("#modal-body").append("<p>Choose layout for standard cover without logo.</p><br><img id='ohne_1' src='"+base_url+"/public/templates/Binding_template/Edition-ohne-Logo-1.jpg' onclick = displayImage('"+base_url+"/public/templates/Binding_template/Edition-ohne-Logo-1.jpg','Edition-ohne-Logo-1.jpg',this);> <img id='ohne_2' src='"+base_url+"/public/templates/Binding_template/Edition-mit-Logo-2.jpg' onclick = displayImage('"+base_url+"/public/templates/Binding_template/Edition-mit-Logo-2.jpg','Edition-mit-Logo-2.jpg',this);> <img id='ohne_3' src='"+base_url+"/public/templates/Binding_template/Edition-ohne-Logo-3.jpg' onclick = displayImage('"+base_url+"/public/templates/Binding_template/Edition-ohne-Logo-3.jpg','Edition-ohne-Logo-3.jpg',this);> ");
 			 }else if(embossing == "Classic"){
-			 	$("#modal-body").append("<p>Choose layout for standard cover with logo.</p><br><img id='classic_1' src='"+base_url+"/public/templates/Binding_template/Klassik-1.jpg' onclick = displayImage('"+base_url+"/public/templates/Binding_template/Klassik-1.jpg','Klassik-1.jpg');> <img id='classic_2' src='"+base_url+"/public/templates/Binding_template/Klassik-2.jpg' onclick = displayImage('"+base_url+"/public/templates/Binding_template/Klassik-2.jpg','Klassik-2.jpg');> <img id='classic_3' src='"+base_url+"/public/templates/Binding_template/Klassik-3.jpg' onclick = displayImage('"+base_url+"/public/templates/Binding_template/Klassik-3.jpg','Klassik-3.jpg');> ");
+			 	$("#modal-body").append("<p>Choose layout for standard cover with logo.</p><br><img id='classic_1' src='"+base_url+"/public/templates/Binding_template/Klassik-1.jpg' onclick = displayImage('"+base_url+"/public/templates/Binding_template/Klassik-1.jpg','Klassik-1.jpg',this);> <img id='classic_2' src='"+base_url+"/public/templates/Binding_template/Klassik-2.jpg' onclick = displayImage('"+base_url+"/public/templates/Binding_template/Klassik-2.jpg','Klassik-2.jpg',this);> <img id='classic_3' src='"+base_url+"/public/templates/Binding_template/Klassik-3.jpg' onclick = displayImage('"+base_url+"/public/templates/Binding_template/Klassik-3.jpg','Klassik-3.jpg',this);> ");
 			 }else{
-			 	$("#modal-body").append("<p>Choose layout for standard cover without logo.</p><br><img id='ohne_1' src='"+base_url+"/public/templates/Binding_template/Edition-ohne-Logo-1.jpg' onclick = displayImage('"+base_url+"/public/templates/Binding_template/Edition-ohne-Logo-1.jpg','Edition-ohne-Logo-1.jpg');> <img id='ohne_2' src='"+base_url+"/public/templates/Binding_template/Edition-ohne-Logo-2.jpg' onclick = displayImage('"+base_url+"/public/templates/Binding_template/Edition-ohne-Logo-2.jpg','Edition-ohne-Logo-2.jpg');> <img id='ohne_3' src='"+base_url+"/public/templates/Binding_template/Edition-ohne-Logo-3.jpg' onclick = displayImage('"+base_url+"/public/templates/Binding_template/Edition-ohne-Logo-3.jpg','Edition-ohne-Logo-3.jpg');> ");
+			 	$("#modal-body").append("<p>Choose layout for standard cover without logo.</p><br><img id='ohne_1' src='"+base_url+"/public/templates/Binding_template/Edition-ohne-Logo-1.jpg' onclick = displayImage('"+base_url+"/public/templates/Binding_template/Edition-ohne-Logo-1.jpg','Edition-ohne-Logo-1.jpg',this);> <img id='ohne_2' src='"+base_url+"/public/templates/Binding_template/Edition-ohne-Logo-2.jpg' onclick = displayImage('"+base_url+"/public/templates/Binding_template/Edition-ohne-Logo-2.jpg','Edition-ohne-Logo-2.jpg',this);> <img id='ohne_3' src='"+base_url+"/public/templates/Binding_template/Edition-ohne-Logo-3.jpg' onclick = displayImage('"+base_url+"/public/templates/Binding_template/Edition-ohne-Logo-3.jpg','Edition-ohne-Logo-3.jpg',this);> ");
 			 }
 		// }
-		
+		document.getElementById('download_stylesheet').className = "displayNone";
 		document.getElementById('div-fonts').className = "displayBlock";
 		document.getElementById('div-date-format').className = "displayBlock";
 		document.getElementById('div-embossment-spine').className = "displayBlock";
 		document.getElementById('div-remarks').className = "displayBlock";
+		document.getElementById('div-date-format').className = "displayBlock";
 
 		document.getElementById('upload_custom_logo').className = "displayNone";
 	}else if(template == "Eigene Vorlage"){
 		document.getElementById('upload_custom_logo').className = "displayBlock";
 		document.getElementById('div-remarks').className = "displayBlock";
+		document.getElementById('download_stylesheet').className = "displayBlock";
 		$("#div-display-image").empty();
 		document.getElementById('div-display-image').className = "displayNone"; 
+		document.getElementById('div-date-format').className = "displayNone";
 	}
 
 	if($("#template").find(":selected").val() == "-1"){
 		document.getElementById('upload_custom_logo').className = "displayNone";
 		document.getElementById('drop_file_zone_logo_info').className = "displayNone";
 		document.getElementById('div-remarks').className = "displayNone"; 
+		document.getElementById('download_stylesheet').className = "displayNone";
 		$("#div-display-image").empty();
 		document.getElementById('div-display-image').className = "displayNone"; 
 		document.getElementById('div-embossment-spine').className = "displayBlock";
@@ -472,13 +481,13 @@ function displayPopUpCD(template = ""){
 	if(template == "Standardvorlage mit Logo"){
 		 $('#modal-cd').modal('show'); 
 		 $("#modal-body-cd").empty();
-		$("#modal-body-cd").append("<p>Choose layout for standard cover with logo.</p><br><img id='CD-mit-Logo-1' src='"+base_url+"/public/templates/CD/CD-mit-Logo-1.jpg' onclick = javascript:displayImageCd('"+base_url+"/public/templates/CD/CD-mit-Logo-1.jpg','CD-mit-Logo-1');> <img id='CD-mit-Logo-2' src='"+base_url+"/public/templates/CD/CD-mit-Logo-2.jpg' onclick = displayImageCd('"+base_url+"/public/templates/CD/CD-mit-Logo-2.jpg','CD-mit-Logo-2');>");
+		$("#modal-body-cd").append("<p>Choose layout for standard cover with logo.</p><br><img id='CD-mit-Logo-1' src='"+base_url+"/public/templates/CD/CD-mit-Logo-1.jpg' onclick = javascript:displayImageCd('"+base_url+"/public/templates/CD/CD-mit-Logo-1.jpg','CD-mit-Logo-1',this);> <img id='CD-mit-Logo-2' src='"+base_url+"/public/templates/CD/CD-mit-Logo-2.jpg' onclick = displayImageCd('"+base_url+"/public/templates/CD/CD-mit-Logo-2.jpg','CD-mit-Logo-2',this);>");
 		document.getElementById('div-fonts-cd').className = "displayBlock";
 		document.getElementById('upload_custom_logo_cd').className = "displayBlock";
 	}else if(template == "Standardvorlage ohne Logo"){
 		 $('#modal-cd').modal('show');
 		 $("#modal-body-cd").empty();
-		$("#modal-body-cd").append("<p>Choose layout for standard cover without logo.</p><br><img id='CD-ohne-Logo-2' src='"+base_url+"/public/templates/CD/CD-ohne-Logo-1.jpg' onclick = javascript:displayImageCd('"+base_url+"/public/templates/CD/CD-ohne-Logo-1.jpg','CD-ohne-Logo-1');> <img id='CD-ohne-Logo-2' src='"+base_url+"/public/templates/CD/CD-ohne-Logo-2.jpg' onclick = displayImageCd('"+base_url+"/public/images/CD-ohne-Logo-2.jpg',CD-ohne-Logo-2);>");
+		$("#modal-body-cd").append("<p>Choose layout for standard cover without logo.</p><br><img id='CD-ohne-Logo-2' src='"+base_url+"/public/templates/CD/CD-ohne-Logo-1.jpg' onclick = javascript:displayImageCd('"+base_url+"/public/templates/CD/CD-ohne-Logo-1.jpg','CD-ohne-Logo-1',this);> <img id='CD-ohne-Logo-2' src='"+base_url+"/public/templates/CD/CD-ohne-Logo-2.jpg' onclick = displayImageCd('"+base_url+"/public/images/CD-ohne-Logo-2.jpg',CD-ohne-Logo-2,this);>");
 		document.getElementById('div-fonts-cd').className = "displayBlock";
 		document.getElementById('upload_cd').className = "displayBlock";
 	}else if(template == "Eigene Vorlage"){
@@ -502,17 +511,21 @@ function displayPopUpCD(template = ""){
 }
 
 
-function displayImage(path,name){
+function displayImage(path,name,elem){
 
 	$("#div-display-image").empty();
+	$("#modal-body").find("img").css("border", "0");
+	elem.style.border = "1px solid blue";
 	document.getElementById('div-display-image').className = "displayBlock";
 	$("#div-display-image").append("<img src='"+path+"'><input type='hidden' name='embossment-template-name' id ='embossment-template-name' value=''> ");
 	document.getElementById('embossment-template-name').value = name;
 }
 
-function displayImageCd(path,name){
+function displayImageCd(path,name,elem){
 
 	$("#div-display-image-cd").empty();
+	$("#modal-body-cd").find("img").css("border", "0");
+	elem.style.border = "1px solid blue";
 	document.getElementById('div-display-image-cd').className = "displayBlock";
 	$("#div-display-image-cd").append("<img src='"+path+"'><input type='hidden' id='cd-template-name' name = 'cd-template-name' value = ''> ");
 	document.getElementById('cd-template-name').value = name;
@@ -538,7 +551,9 @@ function displayCDFields(value = ""){
 		if($("#imprint").is(":checked")){
 			document.getElementById('div-cd-template').className = "displayBlock";
 		}else{
-			document.getElementById('div-cd-template').className = "displayNone";
+			document.getElementById('div-cd-template').className = "displayNone";   
+			document.getElementById('div-display-image-cd').className = "displayNone"; 
+			$('#div-display-image-cd').empty();
 		}
 		//document.getElementById('div-cd-bag').className = "displayBlock";
 	}
@@ -564,6 +579,7 @@ function displayContentInput(option = ""){
 			document.getElementById('div-page-numbers').className = "displayBlock";  
 		}else{
 			document.getElementById('div-page-numbers').className = "displayNone";
+			document.getElementById('page-numbers').value = "";
 		}
 	}else if(option == "A3_Pages"){
 		if($("#A3-pages").is(":checked")){
@@ -576,6 +592,18 @@ function displayContentInput(option = ""){
 		document.getElementById('div-pos-A3-pages').className = "displayNone";
 		document.getElementById('drop_file_din_A3').className = "displayNone";
 		document.getElementById('A3_msg').className = "displayNone";	
+
+		// remove file
+		file_name = $('#selectfile_din_A3').val(); 
+   		id = "drop_file_din_A3";
+
+     	removeFile(file_name,id,'1');
+
+     	// empty text field
+	    document.getElementById('numbers-of-pages').value = "";
+	    //$('#pos-of-A3-pages').text('');
+	    document.getElementById("pos-of-A3-pages").value = "";
+
 		}
 		
 	}else if(option == "A2_Pages"){
@@ -588,7 +616,17 @@ function displayContentInput(option = ""){
 		document.getElementById('div-number-of-A2-pages').className = "displayNone";
 		document.getElementById('drop_file_din_A2').className = "displayNone";
 		//document.getElementById('drop_file_zone_A2').className = "displayNone";
-		document.getElementById('A2_msg').className = "displayNone";
+		document.getElementById('A2_msg').className = "displayNone";   
+
+		//Remove uploaded file
+		file_name = $('#selectfile_din_A2').val(); 
+	    id = "drop_file_din_A2";
+	    removeFile(file_name,id,'1');
+
+	    // empty text field
+	    document.getElementById('numbers-of-A2-pages').value = ""; 
+
+
 		}
 	}
 }
@@ -773,10 +811,14 @@ function displayProductAttributes(field_flag = "", values = ""){
 }
 
 
-function displayPrice(binding = "", no_ofsheets = "", page_options = "", embossing_cover = "", embossing_spine="", paper_weight = "", A2="", A3="", nos_of_cds = "", data_check = "", cd_cover = "", no_of_colored_sheets = "", delivery_service = ''){
+function displayPrice(binding = "", no_ofsheets = "", page_options = "", embossing_cover = "", embossing_spine="", paper_weight = "", A2="", A3="", nos_of_cds = "", data_check = "", cd_cover = "", no_of_colored_sheets = "", delivery_service = '', no_ofcopies = ''){
 
 
-	var binding_type = "",no_of_sheets = "", pageOptions = "", embossingCover = "", embossingSpine="", paperWeight = "", A2_page="", A3_page="", nosOfCds = "", dataCheck = "", cdCover = "", coloredSheets = "", deliveryService = '';
+	var binding_type = "",no_of_sheets = "", pageOptions = "", embossingCover = "", embossingSpine="", paperWeight = "", A2_page="", A3_page="", nosOfCds = "", dataCheck = "", cdCover = "", coloredSheets = "", deliveryService = '', no_of_copies = '';
+
+	if(no_ofcopies != ""){
+		no_of_copies = no_ofcopies; 
+	}
 
 	if(binding != ""){
 		binding_type = binding;
@@ -828,12 +870,12 @@ function displayPrice(binding = "", no_ofsheets = "", page_options = "", embossi
 		cdCover = cd_cover;
 
 	}
-	 
+	  
 
 	$.ajax({
 		url: base_url+'/get-price', 
 		type: 'GET', 
-		data: {'binding_type' : binding, 'no_of_sheets' : no_ofsheets, 'pageOptions' : page_options, 'embossingCover' : embossing_cover, 'embossingSpine' : embossing_spine, 'paperWeight' : paper_weight, 'A2_page' : A2, 'A3_page': A3, 'nosOfCds' : nos_of_cds, 'dataCheck' : data_check, 'coloredSheets' : no_of_colored_sheets, 'deliveryService' : delivery_service, 'cdCover':cdCover},
+		data: {'no_of_copies':no_of_copies,'binding_type' : binding, 'no_of_sheets' : no_ofsheets, 'pageOptions' : page_options, 'embossingCover' : embossing_cover, 'embossingSpine' : embossing_spine, 'paperWeight' : paper_weight, 'A2_page' : A2, 'A3_page': A3, 'nosOfCds' : nos_of_cds, 'dataCheck' : data_check, 'coloredSheets' : no_of_colored_sheets, 'deliveryService' : delivery_service, 'cdCover':cdCover},
 		success: function (response){
 			var data = JSON.parse(response); 
 			//console.log(response);
@@ -848,7 +890,7 @@ function displayPrice(binding = "", no_ofsheets = "", page_options = "", embossi
 		}
 	}); 
 
-}
+}  
 
 
 // -------     Code to handle checkout page pagination Starts----------- //
@@ -1018,7 +1060,7 @@ function displayPrice(binding = "", no_ofsheets = "", page_options = "", embossi
 
 				if($("#fields_1").find(":selected").val() == "-1" || $("#pos_1").find(":selected").val() == "-1" ){
 					 $("#fields_1").addClass('invalid'); 
-					 $("#pos_1").addClass('invalid'); $('#error-section-1').html('Select both field and position in this section'); valid = false; return false;
+					 $("#pos_1").addClass('invalid'); $('#error-section-1').html('Fill all Fields in this section 1'); valid = false; return false;
 				}
 
 			}else{}
@@ -1027,7 +1069,7 @@ function displayPrice(binding = "", no_ofsheets = "", page_options = "", embossi
 
 				if($("#fields_1").find(":selected").val() == "-1" || $("#pos_1").find(":selected").val() == "-1" || $("#input_1").val() == ""){
 					 $("#fields_1").addClass('invalid'); 
-					 $("#pos_1").addClass('invalid'); $('#error-section-1').html('Select both field and position in this section'); valid = false; return false;
+					 $("#pos_1").addClass('invalid'); $('#error-section-1').html('Fill all Fields in this section 1'); valid = false; return false;
 				} 
 				
 					var allowed_letters = parseInt($('#spine-count-hidden').val());
@@ -1048,7 +1090,7 @@ function displayPrice(binding = "", no_ofsheets = "", page_options = "", embossi
 					}
 
 					  	if($('#input_1').hasClass('displayBlock')){    
-						if(Total <= allowed_letters){    
+						if(Total >= allowed_letters){    
 							$("#input_1").addClass('invalid');
 							$("#input_2").addClass('invalid');
 							$("#input_3").addClass('invalid');
@@ -1230,7 +1272,7 @@ function displayPrice(binding = "", no_ofsheets = "", page_options = "", embossi
 	  	document.getElementById("prevBtn").style.display = "inline";
 	  }
 	  if (n == (x.length - 1)) {
-	  	document.getElementById("nextBtn").innerHTML = "Submit";
+	  	document.getElementById("nextBtn").innerHTML = "Submit"; 
 	  } else { 
 	  	document.getElementById("nextBtn").innerHTML = "Next";
 	  }
@@ -1238,17 +1280,23 @@ function displayPrice(binding = "", no_ofsheets = "", page_options = "", embossi
 	  fixStepIndicator(n)
 	}
 
-	
-	function fixStepIndicator(n) {  //alert(n); 
+	 
+	function fixStepIndicator(n) {  
 	  // This function removes the "active" class of all steps...
 	  var i, x = document.getElementsByClassName("step");
-	  for (i = 0; i < x.length; i++) {
+	  for (i = 0; i < x.length; i++) {   
 	  	x[i].className = x[i].className.replace(" active", "");
 	  }
 	  //... and adds the "active" class to the current step:
 	 // document.getElementsByClassName("step")[currentTab].className += " finish";
-	  x[n-1].className += " finish";
-	  x[n].className += " active";
+
+	  if(n > 0){
+	  	x[n-1].className += " finish";  
+	  }
+
+	  // going previous
+	  x[n].className = x[n].className.replace(" finish", " active");
+	  x[n].className += " active";  
 	}
 
 
@@ -1334,62 +1382,157 @@ function incrementQuantity(id = "",count = ""){
 
 } 
 
-  function checkPageRange(id1 = '', id2 = '' ,value_id = ''){  
-     var count_of_pages = 0; var range = 0; var val = [];
+ //  function checkPageRange(id1 = '', id2 = '' ,value_id = ''){  
+ //     var count_of_pages = 0; var range = 0; var val = [];
+ //     document.getElementById('error_range').innerHTML = ""; 
+ //     var value = document.getElementById(value_id).value;
+
+ //     if(document.getElementById(id1).value == "" || document.getElementById(id1).value == null){
+ //     }else{
+ //     	count_of_pages =parseInt(document.getElementById(id2).innerHTML.split(":")[1]);
+ //     }
+
+ //     if(value.includes("-")){   // range seperation using '-'
+	//      	val = value.split("-");  
+	//      	if(parseInt(val[0])<count_of_pages && parseInt(val[1])<=count_of_pages){
+	//      		range = Math.abs(parseInt(val[0]) - parseInt(val[1])) + 1; 
+	//      	}else{
+	//      		range = -1; 
+	//      	}
+     	
+ //     }else if(value.includes(",")){   // range seperation using ','
+	//      	val = value.split(",");  
+	//      	var status = 1;
+	//      	for(var i=0; i<val.length; i++){
+	//      		if(val[i] > count_of_pages){
+	//      			status = 0;
+	//      		}
+	//      	}
+
+	//      	if(status == 0){
+	//      		range = -1;
+	//      	}else{
+	//      		range = val.length;
+	//      	}
+     	   
+ //     }else if(value.match(/^\d+$/)){  // single value case
+	//      	//range = parseInt(value);
+	//      	if(parseInt(value)<=count_of_pages){
+	//      	    range = 1;  
+	//      	}else{
+	//      		range = -1; 
+	//      	}
+ //     }else{
+ //     	    range = -1; 
+ //     }
+
+ //     if(range > count_of_pages){ 
+ //     		document.getElementById('error_range').innerHTML = "Please check the range for number of pages";
+ //     		return false;
+ //     }else if(range <= 0){   
+ //     		document.getElementById('error_range').innerHTML = "Invalid Expression";
+ //     		return false;
+ //     }else{  
+ //     	document.getElementById('error_range').innerHTML = "No of Colored Pages:"+range;
+ //     	return true;
+ //     }
+
+ // }
+
+
+function checkPageRange(id1 = '', id2 = '' ,value_id = ''){  
+
+     var count_of_pages = 0; var range_h = 0; var val = []; var range_c = 0; var range_s = 0; var range = 0; var status = 0;
      document.getElementById('error_range').innerHTML = ""; 
      var value = document.getElementById(value_id).value;
 
-     if(document.getElementById(id1).value == "" || document.getElementById(id1).value == null){
+
+
+     if(document.getElementById(id1).value == "" || document.getElementById(id1).value == null){   
+     		range = -2; console.log(count_of_pages);
      }else{
-     	count_of_pages =parseInt(document.getElementById(id2).innerHTML.split(":")[1]);
+     	count_of_pages =parseInt(document.getElementById(id2).innerHTML.split(":")[1]);  console.log(count_of_pages);
+     
+
+		     if(value.includes(",")){   // range seperation using ',' and '-'
+				val_c = value.split(",");
+			    for(var i=0; i< val_c.length; i++){
+
+			    if(val_c[i].trim() != ""){	
+
+			    	if(val_c[i].includes("-")){ // range seperation using '-'
+
+			    		val_h = val_c[i].split("-"); // calculation for '-'
+			    		if(parseInt(val_h[0]) > count_of_pages || parseInt(val_h[1]) > count_of_pages){
+			     			range = -1;  
+			     		}else if(parseInt(val_h[0])<count_of_pages && parseInt(val_h[1])<=count_of_pages){
+			     			range_h += Math.abs(parseInt(val_h[0]) - parseInt(val_h[1])) + 1; 
+				     	}
+
+			    	}else{   // calculation for ','
+
+			    		if(val_c[i] > count_of_pages){
+			     			status = -1;  console.log("else comma 1");
+			     		}
+
+			     		if(status == -1){   console.log("else comma 2");
+				     		//range = -1;
+				     		status = 0;
+				     	}else{
+				     		range_c += 1;   console.log("else comma 3");
+				     	}
+
+			    	} console.log(val_c);
+			    }// end of empty if
+			    } // end of loop
+			
+			 }else if(value.includes("-") && !value.includes(",") ){  //range seperation only '-'
+
+			 	val_h = value.split("-"); 
+			 		if(parseInt(val_h[0]) > count_of_pages || parseInt(val_h[1]) > count_of_pages){
+			     			range = -1;  
+			     	}else if(parseInt(val_h[0])<count_of_pages && parseInt(val_h[1])<=count_of_pages){
+			     		range_h += Math.abs(parseInt(val_h[0]) - parseInt(val_h[1])) + 1; 
+			     	}
+			 }else if(value.match(/^\d+$/)){  // single value case
+			     	if(parseInt(value)<=count_of_pages){
+			     	    range_s = 1;  
+			     	}else{
+			     		range = -1;
+			     	}
+		     }else{
+		     	    range = -1; 
+		     }
+
+   }
+
+ if(range >= 0){  
+ 	    range = 0;
+     	range = range_s + range_c +range_h;  console.log("Range1: "+range);
      }
 
-     if(value.includes("-")){   // range seperation using '-'
-	     	val = value.split("-");  
-	     	if(parseInt(val[0])<count_of_pages && parseInt(val[1])<=count_of_pages){
-	     		range = Math.abs(parseInt(val[0]) - parseInt(val[1])) + 1; 
-	     	}else{
-	     		range = -1; 
-	     	}
-     	
-     }else if(value.includes(",")){   // range seperation using ','
-	     	val = value.split(",");  
-	     	var status = 1;
-	     	for(var i=0; i<val.length; i++){
-	     		if(val[i] > count_of_pages){
-	     			status = 0;
-	     		}
-	     	}
-
-	     	if(status == 0){
-	     		range = -1;
-	     	}else{
-	     		range = val.length;
-	     	}
-     	   
-     }else if(value.match(/^\d+$/)){  // single value case
-	     	//range = parseInt(value);
-	     	if(parseInt(value)<=count_of_pages){
-	     	    range = 1;  
-	     	}else{
-	     		range = -1; 
-	     	}
-     }else{
-     	    range = -1; 
-     }
-
-     if(range > count_of_pages){ 
+console.log("Range: "+range);
+      if(range > count_of_pages){ 
      		document.getElementById('error_range').innerHTML = "Please check the range for number of pages";
+     		document.getElementById('error_range').style.color = "red";
      		return false;
-     }else if(range <= 0){   
+     }else if(range == -1){   
      		document.getElementById('error_range').innerHTML = "Invalid Expression";
+     		document.getElementById('error_range').style.color = "red";
+     		return false;
+     }else if(range == -2){   
+     		document.getElementById('error_range').innerHTML = "No File Uploaded";
+     		document.getElementById('error_range').style.color = "red";
      		return false;
      }else{  
      	document.getElementById('error_range').innerHTML = "No of Colored Pages:"+range;
+     	document.getElementById('error_range').style.color = "#000000";
      	return true;
      }
 
+     
  }
+
 
  // step 2 Number of pages dependency C
  function NumberOfPages(binding = "", weight = "", no_pages=""){
@@ -1429,21 +1572,103 @@ function incrementQuantity(id = "",count = ""){
 	return(status);
  }
 
- function resetFields(id,value){  
+ function resetFields(id,value){   
 
+if($('#selectfile_coversheet').val() != ""){
+
+    file_name = $('#selectfile_coversheet').val();
+    id = "drop_file_zone_cover_sheet";   
+
+     removeFile(file_name,id,'1');
+
+}
+
+if($('#selectfile_backcover').val() != ""){
+
+    file_name = $('#selectfile_backcover').val(); 
+    id = "drop_file_zone_back_cover";
+
+     removeFile(file_name,id,'1');
+
+}
+
+if($('#selectfile_content').val() != ""){
+
+    file_name = $('#selectfile_content').val(); 
+    id = "drop_file_zone_content";
+
+     removeFile(file_name,id,'1');
+}
+
+
+if($('#selectfile_din_A3').val() != ""){
+
+    file_name = $('#selectfile_din_A3').val(); 
+    id = "drop_file_din_A3";
+
+     removeFile(file_name,id,'1');
+
+}
+
+if($('#selectfile_din_A2').val() != ""){
+
+    file_name = $('#selectfile_din_A2').val(); 
+    id = "drop_file_din_A2";
+
+     removeFile(file_name,id,'1');
+
+}
+
+if($('#selectfile_logo').val() != ""){
+
+    file_name = $('#selectfile_logo').val(); 
+    id = "upload_custom_logo";
+
+     removeFile(file_name,id,'1');
+
+}
+
+if($('#selectfile_cd').val() != ""){
+
+    file_name = $('#selectfile_cd').val(); 
+    id = "upload_cd";
+
+     removeFile(file_name,id,'1');
+
+}
+
+if($('#selectfile_logo_cd').val() != ""){
+
+    file_name = $('#selectfile_logo_cd').val(); 
+    id = "upload_custom_logo_cd";
+
+     removeFile(file_name,id,'1');
+
+}
+
+
+if($('#selectfile_file').val() != ""){
+
+    file_name = $('#selectfile_file').val(); 
+    id = "upload_custom_file";
+
+     removeFile(file_name,id,'1');
+
+}
 
   $("#regForm").trigger("reset");
   document.getElementById(id).value = value;
-
-  //$('#block1').load("index.html");
-  //$("#regForm").load("#regForm>*","");
-
- 	// $('#regForm input[type="text"]').val('');  
- 	// $('#regForm textarea').val('');
- 	// $('#regForm input[type="checkbox"]').prop("checked", false); 
- 	// $('#regForm input[type="checkbox"]').trigger('onchange');
- 	// $('#regForm input[type="hidden"]').val('');  
-
+  $('#color-pages').trigger('onchange');
+  $('#A3-pages').trigger('onchange');
+  $('#A2-pages').trigger('onchange');
+  $('#embossment-cover-sheet').trigger('onchange');  
+  $('#embossment-spine').trigger('onchange');
+  $('#cd-check').trigger('onchange');
+  $('#imprint').trigger('onchange');
+  $("#div-display-image").empty();
+  document.getElementById('div-display-image').className = "displayNone";
+  $("#div-display-image-cd").empty();
+  document.getElementById('div-display-image-cd').className = "displayNone";
  }
 
 
@@ -1590,3 +1815,9 @@ function addAddress(address_type = ""){
 
 
 } 
+
+function addTooltip(value){
+
+	document.getElementById("page-format-tooltip").title = "number of the PDF file and only number of "+ value.options[value.selectedIndex].text;
+
+}

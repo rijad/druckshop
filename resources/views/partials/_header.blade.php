@@ -101,13 +101,13 @@
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav mr-auto">					      
 
-					<li class="nav-item active"><a href="{{ route('index') }}"><i class="fa fa-home"></i></a></li>
-					<li><a href="{{ route('products') }}">{{ trans('header.products')}}</a></li>
-					<li><a href="{{ route('latest-page') }}">{{ trans('header.latest')}}</a></li>
-					<li><a href="{{ route('about-us') }}">{{ trans('header.about')}}</a></li>
-					<li><a href="{{ route('faq') }}">{{ trans('header.faq')}}</a></li>
+					<li @if(Request::segment(1) == "")class="nav-item active" @endif><a href="{{ route('index') }}"><i class="fa fa-home"></i></a></li>
+					<li @if(Request::segment(1) == "products")class="nav-item active" @endif ><a href="{{ route('products') }}">{{ trans('header.products')}}</a></li>
+					<li @if(Request::segment(1) == "latest-page")class="nav-item active" @endif ><a href="{{ route('latest-page') }}">{{ trans('header.latest')}}</a></li>
+					<li @if(Request::segment(1) == "about-us")class="nav-item active" @endif ><a href="{{ route('about-us') }}">{{ trans('header.about')}}</a></li>
+					<li @if(Request::segment(1) == "faq")class="nav-item active" @endif ><a href="{{ route('faq') }}">{{ trans('header.faq')}}</a></li>
 					{{-- <li><a href="{{ route('gallery-images') }}">Gallery</a></li> --}}
-					<li><a href="{{ route('contact') }}">{{ trans('header.contact')}}</a></li>
+					<li @if(Request::segment(1) == "contact")class="nav-item active" @endif ><a href="{{ route('contact') }}">{{ trans('header.contact')}}</a></li>
 				</ul>  
 			</div>
 			@if (Auth::guard('admin')->check())

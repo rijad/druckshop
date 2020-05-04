@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Routing\UrlGenerator;
 use App\Product;
 use App\ArtList;
 use App\PageFormat;
@@ -39,9 +40,13 @@ class ProductController extends Controller
      *
      * @return void
      */
-    public function __construct() {
+
+    protected $url;
+
+    public function __construct(UrlGenerator $url) {
 
         $this->middleware('auth:admin');
+        $this->url = $url;
     }
     
     /**
@@ -458,12 +463,11 @@ class ProductController extends Controller
                 $image->move($destinationPath, $input['imagename']);
 
                 $product = Product::find($id)->image_path;  
-
-                unlink(url($product));
+                unlink(public_path()."\images\\".$product);
 
                 $update = Product::where('id', @$id)->update(['image_path' => @$input['imagename']]);
             }
-       
+        
             //update more files
             if($request->file('otherImages')) {   
 

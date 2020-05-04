@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use File;
  
 class UploadfileController extends Controller
 {
@@ -42,7 +43,18 @@ class UploadfileController extends Controller
 
 	public function removeFile(Request $request){
 
-		unlink(public_path()."/uploads/".$request->file_name);
+		$path = public_path()."/uploads/".$request->file_name;
+
+		if($path == public_path()."/uploads/"){
+			
+		}else{
+			if (file_exists(public_path()."/uploads/".$request->file_name)) {
+        		unlink(public_path()."/uploads/".$request->file_name);
+    		}
+		}
+
+		
+		//unlink(public_path()."/uploads/".$request->file_name);
 		$response = returnResponse(array(),'200','File removed successfully.');
 		print_r($response);
 

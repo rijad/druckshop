@@ -45,7 +45,7 @@
                 
                 <div class="border_dashed">
                     <div class="container_image">
-                       <img src="{{  url(@$product->image_path)}}" />
+                       <img src="{{  url('public/images/'.@$product->image_path)}}" />
                     </div>
                     <div class="form-group rv-file_upload">
                         <label class="small mb-1" for="name">Upload Binding Image</label>
@@ -373,7 +373,7 @@
 </div>
 
 <div class="form-inline">
-    <a href="{{ URL::previous() }}" class="btn btn-secondary btn-user btn-block col-md-3">Back</a>
+    <a href="{{ url('/admin/details/Product/1') }}" class="btn btn-secondary btn-user btn-block col-md-3">Back</a>
     <input type="submit" class="btn btn-primary btn-user btn-block col-md-3" value="Update">
 </div>
 
@@ -388,7 +388,7 @@
 <style>
 tr>th {
     padding: 8px;
-}
+} 
 
 tr>td {
     padding: 8px;

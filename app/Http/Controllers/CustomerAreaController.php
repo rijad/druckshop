@@ -6,10 +6,11 @@ use Illuminate\Http\Request;
 use App\OrderDetailsFinal; 
 use Illuminate\Support\Facades\Validator;
 use App\CustomerArea;
+use App\ UserAddress;
 use Auth;
 use \Exception;
 
-class CustomerAreaController extends Controller
+class CustomerAreaController extends Controller 
 {
 	public function index(){ 
  
@@ -47,7 +48,7 @@ class CustomerAreaController extends Controller
             'email' => 'nullable',
             //'address' => 'nullable',
             'phone' => 'nullable',
-            'shipping_address' => 'nullable',
+            //'shipping_address' => 'nullable',
             'billing_address' => 'nullable',
             'status' => 'nullable',
         ]);
@@ -125,27 +126,43 @@ class CustomerAreaController extends Controller
 
     try{
       $details = CustomerArea::where(['user_id' => $user_id])->first();
-      $details_data = ['user_id'=>$user_id, 'dob'=>$details->dob, 'email'=>$details->email, 'address' => $details->address, 'phone' => $details->phone, 'image' => $details->image, 'shipping_address' => $details->shipping_address, 'billing_address' => $details->billing_address];
+      $details_data = ['user_id'=>$user_id, 'dob'=>$details->dob, 'email'=>$details->email, 'address' => $details->address, 'phone' => $details->phone, 'image' => $details->image, 'billing_address' => $details->billing_address];
+
+
+         try{
+
+          $address = UserAddress::where(['user_id' => $user_id, 'address_type' => 'billing','default' => '1'])->first();
+          $address_data = ['user_id'=>$user_id, 'first_name'=>$address->first_name, 'last_name'=>$address->last_name, 'company_name' => $address->company_name, 'street' => $address->street, 'house_no' => $address->house_no, 'zip_code' => $address->zip_code, 'addition' => $address->addition, 'city' => $address->city, 'state' => $address->state];
+
+         }catch(Exception $e){
+
+           $address_data = ['user_id'=>$user_id, 'first_name'=>'', 'last_name'=>'', 'company_name' => '', 'street' => '', 'house_no' => '', 'zip_code' => '', 'addition' => '', 'city' => '', 'state' => ''];
+
+         }
+
 
     }catch(\Exception $e){
 
-      $details_initial = ['user_id'=>$user_id, 'dob'=>'DOB', 'email'=>'Email', 'address' => 'Address', 'phone' => 'Phone', 'image' => 'public/customerprofile/1.jpg', 'shipping_address' => 'Shipping Address', 'billing_address' => 'Billing Address'];
-
-      print_r(json_encode($details_initial));  exit;
+      $details_initial = ['user_id'=>$user_id, 'dob'=>'DOB', 'email'=>'Email', 'address' => 'Address', 'phone' => 'Phone', 'image' => 'public/customerprofile/1.jpg','billing_address' => 'Billing Address'];
+      
+      print_r(json_encode(array_merge($details_initial,$address_data))); exit;
+     // print_r(json_encode($details_initial));  exit;
           
-    }
+    } 
     if(! empty($details)){
-
-      print_r(json_encode($details_data));  exit;
+  
+      //print_r(json_encode($details_data));  exit;
+      print_r(json_encode(array_merge($details_data,$address_data))); exit;
 
     }else{
 
-      $details_initial = ['user_id'=>$user_id, 'dob'=>'DOB', 'email'=>'Email', 'address' => 'Address', 'phone' => 'Phone', 'image' => 'public/customerprofile/1.jpg', 'shipping_address' => 'Shipping Address', 'billing_address' => 'Billing Address'];
-      print_r(json_encode($details_initial));  exit;
+      $details_initial = ['user_id'=>$user_id, 'dob'=>'DOB', 'email'=>'Email', 'address' => 'Address', 'phone' => 'Phone', 'image' => 'public/customerprofile/1.jpg','billing_address' => 'Billing Address'];
+     // print_r(json_encode($details_initial));  exit;
+      print_r(json_encode(array_merge($details_initial,$address_data))); exit;
 
     }
 
    }
 }
-  // trantor^45
+  
 
