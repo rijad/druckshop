@@ -56,63 +56,45 @@ class FreeSampleController extends Controller
     {
         // dd($request->input());
         $validator = Validator::make($request->all(), [
-        'side_option' => 'required',
-        'paper_weight' => 'required',
-        'last_name' => 'required',
-        'first_name' => 'required',
-        'company' => 'sometimes',
-        'street' => 'required',
-        'house_number' => 'required',
-        'addition_to_address' => 'sometimes',
-        'zip_code' => 'required',
-        'city' => 'required',
-        'selectfile_free_sample' => 'required',
-        'sample_status' => 'nullable',
-        'status' => 'nullable',
-        ], [
-        'selectfile_free_sample.required' => 'Upload document to be printed as sample',
+            'side_option' => 'required',
+            'paper_weight' => 'required',
+            'last_name' => 'required',
+            'first_name' => 'required',
+            'company' => 'sometimes',
+            'street' => 'required',
+            'house_number' => 'required',
+            'addition_to_address' => 'sometimes',
+            'zip_code' => 'required',
+            'city' => 'required',
+            'selectfile_free_sample' => 'required',
+            'sample_status' => 'nullable',
+            'status' => 'nullable',
+            ], [
+            'selectfile_free_sample.required' => 'Upload document to be printed as sample',
         ]);
         if ($validator->fails()) {
-          return redirect()->back()
-          ->withErrors($validator)
-          ->withInput();
+            return redirect()->back()
+            ->withErrors($validator)
+            ->withInput();
         }
 
-        //if ($validator->passes()){
+        if ($validator->passes()){
 
-          //if (!file_exists(public_path().'/uploads')) {
-              //mkdir(public_path().'/uploads', 0777);
-          //}
-            
-          //return redirect()->back()
-                        //->withErrors($validator)
-                        //->withInput();
-        //} 
+            if (!file_exists(public_path().'/uploads')) {
+            mkdir(public_path().'/uploads', 0777);
+            }
 
-        if ($validator->passes()){ 
+            $input = $request->all();
+            $input['order_id'] = "free_".time();
+            $input['sample_status'] = 'New';
+            $input['document'] = 'public/uploads/'.$request->input('selectfile_free_sample');
+            $input['status'] = 1;
 
-          if (!file_exists(public_path().'/uploads')) {
-              mkdir(public_path().'/uploads', 0777); 
-          }
-
-          $input = $request->all(); 
-          $input['order_id'] =  "free_".time();
-          $input['sample_status'] = 'New';
-          $input['document'] = 'public/uploads/'.$request->input('selectfile_free_sample');
-          $input['status'] = 1;
-
-          $freesample = FreeSample::create($input);
+            $freesample = FreeSample::create($input);
         }
 
-        //$input = $request->all();
-        //$input['order_id'] = "free_".time();
-        //$input['sample_status'] = 'New';
-        //$input['document'] = 'public/uploads/'.$request->input('selectfile_free_sample');
-        //$input['status'] = 1;
-
-
-        //$freesample = FreeSample::create($input);
-
+        return redirect()->back()->with('status' , 'Requested');
+    }
     /**
      * Display the specified resource.
      *

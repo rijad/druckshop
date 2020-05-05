@@ -63,8 +63,6 @@ class StyleSheetController extends Controller
               //Move Uploaded File
               $destinationPath = public_path().'/style_sheet';
               $file->move($destinationPath,'stylesheet.pdf');
-
-
              
         }
         return redirect()->back()->with('status' , 'Created');
