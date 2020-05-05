@@ -4,7 +4,7 @@
                 <div class="w-100">
                         <div class="left_productdetail">  
                             <div class="text-center quote_heading">
-                                <p>Product Details</p>
+                                <p>{{ trans('order_detail.title') }}</p>
                             </div>
 
                             <div class="product">
@@ -27,17 +27,17 @@
                                 @endforeach
                             </div>
                              <div class="text-right pr-4 pl-4">
-                                <p class="thisproduct_head">Total: {{$total}} €</p>
+                                <p class="thisproduct_head">{{ trans('order_detail.total') }}: {{$total}} €</p>
                                 @foreach($delivery_cost as $key=>$value)
                                 <p class="thisproduct_head">Delivery Service Charges {{$data->product}} {{$key + 1}}: {{$value}} €</p>
                                 @endforeach
-                                <p class="thisproduct_head">Promo Discount: {{$discount_amt}} €</p>
+                                <p class="thisproduct_head">{{ trans('order_detail.discount') }}: {{$discount_amt}} €</p>
                                 <hr>
-                                <p class="thisproduct_head">Net Amount: {{$net_amt_after_delivery_service}} €</p>
+                                <p class="thisproduct_head">{{ trans('order_detail.amount') }}: {{$net_amt_after_delivery_service}} €</p>
                              </div>
                             <div class="text-right">
-                                <button class="paypaypal" onclick="window.location='{{route('payment-paypal')}}'">Pay via PayPal</button>
-                                <button class="paycash" onclick="window.location='{{route('cash-on-delivery')}}'">Pay via Cash</button>
+                                <button class="paypaypal" onclick="window.location='{{route('payment-paypal')}}'">{{ trans('order_detail.paypal') }}</button>
+                                <button class="paycash" onclick="window.location='{{route('cash-on-delivery')}}'">{{ trans('order_detail.cash') }}</button>
                             </div>
 
                     </div>

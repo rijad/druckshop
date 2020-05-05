@@ -23,7 +23,6 @@ return [
     'faq' => 'FAQ',
     'contact' => 'Contact',
 
-
     'throttle' => 'from',
 
 ];

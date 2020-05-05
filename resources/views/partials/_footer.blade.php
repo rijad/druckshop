@@ -16,7 +16,7 @@
 					<img src="{{ asset('public/images/cards.png') }}" alt="" />
 				</div>
 				<div class="clearfix"></div>
-				<p class="footer-copyright m-0"> &copy; 2020 - Alle Rechte vorbehalten</p>
+				<p class="footer-copyright m-0"> &copy; 2020 - {{ trans('footer.copyright') }}</p>
 			</div>
 
 		</div><!-- row-ends -->

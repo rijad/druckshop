@@ -36,21 +36,21 @@
                                     <div class="rv-formCart">
                                       <div class="rv-casualBioFields">
                                         <div class="form-group">
-                                      <label for="text">No of Copies*:</label>
-                                      <input type="text" name={{"no_of_copies[".$key."]"}} id="no_of_copies" class="form-control" placeholder="enter here" value=<?php $array = json_decode($data->attribute);  echo $array->no_of_copies;  ?> >
+                                      <label for="text">{{ trans('cart.no_of_copies') }}*:</label>
+                                      <input type="text" name={{"no_of_copies[".$key."]"}} id="no_of_copies" class="form-control" placeholder="{{ trans('cart.enter_here') }}" value=<?php $array = json_decode($data->attribute);  echo $array->no_of_copies;  ?> >
                                       @if($errors->has('no_of_copies.'.$key))
                                       <div class="error">{{ $errors->first('no_of_copies.'.$key) }}</div>
                                       @endif 
                                     </div>
                                     <div class="form-group">
-                                      <label for="pwd">No of CDS:</label>
-                                      <input type="text" name={{"no_of_cds[".$key."]"}} id="no_of_cds" class="form-control" placeholder="enter here" value=<?php $array = json_decode($data->attribute);  echo $array->number_of_cds;  ?>>
+                                      <label for="pwd">{{ trans('cart.no_of_cds') }}:</label>
+                                      <input type="text" name={{"no_of_cds[".$key."]"}} id="no_of_cds" class="form-control" placeholder="{{ trans('cart.enter_here') }}" value=<?php $array = json_decode($data->attribute);  echo $array->number_of_cds;  ?>>
                                        @if($errors->has('no_of_cds.'.$key))
                                       <div class="error">{{ $errors->first('no_of_cds.'.$key) }}</div>
                                       @endif
                                     </div>
                                      <div class="form-group">
-                                      <label for="pwd">Shipping Address*:</label>
+                                      <label for="pwd">{{ trans('cart.ship_add') }}*:</label>
                                       <select class="form-control" name={{"shipping_address[".$key."]"}} id="address_data" > <option value ="-1">Select</option>
                                       @foreach($shipping_address_data as $keysss=>$shipping_address)<option value = "{{$shipping_address->first_name." ".$shipping_address->last_name.", Company Name: ".$shipping_address->company_name.", House No: ".$shipping_address->house_no.", City: ".$shipping_address->city.", State: ".$shipping_address->state.", Zip Code: ".$shipping_address->zip_code}}" @if($shipping_address->default == 1) selected @endif>{{$shipping_address->first_name." ".$shipping_address->last_name.", Company Name: ".$shipping_address->company_name.", House No: ".$shipping_address->house_no.", City: ".$shipping_address->city.", State: ".$shipping_address->state.", Zip Code: ".$shipping_address->zip_code}}</option> 
                                       @endforeach
@@ -61,7 +61,7 @@
                                     </div>
 
                                      <div class="form-group">
-                                      <label for="pwd">Billing Address*:</label>
+                                      <label for="pwd">{{ trans('cart.bill_add') }}*:</label>
                                       <select class="form-control" name={{"billing_address[".$key."]"}} id="address_data" > <option value ="-1">Select</option>
                                       @foreach($billing_address_data as $keyss=>$billing_address)<option value = "{{$billing_address->first_name." ".$billing_address->last_name.", Company Name: ".$billing_address->company_name.", House No: ".$billing_address->house_no.", City: ".$billing_address->city.", State: ".$billing_address->state.", Zip Code: ".$billing_address->zip_code}}" @if($billing_address->default == 1) selected @endif>{{$billing_address->first_name." ".$billing_address->last_name.", Company Name: ".$billing_address->company_name.", House No: ".$billing_address->house_no.", City: ".$billing_address->city.", State: ".$billing_address->state.", Zip Code: ".$billing_address->zip_code}}</option> 
                                       @endforeach
@@ -72,7 +72,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                      <label for="email">Shipping Company*:</label>
+                                      <label for="email">{{ trans('cart.ship_comp') }}*:</label>
                                       <select class="form-control" name={{"shipping_company[".$key."]"}} id="shipping_company" > <option value ="-1">Select</option>
                                       @foreach($shipping_company as $value)<option value = "{{$value->id}}">{{$value->delivery_service}}</option> @endforeach
                                       </select>
@@ -82,10 +82,10 @@
                                     </div>
                                       </div>
                                       <div class="rv-manageAddressFields">
-                                        <h4>Manage Address</h4>
+                                        <h4>{{ trans('cart.manage_add') }}</h4>
                                         <div class="rv-adressesfields">
                                          <div class="form-group">
-                                            <label for="email">Shipping Address*:</label>
+                                            <label for="email">{{ trans('cart.ship_add') }}*:</label>
                                              <p class="filled-shippingAdress">
                                               <!-- 1315 north avenue downtown cluster field sourceClint: 
                                               <span><i class="fa fa-edit"></i></span>
@@ -95,7 +95,7 @@
                                             
                                           </div>
                                            <div class="form-group">
-                                            <label for="email">Billing Address*:</label>
+                                            <label for="email">{{ trans('cart.bill_add') }}*:</label>
                                             <p class="filled-billingAdress">{{-- 1315 north avenue downtown cluster field sourceClint: 
                                               <span><i class="fa fa-edit"></i></span>
                                               <span><i class="fa fa-close"></i></span> --}}
@@ -120,7 +120,7 @@
                     <div class="w-35">
                         <div class="right_productdetail">
                           <div class="text-center quote_heading">
-                              <p>Summary</p>
+                              <p>{{ trans('cart.summary') }}</p>
                           </div>
                           <div class="summary">
                               <h4>Items <span class="price" style="color:black"><i class="fa fa-shopping-cart"></i> <b>{{count($product_data)}}</b></span></h4>
@@ -132,25 +132,25 @@
                           </div>
                         </div>
                         <div class="rv-DiscountCheckout">
-                          <h4>Discount Code</h4>
+                          <h4>{{ trans('cart.dist_code') }}</h4>
                           <div class="form-group">
-                            <label for="email">Apply your Dicount Code here:</label>
-                            <input type="text" name="code" id="code" class="form-control" placeholder="enter here">
+                            <label for="email">{{ trans('cart.dist_detail') }}:</label>
+                            <input type="text" name="code" id="code" class="form-control" placeholder="{{ trans('cart.enter_here') }}">
                             @if($errors->has('code'))
                             <div class="error">{{ $errors->first('code') }}</div>
                             @endif
                           </div> 
 
                           <div class="form-group">
-                            <label for="email">Enter your E-mail here:</label>
-                             <input type="text" name="email_id" id="email_id" class="form-control" placeholder="enter here">
+                            <label for="email">{{ trans('cart.email') }}:</label>
+                             <input type="text" name="email_id" id="email_id" class="form-control" placeholder="{{ trans('cart.enter_here') }}">
                               @if($errors->has('email_id'))
                               <div class="error">{{ $errors->first('email_id') }}</div>
                               @endif
                           </div>
 
                           <div class="text-right">
-                              <button type= "submit" class="continue_btn">Proceed to Checkout</button>
+                              <button type= "submit" class="continue_btn">{{ trans('cart.checkout') }}</button>
                           </div>
                         </div>
                     </div>
@@ -231,57 +231,57 @@
        <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">Add Shipping Address</h4>
+            <h4 class="modal-title">{{ trans('cart.add_ship_add') }}</h4>
           </div>
           <div class="modal-body">
              <div class="cart-form-shop w-100">
                <form method = "POST" action="javascript:addAddress('shipping');">
                       <div class="form-group">
-                          <label for="text">First Name*</label>
-                        <input type="text" class="form-control" placeholder="enter here" name="shipping_first_name" id="shipping_first_name">
+                          <label for="text">{{ trans('cart.first_name') }}*</label>
+                        <input type="text" class="form-control" placeholder="{{ trans('cart.enter_here') }}" name="shipping_first_name" id="shipping_first_name">
                           <p class="error" id="error_shipping_first_name"></p>
                       </div>
                       <div class="form-group">
-                          <label for="text">last Name*</label>
-                          <input type="text"  class="form-control" placeholder="enter here" name="shipping_last_name" id="shipping_last_name">
+                          <label for="text">{{ trans('cart.last_name') }}*</label>
+                          <input type="text"  class="form-control" placeholder="{{ trans('cart.enter_here') }}" name="shipping_last_name" id="shipping_last_name">
                             <p class="error" id="error_shipping_last_name"></p>
                       </div>
                       <div class="form-group w-100">
-                          <label for="text">Company</label>
-                          <input type="text"  class="form-control" placeholder="enter here" name = "shipping_company_name" id = "shipping_company_name">
+                          <label for="text">{{ trans('cart.company') }}</label>
+                          <input type="text"  class="form-control" placeholder="{{ trans('cart.enter_here') }}" name = "shipping_company_name" id = "shipping_company_name">
                       </div>
                       <div class="form-group">
-                          <label for="text">Street*</label>
-                          <input type="text"  class="form-control" placeholder="enter here" name = "shipping_street" id = "shipping_street">
+                          <label for="text">{{ trans('cart.street') }}*</label>
+                          <input type="text"  class="form-control" placeholder="{{ trans('cart.enter_here') }}" name = "shipping_street" id = "shipping_street">
                             <p class="error" id="error_shipping_street"></p>
                       </div>
                        <div class="form-group">
-                           <label for="text">House Number*</label>
-                           <input type="text"  class="form-control" placeholder="enter here" name = "shipping_house_no" id = "shipping_house_no">
+                           <label for="text">{{ trans('cart.house_no') }}*</label>
+                           <input type="text"  class="form-control" placeholder="{{ trans('cart.enter_here') }}" name = "shipping_house_no" id = "shipping_house_no">
                            <p class="error" id="error_shipping_house_no"></p>
                       </div>
                       <div class="form-group">
-                          <label for="text">Zip Code*</label>
-                          <input type="text"  class="form-control" placeholder="enter here" name="shipping_zip_code" id="shipping_zip_code">
+                          <label for="text">{{ trans('cart.zip_code') }}*</label>
+                          <input type="text"  class="form-control" placeholder="{{ trans('cart.enter_here') }}" name="shipping_zip_code" id="shipping_zip_code">
                         <p class="error" id="error_shipping_zip_code"></p>
                       </div>
                       <div class="form-group">
-                          <label for="text">City*</label>
-                          <input type="text"  class="form-control" placeholder="enter here" name="shipping_city" id="shipping_city">
+                          <label for="text">{{ trans('cart.city') }}*</label>
+                          <input type="text"  class="form-control" placeholder="{{ trans('cart.enter_here') }}" name="shipping_city" id="shipping_city">
                            <p class="error" id="error_shipping_city"></p>
                       </div>
                       <div class="form-group">
-                          <label for="text">State*</label>
-                          <input type="text"  class="form-control" placeholder="enter here" name="shipping_state" id="shipping_state">
+                          <label for="text">{{ trans('cart.state') }}*</label>
+                          <input type="text"  class="form-control" placeholder="{{ trans('cart.enter_here') }}" name="shipping_state" id="shipping_state">
                           <p class="error" id="error_shipping_state"></p>
                       </div>
                        <div class="form-group">
-                          <label for="text">Addition to Adrress</label>
-                          <input type="text"  class="form-control" placeholder="enter here" name = "shipping_addition" id = "shipping_addition">
+                          <label for="text">{{ trans('cart.add_to_address') }}</label>
+                          <input type="text"  class="form-control" placeholder="{{ trans('cart.enter_here') }}" name = "shipping_addition" id = "shipping_addition">
                       </div>
 
                       <div class="text-right">
-                          <button type= "submit" class="continue_btn">Add</button>
+                          <button type= "submit" class="continue_btn">{{ trans('cart.add') }}</button>
                       </div>
                </form>
             </div>   
@@ -297,60 +297,60 @@
        <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">Add Billing Address</h4>
+            <h4 class="modal-title">{{ trans('cart.add_bill_add') }}</h4>
           </div>
           <div class="modal-body">
              <div class="cart-form-shop w-100">
                <form method = "POST" action="javascript:addAddress('billing');">
                       <div class="form-group"> 
-                          <label for="text">First Name*</label>
-                        <input type="text" class="form-control" placeholder="enter here" name="billing_first_name" id="billing_first_name">
+                          <label for="text">{{ trans('cart.first_name') }}*</label>
+                        <input type="text" class="form-control" placeholder="{{ trans('cart.enter_here') }}" name="billing_first_name" id="billing_first_name">
                         <p class="error" id="error_billing_first_name"></p>
                       </div>
                       <div class="form-group">
-                          <label for="text">last Name*</label>
-                          <input type="text"  class="form-control" placeholder="enter here" name="billing_last_name" id="billing_last_name">
+                          <label for="text">{{ trans('cart.last_name') }}*</label>
+                          <input type="text"  class="form-control" placeholder="{{ trans('cart.enter_here') }}" name="billing_last_name" id="billing_last_name">
                            <p class="error" id="error_billing_last_name"></p>
                       </div>
                       <div class="form-group w-100">
-                          <label for="text">Company</label>
-                          <input type="text"  class="form-control" placeholder="enter here" name = "billing_company_name" id = "billing_company_name">
+                          <label for="text">{{ trans('cart.company') }}</label>
+                          <input type="text"  class="form-control" placeholder="{{ trans('cart.enter_here') }}" name = "billing_company_name" id = "billing_company_name">
                            <p class="error" id="error_billing_company_name"></p>
                       </div>
                       <div class="form-group">
-                          <label for="text">Street*</label>
-                          <input type="text"  class="form-control" placeholder="enter here" name = "billing_street"  id = "billing_street">
+                          <label for="text">{{ trans('cart.street') }}*</label>
+                          <input type="text"  class="form-control" placeholder="{{ trans('cart.enter_here') }}" name = "billing_street"  id = "billing_street">
                           <p class="error" id="error_billing_street"></p>
                       </div>
                        <div class="form-group">
-                           <label for="text">House Number*</label>
-                           <input type="text"  class="form-control" placeholder="enter here" name = "billing_house_no" id = "billing_house_no">
+                           <label for="text">{{ trans('cart.house_no') }}*</label>
+                           <input type="text"  class="form-control" placeholder="{{ trans('cart.enter_here') }}" name = "billing_house_no" id = "billing_house_no">
                            <p class="error" id="error_billing_house_no"></p>
                       </div>
                      
                       <div class="form-group">
-                          <label for="text">Zip Code*</label>
+                          <label for="text">{{ trans('cart.zip_code') }}*</label>
                            <input type="text"  class="form-control" placeholder="ename="billing_zip_code" id="billing_zip_code">
                         <p class="error" id="error_billing_zip_code"></p>
                       </div>
                       <div class="form-group">
-                          <label for="text">City*</label>
-                          <input type="text"  class="form-control" placeholder="enter here" name="billing_city" id="billing_city">
+                          <label for="text">{{ trans('cart.city') }}*</label>
+                          <input type="text"  class="form-control" placeholder="{{ trans('cart.enter_here') }}" name="billing_city" id="billing_city">
                           <p class="error" id="error_billing_city"></p>
                       </div>
                       <div class="form-group">
-                          <label for="text">State*</label>
-                          <input type="text"  class="form-control" placeholder="enter here" name="billing_state" id="billing_state">
+                          <label for="text">{{ trans('cart.state') }}*</label>
+                          <input type="text"  class="form-control" placeholder="{{ trans('cart.enter_here') }}" name="billing_state" id="billing_state">
                           <p class="error" id="error_billing_state"></p>
                       </div>
                        <div class="form-group">
-                          <label for="text">Addition to Adrress</label>
-                          <input type="text"  class="form-control" placeholder="enter here" name = "billing_addition" id = "billing_addition">
+                          <label for="text">{{ trans('cart.add_to_address') }}</label>
+                          <input type="text"  class="form-control" placeholder="{{ trans('cart.enter_here') }}" name = "billing_addition" id = "billing_addition">
                            <p class="error" id="error_billing_addition"></p>
                       </div>
 
                       <div class="text-right">
-                          <button type= "submit" class="continue_btn">Add</button>
+                          <button type= "submit" class="continue_btn">{{ trans('cart.add') }}</button>
                       </div>
                </form>
             </div>   
