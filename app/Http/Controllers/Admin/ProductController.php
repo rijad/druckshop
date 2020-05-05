@@ -161,7 +161,7 @@ class ProductController extends Controller
                     $update = ProductImage::create(['product_id'=>$insert->id, 'image_path' => @$inputImage['imagename'] ]);
                 }
             }
-
+ 
             //insert page format
 
             foreach ($request->page_format as $key_pf => $value_pf) {

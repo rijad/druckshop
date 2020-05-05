@@ -1,5 +1,5 @@
 <div class="content-wrapper">
-			<div class="container">
+			<div class="container"> 
 
 				<div class="checkoutStepper col-full text-left">
 
@@ -16,7 +16,7 @@
 						</div> 
     
 						<div class="checkoutBlock col-half text-left">
-							{{-- <h1>Register:</h1> --}}
+							{{-- <h1>Register:</h1> --}} 
 
 							<!-- One "tab" for each step in the form: -->
 							<div class="tab" id="tab-fields">
@@ -28,7 +28,7 @@
 										@if($listing->id != 8 && $listing->id != 5)
 										<option value="{{$listing->id}}" @if($listing->id == request()->id) selected @endif>{{$listing->title_english}}</option>  
 										@endif
-										@endforeach
+										@endforeach 
 									</select></p><p class="error" id="error_binding"></p>
 								</div>
 								<div class="displayBlock" id="div-no-of-copies">
@@ -398,8 +398,8 @@
 
 																</div>
 																<div class="modal-footer">
-																	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-																	<button type="button" class="btn btn-primary" data-dismiss="modal">Save changes</button>
+																	<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+																	<button type="button" class="btn btn-primary" data-dismiss="modal" onclick = "displayImgSelect();">Save changes</button>
 																</div>
 															</div><!-- /.modal-content -->
 														</div><!-- /.modal-dialog -->
@@ -482,8 +482,8 @@
 
 																</div>
 																<div class="modal-footer">
-																	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-																	<button type="button" class="btn btn-primary" data-dismiss="modal">Save changes</button>
+																	<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+																	<button type="button" class="btn btn-primary" data-dismiss="modal" onclick = "displayImgSelectCd();">Save changes</button>
 																</div>
 															</div><!-- /.modal-content -->
 														</div><!-- /.modal-dialog -->

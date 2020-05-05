@@ -101,7 +101,7 @@ class DeliveryController extends Controller
                     
                 }
             }
-            
+             
         }
         return redirect()->back()->with('status' , 'Created');
     }
@@ -240,3 +240,4 @@ class DeliveryController extends Controller
         echo json_encode('true');
     }
 }
+ 

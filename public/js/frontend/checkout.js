@@ -418,11 +418,11 @@ function displayPopUp(template = ""){
 		 $('#modal-logo').modal('show');
 		 //if($('#embossing'.find(":selected").val() != "-1"){
 		 	if(embossing == "Edition"){
-		 		$("#modal-body").append("<p>Choose layout for standard cover with logo.</p><br><img id='mit_1' src='"+base_url+"/public/templates/Binding_template/Edition-mit-Logo-1.jpg' onclick = displayImage('"+base_url+"/public/templates/Binding_template/Edition-mit-Logo-1.jpg','Edition-mit-Logo-1.jpg',this);> <img id='mit_2' src='"+base_url+"/public/templates/Binding_template/Edition-mit-Logo-2.jpg' onclick = displayImage('"+base_url+"/public/templates/Binding_templates/Edition-mit-Logo-2.jpg','Edition-mit-Logo-2.jpg',this);> <img id='mit_3' src='"+base_url+"/public/templates/Binding_template/Edition-mit-Logo-3.jpg' onclick = displayImage('"+base_url+"/public/templates/Binding_template/Edition-mit-Logo-3.jpg','Edition-mit-Logo-2.jpg',this);> ");
+		 		$("#modal-body").append("<p>Choose layout for standard cover with logo.</p><br><img id='Edition-mit-Logo-2' src='"+base_url+"/public/templates/Binding_template/Edition-mit-Logo-1.jpg' onclick = displayImage('"+base_url+"/public/templates/Binding_template/Edition-mit-Logo-1.jpg','Edition-mit-Logo-1.jpg',this);> <img id='Edition-mit-Logo-2' src='"+base_url+"/public/templates/Binding_template/Edition-mit-Logo-2.jpg' onclick = displayImage('"+base_url+"/public/templates/Binding_templates/Edition-mit-Logo-2.jpg','Edition-mit-Logo-2.jpg',this);> <img id='Edition-mit-Logo-3' src='"+base_url+"/public/templates/Binding_template/Edition-mit-Logo-3.jpg' onclick = displayImage('"+base_url+"/public/templates/Binding_template/Edition-mit-Logo-3.jpg','Edition-mit-Logo-3.jpg',this);> ");
 			 }else if(embossing == "Classic"){
-			 	$("#modal-body").append("<p>Choose layout for standard cover with logo.</p><br><img id='classic_1' src='"+base_url+"/public/templates/Binding_template/Klassik-1.jpg' onclick = displayImage('"+base_url+"/public/templates/Binding_template/Klassik-1.jpg','Klassik-1.jpg',this);> <img id='classic_2' src='"+base_url+"/public/templates/Binding_template/Klassik-2.jpg' onclick = displayImage('"+base_url+"/public/templates/Binding_template/Klassik-2.jpg','Klassik-2.jpg',this);> <img id='classic_3' src='"+base_url+"/public/templates/Binding_template/Klassik-3.jpg' onclick = displayImage('"+base_url+"/public/templates/Binding_template/Klassik-3.jpg','Klassik-3.jpg',this);> ");
+			 	$("#modal-body").append("<p>Choose layout for standard cover with logo.</p><br><img id='Klassik-1' src='"+base_url+"/public/templates/Binding_template/Klassik-1.jpg' onclick = displayImage('"+base_url+"/public/templates/Binding_template/Klassik-1.jpg','Klassik-1.jpg',this);> <img id='Klassik-2' src='"+base_url+"/public/templates/Binding_template/Klassik-2.jpg' onclick = displayImage('"+base_url+"/public/templates/Binding_template/Klassik-2.jpg','Klassik-2.jpg',this);> <img id='Klassik-3' src='"+base_url+"/public/templates/Binding_template/Klassik-3.jpg' onclick = displayImage('"+base_url+"/public/templates/Binding_template/Klassik-3.jpg','Klassik-3.jpg',this);> ");
 			 }else{
-			 	$("#modal-body").append("<p>Choose layout for standard cover without logo.</p><br><img id='ohne_1' src='"+base_url+"/public/templates/Binding_template/Edition-ohne-Logo-1.jpg' onclick = displayImage('"+base_url+"/public/templates/Binding_template/Edition-ohne-Logo-1.jpg','Edition-ohne-Logo-1.jpg',this);> <img id='ohne_2' src='"+base_url+"/public/templates/Binding_template/Edition-ohne-Logo-2.jpg' onclick = displayImage('"+base_url+"/public/templates/Binding_template/Edition-ohne-Logo-2.jpg','Edition-ohne-Logo-2.jpg',this);> <img id='ohne_3' src='"+base_url+"/public/templates/Binding_template/Edition-ohne-Logo-3.jpg' onclick = displayImage('"+base_url+"/public/templates/Binding_template/Edition-ohne-Logo-3.jpg','Edition-ohne-Logo-3.jpg',this);> ");
+			 	$("#modal-body").append("<p>Choose layout for standard cover without logo.</p><br><img id='Edition-ohne-Logo-1' src='"+base_url+"/public/templates/Binding_template/Edition-ohne-Logo-1.jpg' onclick = displayImage('"+base_url+"/public/templates/Binding_template/Edition-ohne-Logo-1.jpg','Edition-ohne-Logo-1.jpg',this);> <img id='Edition-mit-Logo-2' src='"+base_url+"/public/templates/Binding_template/Edition-mit-Logo-2.jpg' onclick = displayImage('"+base_url+"/public/templates/Binding_template/Edition-mit-Logo-2.jpg','Edition-mit-Logo-2.jpg',this);> <img id='Edition-ohne-Logo-3' src='"+base_url+"/public/templates/Binding_template/Edition-ohne-Logo-3.jpg' onclick = displayImage('"+base_url+"/public/templates/Binding_template/Edition-ohne-Logo-3.jpg','Edition-ohne-Logo-3.jpg',this);> ");
 			 }
 		// }
 		 
@@ -437,11 +437,11 @@ function displayPopUp(template = ""){
 		 $('#modal-logo').modal('show');
 		// if($('#embossing'.find(":selected").val() != "-1"){
 		 	if(embossing == "Edition"){
-		 		$("#modal-body").append("<p>Choose layout for standard cover without logo.</p><br><img id='ohne_1' src='"+base_url+"/public/templates/Binding_template/Edition-ohne-Logo-1.jpg' onclick = displayImage('"+base_url+"/public/templates/Binding_template/Edition-ohne-Logo-1.jpg','Edition-ohne-Logo-1.jpg',this);> <img id='ohne_2' src='"+base_url+"/public/templates/Binding_template/Edition-mit-Logo-2.jpg' onclick = displayImage('"+base_url+"/public/templates/Binding_template/Edition-mit-Logo-2.jpg','Edition-mit-Logo-2.jpg',this);> <img id='ohne_3' src='"+base_url+"/public/templates/Binding_template/Edition-ohne-Logo-3.jpg' onclick = displayImage('"+base_url+"/public/templates/Binding_template/Edition-ohne-Logo-3.jpg','Edition-ohne-Logo-3.jpg',this);> ");
+		 		$("#modal-body").append("<p>Choose layout for standard cover without logo.</p><br><img id='Edition-ohne-Logo-1' src='"+base_url+"/public/templates/Binding_template/Edition-ohne-Logo-1.jpg' onclick = displayImage('"+base_url+"/public/templates/Binding_template/Edition-ohne-Logo-1.jpg','Edition-ohne-Logo-1.jpg',this);> <img id='Edition-mit-Logo-2' src='"+base_url+"/public/templates/Binding_template/Edition-mit-Logo-2.jpg' onclick = displayImage('"+base_url+"/public/templates/Binding_template/Edition-mit-Logo-2.jpg','Edition-mit-Logo-2.jpg',this);> <img id='Edition-ohne-Logo-3' src='"+base_url+"/public/templates/Binding_template/Edition-ohne-Logo-3.jpg' onclick = displayImage('"+base_url+"/public/templates/Binding_template/Edition-ohne-Logo-3.jpg','Edition-ohne-Logo-3.jpg',this);> ");
 			 }else if(embossing == "Classic"){
-			 	$("#modal-body").append("<p>Choose layout for standard cover with logo.</p><br><img id='classic_1' src='"+base_url+"/public/templates/Binding_template/Klassik-1.jpg' onclick = displayImage('"+base_url+"/public/templates/Binding_template/Klassik-1.jpg','Klassik-1.jpg',this);> <img id='classic_2' src='"+base_url+"/public/templates/Binding_template/Klassik-2.jpg' onclick = displayImage('"+base_url+"/public/templates/Binding_template/Klassik-2.jpg','Klassik-2.jpg',this);> <img id='classic_3' src='"+base_url+"/public/templates/Binding_template/Klassik-3.jpg' onclick = displayImage('"+base_url+"/public/templates/Binding_template/Klassik-3.jpg','Klassik-3.jpg',this);> ");
+			 	$("#modal-body").append("<p>Choose layout for standard cover with logo.</p><br><img id='Klassik-1' src='"+base_url+"/public/templates/Binding_template/Klassik-1.jpg' onclick = displayImage('"+base_url+"/public/templates/Binding_template/Klassik-1.jpg','Klassik-1.jpg',this);> <img id='Klassik-2' src='"+base_url+"/public/templates/Binding_template/Klassik-2.jpg' onclick = displayImage('"+base_url+"/public/templates/Binding_template/Klassik-2.jpg','Klassik-2.jpg',this);> <img id='Klassik-3' src='"+base_url+"/public/templates/Binding_template/Klassik-3.jpg' onclick = displayImage('"+base_url+"/public/templates/Binding_template/Klassik-3.jpg','Klassik-3.jpg',this);> ");
 			 }else{
-			 	$("#modal-body").append("<p>Choose layout for standard cover without logo.</p><br><img id='ohne_1' src='"+base_url+"/public/templates/Binding_template/Edition-ohne-Logo-1.jpg' onclick = displayImage('"+base_url+"/public/templates/Binding_template/Edition-ohne-Logo-1.jpg','Edition-ohne-Logo-1.jpg',this);> <img id='ohne_2' src='"+base_url+"/public/templates/Binding_template/Edition-ohne-Logo-2.jpg' onclick = displayImage('"+base_url+"/public/templates/Binding_template/Edition-ohne-Logo-2.jpg','Edition-ohne-Logo-2.jpg',this);> <img id='ohne_3' src='"+base_url+"/public/templates/Binding_template/Edition-ohne-Logo-3.jpg' onclick = displayImage('"+base_url+"/public/templates/Binding_template/Edition-ohne-Logo-3.jpg','Edition-ohne-Logo-3.jpg',this);> ");
+			 	$("#modal-body").append("<p>Choose layout for standard cover without logo.</p><br><img id='Edition-ohne-Logo-1' src='"+base_url+"/public/templates/Binding_template/Edition-ohne-Logo-1.jpg' onclick = displayImage('"+base_url+"/public/templates/Binding_template/Edition-ohne-Logo-1.jpg','Edition-ohne-Logo-1.jpg',this);> <img id='Edition-mit-Logo-2' src='"+base_url+"/public/templates/Binding_template/Edition-mit-Logo-2.jpg' onclick = displayImage('"+base_url+"/public/templates/Binding_template/Edition-mit-Logo-2.jpg','Edition-mit-Logo-2.jpg',this);> <img id='Edition-ohne-Logo-3' src='"+base_url+"/public/templates/Binding_template/Edition-ohne-Logo-3.jpg' onclick = displayImage('"+base_url+"/public/templates/Binding_template/Edition-ohne-Logo-3.jpg','Edition-ohne-Logo-3.jpg',this);> ");
 			 }
 		// }
 		document.getElementById('download_stylesheet').className = "displayNone";
@@ -487,7 +487,7 @@ function displayPopUpCD(template = ""){
 	}else if(template == "Standardvorlage ohne Logo"){
 		 $('#modal-cd').modal('show');
 		 $("#modal-body-cd").empty();
-		$("#modal-body-cd").append("<p>Choose layout for standard cover without logo.</p><br><img id='CD-ohne-Logo-2' src='"+base_url+"/public/templates/CD/CD-ohne-Logo-1.jpg' onclick = javascript:displayImageCd('"+base_url+"/public/templates/CD/CD-ohne-Logo-1.jpg','CD-ohne-Logo-1',this);> <img id='CD-ohne-Logo-2' src='"+base_url+"/public/templates/CD/CD-ohne-Logo-2.jpg' onclick = displayImageCd('"+base_url+"/public/images/CD-ohne-Logo-2.jpg',CD-ohne-Logo-2,this);>");
+		$("#modal-body-cd").append("<p>Choose layout for standard cover without logo.</p><br><img id='CD-ohne-Logo-1' src='"+base_url+"/public/templates/CD/CD-ohne-Logo-1.jpg' onclick = javascript:displayImageCd('"+base_url+"/public/templates/CD/CD-ohne-Logo-1.jpg','CD-ohne-Logo-1',this);> <img id='CD-ohne-Logo-2' src='"+base_url+"/public/templates/CD/CD-ohne-Logo-2.jpg' onclick = displayImageCd('"+base_url+"/public/images/CD-ohne-Logo-2.jpg',CD-ohne-Logo-2,this);>");
 		document.getElementById('div-fonts-cd').className = "displayBlock";
 		document.getElementById('upload_cd').className = "displayBlock";
 	}else if(template == "Eigene Vorlage"){
@@ -513,12 +513,50 @@ function displayPopUpCD(template = ""){
 
 function displayImage(path,name,elem){
 
-	$("#div-display-image").empty();
+	// $("#div-display-image").empty();
 	$("#modal-body").find("img").css("border", "0");
 	elem.style.border = "1px solid blue";
-	document.getElementById('div-display-image').className = "displayBlock";
-	$("#div-display-image").append("<img src='"+path+"'><input type='hidden' name='embossment-template-name' id ='embossment-template-name' value=''> ");
-	document.getElementById('embossment-template-name').value = name;
+	// document.getElementById('div-display-image').className = "displayBlock";
+	// $("#div-display-image").append("<img src='"+path+"'><input type='hidden' name='embossment-template-name' id ='embossment-template-name' value=''> ");
+	// document.getElementById('embossment-template-name').value = name;
+}
+
+function displayImgSelect(){
+
+	elem = $("#modal-body").find("img"); 
+	for(var i = 0; i<elem.length ; i++){
+
+		if(elem[i].style.border == "1px solid blue"){
+
+			path = base_url+"/public/templates/Binding_template/"+elem[i].id+".jpg";
+			$("#div-display-image").empty();
+			document.getElementById('div-display-image').className = "displayBlock";
+			$("#div-display-image").append("<img src='"+path+"'><input type='hidden' name='embossment-template-name' id ='embossment-template-name' value=''> ");
+			document.getElementById('embossment-template-name').value = name;
+
+		}
+
+	} 
+ 
+}
+
+function displayImgSelectCd(){
+
+	elem = $("#modal-body-cd").find("img");
+	for(var i = 0; i<elem.length ; i++){
+
+		if(elem[i].style.border == "1px solid blue"){
+
+			path = base_url+"/public/templates/CD/"+elem[i].id+".jpg";
+			$("#div-display-image-cd").empty();
+			document.getElementById('div-display-image-cd').className = "displayBlock";
+			$("#div-display-image-cd").append("<img src='"+path+"'><input type='hidden' id='cd-template-name' name = 'cd-template-name' value = ''> ");
+			document.getElementById('cd-template-name').value = name;
+
+		}
+
+	}
+
 }
 
 function displayImageCd(path,name,elem){
@@ -526,9 +564,9 @@ function displayImageCd(path,name,elem){
 	$("#div-display-image-cd").empty();
 	$("#modal-body-cd").find("img").css("border", "0");
 	elem.style.border = "1px solid blue";
-	document.getElementById('div-display-image-cd').className = "displayBlock";
-	$("#div-display-image-cd").append("<img src='"+path+"'><input type='hidden' id='cd-template-name' name = 'cd-template-name' value = ''> ");
-	document.getElementById('cd-template-name').value = name;
+	// document.getElementById('div-display-image-cd').className = "displayBlock";
+	// $("#div-display-image-cd").append("<img src='"+path+"'><input type='hidden' id='cd-template-name' name = 'cd-template-name' value = ''> ");
+	// document.getElementById('cd-template-name').value = name;
 }
 
 function displayCDFields(value = ""){ 
@@ -1117,7 +1155,7 @@ function displayPrice(binding = "", no_ofsheets = "", page_options = "", embossi
 					//no. of cd
 					if($("#numbers-of-cds").val() == ""){$("#numbers-of-cds").addBack().addClass('invalid'); $('#error_number_of_cds').html('Field is required'); valid = false; return false; }
 					// upload
-					if($("#selectfile_cd").val() == ""){ alert($("#selectfile_cd").val()); $("#upload_cd").addBack().addClass('invalid'); $('#error_number_of_cds').html('error_selectfile_cd'); valid = false; return false;}else{valid = true;return true;}	
+					if($("#selectfile_cd").val() == ""){ alert($("#selectfile_cd").val()); $("#upload_cd").addBack().addClass('invalid'); $('#error_number_of_cds').html('Field is required'); valid = false; return false;}else{valid = true;return true;}	
 										valid = true; return true;
 					if($("#cd-bag").find(":selected").val() == "-1")
 					{
@@ -1382,63 +1420,6 @@ function incrementQuantity(id = "",count = ""){
 
 } 
 
- //  function checkPageRange(id1 = '', id2 = '' ,value_id = ''){  
- //     var count_of_pages = 0; var range = 0; var val = [];
- //     document.getElementById('error_range').innerHTML = ""; 
- //     var value = document.getElementById(value_id).value;
-
- //     if(document.getElementById(id1).value == "" || document.getElementById(id1).value == null){
- //     }else{
- //     	count_of_pages =parseInt(document.getElementById(id2).innerHTML.split(":")[1]);
- //     }
-
- //     if(value.includes("-")){   // range seperation using '-'
-	//      	val = value.split("-");  
-	//      	if(parseInt(val[0])<count_of_pages && parseInt(val[1])<=count_of_pages){
-	//      		range = Math.abs(parseInt(val[0]) - parseInt(val[1])) + 1; 
-	//      	}else{
-	//      		range = -1; 
-	//      	}
-     	
- //     }else if(value.includes(",")){   // range seperation using ','
-	//      	val = value.split(",");  
-	//      	var status = 1;
-	//      	for(var i=0; i<val.length; i++){
-	//      		if(val[i] > count_of_pages){
-	//      			status = 0;
-	//      		}
-	//      	}
-
-	//      	if(status == 0){
-	//      		range = -1;
-	//      	}else{
-	//      		range = val.length;
-	//      	}
-     	   
- //     }else if(value.match(/^\d+$/)){  // single value case
-	//      	//range = parseInt(value);
-	//      	if(parseInt(value)<=count_of_pages){
-	//      	    range = 1;  
-	//      	}else{
-	//      		range = -1; 
-	//      	}
- //     }else{
- //     	    range = -1; 
- //     }
-
- //     if(range > count_of_pages){ 
- //     		document.getElementById('error_range').innerHTML = "Please check the range for number of pages";
- //     		return false;
- //     }else if(range <= 0){   
- //     		document.getElementById('error_range').innerHTML = "Invalid Expression";
- //     		return false;
- //     }else{  
- //     	document.getElementById('error_range').innerHTML = "No of Colored Pages:"+range;
- //     	return true;
- //     }
-
- // }
-
 
 function checkPageRange(id1 = '', id2 = '' ,value_id = ''){  
 
@@ -1508,7 +1489,7 @@ function checkPageRange(id1 = '', id2 = '' ,value_id = ''){
 
  if(range >= 0){  
  	    range = 0;
-     	range = range_s + range_c +range_h;  console.log("Range1: "+range);
+     	range = range_s + range_c +range_h;  
      }
 
 console.log("Range: "+range);

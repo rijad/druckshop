@@ -14,7 +14,7 @@ use App\Discount;
 use App\KindList;
 use App\LettesOfSpine; 
 use App\PageFormat;
-use App\PaperWeight;  
+use App\PaperWeight;   
 use App\ArtList;
 use App\Product;
 use App\ProductPageFormat; 
@@ -40,6 +40,7 @@ use App\User;
 use \Exception;
 use Auth;
 use Session; 
+use App\Rules\CheckCodeRule;
 
 
 use Mail;
@@ -310,7 +311,7 @@ class CheckoutController extends Controller
 		//print_r($request->input());
 
 		$binding_price = 0; $embosing_spine = 0; $embosing_cover = 0; $printout = 0; $printout_basic = 0; 
-		$printout_surcharge = 0; $cd_dvd = 0; $delivery_cost = 0; $colored_price_A2 = 0; $b_w_price_A2 = 0; $colored_price_A3 = 0; $b_w_price_A3 = 0; $colored_price_A4 = 0; $b_w_price_A4 = 0; $Price_surcharge_A2 = 0; $Price_surcharge_A3 = 0; $Price_surcharge_A4 = 0; $data_check_price =0; $no_of_copies=1 ;
+		$printout_surcharge = 0; $cd_dvd = 0; $delivery_cost = 0; $colored_price_A2 = 0; $b_w_price_A2 = 0; $colored_price_A3 = 0; $b_w_price_A3 = 0; $colored_price_A4 = 0; $b_w_price_A4 = 0; $Price_surcharge_A2 = 0; $Price_surcharge_A3 = 0; $Price_surcharge_A4 = 0; $data_check_price =0; $no_of_copies=0;
 
 		// save values in session
 		if($request->input('no_of_copies') != ""){
@@ -660,7 +661,13 @@ class CheckoutController extends Controller
 
 			  }
 
-			$total = (($no_of_copies) * ($binding_price + $printout + $data_check_price)) + $cd_dvd;
+			  if(($binding_price + $printout + $data_check_price) > 0){
+			  	$total = (($no_of_copies) * ($binding_price + $printout + $data_check_price)) + $cd_dvd;
+			  }else{
+			  	$total = 0;
+			  }
+
+			
 
 			$data = compact('binding_price','printout','data_check_price','cd_dvd','total');
 			$response = returnResponse($data,'200','Success');
@@ -771,7 +778,7 @@ public function cart(){
 		}	
 
 		try{
-			$shipping_company = DeliveryService::all();
+			$shipping_company = DeliveryService::where(['status' => 1])->get();
 		}catch(Exception $e){
 			$shipping_company ="";
 		}
@@ -809,7 +816,7 @@ if (Auth::check())
 		'shipping_address.*' => 'required|not_in:-1',             
 		'billing_address.*' => 'required|not_in:-1',
 		'email_id' => 'required|email',
-		'code' => 'nullable|exists:ps_discount',
+		'code' => ['nullable','exists:ps_discount',new CheckCodeRule('code')],
 	], [
 		'no_of_copies.*.required' => 'No of Copies are required',
 		'shipping_company.*.not_in' => 'Shipping Company is required',
@@ -817,6 +824,7 @@ if (Auth::check())
 		'billing_address.*.not_in' => 'Billing Address is required',
 	]); 
 
+//dd($validator);
 
 	// Check if Guest already exists (using email id)
 // get already existing or new user_id
