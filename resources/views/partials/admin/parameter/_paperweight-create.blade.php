@@ -20,10 +20,10 @@
                     <input class="form-control" id="name_in_dh" name="name_in_dh" type="text" placeholder="Name" required />
                 </div>
 
-                <div class="form-group">
+                <!-- <div class="form-group">
                     <label class="small mb-1" for="name">Weight per sheet</label>
                     <input class="form-control" id="weight_per_sheet" name="weight_per_sheet" type="text" value="0" placeholder="Weight per sheet" required />
-                </div>
+                </div> -->
 
                 <div class="form-group">
                     <label class="small mb-1" for="name">Minimum number of sheets for spine</label>
@@ -59,7 +59,7 @@
                         <tr class="form-inline">
                             <td class="rv-headLtchild1"><input id="from" type="hidden" name="sheet_start[]" value="191" />191</td>
                             <td class="rv-headLtchild"><input class="sheet_end_input" id="from" type="hidden" name="sheet_end[]" value="250" />250</td>
-                            <td class="rv-headRtchild"><input class="form-control latters_input" id="latters" type="number" name="latters[]" value="160" required /></td>
+                            <td class="rv-headRtchild"><input class="form-control latters_input" id="latters" type="number" name="latters[]" value="205" required /></td>
                         </tr>
 
                         <tr class="form-inline">
@@ -93,7 +93,7 @@
                 </div>
 
                 <div class="form-inline">
-                    <a href="{{ URL::previous() }}" class="btn btn-secondary btn-user btn-block col-md-3">Back</a>
+                    <a href="{{ url('/admin/details/PaperWeight/6') }}" class="btn btn-secondary btn-user btn-block col-md-3">Back</a>
                     <input type="submit" class="btn btn-primary btn-user btn-block col-md-3" value="Add">
                 </div>
 

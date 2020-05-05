@@ -14,7 +14,7 @@ class LatestController extends Controller
      */
     public function index()
     {
-        $latest = Latest::where('status', '1')->get();
+        $latest = Latest::where('status', '1')->orderBy('created_at','DESC')->get();
         return view('/pages/front-end/latest',compact('latest'));
     }
  

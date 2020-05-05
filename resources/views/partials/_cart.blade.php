@@ -9,7 +9,7 @@
                         <div class="left_productdetail">   
                             <div class="text-center quote_heading">
                                 <p>Product list</p>
-                            </div>
+                            </div> 
  
                             <div class="product">
  
@@ -74,7 +74,7 @@
                                     <div class="form-group">
                                       <label for="email">{{ trans('cart.ship_comp') }}*:</label>
                                       <select class="form-control" name={{"shipping_company[".$key."]"}} id="shipping_company" > <option value ="-1">Select</option>
-                                      @foreach($shipping_company as $value)<option value = "{{$value->delivery_service}}">{{$value->delivery_service}}</option> @endforeach
+                                      @foreach($shipping_company as $value)<option value = "{{$value->id}}">{{$value->delivery_service}}</option> @endforeach
                                       </select>
                                       @if($errors->has('shipping_company.'.$key))
                                       <div class="error">{{ $errors->first('shipping_company.'.$key) }}</div>

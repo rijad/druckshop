@@ -28,9 +28,12 @@
                             </div>
                              <div class="text-right pr-4 pl-4">
                                 <p class="thisproduct_head">{{ trans('order_detail.total') }}: {{$total}} €</p>
-                                <p class="thisproduct_head">{{ trans('order_detail.discount') }}:({{$discount_amt}}) €</p>
+                                @foreach($delivery_cost as $key=>$value)
+                                <p class="thisproduct_head">Delivery Service Charges {{$data->product}} {{$key + 1}}: {{$value}} €</p>
+                                @endforeach
+                                <p class="thisproduct_head">{{ trans('order_detail.discount') }}: {{$discount_amt}} €</p>
                                 <hr>
-                                <p class="thisproduct_head">{{ trans('order_detail.amount') }}: {{$net_amt}} €</p>
+                                <p class="thisproduct_head">{{ trans('order_detail.amount') }}: {{$net_amt_after_delivery_service}} €</p>
                              </div>
                             <div class="text-right">
                                 <button class="paypaypal" onclick="window.location='{{route('payment-paypal')}}'">{{ trans('order_detail.paypal') }}</button>

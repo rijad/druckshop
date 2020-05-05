@@ -22,7 +22,7 @@ function getProductAttributes(binding){
 	var product_attributes = "";
 
 	$.ajax({
-		url: '/druckshop/get-relations', 
+		url: base_url+'/get-relations', 
 		type: 'GET', 
 		data: {'id': binding},
 		async: false,
@@ -41,7 +41,7 @@ function getContentAttributes(page_options){
 	var content_attributes = "";
 
 	$.ajax({
-		url: '/druckshop/get-relations-content', 
+		url: base_url+'/get-relations-content', 
 		type: 'GET', 
 		data: {'id': page_options},
 		async: false,
@@ -266,7 +266,7 @@ function displayPrice(binding = "", no_ofsheets = "", page_options = "", embossi
 	
 
 	$.ajax({
-		url: '/druckshop/get-price', 
+		url: base_url+'/get-price', 
 		type: 'GET', 
 		data: {'binding_type' : binding, 'no_of_sheets' : no_ofsheets, 'pageOptions' : page_options, 'embossingCover' : embossing_cover, 'embossingSpine' : embossing_spine, 'paperWeight' : paper_weight, 'A2_page' : A2, 'A3_page': A3, 'nosOfCds' : nos_of_cds, 'dataCheck' : data_check, 'coloredSheets' : no_of_colored_sheets, 'deliveryService' : delivery_service, 'cdCover':cdCover},
 		success: function (response){
@@ -515,9 +515,9 @@ function setQuantity(count = ""){
 	// console.log(price_per_unit);
 
 	$.ajax({
-		url: '/druckshop/set-quantity', 
+		url: base_url+'/set-quantity', 
 		type: 'POST', 
-		data: {'qty': qty,'total_price_per_product' : total_price_per_product, 'count' : count},
+		data: {'qty': qty,'total_price_per_product' : total_price_per_product, 'count' : count, '_token': '{{ csrf_token() }}'},
 		success: function (response){
 		}
 	});
@@ -602,10 +602,10 @@ function incrementQuantity(id = "",count = ""){
     var status = true;
 
     $.ajax({
-		url: '/druckshop/paper-weight-sheets',  
+		url: base_url+'/paper-weight-sheets',  
 		type: 'POST', 
 		async: false,
-		data: {'binding': binding_val,'weight' : weight_val},
+		data: {'binding': binding_val,'weight' : weight_val, '_token': '{{ csrf_token() }}'},
 		success: function (response){
 
 			var data = JSON.parse(response)[0];

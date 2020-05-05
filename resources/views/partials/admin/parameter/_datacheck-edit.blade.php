@@ -41,7 +41,7 @@
                 </div>
             </div>
             <div class="form-inline">
-                <a href="{{ URL::previous() }}" class="btn btn-secondary btn-user btn-block col-md-3">Back</a>
+                <a href="{{ url('/admin/details/DataCheck/8') }}" class="btn btn-secondary btn-user btn-block col-md-3">Back</a>
                 <input type="submit" class="btn btn-primary btn-user btn-block col-md-3" value="Update">
             </div>
       </form>

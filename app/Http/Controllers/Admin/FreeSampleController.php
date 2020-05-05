@@ -18,10 +18,13 @@ class FreeSampleController extends Controller
      *
      * @return void
      */
+ 
+
     public function __construct() {
 
-        $this->middleware('auth:admin');
+       $this->middleware('auth:admin', ['except' => ['getActivate', 'anotherMethod']]);
     }
+
     
     /**FreeSample
      * Display a listing of the resource.
@@ -29,7 +32,7 @@ class FreeSampleController extends Controller
      * @return \Illuminate\Http\Response 
      */
     public function index()
-    {
+    {   //$this->middleware('auth:admin');
         $freesample = FreeSample::where('status', '1')->get();
         return view('pages.admin.freesample', compact('freesample'));
     }
@@ -38,7 +41,7 @@ class FreeSampleController extends Controller
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
-     */
+     */ 
     public function create()
     {
         $paper_weight = PaperWeight::where('status' , '1')->get();
@@ -79,6 +82,7 @@ class FreeSampleController extends Controller
         }
 
         if ($validator->passes()){
+     
 
             if (!file_exists(public_path().'/uploads')) {
             mkdir(public_path().'/uploads', 0777);
@@ -91,6 +95,9 @@ class FreeSampleController extends Controller
             $input['status'] = 1;
 
             $freesample = FreeSample::create($input);
+          
+
+          $freesample = FreeSample::create($input);
         }
 
         return redirect()->back()->with('status' , 'Requested');
@@ -115,8 +122,9 @@ class FreeSampleController extends Controller
     public function edit(Request $request, $id)
     { 
         // dd($id);
+        //$this->middleware('auth:admin');
         $freesample = FreeSample::where(['id' => $request->id ])->get();
-        $orderstate = OrderState ::where('status', '1')->get();
+        $orderstate = OrderState::where('status', '1')->get();
         return view('/pages/admin/freesampledetails',compact('freesample' , 'orderstate', 'id'));
     }
 
@@ -138,6 +146,14 @@ class FreeSampleController extends Controller
             return redirect()->back()
                         ->withErrors($validator)
                         ->withInput();
+        }
+
+        if ($validator->passes()) {
+ 
+            $sample = $freesample;
+            $sample->sample_status = $request->sample_status;
+            $sample->save();
+            
         }
 
         return redirect()->back()->with('status' , 'Requested');

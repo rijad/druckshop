@@ -25,7 +25,7 @@ function displayFields(binding){
 	}else{ 
 		document.getElementById('div-cover-color').className = "displayNone";
 	}
-
+ 
 
 	//Get data for cover sheet
 	if (typeof $product_attributes['cover_sheet'] !== 'undefined' && $product_attributes['cover_sheet'].length > 0) {
@@ -65,7 +65,7 @@ function getProductAttributes(binding){
 	var product_attributes = "";
 
 	$.ajax({
-		url: '/druckshop/get-relations', 
+		url: base_url+'/get-relations', 
 		type: 'GET', 
 		data: {'id': binding},
 		async: false,
@@ -84,7 +84,7 @@ function getContentAttributes(page_options){
 	var content_attributes = "";
 
 	$.ajax({
-		url: '/druckshop/get-relations-content', 
+		url: base_url+'/get-relations-content', 
 		type: 'GET', 
 		data: {'id': page_options},
 		async: false,
@@ -115,7 +115,7 @@ function displayFieldsContent(page_options = ""){
 				$("#paper-weight").val(1);  
 				$("#paper-weight").trigger("onchange");
 			}else if($("#page_options option:selected").val() == "2"){ //both
-				$("#paper-weight").val(2);
+				$("#paper-weight").val(3);
 				$("#paper-weight").trigger("onchange");  
 			}
 
@@ -144,7 +144,7 @@ function getPrinting(value){
 
 binding = document.getElementById('binding').value;
 	$.ajax({
-		url: '/druckshop/get-print-finishing-status', 
+		url: base_url+'/get-print-finishing-status', 
 		type: 'GET', 
 		data: {'binding_type' : binding},
 		success: function (response){
@@ -152,12 +152,14 @@ binding = document.getElementById('binding').value;
 			
 			if(data == 1){ // page 4
 
-				$("#embossment-cover-sheet").removeAttr('disabled');
+				//$("#embossment-cover-sheet").removeAttr('disabled');   // comment this
 				$("#embossment-spine").removeAttr('disabled');
+
+
 
 			}else if(data == 2){ //page 3
 
-				$("#embossment-spine").removeAttr('disabled');
+				//$("#embossment-spine").removeAttr('disabled');  // comment this
 				$("#embossment-cover-sheet").removeAttr('disabled');
 
 			}else if(data == 3){
@@ -179,7 +181,7 @@ function displayPrintFields(embossment = ""){
 	var binding = document.getElementById('binding').value;
 
 	$.ajax({
-		url: '/druckshop/get-print-finishing-status', 
+		url: base_url+'/get-print-finishing-status', 
 		type: 'GET', 
 		data: {'binding_type' : binding},
 		success: function (response){
@@ -189,7 +191,8 @@ function displayPrintFields(embossment = ""){
 			//Refine with embossing (4)
 			if(data == 1){ 
 
-				document.getElementById('div-embossing').className = "displayBlock";
+				//document.getElementById('div-embossing').className = "displayBlock";
+				document.getElementById('div-embossing').className = "displayNone";
 
 				if($("#embossment-cover-sheet").is(":checked")){
 					document.getElementById('div-template').className = "displayBlock";
@@ -229,7 +232,8 @@ function displayPrintFields(embossment = ""){
 			//Standard refinement (3)
 			if(data == 2){ 
 
-				document.getElementById('div-embossing').className = "displayNone";
+				//document.getElementById('div-embossing').className = "displayNone";
+				document.getElementById('div-embossing').className = "displayBlock";
 				if($("#embossment-cover-sheet").is(":checked")){
 					document.getElementById('div-template').className = "displayBlock";
 					document.getElementById('upload_custom_file').className = "displayBlock";
@@ -278,13 +282,14 @@ function section2(){
 
 		if($("#fields_1").find(":selected").val() != "-1"){
 
-			document.getElementById('input_1').value = "Enter "+$("#fields_1").find(":selected").val();
+			//document.getElementById('input_1').value = "Enter "+$("#fields_1").find(":selected").val();
+			$("#input_1").attr("placeholder", "Enter "+$("#fields_1").find(":selected").val());
 
 		}
 
 		if($("#pos_1").find(":selected").val() != "-1" && $("#fields_1").find(":selected").val() != "-1"){
 
-			document.getElementById('div-section-2').className = "displayBlock";
+			//document.getElementById('div-section-2').className = "displayBlock";
 
 			 var sec_2 =$("#fields_1").find('option').not(':selected').map(function() {
     						return $(this).text();
@@ -299,7 +304,7 @@ function section2(){
 			 $("#pos_2").empty();
 			 $("#pos_2").append("<option value='-1'>Select</option>");
 
-			 for(var i=1; i< sec_2.length; i++){
+			 for(var i=1; i< sec_2.length; i++){ 
 
 			 	$("#fields_2").append("<option value='"+sec_2[i]+"'>"+sec_2[i]+"</option>");
 
@@ -326,13 +331,14 @@ function section3(){
 
 		if($("#fields_2").find(":selected").val() != "-1"){
 
-			document.getElementById('input_2').value = "Enter "+$("#fields_2").find(":selected").val();
+			//document.getElementById('input_2').value = "Enter "+$("#fields_2").find(":selected").val();
+			$("#input_2").attr("placeholder", "Enter "+$("#fields_2").find(":selected").val());
 
 		}
 
 		if($("#pos_2").find(":selected").val() != "-1" && $("#fields_2").find(":selected").val() != "-1"){
 
-			document.getElementById('div-section-3').className = "displayBlock";
+			//document.getElementById('div-section-3').className = "displayBlock";
 
 			 var sec_3 =$("#fields_2").find('option').not(':selected').map(function() {
     						return $(this).text();
@@ -355,7 +361,7 @@ function section3(){
 
 
 
-			 for(var i=1; i< pos_2.length; i++){
+			 for(var i=1; i< pos_3.length; i++){
 
 			 	$("#pos_3").append("<option value='"+pos_3[i]+"'>"+pos_3[i]+"</option>");
 
@@ -373,45 +379,93 @@ function section4(){
 
 	if($("#fields_3").find(":selected").val() != "-1"){
 
-			document.getElementById('input_3').value = "Enter "+$("#fields_3").find(":selected").val();
+			//document.getElementById('input_3').value = "Enter "+$("#fields_3").find(":selected").val();
+			$("#input_3").attr("placeholder", "Enter "+$("#fields_3").find(":selected").val());
 
 		}
+}
+
+
+function addSection(id = ""){
+
+	document.getElementById(id).className = "displayBlock";
 
 }
+
+
+
+function removeSection(id = "",field="",pos=""){
+
+	document.getElementById(id).className = "displayNone";
+	document.getElementById(field).value = -1;
+	document.getElementById(pos) = -1;
+
+}
+
+
+
 
 function displayPopUp(template = ""){
 	 var title = template; 
   $('.modal-title').html(title);
+
+  var embossing = document.getElementById('embossing').value;
+
+
  
   $("#modal-body").empty(); 
-	if(template == "Standardvorlage mit Logo"){
+	if(template == "Standardvorlage mit Logo"){ 
 		 $('#modal-logo').modal('show');
-		$("#modal-body").append("<p>Choose layout for standard cover with logo.</p><br><img id='mit_1' src='"+base_url+"/public/images/mit_1.png' onclick = displayImage('"+base_url+"/public/images/mit_1.png','mit_1.png');> <img id='mit_1' src='"+base_url+"/public/images/mit_1.png' onclick = displayImage('"+base_url+"/public/images/mit_2.png','mit_1.png');> <img id='mit_3' src='"+base_url+"/public/images/mit_3.png' onclick = displayImage('"+base_url+"/public/images/mit_3.png','mit_1.png');> ");
+		 //if($('#embossing'.find(":selected").val() != "-1"){
+		 	if(embossing == "Edition"){
+		 		$("#modal-body").append("<p>Choose layout for standard cover with logo.</p><br><img id='Edition-mit-Logo-2' src='"+base_url+"/public/templates/Binding_template/Edition-mit-Logo-1.jpg' onclick = displayImage('"+base_url+"/public/templates/Binding_template/Edition-mit-Logo-1.jpg','Edition-mit-Logo-1.jpg',this);> <img id='Edition-mit-Logo-2' src='"+base_url+"/public/templates/Binding_template/Edition-mit-Logo-2.jpg' onclick = displayImage('"+base_url+"/public/templates/Binding_templates/Edition-mit-Logo-2.jpg','Edition-mit-Logo-2.jpg',this);> <img id='Edition-mit-Logo-3' src='"+base_url+"/public/templates/Binding_template/Edition-mit-Logo-3.jpg' onclick = displayImage('"+base_url+"/public/templates/Binding_template/Edition-mit-Logo-3.jpg','Edition-mit-Logo-3.jpg',this);> ");
+			 }else if(embossing == "Classic"){
+			 	$("#modal-body").append("<p>Choose layout for standard cover with logo.</p><br><img id='Klassik-1' src='"+base_url+"/public/templates/Binding_template/Klassik-1.jpg' onclick = displayImage('"+base_url+"/public/templates/Binding_template/Klassik-1.jpg','Klassik-1.jpg',this);> <img id='Klassik-2' src='"+base_url+"/public/templates/Binding_template/Klassik-2.jpg' onclick = displayImage('"+base_url+"/public/templates/Binding_template/Klassik-2.jpg','Klassik-2.jpg',this);> <img id='Klassik-3' src='"+base_url+"/public/templates/Binding_template/Klassik-3.jpg' onclick = displayImage('"+base_url+"/public/templates/Binding_template/Klassik-3.jpg','Klassik-3.jpg',this);> ");
+			 }else{
+			 	$("#modal-body").append("<p>Choose layout for standard cover without logo.</p><br><img id='Edition-ohne-Logo-1' src='"+base_url+"/public/templates/Binding_template/Edition-ohne-Logo-1.jpg' onclick = displayImage('"+base_url+"/public/templates/Binding_template/Edition-ohne-Logo-1.jpg','Edition-ohne-Logo-1.jpg',this);> <img id='Edition-mit-Logo-2' src='"+base_url+"/public/templates/Binding_template/Edition-mit-Logo-2.jpg' onclick = displayImage('"+base_url+"/public/templates/Binding_template/Edition-mit-Logo-2.jpg','Edition-mit-Logo-2.jpg',this);> <img id='Edition-ohne-Logo-3' src='"+base_url+"/public/templates/Binding_template/Edition-ohne-Logo-3.jpg' onclick = displayImage('"+base_url+"/public/templates/Binding_template/Edition-ohne-Logo-3.jpg','Edition-ohne-Logo-3.jpg',this);> ");
+			 }
+		// }
+		 
+		document.getElementById('download_stylesheet').className = "displayNone";
 		document.getElementById('div-fonts').className = "displayBlock";
 		document.getElementById('div-date-format').className = "displayBlock";
 		document.getElementById('div-embossment-spine').className = "displayBlock";
 		document.getElementById('div-remarks').className = "displayBlock";
 		document.getElementById('upload_custom_logo').className = "displayBlock";
+		document.getElementById('div-date-format').className = "displayBlock";
 	}else if(template == "Standardvorlage ohne Logo"){
 		 $('#modal-logo').modal('show');
-		$("#modal-body").append("<p>Choose layout for standard cover without logo.</p><br><img id='ohne_1' src='"+base_url+"/public/images/ohne_1.png' onclick = displayImage('"+base_url+"/public/images/ohne_1.png','ohne_1');> <img id='ohne_2' src='"+base_url+"/public/images/ohne_2.png' onclick = displayImage('"+base_url+"/public/images/ohne_2.png','ohne_2');> <img id='ohne_3' src='"+base_url+"/public/images/ohne_3.png' onclick = displayImage('"+base_url+"/public/images/ohne_3.png','ohne_3');> ");
+		// if($('#embossing'.find(":selected").val() != "-1"){
+		 	if(embossing == "Edition"){
+		 		$("#modal-body").append("<p>Choose layout for standard cover without logo.</p><br><img id='Edition-ohne-Logo-1' src='"+base_url+"/public/templates/Binding_template/Edition-ohne-Logo-1.jpg' onclick = displayImage('"+base_url+"/public/templates/Binding_template/Edition-ohne-Logo-1.jpg','Edition-ohne-Logo-1.jpg',this);> <img id='Edition-mit-Logo-2' src='"+base_url+"/public/templates/Binding_template/Edition-mit-Logo-2.jpg' onclick = displayImage('"+base_url+"/public/templates/Binding_template/Edition-mit-Logo-2.jpg','Edition-mit-Logo-2.jpg',this);> <img id='Edition-ohne-Logo-3' src='"+base_url+"/public/templates/Binding_template/Edition-ohne-Logo-3.jpg' onclick = displayImage('"+base_url+"/public/templates/Binding_template/Edition-ohne-Logo-3.jpg','Edition-ohne-Logo-3.jpg',this);> ");
+			 }else if(embossing == "Classic"){
+			 	$("#modal-body").append("<p>Choose layout for standard cover with logo.</p><br><img id='Klassik-1' src='"+base_url+"/public/templates/Binding_template/Klassik-1.jpg' onclick = displayImage('"+base_url+"/public/templates/Binding_template/Klassik-1.jpg','Klassik-1.jpg',this);> <img id='Klassik-2' src='"+base_url+"/public/templates/Binding_template/Klassik-2.jpg' onclick = displayImage('"+base_url+"/public/templates/Binding_template/Klassik-2.jpg','Klassik-2.jpg',this);> <img id='Klassik-3' src='"+base_url+"/public/templates/Binding_template/Klassik-3.jpg' onclick = displayImage('"+base_url+"/public/templates/Binding_template/Klassik-3.jpg','Klassik-3.jpg',this);> ");
+			 }else{
+			 	$("#modal-body").append("<p>Choose layout for standard cover without logo.</p><br><img id='Edition-ohne-Logo-1' src='"+base_url+"/public/templates/Binding_template/Edition-ohne-Logo-1.jpg' onclick = displayImage('"+base_url+"/public/templates/Binding_template/Edition-ohne-Logo-1.jpg','Edition-ohne-Logo-1.jpg',this);> <img id='Edition-mit-Logo-2' src='"+base_url+"/public/templates/Binding_template/Edition-mit-Logo-2.jpg' onclick = displayImage('"+base_url+"/public/templates/Binding_template/Edition-mit-Logo-2.jpg','Edition-mit-Logo-2.jpg',this);> <img id='Edition-ohne-Logo-3' src='"+base_url+"/public/templates/Binding_template/Edition-ohne-Logo-3.jpg' onclick = displayImage('"+base_url+"/public/templates/Binding_template/Edition-ohne-Logo-3.jpg','Edition-ohne-Logo-3.jpg',this);> ");
+			 }
+		// }
+		document.getElementById('download_stylesheet').className = "displayNone";
 		document.getElementById('div-fonts').className = "displayBlock";
 		document.getElementById('div-date-format').className = "displayBlock";
 		document.getElementById('div-embossment-spine').className = "displayBlock";
 		document.getElementById('div-remarks').className = "displayBlock";
+		document.getElementById('div-date-format').className = "displayBlock";
 
 		document.getElementById('upload_custom_logo').className = "displayNone";
 	}else if(template == "Eigene Vorlage"){
 		document.getElementById('upload_custom_logo').className = "displayBlock";
 		document.getElementById('div-remarks').className = "displayBlock";
+		document.getElementById('download_stylesheet').className = "displayBlock";
 		$("#div-display-image").empty();
 		document.getElementById('div-display-image').className = "displayNone"; 
+		document.getElementById('div-date-format').className = "displayNone";
 	}
 
 	if($("#template").find(":selected").val() == "-1"){
 		document.getElementById('upload_custom_logo').className = "displayNone";
 		document.getElementById('drop_file_zone_logo_info').className = "displayNone";
 		document.getElementById('div-remarks').className = "displayNone"; 
+		document.getElementById('download_stylesheet').className = "displayNone";
 		$("#div-display-image").empty();
 		document.getElementById('div-display-image').className = "displayNone"; 
 		document.getElementById('div-embossment-spine').className = "displayBlock";
@@ -421,19 +475,21 @@ function displayPopUp(template = ""){
 
 function displayPopUpCD(template = ""){
 	 var title = template;
-  $('.modal-title').html(title);
+  $('.modal-title').html(title); 
  
-  $("#modal-body").empty(); 
+  $("#modal-body").empty();  
 	if(template == "Standardvorlage mit Logo"){
-		 $('#modal-cd').modal('show');
-		$("#modal-body-cd").append("<p>Choose layout for standard cover with logo.</p><br><img id='mit_1' src='"+base_url+"/public/images/mit_1.png' onclick = displayImageCd('"+base_url+"/public/images/mit_1.png','mit_1');> <img id='mit_1' src='"+base_url+"/public/images/mit_1.png' onclick = displayImageCd('"+base_url+"/public/images/mit_2.png','mit_1');> <img id='mit_3' src='"+base_url+"/public/images/mit_3.png' onclick = displayImageCd('"+base_url+"/public/images/mit_3.png','mit_1');> ");
+		 $('#modal-cd').modal('show'); 
+		 $("#modal-body-cd").empty();
+		$("#modal-body-cd").append("<p>Choose layout for standard cover with logo.</p><br><img id='CD-mit-Logo-1' src='"+base_url+"/public/templates/CD/CD-mit-Logo-1.jpg' onclick = javascript:displayImageCd('"+base_url+"/public/templates/CD/CD-mit-Logo-1.jpg','CD-mit-Logo-1',this);> <img id='CD-mit-Logo-2' src='"+base_url+"/public/templates/CD/CD-mit-Logo-2.jpg' onclick = displayImageCd('"+base_url+"/public/templates/CD/CD-mit-Logo-2.jpg','CD-mit-Logo-2',this);>");
 		document.getElementById('div-fonts-cd').className = "displayBlock";
 		document.getElementById('upload_custom_logo_cd').className = "displayBlock";
 	}else if(template == "Standardvorlage ohne Logo"){
 		 $('#modal-cd').modal('show');
-		$("#modal-body-cd").append("<p>Choose layout for standard cover without logo.</p><br><img id='ohne_1' src='"+base_url+"/public/images/ohne_1.png' onclick = displayImageCd('"+base_url+"/public/images/ohne_1.png','ohne_1');> <img id='ohne_2' src='"+base_url+"/public/images/ohne_2.png' onclick = displayImageCd('"+base_url+"/public/images/ohne_2.png',ohne_2);> <img id='ohne_3' src='"+base_url+"/public/images/ohne_3.png' onclick = displayImageCd('"+base_url+"/public/images/ohne_3.png','ohne_3');> ");
+		 $("#modal-body-cd").empty();
+		$("#modal-body-cd").append("<p>Choose layout for standard cover without logo.</p><br><img id='CD-ohne-Logo-1' src='"+base_url+"/public/templates/CD/CD-ohne-Logo-1.jpg' onclick = javascript:displayImageCd('"+base_url+"/public/templates/CD/CD-ohne-Logo-1.jpg','CD-ohne-Logo-1',this);> <img id='CD-ohne-Logo-2' src='"+base_url+"/public/templates/CD/CD-ohne-Logo-2.jpg' onclick = displayImageCd('"+base_url+"/public/images/CD-ohne-Logo-2.jpg',CD-ohne-Logo-2,this);>");
 		document.getElementById('div-fonts-cd').className = "displayBlock";
-		document.getElementById('upload_custom_logo_cd').className = "displayBlock";
+		document.getElementById('upload_cd').className = "displayBlock";
 	}else if(template == "Eigene Vorlage"){
 		document.getElementById('upload_custom_logo_cd').className = "displayBlock";
 		$("#div-display-image-cd").empty();
@@ -447,24 +503,70 @@ function displayPopUpCD(template = ""){
 		document.getElementById('div-fonts-cd').className = "displayNone"; 
 		$("#div-display-image-cd").empty();
 		document.getElementById('div-display-image-cd').className = "displayNone"; 
+
+		document.getElementById('upload_cd').className = "displayNone";
+		document.getElementById('drop_file_zone_cd').className = "displayNone";
 	}	
 
 }
 
-function displayImage(path,name){
 
-	$("#div-display-image").empty();
-	document.getElementById('div-display-image').className = "displayBlock";
-	$("#div-display-image").append("<img src='"+path+"'><input type='hidden' name='embossment-template-name' id ='embossment-template-name' value=''> ");
-	document.getElementById('embossment-template-name').value = name;
+function displayImage(path,name,elem){
+
+	// $("#div-display-image").empty();
+	$("#modal-body").find("img").css("border", "0");
+	elem.style.border = "1px solid blue";
+	// document.getElementById('div-display-image').className = "displayBlock";
+	// $("#div-display-image").append("<img src='"+path+"'><input type='hidden' name='embossment-template-name' id ='embossment-template-name' value=''> ");
+	// document.getElementById('embossment-template-name').value = name;
 }
 
-function displayImageCd(path,name){
+function displayImgSelect(){
+
+	elem = $("#modal-body").find("img"); 
+	for(var i = 0; i<elem.length ; i++){
+
+		if(elem[i].style.border == "1px solid blue"){
+
+			path = base_url+"/public/templates/Binding_template/"+elem[i].id+".jpg";
+			$("#div-display-image").empty();
+			document.getElementById('div-display-image').className = "displayBlock";
+			$("#div-display-image").append("<img src='"+path+"'><input type='hidden' name='embossment-template-name' id ='embossment-template-name' value=''> ");
+			document.getElementById('embossment-template-name').value = name;
+
+		}
+
+	} 
+ 
+}
+
+function displayImgSelectCd(){
+
+	elem = $("#modal-body-cd").find("img");
+	for(var i = 0; i<elem.length ; i++){
+
+		if(elem[i].style.border == "1px solid blue"){
+
+			path = base_url+"/public/templates/CD/"+elem[i].id+".jpg";
+			$("#div-display-image-cd").empty();
+			document.getElementById('div-display-image-cd').className = "displayBlock";
+			$("#div-display-image-cd").append("<img src='"+path+"'><input type='hidden' id='cd-template-name' name = 'cd-template-name' value = ''> ");
+			document.getElementById('cd-template-name').value = name;
+
+		}
+
+	}
+
+}
+
+function displayImageCd(path,name,elem){
 
 	$("#div-display-image-cd").empty();
-	document.getElementById('div-display-image-cd').className = "displayBlock";
-	$("#div-display-image-cd").append("<img src='"+path+"'><input type='hidden' id='cd-template-name' name = 'cd-template-name' value = ''> ");
-	document.getElementById('cd-template-name').value = name;
+	$("#modal-body-cd").find("img").css("border", "0");
+	elem.style.border = "1px solid blue";
+	// document.getElementById('div-display-image-cd').className = "displayBlock";
+	// $("#div-display-image-cd").append("<img src='"+path+"'><input type='hidden' id='cd-template-name' name = 'cd-template-name' value = ''> ");
+	// document.getElementById('cd-template-name').value = name;
 }
 
 function displayCDFields(value = ""){ 
@@ -487,7 +589,9 @@ function displayCDFields(value = ""){
 		if($("#imprint").is(":checked")){
 			document.getElementById('div-cd-template').className = "displayBlock";
 		}else{
-			document.getElementById('div-cd-template').className = "displayNone";
+			document.getElementById('div-cd-template').className = "displayNone";   
+			document.getElementById('div-display-image-cd').className = "displayNone"; 
+			$('#div-display-image-cd').empty();
 		}
 		//document.getElementById('div-cd-bag').className = "displayBlock";
 	}
@@ -513,6 +617,7 @@ function displayContentInput(option = ""){
 			document.getElementById('div-page-numbers').className = "displayBlock";  
 		}else{
 			document.getElementById('div-page-numbers').className = "displayNone";
+			document.getElementById('page-numbers').value = "";
 		}
 	}else if(option == "A3_Pages"){
 		if($("#A3-pages").is(":checked")){
@@ -525,6 +630,18 @@ function displayContentInput(option = ""){
 		document.getElementById('div-pos-A3-pages').className = "displayNone";
 		document.getElementById('drop_file_din_A3').className = "displayNone";
 		document.getElementById('A3_msg').className = "displayNone";	
+
+		// remove file
+		file_name = $('#selectfile_din_A3').val(); 
+   		id = "drop_file_din_A3";
+
+     	removeFile(file_name,id,'1');
+
+     	// empty text field
+	    document.getElementById('numbers-of-pages').value = "";
+	    //$('#pos-of-A3-pages').text('');
+	    document.getElementById("pos-of-A3-pages").value = "";
+
 		}
 		
 	}else if(option == "A2_Pages"){
@@ -537,7 +654,17 @@ function displayContentInput(option = ""){
 		document.getElementById('div-number-of-A2-pages').className = "displayNone";
 		document.getElementById('drop_file_din_A2').className = "displayNone";
 		//document.getElementById('drop_file_zone_A2').className = "displayNone";
-		document.getElementById('A2_msg').className = "displayNone";
+		document.getElementById('A2_msg').className = "displayNone";   
+
+		//Remove uploaded file
+		file_name = $('#selectfile_din_A2').val(); 
+	    id = "drop_file_din_A2";
+	    removeFile(file_name,id,'1');
+
+	    // empty text field
+	    document.getElementById('numbers-of-A2-pages').value = ""; 
+
+
 		}
 	}
 }
@@ -722,10 +849,14 @@ function displayProductAttributes(field_flag = "", values = ""){
 }
 
 
-function displayPrice(binding = "", no_ofsheets = "", page_options = "", embossing_cover = "", embossing_spine="", paper_weight = "", A2="", A3="", nos_of_cds = "", data_check = "", cd_cover = "", no_of_colored_sheets = "", delivery_service = ''){
+function displayPrice(binding = "", no_ofsheets = "", page_options = "", embossing_cover = "", embossing_spine="", paper_weight = "", A2="", A3="", nos_of_cds = "", data_check = "", cd_cover = "", no_of_colored_sheets = "", delivery_service = '', no_ofcopies = ''){
 
 
-	var binding_type = "",no_of_sheets = "", pageOptions = "", embossingCover = "", embossingSpine="", paperWeight = "", A2_page="", A3_page="", nosOfCds = "", dataCheck = "", cdCover = "", coloredSheets = "", deliveryService = '';
+	var binding_type = "",no_of_sheets = "", pageOptions = "", embossingCover = "", embossingSpine="", paperWeight = "", A2_page="", A3_page="", nosOfCds = "", dataCheck = "", cdCover = "", coloredSheets = "", deliveryService = '', no_of_copies = '';
+
+	if(no_ofcopies != ""){
+		no_of_copies = no_ofcopies; 
+	}
 
 	if(binding != ""){
 		binding_type = binding;
@@ -771,18 +902,18 @@ function displayPrice(binding = "", no_ofsheets = "", page_options = "", embossi
 	}
 	if(delivery_service != ""){
 		deliveryService = delivery_service;
-	}
+	} 
 
 	if(cd_cover != ""){
 		cdCover = cd_cover;
 
 	}
-	
+	  
 
 	$.ajax({
-		url: '/druckshop/get-price', 
+		url: base_url+'/get-price', 
 		type: 'GET', 
-		data: {'binding_type' : binding, 'no_of_sheets' : no_ofsheets, 'pageOptions' : page_options, 'embossingCover' : embossing_cover, 'embossingSpine' : embossing_spine, 'paperWeight' : paper_weight, 'A2_page' : A2, 'A3_page': A3, 'nosOfCds' : nos_of_cds, 'dataCheck' : data_check, 'coloredSheets' : no_of_colored_sheets, 'deliveryService' : delivery_service, 'cdCover':cdCover},
+		data: {'no_of_copies':no_of_copies,'binding_type' : binding, 'no_of_sheets' : no_ofsheets, 'pageOptions' : page_options, 'embossingCover' : embossing_cover, 'embossingSpine' : embossing_spine, 'paperWeight' : paper_weight, 'A2_page' : A2, 'A3_page': A3, 'nosOfCds' : nos_of_cds, 'dataCheck' : data_check, 'coloredSheets' : no_of_colored_sheets, 'deliveryService' : delivery_service, 'cdCover':cdCover},
 		success: function (response){
 			var data = JSON.parse(response); 
 			//console.log(response);
@@ -797,7 +928,7 @@ function displayPrice(binding = "", no_ofsheets = "", page_options = "", embossi
 		}
 	}); 
 
-}
+}  
 
 
 // -------     Code to handle checkout page pagination Starts----------- //
@@ -965,9 +1096,19 @@ function displayPrice(binding = "", no_ofsheets = "", page_options = "", embossi
 				// start of CD Bag
 				}
 
+				if($("#fields_1").find(":selected").val() == "-1" || $("#pos_1").find(":selected").val() == "-1" ){
+					 $("#fields_1").addClass('invalid'); 
+					 $("#pos_1").addClass('invalid'); $('#error-section-1').html('Fill all Fields in this section 1'); valid = false; return false;
+				}
+
 			}else{}
 
-			if($("#embossment-spine").is(":checked")){     
+			if($("#embossment-spine").is(":checked")){    
+
+				if($("#fields_1").find(":selected").val() == "-1" || $("#pos_1").find(":selected").val() == "-1" || $("#input_1").val() == ""){
+					 $("#fields_1").addClass('invalid'); 
+					 $("#pos_1").addClass('invalid'); $('#error-section-1').html('Fill all Fields in this section 1'); valid = false; return false;
+				} 
 				
 					var allowed_letters = parseInt($('#spine-count-hidden').val());
 					var total = 0;
@@ -987,7 +1128,7 @@ function displayPrice(binding = "", no_ofsheets = "", page_options = "", embossi
 					}
 
 					  	if($('#input_1').hasClass('displayBlock')){    
-						if(Total <= allowed_letters){    
+						if(Total >= allowed_letters){    
 							$("#input_1").addClass('invalid');
 							$("#input_2").addClass('invalid');
 							$("#input_3").addClass('invalid');
@@ -1014,7 +1155,7 @@ function displayPrice(binding = "", no_ofsheets = "", page_options = "", embossi
 					//no. of cd
 					if($("#numbers-of-cds").val() == ""){$("#numbers-of-cds").addBack().addClass('invalid'); $('#error_number_of_cds').html('Field is required'); valid = false; return false; }
 					// upload
-					if($("#selectfile_cd").val() == ""){ alert($("#selectfile_cd").val()); $("#upload_cd").addBack().addClass('invalid'); $('#error_number_of_cds').html('error_selectfile_cd'); valid = false; return false;}else{valid = true;return true;}	
+					if($("#selectfile_cd").val() == ""){ alert($("#selectfile_cd").val()); $("#upload_cd").addBack().addClass('invalid'); $('#error_number_of_cds').html('Field is required'); valid = false; return false;}else{valid = true;return true;}	
 										valid = true; return true;
 					if($("#cd-bag").find(":selected").val() == "-1")
 					{
@@ -1169,7 +1310,7 @@ function displayPrice(binding = "", no_ofsheets = "", page_options = "", embossi
 	  	document.getElementById("prevBtn").style.display = "inline";
 	  }
 	  if (n == (x.length - 1)) {
-	  	document.getElementById("nextBtn").innerHTML = "Submit";
+	  	document.getElementById("nextBtn").innerHTML = "Submit"; 
 	  } else { 
 	  	document.getElementById("nextBtn").innerHTML = "Next";
 	  }
@@ -1177,17 +1318,23 @@ function displayPrice(binding = "", no_ofsheets = "", page_options = "", embossi
 	  fixStepIndicator(n)
 	}
 
-	
-	function fixStepIndicator(n) {  //alert(n); 
+	 
+	function fixStepIndicator(n) {  
 	  // This function removes the "active" class of all steps...
 	  var i, x = document.getElementsByClassName("step");
-	  for (i = 0; i < x.length; i++) {
+	  for (i = 0; i < x.length; i++) {   
 	  	x[i].className = x[i].className.replace(" active", "");
 	  }
 	  //... and adds the "active" class to the current step:
 	 // document.getElementsByClassName("step")[currentTab].className += " finish";
-	  x[n-1].className += " finish";
-	  x[n].className += " active";
+
+	  if(n > 0){
+	  	x[n-1].className += " finish";  
+	  }
+
+	  // going previous
+	  x[n].className = x[n].className.replace(" finish", " active");
+	  x[n].className += " active";  
 	}
 
 
@@ -1233,9 +1380,9 @@ function setQuantity(count = ""){
 	// console.log(price_per_unit);
 
 	$.ajax({
-		url: '/druckshop/set-quantity', 
+		url: base_url+'/set-quantity', 
 		type: 'POST', 
-		data: {'qty': qty,'total_price_per_product' : total_price_per_product, 'count' : count},
+		data: {'qty': qty,'total_price_per_product' : total_price_per_product, 'count' : count, '_token': $('meta[name="csrf-token"]').attr('content')},
 		success: function (response){
 		}
 	}); 
@@ -1247,7 +1394,7 @@ function decrementQuantity(id = "",count = ""){
 	document.getElementById('qty_msg').innerHTML = "";
 	qty = document.getElementById(id).value;
 	qty_final = parseInt(qty) - 1;
-
+ 
 	if(qty_final >= 1){
 		document.getElementById(id).value = qty_final;
 		setQuantity(count);
@@ -1273,43 +1420,100 @@ function incrementQuantity(id = "",count = ""){
 
 } 
 
- function checkPageRange(id1 = '', id2 = '' ,value_id = ''){  //alert("1");
- 
-     var count_of_pages = 0; var range = 0; var val = [];
+
+function checkPageRange(id1 = '', id2 = '' ,value_id = ''){  
+
+     var count_of_pages = 0; var range_h = 0; var val = []; var range_c = 0; var range_s = 0; var range = 0; var status = 0;
      document.getElementById('error_range').innerHTML = ""; 
      var value = document.getElementById(value_id).value;
 
-     if(document.getElementById(id1).value == "" || document.getElementById(id1).value == null){
+
+
+     if(document.getElementById(id1).value == "" || document.getElementById(id1).value == null){   
+     		range = -2; console.log(count_of_pages);
      }else{
-     	count_of_pages =parseInt(document.getElementById(id2).innerHTML.split(":")[1]);
+     	count_of_pages =parseInt(document.getElementById(id2).innerHTML.split(":")[1]);  console.log(count_of_pages);
+     
+
+		     if(value.includes(",")){   // range seperation using ',' and '-'
+				val_c = value.split(",");
+			    for(var i=0; i< val_c.length; i++){
+
+			    if(val_c[i].trim() != ""){	
+
+			    	if(val_c[i].includes("-")){ // range seperation using '-'
+
+			    		val_h = val_c[i].split("-"); // calculation for '-'
+			    		if(parseInt(val_h[0]) > count_of_pages || parseInt(val_h[1]) > count_of_pages){
+			     			range = -1;  
+			     		}else if(parseInt(val_h[0])<count_of_pages && parseInt(val_h[1])<=count_of_pages){
+			     			range_h += Math.abs(parseInt(val_h[0]) - parseInt(val_h[1])) + 1; 
+				     	}
+
+			    	}else{   // calculation for ','
+
+			    		if(val_c[i] > count_of_pages){
+			     			status = -1;  console.log("else comma 1");
+			     		}
+
+			     		if(status == -1){   console.log("else comma 2");
+				     		//range = -1;
+				     		status = 0;
+				     	}else{
+				     		range_c += 1;   console.log("else comma 3");
+				     	}
+
+			    	} console.log(val_c);
+			    }// end of empty if
+			    } // end of loop
+			
+			 }else if(value.includes("-") && !value.includes(",") ){  //range seperation only '-'
+
+			 	val_h = value.split("-"); 
+			 		if(parseInt(val_h[0]) > count_of_pages || parseInt(val_h[1]) > count_of_pages){
+			     			range = -1;  
+			     	}else if(parseInt(val_h[0])<count_of_pages && parseInt(val_h[1])<=count_of_pages){
+			     		range_h += Math.abs(parseInt(val_h[0]) - parseInt(val_h[1])) + 1; 
+			     	}
+			 }else if(value.match(/^\d+$/)){  // single value case
+			     	if(parseInt(value)<=count_of_pages){
+			     	    range_s = 1;  
+			     	}else{
+			     		range = -1;
+			     	}
+		     }else{
+		     	    range = -1; 
+		     }
+
+   }
+
+ if(range >= 0){  
+ 	    range = 0;
+     	range = range_s + range_c +range_h;  
      }
 
-     if(value.includes("-")){
-     	val = value.split("-");  
-     	range = Math.abs(parseInt(val[0]) - parseInt(val[1])); //alert(range);
-     }else if(value.includes(",")){
-     	val = value.split(",");  
-     	range = val.length;   
-     }else if(value.match(/^\d+$/)){
-     	range = parseInt(value);
-     }else{
-     	range = -1;
-     }
-
-
-     if(range > count_of_pages){
+console.log("Range: "+range);
+      if(range > count_of_pages){ 
      		document.getElementById('error_range').innerHTML = "Please check the range for number of pages";
+     		document.getElementById('error_range').style.color = "red";
      		return false;
-     }else if(range <= 0){
+     }else if(range == -1){   
      		document.getElementById('error_range').innerHTML = "Invalid Expression";
+     		document.getElementById('error_range').style.color = "red";
      		return false;
-     }else{
+     }else if(range == -2){   
+     		document.getElementById('error_range').innerHTML = "No File Uploaded";
+     		document.getElementById('error_range').style.color = "red";
+     		return false;
+     }else{  
      	document.getElementById('error_range').innerHTML = "No of Colored Pages:"+range;
+     	document.getElementById('error_range').style.color = "#000000";
      	return true;
      }
 
+     
  }
- 
+
 
  // step 2 Number of pages dependency C
  function NumberOfPages(binding = "", weight = "", no_pages=""){
@@ -1320,10 +1524,10 @@ function incrementQuantity(id = "",count = ""){
     var status = true;
 
     $.ajax({ 
-		url: '/druckshop/paper-weight-sheets',  
+		url: base_url+'/paper-weight-sheets',  
 		type: 'POST', 
 		async: false,
-		data: {'binding': binding_val,'weight' : weight_val}, 
+		data: {'binding': binding_val,'weight' : weight_val, '_token': $('meta[name="csrf-token"]').attr('content')}, 
 		success: function (response){
 
 			var data = JSON.parse(response)[0];
@@ -1331,7 +1535,7 @@ function incrementQuantity(id = "",count = ""){
 			var max  = parseInt(data['max_sheets']);
 			var no_of_pages = document.getElementById('pg_no').value;
 
-			document.getElementById('error_no_of_pages').innerHTML = "Range is "+ min + " - " + max + " and Uploaded file contains "+ no_of_pages + " Range should not exceed this count.";
+			document.getElementById('error_no_of_pages').innerHTML = "Range is "+ min + " - " + max + " and Uploaded file contains "+ no_of_pages + " Page(s), Range should not exceed this count.";
 			
 			//console.log(value+"-----"+min+"-----"+max);
 
@@ -1349,21 +1553,103 @@ function incrementQuantity(id = "",count = ""){
 	return(status);
  }
 
- function resetFields(id,value){  
+ function resetFields(id,value){   
 
+if($('#selectfile_coversheet').val() != ""){
+
+    file_name = $('#selectfile_coversheet').val();
+    id = "drop_file_zone_cover_sheet";   
+
+     removeFile(file_name,id,'1');
+
+}
+
+if($('#selectfile_backcover').val() != ""){
+
+    file_name = $('#selectfile_backcover').val(); 
+    id = "drop_file_zone_back_cover";
+
+     removeFile(file_name,id,'1');
+
+}
+
+if($('#selectfile_content').val() != ""){
+
+    file_name = $('#selectfile_content').val(); 
+    id = "drop_file_zone_content";
+
+     removeFile(file_name,id,'1');
+}
+
+
+if($('#selectfile_din_A3').val() != ""){
+
+    file_name = $('#selectfile_din_A3').val(); 
+    id = "drop_file_din_A3";
+
+     removeFile(file_name,id,'1');
+
+}
+
+if($('#selectfile_din_A2').val() != ""){
+
+    file_name = $('#selectfile_din_A2').val(); 
+    id = "drop_file_din_A2";
+
+     removeFile(file_name,id,'1');
+
+}
+
+if($('#selectfile_logo').val() != ""){
+
+    file_name = $('#selectfile_logo').val(); 
+    id = "upload_custom_logo";
+
+     removeFile(file_name,id,'1');
+
+}
+
+if($('#selectfile_cd').val() != ""){
+
+    file_name = $('#selectfile_cd').val(); 
+    id = "upload_cd";
+
+     removeFile(file_name,id,'1');
+
+}
+
+if($('#selectfile_logo_cd').val() != ""){
+
+    file_name = $('#selectfile_logo_cd').val(); 
+    id = "upload_custom_logo_cd";
+
+     removeFile(file_name,id,'1');
+
+}
+
+
+if($('#selectfile_file').val() != ""){
+
+    file_name = $('#selectfile_file').val(); 
+    id = "upload_custom_file";
+
+     removeFile(file_name,id,'1');
+
+}
 
   $("#regForm").trigger("reset");
   document.getElementById(id).value = value;
-
-  //$('#block1').load("index.html");
-  //$("#regForm").load("#regForm>*","");
-
- 	// $('#regForm input[type="text"]').val('');  
- 	// $('#regForm textarea').val('');
- 	// $('#regForm input[type="checkbox"]').prop("checked", false); 
- 	// $('#regForm input[type="checkbox"]').trigger('onchange');
- 	// $('#regForm input[type="hidden"]').val('');  
-
+  $('#color-pages').trigger('onchange');
+  $('#A3-pages').trigger('onchange');
+  $('#A2-pages').trigger('onchange');
+  $('#embossment-cover-sheet').trigger('onchange');  
+  $('#embossment-spine').trigger('onchange');
+  $('#cd-check').trigger('onchange');
+  $('#imprint').trigger('onchange');
+  $("#div-display-image").empty();
+  document.getElementById('div-display-image').className = "displayNone";
+  $("#div-display-image-cd").empty();
+  document.getElementById('div-display-image-cd').className = "displayNone";
  }
 
 
@@ -1374,9 +1660,9 @@ function incrementQuantity(id = "",count = ""){
  	var cover_color = document.getElementById('cover-color').value;
 
  	$.ajax({
-		url: '/druckshop/binding-sample-image', 
+		url: base_url+'/binding-sample-image', 
 		type: 'POST', 
-		data: {'binding': binding,'page_format' : page_format, 'cover_color' : cover_color},
+		data: {'binding': binding,'page_format' : page_format, 'cover_color' : cover_color, '_token': $('meta[name="csrf-token"]').attr('content')},
 		success: function (response){
 
 			//console.log(response);
@@ -1401,9 +1687,9 @@ function getPaperWeightCount(){
 			var binding = document.getElementById('binding').value;
 
 			$.ajax({
-			url: '/druckshop/get-spine-count', 
+			url: base_url+'/get-spine-count', 
 			type: 'POST', 
-			data: {'binding': binding,'paper_weight': paper_weight},
+			data: {'binding': binding,'paper_weight': paper_weight, '_token': $('meta[name="csrf-token"]').attr('content')},
 			success: function (response){  var data = JSON.parse(response); 
 
 				$("#spine-count").html("Minimum Number of letters for spine is "+ data);
@@ -1494,9 +1780,9 @@ function addAddress(address_type = ""){
 
 
 	$.ajax({
-			url: '/druckshop/add-address', 
+			url: base_url+'/add-address', 
 			type: 'POST', 
-			data: {'default':0,'address_type':address_type, 'first_name':first_name, 'last_name':last_name, 'company_name':company_name, 'street':street, 'city':city, 'zip_code':zip_code, 'house_no':house_no, 'addition':addition, 'state':state},
+			data: {'_token': $('meta[name="csrf-token"]').attr('content'),'default':0,'address_type':address_type, 'first_name':first_name, 'last_name':last_name, 'company_name':company_name, 'street':street, 'city':city, 'zip_code':zip_code, 'house_no':house_no, 'addition':addition, 'state':state},
 			success: function (response){  
 				if(address_type == "billing"){
 					$('#rv-Modal-billing').css('display','none'); 
@@ -1510,3 +1796,9 @@ function addAddress(address_type = ""){
 
 
 } 
+
+function addTooltip(value){
+
+	document.getElementById("page-format-tooltip").title = "number of the PDF file and only number of "+ value.options[value.selectedIndex].text;
+
+}

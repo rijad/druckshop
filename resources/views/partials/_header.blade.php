@@ -54,7 +54,7 @@
 </div>
 <div class="container">
 
-	<div class="site-logo"><a href="#"><img src="{{ asset('public/images/logo.png') }}" alt="" /></a></div>
+	<div class="site-logo"><a href="{{ route('index') }}"><img src="{{ asset('public/images/logo.png') }}" alt="" /></a></div>
 
 	<div class="site-login">
 		<ul class="headerCart d-flex float-right">
@@ -62,11 +62,11 @@
 			
 			<form action="{{ URL::to('/search')}}" method="POST">
 			@csrf
-				<div class="searchInput">
+				<div class="searchInput"> 
 					<input type="text" name="search" placeholder="Search by name ..." />	
 					<button type="submit"><i class="fa fa-search"></i></button>
 				</div>
-			</form>
+			</form> 
 			
 			</li>
 			<li class="cart-relative-count"><a @if(\App\Http\Controllers\CheckoutController::CartCount() > 0) href="{{route('cart')}}" @endif><i class="fa fa-shopping-cart"></i><span class="cart-product-count">@if(\App\Http\Controllers\CheckoutController::CartCount() >0 ) @if(\App\Http\Controllers\CheckoutController::CartCount() > 0) {{\App\Http\Controllers\CheckoutController::CartCount()}} @endif @endif</span> </a></li>
@@ -101,13 +101,13 @@
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav mr-auto">					      
 
-					<li class="nav-item active"><a href="{{ route('index') }}"><i class="fa fa-home"></i></a></li>
-					<li><a href="{{ route('products') }}">{{ trans('header.products')}}</a></li>
-					<li><a href="{{ route('latest') }}">{{ trans('header.latest')}}</a></li>
-					<li><a href="{{ route('about-us') }}">{{ trans('header.about')}}</a></li>
-					<li><a href="{{ route('faq') }}">{{ trans('header.faq')}}</a></li>
+					<li @if(Request::segment(1) == "")class="nav-item active" @endif><a href="{{ route('index') }}"><i class="fa fa-home"></i></a></li>
+					<li @if(Request::segment(1) == "products")class="nav-item active" @endif ><a href="{{ route('products') }}">{{ trans('header.products')}}</a></li>
+					<li @if(Request::segment(1) == "latest-page")class="nav-item active" @endif ><a href="{{ route('latest-page') }}">{{ trans('header.latest')}}</a></li>
+					<li @if(Request::segment(1) == "about-us")class="nav-item active" @endif ><a href="{{ route('about-us') }}">{{ trans('header.about')}}</a></li>
+					<li @if(Request::segment(1) == "faq")class="nav-item active" @endif ><a href="{{ route('faq') }}">{{ trans('header.faq')}}</a></li>
 					{{-- <li><a href="{{ route('gallery-images') }}">Gallery</a></li> --}}
-					<li><a href="{{ route('contact') }}">{{ trans('header.contact')}}</a></li>
+					<li @if(Request::segment(1) == "contact")class="nav-item active" @endif ><a href="{{ route('contact') }}">{{ trans('header.contact')}}</a></li>
 				</ul>  
 			</div>
 			@if (Auth::guard('admin')->check())

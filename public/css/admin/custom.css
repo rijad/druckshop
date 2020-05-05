@@ -45,24 +45,59 @@ table#dilivery_services_table_edit tr.form-inline { border-bottom: 1px solid #ec
 
 
 
-/*BINDING CREATE FORM*/
+/*BINDING CREATE AND EDIT FORM */
 .rv-RelativeBorder {position: relative;padding: 20px 15px 10px;}
 .rv-AbsoluteBorder {position: absolute;top: -13px;left: 10px;font-size: 15px;background: #f7f7f7;padding: 0 10px;}
-.form-group.rv-file_upload {background-color: #EEE;border: #999 5px dashed;padding: 8px;font-size: 18px;clear: both;margin: 20px 25px;}
+.form-group.rv-file_upload {background-color: #EEE;border: #999 5px dashed;padding: 8px;font-size: 18px;clear: both;margin: 20px 25px;text-align: center;}
 #paper_weight_table .rv-bindingswidth {display: inline-table;width: 190px;}
 td.rv-bindingswidth span {display: inline-flex;align-items: center;}
 td.rv-bindingswidth span input{width: 15px;}
 .rv-tableResponsive {overflow-y: auto;}
 
-
-
 .form-group.rv-responsivetable {overflow-x: scroll;}
-table#binding_table {border: 1px solid #ececec;min-width: 592px;width: 590px;}
+table#binding_table {border: 1px solid #ececec;min-width: 612px;width: 650px;}
 table#binding_table tr.form-inline {border-bottom: 1px solid #ececec;display: inherit;}
-#binding_table th.rv-headLt, #binding_table th.rv-headRt {    width: 295px;display: inline-block;background-color: #e0e0e0;}
-#binding_table td.rv-headLtchild1 {width: 10%;}
+#binding_table th.rv-headLt, #binding_table th.rv-headRt {    width: 324px;display: inline-block;background-color: #e0e0e0;}
+#binding_table td.rv-headLtchild1 {width: 90px;}
 #binding_table td.rv-headLtchild {width: 250px;}
-#binding_table td.rv-headLtchild input {width: 100%;}
+#binding_table td.rv-headLtchild input {    width: 215px;}
 .form-group.rv-overflow-y {overflow-y: auto;}
 
+.rv-custom-file-input {color: transparent;display: block;width: 100px;margin: 20px auto;height: 40px;}
+.rv-custom-file-input::-webkit-file-upload-button {visibility: hidden;}
+.rv-custom-file-input::before {content: 'Select File'; color: black; display: inline-block; border: 1px solid #aaa; border-radius: 3px; padding: 5px 8px; outline: none; white-space: nowrap; cursor: pointer; text-shadow: 1px 1px #fff; font-weight: 400; font-size: 13pt; background-color: #ddd;}
+.rv-custom-file-input:hover::before {border-color: black;}
 
+.card .form-inline input[type=checkbox], .card .form-inline input[type=radio] {margin-right: 7px;}
+.card .form-inline input[type=checkbox]:focus, .card .form-inline input[type=radio]:focus{   box-shadow: none !important;}
+
+
+
+/* -----------------------------------------------28-04-2020------------------------------- */
+
+.container_image {
+  position: relative;
+  width: 100%;
+  max-width: 150px;
+}
+
+.container_image img {
+  width: 100%;
+  height: auto;
+}
+
+.container_image .btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  background-color: #555;
+  color: white;
+  font-size: 10px;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  text-align: center;
+}

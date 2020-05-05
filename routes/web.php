@@ -40,7 +40,7 @@ Route::get('/route-clear', function() {
     $exitCode = Artisan::call('route:clear');
     return '<h1>Route cache cleared</h1>';
 });
-
+ 
 //Clear View cache:
 Route::get('/view-clear', function() {
     $exitCode = Artisan::call('view:clear');
@@ -66,18 +66,18 @@ Route::any('/search',function(){
 
 //Frontend
 Route::get('/', 'IndexController@sendData')->name('index');
-Route::get('/products', 'ProductController@sendData')->name('products');
+Route::get('/products', 'ProductController@sendData')->name('products'); 
 Route::get('/product-information', 'ProductInfoController@sendData')->name('product-information');
 Route::POST('/news-letter','NewsLetterController@sendData')->name('news-letter');
 
 Route::get('/checkout/{id}','CheckoutController@sendData')->name('check-out');
 Route::get('/get-relations','CheckoutController@getProductAttributes')->name('get-relations');
-Route::get('/get-price','CheckoutController@getPrice')->name('get-price');
+Route::get('/get-price','CheckoutController@getPrice')->name('get-price'); 
 Route::get('/get-relations-content','CheckoutController@getContentAttributes')->name('get-relations-content');
 Route::get('/loose-print','CheckoutController@loosePrint')->name('loose-print');
 Route::POST('/product-order','CheckoutController@saveOrder')->name('product-order');
-Route::POST('/orders-details','CheckoutController@orderDetails')->name('orders-details');
-Route::POST('/set-quantity','CheckoutController@setQuantity')->name('set-quantity');
+Route::POST('/orders-details','CheckoutController@orderDetails')->name('orders-details'); 
+Route::POST('/set-quantity','CheckoutController@setQuantity')->name('set-quantity'); 
 Route::get('/remove-item/{id}','CheckoutController@removeItem')->name('remove-item');
 Route::POST('/paper-weight-sheets','CheckoutController@paperWeightSheets')->name('paper-weight-sheets');
 Route::get('/cart','CheckoutController@cart')->name('cart');
@@ -86,25 +86,25 @@ Route::get('/get-print-finishing-status','CheckoutController@getPrintfinishingSt
 Route::post('/get-spine-count','CheckoutController@getSpineCount')->name('get-spine-count');
 Route::post('/add-address','CheckoutController@addAddress')->name('add-address');
 
-// Binding Sample Image
+// Binding Sample Image 
 Route::POST('/binding-sample-image','BindingSampleImageController@getSampleImage')->name('binding-sample-image');
 
 //Defect File
 Route::get('/defectfile/{order_id}/{old_file}','DefectFileController@index')->name('defectfile');
 Route::post('/defectfile-update','DefectFileController@update')->name('defectfile-update'); 
-
-//Customer-area
+ 
+//Customer-area 
 Route::get('/customer-area','CustomerAreaController@index')->name('customer-area');
 Route::get('/customer-area-edit','CustomerAreaController@edit')->name('customer-area-edit');
 Route::POST('/customer-area-update','CustomerAreaController@update')->name('customer-area-update');  
 Route::get('/customer-area-data','CustomerAreaController@fetchData')->name('customer-area-data');
-
+ 
 
 Route::get('/repeat-order/{order_id}','RepeatOrderController@RepeatOrder')->name('repeat-order');
 Route::get('/cancel-order/{order_id}','CancelOrderController@CancelOrder')->name('cancel-order');
 Route::POST('/return-order','ReturnOrderController@ReturnOrder')->name('return-order');
 
-Route::get('/latest','LatestController@index')->name('latest');
+Route::get('/latest-page','LatestController@index')->name('latest-page');
 Route::get('/about-us','AboutController@index')->name('about-us');
 Route::get('/faq','FaqController@index')->name('faq');
 Route::get('/contact','ContactController@index')->name('contact');
@@ -114,7 +114,7 @@ Route::POST('/remove-file','UploadfileController@removeFile')->name('remove-file
 Route::get('/coming-soon', function () {
     return view('coming-soon'); 
 })->name('coming-soon');
-
+ 
 
 // Payment
 
@@ -168,28 +168,34 @@ Route::group(['namespace'=>'Admin', 'prefix' => 'admin'], function()
 //Parameters
     Route::resource('/parameter','ParameterController');
     Route::get('/details/{model}/{id}','ParameterController@details')->name('details');
-    Route::resource('/covercolor','CoverColorController');
+    Route::resource('/covercolor','CoverColorController'); 
     Route::resource('/coversheet','CoverSheetController');
     Route::resource('/backcover','BackCoverController');
     Route::resource('/cdbag','CdBagController');
     Route::resource('/datacheck','DataCheckController'); 
     Route::resource('/art','ArtController'); 
-    Route::resource('/discount','DiscountController'); 
+    Route::resource('/discount','DiscountController');  
     Route::resource('/gallery','GalleryController');
     Route::resource('/pageformat','PageFormatController');
     Route::get('/details/{model}/{id}','ParameterController@details')->name('details'); 
+    Route::post('/removeProductImage','ProductController@removeProductImage')->name('removeProductImage'); 
 
 //order
     Route::get('/order','OrderController@index')->name('order');
     Route::get('/order-details/{order_id}','OrderController@edit')->name('order-details');
     Route::post('/order-edit/{id}','OrderController@update')->name('order-edit'); 
 
-    Route::get('/defected-order-email/{user-id}/{order-id}/{old-file-name}','OrderController@sendDefectedOrderEmail')->name('defected-order-email'); 
+    Route::get('/defected-order-email/{user_id}/{order_id}/{old_file_name}','OrderController@sendDefectedOrderEmail')->name('defected-order-email'); 
+    Route::post('/trackingNumberSendMail','OrderController@trackingNumberSendMail')->name('trackingNumberSendMail');
 
 
     Route::resource('/returnorder','ReturnOrdersController');
 
 
+    Route::resource('/stylesheet','StyleSheetController'); 
+
+
+    Route::resource('/customer','UsersController'); 
     Route::resource('/newsletter','NewsletterController');
     Route::post('/newsLetterSendMail','NewsletterController@sendMail')->name('newsLetterSendMail');
 

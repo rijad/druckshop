@@ -48,7 +48,7 @@ class OrderController extends Controller
         }else{
             return "";
         }
-    }
+    } 
 
     /**
      * Show the form for creating a new resource.
@@ -96,6 +96,8 @@ class OrderController extends Controller
         $orderhistory = OrderDetailsFinal::with('orderProductHistory')
         ->where(['order_id' => $request->order_id ])
         ->first();
+
+       // dd($orderhistory);
         return view('/pages/admin/orderdetails',compact('orderhistory', 'users', 'orderstate'));
     }
 
@@ -141,9 +143,7 @@ class OrderController extends Controller
         //
     }
 
-    public function sendDefectedOrderEmail(Request $request, $order_id = '', $old_file_name = '', $user_id = ''){
-
-
+    public function sendDefectedOrderEmail(Request $request, $user_id = '', $order_id = '', $old_file_name = ''){
 
         if (!empty($order_id) && !empty($old_file_name) && !empty($user_id)) {
 
@@ -185,8 +185,52 @@ class OrderController extends Controller
         }
 
         return redirect()->back()->with('error' , 'Something went wrong, Please try again !!');
-        
+    }
 
+
+
+     public function trackingNumberSendMail(Request $request) {
+
+        if ($request) {
+
+            $data = $data = User::where(['id' => $request->user])->first();
+            $url = $request->tracking_link;
+
+            if (!empty($data)) {
+
+                $user_data = [
+
+                    'name' => @$data->name,
+                    'email' => $data->email,
+                    'description' => @$request->description,
+                    'order_id' => @$request->order_id,
+                    'action_url' => @$url,
+                    'base_url' => \URL::to('/'),
+                    'logo_url' => \URL::to('/'). '/public/images/logo.png',
+                ];
+
+                try { 
+
+                    $sent = Mail::send('emails.tracking_link', $user_data, function($message) use ($user_data) {
+
+                        $message->to(@$user_data['email'], $user_data['name'])->subject('Druckshop - Order Tracking');
+                        $message->from(env('MAIL_USERNAME'), env('MAIL_FROM_NAME'));
+                    });
+
+                     return redirect()->back()->with('status' , 'Mail Sent !!');
+
+                } catch (Exception $e) {
+
+                //Avoid error 
+
+                }               
+            }
+        }
+
+         return redirect()->back()->with('error' , 'Something went wrong, Please try again !!');
 
     }
+
+
+
 }

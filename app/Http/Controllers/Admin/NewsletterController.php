@@ -95,7 +95,7 @@ class NewsletterController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // 
     }
 
 
