@@ -11,7 +11,7 @@ class CheckCodeRule implements Rule
      * Create a new rule instance.
      *
      * @return void
-     */
+     */ 
     public function __construct()
     {
         //
