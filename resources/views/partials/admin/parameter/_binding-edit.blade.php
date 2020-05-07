@@ -43,24 +43,30 @@
                     <textarea class="form-control summernote" id="long_description_german" name="long_description_german" placeholder="Long Description German" required>{{ @$product->description_german }}</textarea>
                 </div>
                 
-                <div class="border_dashed product-image">
-                    <div class="container_image">
-                       <img id = "product_img" src="{{  url('public/images/'.@$product->image_path)}}" />
+                <div class="border_dashed product-image" >
+                    <div class="container_image" >
+                       <img id = "product_img" src="{{url('public/images/'.@$product->image_path)}}" />
                     </div>
                     <div class="form-group rv-file_upload">
                         <label class="small mb-1" for="name">Upload Binding Image</label>
                         <input class="rv-custom-file-input" type="file" id="product_file" name="product_file" onchange="readURL(this);"/>
                     </div>
 
+                    @if(! empty($product_image))                   
                     @foreach($product_image as $key => $value)
-                    <div class="container_image">
-                       <img id="{{'product_img_multi'.$key}}" src="{{  url('/public/images/'.@$value->image_path)}}" />
+                    <div class="container_image" id = "container_image">
+                    
+                       <img id="{{'product_img_multi'.$key}}" src="{{ url('/public/images/'.@$value->image_path)}}" />
                       <button class="btn" type="button" onclick="javascript:removeImage('{{$value->image_path}}',{{$value->id}});" >Remove Image </button>
+                    
                     </div>
+
                     @endforeach
-                    <div class="form-group rv-file_upload">
+                    @endif
+                    
+                    <div class="form-group rv-file_upload" id = "preview-image">
                         <label class="small mb-1" for="name">Upload Others Images</label>
-                        <input class="rv-custom-file-input" type="file" id="otherImages" onchange="readURLMultiple(this);" name="otherImages[]"  multiple />
+                        <input class="rv-custom-file-input" type="file" id="otherImages" onchange="previewFiles();" name="otherImages[]"  multiple />
                     </div>
                 </div>
 
@@ -404,7 +410,7 @@ body .popover{display:none !important; }
 <script type="text/javascript">  
     function removeImage(image_path = "" ,id = ""){  
 
-        $.ajax({ 
+        $.ajax({  
         url: base_url+'/admin/removeProductImage', 
         type: 'POST', 
         data: {'rid' : id, 'path': image_path, '_token': $('meta[name="csrf-token"]').attr('content')},
@@ -438,26 +444,73 @@ function readURL(input) {
         reader.readAsDataURL(input.files[0]);
         }
     }
- 
 
-    function readURLMultiple(input) {  alert("1");
-        if (input.files && input.files[0]) {  alert("22");
 
-            for(var i = 0 ; i<input.files.length; i++){  alert(i);
-                var reader = new FileReader();
+    function test(image = "", button = ""){
 
-                reader.onload = function (e) {
-                    $('#product_img_multi'+i)
-                        .attr('src', e.target.result)
-                        .width(150)
-                        .height(150);
-                };
-
-            reader.readAsDataURL(input.files[i]);
-            }
-            
-        }
+        document.getElementById(image).remove(); $(button).remove();//console.log($('#'+image).remove()); 
     }
+ 
+function previewFiles() {
+
+  var preview = document.getElementById('container_image');
+  var files   = document.getElementById('otherImages').files;
+
+  function readAndPreview(file) {
+
+    // Make sure `file.name` matches our extensions criteria
+    if ( /\.(jpe?g|png|gif)$/i.test(file.name) ) {
+      var reader = new FileReader();
+
+      reader.addEventListener("load", function () {
+
+        var image = new Image();
+        image.height = 100;
+        image.title = file.name;
+        image.src = this.result;
+        image.id = file.name;
+        image.setAttribute("class","preview-image");
+        preview.before(image);
+
+        var button = document.createElement("BUTTON");
+        button.innerHTML = "Remove Image";
+        button.type = "button";
+        button.id = "dynamic-button";
+        button.setAttribute("onclick","test('"+file.name+"',this)");
+        button.setAttribute("class","preview-button");
+        preview.before(button);
+
+      }, false);
+
+      reader.readAsDataURL(file);
+    }
+
+  }
+
+  if (files) {
+    [].forEach.call(files, readAndPreview);
+  }
+
+}
+
+    // function readURLMultiple(input) {  alert("1");
+    //     if (input.files && input.files[0]) {  alert("Length: "+input.files.length);
+
+    //         for(var i = 0 ; i<input.files.length; i++){  alert(i);
+    //             var reader = new FileReader();
+
+    //             reader.onload = function (e) {
+    //                 $('#product_img_multi'+i)
+    //                     .attr('src', e.target.result)
+    //                     .width(150)
+    //                     .height(150);
+    //             };
+
+    //         reader.readAsDataURL(input.files[i]);
+    //         }
+            
+    //     }
+    // }
 </script>
 
 

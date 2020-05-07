@@ -67,7 +67,7 @@
 
             var price_input = $('#dilivery_services_table tr:last td:nth(2) input').val();
 
-            if (Number(to_input) > Number(from_input) && Number(price_input) > 0) {
+            if (Number(to_input) > Number(from_input) && Number(price_input)) {
 
                 $( "#delivery_add_more" ).prop( "disabled", false );
             }else{
@@ -85,7 +85,7 @@
 
             var price_input = $('#dilivery_services_table tr:last td:nth(2) input').val();
 
-            if (Number(to_input) > Number(from_input) && Number(price_input) > 0) {
+            if (Number(to_input) > Number(from_input) && Number(price_input)) {
 
                 $( "#delivery_add_more" ).prop( "disabled", false );
             }else{
@@ -165,7 +165,7 @@
 
             var price_input = $('#dilivery_services_table_edit tr:last td:nth(2) input').val();
 
-            if (Number(to_input) > Number(from_input) && Number(price_input) > 0) {
+            if (Number(to_input) > Number(from_input) && Number(price_input) ) {
 
                 $( "#delivery_edit_add_new_row" ).prop( "disabled", false );
             }else{
@@ -183,7 +183,7 @@
 
             var price_input = $('#dilivery_services_table_edit tr:last td:nth(2) input').val();
 
-            if (Number(to_input) > Number(from_input) && Number(price_input) > 0) {
+            if (Number(to_input) > Number(from_input) && Number(price_input)) {
 
                 $( "#delivery_edit_add_new_row" ).prop( "disabled", false );
             }else{

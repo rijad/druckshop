@@ -151,11 +151,11 @@ class ProductController extends Controller
             }
 
             //insert file
-            if($request->file('otherImages')) {
+            if($request->file('otherImages')) {  dd($request->file('otherImages'));
 
                 foreach ($request->file('otherImages') as $key => $value) {
 
-                    $other_image = $request->file('otherImages')[$key];
+                    $other_image = $request->file('otherImages')[$key]; 
                     $inputImage['imagename'] = time().@$insert->id.'.'.@$other_image->getClientOriginalExtension();
 
                     $destinationPathImg = public_path('/images');

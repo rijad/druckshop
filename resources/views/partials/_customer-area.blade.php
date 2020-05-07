@@ -29,7 +29,7 @@
                             </li> --}}
                             <li><span>Address </span>
                                 <span><textarea name="billing_address" id="userIdBilling" value="" disabled></textarea>
-                                <a  type = "button" name="billing_address_click" id="billing_address" class="form-control" data-toggle="modal" data-target="#rv-Modal-billing">Edit Address</a>
+                                <button  type = "button" name="billing_address_click" id="billing_address" class="form-control" data-toggle="modal" data-target="#rv-Modal-billing">Edit Address</button>
                             </span></li>
                             </ul>
                             </div>
@@ -109,7 +109,7 @@
                         @endforeach
                     </div>
                 </div>
-            </div> 
+            </div>  
         </div>  
     </div>
 </div>
@@ -179,17 +179,17 @@
                </form>
             </div>   
           </div>
-      </div>
+      </div>  
   </div>
 </div> --}}
  
-
+{{-- data-backdrop="false" show = "true"  --}}
 <!-- Modal -->
-<div class="modal fade rv-modalFormCustom" data-backdrop="false" id="rv-Modal-billing" role="dialog">
+<div class="modal fade rv-modalFormCustom" id="rv-Modal-billing" role="dialog">
     <div class="modal-dialog">
        <div class="modal-content">
           <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <button type="button" class="close" data-dismiss="modal">&times;</button> 
             <h4 class="modal-title">Add Billing Address</h4>
           </div>
           <div class="modal-body">

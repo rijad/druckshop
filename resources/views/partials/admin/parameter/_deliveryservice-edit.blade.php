@@ -15,7 +15,7 @@
                 <div class="form-group">
                     <label class="small mb-1" for="name">Shipment Tracking Link</label>
                     <input class="form-control col-md-8" id="shipment_tracking_link" name="shipment_tracking_link" value="{{ $data->shipment_tracking_link }}" type="text" placeholder="Shipment Tracking Link" />
-                </div>
+                </div> 
 
                 <div class="form-group rv-responsivetable">
                     <table id="dilivery_services_table_edit">
@@ -40,14 +40,14 @@
                                 <?php } ?>
                             </td>
 
-                            <td><input class="form-control price_input" id="price" type="number" name="price[]" value="{{ $value['ds_price'] }}" required /></td>
+                            <td><input class="form-control price_input" id="price" type="number" name="price[]" value="{{ $value['ds_price'] }}" step="0.01" required /></td>
                         </tr>
                         @endforeach
                         @else
                         <tr class="form-inline">
                             <td class="rv-headLtchild1"><input id="from" type="hidden" name="from[]" value="0" />0</td>
                             <td class="rv-headLtchild"><input class="form-control to_input" id="to" type="number" name="to[]" required /></td>
-                            <td class="rv-headRtchild"><input class="form-control price_input" id="price" type="number" name="price[]" required /></td>
+                            <td class="rv-headRtchild"><input class="form-control price_input" step="0.01" id="price" type="number" name="price[]" required /></td>
                         </tr>
                         @endif
                         

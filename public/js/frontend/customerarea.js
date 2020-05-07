@@ -210,9 +210,11 @@ function addAddress(address_type = ""){
       data: {'default':1,'address_type':address_type, 'first_name':first_name, 'last_name':last_name, 'company_name':company_name, 'street':street, 'city':city, 'zip_code':zip_code, 'house_no':house_no, 'addition':addition, 'state':state},
       success: function (response){  
         if(address_type == "billing"){
-          $('#rv-Modal-billing').modal('toggle');
-        }else{
-          $('#rv-Modal-shipping').modal('toggle');
+
+          $('#rv-Modal-billing').modal('hide');$('body').removeClass('modal-open');$('.modal-backdrop').remove()
+        //   $('#rv-Modal-billing').modal('toggle');
+        // }else{
+        //   $('#rv-Modal-shipping').modal('toggle');
         }
 
       }

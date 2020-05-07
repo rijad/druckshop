@@ -221,7 +221,7 @@
 
 												<div class="displayNone" id="div-embossing">
 													<label>{{ trans('checkout.embossing') }}*:</label>
-													<p><select class = "" id = "embossing" name = "embossing">
+													<p><select class = "" id = "embossing" name = "embossing" onchange="embossingChange(this);">
 														<option value = "-1">Select</option>
 														<option value = "Edition">Edition</option>
 														<option value = "Classic">Classic</option>
@@ -300,6 +300,7 @@
 															<span class="checkmark"></span>
 														</label>
 														<p id="spine-count"></p>
+														<p id="spine-message"></p>
 														<input type = "hidden" id="spine-count-hidden" name="spine-count-hidden">
 													</div>
 
@@ -313,10 +314,10 @@
 													</div>
 
 													<div class="displayNone" id="div-section-1">
-													<label>{{ trans('checkout.section') }} 1:</label>
+													<label id="section-1" class = "displayBlock">{{ trans('checkout.section') }} 1:</label>
 
-													<label>{{ trans('checkout.field') }} 1:</label>
-													<p><select class = "" id = "fields_1" name = "fields_1" onchange="section2();" class="">
+													
+													<p><label id="field-1" class = "displayBlock">{{ trans('checkout.field') }} 1:</label><select class = "" id = "fields_1" name = "fields_1" onchange="section2();" class="">
 														<option value = "-1">Select</option>
 														<option value = "Name">Name</option>
 														<option value = "Title">Title</option>
@@ -324,8 +325,8 @@
 														<option value = "Topic">Topic</option>
 													</select></p>
 													
-													<label>{{ trans('checkout.position') }} 1:</label>
-													<p><select class = "" id = "pos_1" name = "pos_1" onchange="section2();">
+													
+													<p><label id="position-1" class = "displayBlock">{{ trans('checkout.position') }} 1:</label><select class = "" id = "pos_1" name = "pos_1" onchange="section2();">
 														<option value = "-1">Select</option>
 														<option value = "Top">Top</option>
 														<option value = "Middle">Middle</option>
@@ -336,19 +337,19 @@
 													<div>
 													<button type="button" onclick="addSection('div-section-2')">{{ trans('checkout.add_section') }}</button> 
 													</div>
-													<p class="error" id="error-section-1"></p>
+													<p class="error" id="error-section-1"></p> 
 													</div>
 
 													<div class="displayNone" id="div-section-2"> 
-													<label>{{ trans('checkout.section') }} 2:</label>
+													<label id="section-2">{{ trans('checkout.section') }} 2:</label>
 
-													<label>{{ trans('checkout.field') }} 2:</label>
-													<p><select class = "" id = "fields_2" name = "fields_2" onchange="section3();">
+													
+													<p><label id="field-2" class = "">{{ trans('checkout.field') }} 2:</label><select class = "" id = "fields_2" name = "fields_2" onchange="section3();">
 														<option value = "-1">Select</option>
 													</select></p>
 													
-													<label>{{ trans('checkout.position') }} 2:</label>
-													<p><select class = "" id = "pos_2" name = "pos_2" onchange="section3();">
+													 
+													<p><label id="position-2" class = "">{{ trans('checkout.position') }} 2:</label><select class = "" id = "pos_2" name = "pos_2" onchange="section3();">
 														<option value = "-1">Select</option>
 													</select></p> 
 
@@ -361,15 +362,15 @@
 													</div>
 
 													<div class="displayNone" id="div-section-3">
-													<label>{{ trans('checkout.section') }} 3:</label>
+													<label id="section-3" class = "">{{ trans('checkout.section') }} 3:</label>
 
-													<label>{{ trans('checkout.field') }} 3:</label>
-													<p><select class = "" id = "fields_3" name = "fields_3" onchange="section4();">
+													
+													<p><label id="field-3" class = "">{{ trans('checkout.field') }} 3:</label><select class = "" id = "fields_3" name = "fields_3" onchange="section4();">
 														<option value = "-1">Select</option>
 													</select></p>
 													
-													<label>{{ trans('checkout.position') }} 3</label>
-													<p><select class = "" id = "pos_3" name = "pos_3" onchange="section4();">
+													
+													<p><label id="position-3" class = "">{{ trans('checkout.position') }} 3</label><select class = "" id = "pos_3" name = "pos_3" onchange="section4();">
 														<option value = "-1">Select</option>
 													</select></p> 
 
