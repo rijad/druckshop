@@ -43,7 +43,7 @@
                     <textarea class="form-control summernote" id="long_description_german" name="long_description_german" placeholder="Long Description German" required>{{ @$product->description_german }}</textarea>
                 </div>
                 
-                <div class="border_dashed">
+                <div class="border_dashed product-image">
                     <div class="container_image">
                        <img id = "product_img" src="{{  url('public/images/'.@$product->image_path)}}" />
                     </div>
