@@ -16,21 +16,23 @@
                         </tr>
                     </tfoot>
                     <tbody>
-                        @foreach($art as $artlist)
-                            <tr>
-                                <td>{{ $artlist->check_list }}</td>
-                                <td class="form-inline">
-                                    <form method="GET" action="{{ route('art.edit' , $artlist->id) }}">
-                                    <input type="submit" value="edit" class="btn btn-success">
-                                    </form>
-                                    <form method="POST" action="{{ route('art.destroy' , $artlist->id) }}" class="ml-2">
-                                        @method('DELETE')
-                                        @csrf
-                                        <input type="submit" value="delete" class="btn btn-danger">
-                                    </form>
-                                </td>
-                            </tr> 
-                        @endforeach
+                        @if(!empty($art))
+                            @foreach($art as $artlist)
+                                <tr>
+                                    <td>{{ $artlist->check_list }}</td>
+                                    <td class="form-inline">
+                                        <form method="GET" action="{{ route('art.edit' , $artlist->id) }}">
+                                        <input type="submit" value="edit" class="btn btn-success">
+                                        </form>
+                                        <form method="POST" action="{{ route('art.destroy' , $artlist->id) }}" class="ml-2">
+                                            @method('DELETE')
+                                            @csrf
+                                            <input type="submit" value="delete" class="btn btn-danger">
+                                        </form>
+                                    </td>
+                                </tr> 
+                            @endforeach
+                        @endif
                     </tbody>
                 </table>
             </div>

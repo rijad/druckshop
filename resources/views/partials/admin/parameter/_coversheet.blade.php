@@ -24,21 +24,23 @@
                                     </tr>
                                 </tfoot>
                                 <tbody>
-                                    @foreach($coversheet as $sheet)
-                                    <tr>
-                                        <td>{{ $sheet->sheet }}</td>
-                                        <td class="form-inline">
-                                        <form method="GET" action="{{ route('coversheet.edit' , $sheet->id) }}">
-                                                <input type="submit" value="edit" class="btn btn-success">
-                                            </form>
-                                            <form method="POST" action="{{ route('coversheet.destroy' , $sheet->id) }}" class="ml-2">
-                                            @method('DELETE')
-                                            @csrf
-                                                <input type="submit" value="delete" class="btn btn-danger">
-                                            </form>
-                                        </td>
-                                    </tr> 
-                                    @endforeach
+                                    @if(!empty($coversheet))
+                                        @foreach($coversheet as $sheet)
+                                        <tr>
+                                            <td>{{ $sheet->sheet }}</td>
+                                            <td class="form-inline">
+                                            <form method="GET" action="{{ route('coversheet.edit' , $sheet->id) }}">
+                                                    <input type="submit" value="edit" class="btn btn-success">
+                                                </form>
+                                                <form method="POST" action="{{ route('coversheet.destroy' , $sheet->id) }}" class="ml-2">
+                                                @method('DELETE')
+                                                @csrf
+                                                    <input type="submit" value="delete" class="btn btn-danger">
+                                                </form>
+                                            </td>
+                                        </tr> 
+                                        @endforeach
+                                    @endif
                                 </tbody>
                             </table>
                         </div>

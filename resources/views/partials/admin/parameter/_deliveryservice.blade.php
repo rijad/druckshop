@@ -25,22 +25,24 @@
                     </tr>
                 </tfoot>
                 <tbody>
-                    @foreach($deliveryservice as $service)
-                    <tr>
-                        <td>{{ $service->delivery_service }}</td>
-                        <td class="form-inline">
-                            <form method="GET" action="{{ route('deliveryService.edit' , $service->id) }}">
-                                <input type="submit" value="edit" class="btn btn-success">
-                            </form>
+                    @if(!empty($deliveryservice))
+                        @foreach($deliveryservice as $service)
+                        <tr>
+                            <td>{{ $service->delivery_service }}</td>
+                            <td class="form-inline">
+                                <form method="GET" action="{{ route('deliveryService.edit' , $service->id) }}">
+                                    <input type="submit" value="edit" class="btn btn-success">
+                                </form>
 
-                            <form method="POST" action="{{ route('deliveryService.destroy' , $service->id) }}" class="ml-2">
-                                @method('DELETE')
-                                @csrf
-                                <input type="submit" value="delete" class="btn btn-danger">
-                            </form>
-                        </td>
-                    </tr>
-                    @endforeach
+                                <form method="POST" action="{{ route('deliveryService.destroy' , $service->id) }}" class="ml-2">
+                                    @method('DELETE')
+                                    @csrf
+                                    <input type="submit" value="delete" class="btn btn-danger">
+                                </form>
+                            </td>
+                        </tr>
+                        @endforeach
+                    @endif
                 </tbody>
             </table>
         </div>
