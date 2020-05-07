@@ -86,10 +86,8 @@ class LatestController extends Controller
             // }
 
             if($request->input('status') == "on"){
-
                 $status = 1;
             }else{
-
                 $status = 0;
             }
 
@@ -171,10 +169,8 @@ class LatestController extends Controller
             // }
 
             if($request->input('status') == "on"){
-
                 $status = 1;
             }else{
-
                 $status = 0;
             }
 
@@ -187,7 +183,8 @@ class LatestController extends Controller
             $latest->save();
         }
 
-        return redirect('/admin/latest');
+        return redirect()->back()->with('status' , 'Updated');
+
 
     }
 

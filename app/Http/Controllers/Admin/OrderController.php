@@ -103,6 +103,12 @@ class OrderController extends Controller
         }
 
         try{
+            $order = OrderDetailsFinal::where('order_id', $id)->first();
+        }catch (Exception $e) {
+            $order = [];
+        }
+
+        try{
             $orderhistory = OrderDetailsFinal::with('orderProductHistory')
             ->where(['order_id' => $request->order_id ])
             ->first();
@@ -111,7 +117,7 @@ class OrderController extends Controller
         }
 
        // dd($orderhistory);
-        return view('/pages/admin/orderdetails',compact('orderhistory', 'users', 'orderstate'));
+        return view('/pages/admin/orderdetails',compact('orderhistory', 'users', 'orderstate', 'order'));
     }
 
     /**

@@ -56,9 +56,7 @@ class SliderController extends Controller
      * @return \Illuminate\Http\Response
      */ 
     public function store(Request $request)
-    {  
-
-
+    {
         $validator = Validator::make($request->all(), [
             'image_path' => 'required|image:jpeg,png,jpg,gif',
             'title_english' => 'required',
@@ -93,21 +91,18 @@ class SliderController extends Controller
 
 
             $input = $request->all();
+            dd($input);
             $input['image_path'] = "public/images/".$file->getClientOriginalName();
 
             if($request->input('is_active') == "on"){
-
                 $input['is_active'] = 1;
             }else{
-
                 $input['is_active'] = 0;
             }
 
             if($request->input('is_slide') == "on"){
-
                 $input['is_slide'] = 1;
             }else{
-
                 $input['is_slide'] = 0;
             }
 
@@ -196,18 +191,14 @@ class SliderController extends Controller
 
 
             if($request->input('is_active') == "on"){
-
                 $input['is_active'] = 1;
             }else{
-
                 $input['is_active'] = 0;
             }
 
             if($request->input('is_slide') == "on"){
-
                 $input['is_slide'] = 1;
             }else{
-
                 $input['is_slide'] = 0;
             }
 
@@ -223,8 +214,7 @@ class SliderController extends Controller
             $slider->save();
         }
 
-        return redirect('admin/slider');
-
+        return redirect()->back()->with('status' , 'Updated');
     }
 
     /**
