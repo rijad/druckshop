@@ -38,7 +38,11 @@ class ParameterController extends Controller
      */
     public function index()
     {
+        try{
         $parameter = Parameter_list::where('status' , '1')->get();
+        }catch (Exception $e) {
+            $parameter = [];
+        }
         return view('pages.admin.parameter.parameter',compact('parameter'));
     }
 

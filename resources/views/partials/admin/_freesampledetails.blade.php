@@ -4,34 +4,36 @@
 
         <div class="card-body col-md-6">
 
-    @if (session('status'))
-    <div class="alert alert-success" role="alert">
-        {{ session('status') }}
-    </div>
-    @endif  
-    @if ($errors->any())
-        <ul>
-            @foreach ($errors->all() as $error)
-            @endforeach
-        </ul>
-    @endif
-        <form class="form-group-inline" method="POST" action="{{ route('freesample-edit', ['id'=> $id]) }}">
-            @csrf
+        @if (session('status'))
+        <div class="alert alert-success" role="alert">
+            {{ session('status') }}
+        </div>
+        @endif  
+        @if ($errors->any())
+            <ul>
+                @foreach ($errors->all() as $error)
+                @endforeach
+            </ul>
+        @endif
+            <form class="form-group-inline" method="POST" action="{{ route('freesample-edit', ['id'=> $id]) }}">
+                @csrf
 
-            <select name="sample_status">
-                <option>State</option>
-                    @foreach($orderstate as $state)
-                    <option value="{{ $state->order_state }}">{{ $state->order_state }}</option>
-                    @endforeach
-            </select>
-                <input type="submit" class="btn btn-primary" value="update">
-        </form>
+                @if(!empty($orderstate))
+                    <select name="sample_status">
+                        <option>State</option>
+                            @foreach($orderstate as $state)
+                            <option value="{{ $state->order_state }}">{{ $state->order_state }}</option>
+                            @endforeach
+                    </select>
+                @endif
+                    <input type="submit" class="btn btn-primary" value="update">
+            </form>
+        </div>
     </div>
-  </div>
 
 </div> 
 
-<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
                                     <tr>
                                         <th>Sample State</th>
@@ -65,21 +67,23 @@
                                     </tr>
                                 </tfoot>
                                 <tbody> 
-                                @foreach($freesample as $sample)
-                                    <tr>
-                                        <td>{{ $sample->sample_status }}</td>
-                                        <td>{{ $sample->side_option }}</td>
-                                        <td>{{ $sample->paper_weight }}</td>
-                                        <td>{{ $sample->last_name }}</td>
-                                        <td>{{ $sample->first_name }}</td>
-                                        <td>{{ $sample->company }}</td>
-                                        <td>{{ $sample->street }}</td>
-                                        <td>{{ $sample->house_number }}</td>
-                                        <td>{{ $sample->addition_to_address }}</td>
-                                        <td>{{ $sample->city }}</td>
-                                        <td>{{ $sample->zip_code }}</td>
-                                        <td><a href = '{{asset($sample->document)}}'>Document</a></td>
-                                    </tr>  
-                                    @endforeach
+                                    @if(!empty($freesample))
+                                        @foreach($freesample as $sample)
+                                            <tr>
+                                                <td>{{ $sample->sample_status }}</td>
+                                                <td>{{ $sample->side_option }}</td>
+                                                <td>{{ $sample->paper_weight }}</td>
+                                                <td>{{ $sample->last_name }}</td>
+                                                <td>{{ $sample->first_name }}</td>
+                                                <td>{{ $sample->company }}</td>
+                                                <td>{{ $sample->street }}</td>
+                                                <td>{{ $sample->house_number }}</td>
+                                                <td>{{ $sample->addition_to_address }}</td>
+                                                <td>{{ $sample->city }}</td>
+                                                <td>{{ $sample->zip_code }}</td>
+                                                <td><a href = '{{asset($sample->document)}}'>Document</a></td>
+                                            </tr>  
+                                        @endforeach
+                                    @endif
                                 </tbody>
                             </table>

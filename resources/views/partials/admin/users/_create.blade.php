@@ -38,15 +38,16 @@
                 <input class="form-control" type="password" name="password" value="{{ old('password') }}">
                 <span class="text-danger">{{ $errors->first('password') }}</span>
             </div>
+
             <div class="form-group">
 
                 <label class="small mb-1" for="roles">Roles</label><br>
-                <input type="checkbox" id="admin" name="admin">
-                <label for="admin">Admin</label><br>
-                <input type="checkbox" id="superadmin" name="superadmin">
-                <label for="vehicle3">Superadmin</label><br>
-                <input type="checkbox" id="employee" name="employee">
-                <label for="vehicle3">Employee</label><br>
+                <input type="radio" id="admin" name="role" value="admin">
+                <label class="small mb-1" for="admin">Admin</label><br>
+                <input type="radio" id="superadmin" name="role" value="superadmin">
+                <label class="small mb-1" for="superadmin">Superadmin</label><br>
+                <input type="radio" id="employee" name="role" value="employee">
+                <label class="small mb-1" for="employee">Employee</label><br>
 
             </div>
             <div class="form-group">

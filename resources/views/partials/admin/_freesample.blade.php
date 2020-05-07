@@ -20,17 +20,18 @@
                     </tr>
                 </tfoot>
                 <tbody>
-
-                    @foreach($freesample as $sample)
-                    <tr>
-                        <td>{{ $sample->sample_status }}</td>
-                        <td>{{ $sample->order_id }}</td>
-                        <td>
-                            <button onclick="window.location='{{route('freesample-details' , 
-                                    ['id'=>$sample->id ]) }}'" class="remove_btn"> Details </button>
-                        </td>
-                    </tr>  
-                    @endforeach
+                    @if(!empty($freesample))
+                        @foreach($freesample as $sample)
+                        <tr>
+                            <td>{{ $sample->sample_status }}</td>
+                            <td>{{ $sample->order_id }}</td>
+                            <td>
+                                <button onclick="window.location='{{route('freesample-details' , 
+                                        ['id'=>$sample->id ]) }}'" class="remove_btn"> Details </button>
+                            </td>
+                        </tr>  
+                        @endforeach
+                    @endif
                 </tbody>
             </table>
         </div>

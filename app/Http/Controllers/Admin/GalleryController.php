@@ -27,13 +27,21 @@ class GalleryController extends Controller
      */
     public function index()
     {
-        $gallery = Gallery::all();
+        try{
+            $gallery = Gallery::all();
+        }catch (Exception $e) {
+            $gallery = [];
+        }
         return view('pages.admin.gallery.index', compact('gallery'));
     }
 
     public function gallery()
     {
-        $gallery = Gallery::all();
+        try{
+            $gallery = Gallery::all();
+        }catch (Exception $e) {
+            $gallery = [];
+        }
         return view('pages.front-end.gallery', compact('gallery'));
     }
 

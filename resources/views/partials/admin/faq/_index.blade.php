@@ -35,22 +35,24 @@
                                 </thead>
                                 
                                 <tbody>
-                                @foreach($faq as $fq)
-                                    <tr>
-                                        <td>{{ $fq->title_english }}</td>
-                                        <td>{{ $fq->title_german }}</td>
-                                        <!-- <td>{{ substr(($fq->text_english),0,200) }}</td> -->
-                                        <!-- <td>{{ substr(($fq->text_german),0,200) }}</td> -->
-                                        <td class="form-inline">
-                                            <form method="GET" action="{{ route('FAQ.edit' , $fq->id) }}">
-                                                <input type="submit" value="edit" class="btn btn-success">
-                                            </form>
-                                            <form method="GET" action="{{ route('FAQ.destroy' , $fq->id) }}"class="ml-2">
-                                                 <input type="submit" value="delete" class="btn btn-danger">
-                                            </form>
-                                        </td>
-                                    </tr>  
-                                    @endforeach
+                                    @if(!empty($faq))
+                                        @foreach($faq as $fq)
+                                            <tr>
+                                                <td>{{ $fq->title_english }}</td>
+                                                <td>{{ $fq->title_german }}</td>
+                                                <!-- <td>{{ substr(($fq->text_english),0,200) }}</td> -->
+                                                <!-- <td>{{ substr(($fq->text_german),0,200) }}</td> -->
+                                                <td class="form-inline">
+                                                    <form method="GET" action="{{ route('FAQ.edit' , $fq->id) }}">
+                                                        <input type="submit" value="edit" class="btn btn-success">
+                                                    </form>
+                                                    <form method="GET" action="{{ route('FAQ.destroy' , $fq->id) }}"class="ml-2">
+                                                        <input type="submit" value="delete" class="btn btn-danger">
+                                                    </form>
+                                                </td>
+                                            </tr>  
+                                        @endforeach
+                                    @endif
                                 </tbody>
                             </table>
                         </div>

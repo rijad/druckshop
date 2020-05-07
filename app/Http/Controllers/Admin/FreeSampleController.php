@@ -33,7 +33,11 @@ class FreeSampleController extends Controller
      */
     public function index()
     {   //$this->middleware('auth:admin');
-        $freesample = FreeSample::where('status', '1')->get();
+        try{
+            $freesample = FreeSample::where('status', '1')->get();
+        }catch (Exception $e) {
+            $freesample = [];
+        }
         return view('pages.admin.freesample', compact('freesample'));
     }
 
@@ -44,8 +48,16 @@ class FreeSampleController extends Controller
      */ 
     public function create()
     {
-        $paper_weight = PaperWeight::where('status' , '1')->get();
-        $page_options = PageOptions::where('status' , '1')->get();
+        try{
+            $paper_weight = PaperWeight::where('status' , '1')->get();
+        }catch (Exception $e) {
+            $paper_weight = [];
+        }
+        try{
+            $page_options = PageOptions::where('status' , '1')->get();
+        }catch (Exception $e) {
+            $page_options = [];
+        }
         return view('pages.front-end.freesample', compact('paper_weight','page_options'));
     }
 
@@ -123,8 +135,16 @@ class FreeSampleController extends Controller
     { 
         // dd($id);
         //$this->middleware('auth:admin');
-        $freesample = FreeSample::where(['id' => $request->id ])->get();
-        $orderstate = OrderState::where('status', '1')->get();
+        try{
+            $freesample = FreeSample::where(['id' => $request->id ])->get();
+        }catch (Exception $e) {
+            $freesample = [];
+        }
+        try{
+            $orderstate = OrderState::where('status', '1')->get();
+        }catch (Exception $e) {
+            $orderstate = [];
+        }
         return view('/pages/admin/freesampledetails',compact('freesample' , 'orderstate', 'id'));
     }
 
@@ -156,7 +176,7 @@ class FreeSampleController extends Controller
             
         }
 
-        return redirect()->back()->with('status' , 'Requested');
+        return redirect()->back()->with('status' , 'Updated');
     }
 
     /**

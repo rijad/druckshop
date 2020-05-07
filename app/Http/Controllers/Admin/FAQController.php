@@ -27,7 +27,11 @@ class FAQController extends Controller
      */
     public function index()
     {
-        $faq = FrequentlyAskedQuestion::all();
+        try{
+            $faq = FrequentlyAskedQuestion::all();
+        }catch (Exception $e) {
+            $faq = [];
+        }
         return view('pages.admin.faq.index', compact('faq'));
     }
 

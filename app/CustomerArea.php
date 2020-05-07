@@ -10,4 +10,9 @@ class CustomerArea extends Model
 
     protected $fillable = ['user_id', 'email', 'dob', 'address', 'image', 'status', 'phone', 
     'shipping_address', 'billing_address', 'created_at', 'updated_at', 'deleted_at'];
+
+    public function details()
+    {
+        return $this->belongsTo('App\User', 'user_id');
+    }
 }

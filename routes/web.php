@@ -157,6 +157,8 @@ Route::group(['namespace'=>'Admin', 'prefix' => 'admin'], function()
     Route::get('/update-user/{id}','AdminUsersController@update')->name('update-user');
     Route::post('/delete-user','AdminUsersController@destroy')->name('delete-user');
 
+    Route::resource('/changepassword','PasswordController');
+
 // details about user
     Route::get('/change-password/{role}','AdminUsersController@changeAdminPassword')->name('change-password');
     Route::post('/update-password','AdminUsersController@updatePassword')->name('update-password');
@@ -190,8 +192,6 @@ Route::group(['namespace'=>'Admin', 'prefix' => 'admin'], function()
 
 
     Route::resource('/returnorder','ReturnOrdersController');
-
-
     Route::resource('/stylesheet','StyleSheetController'); 
 
 

@@ -24,16 +24,18 @@
                                     </tr>
                                 </tfoot>
                                 <tbody>
-                                    @foreach($payment as $pay)
-                                    <tr>
-                                        <td>{{ $pay->payment_type }}</td>
-                                        <td>{{ $pay->status }}</td>
-                                        <td>{{ $pay->user_id }}</td>
-                                        <td>{{ $pay->txn }}</td>
-                                        <td>{{ $pay->amount }}</td>
-                                        <td>{{ $pay->order_id }}</td>
-                                    </tr> 
-                                    @endforeach
+                                    @if(!empty($payment))
+                                        @foreach($payment as $pay)
+                                            <tr>
+                                                <td>{{ $pay->payment_type }}</td>
+                                                <td>{{ $pay->status }}</td>
+                                                <td>{{ $pay->user_id }}</td>
+                                                <td>{{ $pay->txn }}</td>
+                                                <td>{{ $pay->amount }}</td>
+                                                <td>{{ $pay->order_id }}</td>
+                                            </tr> 
+                                        @endforeach
+                                    @endif
                                 </tbody>
                             </table>
                         </div>
