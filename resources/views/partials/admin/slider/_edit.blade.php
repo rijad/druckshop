@@ -71,7 +71,7 @@
 
       <div class="form-group">
         <label class="small mb-1" for="is_active">
-          <input type="checkbox" name="is_active" <?php echo ($slider->is_active) ? 'checked' : ''; ?> checked > Active</label>
+          <input type="checkbox" name="is_active" <?php echo ($slider->is_active) ? 'checked' : ''; ?> > Active</label>
           <label class="small mb-1" for="is_slide">
             <input type="checkbox" name="is_slide" <?php echo ($slider->is_slide) ? 'checked' : ''; ?>> Is Slide</label>
           </div>

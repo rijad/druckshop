@@ -13,8 +13,8 @@
                                 <thead>
                                     <tr>
                                         <th>Image</th>
-                                        <th>Is_Slide</th>
                                         <th>Active</th>
+                                        <th>Is_Slide</th>
                                         <th>Actions</th> 
                                     </tr>
                                 </thead> 
