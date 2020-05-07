@@ -14,7 +14,11 @@ class LatestController extends Controller
      */
     public function index()
     {
-        $latest = Latest::where('status', '1')->orderBy('created_at','DESC')->get();
+        try{
+            $latest = Latest::where('status', '1')->orderBy('created_at','DESC')->get();
+        }catch (Exception $e) {
+            $latest = [];
+        }
         return view('/pages/front-end/latest',compact('latest'));
     }
  

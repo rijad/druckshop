@@ -46,6 +46,7 @@
     <div class="form-group">
         <input type="submit" class="btn btn-primary" value="Update">
     </div>
+    
     </form> 
     </div>    
 
@@ -104,4 +105,7 @@
             </table>
             @endforeach 
         </div>
+    </div>
+    <div class="form-group">
+        <a href="{{ url('/admin/order') }}" class="btn btn-secondary btn-user btn-block col-md-3">Back</a>
     </div>
