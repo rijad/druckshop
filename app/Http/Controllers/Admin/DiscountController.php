@@ -75,9 +75,9 @@ class DiscountController extends Controller
         if($from_date != '' && $to_date != ''){
             $datetime1 = new DateTime($request->input('from_date'));
             $datetime2 = new DateTime($request->input('to_date'));
-        $interval = $datetime1->diff($datetime2)->days;
-        $input['duration'] = $interval;
-        // dd($interval);
+            $interval = $datetime1->diff($datetime2)->days;
+            $input['duration'] = $interval;
+            // dd($interval);
         }elseif($from_date != '' && $to_date == ''){
             $input['duration'] = 30;
         }else{

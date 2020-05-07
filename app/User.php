@@ -85,4 +85,9 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         $this->notify(new ResetPasswordNotification($token));
     }
+
+    public function customer()
+    {
+        return $this->hasOne('App\CustomerArea', 'user_id');
+    }
 }

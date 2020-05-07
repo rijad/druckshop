@@ -9,6 +9,11 @@
                     <tr>
                         <th>Name</th>
                         <th>Email</th>
+                        <th>Additional Email</th>
+                        <th>DOB</th>
+                        <th>Phone</th>
+                        <th>Billing Address</th>
+                        <th>Image</th>
                         <th>Created at</th>
                     </tr>
                 </thead> 
@@ -16,18 +21,41 @@
                     <tr>
                         <th>Name</th>
                         <th>Email</th>
+                        <th>Additional Email</th>
+                        <th>DOB</th>
+                        <th>Phone</th>
+                        <th>Billing Address</th>
+                        <th>Image</th>
                         <th>Created at</th>
                     </tr>
                 </tfoot>
                 <tbody>
-
-                    @foreach($customer as $cust)
+                @if(!empty($customerdata))
+                    @foreach($customerdata as $cust)
                     <tr>
                         <td>{{ $cust->name }}</td>
                         <td>{{ $cust->email }}</td>
+
+                        @if($cust->customer)
+                            <td>{{ $cust->customer->email }}</td>
+                            <td>{{ $cust->customer->dob }}</td>
+                            <td>{{ $cust->customer->phone }}</td>
+                            <td>{{ $cust->customer->billing_address }}</td>
+                            <td>
+                                <img src="{{ asset($cust->customer->image)}}" height="50" width="100" alt="...">
+                            </td>
+                        @else
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        @endif
+                        
                         <td>{{ $cust->created_at->format('d M,Y') }}</td>
                     </tr>  
                     @endforeach
+                @endif
                 </tbody>
             </table>
         </div>

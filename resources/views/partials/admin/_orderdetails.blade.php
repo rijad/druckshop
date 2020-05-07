@@ -17,34 +17,38 @@
 <form method="POST" action="{{ route('order-edit', ['id'=> $orderhistory->id]) }}">
     @csrf
 
-<select name="state">
-    <option>State</option>
-        @foreach($orderstate as $state)
-        <option value="{{ $state->order_state }}">{{ $state->order_state }}</option>
-        @endforeach
-</select>
+    <select name="state">
+        <option>State</option>
+            @if(!empty($orderstate))
+                @foreach($orderstate as $state)
+                <option value="{{ $state->order_state }}">{{ $state->order_state }}</option>
+                @endforeach
+            @endif
+    </select>
 
-<select name="priority">
-    <option>Priority</option>
-    <option value="highest">Highest</option> 
-    <option value="high">High</option>
-    <option value="normal">Normal</option>
-    <option value="low">Low</option>
-    <option value="lowest">Lowest</option>
-</select>
+    <select name="priority">
+        <option>Priority</option>
+        <option value="highest">Highest</option> 
+        <option value="high">High</option>
+        <option value="normal">Normal</option>
+        <option value="low">Low</option>
+        <option value="lowest">Lowest</option>
+    </select>
 
-<select name="assigned_to">
-    <option>Assigned To</option>                                                                                
-        @foreach($users as $list)
-        <option value="{{ $list->id }}">{{ $list->name }}</option>
-        @endforeach
-</select>
-    <input type="submit" value="update" class="admin-form-button">
-</form> 
-</div>
+    <select name="assigned_to">
+        <option>Assigned To</option>
+            @if(!empty($users))                                                                              
+                @foreach($users as $list)
+                <option value="{{ $list->id }}">{{ $list->name }}</option>
+                @endforeach
+            @endif
+    </select>
+        <input type="submit" value="update">
+    </form> 
+    </div>    
 
-{{-- <div class="card-header"><i class="fas fa-table mr-1"></i>DataTable</div> --}}
 
+    {{-- <div class="card-header"><i class="fas fa-table mr-1"></i>DataTable</div> --}}
 
 <div class="card-body" class="order-attrib">
 <div class="table-responsive">
@@ -88,15 +92,14 @@
 <td>{{$i++}}</td>
 <td colspan='3'>{{$key}}</td>
 
-<td colspan='2'>@if($key == "selectfile_backcover" || $key == "selectfile_coversheet" || $key == "selectfile_content" || $key == "selectfile_din_A3" || $key == "selectfile_din_A2" || $key == "selectfile_logo" || $key == "selectfile_file" || $key == "selectfile_cd" || $key == "selectfile_logo_cd") @if($value != null ) <a href={{url('/').'/public/uploads/'.$value}} target="_blank" >Download</a> @endif @endif
+                <td colspan='2'>@if($key == "selectfile_backcover" || $key == "selectfile_coversheet" || $key == "selectfile_content" || $key == "selectfile_din_A3" || $key == "selectfile_din_A2" || $key == "selectfile_logo" || $key == "selectfile_file" || $key == "selectfile_cd" || $key == "selectfile_logo_cd") @if($value != null ) <a href={{url('/').'/public/uploads/'.$value}} target="_blank" >Download</a> @endif @endif
 
- @if($key == "selectfile_backcover" || $key == "selectfile_coversheet" || $key == "selectfile_content" || $key == "selectfile_din_A3" || $key == "selectfile_din_A2" || $key == "selectfile_logo" || $key == "selectfile_file" || $key == "selectfile_cd" || $key == "selectfile_logo_cd") @if($value != null )<a href="{{route('defected-order-email',['user_id'=>$order->user_id,'order_id'=>$order->order_id,'old-file-name'=>$value])}}" >Send Mail</a> @endif @endif
-</td>   
- 
-</tr>
- @endif @endif
- @endforeach 
-</table>
- @endforeach 
-</div>
-</div>
+                @if($key == "selectfile_backcover" || $key == "selectfile_coversheet" || $key == "selectfile_content" || $key == "selectfile_din_A3" || $key == "selectfile_din_A2" || $key == "selectfile_logo" || $key == "selectfile_file" || $key == "selectfile_cd" || $key == "selectfile_logo_cd") @if($value != null )<a href="{{route('defected-order-email',['user_id'=>$order->user_id,'order_id'=>$order->order_id,'old-file-name'=>$value])}}" >Send Mail</a> @endif @endif
+                </td>   
+            </tr>
+            @endif @endif
+            @endforeach 
+            </table>
+            @endforeach 
+        </div>
+    </div>

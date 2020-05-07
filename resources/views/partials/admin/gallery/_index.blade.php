@@ -23,18 +23,20 @@
                                     </tr>
                                 </tfoot> 
                                 <tbody>
-                                @foreach($gallery as $gal)
-                                    <tr>
-                                        <td><img src="{{ asset($gal->image)}}" height="50" width="100" alt="..."></td>
-                                        <td class="form-inline">
-                                            <form method="POST" action="{{ route('gallery.destroy' , $gal->id) }}">
-                                            @method('DELETE')
-                                            @csrf
-                                             <input type="submit" value="delete" class="btn btn-danger">
-                                            </form>
-                                        </td>
-                                    </tr>  
-                                    @endforeach
+                                    @if(!empty($gallery))
+                                        @foreach($gallery as $gal)
+                                        <tr>
+                                            <td><img src="{{ asset($gal->image)}}" height="50" width="100" alt="..."></td>
+                                            <td class="form-inline">
+                                                <form method="POST" action="{{ route('gallery.destroy' , $gal->id) }}">
+                                                @method('DELETE')
+                                                @csrf
+                                                <input type="submit" value="delete" class="btn btn-danger">
+                                                </form>
+                                            </td>
+                                        </tr>  
+                                        @endforeach
+                                    @endif
                                 </tbody>
                             </table>
                         </div>

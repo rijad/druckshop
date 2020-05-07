@@ -27,24 +27,26 @@
                                     </tr>
                                 </tfoot> 
                                 <tbody>
-                                @foreach($slider as $slid)
-                                    <tr>
-                                        <td><img src="{{ asset($slid->image_path)}}" height="50" width="100" alt="..."></td>
-                                        <td>{{ $slid->is_active }}</td>
-                                        <td>{{ $slid->is_slide }}</td>
-                                        <td class="form-inline">
-                                            <form method="GET" action="{{ route('slider.edit' , $slid->id) }}">
-                                          
-                                            <input type="submit" value="edit" class="btn btn-success">
-                                            </form>
-                                            <form method="POST" action="{{ route('slider.destroy' , $slid->id) }}"class="ml-2">
-                                            @method('DELETE')
-                                            @csrf
-                                             <input type="submit" value="delete" class="btn btn-danger">
-                                            </form>
-                                        </td>
-                                    </tr>  
-                                    @endforeach
+                                    @if(!empty($slider))
+                                        @foreach($slider as $slid)
+                                        <tr>
+                                            <td><img src="{{ asset($slid->image_path)}}" height="50" width="100" alt="..."></td>
+                                            <td>{{ $slid->is_active }}</td>
+                                            <td>{{ $slid->is_slide }}</td>
+                                            <td class="form-inline">
+                                                <form method="GET" action="{{ route('slider.edit' , $slid->id) }}">
+                                            
+                                                <input type="submit" value="edit" class="btn btn-success">
+                                                </form>
+                                                <form method="POST" action="{{ route('slider.destroy' , $slid->id) }}"class="ml-2">
+                                                @method('DELETE')
+                                                @csrf
+                                                <input type="submit" value="delete" class="btn btn-danger">
+                                                </form>
+                                            </td>
+                                        </tr>  
+                                        @endforeach
+                                    @endif
                                 </tbody>
                             </table>
                         </div>

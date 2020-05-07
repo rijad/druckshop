@@ -29,7 +29,11 @@ class ReturnOrdersController extends Controller
      */ 
     public function index()
     {
-        $return = OrderReturn::all();
+        try{
+            $return = OrderReturn::all();
+        }catch (Exception $e) {
+            $return = [];
+        }
         return view('/pages/admin/returnorder',compact('return'));
     }
 

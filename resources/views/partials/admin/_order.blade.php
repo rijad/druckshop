@@ -30,29 +30,31 @@
                                     </tr>
                                 </tfoot>
                                 <tbody>  
-                                @foreach($order as $odr)
-                                    <tr>
-                                        <td>{{ $odr->state }}</td>
-                                        <td>{{$odr->order_id}}</td>
-                                        {{-- <td>{{ $odr->billing_address }}</td>
-                                        <td>{{ $odr->shipping_address }}</td>
-                                        <td>{{ $odr->no_of_cds }}</td>
-                                        <td>{{ $odr->no_of_copies }}</td> --}}
-                                        <td>    @php
-                                                echo App\Http\Controllers\Admin\OrderController::users($odr->assigned_to);
-                                                @endphp
-                                        </td>
-                                        <td>{{ $odr->priority }}</td>
-                                        <td>
-                                            <button onclick="window.location='{{route('order-details' , 
-                                                ['id'=>$odr->order_id ]) }}'" 
-                                                class="remove_btn" > Details </button> 
-                                            @if($odr->state == "Done")
-                                            <button type="button" class="btn btn-success btn-sm"  onclick="mailModal('<?php echo $odr->user_id ?>', '<?php echo $odr->order_id ?>');" data-toggle="modal" data-target="#myModal" > Send Tracking Number via E-mail </button>
-                                            @endif    
-                                        </td>
-                                    </tr>  
-                                    @endforeach
+                                    @if(!empty($order))
+                                        @foreach($order as $odr)
+                                            <tr>
+                                                <td>{{ $odr->state }}</td>
+                                                <td>{{$odr->order_id}}</td>
+                                                {{-- <td>{{ $odr->billing_address }}</td>
+                                                <td>{{ $odr->shipping_address }}</td>
+                                                <td>{{ $odr->no_of_cds }}</td>
+                                                <td>{{ $odr->no_of_copies }}</td> --}}
+                                                <td>    @php
+                                                        echo App\Http\Controllers\Admin\OrderController::users($odr->assigned_to);
+                                                        @endphp
+                                                </td>
+                                                <td>{{ $odr->priority }}</td>
+                                                <td>
+                                                    <button onclick="window.location='{{route('order-details' , 
+                                                        ['id'=>$odr->order_id ]) }}'" 
+                                                        class="remove_btn" > Details </button> 
+                                                    @if($odr->state == "Done")
+                                                    <button type="button" class="btn btn-success btn-sm"  onclick="mailModal('<?php echo $odr->user_id ?>', '<?php echo $odr->order_id ?>');" data-toggle="modal" data-target="#myModal" > Send Tracking Number via E-mail </button>
+                                                    @endif    
+                                                </td>
+                                            </tr>  
+                                        @endforeach
+                                    @endif
                                 </tbody>
                             </table>
                         </div>

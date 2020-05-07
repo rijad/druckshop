@@ -29,7 +29,11 @@ class DeliveryController extends Controller
      */
     public function index()
     {
-        $delivery = DeliveryService::where('status', '1')->get();
+        try{
+            $delivery = DeliveryService::where('status', '1')->get();
+        }catch (Exception $e) {
+            $delivery = [];
+        }
         return view('/pages/admin/delivery', compact('delivery'));
     }
 

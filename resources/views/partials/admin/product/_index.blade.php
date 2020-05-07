@@ -20,19 +20,21 @@
                                     </tr>
                                 </tfoot>
                                 <tbody>
-                                @foreach($product as $prod)
-                                    <tr>
-                                        <td>{{ $prod->title_english }}</td>
-                                        <td>
-                                            <form method="GET">
-                                                <input type="submit" value="edit" >
-                                            </form>
-                                            <form method="GET">
-                                                <input type="submit" value="delete" >
-                                            </form>
-                                        </td>
-                                    </tr>  
-                                    @endforeach
+                                    @if(!empty($product))
+                                        @foreach($product as $prod)
+                                        <tr>
+                                            <td>{{ $prod->title_english }}</td>
+                                            <td>
+                                                <form method="GET">
+                                                    <input type="submit" value="edit" >
+                                                </form>
+                                                <form method="GET">
+                                                    <input type="submit" value="delete" >
+                                                </form>
+                                            </td>
+                                        </tr>  
+                                        @endforeach
+                                    @endif
                                 </tbody>
                             </table>
                         </div>
