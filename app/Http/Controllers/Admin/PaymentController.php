@@ -26,7 +26,11 @@ class PaymentController extends Controller
      */
     public function index()
     {
-        $payment = Payment::where('status', 'completed')->get();
+        try{
+            $payment = Payment::where('status', 'completed')->get();
+        }catch (Exception $e) {
+            $payment = [];
+        }
         return view('/pages/admin/payment',compact('payment'));
     }
 

@@ -24,22 +24,24 @@
                     </tr>
                 </tfoot>
                 <tbody>
-                    @foreach($paperweight as $weight)
-                    <tr>
-                        <td>{{ $weight->paper_weight }}</td>
-                        <td class="form-inline">
-                        <form method="GET" action="{{ route('paper.edit' , $weight->id) }}">
-                                <input type="submit" value="edit" class="btn btn-success">
-                            </form>
-                            
-                            <form method="POST" action="{{ route('paper.destroy' , $weight->id) }}" class="ml-2">
-                                @method('DELETE')
-                                @csrf
-                                <input type="submit" value="delete" class="btn btn-danger">
-                            </form>
-                        </td>
-                    </tr>
-                    @endforeach
+                    @if(!empty($paperweight))
+                        @foreach($paperweight as $weight)
+                        <tr>
+                            <td>{{ $weight->paper_weight }}</td>
+                            <td class="form-inline">
+                            <form method="GET" action="{{ route('paper.edit' , $weight->id) }}">
+                                    <input type="submit" value="edit" class="btn btn-success">
+                                </form>
+                                
+                                <form method="POST" action="{{ route('paper.destroy' , $weight->id) }}" class="ml-2">
+                                    @method('DELETE')
+                                    @csrf
+                                    <input type="submit" value="delete" class="btn btn-danger">
+                                </form>
+                            </td>
+                        </tr>
+                        @endforeach
+                    @endif
                 </tbody>
             </table>
         </div>

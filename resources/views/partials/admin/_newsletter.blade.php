@@ -20,17 +20,18 @@
                     </tr>
                 </tfoot>
                 <tbody>
+                    @if(!empty($newsletter))
+                        @foreach($newsletter as $news)
+                        <tr>
+                            <td>{{ $news->email }}</td>
+                            <td>{{ $news->created_at->format('d M,Y') }}</td>
+                            <td>
+                                <button type="button" class="btn btn-success btn-sm"  onclick="replyModal('<?php echo $news->id ?>', '<?php echo $news->email ?>');" data-toggle="modal" data-target="#myModal"> Reply</button>
 
-                    @foreach($newsletter as $news)
-                    <tr>
-                        <td>{{ $news->email }}</td>
-                        <td>{{ $news->created_at->format('d M,Y') }}</td>
-                        <td>
-                            <button type="button" class="btn btn-success btn-sm"  onclick="replyModal('<?php echo $news->id ?>', '<?php echo $news->email ?>');" data-toggle="modal" data-target="#myModal"> Reply</button>
-
-                        </td>
-                    </tr>  
-                    @endforeach
+                            </td>
+                        </tr>  
+                        @endforeach
+                    @endif
                 </tbody>
             </table>
         </div>

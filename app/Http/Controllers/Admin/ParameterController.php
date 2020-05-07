@@ -38,7 +38,11 @@ class ParameterController extends Controller
      */
     public function index()
     {
-        $parameter = Parameter_list::where('status' , '1')->get();
+        try{
+            $parameter = Parameter_list::where('status' , '1')->get();
+        }catch (Exception $e) {
+            $parameter = [];
+        }
         return view('pages.admin.parameter.parameter',compact('parameter'));
     }
 
@@ -88,8 +92,6 @@ class ParameterController extends Controller
             $deliveryservice = DeliveryService::where('status' , '1')->get();
             return view('pages.admin.parameter.deliveryservice',compact('deliveryservice'));
         }
-        // return view('pages.admin.parameter.parameter',compact('binding','pageformat','covercolor',
-        // 'coversheet','backcover','paperweight','cdbag','datacheck','art','discount','deliveryservice'));
     }
 
     /**

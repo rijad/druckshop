@@ -28,7 +28,11 @@ class SliderController extends Controller
      */
     public function index()
     { 
-        $slider = Slider::all();
+        try{
+            $slider = Slider::all();
+        }catch (Exception $e) {
+            $slider = [];
+        }
         return view('pages.admin.slider.index', compact('slider'));
     }
 

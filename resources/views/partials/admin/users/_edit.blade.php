@@ -39,11 +39,11 @@
             <label class="small mb-1" for="roles">Roles</label><br>
             
 
-            <input type="checkbox" id="admin" name="admin" value="admin" @if($users->role == 1){{ 'checked' }} @endif>
+            <input type="radio" id="admin" name="role" value="admin" @if($users->role == 1){{ 'checked' }} @endif>
             <label for="admin">Admin</label><br>
-            <input type="checkbox" id="superadmin" name="superadmin" value="superadmin" @if($users->role == 0){{ 'checked' }} @endif>
+            <input type="radio" id="superadmin" name="role" value="superadmin" @if($users->role == 0){{ 'checked' }} @endif>
             <label for="vehicle3">Superadmin</label><br>
-            <input type="checkbox" id="employee" name="employee" value="employee" @if($users->role == 2){{ 'checked' }} @endif>
+            <input type="radio" id="employee" name="role" value="employee" @if($users->role == 2){{ 'checked' }} @endif>
             <label for="vehicle3">Employee</label><br>
             
           </div>

@@ -56,7 +56,11 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $product = Product::where('status', '1')->get();
+        try{
+            $product = Product::where('status', '1')->get();
+        }catch (Exception $e) {
+            $product = [];
+        }
         return view('pages.admin.product.index',compact('product'));
     }
 

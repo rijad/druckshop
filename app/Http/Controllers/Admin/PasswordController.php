@@ -4,22 +4,13 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\CustomerArea;
-use App\User;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
+use App\UsersAdmin;
 
-class UsersController extends Controller
+class PasswordController extends Controller
 {
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-
-     public function __construct() {
-
-        $this->middleware('auth:admin');
-    }
     /**
      * Display a listing of the resource.
      *
@@ -27,17 +18,13 @@ class UsersController extends Controller
      */
     public function index()
     {
-        // $customer = CustomerArea::with('details')->get();
-        // dd($customer->details->name);
-        // return view('/pages/admin/customer',compact('customer'));
-
-        try{
-            $customerdata = User::with('customer')->get();
-        }catch (Exception $e) {
-            $customerdata = [];
+        if (Auth::guard('admin')->check())
+        {
+        $user_id = Auth::guard('admin')->user()->id;
+        // dd($user_id);
         }
-        // dd($customerdata->toArray());
-        return view('/pages/admin/customer',compact('customerdata'));
+        // $users = UsersAdmin::find($id);
+        return view('pages.admin.changepassword', compact('user_id'));
     }
 
     /**
@@ -92,7 +79,30 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'old_password' => 'required',
+            'password' => 'required',
+            'confirm_password' => 'required_with:password|same:password',
+        ]);
+        if ($validator->fails()) {
+            return redirect()->back()
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+
+        if ($validator->passes()) {
+
+            $input = $request->all();
+
+            if (Auth::guard('admin')->check())
+            {
+            $user_id = Auth::guard('admin')->user()->id;
+            }
+            $input['password'] = Hash::make($request->password);
+            UsersAdmin::find($user_id)->update($input);
+        }
+
+        return redirect()->back()->with('status' , 'Updated');
     }
 
     /**

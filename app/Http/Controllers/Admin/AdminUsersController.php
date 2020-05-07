@@ -35,8 +35,11 @@ class AdminUsersController extends Controller
             $user_id = Auth::user()->id;
 
         }
-
+        try{
         $users = UsersAdmin::orderBy('id', 'ASC')->get();
+        }catch (Exception $e) {
+            $users = [];
+        }
 
         return view('pages.admin.users.adminuser', compact('users'));
 
@@ -49,7 +52,6 @@ class AdminUsersController extends Controller
      */
     public function create()
     {
-        // $data['users'] = UsersAdmin::where('status', '1')->get();
         return view('pages.admin.users.create');
     }
 
@@ -66,9 +68,7 @@ class AdminUsersController extends Controller
             'phone' => 'required',
             'email' => 'required|email|unique:users_admin',
             'password' => 'required|min:6',
-            'admin' => 'nullable',
-            'superadmin' => 'nullable',
-            'employee' => 'nullable',
+            'role' => 'required',
         ]);
 
 
@@ -77,18 +77,16 @@ class AdminUsersController extends Controller
             ->withErrors($validator)
             ->withInput();
         }
-        
 
         $input = $request->all();
 
-        if($request->input('superadmin') == "on"){
-
+        if($request->input('role') == "superadmin"){
             $input['role'] = 0;
-        }else if($request->input('admin') == "on"){
 
+        }else if($request->input('role') == "admin"){
             $input['role'] = 1;
-        }else if($request->input('employee') == "on"){
 
+        }else if($request->input('role') == "employee"){
             $input['role'] = 2;
         }
 
@@ -144,9 +142,7 @@ class AdminUsersController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required',
             'phone' => 'required',
-            'admin' => 'nullable',
-            'superadmin' => 'nullable',
-            'employee' => 'nullable',
+            'role' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -159,15 +155,13 @@ class AdminUsersController extends Controller
 
             $input = $request->all();
 
-            if($request->input('superadmin') == "superadmin"){
-
+            if($request->input('role') == "superadmin"){
                 $role = 0;
 
-            }if($request->input('admin') == "admin"){
-
+            }if($request->input('role') == "admin"){
                 $role = 1;
-            }if($request->input('employee') == "employee"){
 
+            }if($request->input('role') == "employee"){
                 $role = 2;
             } 
 

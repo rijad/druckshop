@@ -24,22 +24,24 @@
                     </tr>
                 </tfoot>
                 <tbody>
-                    @foreach($binding as $bind)
-                    <tr>
-                        <td>{{ $bind->title_english }}</td>
-                        <td class="form-inline">
-                            <form method="GET" action="{{ route('binding.edit' , $bind->id) }}">
-                                <input type="submit" value="edit" class="btn btn-success">
-                            </form>
+                    @if(!empty($binding))
+                        @foreach($binding as $bind)
+                        <tr>
+                            <td>{{ $bind->title_english }}</td>
+                            <td class="form-inline">
+                                <form method="GET" action="{{ route('binding.edit' , $bind->id) }}">
+                                    <input type="submit" value="edit" class="btn btn-success">
+                                </form>
 
-                            <form method="POST" action="{{ route('binding.destroy' , $bind->id) }}" class="ml-2">
-                                @method('DELETE')
-                                @csrf
-                                <input type="submit" value="delete" class="btn btn-danger">
-                            </form>
-                        </td>
-                    </tr> 
-                    @endforeach
+                                <form method="POST" action="{{ route('binding.destroy' , $bind->id) }}" class="ml-2">
+                                    @method('DELETE')
+                                    @csrf
+                                    <input type="submit" value="delete" class="btn btn-danger">
+                                </form>
+                            </td>
+                        </tr> 
+                        @endforeach
+                    @endif
                 </tbody>
             </table>
         </div>

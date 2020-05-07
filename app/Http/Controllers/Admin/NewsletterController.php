@@ -28,7 +28,11 @@ class NewsletterController extends Controller
      */
     public function index()
     {
-        $newsletter = NewsLetter::all();
+        try{
+            $newsletter = NewsLetter::all();
+        }catch (Exception $e) {
+            $newsletter = [];
+        }
         return view('/pages/admin/newsletter',compact('newsletter'));
     }
 
