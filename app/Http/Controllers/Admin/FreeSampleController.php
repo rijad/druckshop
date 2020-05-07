@@ -22,7 +22,7 @@ class FreeSampleController extends Controller
 
     public function __construct() {
 
-       $this->middleware('auth:admin', ['except' => ['getActivate', 'anotherMethod']]);
+       $this->middleware('auth:admin', ['except' => ['create', 'store', 'update']]);
     }
 
     

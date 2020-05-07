@@ -18,17 +18,21 @@ class CheckCodeRule implements Rule
     }
 
     /**
-     * Determine if the validation rule passes.
-     *
-     * @param  string  $attribute
+     * Determine if the validation rule passes. 
+     * 
+     * @param  string  $attribute 
      * @param  mixed  $value
      * @return bool
      */
      public function passes($attribute, $value)
     {  //dd(Discount::where(['code' => $value])->where('from_date' ,'>' ,date('Y-m-d'))->first() . date('Y-m-d') );
-       if(Discount::where(['code' => $value])->where('to_date' ,'<' ,date('Y-m-d'))->first() == null || Discount::where(['code' => $value])->where('from_date' ,'>' ,date('Y-m-d'))->first() == null){
+       if(Discount::where(['code' => $value])->where('to_date' ,'<' ,date('Y-m-d'))->first() == null && Discount::where(['code' => $value])->where('from_date' ,'>' ,date('Y-m-d'))->first() == null){
    
         return true;
+
+       }if(Discount::where(['code' => $value])->whereNull('to_date')->first() != null && Discount::where(['code' => $value])->where('from_date' ,'>' ,date('Y-m-d'))->first() == null){
+
+         return true;
 
        }else{
 
@@ -44,7 +48,7 @@ class CheckCodeRule implements Rule
      */
     public function message()
     {
-        return 'The Discount Code is expired.';
+        return 'The Discount Code is Invalid.';
     }
 
 

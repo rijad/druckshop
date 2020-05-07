@@ -19,7 +19,7 @@
 						}
 
 						if (!empty($item->title_size)) {
-							
+							 
 							$text_size = $item->title_size;
 						}else {
 

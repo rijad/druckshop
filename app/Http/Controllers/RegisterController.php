@@ -52,7 +52,7 @@ class RegisterController extends Controller
 
                 //Avoid error 
 
-				}
+				} 
 			}
 
 			Auth::loginUsingId($user->id,true);

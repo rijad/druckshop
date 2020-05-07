@@ -11,7 +11,7 @@ use Auth;
 use \Exception;
 
 class CustomerAreaController extends Controller 
-{
+{ 
 	public function index(){ 
  
 		if(!Auth::check()){

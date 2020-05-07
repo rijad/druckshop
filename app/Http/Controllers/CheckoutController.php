@@ -117,7 +117,7 @@ class CheckoutController extends Controller
 
 		}
 
-		$data = compact('page_format','cover_color','cover_sheet','back_cover');	 
+		$data = compact('page_format','cover_color','cover_sheet','back_cover');	  
 
 		if (! empty($data)) {
 			$response = returnResponse($data,'200','Success');
@@ -661,6 +661,8 @@ class CheckoutController extends Controller
 
 			  }
 
+			  $total_unit_price = $binding_price + $printout + $data_check_price;
+
 			  if(($binding_price + $printout + $data_check_price) > 0){
 			  	$total = (($no_of_copies) * ($binding_price + $printout + $data_check_price)) + $cd_dvd;
 			  }else{
@@ -669,7 +671,7 @@ class CheckoutController extends Controller
 
 			
 
-			$data = compact('binding_price','printout','data_check_price','cd_dvd','total');
+			$data = compact('binding_price','printout','data_check_price','cd_dvd','total','total_unit_price');
 			$response = returnResponse($data,'200','Success');
 			print_r($response); exit;
 
@@ -766,13 +768,13 @@ public function cart(){
 
 
 		try{
-			$billing_address_data = UserAddress::where(['address_type'=>'billing','user_id'=>$user_id])->get();
+			$billing_address_data = UserAddress::where(['address_type'=>'billing','user_id'=>$user_id, 'default'=>'1'])->get();
 		}catch(Exception $e){
 			$billing_address_data = "";
 		}
 
 		try{
-			$shipping_address_data = UserAddress::where(['address_type'=>'shipping','user_id'=>$user_id])->get();
+			$shipping_address_data = UserAddress::where(['address_type'=>'shipping','user_id'=>$user_id,'default'=>'1'])->get();
 		}catch(Exception $e){
 			$shipping_address_data ="";
 		}	
@@ -808,21 +810,43 @@ if (Auth::check())
 
 	}  
 
+if (Auth::check()) // if user is logged in no need to enter email
+{
 
 	$validator = Validator::make($request->all(), [ 
 		'no_of_copies.*'=> 'required',
 		'no_of_cds.*' => 'nullable',
 		'shipping_company.*' => 'required|not_in:-1',
 		'shipping_address.*' => 'required|not_in:-1',             
-		'billing_address.*' => 'required|not_in:-1',
+		'billing_address' => 'required|not_in:-1',
+		'email_id' => 'nullable|email',
+		'code' => ['nullable','exists:ps_discount',new CheckCodeRule('code')],
+	], [
+		'no_of_copies.*.required' => 'No of Copies are required',
+		'shipping_company.*.not_in' => 'Shipping Company is required',
+		'shipping_address.*.not_in' => 'Shipping Address is required',
+		//'billing_address.*.not_in' => 'Billing Address is required',
+	]); 
+
+}else{ // user not logged in have to enter email
+
+	$validator = Validator::make($request->all(), [ 
+		'no_of_copies.*'=> 'required',
+		'no_of_cds.*' => 'nullable',
+		'shipping_company.*' => 'required|not_in:-1',
+		'shipping_address.*' => 'required|not_in:-1',             
+		'billing_address' => 'required|not_in:-1',
 		'email_id' => 'required|email',
 		'code' => ['nullable','exists:ps_discount',new CheckCodeRule('code')],
 	], [
 		'no_of_copies.*.required' => 'No of Copies are required',
 		'shipping_company.*.not_in' => 'Shipping Company is required',
 		'shipping_address.*.not_in' => 'Shipping Address is required',
-		'billing_address.*.not_in' => 'Billing Address is required',
+		//'billing_address.*.not_in' => 'Billing Address is required',
 	]); 
+
+}
+
 
 //dd($validator);
 
@@ -844,7 +868,7 @@ if (Auth::check())
 			$update_data->no_of_cds = $request->no_of_cds[$key];
 			$update_data->shipping_company = deliveryServiceById($request->shipping_company[$key]);
 			$update_data->shipping_address = $request->shipping_address[$key];
-			$update_data->billing_address = $request->billing_address[$key]; 
+			$update_data->billing_address = $request->billing_address; 
 			$update_data->save();
 
 		}
@@ -856,9 +880,9 @@ if (Auth::check())
 			$discount = Discount::where(['code' => $request->input('code')])->first(['by_price','by_percent']);
 		
 			if($discount->by_price != "null" && ! empty($discount->by_price)){
-				$discount_amt = $discount->by_price;
+				$discount_amt = number_format($discount->by_price,2);
 			}else{
-				$discount_amt = ($total / 100 ) * $discount->by_percent;
+				$discount_amt =number_format( ($total / 100 ) * $discount->by_percent,2);
 			}
 
 			// discount is more then total i.e no code will be applied
@@ -910,7 +934,7 @@ if (Auth::check())
 	$OrderDetailsvalue->promo_code= $request->input('code');
 	$OrderDetailsvalue->email_id= $request->input('email_id');
 	$OrderDetailsvalue->total= $total;
-	$OrderDetailsvalue->net_amt= $net_amt_after_delivery_service;
+	$OrderDetailsvalue->net_amt= $net_amt_after_delivery_service;  
 	$OrderDetailsvalue->save();
 
 
@@ -927,6 +951,25 @@ return back()->with('errors', $validator->errors());
 
 
 }   
+
+
+public function getDiscountcodeStatus(Request $request){
+
+	if(Discount::where(['code' => $request->code])->where('to_date' ,'<' ,date('Y-m-d'))->first() == null && Discount::where(['code' => $request->code])->where('from_date' ,'>' ,date('Y-m-d'))->first() == null){
+   
+        return "true";
+
+       }if(Discount::where(['code' => $request->code])->whereNull('to_date')->first() != null && Discount::where(['code' => $request->code])->where('from_date' ,'>' ,date('Y-m-d'))->first() == null){
+
+         return "true";
+
+       }else{
+
+        return "false";
+
+       }
+
+}
 
 
 public function setQuantity(Request $request){
@@ -1116,7 +1159,7 @@ public function paymentPaypalSuccess(Request $request){
 
 			}
 
-		}
+		} 
 		// End send mail
 
 

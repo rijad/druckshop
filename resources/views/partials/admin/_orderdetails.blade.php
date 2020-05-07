@@ -13,6 +13,7 @@
     </div> 
 @endif
 
+<div class="update-attrib">
 <form method="POST" action="{{ route('order-edit', ['id'=> $orderhistory->id]) }}">
     @csrf
 
@@ -38,17 +39,18 @@
         <option value="{{ $list->id }}">{{ $list->name }}</option>
         @endforeach
 </select>
-    <input type="submit" value="update">
+    <input type="submit" value="update" class="admin-form-button">
 </form> 
+</div>
 
 {{-- <div class="card-header"><i class="fas fa-table mr-1"></i>DataTable</div> --}}
 
 
-<div class="card-body">
+<div class="card-body" class="order-attrib">
 <div class="table-responsive">
     <h1>Product Details</h1>
 @foreach($orderhistory->orderProductHistory as $count=>$order)
-<br><br><br>
+<br>
 <h4>Product Sequence: {{$count + 1}}</h4>
 <table class="table table-bordered" id="dataTable" width="90%" cellspacing="0">
 <thead>

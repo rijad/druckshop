@@ -28,7 +28,7 @@ class LoginController extends Controller
    $this->middleware('guest:admin')->except('logout');
 
   }
-
+ 
 
     public function authenticate(Request $request) {
 

@@ -1581,6 +1581,23 @@ img.zoom:hover {
 .rv-searchHead table td a {color: #212529;font-size: 15px;text-decoration: none;}
 .rv-searchHead table td a:hover{color: #b88862}
 
+
+ul.fcopyright-assets {
+    margin-top: 15px;
+    margin-bottom: 0px;
+}
+ul.fcopyright-assets li {
+    display: inline;
+    padding: 10px;
+}
+ul.fcopyright-assets li a {
+    color: #1d2b4c;
+    text-decoration: none;
+}
+ul.fcopyright-assets li a:hover {
+    color: #b88862;;
+}
+
 /*media query starts from here*/
 
 @media only screen and (max-width:768px){
@@ -1641,6 +1658,91 @@ img.zoom:hover {
 
 
 }
+
+div#drop_pdf {
+    background-color: #EEE;
+    border: #999 5px dashed;
+    width: 290px;
+    height: 200px;
+    padding: 8px;
+    font-size: 18px;
+    margin: 80px 20px 30px;
+}
+div#drag_upload_file_sample {
+    width: 50%;
+    margin: 0 auto;
+    text-align: center;
+}
+#drag_upload_file_sample input.sel_file {
+    padding: 10px;
+    width: 100%;
+    font-size: 17px;
+    font-family: Raleway;
+    border: 1px solid #aaaaaa;
+    background-color: lightgrey;
+}
+#drag_upload_file_sample input#selectfile {
+    visibility: hidden;
+}
+div#div-display-image-cd img {
+    border: #999 3px dashed;
+    width: 150px;
+    margin-top: 20px;
+}
+
+div#div-section-1 {
+    position: relative;
+}
+div#div-section-1  select#pos_1 {
+    margin-top: 40px;
+}
+div#div-section-1  input#input_1 {
+    margin-top: 40px;
+}
+div#div-section-1  label#position-1 {
+    position: absolute;
+    top: 168px;
+    left: 0;
+}
+div#div-section-1  label#field-1 {
+    position: absolute;
+    left: 0;
+    top: 265px;
+}
+
+@media only screen and (max-width: 768px){
+  div#drop_pdf {
+    background-color: #EEE;
+    border: #999 5px dashed;
+    width: 290px;
+    height: 200px;
+    padding: 8px;
+    font-size: 18px;
+    clear: both;
+  }
+}
+
+@media (min-width: 1400px){
+  div#div-section-1  label#position-1 {
+    position: absolute;
+    top: 145px;
+    left: 0;
+}
+div#div-section-1  label#field-1 {
+    position: absolute;
+    left: 0;
+    top: 230px;
+}
+}
+
+
+
+
+
+
+
+
+
 
 
 @media (min-width: 768px){
