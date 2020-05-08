@@ -106,7 +106,7 @@ $('#returnModal').on('show.bs.modal', function(e) {
       var form_data = new FormData();                  
       form_data.append('file', file); 
       form_data.append('order_id', order_id);
-      form_data.append('user_id', user_id);
+      form_data.append('user_id', user_id); 
       form_data.append('desc', desc);
      // form_data.append( "_token", "{{ csrf_token() }}");
      form_data.append( "_token",  $('meta[name="csrf-token"]').attr('content'));
@@ -117,8 +117,9 @@ $('#returnModal').on('show.bs.modal', function(e) {
           processData: false,
           data: form_data,
           success:function(response) {  
-              $('#returnModal').modal('hide');
-              Location.reload();
+             // $('#returnModal').modal('hide');
+              $('#returnModal').modal('hide'); $('body').removeClass('modal-open'); $('.modal-backdrop').remove();
+              location.reload();
         }
 
       });
@@ -211,7 +212,7 @@ function addAddress(address_type = ""){
       success: function (response){  
         if(address_type == "billing"){
 
-          $('#rv-Modal-billing').modal('hide');$('body').removeClass('modal-open');$('.modal-backdrop').remove()
+          $('#rv-Modal-billing').modal('hide');$('body').removeClass('modal-open');$('.modal-backdrop').remove();
         //   $('#rv-Modal-billing').modal('toggle');
         // }else{
         //   $('#rv-Modal-shipping').modal('toggle');
