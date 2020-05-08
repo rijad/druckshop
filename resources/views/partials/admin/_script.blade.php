@@ -42,7 +42,7 @@
            }
 
 
-           $('#dilivery_services_table').append('<tr class="form-inline"><td><input id="from" type="hidden" name="from[]" value='+from+' />'+from+'</td><td><input class="form-control to_input" id="to" type="number" name="to[]" required /></td><td><input class="form-control price_input" id="price" type="number" name="price[]" required /></td></tr>');
+           $('#dilivery_services_table').append('<tr class="form-inline"><td><input id="from" type="hidden" name="from[]" value='+from+' />'+from+'</td><td><input class="form-control to_input" id="to" type="number" name="to[]" required /></td><td><input class="form-control price_input" id="price" type="number" name="price[]" step="0.01" required /></td></tr>');
        });
 
         $('#delivery_remove_last').click(function(){
@@ -119,12 +119,12 @@
            from = 0;
        }
 
-       $('#dilivery_services_table_edit').append('<tr class="form-inline"><td><input id="from" type="hidden" name="from[]" value='+from+' />'+from+'</td><td><input class="form-control to_input" id="to" type="number" name="to[]" required /></td><td><input class="form-control price_input" id="price" type="number" name="price[]" required /></td></tr>');
+       $('#dilivery_services_table_edit').append('<tr class="form-inline"><td><input id="from" type="hidden" name="from[]" value='+from+' />'+from+'</td><td><input class="form-control to_input" id="to" type="number" name="to[]" required /></td><td><input class="form-control price_input" id="price" type="number" name="price[]" step="0.01" required /></td></tr>');
    });
 
         $('#delivery_edit_remove_last').click(function(){
 
-            $( "#delivery_edit_add_new_row" ).prop( "disabled", true );
+            $( "#delivery_edit_add_new_row" ).prop( "disabled", true ); 
             var row_index = $('#dilivery_services_table_edit tr:last').index(); 
 
             if(row_index >= 2){
@@ -325,7 +325,7 @@
                         data: {'id': last_row_id},
                         async: false,
                         success: function (response){
-                            console.log(response);
+                            console.log(response); 
                         }
 
                     }); 

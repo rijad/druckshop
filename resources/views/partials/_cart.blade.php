@@ -328,6 +328,7 @@
           <div class="modal-body">
              <div class="cart-form-shop w-100">
                <form method = "POST" action="javascript:addAddress('billing');"> 
+                @if(! empty($billing_address_data))
                  @foreach($billing_address_data as $keyss=>$billing_address)
                         @if($billing_address->default == 1)
                       <div class="form-group"> 
@@ -382,6 +383,58 @@
                       </div>
                       @endif
                       @endforeach 
+                      @else
+                       <div class="form-group"> 
+                          <label for="text">{{ trans('cart.first_name') }}*</label>
+                        <input type="text" class="form-control" placeholder="{{ trans('cart.enter_here') }}" name="billing_first_name" id="billing_first_name" value="">
+                        <p class="error" id="error_billing_first_name"></p>
+                      </div>
+                      <div class="form-group">
+                          <label for="text">{{ trans('cart.last_name') }}*</label>
+                          <input type="text"  class="form-control" placeholder="{{ trans('cart.enter_here') }}" name="billing_last_name" id="billing_last_name" value="">
+                           <p class="error" id="error_billing_last_name"></p>
+                      </div>
+                      <div class="form-group w-100">
+                          <label for="text">{{ trans('cart.company') }}</label>
+                          <input type="text"  class="form-control" placeholder="{{ trans('cart.enter_here') }}" name = "billing_company_name" id = "billing_company_name" value="">
+                           <p class="error" id="error_billing_company_name"></p>
+                      </div>
+                      <div class="form-group">
+                          <label for="text">{{ trans('cart.street') }}*</label>
+                          <input type="text"  class="form-control" placeholder="{{ trans('cart.enter_here') }}" name = "billing_street"  id = "billing_street" value="">
+                          <p class="error" id="error_billing_street"></p>
+                      </div>
+                       <div class="form-group">
+                           <label for="text">{{ trans('cart.house_no') }}*</label>
+                           <input type="text"  class="form-control" placeholder="{{ trans('cart.enter_here') }}" name = "billing_house_no" id = "billing_house_no" value="">
+                           <p class="error" id="error_billing_house_no"></p>
+                      </div>
+                     
+                      <div class="form-group">
+                          <label for="text">{{ trans('cart.zip_code') }}*</label>
+                           <input type="text"  class="form-control" placeholder="ename="billing_zip_code" id="billing_zip_code" value="">
+                        <p class="error" id="error_billing_zip_code"></p>
+                      </div>
+                      <div class="form-group">
+                          <label for="text">{{ trans('cart.city') }}*</label>
+                          <input type="text"  class="form-control" placeholder="{{ trans('cart.enter_here') }}" name="billing_city" id="billing_city" value="">
+                          <p class="error" id="error_billing_city"></p>
+                      </div>
+                      <div class="form-group">
+                          <label for="text">{{ trans('cart.state') }}*</label>
+                          <input type="text"  class="form-control" placeholder="{{ trans('cart.enter_here') }}" name="billing_state" id="billing_state" value="">
+                          <p class="error" id="error_billing_state"></p>
+                      </div>
+                       <div class="form-group">
+                          <label for="text">{{ trans('cart.add_to_address') }}</label>
+                          <input type="text"  class="form-control" placeholder="{{ trans('cart.enter_here') }}" name = "billing_addition" id = "billing_addition" value="">
+                           <p class="error" id="error_billing_addition"></p>
+                      </div>
+
+                      <div class="text-right">
+                          <button type= "submit" class="continue_btn">{{ trans('cart.add') }}</button>
+                      </div>
+                      @endif
                </form>
             </div>   
           </div>

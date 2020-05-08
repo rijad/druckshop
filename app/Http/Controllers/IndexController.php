@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Slider;
+use App\Slider; 
 use App\Product;
 use App\FrequentlyAskedQuestion; 
 use App\OrderAttributes;  

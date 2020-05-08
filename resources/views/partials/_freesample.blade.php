@@ -13,10 +13,14 @@
             with us you can even print and have your work tied up elsewhere.</p>
         </div>
     </div> 
-    <div class="align-coloumns"> 
- 
+    <div class="align-coloumns">
+
+        <div class="upload-file-section">
+     
+        <p class="outside-box-heading">{{ trans('checkout.upload_file') }}</p>
         <div id="drop_pdf" ondrop="upload_file(event,this.id)" ondragover="return false" class="displayBlock">
 			<div id="drag_upload_file_sample">
+                <p class="inside-box-heading">{{ trans('checkout.upload_file') }}</p>
                 <p>Drop file here*<a href="#" data-toggle="tooltip" title="PDF" class="formToolTip">i</a></p> 
 				<p>or</p>
 				<p><input  class="sel_file" type="button" value="Select File" onclick="file_explorer('drop_pdf');"></p>
@@ -30,6 +34,8 @@
         <div id="drop_file_zone_pdf" class="displayNone"><label id="pdf_file_name"></label>
             <label id="pdf_page_no"></label>
         </div>
+
+    </div>
 
         <div class="free-sample-form-rv">
             <form action="{{route('free_sample_request')}}" method="POST"> 

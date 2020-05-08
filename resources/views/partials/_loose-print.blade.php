@@ -48,8 +48,11 @@
 
 								</div> 
 
+								<p class="outside-box-heading">{{ trans('checkout.upload_file') }}</p>
+
 								<div id="drop_file_zone_cover_sheet" ondrop="upload_file(event,this.id)" ondragover="return false" class="displayNone">
 									<div id="drag_upload_file_cover_sheet">
+										<p class="inside-box-heading">{{ trans('checkout.upload_file') }}</p>
 										<p>Drop file here<a href="#" data-toggle="tooltip" title="PDF" class="formToolTip">i</a></p>
 										<p>or</p>
 										<p><input type="button" value="Select File" onclick="file_explorer('drop_file_zone_cover_sheet');"></p>
@@ -67,9 +70,11 @@
 										<label>Back Sheet*:<div title="200 gm/m2 sheets" class="formToolTip">i</div></label>
 										<p><select class = "" onclick = "displayProductAttributes('6',this);uploadDisplay(this.id,this.value); hideBindingElements('back-cover');" id="back-cover" name="back-cover"><option value="-1">Select</option></select></p> <p class="error" id="error_back_cover">
 									</div>
-
+									
+									<p class="outside-box-heading">{{ trans('checkout.upload_file') }}</p>
 									<div id="drop_file_zone_back_cover" ondrop="upload_file(event,this.id)" ondragover="return false" class="displayNone">
 										<div id="drag_upload_file_back_cover">
+											<p class="inside-box-heading">{{ trans('checkout.upload_file') }}</p>
 											<p>Drop file here<a href="#" data-toggle="tooltip" title="PDF" class="formToolTip">i</a></p>
 											<p>or</p>  
 											<p><input type="button" value="Select File" onclick="file_explorer('drop_file_zone_back_cover');"></p>
@@ -112,9 +117,12 @@
 										<p><input type = "text" class = "" name="no_of_pages" id="no-of-pages" placeholder="No of Pages" value = "" oninput="displayPrice('',this.value,'','','','','','','','','','','');"></p>
 										<p class="error" id="error_no_of_pages"></p>
 									</div>
+
+									<p class="outside-box-heading">{{ trans('checkout.upload_file') }}</p>
  
 									<div id="drop_file_zone_content" ondrop="upload_file(event,this.id)" ondragover="return false" class="displayBlock">
 										<div id="drag_upload_file">
+											<p class="inside-box-heading">{{ trans('checkout.upload_file') }}</p>
 											<p>Drop file here<a href="#" data-toggle="tooltip" title="
 											PDF" class="formToolTip">i</a></p> 
 											<p>or</p>

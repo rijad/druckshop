@@ -50,9 +50,9 @@
   
 								</div> 
 
-								
+								<p class="outside-box-heading">{{ trans('checkout.upload_cover_sheet') }}</p>
 								<div id="drop_file_zone_cover_sheet" ondrop="upload_file(event,this.id)" ondragover="return false" class="displayNone">
-									<p>{{ trans('checkout.upload_cover_sheet') }}</p>
+									<p class="inside-box-heading">{{ trans('checkout.upload_cover_sheet') }}</p>
 									<div id="drag_upload_file_cover_sheet">
 										<p>Drop file here<a href="#" data-toggle="tooltip" title="PDF" class="formToolTip">i</a></p>
 										<p>or</p>
@@ -71,10 +71,11 @@
 										<label>{{ trans('checkout.back_sheet') }}*:<div title="200 gm/m2 sheets" class="formToolTip">i</div></label>
 										<p><select class = "" onclick = "displayProductAttributes('6',this);uploadDisplay(this.id,this.value); hideBindingElements('back-cover');" id="back-cover" name="back-cover"><option value="-1">Select</option></select></p> <p class="error" id="error_back_cover">
 									</div>
-
+									
+									<p class="outside-box-heading">{{ trans('checkout.upload_back_sheet') }}</p>
 									<div id="drop_file_zone_back_cover" ondrop="upload_file(event,this.id)" ondragover="return false" class="displayNone">
 										<div id="drag_upload_file_back_cover">
-											<p>{{ trans('checkout.upload_back_sheet') }}</p>
+											<p class="inside-box-heading">{{ trans('checkout.upload_back_sheet') }}</p>
 											<p>Drop file here<a href="#" data-toggle="tooltip" title="PDF" class="formToolTip">i</a></p>
 											<p>or</p>  
 											<p><input type="button" value="Select File" onclick="file_explorer('drop_file_zone_back_cover');"></p>
@@ -115,10 +116,11 @@
 										<p><input type = "text" class = "" name="no_of_pages" id="no-of-pages" placeholder="No of Pages"  oninput="displayPrice('',this.value,'','','','','','','','','','','',''); displayProductAttributes('8',this);"></p>
 										<p class="error" id="error_no_of_pages"></p>
 									</div>
- 
+ 									
+ 									<p class="outside-box-heading">{{ trans('checkout.upload_file') }}</p>
 									<div id="drop_file_zone_content" ondrop="upload_file(event,this.id)" ondragover="return false" class="displayBlock">
 										<div id="drag_upload_file">
-											<p>{{ trans('checkout.upload_file') }}</p>
+											<p class="inside-box-heading">{{ trans('checkout.upload_file') }}</p>
 											<p>Drop file here<a href="#" data-toggle="tooltip" title="
 											PDF" class="formToolTip">i</a></p> 
 											<p>or</p>
@@ -243,10 +245,10 @@
 
 													<div class="displayNone" id="div-display-image"></div>
 
-
+												<p class="outside-box-heading">{{ trans('checkout.upload_logo') }}</p>
 												<div class="displayNone" id="upload_custom_logo" ondrop="upload_file(event,this.id)" ondragover="return false" class="displayBlock">
 													<div id="drag_upload_file_logo">
-														<p>{{ trans('checkout.upload_logo') }}</p>
+														<p class="inside-box-heading">{{ trans('checkout.upload_logo') }}</p>
 														<p>Drop file here<a href="#" data-toggle="tooltip" title="jpeg,jpg,png" class="formToolTip">i</a></p> 
 														<p>or</p>
 														<p><input type="button" value="Select File" onclick="file_explorer('upload_custom_logo');"></p>
@@ -278,10 +280,12 @@
 															@endforeach
 														</select></p> <p class="error" id="error_date_format">
 													</div>   
+													
 
+													<p class="outside-box-testing">{{ trans('checkout.upload_file') }}</p>
 													<div class="displayNone" id="upload_custom_file" ondrop="upload_file(event,this.id)" ondragover="return false" class="displayBlock">
 													<div id="drag_upload_file_file">
-														<p>{{ trans('checkout.upload_file') }}</p>
+														<p class="inside-box-testing">{{ trans('checkout.upload_file') }}</p>
 														<p>Drop file here<a href="#" data-toggle="tooltip" title="The length X within 'spine X cm' is calculated by the thickness of the paper (to be set in the admin area under paper weight) times the number of sheets + 0.5 mm." class="formToolTip">i</a></p> 
 														<p>or</p>
 														<p><input type="button" value="Select File" onclick="file_explorer('upload_custom_file');"></p>
@@ -314,7 +318,7 @@
 													</div>
 
 													<div class="displayNone" id="div-section-1">
-													<label id="section-1" class = "displayBlock">{{ trans('checkout.section') }} 1:</label>
+													<p id="section-1" class = "displayBlock">{{ trans('checkout.section') }} 1:</p>
 
 													
 													<p><label id="field-1" class = "displayBlock">{{ trans('checkout.field') }} 1:</label><select class = "" id = "fields_1" name = "fields_1" onchange="section2();" class="">
@@ -341,7 +345,7 @@
 													</div>
 
 													<div class="displayNone" id="div-section-2"> 
-													<label id="section-2">{{ trans('checkout.section') }} 2:</label>
+													<p id="section-2">{{ trans('checkout.section') }} 2:</p>
 
 													
 													<p><label id="field-2" class = "">{{ trans('checkout.field') }} 2:</label><select class = "" id = "fields_2" name = "fields_2" onchange="section3();">
@@ -362,7 +366,7 @@
 													</div>
 
 													<div class="displayNone" id="div-section-3">
-													<label id="section-3" class = "">{{ trans('checkout.section') }} 3:</label>
+													<p id="section-3" class = "">{{ trans('checkout.section') }} 3:</p>
 
 													
 													<p><label id="field-3" class = "">{{ trans('checkout.field') }} 3:</label><select class = "" id = "fields_3" name = "fields_3" onchange="section4();">
@@ -438,10 +442,12 @@
 														</div>
 
 															<div class="displayNone" id="div-display-image-cd"></div>
+														
+														<p class="outside-box-heading">{{ trans('checkout.upload_logo') }}</p>
 
 														<div class="displayNone" id="upload_cd" ondrop="upload_file(event,this.id)" ondragover="return false" class="displayBlock">
 														<div id="drag_upload_file_cd">
-															<p>{{ trans('checkout.upload_logo') }}</p>
+															<p class="inside-box-heading">{{ trans('checkout.upload_logo') }}</p>
 															<p>Drop file here</p>   
 															<p>or</p>
 															<p><input type="button" value="Select File" onclick="file_explorer('upload_cd');"></p>
@@ -453,10 +459,12 @@
 
 													<div id="drop_file_zone_cd" class="displayNone"><label id="cd_file_name"></label>
 														<label id="cd_page_no"></label><label id="cd_del"></label></div>
+													
+													<p class="outside-box-heading">{{ trans('checkout.upload_file') }}</p>
 
 													<div class="displayNone" id="upload_custom_logo_cd" ondrop="upload_file(event,this.id)" ondragover="return false" class="displayBlock">
 														<div id="drag_upload_file_logo">
-															<p>{{ trans('checkout.upload_file') }}</p>
+															<p class="inside-box-heading">{{ trans('checkout.upload_file') }}</p>
 															<p>Drop file here<a href="#" data-toggle="tooltip" title="jpeg,jpg,png" class="formToolTip">i</a></p> 
 															<p>or</p>
 															<p><input type="button" value="Select File" onclick=" file_explorer('upload_custom_logo_cd');"></p>
@@ -543,7 +551,7 @@
 														<div id="sampleImage" class="avatar avatar-original center-block"><!--  hhhhhh -->
 														</div>
 													</div>
-													<div class="servicePrice">
+													<div class="servicePrice"> 
 														<ul> 
 															<li id="no_toggle"><p>{{ trans('checkout.total') }}</p><span id="total"><big>0.00 €</big></span></li>
 															<li class="displayNone"><p>{{ trans('checkout.binding_price') }}</p><span id="binding_price"><big>0.00 €</big></span></li>

@@ -1690,7 +1690,7 @@ div#div-display-image-cd img {
     margin-top: 20px;
 }
 
-div#div-section-1 {
+/*div#div-section-1 {
     position: relative;
 }
 div#div-section-1  select#pos_1 {
@@ -1708,7 +1708,7 @@ div#div-section-1  label#field-1 {
     position: absolute;
     left: 0;
     top: 265px;
-}
+}*/
 
 
 /*new cart css*/
@@ -1747,6 +1747,26 @@ div#div-section-1  label#field-1 {
 .rv-DiscountCheckout select#address_data {
     margin: 0;
 }
+
+
+
+p.inside-box-heading {
+    display: none;
+}
+div#drop_pdf {
+    background-color: #EEE;
+    border: #999 5px dashed;
+    width: 290px;
+    height: 200px;
+    padding: 8px;
+    font-size: 18px;
+    margin: 0px 20px 30px 0;
+}
+
+
+
+
+
 
 
 
@@ -1806,7 +1826,7 @@ div#div-section-1  label#field-1 {
 }
 
 
-select#address_data > option
+/*select#address_data > option
 {
   padding: 10px;
   display: block;
@@ -1815,7 +1835,7 @@ select#address_data > option
   text-overflow: ellipsis;
   word-wrap: break-word;
 }
-
+*/
 
 
 
