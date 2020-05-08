@@ -1,5 +1,6 @@
 
 			<div class="row">
+        @if(!empty($product_listing))    
 
 			@php($row = 1) 
 			@foreach ($product_listing as $listing)
@@ -11,8 +12,8 @@
 						</a>
 						<div class="proInfo">
 							<h2>{{$listing->title_english}}</h2>
-								<p>{{$listing->short_description_english}}</p>
-								<a href="{{ route('product-information') }}#{{$listing->title_english}}">Read More</a>
+							<p>{{$listing->short_description_english}}</p>
+							<a href="{{ route('product-information') }}#{{$listing->title_english}}">Read More</a>
 						</div>
 					</div>
 				</div>
@@ -22,5 +23,6 @@
 			@endif
 			@php($row++)  
 			@endforeach
+        @endif
 			
 			</div><!-- row ends -->

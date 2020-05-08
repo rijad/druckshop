@@ -1,4 +1,5 @@
 <div class="container">
+    @if(!empty($product_listing))      
 
 				@foreach ($product_listing as $key=>$listing)
 
@@ -65,6 +66,7 @@
 						@endif
 
 						@endforeach
+    @endif
 
 					</div>		 
 

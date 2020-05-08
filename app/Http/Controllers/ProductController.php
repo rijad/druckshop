@@ -9,7 +9,11 @@ class ProductController extends Controller
 { 
     public function sendData()
     {
-    	$product_listing = Product::where('status', '1')->with('psProductImages')->get();
+        try{
+            $product_listing = Product::where('status', '1')->with('psProductImages')->get();
+        }catch (Exception $e) {
+            $product_listing = [];
+        }
     	//$product_listing = Product::psProductImages()->get();
     	//dd($product_listing);
         return view('/pages/front-end/products',compact('product_listing'));
