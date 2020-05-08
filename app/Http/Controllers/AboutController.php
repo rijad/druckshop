@@ -14,7 +14,11 @@ class AboutController extends Controller
      */
     public function index()
     {
-        $about = About::where('status', '1')->get();
+        try{
+            $about = About::where('status', '1')->get();
+        }catch (Exception $e) {
+            $about = [];
+        }
         return view('/pages/front-end/about-us',compact('about'));
     }
 

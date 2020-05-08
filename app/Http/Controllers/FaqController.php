@@ -14,7 +14,11 @@ class faqController extends Controller
      */
     public function index()
     {
-        $frequently_asked_question = FrequentlyAskedQuestion::where('status', '1')->get();
+        try{
+            $frequently_asked_question = FrequentlyAskedQuestion::where('status', '1')->get();
+        }catch (Exception $e) {
+            $frequently_asked_question = [];
+        }
         return view('/pages/front-end/faq',compact('frequently_asked_question'));
     }
 
