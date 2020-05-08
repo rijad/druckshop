@@ -1,4 +1,6 @@
-				@foreach ($product_listing as $listing) 
+				
+	@if(!empty($product_listing))      
+		@foreach ($product_listing as $listing) 
 
 				<div class="product-item-img col-half text-left" id="{{$listing->title_english}}">
 					 <img src="{{ asset('public/images/'.$listing->image_path)}}" alt="" />
@@ -20,4 +22,5 @@
 					 </div>
 				</div>	
 
-				@endforeach    
+		@endforeach   
+    @endif 

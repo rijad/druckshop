@@ -95,7 +95,6 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
         $validator = Validator::make($request->all(), [
 
             'name' => 'required',
@@ -151,7 +150,8 @@ class ProductController extends Controller
             }
 
             //insert file
-            if($request->file('otherImages')) {  dd($request->file('otherImages'));
+            if($request->file('otherImages')) {  
+                // dd($request->file('otherImages'));
 
                 foreach ($request->file('otherImages') as $key => $value) {
 
@@ -811,7 +811,9 @@ class ProductController extends Controller
      */
     public function destroy($id) 
     {
-        //
+        // $product = Product::where(['id' => $id])->update(['status' => 0]);
+        // $Product = Product::destroy($id);
+        // return redirect()->back()->with('status' , 'Deleted');
     }
 
 
