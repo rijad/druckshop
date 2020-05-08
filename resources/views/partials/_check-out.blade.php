@@ -50,7 +50,7 @@
   
 								</div> 
 
-								<p class="outside-box-heading">{{ trans('checkout.upload_cover_sheet') }}</p>
+								<p class="outside-box-heading displayNone" id="drop_file_zone_cover_sheet_heading" >{{ trans('checkout.upload_cover_sheet') }}</p>
 								<div id="drop_file_zone_cover_sheet" ondrop="upload_file(event,this.id)" ondragover="return false" class="displayNone">
 									<p class="inside-box-heading">{{ trans('checkout.upload_cover_sheet') }}</p>
 									<div id="drag_upload_file_cover_sheet">
@@ -72,7 +72,7 @@
 										<p><select class = "" onclick = "displayProductAttributes('6',this);uploadDisplay(this.id,this.value); hideBindingElements('back-cover');" id="back-cover" name="back-cover"><option value="-1">Select</option></select></p> <p class="error" id="error_back_cover">
 									</div>
 									
-									<p class="outside-box-heading">{{ trans('checkout.upload_back_sheet') }}</p>
+									<p class="outside-box-heading displayNone" id="drop_file_zone_back_cover_heading">{{ trans('checkout.upload_back_sheet') }}</p>
 									<div id="drop_file_zone_back_cover" ondrop="upload_file(event,this.id)" ondragover="return false" class="displayNone">
 										<div id="drag_upload_file_back_cover">
 											<p class="inside-box-heading">{{ trans('checkout.upload_back_sheet') }}</p>
@@ -117,7 +117,7 @@
 										<p class="error" id="error_no_of_pages"></p>
 									</div>
  									
- 									<p class="outside-box-heading">{{ trans('checkout.upload_file') }}</p>
+ 									<p class="outside-box-heading displayBlock"  id="drop_file_zone_content_heading">{{ trans('checkout.upload_file') }}</p>
 									<div id="drop_file_zone_content" ondrop="upload_file(event,this.id)" ondragover="return false" class="displayBlock">
 										<div id="drag_upload_file">
 											<p class="inside-box-heading">{{ trans('checkout.upload_file') }}</p>
@@ -169,9 +169,11 @@
 												<label>{{ trans('checkout.position_din_A3_pages') }}</label>
 												<p><textarea class = ""  name="pos_of_A3_pages" id="pos-of-A3-pages" placeholder="Number of Pages" ></textarea></p>
 											</div> 
+
+											<label class="outside-box-heading displayNone" id="drop_file_din_A3_heading">{{ trans('checkout.upload_din_A3_pages') }}</label>
 											<div class="displayNone" id="drop_file_din_A3" ondrop="upload_file(event,this.id)" ondragover="return false" class="displayBlock">
 												<div id="drag_upload_file_A3" >
-													<label>{{ trans('checkout.upload_din_A3_pages') }}</label>
+													<label class="inside-box-heading displayNone">{{ trans('checkout.upload_din_A3_pages') }}</label>
 													<p>Drop file here<a href="#" data-toggle="tooltip" title="PDF" class="formToolTip">i</a></p> 
 													<p>or</p>
 													<p><input type="button" value="Select File" onclick="file_explorer('drop_file_din_A3');"></p>
@@ -191,17 +193,20 @@
 														<span class="checkmark"></span>
 													</label> 
 												</div>
+												
 
+												<label class="outside-box-heading displayNone" id="div-number-of-A2-pages_heading">{{ trans('checkout.number_din_A2_pages') }}</label>
 												<div class="displayNone" id="div-number-of-A2-pages">
-													<label>{{ trans('checkout.number_din_A2_pages') }}*:<a href="#" data-toggle="tooltip" title="It is folded and glued into a bag at the end of the thesis. &#013; The maximum number of DIN A2 pages is: 3 " class="formToolTip">i</a></label>
+													<label class="inside-box-heading">{{ trans('checkout.number_din_A2_pages') }}*:<a href="#" data-toggle="tooltip" title="It is folded and glued into a bag at the end of the thesis. &#013; The maximum number of DIN A2 pages is: 3 " class="formToolTip">i</a></label>
 													<p><input type = "text" class = "" name="number_of_A2_pages" id="numbers-of-A2-pages" placeholder="Number of Pages" value = "" max="3" oninput = "displayPrice('','','','','','',this.value,'','','','','','','');"></p>
 													<p id="A2_msg" class="displayNone">The maximum number of DIN A2 pages is: 3</p>
 													<p class="error" id="error_number_of_A2_pages"></p>
 												</div>
-
+												
+												<label class="outside-box-heading displaynone" id="drop_file_din_A2_heading">{{ trans('checkout.upload_din_A2_pages') }}</label>
 												<div class="displayNone" id="drop_file_din_A2" ondrop="upload_file(event,this.id)" ondragover="return false" class="displayBlock">
 													<div id="drag_upload_file_A2" >
-														<label>{{ trans('checkout.upload_din_A2_pages') }}</label>
+														<label class="inside-box-heading diaplayNone">{{ trans('checkout.upload_din_A2_pages') }}</label>
 														<p>Drop file here<a href="#" data-toggle="tooltip" title="PDF" class="formToolTip">i</a></p> 
 														<p>or</p>
 														<p><input type="button" value="Select File" onclick="file_explorer('drop_file_din_A2');"></p>
@@ -245,7 +250,7 @@
 
 													<div class="displayNone" id="div-display-image"></div>
 
-												<p class="outside-box-heading">{{ trans('checkout.upload_logo') }}</p>
+												<p class="outside-box-heading displayNone" id="upload_custom_logo_heading">{{ trans('checkout.upload_logo') }}</p>
 												<div class="displayNone" id="upload_custom_logo" ondrop="upload_file(event,this.id)" ondragover="return false" class="displayBlock">
 													<div id="drag_upload_file_logo">
 														<p class="inside-box-heading">{{ trans('checkout.upload_logo') }}</p>
@@ -282,7 +287,7 @@
 													</div>   
 													
 
-													<p class="outside-box-testing">{{ trans('checkout.upload_file') }}</p>
+													<p class="outside-box-testing displayNone" id="upload_custom_file_heading">{{ trans('checkout.upload_file') }}</p>
 													<div class="displayNone" id="upload_custom_file" ondrop="upload_file(event,this.id)" ondragover="return false" class="displayBlock">
 													<div id="drag_upload_file_file">
 														<p class="inside-box-testing">{{ trans('checkout.upload_file') }}</p>
@@ -443,7 +448,7 @@
 
 															<div class="displayNone" id="div-display-image-cd"></div>
 														
-														<p class="outside-box-heading">{{ trans('checkout.upload_logo') }}</p>
+														<p class="outside-box-heading displayNone" id="upload_cd_heading">{{ trans('checkout.upload_logo') }}</p>
 
 														<div class="displayNone" id="upload_cd" ondrop="upload_file(event,this.id)" ondragover="return false" class="displayBlock">
 														<div id="drag_upload_file_cd">
@@ -460,7 +465,7 @@
 													<div id="drop_file_zone_cd" class="displayNone"><label id="cd_file_name"></label>
 														<label id="cd_page_no"></label><label id="cd_del"></label></div>
 													
-													<p class="outside-box-heading">{{ trans('checkout.upload_file') }}</p>
+													<p class="outside-box-heading displayNone"  id="upload_custom_logo_cd_heading">{{ trans('checkout.upload_file') }}</p>
 
 													<div class="displayNone" id="upload_custom_logo_cd" ondrop="upload_file(event,this.id)" ondragover="return false" class="displayBlock">
 														<div id="drag_upload_file_logo">

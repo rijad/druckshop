@@ -751,7 +751,7 @@ class CheckoutController extends Controller
 
 		//dd($request->input()); 
 
-			}
+			} 
 
 public function cart(){  
 

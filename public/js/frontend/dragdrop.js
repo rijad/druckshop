@@ -211,9 +211,11 @@ function uploadDisplay(node,value){
 
   if(node == "cover-sheet" && value != "-1"){
     document.getElementById('drop_file_zone_cover_sheet').className = "displayBlock";
+    document.getElementById('drop_file_zone_cover_sheet_heading').className = "outside-box-heading displayBlock";
     document.getElementById('drop_file_zone_cover_sheet_info').className = "displayBlock";
   }else if(node == "back-cover" && value != "-1"){ //alert("in");
     document.getElementById('drop_file_zone_back_cover').className = "displayBlock";
+    document.getElementById('drop_file_zone_back_cover_heading').className = "outside-box-heading displayBlock";
     document.getElementById('drop_file_zone_back_cover_sheet_info').className = "displayBlock";
   }
 

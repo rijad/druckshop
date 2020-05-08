@@ -6,7 +6,7 @@
 			<div class="col-offset-2 col-md-8 text-center newsletterCol">
 				<h3>{{ trans('newslatter.newslatter_title')}}</h3>
 				<div class="newsletter">
-					<label>{{ trans('newslatter.newslatter_info')}}</label>
+					<label>{{ trans('newslatter.newslatter_info')}}</label> 
 					<div class="newsletter-input">
 						<form method="POST" action="{{route('news-letter')}}">
 							@csrf

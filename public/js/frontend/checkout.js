@@ -38,6 +38,7 @@ function displayFields(binding){
 		}
 	}else{
 		document.getElementById('drop_file_zone_cover_sheet').className = "displayNone";
+		document.getElementById('drop_file_zone_cover_sheet_heading').className = "outside-box-heading displayNone";
 		document.getElementById('div-cover-sheet').className = "displayNone";
 	}
 
@@ -54,6 +55,7 @@ function displayFields(binding){
 	}else{
 		document.getElementById('div-back-cover').className = "displayNone";
 		document.getElementById('drop_file_zone_back_cover').className = "displayNone";
+		document.getElementById('drop_file_zone_back_cover_heading').className = "outside-box-heading displayNone";
 	}
 
 }
@@ -203,7 +205,7 @@ function embossingChange(field = ""){
 					document.getElementById('input_3').className = "displayBlock";
 					document.getElementById('field-3').className = "displayBlock";
 
-
+                   alert("1");
 					document.getElementById('template').className = "displayBlock";
 
 					if( ! $("#embossment-cover-sheet").is(":checked")){
@@ -247,11 +249,13 @@ function displayPrintFields(embossment = ""){
 				if($("#embossment-cover-sheet").is(":checked")){
 					document.getElementById('div-template').className = "displayBlock";
 					document.getElementById('upload_custom_file').className = "displayBlock";
+					document.getElementById('upload_custom_file_heading').className = "outside-box-heading displayBlock";
 					document.getElementById('div-remarks').className = "displayBlock"; 
 				}else{
 					document.getElementById('div-template').className = "displayNone";
 					//document.getElementById('div-embossment-cover-sheet').className = "displayNone";
 					document.getElementById('upload_custom_logo').className = "displayNone";
+					document.getElementById('upload_custom_logo_heading').className = "outside-box-heading displayNone";
 					document.getElementById('drop_file_zone_logo_info').className = "displayNone";
 					document.getElementById('div-remarks').className = "displayNone"; 
 					$("#div-display-image").empty();
@@ -259,6 +263,7 @@ function displayPrintFields(embossment = ""){
 					document.getElementById('div-fonts').className = "displayNone";
 					document.getElementById('div-date-format').className = "displayNone";
 					document.getElementById('upload_custom_file').className = "displayNone";
+					document.getElementById('upload_custom_file_heading').className = "outside-box-heading displayNone";
 				}
 
  
@@ -292,13 +297,14 @@ function displayPrintFields(embossment = ""){
 				//document.getElementById('div-embossing').className = "displayNone";
 				document.getElementById('div-embossing').className = "displayBlock";
 				if($("#embossment-cover-sheet").is(":checked")){
-					if($('embossing').val() == "Edition"){
+					if($('#embossing').val() == "Edition"){  alert("2");
 						document.getElementById('div-template').className = "displayBlock";
 					}else{
 						document.getElementById('div-template').className = "displayNone";
 					}
 					
 					document.getElementById('upload_custom_file').className = "displayBlock";
+					document.getElementById('upload_custom_file_heading').className = "outside-box-heading displayBlock";
 					document.getElementById('div-remarks').className = "displayBlock"; 
 					if($('#embossing').val() == "Classic"){
 						document.getElementById('div-fonts').className = "displayNone";
@@ -309,9 +315,11 @@ function displayPrintFields(embossment = ""){
 					document.getElementById('div-template').className = "displayNone";
 					//document.getElementById('div-embossment-cover-sheet').className = "displayNone";
 					document.getElementById('upload_custom_logo').className = "displayNone";
+					document.getElementById('upload_custom_logo_heading').className = "outside-box-heading displayNone";
 					document.getElementById('drop_file_zone_logo_info').className = "displayNone";
 					document.getElementById('div-remarks').className = "displayNone"; 
 					document.getElementById('upload_custom_file').className = "displayNone";
+					document.getElementById('upload_custom_file_heading').className = "outside-box-heading displayNone";
 					$("#div-display-image").empty();
 					document.getElementById('div-display-image').className = "displayNone";
 					if($('#embossing').val() == "Edition"){
@@ -525,6 +533,7 @@ function displayPopUp(template = ""){
 		document.getElementById('div-embossment-spine').className = "displayBlock";
 		document.getElementById('div-remarks').className = "displayBlock";
 		document.getElementById('upload_custom_logo').className = "displayBlock";
+		document.getElementById('upload_custom_logo_heading').className = "outside-box-heading displayBlock";
 		document.getElementById('div-date-format').className = "displayBlock";
 	}else if(template == "Standardvorlage ohne Logo"){
 		 $('#modal-logo').modal('show');
@@ -545,9 +554,11 @@ function displayPopUp(template = ""){
 		document.getElementById('div-date-format').className = "displayBlock";
 
 		document.getElementById('upload_custom_logo').className = "displayNone";
+		document.getElementById('upload_custom_logo_heading').className = "outside-box-heading displayNone";
 	}else if(template == "Eigene Vorlage"){
 		document.getElementById('div-fonts').className = "displayNone";
 		document.getElementById('upload_custom_logo').className = "displayBlock";
+		document.getElementById('upload_custom_logo_heading').className = "outside-box-heading displayBlock";
 		document.getElementById('div-remarks').className = "displayBlock";
 		document.getElementById('download_stylesheet').className = "displayBlock";
 		$("#div-display-image").empty();
@@ -557,7 +568,8 @@ function displayPopUp(template = ""){
 
 	if($("#template").find(":selected").val() == "-1"){
 		document.getElementById('upload_custom_logo').className = "displayNone";
-		document.getElementById('drop_file_zone_logo_info').className = "displayNone";
+		document.getElementById('upload_custom_logo_heading').className = "outside-box-heading displayNone";
+		document.getElementById('drop_file_zone_logo_info').className = "outside-box-heading displayNone";
 		document.getElementById('div-remarks').className = "displayNone"; 
 		document.getElementById('download_stylesheet').className = "displayNone";
 		$("#div-display-image").empty();
@@ -578,14 +590,17 @@ function displayPopUpCD(template = ""){
 		$("#modal-body-cd").append("<p>Choose layout for standard cover with logo.</p><br><img id='CD-mit-Logo-1' src='"+base_url+"/public/images/templates/cd_template/CD-mit-Logo-1.jpg' onclick = javascript:displayImageCd('"+base_url+"/public/images/templates/cd_template/CD-mit-Logo-1.jpg','CD-mit-Logo-1',this);> <img id='CD-mit-Logo-2' src='"+base_url+"/public/images/templates/cd_template/CD-mit-Logo-2.jpg' onclick = displayImageCd('"+base_url+"/public/images/templates/cd_template/CD-mit-Logo-2.jpg','CD-mit-Logo-2',this);>");
 		document.getElementById('div-fonts-cd').className = "displayBlock";
 		document.getElementById('upload_custom_logo_cd').className = "displayBlock";
+		document.getElementById('upload_custom_logo_cd_heading').className = "outside-box-heading displayBlock";
 	}else if(template == "Standardvorlage ohne Logo"){
 		 $('#modal-cd').modal('show');
 		 $("#modal-body-cd").empty();
 		$("#modal-body-cd").append("<p>Choose layout for standard cover without logo.</p><br><img id='CD-ohne-Logo-1' src='"+base_url+"/public/images/templates/cd_template/CD-ohne-Logo-1.jpg' onclick = javascript:displayImageCd('"+base_url+"/public/images/templates/cd_template/CD-ohne-Logo-1.jpg','CD-ohne-Logo-1',this);> <img id='CD-ohne-Logo-2' src='"+base_url+"/public/images/templates/cd_template/CD-ohne-Logo-2.jpg' onclick = displayImageCd('"+base_url+"/public/images/templates/cd_template/CD-ohne-Logo-2.jpg',CD-ohne-Logo-2,this);>");
 		document.getElementById('div-fonts-cd').className = "displayBlock";
 		document.getElementById('upload_cd').className = "displayBlock";
+		document.getElementById('upload_cd_heading').className = "outside-box-heading displayBlock";
 	}else if(template == "Eigene Vorlage"){
 		document.getElementById('upload_custom_logo_cd').className = "displayBlock";
+		document.getElementById('upload_custom_logo_cd_heading').className = "outside-box-heading displayBlock";
 		$("#div-display-image-cd").empty();
 		document.getElementById('div-display-image-cd').className = "displayNone"; 
 		document.getElementById('div-fonts-cd').className = "displayNone";
@@ -593,12 +608,14 @@ function displayPopUpCD(template = ""){
 
 	if($("#cd-template").find(":selected").val() == "-1"){
 		document.getElementById('upload_custom_logo_cd').className = "displayNone";
+		document.getElementById('upload_custom_logo_cd_heading').className = "outside-box-heading displayNone";
 		document.getElementById('drop_file_zone_logo_info_cd').className = "displayNone";
 		document.getElementById('div-fonts-cd').className = "displayNone"; 
 		$("#div-display-image-cd").empty();
 		document.getElementById('div-display-image-cd').className = "displayNone"; 
 
 		document.getElementById('upload_cd').className = "displayNone";
+		document.getElementById('upload_cd_heading').className = "outside-box-heading displayNone";
 		document.getElementById('drop_file_zone_cd').className = "displayNone";
 	}	
 
@@ -669,11 +686,13 @@ function displayCDFields(value = ""){
 		if($("#cd-check").is(":checked")){
 		document.getElementById('div-number-of-cds').className = "displayBlock";
 		document.getElementById('upload_cd').className = "displayBlock";
+		document.getElementById('upload_cd_heading').className = "outside-box-heading displayBlock";
 		document.getElementById('div-cd-imprint').className = "displayBlock";
 		document.getElementById('div-cd-bag').className = "displayBlock";
 		}else{
 		document.getElementById('div-number-of-cds').className = "displayNone";
 		document.getElementById('upload_cd').className = "displayNone";
+		document.getElementById('upload_cd_heading').className = "outside-box-heading displayNone";
 		document.getElementById('div-cd-imprint').className = "displayNone";
 		document.getElementById('div-cd-bag').className = "displayNone";	
 		}
@@ -719,11 +738,13 @@ function displayContentInput(option = ""){
 		document.getElementById('div-number-of-pages').className = "displayBlock";
 		document.getElementById('div-pos-A3-pages').className = "displayBlock";
 		document.getElementById('drop_file_din_A3').className = "displayBlock";
+		document.getElementById('drop_file_din_A3_heading').className = "outside-box-heading displayBlock";
 		document.getElementById('A3_msg').className = "displayBlock";
 		}else{
 		document.getElementById('div-number-of-pages').className = "displayNone";
 		document.getElementById('div-pos-A3-pages').className = "displayNone";
 		document.getElementById('drop_file_din_A3').className = "displayNone";
+		document.getElementById('drop_file_din_A3_heading').className = "outside-box-heading displayNone";
 		document.getElementById('A3_msg').className = "displayNone";	
 
 		// remove file
@@ -743,11 +764,13 @@ function displayContentInput(option = ""){
 		if($("#A2-pages").is(":checked")){
 		document.getElementById('div-number-of-A2-pages').className = "displayBlock";
 		document.getElementById('drop_file_din_A2').className = "displayBlock";
+		document.getElementById('drop_file_din_A2_heading').className = "outside-box-heading displayBlock";
 		//document.getElementById('drop_file_zone_A2').className = "displayBlock";
 		document.getElementById('A2_msg').className = "displayBlock";
 		}else{
 		document.getElementById('div-number-of-A2-pages').className = "displayNone";
 		document.getElementById('drop_file_din_A2').className = "displayNone";
+		document.getElementById('drop_file_din_A2_heading').className = "outside-box-heading displayNone";
 		//document.getElementById('drop_file_zone_A2').className = "displayNone";
 		document.getElementById('A2_msg').className = "displayNone";   
 
@@ -770,6 +793,7 @@ function hideBindingElements(value = ""){
 	if(value == "back-cover"){
 		if($("#back-cover").find(":selected").val() == "-1"){
 			document.getElementById('drop_file_zone_back_cover').className = "displayNone";
+			document.getElementById('drop_file_zone_back_cover_heading').className = "outside-box-heading displayNone";
 			document.getElementById('drop_file_zone_back_cover_sheet_info').className = "displayNone";
 			document.getElementById('selectfile_backcover').value=""; // empty file field as well
 		}
@@ -778,6 +802,7 @@ function hideBindingElements(value = ""){
 	if(value == "cover-sheet"){
 		if($("#cover-sheet").find(":selected").val() == "-1"){
 			document.getElementById('drop_file_zone_cover_sheet').className = "displayNone";
+			document.getElementById('drop_file_zone_cover_sheet_heading').className = "outside-box-heading displayNone";
 			document.getElementById('drop_file_zone_cover_sheet_info').className = "displayNone";
 			document.getElementById('selectfile_coversheet').value=""; // empty file field as well
 		}
@@ -1083,7 +1108,7 @@ function displayPrice(binding = "", no_ofsheets = "", page_options = "", embossi
 			 if($("#selectfile_backcover").val() == ""){alert($("#selectfile_backcover").val()); $("#drop_file_zone_back_cover").addBack().addClass('invalid'); $('#error_selectfile_backcover').html('Field is required'); valid = false; return false;}else{valid = true; return true;}
 
 
-			}// end of outer else
+			}// end of outer else 
 
 		}else if(tab == "2"){
 
