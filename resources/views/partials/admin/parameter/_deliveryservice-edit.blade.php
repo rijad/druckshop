@@ -22,7 +22,7 @@
                         <tr class="form-inline">
                             <th class="rv-headLt">From</th>
                             <!-- <th>To</th> -->
-                            <th class="rv-headRt">Price</th>
+                            <th class="rv-headRt">Price</th> 
                         </tr>
 
                         @if(!empty($attributes))

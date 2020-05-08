@@ -763,28 +763,43 @@ public function cart(){
 		try{
 			$product_data = OrderAttributes::where(['status'=>'1','user_id'=>$user_id])->get();  
 		}catch(Exception $e){
-			$product_data = "";
+			$product_data = [];
 		}
 
 
 		try{
 			$billing_address_data = UserAddress::where(['address_type'=>'billing','user_id'=>$user_id, 'default'=>'1'])->get();
+
+			if($billing_address_data->isEmpty()){
+
+				$billing_address_data = []; 
+
+			}
+
 		}catch(Exception $e){
-			$billing_address_data = "";
-		}
+			$billing_address_data = [];    
+		} 
+
 
 		try{
 			$shipping_address_data = UserAddress::where(['address_type'=>'shipping','user_id'=>$user_id,'default'=>'1'])->get();
+ 
+
 		}catch(Exception $e){
-			$shipping_address_data ="";
+
+			$shipping_address_data = [];
+
+			
 		}	
 
 		try{
 			$shipping_company = DeliveryService::where(['status' => 1])->get();
 		}catch(Exception $e){
-			$shipping_company ="";
-		}
+			$shipping_company =[];
+		} 
 
+
+		
 
 		return view('/pages/front-end/cart',compact('product_data','shipping_company','billing_address_data','shipping_address_data'));
 

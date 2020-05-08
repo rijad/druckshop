@@ -16,24 +16,24 @@
                     <label class="small mb-1" for="name">Name</label> 
                     <input class="form-control" id="name" name="name" type="text" placeholder="Name" required />
                 </div>
-
+ 
                 <div class="form-group"> 
                     <label class="small mb-1" for="name">Link To Shipment Tracking</label>
                     <input class="form-control" id="shipment_tracking_link" name="shipment_tracking_link" type="text" placeholder="Shipment Tracking Link" />
                 </div>
 
-                <div class="form-group rv-responsivetable">
+                <div class="form-group rv-responsivetable"> 
                     <table id="dilivery_services_table">
-                        <tr class="form-inline">
+                        <tr class="form-inline form-inline-row">
                             <th class="rv-headLt">From</th>
-                            <th class="">To</th> 
-                            <th class="rv-headLt">Price</th>
+                            <th class="rv-headBt">To</th> 
+                            <th class="rv-headRRt">Price</th>
                         </tr>
 
-                        <tr class="form-inline">
+                        <tr class="form-inline form-inline-row">
                             <td class="rv-headLtchild1"><input id="from" type="hidden" name="from[]" value="0" />0</td>
                             <td class="rv-headLtchild"><input class="form-control to_input" id="to" type="number" name="to[]" required /></td>
-                            <td class="rv-headRtchild"><input class="form-control price_input" id="price" type="number" step="0.01" name="price[]" required /></td>
+                            <td class="rv-headRtchild3"><input class="form-control price_input" id="price" type="number" step="0.01" name="price[]" required /></td>
                         </tr>
 
                     </table>

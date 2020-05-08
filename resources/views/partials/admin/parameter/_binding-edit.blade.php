@@ -464,13 +464,17 @@ function previewFiles() {
 
       reader.addEventListener("load", function () {
 
+        $("<div id='container_preview_image'></div>").insertBefore(preview);
+
+        var div_container = document.getElementById('container_preview_image');
+
         var image = new Image();
         image.height = 100;
         image.title = file.name;
         image.src = this.result;
         image.id = file.name;
         image.setAttribute("class","preview-image");
-        preview.before(image);
+        div_container.append(image);
 
         var button = document.createElement("BUTTON");
         button.innerHTML = "Remove Image";
@@ -478,7 +482,7 @@ function previewFiles() {
         button.id = "dynamic-button";
         button.setAttribute("onclick","test('"+file.name+"',this)");
         button.setAttribute("class","preview-button");
-        preview.before(button);
+        div_container.append(button);
 
       }, false);
 
