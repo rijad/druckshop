@@ -18,7 +18,7 @@
 						<div class="checkoutBlock col-half text-left">
 							{{-- <h1>Register:</h1> --}} 
 
-							<!-- One "tab" for each step in the form: -->
+							<!-- One "tab" for each step in the form: --> 
 							<div class="tab" id="tab-fields">
 								<div class="displayBlock">
 									<label>{{ trans('checkout.binding_title') }}*:</label>

@@ -194,6 +194,7 @@ function embossingChange(field = ""){
 					document.getElementById('field-3').className = "displayNone";
 
 					document.getElementById('div-fonts').className = "displayNone";
+					document.getElementById('template').className = "displayNone";
 			}else{
 					document.getElementById('input_1').className = "displayBlock";
 					document.getElementById('field-1').className = "displayBlock";
@@ -202,9 +203,16 @@ function embossingChange(field = ""){
 					document.getElementById('input_3').className = "displayBlock";
 					document.getElementById('field-3').className = "displayBlock";
 
+
+					document.getElementById('template').className = "displayBlock";
+
 					if( ! $("#embossment-cover-sheet").is(":checked")){
 
+						if($("#embossment-spine").is(":checked")){
+
 					document.getElementById('div-fonts').className = "displayBlock";
+
+				}
 
 				}
 			}
@@ -269,7 +277,7 @@ function displayPrintFields(embossment = ""){
 					document.getElementById('field-2').className = "displayNone";
 					document.getElementById('input_3').className = "displayNone";
 					document.getElementById('field-3').className = "displayNone";
-				}else{
+				}else{ 
 					document.getElementById('div-direction').className = "displayNone";
 					document.getElementById('div-section-1').className = "displayNone";
 					document.getElementById('div-section-2').className = "displayNone";
@@ -284,7 +292,12 @@ function displayPrintFields(embossment = ""){
 				//document.getElementById('div-embossing').className = "displayNone";
 				document.getElementById('div-embossing').className = "displayBlock";
 				if($("#embossment-cover-sheet").is(":checked")){
-					document.getElementById('div-template').className = "displayBlock";
+					if($('embossing').val() == "Edition"){
+						document.getElementById('div-template').className = "displayBlock";
+					}else{
+						document.getElementById('div-template').className = "displayNone";
+					}
+					
 					document.getElementById('upload_custom_file').className = "displayBlock";
 					document.getElementById('div-remarks').className = "displayBlock"; 
 					if($('#embossing').val() == "Classic"){
@@ -302,7 +315,9 @@ function displayPrintFields(embossment = ""){
 					$("#div-display-image").empty();
 					document.getElementById('div-display-image').className = "displayNone";
 					if($('#embossing').val() == "Edition"){
+						if($("#embossment-spine").is(":checked")){
 						document.getElementById('div-fonts').className = "displayBlock";
+					 }
 					}
 					document.getElementById('div-date-format').className = "displayNone";
 				}
@@ -496,7 +511,7 @@ function displayPopUp(template = ""){
 		 $('#modal-logo').modal('show');
 		 //if($('#embossing'.find(":selected").val() != "-1"){
 		 	if(embossing == "Edition"){
-		 		$("#modal-body").append("<p>Choose layout for standard cover with logo.</p><br><img id='Edition-mit-Logo-2' src='"+base_url+"/images/public/templates/Binding_template/Edition-mit-Logo-1.jpg' onclick = displayImage('"+base_url+"/public/images/templates/Binding_template/Edition-mit-Logo-1.jpg','Edition-mit-Logo-1.jpg',this);> <img id='Edition-mit-Logo-2' src='"+base_url+"/public/images/templates/Binding_template/Edition-mit-Logo-2.jpg' onclick = displayImage('"+base_url+"/public/images/templates/Binding_templates/Edition-mit-Logo-2.jpg','Edition-mit-Logo-2.jpg',this);> <img id='Edition-mit-Logo-3' src='"+base_url+"/public/images/templates/Binding_template/Edition-mit-Logo-3.jpg' onclick = displayImage('"+base_url+"/public/images/templates/Binding_template/Edition-mit-Logo-3.jpg','Edition-mit-Logo-3.jpg',this);> ");
+		 		$("#modal-body").append("<p>Choose layout for standard cover with logo.</p><br><img id='Edition-mit-Logo-1' src='"+base_url+"/images/public/templates/Binding_template/Edition-mit-Logo-1.jpg' onclick = displayImage('"+base_url+"/public/images/templates/Binding_template/Edition-mit-Logo-1.jpg','Edition-mit-Logo-1.jpg',this);> <img id='Edition-mit-Logo-2' src='"+base_url+"/public/images/templates/Binding_template/Edition-mit-Logo-2.jpg' onclick = displayImage('"+base_url+"/public/images/templates/Binding_templates/Edition-mit-Logo-2.jpg','Edition-mit-Logo-2.jpg',this);> <img id='Edition-mit-Logo-3' src='"+base_url+"/public/images/templates/Binding_template/Edition-mit-Logo-3.jpg' onclick = displayImage('"+base_url+"/public/images/templates/Binding_template/Edition-mit-Logo-3.jpg','Edition-mit-Logo-3.jpg',this);> ");
 			 }else if(embossing == "Classic"){
 			 	$("#modal-body").append("<p>Choose layout for standard cover with logo.</p><br><img id='Klassik-1' src='"+base_url+"/public/images/templates/Binding_template/Klassik-1.jpg' onclick = displayImage('"+base_url+"/public/images/templates/Binding_template/Klassik-1.jpg','Klassik-1.jpg',this);> <img id='Klassik-2' src='"+base_url+"/public/images/templates/Binding_template/Klassik-2.jpg' onclick = displayImage('"+base_url+"/public/images/templates/Binding_template/Klassik-2.jpg','Klassik-2.jpg',this);> <img id='Klassik-3' src='"+base_url+"/public/images/templates/Binding_template/Klassik-3.jpg' onclick = displayImage('"+base_url+"/public/images/templates/Binding_template/Klassik-3.jpg','Klassik-3.jpg',this);> ");
 			 }else{
@@ -531,6 +546,7 @@ function displayPopUp(template = ""){
 
 		document.getElementById('upload_custom_logo').className = "displayNone";
 	}else if(template == "Eigene Vorlage"){
+		document.getElementById('div-fonts').className = "displayNone";
 		document.getElementById('upload_custom_logo').className = "displayBlock";
 		document.getElementById('div-remarks').className = "displayBlock";
 		document.getElementById('download_stylesheet').className = "displayBlock";
