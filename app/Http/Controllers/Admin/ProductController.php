@@ -95,6 +95,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        //dd($request->all());
         $validator = Validator::make($request->all(), [
 
             'name' => 'required',
@@ -108,10 +109,8 @@ class ProductController extends Controller
         }
 
         if ($request->input('active') == "on") {
-
             $active_status = 1;
         } else {
-
             $active_status = 0;
         }
 
@@ -119,13 +118,13 @@ class ProductController extends Controller
 
             'title_english' => $request->name,
             'title_german' => $request->name_in_dh,
-            'cover_weight' => $request->cover_weight,
+            //'cover_weight' => $request->cover_weight,
             'status' => $active_status,
             'short_description_english' => @$request->short_description_english,
             'short_description_german' => @$request->short_description_german,
             'description_english' => @$request->long_description_english,
             'description_german' => @$request->long_description_german,
-            
+            'product_page_url' => 'check-out',
         ]);
 
         if ($insert) {
@@ -437,7 +436,7 @@ class ProductController extends Controller
 
             $product->title_english = $request->name;
             $product->title_german = $request->name_in_dh;
-            $product->cover_weight = $request->cover_weight;
+            //$product->cover_weight = $request->cover_weight;
             $product->short_description_english = @$request->short_description_english;
             $product->short_description_german = @$request->short_description_german;
             $product->description_english = @$request->long_description_english;

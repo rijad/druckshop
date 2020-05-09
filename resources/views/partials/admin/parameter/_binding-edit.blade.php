@@ -4,6 +4,18 @@
 
         <div class="card-body col-md-12">
 
+        @if (session('status'))
+            <div class="alert alert-success" role="alert">
+                {{ session('status') }}
+            </div>
+        @endif
+        @if ($errors->any())
+            <ul>
+                @foreach ($errors->all() as $error)
+                @endforeach
+            </ul>
+        @endif
+
             <form class="form-group-inline" method="POST" action="{{ route('product.update', $product->id) }}" enctype="multipart/form-data">
                 @method('PUT')    
                 @csrf
@@ -197,15 +209,15 @@
 </div>
 <br>
 
-<div class="border_dashed rv-RelativeBorder">
+{{-- <div class="border_dashed rv-RelativeBorder">
 
- <div class="form-group">
-     <label class="small mb-1 rv-AbsoluteBorder" for="cover_weight">Cover Weight</label>
-     <p>Grams per piece</p>
-     <input class="form-control" type="text" id="cover_weight" name="cover_weight" value="{{ $product->cover_weight }}"  placeholder="binding weight" required />
- </div>
+    <div class="form-group">
+        <label class="small mb-1 rv-AbsoluteBorder" for="cover_weight">Cover Weight</label>
+        <p>Grams per piece</p>
+        <input class="form-control" type="text" id="cover_weight" name="cover_weight" value="{{ $product->cover_weight }}"  placeholder="binding weight" required />
+    </div>
 </div>
-<br>
+<br> --}}
 
 <div class="border_dashed rv-RelativeBorder">
 <div class="rv-tableResponsive">
