@@ -34,7 +34,9 @@ class Product extends Model
     /**
      * @var array
      */
-    protected $fillable = ['name', 'title_english', 'title_german', 'cover_weight', 'short_description_english', 'short_description_german', 'description_english', 'description_german', 'created_at', 'updated_at', 'deleted_at'];
+    protected $fillable = ['name', 'title_english', 'title_german', 'cover_weight', 
+    'short_description_english', 'short_description_german', 'description_english', 'product_page_url',
+    'description_german', 'created_at', 'updated_at', 'deleted_at'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
