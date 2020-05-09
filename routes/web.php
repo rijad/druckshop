@@ -86,6 +86,7 @@ Route::get('/get-print-finishing-status','CheckoutController@getPrintfinishingSt
 Route::post('/get-spine-count','CheckoutController@getSpineCount')->name('get-spine-count');
 Route::post('/add-address','CheckoutController@addAddress')->name('add-address');
 Route::get('/get-discount-code-status','CheckoutController@getDiscountcodeStatus')->name('get-discount-code-status');
+Route::post('/get-A2-A3-count','CheckoutController@getA3A2Count')->name('get-A2-A3-count');
 
 // Binding Sample Image 
 Route::POST('/binding-sample-image','BindingSampleImageController@getSampleImage')->name('binding-sample-image');

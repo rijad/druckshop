@@ -61,4 +61,6 @@ return [
 
     'throttle' => 'Bindung',
 
+    'upload_template' => 'Vorlage hochladen',
+
 ];

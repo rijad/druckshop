@@ -735,6 +735,17 @@ button:focus {outline:none !important;}
 }
 
 
+#upload_cd_without_logo {
+    background-color: #EEE; 
+    border: #999 5px dashed;
+    width: 290px; 
+    height: 200px;
+    padding: 8px;
+    font-size: 18px;
+    margin-top:80px;
+}
+
+
 #drag_upload_file {
   width:50%;
   margin:0 auto;
@@ -1763,10 +1774,47 @@ div#drop_pdf {
     margin: 0px 20px 30px 0;
 }
 
+p.inside-box-testing {
+    display: none;
+}
+div#drag_upload_file_file {
+    text-align: center;
+        clear: both;
+}
 
-
-
-
+#div-section-1 button {
+   height: 40px;
+    width: 150px;
+    line-height: 9px;
+    border-radius: 3px;
+    background-image: linear-gradient(270deg,#79879a,#aec6cf);
+    box-shadow: 0 8px 16px rgba(174,198,207,.25);
+    color: #fff;
+    font-size: 15px;
+    margin-right: 5px;
+}
+#div-section-2 button {
+        height: 40px;
+    width: 150px;
+    line-height: 9px;
+    border-radius: 3px;
+    background-image: linear-gradient(270deg,#79879a,#aec6cf);
+    box-shadow: 0 8px 16px rgba(174,198,207,.25);
+    color: #fff;
+    font-size: 15px;
+    margin-right: 5px;
+}
+#div-section-3 button {
+        height: 40px;
+    width: 150px;
+    line-height: 9px;
+    border-radius: 3px;
+    background-image: linear-gradient(270deg,#79879a,#aec6cf);
+    box-shadow: 0 8px 16px rgba(174,198,207,.25);
+    color: #fff;
+    font-size: 15px;
+    margin-right: 5px;
+}
 
 
 
@@ -1813,7 +1861,7 @@ div#drop_pdf {
 }
 
 @media (min-width: 1400px){
-  div#div-section-1  label#position-1 {
+/*  div#div-section-1  label#position-1 {
     position: absolute;
     top: 145px;
     left: 0;
@@ -1822,7 +1870,7 @@ div#div-section-1  label#field-1 {
     position: absolute;
     left: 0;
     top: 230px;
-}
+}*/
 }
 
 
