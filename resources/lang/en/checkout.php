@@ -67,4 +67,10 @@ return [
 
     'throttle' => 'Binding',
 
+    'upload_thesis' => 'Upload Thesis',
+    'upload_own_binding_template' => 'Upload own binding template',
+    'upload_files_on_cd' => 'Upload file(s) on CD',
+    'upload_logo_for_cd_template' => 'Upload logo for CD template',
+    'upload_own_cd_template' => 'Upload own CD template',
+
 ];
