@@ -55,6 +55,8 @@ return [
     'position' => 'Position',
     'data_check' => 'Data Check',
 
+    'upload_template' => 'Upload Template',
+
 
 
     'binding_price' => 'Binding Price',

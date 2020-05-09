@@ -37,7 +37,7 @@
 								</div>
 								<div class="displayBlock" id="div-page-format">
 									<label>{{ trans('checkout.page_format') }}*:</label>
-									<p><select class = "" onclick = "displayProductAttributes('3',this); sampleImage();" id="page-format" name="page-format" onchange="addTooltip(this);" ><option value="-1">Select</option></select></p><p class="error" id="error_page_format"></p>
+									<p><select class = "" onclick = "displayProductAttributes('3',this); sampleImage();" id="page-format" name="page-format" onchange="addTooltip(this); getA3A2Count(this);" ><option value="-1">Select</option></select></p><p class="error" id="error_page_format"></p>
 								</div>
 								<div class="displayNone" id="div-cover-color">
 									<label>{{ trans('checkout.cover_color') }}*:</label> 
@@ -162,7 +162,7 @@
 												<label>{{ trans('checkout.number_din_A3_pages') }}*:<a href="#" data-toggle="tooltip" title=" It is printed with the same paper type and one-sided. &#013; It is printed with the same paper type and one-sided. " class="formToolTip">i</a></label>
 												<p><input type = "text" class = "" name="number_of_pages" id="numbers-of-pages" placeholder="Number of Pages"  max="10" oninput = "displayPrice('','','','','','','',this.value,'','','','','','');">
 												</p>
-												<p id="A3_msg" class="displayNone">The maximum number of DIN A3 pages is: 10</p>
+												<p id="A3_msg" class="displayNone">The maximum number of DIN A3 pages is: <span id="max-A3"></span></p>
 												<p class="error" id="error_number_of_pages"></p>
 											</div> 
 											<div class="displayNone" id="div-pos-A3-pages">
@@ -199,7 +199,7 @@
 												<div class="displayNone" id="div-number-of-A2-pages">
 													<label class="inside-box-heading">{{ trans('checkout.number_din_A2_pages') }}*:<a href="#" data-toggle="tooltip" title="It is folded and glued into a bag at the end of the thesis. &#013; The maximum number of DIN A2 pages is: 3 " class="formToolTip">i</a></label>
 													<p><input type = "text" class = "" name="number_of_A2_pages" id="numbers-of-A2-pages" placeholder="Number of Pages" value = "" max="3" oninput = "displayPrice('','','','','','',this.value,'','','','','','','');"></p>
-													<p id="A2_msg" class="displayNone">The maximum number of DIN A2 pages is: 3</p>
+													<p id="A2_msg" class="displayNone">The maximum number of DIN A2 pages is: <span id="max-A2"></p>
 													<p class="error" id="error_number_of_A2_pages"></p>
 												</div>
 												
@@ -232,7 +232,7 @@
 														<option value = "-1">Select</option>
 														<option value = "Edition">Edition</option>
 														<option value = "Classic">Classic</option>
-													</select></p> <p class="error" id=""></p>
+													</select></p> <p class="error" id="error_embossing"></p>
 												</div>
 
 												<div class="displayBlock" id="div-embossment-cover-sheet">
@@ -319,7 +319,7 @@
 														<option value = "-1">Select</option>
 														<option value = "Top Down">Top Down</option>
 														<option value = "Bottom Up">Bottom Up</option>
-													</select></p> <p class="error" id="s"></p>
+													</select></p> <p class="error" id="error_direction"></p>
 													</div>
 
 													<div class="displayNone" id="div-section-1">
@@ -394,7 +394,8 @@
 
 													<div class="displayNone" id="div-remarks">
 														<label>{{ trans('checkout.remarks') }}</label>
-														<p><textarea class = "" name="remarks" id=" remarks" placeholder="remarks" oninput="this.className = ''"></textarea></p>
+														<p><textarea class = "" name="remarks" id="remarks" placeholder="remarks"></textarea></p>
+														<p class="error" id="error_remarks"></p>
 													</div>	
 
 													<div class="modal fade" tabindex="-1" role="dialog" id="modal-logo"> 
@@ -432,6 +433,25 @@
 														<p class="error" id="error_number_of_cds"></p>
 													</div>
 
+
+													<p class="outside-box-heading displayNone" id="upload_cd_heading">{{ trans('checkout.upload_file') }}</p>
+
+														<div class="displayNone" id="upload_cd" ondrop="upload_file(event,this.id)" ondragover="return false" class="displayBlock">
+														<div id="drag_upload_file_cd">
+															<p class="inside-box-heading">{{ trans('checkout.upload_logo') }}</p>
+															<p>Drop file here</p>   
+															<p>or</p>
+															<p><input type="button" value="Select File" onclick="file_explorer('upload_cd');"></p>
+															<input type="file" id="selectfile" name="selectfile" multiple>
+															<input type="hidden" id="selectfile_cd" name="selectfile_cd">
+														</div>
+													</div> 
+													<p class="error" id="error_selectfile_cd"></p> 
+
+													<div id="drop_file_zone_cd" class="displayNone"><label id="cd_file_name"></label>
+														<label id="cd_page_no"></label><label id="cd_del"></label></div>
+
+
 														<div class="displayNone" id="div-cd-imprint">
 															<label class="csCheckbtn">{{ trans('checkout.cd_imprint') }}
 																<input id= "imprint" name = "imprint" class = "" type="checkbox" onchange="displayCDFields('imprint');">
@@ -448,24 +468,9 @@
 
 															<div class="displayNone" id="div-display-image-cd"></div>
 														
-														<p class="outside-box-heading displayNone" id="upload_cd_heading">{{ trans('checkout.upload_logo') }}</p>
-
-														<div class="displayNone" id="upload_cd" ondrop="upload_file(event,this.id)" ondragover="return false" class="displayBlock">
-														<div id="drag_upload_file_cd">
-															<p class="inside-box-heading">{{ trans('checkout.upload_logo') }}</p>
-															<p>Drop file here</p>   
-															<p>or</p>
-															<p><input type="button" value="Select File" onclick="file_explorer('upload_cd');"></p>
-															<input type="file" id="selectfile" name="selectfile" multiple>
-															<input type="hidden" id="selectfile_cd" name="selectfile_cd">
-														</div>
-													</div> 
-													<p class="error" id="error_selectfile_cd"></p> 
-
-													<div id="drop_file_zone_cd" class="displayNone"><label id="cd_file_name"></label>
-														<label id="cd_page_no"></label><label id="cd_del"></label></div>
+														
 													
-													<p class="outside-box-heading displayNone"  id="upload_custom_logo_cd_heading">{{ trans('checkout.upload_file') }}</p>
+													<p class="outside-box-heading displayNone"  id="upload_custom_logo_cd_heading">{{ trans('checkout.upload_logo') }}</p>
 
 													<div class="displayNone" id="upload_custom_logo_cd" ondrop="upload_file(event,this.id)" ondragover="return false" class="displayBlock">
 														<div id="drag_upload_file_logo">
@@ -511,6 +516,24 @@
 															@endforeach
 														</select></p> <p class="error" id="error_fonts"></p>
 													</div>
+ 
+													<p class="outside-box-heading displayNone"  id="upload_cd_without_logo_heading">{{ trans('checkout.upload_template') }}</p>
+
+													<div class="displayNone" id="upload_cd_without_logo" ondrop="upload_file(event,this.id)" ondragover="return false" class="displayBlock">
+														<div id="drag_upload_cd_without_logo">
+															<p class="inside-box-heading">{{ trans('checkout.upload_file') }}</p>
+															<p>Drop file here<a href="#" data-toggle="tooltip" title="jpeg,jpg,png" class="formToolTip">i</a></p> 
+															<p>or</p>
+															<p><input type="button" value="Select File" onclick=" file_explorer('upload_cd_without_logo');"></p>
+															<input type="file" name ="selectfile" id="selectfile" accept="image/x-png">
+ 
+															<input type="hidden" name ="selectfile_upload_cd_without_logo" id="selectfile_upload_cd_without_logo" accept="image/x-png">
+														</div>
+													</div>  
+													<p class="error" id="error_selectfile_logo_cd"></p>
+
+													<div id="drop_upload_cd_without_logo" class="displayNone"><label id="file_name_upload_cd_without_logo"></label>
+													<label id="page_no_upload_cd_without_logo"></label><label id="del_upload_cd_without_logo"></label></div>
 
 														<div class="displayNone" id="div-cd-bag">
 															<label>{{ trans('checkout.cd_bag') }}*:</label>

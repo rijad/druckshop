@@ -1,7 +1,7 @@
 <div class="card mb-4 mt-4">
     <div class="card-header">
         <h2>Create New Binding</h2>
-
+ 
         <div class="card-body col-md-12">
 
             <form class="form-group-inline" method="POST" action="{{ route('product.store') }}" enctype="multipart/form-data">
@@ -43,14 +43,19 @@
                 </div>
                 
                 <div class="border_dashed">
+
+                     <div class="container_image"></div>
+
                     <div class="form-group rv-file_upload">
                         <label class="small mb-1" for="name">Upload Binding Image</label>
-                        <input class="rv-custom-file-input" type="file" id="product_file" name="product_file" required />
+                        <input class="rv-custom-file-input" type="file" id="product_file" name="product_file" onchange="readURL(this);" required />
                     </div>
+
+                     <div class="container_image"></div>
 
                     <div class="form-group rv-file_upload">
                         <label class="small mb-1" for="otherImages">Upload Others Images</label>
-                        <input class="rv-custom-file-input" type="file" id="otherImages" name="otherImages[]" multiple />
+                        <input class="rv-custom-file-input" type="file" id="otherImages" name="otherImages[]" onchange="previewFiles();" multiple />
                     </div>
                 </div>
 
@@ -270,3 +275,74 @@
 
     body .popover{display:none !important; }
 </style>
+
+
+<script>
+
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#product_img')
+                    .attr('src', e.target.result)
+                    .width(150)
+                    .height(150);
+            };
+
+        reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+
+    function test(image = "", button = ""){
+
+        document.getElementById(image).remove(); $(button).remove();//console.log($('#'+image).remove()); 
+    }
+ 
+function previewFiles() {
+
+  var preview = document.getElementById('container_image');
+  var files   = document.getElementById('otherImages').files;
+
+  function readAndPreview(file) {   alert("test");
+
+    // Make sure `file.name` matches our extensions criteria
+    if ( /\.(jpe?g|png|gif)$/i.test(file.name) ) {
+      var reader = new FileReader();
+
+      reader.addEventListener("load", function () {
+
+        $("<div id='container_preview_image'></div>").insertBefore(preview);
+
+        var div_container = document.getElementById('container_preview_image');
+
+        var image = new Image();
+        image.height = 100;
+        image.title = file.name; 
+        image.src = this.result;
+        image.id = file.name;
+        image.setAttribute("class","preview-image");
+        preview.append(image);
+
+        var button = document.createElement("BUTTON");
+        button.innerHTML = "Remove Image";
+        button.type = "button";
+        button.id = "dynamic-button";
+        button.setAttribute("onclick","test('"+file.name+"',this)");
+        button.setAttribute("class","preview-button");
+        preview.append(button);
+
+      }, false);
+
+      reader.readAsDataURL(file);
+    }
+
+  }
+
+  if (files) {
+    [].forEach.call(files, readAndPreview);
+  }
+
+}
+</script>

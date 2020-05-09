@@ -197,6 +197,17 @@ function ajaxFileUpload(file_obj,id) {  //alert(id);
         document.getElementById('selectfile_file').value = data['data']['edit_name'];
         $('#file_del').attr('onclick',"removeFile('"+data['data']['edit_name']+"','"+id+"','0')");
       
+      }else if(id == "upload_cd_without_logo"){
+         
+        // $('#upload_custom_logo').empty();
+        document.getElementById('drop_upload_cd_without_logo').className = "displayNone";
+        $('#upload_cd_without_logo').append('<div id="del_file_without_logo" class="displayBlock"><span class="upload-msg">File Uploaded</span><span id="del_file_logo_without"><i class="fa fa-trash"></i></span></div>');
+        document.getElementById('drop_upload_cd_without_logo').className = "displayBlock";
+        document.getElementById('file_name_upload_cd_without_logo').innerHTML = "File Name:"+data['data']['file_name'];
+        document.getElementById('page_no_upload_cd_without_logo').innerHTML = "No of Pages:"+data['data']['no_of_pages'];
+        document.getElementById('selectfile_upload_cd_without_logo').value = data['data']['edit_name'];
+        $('#del_file_logo_without').attr('onclick',"removeFile('"+data['data']['edit_name']+"','"+id+"','0')");
+      
       }
       
     }
@@ -296,6 +307,12 @@ function removeFile(file_name,id,status){
         document.getElementById('selectfile_file').value = "";
         document.getElementById('drag_upload_file_file').className = "displayBlock"
         document.getElementById('del_file').className = "displayNone";
+      }else if(id == "upload_cd_without_logo"){
+        document.getElementById('file_name_upload_cd_without_logo').innerHTML = "";
+        document.getElementById('page_no_upload_cd_without_logo').innerHTML = "";
+        document.getElementById('selectfile_upload_cd_without_logo').value = "";
+        document.getElementById('drag_upload_cd_without_logo').className = "displayBlock"
+        document.getElementById('del_file_logo_without').className = "displayNone";
       }
      // console.log(data);
     }
@@ -373,6 +390,12 @@ function removeFile(file_name,id,status){
         document.getElementById('selectfile_file').value = "";
         document.getElementById('drag_upload_file_file').className = "displayBlock"
         document.getElementById('del_file').className = "displayNone";
+      }else if(id == "upload_cd_without_logo"){
+        document.getElementById('file_name_upload_cd_without_logo').innerHTML = "";
+        document.getElementById('page_no_upload_cd_without_logo').innerHTML = "";
+        document.getElementById('selectfile_upload_cd_without_logo').value = "";
+        document.getElementById('drag_upload_cd_without_logo').className = "displayBlock"
+        document.getElementById('del_file_logo_without').className = "displayNone";
       }
      // console.log(data);
     }

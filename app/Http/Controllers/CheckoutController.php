@@ -1626,5 +1626,17 @@ public static function CartCount(){
 			}
 
 		}
-		
-	}
+
+
+
+	public function getA3A2Count(Request $request){
+
+
+		$A2_A3_data = PageFormat::where(['id' => $request->page_format])->first();
+		print_r(json_encode($A2_A3_data));
+
+	}		
+			
+	
+
+}
