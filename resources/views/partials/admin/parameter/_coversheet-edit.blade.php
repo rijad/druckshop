@@ -15,7 +15,7 @@
                 @endforeach
             </ul>
         @endif
-    <form  class="form-group-inline" action="{{ route('coversheet.update' , $coversheet->id) }}" 
+    <form method="POST" class="form-group-inline" action="{{ route('coversheet.update' , $coversheet->id) }}" 
         enctype="multipart/form-data">
         @method('PUT')
         @csrf
