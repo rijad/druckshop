@@ -40,7 +40,7 @@ return [
     'upload_logo' => 'Logo hochladen',
     'font_type' => 'Schriftart',
     'date_format' => 'Datumsformat',
-    'refinement_spine' => 'Wirbelsäule',
+    'refinement_spine' => 'Verfeinerung Wirbelsäule',
     'direction' => 'Richtung',
     'section' => 'Sektion',
     'field' => 'Feld',
@@ -68,6 +68,10 @@ return [
     'upload_files_on_cd' => 'Laden Sie die Datei (en) auf CD hoch',
      'upload_logo_for_cd_template' => 'Laden Sie das Logo für die CD-Vorlage hoch',
      'upload_own_cd_template' => 'Laden Sie eine eigene CD-Vorlage hoch',
+
+     'upload_logo_for_binding_template' => 'Laden Sie das Logo für die Bindungsvorlage hoch',
+
+     'choose_your_template' => 'Wählen Sie Ihre Vorlage',
 
 
 

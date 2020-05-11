@@ -34,13 +34,13 @@
                             </ul>
                             </div>
                         </div> 
-                        <div class="col-lg-5">
+                       {{--  <div class="col-lg-5">
                             <figure class="customer-profile-image">
                             <div id="img-preview-block" class="avatar avatar-original center-block" style="background-size:cover; 
                                 background-image:url(http://druckshop.trantorglobal.com/public/images/customer-profile.jpg)"></div>
                                 <span class="btn btn-link btn-file">Edit Profile <input type="file" name="image" id="upload-img" accept="image/*"></span>
                             </figure>
-                        </div>
+                        </div> --}}
                 </div>
 			</div>
 		</div>
@@ -89,14 +89,14 @@
                       <div class="text-left repeat-cancel-order">
                         <p> @if(isset($data->admin_response)) {{ "Comments: " . $data->admin_response}} @endif</p>
                       </div>
-                        <div class="text-right repeat-cancel-order">
+                        <div class="text-right repeat-cancel-order" id="return-order-status">
                         	<button class="paypaypal" onclick="window.location='{{route('repeat-order',['order_id'=>$data->order_id])}}'">Repeat Order</button>
                         	@if($data->state == "New")
                         	<button class="paycash" onclick="window.location='{{route('cancel-order',['order_id'=>$data->order_id])}}'">Cancel Order</button>
                         	@elseif($data->state == "Cancelled")
                          	<button class="paycash" onclick="#">Cancelled</button>
                             @elseif($data->state == "Done")
-                            <button type="button" class="paycash" onclick="#" data-toggle="modal" data-oid="{{$data->order_id}}" data-uid="{{$data->user_id}}" data-target="#returnModal">Return</button>
+                            <button id = "order-status" type="button" class="paycash" onclick="#" data-toggle="modal" data-oid="{{$data->order_id}}" data-uid="{{$data->user_id}}" data-target="#returnModal">Return</button>
                             @elseif($data->state == "Reversal Request")
                               <button class="paycash" onclick="#">Return Requested</button>
                             @elseif($data->state == "Reversal declined")

@@ -11,7 +11,7 @@
         @endif
         @if ($errors->any())
             <ul>
-                @foreach ($errors->all() as $error)
+                @foreach ($errors->all() as $error) 
                 @endforeach
             </ul>
         @endif
@@ -56,18 +56,20 @@
                 
                 <div class="border_dashed">
 
-                     <div class="container_image"></div>
+                     <div class="container_image" id="container_image_single"></div>
 
                     <div class="form-group rv-file_upload">
                         <label class="small mb-1" for="name">Upload Binding Image</label>
-                        <input class="rv-custom-file-input" type="file" id="product_file" name="product_file" onchange="readURL(this);" required />
+                        <input class="rv-custom-file-input" type="file" id="product_file" name="product_file" onchange="readURL(this)" required />
                     </div>
 
-                     <div class="container_image"></div>
+                     <div class="container_image" id="container_image_multiple"></div>
 
                     <div class="form-group rv-file_upload">
                         <label class="small mb-1" for="otherImages">Upload Others Images</label>
                         <input class="rv-custom-file-input" type="file" id="otherImages" name="otherImages[]" onchange="previewFiles();" multiple />
+
+                        <input type = "hidden" name="removed_files[]" id = "removed_files" value=""> 
                     </div>
                 </div>
 
@@ -291,33 +293,69 @@
 
 <script>
 
-    function readURL(input) {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
 
-            reader.onload = function (e) {
-                $('#product_img')
-                    .attr('src', e.target.result)
-                    .width(150)
-                    .height(150);
-            };
+function test(image = "", button = ""){
 
-        reader.readAsDataURL(input.files[0]);
-        }
+var images = [];   var images_files = [];
+images = document.getElementById('removed_files').value;   //console.log(images);
+images_files.push(images); images_files.push(image);  console.log(images_files);
+document.getElementById('removed_files').value = images_files;
+document.getElementById(image).remove(); $(button).remove();//console.log($('#'+image).remove()); 
+   
+}
+
+
+function readURL(input) {   
+        var preview = document.getElementById('container_image_single');
+        var files   = document.getElementById('product_file').files;
+
+  function readAndPreview(file) {   
+
+    // Make sure `file.name` matches our extensions criteria
+    if ( /\.(jpe?g|png|gif)$/i.test(file.name) ) {
+      var reader = new FileReader();
+
+      reader.addEventListener("load", function () {
+
+        $("<div id='container_preview_image_single'></div>").insertBefore(preview);
+
+        var div_container = document.getElementById('container_preview_image_single');
+
+        var image = new Image();
+        image.height = 100;
+        image.title = file.name; 
+        image.src = this.result;
+        image.id = file.name;
+        image.setAttribute("class","preview-image");
+        div_container.append(image);
+
+        var button = document.createElement("BUTTON");
+        button.innerHTML = "Remove Image";
+        button.type = "button";
+        button.id = "dynamic-button";
+        button.setAttribute("onclick","test('"+file.name+"',this)");
+        button.setAttribute("class","preview-button");
+        div_container.append(button);
+
+      }, false);
+
+      reader.readAsDataURL(file);
+    }
+
+  }
+
+  if (files) {
+    [].forEach.call(files, readAndPreview);
+  }
     }
 
 
-    function test(image = "", button = ""){
+function previewFiles() {  
 
-        document.getElementById(image).remove(); $(button).remove();//console.log($('#'+image).remove()); 
-    }
- 
-function previewFiles() {
-
-  var preview = document.getElementById('container_image');
+  var preview = document.getElementById('container_image_multiple');
   var files   = document.getElementById('otherImages').files;
 
-  function readAndPreview(file) {   alert("test");
+  function readAndPreview(file) {   
 
     // Make sure `file.name` matches our extensions criteria
     if ( /\.(jpe?g|png|gif)$/i.test(file.name) ) {
@@ -335,7 +373,7 @@ function previewFiles() {
         image.src = this.result;
         image.id = file.name;
         image.setAttribute("class","preview-image");
-        preview.append(image);
+        div_container.append(image);
 
         var button = document.createElement("BUTTON");
         button.innerHTML = "Remove Image";
@@ -343,7 +381,7 @@ function previewFiles() {
         button.id = "dynamic-button";
         button.setAttribute("onclick","test('"+file.name+"',this)");
         button.setAttribute("class","preview-button");
-        preview.append(button);
+        div_container.append(button);
 
       }, false);
 

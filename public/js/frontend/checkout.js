@@ -188,24 +188,34 @@ function embossingChange(field = ""){
 
 			if($(field).find(":selected").val() == "Classic"){
 					$('#fields_1 option[value="Topic"]').remove();
+
+					//if($("#embossment-cover-sheet").is(":checked")){
+						document.getElementById('div-template-classic').className = 'displayBlock';
+				 		$("#template-classic").append("<p>Choose layout for standard cover with logo.</p><br><img class='template-classic' id='Klassik-1' src='"+base_url+"/public/images/templates/Binding_template/Klassik-1.jpg' onclick = displayImageClassic('"+base_url+"/public/images/templates/Binding_template/Klassik-1.jpg','Klassik-1.jpg',this);> <img class='template-classic' id='Klassik-2' src='"+base_url+"/public/images/templates/Binding_template/Klassik-2.jpg' onclick = displayImageClassic('"+base_url+"/public/images/templates/Binding_template/Klassik-2.jpg','Klassik-2.jpg',this);> <img class='template-classic' id='Klassik-3' src='"+base_url+"/public/images/templates/Binding_template/Klassik-3.jpg' onclick = displayImageClassic('"+base_url+"/public/images/templates/Binding_template/Klassik-3.jpg','Klassik-3.jpg',this);> ");
+					//}
 					document.getElementById('input_1').className = "displayNone";
 					document.getElementById('field-1').className = "displayNone";
 					document.getElementById('input_2').className = "displayNone";
 					document.getElementById('field-2').className = "displayNone";
 					document.getElementById('input_3').className = "displayNone";
-					document.getElementById('field-3').className = "displayNone";
+					document.getElementById('field-3').className = "displayNone"; 
 
-					document.getElementById('div-fonts').className = "displayNone";
-					document.getElementById('div-template').className = "displayNone";
+					document.getElementById('div-fonts-spine').className = "displayNone";
+					document.getElementById('div-template').className = "displayNone";   
+					document.getElementById('upload_custom_logo').className = "displayNone";   
+					document.getElementById('upload_custom_file').className = "displayNone"; 
+					document.getElementById('upload_custom_logo_heading').className = "displayNone";   
+					document.getElementById('upload_custom_file_heading').className = "displayNone";
 			}else{
+
+					document.getElementById('div-template-classic').className = 'displayNone';
+					$("#div-display-image-cd").empty();
 					document.getElementById('input_1').className = "displayBlock";
 					document.getElementById('field-1').className = "displayBlock";
 					document.getElementById('input_2').className = "displayBlock";
 					document.getElementById('field-2').className = "displayBlock";
 					document.getElementById('input_3').className = "displayBlock";
-					document.getElementById('field-3').className = "displayBlock";
-
-                   alert("1");
+					document.getElementById('field-3').className = "displayBlock"; 
 
                    if( $("#embossment-cover-sheet").is(":checked")){
 					document.getElementById('div-template').className = "displayBlock";
@@ -215,7 +225,7 @@ function embossingChange(field = ""){
 
 						if($("#embossment-spine").is(":checked")){
 
-					document.getElementById('div-fonts').className = "displayBlock";
+					document.getElementById('div-fonts-spine').className = "displayBlock";
 
 				}
 
@@ -256,6 +266,19 @@ function displayPrintFields(embossment = ""){
 					document.getElementById('upload_custom_file').className = "displayNone";
 					document.getElementById('upload_custom_file_heading').className = "outside-box-heading displayNone";
 					document.getElementById('div-remarks').className = "displayBlock"; 
+
+					if($('#embossing').val() == "Edition"){
+						document.getElementById('div-template-classic').className = 'displayNone';
+						$("#div-display-image-cd").empty();
+					}else if($('#embossing').val() == "Edition"){
+
+						document.getElementById('div-template-classic').className = 'displayBlock';
+
+					}
+					else{
+						document.getElementById('div-template-classic').className = 'displayNone';
+						$("#div-display-image-cd").empty();
+					}
 				}else{
 					document.getElementById('div-template').className = "displayNone";
 					//document.getElementById('div-embossment-cover-sheet').className = "displayNone";
@@ -263,6 +286,9 @@ function displayPrintFields(embossment = ""){
 					document.getElementById('upload_custom_logo_heading').className = "outside-box-heading displayNone";
 					document.getElementById('drop_file_zone_logo_info').className = "displayNone";
 					document.getElementById('div-remarks').className = "displayNone"; 
+
+					document.getElementById('upload_custom_file').className = "displayNone";  
+					document.getElementById('upload_custom_file_heading').className = "displayNone";
 					$("#div-display-image").empty();
 					document.getElementById('div-display-image').className = "displayNone";
 					document.getElementById('div-fonts').className = "displayNone";
@@ -276,17 +302,19 @@ function displayPrintFields(embossment = ""){
 				if($("#embossment-spine").is(":checked")){
 					document.getElementById('div-direction').className = "displayBlock";
 					document.getElementById('div-section-1').className = "displayBlock";
-					if(! $("#embossment-cover-sheet").is(":checked")){
-							document.getElementById('div-fonts').className = "displayBlock";
-					}else{
-						document.getElementById('div-fonts').className = "displayNone";
-					}
+					
+					document.getElementById('div-fonts').className = "displayNone";
+					
 					document.getElementById('input_1').className = "displayNone";
 					document.getElementById('field-1').className = "displayNone";
 					document.getElementById('input_2').className = "displayNone";
 					document.getElementById('field-2').className = "displayNone";
 					document.getElementById('input_3').className = "displayNone";
+
 					document.getElementById('field-3').className = "displayNone";
+					document.getElementById('div-template-classic').className = 'displayNone';
+					$("#div-display-image-cd").empty();
+					
 				}else{ 
 					document.getElementById('div-direction').className = "displayNone";
 					document.getElementById('div-section-1').className = "displayNone";
@@ -302,10 +330,19 @@ function displayPrintFields(embossment = ""){
 				//document.getElementById('div-embossing').className = "displayNone";
 				document.getElementById('div-embossing').className = "displayBlock";
 				if($("#embossment-cover-sheet").is(":checked")){
-					if($('#embossing').val() == "Edition"){  alert("2");
+					if($('#embossing').val() == "Edition"){  
 						document.getElementById('div-template').className = "displayBlock";
+
+						document.getElementById('div-template-classic').className = 'displayNone';
+						$("#div-display-image-cd").empty();
 					}else{
 						document.getElementById('div-template').className = "displayNone";
+						document.getElementById('upload_custom_logo').className = "displayNone";   
+						document.getElementById('upload_custom_file').className = "displayNone";
+						document.getElementById('upload_custom_logo_heading').className = "displayNone";   
+						document.getElementById('upload_custom_file_heading').className = "displayNone";
+
+						document.getElementById('div-template-classic').className = 'displayBlock';
 					}
 					
 					document.getElementById('upload_custom_file').className = "displayNone";
@@ -333,11 +370,19 @@ function displayPrintFields(embossment = ""){
 					 }
 					}
 					document.getElementById('div-date-format').className = "displayNone";
+					
+					document.getElementById('div-template-classic').className = 'displayNone';
+					$("#div-display-image-cd").empty();
+					
 				}
 
 
 				
 				if($("#embossment-spine").is(":checked")){
+
+					document.getElementById('div-template-classic').className = 'displayNone';
+					$("#div-display-image-cd").empty();
+
 					document.getElementById('div-direction').className = "displayBlock";
 					document.getElementById('div-section-1').className = "displayBlock";
 					if(! $("#embossment-cover-sheet").is(":checked")){
@@ -524,11 +569,11 @@ function displayPopUp(template = ""){
 		 $('#modal-logo').modal('show');
 		 //if($('#embossing'.find(":selected").val() != "-1"){
 		 	if(embossing == "Edition"){
-		 		$("#modal-body").append("<p>Choose layout for standard cover without logo.</p><br><img id='Edition-ohne-Logo-1' src='"+base_url+"/public/images/templates/Binding_template/Edition-ohne-Logo-1.jpg' onclick = displayImage('"+base_url+"/public/images/templates/Binding_template/Edition-ohne-Logo-1.jpg','Edition-ohne-Logo-1.jpg',this);> <img id='Edition-ohne-Logo-2' src='"+base_url+"/public/images/templates/Binding_template/Edition-ohne-Logo-2.jpg' onclick = displayImage('"+base_url+"/public/images/templates/Binding_template/Edition-ohne-Logo-2.jpg','Edition-mit-Logo-2.jpg',this);> <img id='Edition-ohne-Logo-3' src='"+base_url+"/public/images/templates/Binding_template/Edition-ohne-Logo-3.jpg' onclick = displayImage('"+base_url+"/public/images/templates/Binding_template/Edition-ohne-Logo-3.jpg','Edition-ohne-Logo-3.jpg',this);> ");
+		 		$("#modal-body").append("<p>Choose layout for standard cover without logo.</p><br><img id='Edition-mit-Logo-1' src='"+base_url+"/public/images/templates/Binding_template/Edition-mit-Logo-1.jpg' onclick = displayImage('"+base_url+"/public/images/templates/Binding_template/Edition-mit-Logo-1.jpg','Edition-mit-Logo-1.jpg',this);> <img id='Edition-mit-Logo-2' src='"+base_url+"/public/images/templates/Binding_template/Edition-mit-Logo-2.jpg' onclick = displayImage('"+base_url+"/public/images/templates/Binding_template/Edition-mit-Logo-2.jpg','Edition-mit-Logo-2.jpg',this);> <img id='Edition-mit-Logo-3' src='"+base_url+"/public/images/templates/Binding_template/Edition-mit-Logo-3.jpg' onclick = displayImage('"+base_url+"/public/images/templates/Binding_template/Edition-mit-Logo-3.jpg','Edition-mit-Logo-3.jpg',this);> ");
 			 }else if(embossing == "Classic"){
-			 	$("#modal-body").append("<p>Choose layout for standard cover with logo.</p><br><img id='Klassik-1' src='"+base_url+"/public/images/templates/Binding_template/Klassik-1.jpg' onclick = displayImage('"+base_url+"/public/images/templates/Binding_template/Klassik-1.jpg','Klassik-1.jpg',this);> <img id='Klassik-2' src='"+base_url+"/public/images/templates/Binding_template/Klassik-2.jpg' onclick = displayImage('"+base_url+"/public/images/templates/Binding_template/Klassik-2.jpg','Klassik-2.jpg',this);> <img id='Klassik-3' src='"+base_url+"/public/images/templates/Binding_template/Klassik-3.jpg' onclick = displayImage('"+base_url+"/public/images/templates/Binding_template/Klassik-3.jpg','Klassik-3.jpg',this);> ");
+			 	
 			 }else{
-			 	$("#modal-body").append("<p>Choose layout for standard cover without logo.</p><br><img id='Edition-ohne-Logo-1' src='"+base_url+"/public/images/templates/Binding_template/Edition-ohne-Logo-1.jpg' onclick = displayImage('"+base_url+"/public/images/templates/Binding_template/Edition-ohne-Logo-1.jpg','Edition-ohne-Logo-1.jpg',this);> <img id='Edition-ohne-Logo-2' src='"+base_url+"/public/images/templates/Binding_template/Edition-ohne-Logo-2.jpg' onclick = displayImage('"+base_url+"/public/images/templates/Binding_template/Edition-ohne-Logo-2.jpg','Edition-ohne-Logo-2.jpg',this);> <img id='Edition-ohne-Logo-3' src='"+base_url+"/public/images/templates/Binding_template/Edition-ohne-Logo-3.jpg' onclick = displayImage('"+base_url+"/public/images/templates/Binding_template/Edition-ohne-Logo-3.jpg','Edition-ohne-Logo-3.jpg',this);> ");
+			 	$("#modal-body").append("<p>Choose layout for standard cover without logo.</p><br><img id='Edition-mit-Logo-1' src='"+base_url+"/public/images/templates/Binding_template/Edition-mit-Logo-1.jpg' onclick = displayImage('"+base_url+"/public/images/templates/Binding_template/Edition-mit-Logo-1.jpg','Edition-mit-Logo-1.jpg',this);> <img id='Edition-mit-Logo-2' src='"+base_url+"/public/images/templates/Binding_template/Edition-mit-Logo-2.jpg' onclick = displayImage('"+base_url+"/public/images/templates/Binding_template/Edition-mit-Logo-2.jpg','Edition-mit-Logo-2.jpg',this);> <img id='Edition-mit-Logo-3' src='"+base_url+"/public/images/templates/Binding_template/Edition-mit-Logo-3.jpg' onclick = displayImage('"+base_url+"/public/images/templates/Binding_template/Edition-mit-Logo-3.jpg','Edition-mit-Logo-3.jpg',this);> ");
 			 }
 		// }
 		 
@@ -538,8 +583,8 @@ function displayPopUp(template = ""){
 		document.getElementById('div-embossment-spine').className = "displayBlock";
 		document.getElementById('div-remarks').className = "displayBlock";
 
-		document.getElementById('upload_custom_logo').className = "displayNone";
-		document.getElementById('upload_custom_logo_heading').className = "outside-box-heading displayNone";
+		document.getElementById('upload_custom_logo').className = "displayBlock";
+		document.getElementById('upload_custom_logo_heading').className = "outside-box-heading displayBlock";
 
 		document.getElementById('upload_custom_file').className = "displayNone";
 		document.getElementById('upload_custom_file_heading').className = "outside-box-heading displayNone";
@@ -551,7 +596,7 @@ function displayPopUp(template = ""){
 		 	if(embossing == "Edition"){
 		 		$("#modal-body").append("<p>Choose layout for standard cover without logo.</p><br><img id='Edition-ohne-Logo-1' src='"+base_url+"/public/images/templates/Binding_template/Edition-ohne-Logo-1.jpg' onclick = displayImage('"+base_url+"/public/images/templates/Binding_template/Edition-ohne-Logo-1.jpg','Edition-ohne-Logo-1.jpg',this);> <img id='Edition-ohne-Logo-2' src='"+base_url+"/public/images/templates/Binding_template/Edition-ohne-Logo-2.jpg' onclick = displayImage('"+base_url+"/public/images/templates/Binding_template/Edition-ohne-logo-2.jpg','Edition-ohne-Logo-2.jpg',this);> <img id='Edition-ohne-Logo-3' src='"+base_url+"/public/images/templates/Binding_template/Edition-ohne-Logo-3.jpg' onclick = displayImage('"+base_url+"/public/images/templates/Binding_template/Edition-ohne-Logo-3.jpg','Edition-ohne-Logo-3.jpg',this);> ");
 			 }else if(embossing == "Classic"){
-			 	$("#modal-body").append("<p>Choose layout for standard cover with logo.</p><br><img id='Klassik-1' src='"+base_url+"/public/images/templates/Binding_template/Klassik-1.jpg' onclick = displayImage('"+base_url+"/public/images/templates/Binding_template/Klassik-1.jpg','Klassik-1.jpg',this);> <img id='Klassik-2' src='"+base_url+"/public/images/templates/Binding_template/Klassik-2.jpg' onclick = displayImage('"+base_url+"/public/images/templates/Binding_template/Klassik-2.jpg','Klassik-2.jpg',this);> <img id='Klassik-3' src='"+base_url+"/public/images/templates/Binding_template/Klassik-3.jpg' onclick = displayImage('"+base_url+"/public/images/templates/Binding_template/Klassik-3.jpg','Klassik-3.jpg',this);> ");
+			 	
 			 }else{
 			 	$("#modal-body").append("<p>Choose layout for standard cover without logo.</p><br><img id='Edition-ohne-Logo-1' src='"+base_url+"/public/images/templates/Binding_template/Edition-ohne-Logo-1.jpg' onclick = displayImage('"+base_url+"/public/images/templates/Binding_template/Edition-ohne-Logo-1.jpg','Edition-ohne-Logo-1.jpg',this);> <img id='Edition-ohne-Logo-2' src='"+base_url+"/public/images/templates/Binding_template/Edition-ohne-Logo-2.jpg' onclick = displayImage('"+base_url+"/public/images/templates/Binding_template/Edition-ohne-Logo-2.jpg','Edition-ohne-Logo-2.jpg',this);> <img id='Edition-ohne-Logo-3' src='"+base_url+"/public/images/templates/Binding_template/Edition-ohne-Logo-3.jpg' onclick = displayImage('"+base_url+"/public/images/templates/Binding_template/Edition-ohne-Logo-3.jpg','Edition-ohne-Logo-3.jpg',this);> ");
 			 }
@@ -561,7 +606,7 @@ function displayPopUp(template = ""){
 		document.getElementById('div-date-format').className = "displayBlock";
 		document.getElementById('div-embossment-spine').className = "displayBlock";
 		document.getElementById('div-remarks').className = "displayBlock";
-		document.getElementById('div-date-format').className = "displayBlock";
+		document.getElementById('div-date-format').className = "displayBlock"; 
 
 		document.getElementById('upload_custom_logo').className = "displayNone";
 		document.getElementById('upload_custom_logo_heading').className = "outside-box-heading displayNone"; 
@@ -571,8 +616,8 @@ function displayPopUp(template = ""){
 
 	}else if(template == "Eigene Vorlage"){
 		document.getElementById('div-fonts').className = "displayNone";
-		// document.getElementById('upload_custom_logo').className = "displayBlock";
-		// document.getElementById('upload_custom_logo_heading').className = "outside-box-heading displayBlock";
+		document.getElementById('upload_custom_logo').className = "displayNone";
+		document.getElementById('upload_custom_logo_heading').className = "outside-box-heading displayNone";
 		document.getElementById('div-remarks').className = "displayBlock";
 		document.getElementById('download_stylesheet').className = "displayBlock";
 		$("#div-display-image").empty();
@@ -612,14 +657,14 @@ function displayPopUpCD(template = ""){
 		
 		document.getElementById('div-fonts-cd').className = "displayBlock";
 		
-		document.getElementById('upload_custom_logo_cd').className = "displayBlock";
+		document.getElementById('upload_custom_logo_cd').className = "displayBlock"; 
 		document.getElementById('upload_custom_logo_cd_heading').className = "outside-box-heading displayBlock";
 	
 	}else if(template == "Standardvorlage ohne Logo"){
 
 		$('#modal-cd').modal('show');
 		$("#modal-body-cd").empty();
-		$("#modal-body-cd").append("<p>Choose layout for standard cover without logo.</p><br><img id='CD-ohne-Logo-1' src='"+base_url+"/public/images/templates/cd_template/CD-ohne-Logo-1.jpg' onclick = javascript:displayImageCd('"+base_url+"/public/images/templates/cd_template/CD-ohne-Logo-1.jpg','CD-ohne-Logo-1',this);> <img id='CD-ohne-Logo-2' src='"+base_url+"/public/images/templates/cd_template/CD-ohne-Logo-2.jpg' onclick = displayImageCd('"+base_url+"/public/images/templates/cd_template/CD-ohne-Logo-2.jpg',CD-ohne-Logo-2',this);>");
+		$("#modal-body-cd").append("<p>Choose layout for standard cover without logo.</p><br><img id='CD-ohne-Logo-1' src='"+base_url+"/public/images/templates/cd_template/CD-ohne-Logo-1.jpg' onclick = javascript:displayImageCd('"+base_url+"/public/images/templates/cd_template/CD-ohne-Logo-1.jpg','CD-ohne-Logo-1',this);> <img id='CD-ohne-Logo-2' src='"+base_url+"/public/images/templates/cd_template/CD-ohne-Logo-2.jpg' onclick = displayImageCd('"+base_url+"/public/images/templates/cd_template/CD-ohne-Logo-2.jpg','CD-ohne-Logo-2',this);>");
 		
 		document.getElementById('div-fonts-cd').className = "displayBlock";
 
@@ -637,7 +682,7 @@ function displayPopUpCD(template = ""){
 
 		$("#div-display-image-cd").empty();
 		document.getElementById('div-display-image-cd').className = "displayNone"; 
-		document.getElementById('div-fonts-cd').className = "displayNone";
+		document.getElementById('div-fonts-cd').className = "displayNone"; 
 
 		document.getElementById('upload_custom_logo_cd').className = "displayNone";
 		document.getElementById('upload_custom_logo_cd_heading').className = "outside-box-heading displayNone";
@@ -674,6 +719,17 @@ function displayImage(path,name,elem){
 	// document.getElementById('div-display-image').className = "displayBlock";
 	// $("#div-display-image").append("<img src='"+path+"'><input type='hidden' name='embossment-template-name' id ='embossment-template-name' value=''> ");
 	// document.getElementById('embossment-template-name').value = name;
+}
+
+
+function displayImageClassic(path,name,elem){
+
+	$("#div-display-image").empty();
+	$("#template-classic").find("img").css("border", "0");
+	elem.style.border = "1px solid blue";
+	document.getElementById('div-display-image').className = "displayBlock";
+	$("#div-display-image").append("<img src='"+path+"'><input type='hidden' name='embossment-template-name' id ='embossment-template-name' value=''> ");
+	document.getElementById('embossment-template-name').value = name;
 }
 
 function displayImgSelect(){
@@ -1315,30 +1371,30 @@ function displayPrice(binding = "", no_ofsheets = "", page_options = "", embossi
 					var total = 0;
 					if($('#input_1').hasClass('displayBlock')){    
 
-						Total = parseInt($('#input_1').val().length);
+						Total = parseInt($('#input_1').val().trim().length);
 					}  
 
 					if($('#div-section-2').hasClass('displayBlock') && $('#input_2').hasClass('displayBlock')){   
 
-						Total += parseInt($('#input_2').val().length);
+						Total += parseInt($('#input_2').val().trim().length);
 					}   
 
 					if($('#div-section-3').hasClass('displayBlock') && $('#input_3').hasClass('displayBlock')){   
 
-						Total += parseInt($('#input_3').val().length);
+						Total += parseInt($('#input_3').val().trim().length);
 					}
 
 					  	if($('#input_1').hasClass('displayBlock')){    
 						if(Total >= allowed_letters){    
 							$("#input_1").addClass('invalid');
-							$("#input_2").addClass('invalid');
+							$("#input_2").addClass('invalid'); 
 							$("#input_3").addClass('invalid');
 							$('#error_sections').html('Letters in Spine should not exceed '+ allowed_letters);
 							 valid = false; return false;
 						}
-						// else{
-						// 	valid = true; return true; 
-						// }
+						else{
+							valid = true; return true; 
+						}
 					}
 
 				}else{
@@ -1888,10 +1944,10 @@ if($('#selectfile_file').val() != ""){
  } 
 
 
-// get min sheet count for spine 
+// get min sheet count for spine  
 function getPaperWeightCount(){
  
-	if($("#embossment-spine").is(":checked")){
+	//if($("#embossment-spine").is(":checked")){
 
 		if($("#paper-weight option:selected").val() != "-1"){
 
@@ -1904,7 +1960,7 @@ function getPaperWeightCount(){
 			data: {'binding': binding,'paper_weight': paper_weight, '_token': $('meta[name="csrf-token"]').attr('content')},
 			success: function (response){  var data = JSON.parse(response); 
 
-				$("#spine-count").html("Minimum Number of letters for spine is "+ data);
+				$("#spine-count").html("Minimum Number of sheets for spine is "+ data);
 				$("#spine-count-hidden").val(data);
 
 
@@ -1912,7 +1968,7 @@ function getPaperWeightCount(){
 		});
 
 		}
-	}	
+	//}	
 }
 
 

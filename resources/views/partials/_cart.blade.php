@@ -38,7 +38,7 @@
                                         <div class="form-group">
                                       <label for="text">{{ trans('cart.no_of_copies') }}*:</label>
                                       <label id="price_per_product_{{$data->id}}" class = "price_per_product">Price/qty:€ {{$data->price_per_product}}</label>
-                                      <input type="text" name={{"no_of_copies[".$key."]"}} id="no_of_copies" class="form-control" placeholder="{{ trans('cart.enter_here') }}" value=<?php $array = json_decode($data->attribute);  echo $array->no_of_copies;  ?> readonly>
+                                      <input type="text" id="no_of_copies" name={{"no_of_copies[".$key."]"}}  class="form-control" placeholder="{{ trans('cart.enter_here') }}" value=@if(isset($data->attribute)) <?php $array = json_decode($data->attribute); ?>  {{$array->no_of_copies}} @else {{"0"}} @endif readonly>
                                       @if($errors->has('no_of_copies.'.$key))
                                       <div class="error">{{ $errors->first('no_of_copies.'.$key) }}</div>
                                       @endif 
@@ -46,7 +46,7 @@
                                     <div class="form-group">
                                       <label for="pwd">{{ trans('cart.no_of_cds') }}:</label>
                                       <label id="price_per_product_{{$data->id}}" class = "price_per_product">Price/qty:€ 2.00</label>
-                                      <input readonly type="text" name={{"no_of_cds[".$key."]"}} id="no_of_cds" class="form-control" placeholder="0" value=<?php $array = json_decode($data->attribute);  echo $array->number_of_cds;  ?>>
+                                      <input readonly id="no_of_cds" type="text" name={{"no_of_cds[".$key."]"}}  class="form-control" placeholder="0" value=@if(isset($data->attribute)) <?php $array = json_decode($data->attribute); ?>  {{$array->number_of_cds}} @else {{"0"}} @endif>
                                        @if($errors->has('no_of_cds.'.$key))
                                       <div class="error">{{ $errors->first('no_of_cds.'.$key) }}</div>
                                       @endif
@@ -500,26 +500,38 @@ function displayAddress(select="",address = ""){
 
 function discountCode(code = ""){
 
-  var code = $(code).val();   
+  var code = ($(code).val()).trim();  
 
-  $.ajax({
+  if(code == ''){
+
+     $('#discount-code-error').text('');
+
+  }else{
+
+    $.ajax({
     url: base_url+'/get-discount-code-status', 
     type: 'GET', 
     data: {'code':code},
     success: function (response){
         var data = JSON.parse(response); 
-         if(data == true){  alert("T");
+         if(data == true){  //alert("T");
 
           $('#discount-code-error').text('The Discount Code Applied Successfully');
           $('#discount-code-error').css('color','black');
 
-         }else if(data == false){   alert("F");
+         }else if(data == false){  // alert("F");
           $('#discount-code-error').css('color','red');
            $('#discount-code-error').text('The Discount Code is Invalid');
-         } 
-    }
-  }); 
+         }else if(data == ''){
 
+          $('#discount-code-error').text('');
+
+         }
+    }
+  });
+
+  } 
+ 
 }
 
 
