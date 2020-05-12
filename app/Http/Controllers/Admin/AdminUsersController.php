@@ -173,7 +173,7 @@ class AdminUsersController extends Controller
             $users->save();
 
         }
-        return redirect('/admin/users');
+        return redirect()->back()->with('status' , 'Updated');
     }
 
     /**
@@ -239,7 +239,7 @@ class AdminUsersController extends Controller
             $users->save();
 
         }
-        return redirect('/admin/users');
+        return redirect()->back()->with('status' , 'Updated');
 
     }
 

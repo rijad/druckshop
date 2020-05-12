@@ -4,17 +4,17 @@
 
         <div class="card-body col-md-6">
 
-    @if (session('status'))
-    <div class="alert alert-success" role="alert">
-        {{ session('status') }}
-    </div>
-    @endif
-    @if ($errors->any())
-            <ul>
-                @foreach ($errors->all() as $error)
-                @endforeach
-            </ul>
-        @endif
+            @if (session('status'))
+                <div class="alert alert-success" role="alert">
+                    {{ session('status') }}
+                </div>
+            @endif
+            @if ($errors->any())
+                <ul>
+                    @foreach ($errors->all() as $error)
+                    @endforeach
+                </ul>
+            @endif
         <form  class="form-group-inline" method="POST" action="{{ route('gallery.store') }}" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
@@ -28,9 +28,10 @@
                         <label class="custom-control-label" for="customCheck">Active</label>
                     </div>
                 </div>
-                <div class="form-group">
-                    <input type="submit" class="btn btn-primary btn-user btn-block col-md-3" value="Add">
-                </div>
+            <div class="form-inline">
+                <a href="{{ url('/admin/gallery') }}" class="btn btn-secondary btn-user btn-block col-md-3">Back</a>
+                <input type="submit" class="btn btn-primary btn-user btn-block col-md-3" value="Add">
+            </div>
     
         </form>
     </div>

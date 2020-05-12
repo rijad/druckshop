@@ -24,7 +24,7 @@
 
             <div class="form-group">
                 <label class="small mb-1" for="name">Old Password</label>
-                <input class="form-control" type="password" name="old_password">
+                <input class="form-control" type="password" name="old_password" required>
                 <span class="text-danger">{{ $errors->first('old_password') }}</span>
             </div>
 

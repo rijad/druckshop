@@ -23,7 +23,6 @@ class PasswordController extends Controller
         $user_id = Auth::guard('admin')->user()->id;
         // dd($user_id);
         }
-        // $users = UsersAdmin::find($id);
         return view('pages.admin.changepassword', compact('user_id'));
     }
 
@@ -81,8 +80,8 @@ class PasswordController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'old_password' => 'required',
-            'password' => 'required',
-            'confirm_password' => 'required_with:password|same:password',
+            'password' => 'required|min:8',
+            'confirm_password' => 'required_with:password|same:password|min:8',
         ]);
         if ($validator->fails()) {
             return redirect()->back()
@@ -96,12 +95,18 @@ class PasswordController extends Controller
 
             if (Auth::guard('admin')->check())
             {
-            $user_id = Auth::guard('admin')->user()->id;
+                $user_id = Auth::guard('admin')->user()->id;
             }
-            $input['password'] = Hash::make($request->password);
-            UsersAdmin::find($user_id)->update($input);
-        }
 
+            $pass_id = UsersAdmin::find(auth()->guard('admin')->user()->id);
+            
+            if(!Hash::check($input['old_password'], $pass_id->password)){
+                return redirect()->back()->with('status' , 'The specified password does not match the old password');
+            }else{
+                $input['password'] = Hash::make($request->password);
+                UsersAdmin::find($user_id)->update($input);
+            }
+        }
         return redirect()->back()->with('status' , 'Updated');
     }
 

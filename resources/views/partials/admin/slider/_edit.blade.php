@@ -75,7 +75,8 @@
           <label class="small mb-1" for="is_slide">
             <input type="checkbox" name="is_slide" <?php echo ($slider->is_slide) ? 'checked' : ''; ?>> Is Slide</label>
           </div>
-          <div class="form-group">
+          <div class="form-inline">
+            <a href="{{ url('/admin/slider') }}" class="btn btn-secondary btn-user btn-block col-md-3">Back</a>
             <input type="submit" class="btn btn-primary btn-user btn-block col-md-3" value="Update">
           </div>
         </form>

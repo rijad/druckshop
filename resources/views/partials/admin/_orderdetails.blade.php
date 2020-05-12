@@ -48,6 +48,9 @@
     </div>
     
     </form> 
+    <div class="form-group">
+        <a href="{{ url('/admin/order') }}" class="btn btn-secondary btn-user btn-block col-md-3">Back</a>
+    </div>
     </div>    
 
 

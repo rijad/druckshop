@@ -42,7 +42,8 @@
           <span class="text-danger">{{ $errors->first('text_german') }}</span>
         </div>
 
-        <div class="form-group">
+        <div class="form-inline">
+          <a href="{{ url('/admin/FAQ') }}" class="btn btn-secondary btn-user btn-block col-md-3">Back</a>
           <input type="submit" class="btn btn-primary btn-user btn-block col-md-3" value="Update">
         </div>
       </form>

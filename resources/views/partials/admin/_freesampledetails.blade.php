@@ -26,7 +26,10 @@
                             @endforeach
                     </select>
                 @endif
-                    <input type="submit" class="btn btn-primary" value="update">
+                <div class="form-inline">
+                    <a href="{{ url('/admin/freesample') }}" class="btn btn-secondary btn-user btn-block col-md-3">Back</a>
+                    <input type="submit" class="btn btn-primary btn-user btn-block col-md-3" value="Update">
+                </div>
             </form>
         </div>
     </div>
