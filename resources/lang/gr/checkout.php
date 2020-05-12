@@ -52,11 +52,15 @@ return [
     'cd_imprint' => 'CD-Aufdruck',
     'font' => 'Schriftart',
     'cd_bag' => 'CD-Tasche',
+
+
+
     'data_check' => 'Datenprüfung',
     'binding_price' => 'Verbindlicher Preis',
-    'printouts' => 'Ausdrucke',
-    'data_checks' => 'Datenprüfungen',
-    'cds' => 'CDs',
+    'printouts' => 'Ausdrucks preis',
+    'embossment' => 'Präge preis',
+    'data_checks' => 'Datenprüfungen Preis',
+    'cds' => 'CDs Preis',
     'total' => 'Gesamt',
 
     'throttle' => 'Bindung',

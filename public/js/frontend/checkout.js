@@ -1069,13 +1069,21 @@ function displayProductAttributes(field_flag = "", values = ""){
 }
 
 
-function displayPrice(binding = "", no_ofsheets = "", page_options = "", embossing_cover = "", embossing_spine="", paper_weight = "", A2="", A3="", nos_of_cds = "", data_check = "", cd_cover = "", no_of_colored_sheets = "", delivery_service = '', no_ofcopies = ''){
+function displayPrice(binding = "", no_ofsheets = "", page_options = "", embossing_cover = "", embossing_spine="", paper_weight = "", A2="", A3="", nos_of_cds = "", data_check = "", cd_cover = "", no_of_colored_sheets = "", delivery_service = '', no_ofcopies = '', embossing = '', imprint = ''){
 
 
-	var binding_type = "",no_of_sheets = "", pageOptions = "", embossingCover = "", embossingSpine="", paperWeight = "", A2_page="", A3_page="", nosOfCds = "", dataCheck = "", cdCover = "", coloredSheets = "", deliveryService = '', no_of_copies = '';
+	var binding_type = "",no_of_sheets = "", pageOptions = "", embossingCover = "", embossingSpine="", paperWeight = "", A2_page="", A3_page="", nosOfCds = "", dataCheck = "", cdCover = "", coloredSheets = "", deliveryService = '', no_of_copies = '', embossing_type = '', cd_imprint = '';
 
 	if(no_ofcopies != ""){
 		no_of_copies = no_ofcopies; 
+	} 
+
+	if(embossing != ""){
+		embossing_type = embossing; 
+	}
+
+	if(imprint != ""){
+		cd_imprint = imprint; 
 	}
 
 	if(binding != ""){
@@ -1105,7 +1113,7 @@ function displayPrice(binding = "", no_ofsheets = "", page_options = "", embossi
 	if(A2 != ""){
 		A2_page = A2;
 	}
-
+ 
 	if(A3 != ""){
 		A3_page = A3;
 	}
@@ -1128,12 +1136,12 @@ function displayPrice(binding = "", no_ofsheets = "", page_options = "", embossi
 		cdCover = cd_cover;
 
 	}
-	  
+
 
 	$.ajax({
 		url: base_url+'/get-price', 
 		type: 'GET', 
-		data: {'no_of_copies':no_of_copies,'binding_type' : binding, 'no_of_sheets' : no_ofsheets, 'pageOptions' : page_options, 'embossingCover' : embossing_cover, 'embossingSpine' : embossing_spine, 'paperWeight' : paper_weight, 'A2_page' : A2, 'A3_page': A3, 'nosOfCds' : nos_of_cds, 'dataCheck' : data_check, 'coloredSheets' : no_of_colored_sheets, 'deliveryService' : delivery_service, 'cdCover':cdCover},
+		data: {'cd_imprint': cd_imprint,'embossing_type':embossing_type,'no_of_copies':no_of_copies,'binding_type' : binding, 'no_of_sheets' : no_ofsheets, 'pageOptions' : page_options, 'embossingCover' : embossing_cover, 'embossingSpine' : embossing_spine, 'paperWeight' : paper_weight, 'A2_page' : A2, 'A3_page': A3, 'nosOfCds' : nos_of_cds, 'dataCheck' : data_check, 'coloredSheets' : no_of_colored_sheets, 'deliveryService' : delivery_service, 'cdCover':cdCover},
 		success: function (response){
 			var data = JSON.parse(response); 
 			//console.log(response);
@@ -1142,6 +1150,7 @@ function displayPrice(binding = "", no_ofsheets = "", page_options = "", embossi
 			document.getElementById('printout').innerHTML = data['data']['printout'] + "€" ;
 			document.getElementById('data_check_price').innerHTML = data['data']['data_check_price'] + "€" ;
 			document.getElementById('cd_dvd').innerHTML = data['data']['cd_dvd'] + "€" ;
+			document.getElementById('embossment').innerHTML = data['data']['embossment_price'] + "€" ;
 			document.getElementById('total').innerHTML = data['data']['total'] + "€" ;
 			document.getElementById('total_price').value = data['data']['total'];
 			// document.getElementById('total_unit_price').value = data['data']['total_unit_price'];
@@ -1696,11 +1705,16 @@ function checkPageRange(id1 = '', id2 = '' ,value_id = ''){
      var value = document.getElementById(value_id).value;
 
 
+     if(document.getElementById(id1).value == "" || document.getElementById(id1).value == null){    // if thesis is not uploaded
+     		range = -2; 
 
-     if(document.getElementById(id1).value == "" || document.getElementById(id1).value == null){   
-     		range = -2; console.log(count_of_pages);
-     }else{
-     	count_of_pages =parseInt(document.getElementById(id2).innerHTML.split(":")[1]);  console.log(count_of_pages);
+     }else{  // if thesis is uploaded
+
+     		if(document.getElementById(value_id).value == 0){   
+     		range = -1; 
+       		}else{
+
+       			count_of_pages =parseInt(document.getElementById(id2).innerHTML.split(":")[1]);  
      
 
 		     if(value.includes(",")){   // range seperation using ',' and '-'
@@ -1721,17 +1735,17 @@ function checkPageRange(id1 = '', id2 = '' ,value_id = ''){
 			    	}else{   // calculation for ','
 
 			    		if(val_c[i] > count_of_pages){
-			     			status = -1;  console.log("else comma 1");
+			     			status = -1;  
 			     		}
 
-			     		if(status == -1){   console.log("else comma 2");
+			     		if(status == -1){   
 				     		//range = -1;
 				     		status = 0;
 				     	}else{
-				     		range_c += 1;   console.log("else comma 3");
+				     		range_c += 1;   
 				     	}
 
-			    	} console.log(val_c);
+			    	} 
 			    }// end of empty if
 			    } // end of loop
 			
@@ -1752,7 +1766,7 @@ function checkPageRange(id1 = '', id2 = '' ,value_id = ''){
 		     }else{
 		     	    range = -1; 
 		     }
-
+       		}
    }
 
  if(range >= 0){  
@@ -1760,7 +1774,7 @@ function checkPageRange(id1 = '', id2 = '' ,value_id = ''){
      	range = range_s + range_c +range_h;  
      }
 
-console.log("Range: "+range);
+
       if(range > count_of_pages){ 
      		document.getElementById('error_range').innerHTML = "Please check the range for number of pages";
      		document.getElementById('error_range').style.color = "red";
@@ -2097,4 +2111,39 @@ function getA3A2Count(format = ""){
 				
 			}
 		});
+}
+
+
+function resetPrice(session = ""){
+
+	if(session == "colored_pages"){  //color pages check box
+
+		displayPrice('','','','','','','','','','','',0,'','','',''); // no of colored pages
+
+	}else if(session == "cd"){
+
+		displayPrice('','','','','','','','','0','','','','','','','');  // no of CDs
+
+		displayPrice('','','','','','','','','','','','','','','','0');  // cd imprint
+
+		cdBagPosition(); displayPrice('','','','','','','','','','','0','','','','',''); // cd cover
+
+	}else if(session == "cd_imprint"){
+
+		displayPrice('','','','','','','','','','','','','','','','0');  // cd imprint
+
+	}else if(session == "A2"){
+
+		displayPrice('','','','','','','0','','','','','','','','','');  // A2
+
+	}else if(session == "A3"){
+
+		displayPrice('','','','','','','','0','','','','','','','',''); // A3
+
+	}
+
+
+
+
+
 }

@@ -54,14 +54,15 @@ return [
     'cd_bag' => 'CD Bag',
     'position' => 'Position', 
     'data_check' => 'Data Check',
-
+    'cds' => 'CDs Price',
     'upload_template' => 'Upload Template',
 
 
 
     'binding_price' => 'Binding Price',
-    'printouts' => 'Printouts',
-    'data_checks' => 'Data checks',
+    'printouts' => 'Printout Price',
+    'embossment' => 'Embossment Price',
+    'data_checks' => 'Data checks Price',
     'cds' => 'CDs',
     'total' => 'Total',
 

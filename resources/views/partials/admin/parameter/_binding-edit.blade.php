@@ -433,7 +433,7 @@ body .popover{display:none !important; }
         success: function (response){
 
             var image_id1 = image_id.id; 
-            $('#'+image_id1).remove(); alert('res1');
+            $('#'+image_id1).remove(); 
             $(btn).remove();   alert('res2');
         }
     });  
