@@ -53,9 +53,10 @@
                 <label class="small mb-1" for="status">
                     <input type="checkbox" name="status" <?php echo ($latest->status) ? 'checked' : ''; ?> required> Active</label>
                 </div>
-                <div class="form-group">
-                    <input type="submit" class="btn btn-primary btn-user btn-block col-md-3" value="Update">
-                </div>
+            <div class="form-inline">
+                <a href="{{ url('/admin/latest') }}" class="btn btn-secondary btn-user btn-block col-md-3">Back</a>
+                <input type="submit" class="btn btn-primary btn-user btn-block col-md-3" value="Update">
+            </div>
             </form>
         </div>
 

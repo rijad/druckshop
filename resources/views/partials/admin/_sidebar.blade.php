@@ -14,7 +14,7 @@
                     </div>Admin Users
                 </a>
 
-                @if(Auth::user()->role == 0)
+                @if(Auth::guard('admin')->user()->role == 0)
                 <a class="nav-link" href="{{ route('change-password', 1) }}">
                     <div class="sb-nav-link-icon">
                         <i class="fa fa-key"></i>
@@ -28,11 +28,11 @@
                     </div>Customers
                 </a>
 
-                @if(Auth::user()->role == 0 || Auth::user()->role == 1)
+                @if(Auth::guard('admin')->user()->role == 0 || Auth::guard('admin')->user()->role == 1)
                 <a class="nav-link" href="{{ route('change-password', 2) }}">
                     <div class="sb-nav-link-icon">
                         <i class="fa fa-key"></i>
-                    </div>Change Employee Password 
+                    </div>Change Employee Password
                 </a>
                 @endif
 
@@ -48,7 +48,7 @@
                     </div>Gallery
                 </a> -->
 
-                @if(Auth::user()->role == 0 || Auth::user()->role == 1)
+                @if(Auth::guard('admin')->user()->role == 0 || Auth::guard('admin')->user()->role == 1)
                 <a class="nav-link" href="{{ route('parameter.index') }}">
                     <div class="sb-nav-link-icon">
                         <i class="fas fa-tachometer-alt"></i>

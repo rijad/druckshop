@@ -50,9 +50,10 @@
                 <label class="small mb-1" for="employee">Employee</label><br>
 
             </div>
-            <div class="form-group">
-            <input type="submit" class="btn btn-primary btn-user btn-block col-md-3" value="Submit">
-          </div>
+            <div class="form-inline">
+                <a href="{{ url('/admin/users') }}" class="btn btn-secondary btn-user btn-block col-md-3">Back</a>
+                <input type="submit" class="btn btn-primary btn-user btn-block col-md-3" value="Submit">
+            </div>
       </form>
     </div>
   </div>

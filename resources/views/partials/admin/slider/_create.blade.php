@@ -81,7 +81,8 @@
                 <label class="small mb-1" for="is_slide">Is_slide</label>
                 <input type="checkbox" name="is_slide"   />
             </div>
-            <div class="form-group">
+            <div class="form-inline">
+                <a href="{{ url('/admin/slider') }}" class="btn btn-secondary btn-user btn-block col-md-3">Back</a>
                 <input type="submit" class="btn btn-primary btn-user btn-block col-md-3" value="Add">
             </div>
 

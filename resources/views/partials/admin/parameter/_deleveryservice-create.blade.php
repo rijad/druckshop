@@ -9,6 +9,17 @@
         <h2>Create New Delivery Services</h2>
 
         <div class="card-body col-md-6">
+            @if (session('status'))
+            <div class="alert alert-success" role="alert">
+                {{ session('status') }}
+            </div>
+            @endif
+            @if ($errors->any())
+            <ul>
+                @foreach ($errors->all() as $error)
+                @endforeach
+            </ul>
+            @endif
 
             <form class="form-group-inline" method="POST" action="{{ route('deliveryService.store') }}" enctype="multipart/form-data">
                 @csrf

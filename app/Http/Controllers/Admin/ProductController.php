@@ -822,7 +822,7 @@ class ProductController extends Controller
 
             }
         }
-        return redirect()->back()->with('status', 'Created');
+        return redirect()->back()->with('status', 'Updated');
     }
 
     /**
