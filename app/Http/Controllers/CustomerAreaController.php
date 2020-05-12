@@ -43,7 +43,7 @@ class CustomerAreaController extends Controller
 
 
         $validator = Validator::make($request->all(), [
-            'image' => 'nullable',
+           // 'image' => 'nullable',
             'dob' => 'nullable',
             'email' => 'nullable',
             //'address' => 'nullable',
@@ -67,18 +67,18 @@ class CustomerAreaController extends Controller
         if ($validator->passes()){
             $input = $request->all();
 
-              if ($request->hasFile('image')) {
-                  $file = $request->file('image'); 
-                  if (!file_exists(public_path().'/customerprofile')) {
-                    mkdir(public_path().'/customerprofile', 0777); 
-                   }  
+              // if ($request->hasFile('image')) {
+              //     $file = $request->file('image'); 
+              //     if (!file_exists(public_path().'/customerprofile')) {
+              //       mkdir(public_path().'/customerprofile', 0777); 
+              //      }  
 
-                  $destinationPath = public_path().'/customerprofile';
-                  $file->move($destinationPath,time() . '_' . $file->getClientOriginalName());
-                  $input['image'] = "public/customerprofile/".time() . '_' . $file->getClientOriginalName(); 
-              }else{
-                   $input['image'] = "";
-              }
+              //     $destinationPath = public_path().'/customerprofile';
+              //     $file->move($destinationPath,time() . '_' . $file->getClientOriginalName());
+              //     $input['image'] = "public/customerprofile/".time() . '_' . $file->getClientOriginalName(); 
+              // }else{
+              //      $input['image'] = "";
+              // }
               
 
               try{
@@ -91,7 +91,7 @@ class CustomerAreaController extends Controller
                 // $area->shipping_address = $input['shipping_address'];
                 // $area->billing_address = $input['billing_address'];
                 $area->status = 1;
-                $area->image =  $input['image'];
+               // $area->image =  $input['image'];
                 $area->save();
  
               }catch(\Exception $e){
@@ -105,7 +105,7 @@ class CustomerAreaController extends Controller
                 // $area->shipping_address = $input['shipping_address'];
                 // $area->billing_address = $input['billing_address'];
                 $area->status = 1;
-                $area->image = 'public/customerprofile/' . time() . '_' . $_FILES['image']['name'];
+               // $area->image = 'public/customerprofile/' . time() . '_' . $_FILES['image']['name'];
                 $area->save();
 
               }
@@ -126,7 +126,9 @@ class CustomerAreaController extends Controller
 
     try{
       $details = CustomerArea::where(['user_id' => $user_id])->first();
-      $details_data = ['user_id'=>$user_id, 'dob'=>$details->dob, 'email'=>$details->email, 'address' => $details->address, 'phone' => $details->phone, 'image' => $details->image, 'billing_address' => $details->billing_address];
+      // $details_data = ['user_id'=>$user_id, 'dob'=>$details->dob, 'email'=>$details->email, 'address' => $details->address, 'phone' => $details->phone, 'image' => $details->image, 'billing_address' => $details->billing_address];
+
+       $details_data = ['user_id'=>$user_id, 'dob'=>$details->dob, 'email'=>$details->email, 'address' => $details->address, 'phone' => $details->phone, 'billing_address' => $details->billing_address];
 
 
          try{
@@ -143,7 +145,9 @@ class CustomerAreaController extends Controller
 
     }catch(\Exception $e){
 
-      $details_initial = ['user_id'=>$user_id, 'dob'=>'DOB', 'email'=>'Email', 'address' => 'Address', 'phone' => 'Phone', 'image' => 'public/customerprofile/1.jpg','billing_address' => 'Billing Address'];
+      // $details_initial = ['user_id'=>$user_id, 'dob'=>'DOB', 'email'=>'Email', 'address' => 'Address', 'phone' => 'Phone', 'image' => 'public/customerprofile/1.jpg','billing_address' => 'Billing Address'];
+
+      $details_initial = ['user_id'=>$user_id, 'dob'=>'DOB', 'email'=>'Email', 'address' => 'Address', 'phone' => 'Phone', 'billing_address' => 'Billing Address'];
       
       print_r(json_encode(array_merge($details_initial,$address_data))); exit;
      // print_r(json_encode($details_initial));  exit;
@@ -156,7 +160,9 @@ class CustomerAreaController extends Controller
 
     }else{
 
-      $details_initial = ['user_id'=>$user_id, 'dob'=>'DOB', 'email'=>'Email', 'address' => 'Address', 'phone' => 'Phone', 'image' => 'public/customerprofile/1.jpg','billing_address' => 'Billing Address'];
+      //$details_initial = ['user_id'=>$user_id, 'dob'=>'DOB', 'email'=>'Email', 'address' => 'Address', 'phone' => 'Phone', 'image' => 'public/customerprofile/1.jpg','billing_address' => 'Billing Address'];
+
+      $details_initial = ['user_id'=>$user_id, 'dob'=>'DOB', 'email'=>'Email', 'address' => 'Address', 'phone' => 'Phone', 'billing_address' => 'Billing Address'];
      // print_r(json_encode($details_initial));  exit;
       print_r(json_encode(array_merge($details_initial,$address_data))); exit;
 

@@ -40,7 +40,7 @@ return [
     'upload_logo' => 'Upload Logo',
     'font_type' => 'Font Type',
     'date_format' => 'Date Format',
-    'refinement_spine' => 'Spine',
+    'refinement_spine' => 'Refinement Spine',
     'direction' => 'Direction',
     'section' => 'Section',
     'field' => 'Field',
@@ -52,7 +52,7 @@ return [
     'cd_imprint' => 'CD Imprint',
     'font' => 'Font',
     'cd_bag' => 'CD Bag',
-    'position' => 'Position',
+    'position' => 'Position', 
     'data_check' => 'Data Check',
 
     'upload_template' => 'Upload Template',
@@ -67,4 +67,13 @@ return [
 
     'throttle' => 'Binding',
 
+    'upload_thesis' => 'Upload Thesis',
+    'upload_own_binding_template' => 'Upload own binding template',
+    'upload_files_on_cd' => 'Upload file(s) on CD',
+    'upload_logo_for_cd_template' => 'Upload logo for CD template',
+    'upload_own_cd_template' => 'Upload own CD template',
+    'upload_logo_for_binding_template' => 'Upload Logo for binding template',
+    'choose_your_template' => 'Choose your template',
+
 ];
+ 

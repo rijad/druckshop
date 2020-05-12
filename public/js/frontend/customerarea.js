@@ -43,12 +43,12 @@ function saveProfile(){
    // var address = document.getElementById('userIdAddress').value; 
     var email = document.getElementById('userIdEmail').value;  
     var phone = document.getElementById('userIdPhone').value;  
-    var shipping_address = document.getElementById('userIdshipping').value;   
+    //var shipping_address = document.getElementById('userIdshipping').value;   
     var billing_address = document.getElementById('userIdBilling').value;  
-    var image = document.getElementById('upload-img').files[0];   //file object
+    //var image = document.getElementById('upload-img').files[0];   //file object
 
          var form_data = new FormData();                  
-        form_data.append('image', image);
+       // form_data.append('image', image);
         form_data.append('dob', dob);
       //  form_data.append('address', address);
         form_data.append('email', email);
@@ -90,8 +90,8 @@ $('#returnModal').on('show.bs.modal', function(e) {
   function submitReturnRequest(){
     var order_id = document.getElementById('order_id').value; 
     var user_id = document.getElementById('user_id').value; 
-    var desc = document.getElementById('return_desc').value;  
-    var file = document.getElementById('return_image').files[0];   //file object
+    var desc = document.getElementById('return_desc').value;   
+    var file = document.getElementById('return_image').files[0];   //file object 
 
     if(desc == ""){
       document.getElementById('error_return_desc').innerHTML = "Kindly mention reason of return.";
@@ -115,11 +115,13 @@ $('#returnModal').on('show.bs.modal', function(e) {
           url: base_url+'/return-order',
           contentType: false,
           processData: false,
-          data: form_data,
+          data: form_data, 
           success:function(response) {  
              // $('#returnModal').modal('hide');
               $('#returnModal').modal('hide'); $('body').removeClass('modal-open'); $('.modal-backdrop').remove();
-              location.reload();
+              $('#return-order-status').append('<div class="alert alert-success">Return of order requested successfully</div>');
+              $('#order-status').text('Return Requested');
+             // location.reload();
         }
 
       });
@@ -200,6 +202,8 @@ function addAddress(address_type = ""){
   //   }
 
   }
+
+
  
 
   $.ajax({
@@ -210,17 +214,17 @@ function addAddress(address_type = ""){
       type: 'POST', 
       data: {'default':1,'address_type':address_type, 'first_name':first_name, 'last_name':last_name, 'company_name':company_name, 'street':street, 'city':city, 'zip_code':zip_code, 'house_no':house_no, 'addition':addition, 'state':state},
       success: function (response){  
+
         if(address_type == "billing"){
 
           $('#rv-Modal-billing').modal('hide');$('body').removeClass('modal-open');$('.modal-backdrop').remove();
-        //   $('#rv-Modal-billing').modal('toggle');
-        // }else{
-        //   $('#rv-Modal-shipping').modal('toggle');
+
+          $('#userIdBilling').val(response);
         }
 
       }
     });
 
 
-
-} 
+ 
+}  

@@ -9,7 +9,7 @@ use App\Product;
 use App\ArtList;
 use App\PageFormat;
 use App\CoverColor;
-use App\CoverSheet;
+use App\CoverSheet; 
 use App\BackCovers;
 use App\PaperWeight;
 use App\CoverSetting;
@@ -79,7 +79,7 @@ class ProductController extends Controller
         $coverSheet = CoverSheet::where('status', 1)->orderBy('id', 'ASC')->limit(20)->get();
         $backCover = BackCovers::where('status', 1)->orderBy('id', 'ASC')->limit(20)->get();
 
-        $paperWeight = PaperWeight::where('status', 1)->orderBy('id', 'ASC')->limit(20)->get();
+        $paperWeight = PaperWeight::where('status', 1)->orderBy('id', 'ASC')->limit(20)->get(); 
         $printFinishing = PrintFinishing::where('status', 1)->orderBy('id', 'DESC')->limit(20)->get();
 
         $artList = ArtList::where('status', 1)->orderBy('id', 'ASC')->limit(20)->get();
@@ -130,7 +130,7 @@ class ProductController extends Controller
         if ($insert) {
 
             //insert file
-            if($request->hasFile('product_file')) {
+            if($request->hasFile('product_file')) { 
 
                 $this->validate($request, [
 
@@ -139,29 +139,37 @@ class ProductController extends Controller
                 ]);
 
                 $image = $request->file('product_file');
-                $input['imagename'] = time().@$insert->id.'.'.@$image->getClientOriginalExtension();
+                $input['imagename'] = time().@$insert->id.'_'.@$image->getClientOriginalName().'.'.@$image->getClientOriginalExtension();
 
                 $destinationPath = public_path('/images');
 
                 $image->move($destinationPath, $input['imagename']);
 
                 $update = Product::where('id', @$insert->id)->update(['image_path' => @$input['imagename']]);
+
+                 //dd($request->file('product_file'));
             }
 
             //insert file
             if($request->file('otherImages')) {  
-                // dd($request->file('otherImages'));
+               // dd($request->input());
+
+                 $array_image = explode(',',$request->removed_files[0]);
 
                 foreach ($request->file('otherImages') as $key => $value) { 
 
+                    if(! in_array($value->getClientOriginalName(), $array_image)){
+
                     $other_image = $request->file('otherImages')[$key]; 
-                    $inputImage['imagename'] = time().@$insert->id.'.'.@$other_image->getClientOriginalExtension();
+                    $inputImage['imagename'] = time().@$insert->id.'_'.$value->getClientOriginalName().'.'.$value->getClientOriginalExtension();
 
                     $destinationPathImg = public_path('/images');
 
                     $other_image->move($destinationPathImg, $inputImage['imagename']);
 
                     $update = ProductImage::create(['product_id'=>$insert->id, 'image_path' => @$inputImage['imagename'] ]);
+
+                   }
                 }
             }
  
@@ -238,48 +246,48 @@ class ProductController extends Controller
             }
 
 
-            if ($request->paper_weight) {   dd($request->paper_weight);
+            if ($request->paper_weight) {  // dd($request->paper_weight);
 
                 foreach ($request->paper_weight as $key_pw => $value_pw) {
 
-                    if ($value_pw == 1) {
+                    if ($value_pw) {
 
-                        if (!empty($request['paper_weight'][0])) {
-
-                            $paper_weight_data = [
-
-                                'product_id' => $insert->id,
-                                'paper_weight_id' => $request['paper_weight'][0],
-                                'min_sheets' => $request['p_min_sheet'][0],
-                                'max_sheets' => $request['p_max_sheet'][0],
-                            ];
-                        }
-
-                    }else if ($value_pw == 2) {
-
-                        if (!empty($request['paper_weight'][1])) {
+                        if (!empty($request['paper_weight'][$key_pw])) {
 
                             $paper_weight_data = [
 
                                 'product_id' => $insert->id,
-                                'paper_weight_id' => $request['paper_weight'][1],
-                                'min_sheets' => $request['p_min_sheet'][1],
-                                'max_sheets' => $request['p_max_sheet'][1],
+                                'paper_weight_id' => $request['paper_weight'][$key_pw],
+                                'min_sheets' => $request['p_min_sheet'][$key_pw],
+                                'max_sheets' => $request['p_max_sheet'][$key_pw],
                             ];
                         }
-                    }else if ($value_pw == 3) {
+ }
+                        //else if ($value_pw == 2) {
 
-                        if (!empty($request['paper_weight'][2])) {
+                    //     if (!empty($request['paper_weight'][1])) {
 
-                            $paper_weight_data = [
+                    //         $paper_weight_data = [
 
-                                'product_id' => $insert->id,
-                                'paper_weight_id' => $request['paper_weight'][2],
-                                'min_sheets' => $request['p_min_sheet'][2],
-                                'max_sheets' => $request['p_max_sheet'][2],
-                            ];
-                        }
-                    }
+                    //             'product_id' => $insert->id,
+                    //             'paper_weight_id' => $request['paper_weight'][1],
+                    //             'min_sheets' => $request['p_min_sheet'][1],
+                    //             'max_sheets' => $request['p_max_sheet'][1],
+                    //         ];
+                    //     }
+                    // }else if ($value_pw == 3) {
+
+                    //     if (!empty($request['paper_weight'][2])) {
+
+                    //         $paper_weight_data = [
+
+                    //             'product_id' => $insert->id,
+                    //             'paper_weight_id' => $request['paper_weight'][2],
+                    //             'min_sheets' => $request['p_min_sheet'][2],
+                    //             'max_sheets' => $request['p_max_sheet'][2],
+                    //         ];
+                    //     }
+                    // }
 
                     if (!empty($paper_weight_data)) {
 
@@ -311,7 +319,6 @@ class ProductController extends Controller
                 }
 
             }
-
 
 
             if (!empty($request->sheet_start) && !empty($request->sheet_end) && !empty($request->product_price)) {
@@ -378,14 +385,14 @@ class ProductController extends Controller
         $backCover = BackCovers::where('status', 1)->orderBy('id', 'ASC')->limit(20)->get();
         $selectedBackCover = ProductBackSheet::where(['product_id'=> $id, 'status'=> 1])->pluck('back_cover_id')->toArray();
 
-        $paperWeight = PaperWeight::where('status', 1)->orderBy('id', 'ASC')->limit(20)->get();
-        $selectedPaperWeight = ProductPaperWeight::where(['product_id'=> $id, 'status'=> 1])->pluck('paper_weight_id')->toArray();
-        $selectedPaperWeightData = ProductPaperWeight::where(['product_id'=> $id, 'status'=> 1])->get()->toArray();
+        $paperWeight = PaperWeight::where('status', 1)->orderBy('id', 'ASC')->limit(20)->get();    //dd($paperWeight);
+        $selectedPaperWeight = ProductPaperWeight::where(['product_id'=> $id, 'status'=> 1])->orderBy('paper_weight_id', 'ASC')->pluck('paper_weight_id')->toArray(); //dd($selectedPaperWeight);
+        $selectedPaperWeightData = ProductPaperWeight::where(['product_id'=> $id, 'status'=> 1])->orderBy('paper_weight_id', 'ASC')->get()->toArray();
 
         $printFinishing = PrintFinishing::where('status', 1)->orderBy('id', 'DESC')->limit(20)->get();
         $selectedPrintFinishing = ProductPrintFinishing::where(['product_id'=> $id, 'status'=> 1])->pluck('print_finishing_id')->toArray();
 
-
+ 
         $artList = ArtList::where('status', 1)->orderBy('id', 'ASC')->limit(20)->get();
         if (!empty($selectedPrintFinishing[0])) {
 
@@ -395,7 +402,7 @@ class ProductController extends Controller
             $selectedArtList = [];
         } 
 
-        $product_price = ProductPrice::where(['ps_product_id' => $id])->get()->toArray();
+        $product_price = ProductPrice::where(['ps_product_id' => $id])->get()->toArray();  //dd($product_price);
 
         return view('pages.admin.parameter.binding-edit', compact('id','product',  'pageFormat', 'slectedPageFormat', 'coverSetting', 'coverSettingSelected', 'coverColor', 'selectedCoverColor', 'coverSheet', 'selectedCoverSheet', 'selectedBackCover', 'backCover', 'printFinishing', 'selectedPrintFinishing', 'artList', 'selectedArtList', 'paperWeight', 'selectedPaperWeight', 'selectedPaperWeightData', 'product_price','product_image'));
     }
@@ -409,6 +416,8 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {  
+
+        $product_id = $id;
         //
         $validator = Validator::make($request->all(), [
 
@@ -459,7 +468,8 @@ class ProductController extends Controller
                 ]);
  
                 $image = $request->file('product_file');
-                $input['imagename'] = time().@$id.'.'.@$image->getClientOriginalExtension();
+                $input['imagename'] = time().@$id.'_'.@$image->getClientOriginalName().'.'.@$image->getClientOriginalExtension();
+
 
                 $destinationPath = public_path('/images');
 
@@ -471,19 +481,31 @@ class ProductController extends Controller
                 $update = Product::where('id', @$id)->update(['image_path' => @$input['imagename']]);
             }
         
-            //update more files
+            //update more files  
+            
+          // dd(); 
+
+
             if($request->file('otherImages')) {   
 
-                foreach ($request->file('otherImages') as $key => $value) {
+                $array_image = explode(',',$request->removed_files[0]);
 
-                    $other_image = $request->file('otherImages')[$key];
-                    $inputImage['imagename'] = time().@$insert->id.'.'.@$other_image->getClientOriginalExtension();
+                foreach ($request->file('otherImages') as $key => $value) {   //dd($value->getClientOriginalName());
+
+                    if(! in_array($value->getClientOriginalName(), $array_image)){
+
+                    $other_image = $request->file('otherImages')[$key];    //dd(@$other_image->getClientOriginalName()); 
+                    $inputImage['imagename'] = time().@$id.'_'.@$value->getClientOriginalName().'.'.@$value->getClientOriginalExtension();
+
+
 
                     $destinationPathImg = public_path('/images');
 
                      $other_image->move($destinationPathImg, $inputImage['imagename']);
 
                      $update = ProductImage::create(['product_id'=>$id, 'image_path' => @$inputImage['imagename'] ]);
+
+                    }
                 }
             }
 
@@ -640,38 +662,39 @@ class ProductController extends Controller
                     if (!empty($check_already_pw)) {
 
                         //update
-                        if ($value_pw == 1) {
+                        if ($value_pw) {
 
                             $paper_weight_data = [
 
                                 'product_id' => $id,
-                                'paper_weight_id' => $request['paper_weight'][0],
-                                'min_sheets' => $request['p_min_sheet'][0],
-                                'max_sheets' => $request['p_max_sheet'][0],
+                                'paper_weight_id' => $request['paper_weight'][$key_pw],
+                                'min_sheets' => $request['p_min_sheet'][$key_pw],
+                                'max_sheets' => $request['p_max_sheet'][$key_pw],
                                 'status' => 1,
                             ];
 
-                        }else if ($value_pw == 2) {
-
-                            $paper_weight_data = [
-
-                                'product_id' => $id,
-                                'paper_weight_id' => $request['paper_weight'][1],
-                                'min_sheets' => $request['p_min_sheet'][1],
-                                'max_sheets' => $request['p_max_sheet'][1],
-                                'status' => 1,
-                            ];
-                        }else if ($value_pw == 3) {
-
-                            $paper_weight_data = [
-
-                                'product_id' => $id,
-                                'paper_weight_id' => $request['paper_weight'][2],
-                                'min_sheets' => $request['p_min_sheet'][2],
-                                'max_sheets' => $request['p_max_sheet'][2],
-                                'status' => 1,
-                            ];
                         }
+                        // else if ($value_pw == 2) {
+
+                        //     $paper_weight_data = [
+
+                        //         'product_id' => $id,
+                        //         'paper_weight_id' => $request['paper_weight'][1],
+                        //         'min_sheets' => $request['p_min_sheet'][1],
+                        //         'max_sheets' => $request['p_max_sheet'][1],
+                        //         'status' => 1,
+                        //     ];
+                        // }else if ($value_pw == 3) {
+
+                        //     $paper_weight_data = [
+
+                        //         'product_id' => $id,
+                        //         'paper_weight_id' => $request['paper_weight'][2],
+                        //         'min_sheets' => $request['p_min_sheet'][2],
+                        //         'max_sheets' => $request['p_max_sheet'][2],
+                        //         'status' => 1,
+                        //     ];
+                        // }
 
                         if (!empty($paper_weight_data)) {
 
@@ -680,35 +703,36 @@ class ProductController extends Controller
 
                     }else{
 
-                        if ($value_pw == 1) {
+                        if ($value_pw) {
 
                             $paper_weight_data = [
 
                                 'product_id' => $id,
-                                'paper_weight_id' => $request['paper_weight'][0],
-                                'min_sheets' => $request['p_min_sheet'][0],
-                                'max_sheets' => $request['p_max_sheet'][0],
+                                'paper_weight_id' => $request['paper_weight'][$key_pw],
+                                'min_sheets' => $request['p_min_sheet'][$key_pw],
+                                'max_sheets' => $request['p_max_sheet'][$key_pw],
                             ];
 
-                        }else if ($value_pw == 2) {
-
-                            $paper_weight_data = [
-
-                                'product_id' => $id,
-                                'paper_weight_id' => $request['paper_weight'][1],
-                                'min_sheets' => $request['p_min_sheet'][1],
-                                'max_sheets' => $request['p_max_sheet'][1],
-                            ];
-                        }else if ($value_pw == 3) {
-
-                            $paper_weight_data = [
-
-                                'product_id' => $id,
-                                'paper_weight_id' => $request['paper_weight'][2],
-                                'min_sheets' => $request['p_min_sheet'][2],
-                                'max_sheets' => $request['p_max_sheet'][2],
-                            ];
                         }
+                        // else if ($value_pw == 2) {
+
+                        //     $paper_weight_data = [
+
+                        //         'product_id' => $id,
+                        //         'paper_weight_id' => $request['paper_weight'][1],
+                        //         'min_sheets' => $request['p_min_sheet'][1],
+                        //         'max_sheets' => $request['p_max_sheet'][1],
+                        //     ];
+                        // }else if ($value_pw == 3) {
+
+                        //     $paper_weight_data = [
+
+                        //         'product_id' => $id,
+                        //         'paper_weight_id' => $request['paper_weight'][2],
+                        //         'min_sheets' => $request['p_min_sheet'][2],
+                        //         'max_sheets' => $request['p_max_sheet'][2],
+                        //     ];
+                        // }
 
                         if (!empty($paper_weight_data)) {
 
@@ -759,10 +783,9 @@ class ProductController extends Controller
 
             if (!empty($request->sheet_start) && !empty($request->sheet_end) && !empty($request->product_price)) {
 
-
                 foreach ($request->sheet_start as $key => $value) {
 
-                    if( !empty($request['min_range'][$key]) && !empty($request['product_price'][$key]) ) {
+                    if( !empty($request['sheet_start'][$key]) && !empty($request['product_price'][$key]) ) {
 
                         if (!empty($request['product_price_id'][$key])) {
 
@@ -773,19 +796,19 @@ class ProductController extends Controller
                             $check_already_price = [];
                         }
 
-                        if(!empty($check_already_price)){
+                        if(!empty($check_already_price)){   //dd("1:".$product_id );
 
-                            $check_already_price->ps_product_id =  $request['product_price_id'][$key];
+                            $check_already_price->ps_product_id =  $product_id;   //$request['product_price_id'][$key]
                             $check_already_price->min_range =  $request['sheet_start'][$key];
                             $check_already_price->max_range =  $request['sheet_end'][$key];
                             $check_already_price->price =  $request['product_price'][$key];
 
                             $check_already_price->save();
-                        }else{
+                        }else{   //dd("2:".$product_id );
 
                             $attr_data = [
 
-                                'ps_product_id' => $insert->id, 
+                                'ps_product_id' => $product_id, 
                                 'min_range' => $request['sheet_start'][$key],
                                 'max_range' => $request['sheet_end'][$key],
                                 'price' => $request['product_price'][$key],
@@ -810,9 +833,9 @@ class ProductController extends Controller
      */
     public function destroy($id) 
     {
-        // $product = Product::where(['id' => $id])->update(['status' => 0]);
-        // $Product = Product::destroy($id);
-        // return redirect()->back()->with('status' , 'Deleted');
+        $product = Product::where(['id' => $id])->update(['status' => 0]);   // using soft delete
+       // $Product = Product::destroy($id);
+        return redirect()->back()->with('status' , 'Deleted');
     }
 
 
@@ -826,4 +849,4 @@ class ProductController extends Controller
 
     } 
 }
- 
+  

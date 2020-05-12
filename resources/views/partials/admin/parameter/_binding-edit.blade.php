@@ -11,7 +11,7 @@
         @endif
         @if ($errors->any())
             <ul>
-                @foreach ($errors->all() as $error)
+                @foreach ($errors->all() as $error) 
                 @endforeach
             </ul>
         @endif
@@ -56,7 +56,7 @@
                 </div>
                 
                 <div class="border_dashed product-image" >
-                    <div class="container_image" >
+                    <div class ="container_image" ID = "container_image_single">
                        <img id = "product_img" src="{{url('public/images/'.@$product->image_path)}}" />
                     </div>
                     <div class="form-group rv-file_upload">
@@ -64,12 +64,14 @@
                         <input class="rv-custom-file-input" type="file" id="product_file" name="product_file" onchange="readURL(this);"/>
                     </div>
 
+                    <div class="container_image" id = "container_image"></div>
+
                     @if(! empty($product_image))                   
                     @foreach($product_image as $key => $value)
                     <div class="container_image" id = "container_image">
                     
                        <img id="{{'product_img_multi'.$key}}" src="{{ url('/public/images/'.@$value->image_path)}}" />
-                      <button class="btn" type="button" onclick="javascript:removeImage('{{$value->image_path}}',{{$value->id}});" >Remove Image </button>
+                      <button class="btn" type="button" onclick="javascript:removeImage(this,'{{$value->image_path}}',{{$value->id}},{{'product_img_multi'.$key}});" >Remove Image </button>
                     
                     </div>
 
@@ -79,6 +81,8 @@
                     <div class="form-group rv-file_upload" id = "preview-image">
                         <label class="small mb-1" for="name">Upload Others Images</label>
                         <input class="rv-custom-file-input" type="file" id="otherImages" onchange="previewFiles();" name="otherImages[]"  multiple />
+
+                        <input type = "hidden" name="removed_files[]" id = "removed_files" value=""> 
                     </div>
                 </div>
 
@@ -240,11 +244,11 @@
             } else{
 
              $bc_selected = "";
-         }
+         } 
 
          ?>
 
-         <td class="rv-bindingswidth"><span class="ml-4"><input type="checkbox" class="form-control" name="paper_weight[]" value="{{ $value_pw->id }}" {{ $bc_selected }} />{{ $value_pw->paper_weight }}  g/m<sup>2</sup></span></td>
+         <td class="rv-bindingswidth"><span class="ml-4"><input type="checkbox" class="form-control" name="paper_weight[]" value="{{ $value_pw->id }}" {{ $bc_selected }} />{{ $value_pw->paper_weight }} g/m<sup>2</sup></span></td>
          <td class="rv-bindingswidth"> <input id="from" type="number" name="p_min_sheet[]" value="{{ @$selectedPaperWeightData[$key_pw]['min_sheets'] }}" /></td>
          <td class="rv-bindingswidth"><input id="from" type="number" name="p_max_sheet[]" value="{{ @$selectedPaperWeightData[$key_pw]['max_sheets'] }}" /></td>
      </tr>
@@ -320,7 +324,7 @@
          </tr>
 
          @if(!empty($product_price))
-         @foreach ($product_price as $key_pp => $value_pp)
+         @foreach ($product_price as $key_pp => $value_pp)    <?php  print_r($value_pp['price']); ?>
 
          <tr class="form-inline">
             <input id="from" type="hidden" name="product_price_id[]" value="{{ $value_pp['id'] }}" />
@@ -420,13 +424,17 @@ body .popover{display:none !important; }
 
 
 <script type="text/javascript">  
-    function removeImage(image_path = "" ,id = ""){  
+    function removeImage(btn ="" ,image_path = "" ,id = "" ,image_id = ""){  
 
         $.ajax({  
         url: base_url+'/admin/removeProductImage', 
         type: 'POST', 
         data: {'rid' : id, 'path': image_path, '_token': $('meta[name="csrf-token"]').attr('content')},
         success: function (response){
+
+            var image_id1 = image_id.id; 
+            $('#'+image_id1).remove(); alert('res1');
+            $(btn).remove();   alert('res2');
         }
     });  
 
@@ -442,27 +450,85 @@ body .popover{display:none !important; }
     // });
 
 
-function readURL(input) {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
+// function readURL(input) {
+//         if (input.files && input.files[0]) {
+//             var reader = new FileReader();
 
-            reader.onload = function (e) {
-                $('#product_img')
-                    .attr('src', e.target.result)
-                    .width(150)
-                    .height(150);
-            };
+//             reader.onload = function (e) {
+//                 $('#product_img')
+//                     .attr('src', e.target.result)
+//                     .width(150)
+//                     .height(150);
+//             };
 
-        reader.readAsDataURL(input.files[0]);
-        }
-    }
+//         reader.readAsDataURL(input.files[0]);
+//         }
+//     }
 
 
-    function test(image = "", button = ""){
+function test(image = "", button = ""){
 
-        document.getElementById(image).remove(); $(button).remove();//console.log($('#'+image).remove()); 
-    }
+var images = [];   var images_files = [];
+
+images = document.getElementById('removed_files').value;   //console.log(images);
+
+images_files.push(images); images_files.push(image);  console.log(images_files);
+
+document.getElementById('removed_files').value = images_files;
+
+document.getElementById(image).remove(); $(button).remove();//console.log($('#'+image).remove()); 
+   
+}
  
+
+ function readURL(input) {   
+        var preview = document.getElementById('container_image_single');
+        var files   = document.getElementById('product_file').files;
+
+  function readAndPreview(file) {   
+
+    // Make sure `file.name` matches our extensions criteria
+    if ( /\.(jpe?g|png|gif)$/i.test(file.name) ) {
+      var reader = new FileReader();
+
+      reader.addEventListener("load", function () {
+
+        $("<div id='container_preview_image_single'></div>").insertBefore(preview);
+
+        var div_container = document.getElementById('container_preview_image_single');
+
+        var image = new Image();
+        image.height = 100;
+        image.title = file.name; 
+        image.src = this.result;
+        image.id = file.name;
+        image.setAttribute("class","preview-image");
+        div_container.append(image);
+
+        var button = document.createElement("BUTTON");
+        button.innerHTML = "Remove Image";
+        button.type = "button";
+        button.id = "dynamic-button";
+        button.setAttribute("onclick","test('"+file.name+"',this)");
+        button.setAttribute("class","preview-button");
+        div_container.append(button);
+
+      }, false);
+
+      reader.readAsDataURL(file);
+    }
+
+  }
+
+  if (files) {
+    [].forEach.call(files, readAndPreview);
+  }
+    }
+
+
+
+
+
 function previewFiles() {
 
   var preview = document.getElementById('container_image');
@@ -509,24 +575,6 @@ function previewFiles() {
 
 }
 
-    // function readURLMultiple(input) {  alert("1");
-    //     if (input.files && input.files[0]) {  alert("Length: "+input.files.length);
-
-    //         for(var i = 0 ; i<input.files.length; i++){  alert(i);
-    //             var reader = new FileReader();
-
-    //             reader.onload = function (e) {
-    //                 $('#product_img_multi'+i)
-    //                     .attr('src', e.target.result)
-    //                     .width(150)
-    //                     .height(150);
-    //             };
-
-    //         reader.readAsDataURL(input.files[i]);
-    //         }
-            
-    //     }
-    // }
 </script>
 
 

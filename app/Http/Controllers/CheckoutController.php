@@ -306,7 +306,7 @@ class CheckoutController extends Controller
 		print_r($response);
 	}
 
-	public function getPrice(Request $request){
+	public function getPrice(Request $request){ 
 
 		//print_r($request->input());
 
@@ -664,7 +664,7 @@ class CheckoutController extends Controller
 			  $total_unit_price = $binding_price + $printout + $data_check_price;
 
 			  if(($binding_price + $printout + $data_check_price) > 0){
-			  	$total = (($no_of_copies) * ($binding_price + $printout + $data_check_price)) + $cd_dvd;
+			  	$total = (($no_of_copies) * ($binding_price + $printout)) + $cd_dvd + $data_check_price;
 			  }else{
 			  	$total = 0;
 			  }
@@ -969,6 +969,16 @@ return back()->with('errors', $validator->errors());
 
 
 public function getDiscountcodeStatus(Request $request){
+
+	if($request->code == ''){
+		return "";
+	}
+
+
+	if(Discount::where(['code' => $request->code])->first() == null){
+
+		return "false";
+	}
 
 	if(Discount::where(['code' => $request->code])->where('to_date' ,'<' ,date('Y-m-d'))->first() == null && Discount::where(['code' => $request->code])->where('from_date' ,'>' ,date('Y-m-d'))->first() == null){
    
@@ -1500,6 +1510,8 @@ public static function CartCount(){
 
 	public function addAddress(Request $request){
 
+		$CustomerArea_address = "";
+
 		if (Auth::check()) 
 			{
 				$user_id = Auth::user()->id;
@@ -1590,6 +1602,8 @@ public static function CartCount(){
 
 							$area->billing_address = $request->first_name." ".$request->last_name.", Company Name: ".$request->company_name.", House No: ".$request->house_no.", City: ".$request->city.", State: ".$request->state.", Zip Code: ".$request->zip_code;
 
+							$CustomerArea_address = $request->first_name." ".$request->last_name.", Company Name: ".$request->company_name.", House No: ".$request->house_no.", City: ".$request->city.", State: ".$request->state.", Zip Code: ".$request->zip_code;
+
 						 }//else{
 
 						// 	$area->shipping_address = $request->first_name." ".$request->last_name.", Company Name: ".$request->company_name.", House No: ".$request->house_no.", City: ".$request->city.", State: ".$request->state.", Zip Code: ".$request->zip_code;
@@ -1624,6 +1638,9 @@ public static function CartCount(){
 			}else{
 
 			}
+
+
+			print_r($CustomerArea_address);
 
 		}
 
