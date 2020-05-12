@@ -17,17 +17,17 @@
 <form method="POST" action="{{ route('order-edit', ['id'=> $orderhistory->id]) }}">
     @csrf
 
+    <label for="state">State:</label>
     <select name="state">
-        <option>State</option>
             @if(!empty($orderstate))
                 @foreach($orderstate as $state)
-                <option value="{{ $state->order_state }}" <?= ($order->state ==$state->order_state)? 'selected' : ''?> >{{ $state->order_state }}</option>
+                <option value="{{ $state->order_state }}" <?= ($order->state == $state->order_state)? 'selected' : ''?> >{{ $state->order_state }}</option>
                 @endforeach
             @endif
     </select>
 
+    <label for="priority">Priority:</label>
     <select name="priority">
-        <option>Priority</option>
         <option <?= ($order->priority =='highest')? 'selected' : ''?> value="highest">Highest</option> 
         <option <?= ($order->priority =='high')? 'selected' : ''?> value="high">High</option>
         <option <?= ($order->priority =='normal')? 'selected' : ''?> value="normal">Normal</option>
@@ -35,8 +35,8 @@
         <option <?= ($order->priority =='lowest')? 'selected' : ''?> value="lowest">Lowest</option>
     </select>
 
+    <label for="assigned_to">Assigned To:</label>
     <select name="assigned_to">
-        <option>Assigned To</option>
             @if(!empty($users))                                                                              
                 @foreach($users as $list)
                 <option <?= ($order->assigned_to ==$list->id)? 'selected' : ''?> value="{{ $list->id }}">{{ $list->name }}</option>

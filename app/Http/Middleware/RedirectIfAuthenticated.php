@@ -31,7 +31,6 @@ class RedirectIfAuthenticated
             return redirect('/admin/dashboard');
         }
 
-
         if ($guard == "web" && Auth::guard($guard)->check()) {
             return redirect('/home');
         }
