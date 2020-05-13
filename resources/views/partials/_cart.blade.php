@@ -166,7 +166,8 @@
                             <div  class="error">{{ $errors->first('code') }}</div>
                             @endif
                           </div> 
-
+                          
+                          @if(Auth::check())
                           <div class="form-group">
                             <label for="email">{{ trans('cart.email') }}:</label>
                              <input type="text" name="email_id" id="email_id" class="form-control" placeholder="{{ trans('cart.enter_here') }}">
@@ -174,6 +175,7 @@
                               <div class="error">{{ $errors->first('email_id') }}</div>
                               @endif
                           </div>
+                          @endif
 
                           <div class="text-right">
                               <button type= "submit" class="continue_btn">{{ trans('cart.checkout') }}</button>

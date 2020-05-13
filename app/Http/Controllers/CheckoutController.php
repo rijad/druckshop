@@ -37,6 +37,8 @@ use App\ProductPrintFinishing;
 use App\CustomerArea;
 use App\UserAddress;
 use App\User;
+use App\EmbossingCover;
+use App\EmbossingSpine;
 use \Exception;
 use Auth;
 use Session; 
@@ -260,6 +262,14 @@ class CheckoutController extends Controller
 
 
 	public function clearSession(Request $request){
+
+		if($request->session()->has('embossing_type')){
+			$request->session()->forget('embossing_type');
+		}
+
+		if($request->session()->has('cd_imprint')){
+			$request->session()->forget('cd_imprint');
+		}
 		
 		if($request->session()->has('no_of_copies')){
 			$request->session()->forget('no_of_copies');
@@ -311,17 +321,32 @@ class CheckoutController extends Controller
 		//print_r($request->input());
 
 		$binding_price = 0; $embosing_spine = 0; $embosing_cover = 0; $printout = 0; $printout_basic = 0; 
-		$printout_surcharge = 0; $cd_dvd = 0; $delivery_cost = 0; $colored_price_A2 = 0; $b_w_price_A2 = 0; $colored_price_A3 = 0; $b_w_price_A3 = 0; $colored_price_A4 = 0; $b_w_price_A4 = 0; $Price_surcharge_A2 = 0; $Price_surcharge_A3 = 0; $Price_surcharge_A4 = 0; $data_check_price =0; $no_of_copies=0;
+		$printout_surcharge = 0; $cd_dvd = 0; $delivery_cost = 0; $colored_price_A2 = 0; $b_w_price_A2 = 0; $colored_price_A3 = 0; $b_w_price_A3 = 0; $colored_price_A4 = 0; $b_w_price_A4 = 0; $Price_surcharge_A2 = 0; $Price_surcharge_A3 = 0; $Price_surcharge_A4 = 0; $data_check_price =0; $no_of_copies=0; $price_embossing_cover = 0;  $price_embossing_spine = 0; $cd_dvd_print_price = 0;  $cd_dvd_cover_price = 0; $cd_dvd_price = 0;  $embossment_price = 0; $total = 0; $total_unit_price = 0;
 
 		// save values in session
-		if($request->input('no_of_copies') != ""){
-			$request->session()->forget('no_of_copies');
-			$request->session()->put('no_of_copies', $request->input('no_of_copies'));
-			$request->session()->save();
-		}
+
 		if($request->input('binding_type') != ""){
 			$request->session()->forget('binding_type');
 			$request->session()->put('binding_type', $request->input('binding_type'));
+			$request->session()->save();
+		}
+
+		if($request->input('embossing_type') != ""){
+			$request->session()->forget('embossing_type');
+			$request->session()->put('embossing_type', $request->input('embossing_type'));
+			$request->session()->save();
+		}
+
+		if($request->input('cd_imprint') != ""){
+			$request->session()->forget('cd_imprint');
+			$request->session()->put('cd_imprint', $request->input('cd_imprint'));
+			$request->session()->save();
+		}
+
+
+		if($request->input('no_of_copies') != ""){
+			$request->session()->forget('no_of_copies');
+			$request->session()->put('no_of_copies', $request->input('no_of_copies'));
 			$request->session()->save();
 		}
 
@@ -398,24 +423,27 @@ class CheckoutController extends Controller
 		}
 
 		// binding price
-		if ($request->session()->has('binding_type') && $request->session()->has('no_of_sheets') && $request->session()->has('pageOptions')) {
+
+		// print_r($request->session()->get('binding_type'));
+		// print_r($request->session()->get('no_of_sheets'));
+		// print_r($request->session()->get('pageOptions'));
+		if ($request->session()->has('binding_type') && $request->session()->has('no_of_sheets') && $request->session()->has('pageOptions')) {  //print_r("hiii");
 			$sheets = 0;
 			if($request->session()->get('pageOptions') == "1"){
 				$sheets = intval($request->session()->get('no_of_sheets'));
 			}else if($request->session()->get('pageOptions') == "2"){
 				$sheets = intval($request->session()->get('no_of_sheets')) / 2;
 			}
-
+ 
 			try{
 				$binding_price = ProductPrice::where('min_range','<=',$sheets)
 				->where('max_range','>=',$sheets)
 				->where('ps_product_id',$request->session()->get('binding_type'))
-				->where('status','1')->first('price')->price;
+				->where('status','1')->first('price')->price;  
 			}catch(\Exception $e){
 				$binding_price = 0;
 			}	    
 		} 
-
 
 		// printout basic price A2
 		if($request->session()->has('pageOptions') && $request->session()->has('A2_page') ){  
@@ -423,10 +451,10 @@ class CheckoutController extends Controller
 			$colored = 0; $b_w = 0; 
 
 			if($request->session()->get('pageOptions') == "1"){
-				$sheets = $request->session()->get('no_of_sheets');
+				$sheets = $request->session()->get('A2_page');
 				$sided = "one-sided";
 			}else if($request->session()->get('pageOptions') == "2"){
-				$sheets = intval($request->session()->get('no_of_sheets')) / 2;
+				$sheets = intval($request->session()->get('A2_page')) / 2;
 				$sided = "two-sided";
 				}  //print_r("2---".$sheets);
 
@@ -448,7 +476,7 @@ class CheckoutController extends Controller
 					}catch(\Exception $e){
 						$b_price = 0;
 					}
-					$colored_price_A2 = floatval($request->session()->has('A2_page')) * floatval($c_price);
+					$colored_price_A2 = floatval($colored) * floatval($c_price);
 					$b_w_price_A2 = $b_w * floatval($b_price);
 				}else{
 					$b_w = $sheets;
@@ -461,7 +489,7 @@ class CheckoutController extends Controller
 					}
 					$b_w_price_A2 = $b_w * floatval($b_price);
 				}
-			}
+			}  
 
 		// printout basic price A3
 			if($request->session()->has('pageOptions') && $request->session()->has('A3_page') ){  
@@ -469,15 +497,19 @@ class CheckoutController extends Controller
 				$colored = 0; $b_w = 0; 
 
 				if($request->session()->get('pageOptions') == "1"){
-					$sheets = $request->session()->get('no_of_sheets');
+					$sheets = $request->session()->get('A3_page');
 					$sided = "one-sided";
 				}else if($request->session()->get('pageOptions') == "2"){
-					$sheets = intval($request->session()->get('no_of_sheets')) / 2;
+					$sheets = intval($request->session()->get('A3_page')) / 2;
 					$sided = "two-sided";
 				}
 
 				if($request->session()->has('coloredSheets')){
-					$colored = intval($request->session()->get('coloredSheets'));
+					if($request->session()->get('pageOptions') == "1"){
+					  $colored = intval($request->session()->get('coloredSheets'));
+					}else if($request->session()->get('pageOptions') == "2"){
+					  $colored = intval($request->session()->get('coloredSheets')) / 2;
+					}
 					$b_w = $sheets - $colored;
 
 					try{
@@ -495,7 +527,7 @@ class CheckoutController extends Controller
 					}catch(\Exception $e){
 						$b_price = 0;
 					}
-					$colored_price_A3 = floatval($request->session()->has('A3_page')) * floatval($c_price);
+					$colored_price_A3 = floatval($colored) * floatval($c_price);
 					$b_w_price_A3 = $b_w * floatval($b_price);
 				}else{
 					$b_w = $sheets;
@@ -510,8 +542,10 @@ class CheckoutController extends Controller
 				}
 			}
 
+			
+
 		// printout basic price A4
-			if($request->session()->has('pageOptions') && ! $request->session()->has('A3_page') && ! $request->session()->has('A2_page') ){  
+			if($request->session()->has('pageOptions')){  
 
 				$colored = 0; $b_w = 0; 
 
@@ -524,7 +558,13 @@ class CheckoutController extends Controller
 				}
 
 				if($request->session()->has('coloredSheets')){
-					$colored = intval($request->session()->get('coloredSheets'));
+
+					if($request->session()->get('pageOptions') == "1"){
+					  $colored = intval($request->session()->get('coloredSheets'));
+					}else if($request->session()->get('pageOptions') == "2"){
+					  $colored = intval($request->session()->get('coloredSheets')) / 2;
+					}
+
 					$b_w = $sheets - $colored;
 					try{
 						$c_price = PrintoutBasicPrice::where('din','A4') 
@@ -554,7 +594,7 @@ class CheckoutController extends Controller
 					}
 					$b_w_price_A4 = $b_w * floatval($b_price);
 				}
-			}
+			}  
 			$printout_basic = $colored_price_A3 + $b_w_price_A3 + $colored_price_A2 + $b_w_price_A2 + $colored_price_A4 + $b_w_price_A4;
 
 
@@ -572,16 +612,18 @@ class CheckoutController extends Controller
 				}
 
 
-				try{
-					$Price_surcharge_A2 = PrintoutPaperSurcharge::where('din','A2')
+				try{  
+					$Surcharge_A2 = PrintoutPaperSurcharge::where('din','A2')
 					->where('papier',$paperWeight)
-					->where('sided',$sided)->first('price')->price;	
+					->where('sided',$sided)->first('price')->price;	 //print_r($Price_surcharge_A2);
+
+					$Price_surcharge_A2 = $sheets * floatval($Surcharge_A2);
 				}catch(\Exception $e){
 					$Price_surcharge_A2 = 0;
 				}
 
 
-			}
+			}  
 
 		// paper surcharge price A3
 			if($request->session()->has('pageOptions') && $request->session()->has('A3_page') && $request->session()->has('paperWeight') ){  
@@ -596,17 +638,19 @@ class CheckoutController extends Controller
 					$sided = "two-sided";
 				}
 
-				try{
-					$Price_surcharge_A3 = PrintoutPaperSurcharge::where('din','A3')
+				try{  
+					$Surcharge_A3 = PrintoutPaperSurcharge::where('din','A3')
 					->where('papier',$paperWeight)
 					->where('sided',$sided)->first('price')->price;	
+
+					$Price_surcharge_A3 = $sheets * floatval($Surcharge_A3);
 				}catch(\Exception $e){
 					$Price_surcharge_A3 = 0;
 				}	
-			}
+			}   
 
 		// paper surcharge price A4
-			if($request->session()->has('pageOptions') && !$request->session()->has('A2_page') && !$request->session()->has('A3_page') && $request->session()->has('paperWeight') ){  
+			if($request->session()->has('pageOptions') && $request->session()->has('paperWeight') ){  
 
 				$paperWeight = PaperWeight::where('id',$request->session()->get('paperWeight'))->first('paper_weight',$request->session()->get('paperWeight'))->paper_weight;
 
@@ -618,18 +662,20 @@ class CheckoutController extends Controller
 					$sided = "two-sided";
 				}
 
-				try{
-					$Price_surcharge_A4 = PrintoutPaperSurcharge::where('din','A4')
+				try{  
+					$Surcharge_A4 = PrintoutPaperSurcharge::where('din','A4')
 					->where('papier',$paperWeight)
-					->where('sided',$sided)->first('price')->price;		
+					->where('sided',$sided)->first('price')->price;	
+
+					$Price_surcharge_A4 = $sheets * floatval($Surcharge_A4);   	
 				}catch(\Exception $e){
 					$Price_surcharge_A4 = 0;
 				}
-			}
+			}   
 
 			$printout_surcharge = $Price_surcharge_A2 + $Price_surcharge_A3 + $Price_surcharge_A4; 
 
-			$printout = $printout_basic + $printout_surcharge;
+			$printout = number_format($printout_basic + $printout_surcharge);
 
 		// price data check
 			if($request->session()->has('dataCheck')){ 
@@ -644,14 +690,57 @@ class CheckoutController extends Controller
  
 		// price cd/dvd   
 			if($request->session()->has('nosOfCds') && $request->session()->has('cdCover')){ 
+				$no_of_cds = $request->session()->get('nosOfCds');
 				$cd = 2;
 				try{
 					$cd_dvd_val = CdCoverPrice::where('cd_bag_id',$request->session()->get('cdCover'))->first('price')->price;
-					$cd_dvd = floatval($cd_dvd_val) * 2;
+					$cd_dvd_cover_price = floatval($cd_dvd_val) * $no_of_cds;
+					$cd_dvd_price = $no_of_cds * $cd;
 				}catch(\Exception $e){
-					$cd_dvd = 0;
+					$cd_dvd_price = 0;
+					$cd_dvd_cover_price = 0;
 				}
 			}
+
+
+			if($request->session()->has('nosOfCds') && $request->session()->has('cd_imprint')){ 
+				$no_of_cds = $request->session()->get('nosOfCds');
+				$cd_print = 2;
+				try{
+					$cd_dvd_print_price = $no_of_cds * $cd_print;
+				}catch(\Exception $e){
+					$cd_dvd_print_price = 0;
+				}
+			}
+
+			$cd_dvd = $cd_dvd_cover_price + $cd_dvd_price + $cd_dvd_print_price;
+
+		// price embossing
+		
+			if($request->session()->has('embossing_type') && ($request->session()->has('embossingCover') || $request->session()->has('embossingSpine')) ){
+
+					try{ 
+
+						$refinementType = ProductPrintFinishing::where(['product_id' => $request->session()->get('binding_type')])->first('print_finishing_id')->print_finishing_id;  
+
+						if($refinementType == 1){   // standard refinement
+
+							$price_embossing_spine = EmbossingSpine::where(['type' => $request->session()->get('embossing_type')])->first('price')->price;
+						}
+
+						if($refinementType == 2){  // refinement with embossing   
+
+							$price_embossing_cover = EmbossingCover::where(['type' => $request->session()->get('embossing_type')])->first('price')->price;
+
+						}  
+
+					}catch (Exception $e) {
+
+						$price_embossing_cover = 0;  $price_embossing_spine = 0;
+
+					}
+
+			}	  
 
 
 			// no of copies
@@ -661,17 +750,21 @@ class CheckoutController extends Controller
 
 			  }
 
-			  $total_unit_price = $binding_price + $printout + $data_check_price;
+			  $embossment_price = number_format($price_embossing_cover + $price_embossing_spine ,2);
 
+
+			  $total_unit_price = number_format($binding_price + $printout + $data_check_price + $embossment_price,2);
+
+			 
 			  if(($binding_price + $printout + $data_check_price) > 0){
-			  	$total = (($no_of_copies) * ($binding_price + $printout)) + $cd_dvd + $data_check_price;
+			  	$total =number_format((($no_of_copies) * ($binding_price + $printout + $price_embossing_cover + $price_embossing_spine)) + $cd_dvd + $data_check_price , 2);
 			  }else{
 			  	$total = 0;
 			  }
 
-			
+			//print_r($binding_price); 
 
-			$data = compact('binding_price','printout','data_check_price','cd_dvd','total','total_unit_price');
+			$data = compact('binding_price','printout','data_check_price','embossment_price','cd_dvd','total','total_unit_price');
 			$response = returnResponse($data,'200','Success');
 			print_r($response); exit;
 
@@ -1652,8 +1745,7 @@ public static function CartCount(){
 		$A2_A3_data = PageFormat::where(['id' => $request->page_format])->first();
 		print_r(json_encode($A2_A3_data));
 
-	}		
-			
-	
+	}	
+
 
 }
