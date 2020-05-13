@@ -28,7 +28,7 @@ class LatestController extends Controller
     public function index()
     {
         try{
-            $latest = Latest::where('status', '1')->orderBy('created_at','ASC')->get();  //dd($latest);
+            $latest = Latest::where('status', '1')->orderBy('created_at','DESC')->get();  //dd($latest);
         }catch (Exception $e) {
             $latest = [];
         }
@@ -104,7 +104,7 @@ class LatestController extends Controller
             $latest = latest::create($data);
         }
 
-        return redirect('/admin/latest');
+        return redirect()->back()->with('status' , 'Created');
     }
 
     /**
