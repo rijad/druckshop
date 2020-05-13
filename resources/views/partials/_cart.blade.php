@@ -1,4 +1,4 @@
-
+@if($product_data->count() > 0)
 <div class="mycart cart-rv">
         <div class="container">
             <div class="Product_qeue">
@@ -102,7 +102,7 @@
                                           </div>
                                            <div class="form-group">
                                             <label for="email">{{ trans('cart.bill_add') }}*:</label>
-                                            <p id="{{'bill-address-'.$key}}" class="filled-billingAdress">
+                                            <p id="{{'bill-address-one'}}" class="filled-billingAdress">
                                              @foreach($billing_address_data as $keyss=>$billing_address)
                                              @if($billing_address->default == 1) 
                                                 {{$billing_address->first_name." ".$billing_address->last_name.", Company Name: ".$billing_address->company_name.", House No: ".$billing_address->house_no.", City: ".$billing_address->city.", State: ".$billing_address->state.", Zip Code: ".$billing_address->zip_code}}
@@ -144,15 +144,17 @@
                         <h4>{{ trans('cart.bill_add') }}</h4>
                         <div class="form-group">
                         <label for="pwd">{{ trans('cart.bill_add') }}*:</label>
-                        <select class="form-control" name={{"billing_address"}} id="address_data" onchange="displayAddress(this,'{{'bill-address-'.$key}}');"> 
+                        <select class="form-control" name={{"billing_address"}} id="billing_address_data" onchange="displayAddress(this,'{{'bill-address'}}');"> 
                           <option value ="-1">Select</option>
+                        @if(!empty($billing_address_data))
                         @foreach($billing_address_data as $keyss=>$billing_address)
                         @if($billing_address->default == 1)
                         <option value = "{{$billing_address->first_name." ".$billing_address->last_name.", Company Name: ".$billing_address->company_name.", House No: ".$billing_address->house_no.", City: ".$billing_address->city.", State: ".$billing_address->state.", Zip Code: ".$billing_address->zip_code}}" @if($billing_address->default == 1) selected @endif>{{$billing_address->first_name." ".$billing_address->last_name.", Company Name: ".$billing_address->company_name.", House No: ".$billing_address->house_no.", City: ".$billing_address->city.", State: ".$billing_address->state.", Zip Code: ".$billing_address->zip_code}}</option> 
                         @endif
                         @endforeach
+                        @endif
                         </select>
-                         @if($errors->has('billing_address.'.$key))
+                         @if($errors->has('billing_address'))
                               <div class="error">{{ $errors->first('billing_address.'.$key) }}</div>
                               @endif
                       </div>
@@ -167,7 +169,7 @@
                             @endif
                           </div> 
                           
-                          @if(Auth::check())
+                          @if( ! Auth::check())
                           <div class="form-group">
                             <label for="email">{{ trans('cart.email') }}:</label>
                              <input type="text" name="email_id" id="email_id" class="form-control" placeholder="{{ trans('cart.enter_here') }}">
@@ -320,7 +322,7 @@
  
 
 <!-- Modal -->
-<div class="modal fade rv-modalFormCustom" data-backdrop="false" id="rv-Modal-billing" role="dialog">
+<div class="modal fade rv-modalFormCustom" id="rv-Modal-billing" role="dialog">
     <div class="modal-dialog">
        <div class="modal-content">
           <div class="modal-header">
@@ -439,11 +441,14 @@
                       @endif
                </form>
             </div>   
-          </div>
+          </div> 
       </div> 
   </div>
 </div>
+@else
 
+<p class = "empty-cart">Your Cart is Empty.<p>
+@endif
 
 <script src="{{ asset('public/js/frontend/checkout.js') }}" type="text/javascript" ></script>
 <script src="{{ asset('public/js/frontend/dragdrop.js') }}" type="text/javascript" ></script>
@@ -487,7 +492,7 @@ $(document).ready(function() {
     $(this).parent().prev().toggle(); 
     $(this).prev().toggle(); 
     return false; 
-  });
+  }); 
 
 });  
 

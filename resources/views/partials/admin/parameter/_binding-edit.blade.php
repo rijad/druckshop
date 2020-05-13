@@ -308,7 +308,7 @@
 </div>
 </div>
 
-</div>
+</div> 
 <br>
 
 
@@ -324,13 +324,13 @@
          </tr>
 
          @if(!empty($product_price))
-         @foreach ($product_price as $key_pp => $value_pp)    <?php  print_r($value_pp['price']); ?>
+         @foreach ($product_price as $key_pp => $value_pp)    
 
          <tr class="form-inline">
             <input id="from" type="hidden" name="product_price_id[]" value="{{ $value_pp['id'] }}" />
             <td class="rv-headLtchild1" ><input id="start" type="hidden" name="sheet_start[]" value="{{ $value_pp['min_range'] }}" />{{ $value_pp['min_range'] }} - </td>
             <td><input class="form-control end" id="end" type="hidden" name="sheet_end[]" value="{{ $value_pp['max_range'] }}" placeholder="page range" />{{ $value_pp['max_range'] }}</td>
-            <td><input class="form-control product_price" id="product_price" type="number" name="product_price[]" value="{{ $value_pp['price'] }}" required placeholder="price" /></td>
+            <td><input class="form-control product_price" id="product_price" type="number" name="product_price[]" value="{{ $value_pp['price'] }}" required placeholder="price" step = "0.01"/></td>
         </tr>
 
         @endforeach
@@ -537,7 +537,7 @@ function previewFiles() {
   function readAndPreview(file) {
 
     // Make sure `file.name` matches our extensions criteria
-    if ( /\.(jpe?g|png|gif)$/i.test(file.name) ) {
+    if ( /\.(jpe?g|png|gif)$/i.test(file.name) ) { 
       var reader = new FileReader();
 
       reader.addEventListener("load", function () {

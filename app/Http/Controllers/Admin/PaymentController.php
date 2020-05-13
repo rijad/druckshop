@@ -27,7 +27,8 @@ class PaymentController extends Controller
     public function index()
     {
         try{
-            $payment = Payment::where('status', 'completed')->get();
+            
+            $payment = Payment::where('status', 'completed')->get();   //dd($payment);
         }catch (Exception $e) {
             $payment = [];
         }
@@ -42,7 +43,7 @@ class PaymentController extends Controller
     public function create()
     {
         //
-    }
+    } 
 
     /**
      * Store a newly created resource in storage.

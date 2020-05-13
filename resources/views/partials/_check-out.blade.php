@@ -37,7 +37,7 @@
 								</div>
 								<div class="displayBlock" id="div-page-format">
 									<label>{{ trans('checkout.page_format') }}*:</label>
-									<p><select class = "" onclick = "displayProductAttributes('3',this); sampleImage();" id="page-format" name="page-format" onchange="addTooltip(this); getA3A2Count(this);" ><option value="-1">Select</option></select></p><p class="error" id="error_page_format"></p>
+									<p><select class = "" onclick = "displayProductAttributes('3',this); sampleImage();" id="page-format" name="page-format" onchange="addTooltip(this); getA3A2Count(this); " ><option value="-1">Select</option></select></p><p class="error" id="error_page_format"></p>
 								</div>
 								<div class="displayNone" id="div-cover-color">
 									<label>{{ trans('checkout.cover_color') }}*:</label> 
@@ -249,7 +249,7 @@
 												</div>
 
 												<div class="displayNone" id="div-template-classic">
-													<label>{{ trans('checkout.choose_your_template') }}*:<a href="#" data-toggle="tooltip" title="Data is taken from cover sheet" class="formToolTip">i</a></label>
+													{{-- <label>{{ trans('checkout.choose_your_template') }}*:<a href="#" data-toggle="tooltip" title="Data is taken from cover sheet" class="formToolTip">i</a></label> --}}
 													<div id="template-classic"></div>
 													<p class="error" id="error_template_classic"></p>
 												</div>
@@ -263,14 +263,14 @@
 														<p>Drop file here<a href="#" data-toggle="tooltip" title="jpeg,jpg,png" class="formToolTip">i</a></p> 
 														<p>or</p>
 														<p><input type="button" value="Select File" onclick="file_explorer('upload_custom_logo');"></p>
-														<input type="file" name ="selectfile" id="selectfile" accept="image/x-png">
+														<input type="file" name ="selectfile_logo_img" id="selectfile_logo_img" accept = "image/x-png,image/gif,image/jpeg">
 
-														<input type="hidden" name ="selectfile_logo" id="selectfile_logo" accept="image/x-png">
+														<input type="hidden" name ="selectfile_logo" id="selectfile_logo">
 													</div>
-												</div>  
+												</div>   
 												<p class="error" id="error_selectfile_logo"></p>
 
-												<div id="drop_file_zone_logo_info" class="displayNone"><label id="logo_file_name"><a href="#" data-toggle="tooltip" title="Data is taken from cover sheet" class="formToolTip">i</a></label>
+												<div id="upload_custom_logo_info" class="displayNone"><label id="logo_file_name"></label>
 													<label id="logo_page_no"></label></div>
 												
 														
@@ -479,7 +479,7 @@
 
 															<p><select name="cd-template" id="cd-template" onchange="displayPopUpCD(this.value);"><option value="-1">Select</option><option value="Standardvorlage mit Logo">Standardvorlage mit Logo</option><option value="Standardvorlage ohne Logo">Standardvorlage ohne Logo</option><option value="Eigene Vorlage">Eigene Vorlage</option></select></p>
 
-														</div>
+														</div> 
 
 															<div class="displayNone" id="div-display-image-cd"></div>
 														
@@ -496,7 +496,7 @@
 															<input type="file" name ="selectfile" id="selectfile" accept="image/x-png">
  
 															<input type="hidden" name ="selectfile_logo_cd" id="selectfile_logo_cd" accept="image/x-png">
-														</div>
+														</div> 
 													</div>  
 													<p class="error" id="error_selectfile_logo_cd"></p>
 

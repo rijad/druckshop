@@ -8,7 +8,7 @@ use Illuminate\Routing\UrlGenerator;
 use App\Product;
 use App\ArtList;
 use App\PageFormat;
-use App\CoverColor;
+use App\CoverColor; 
 use App\CoverSheet; 
 use App\BackCovers;
 use App\PaperWeight;

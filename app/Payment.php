@@ -43,6 +43,12 @@ class Payment extends Model
     protected $fillable = ['order_id', 'product_id', 'user_id', 'payment_type', 'type', 
     'amount', 'status', 'ship_date', 'shipper_id', 'txn','created_at', 'updated_at', 'deleted_at'];
 
+
+    protected $casts = [
+        'net_amt' => 'float',
+        'total' => 'float',
+    ];
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

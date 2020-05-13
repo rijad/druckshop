@@ -1,21 +1,7 @@
-// $.ajaxSetup({
-//   headers: {
-//     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-//   }
-// });
+
 
  var fileobj; 
-//  function upload_file(e,id) {
-//   e.preventDefault(); 
 
-//   fileobj = e.dataTransfer.files[0];
-//   //to restrict only to pdf file format
-//   if(fileobj.type == "application/pdf"){ 
-//   ajaxFileUpload(fileobj,id);
-//   }else{
-//     return false;
-//   }
-// }
 
  
  function upload_file(e,id) {
@@ -29,43 +15,65 @@ if(id == "upload_cd"){  // multiple file uploading
 
 }else{  // single file uploading
 
-    fileobj = e.dataTransfer.files[0]; 
+    fileobj = e.dataTransfer.files[0];  //alert(fileobj.type);
     //to restrict only to pdf file format
-    if(fileobj.type == "application/pdf"){ 
-    ajaxFileUpload(fileobj,id);
-    }else{
-      return false;
-    }
 
+    if(id == 'upload_custom_logo'){  // to accept only images   
+
+        if(fileobj.type == "image/jpeg" || fileobj.type == "image/gif" || fileobj.type == "image/png"){ 
+        ajaxFileUpload(fileobj,id);
+        }else{
+          return false;
+        }
+
+    }else{
+         if(fileobj.type == "application/pdf"){    // to accept only pdf
+          ajaxFileUpload(fileobj,id);
+          }else{
+            return false;
+          }
+
+    }
+   
 }
    
 }
 
-// function file_explorer(id) {  
 
-//     document.getElementById('selectfile').click();
-//     document.getElementById('selectfile').onchange = function() {
-//       fileobj = document.getElementById('selectfile').files[0];
-//       ajaxFileUpload(fileobj,id);
-//     };
-// }
 
 function file_explorer(id) {   //alert(id);
  
   if(id == "upload_cd"){  // multifile uploading
      document.getElementById('selectfile').click();
      document.getElementById('selectfile').onchange = function() {
-      file = document.getElementById('selectfile');
+      file = document.getElementById('selectfile');   alert(file.type);
          for (var i = 0; i < file.files.length; i++) {
              ajaxFileUpload(file.files[i], id);
      }
     };
-  }else{
-      document.getElementById('selectfile').click();
-      document.getElementById('selectfile').onchange = function() {
-        fileobj = document.getElementById('selectfile').files[0];
-        ajaxFileUpload(fileobj,id);
+  }else{ // single file upload
+
+    if(id == 'upload_custom_logo'){ 
+                document.getElementById('selectfile_logo_img').click();
+               // $('#selectfile').attr('accept','image/x-png,image/gif,image/jpeg');
+                document.getElementById('selectfile_logo_img').onchange = function() {
+                fileobj = document.getElementById('selectfile_logo_img').files[0];   alert(fileobj.type);
+                if(fileobj.type  == "image/gif" || fileobj.type == "image/jpeg" || fileobj.type == "image/png" ){
+                ajaxFileUpload(fileobj,id);
+                };
+
+              }
+
+      }else{
+
+           document.getElementById('selectfile').click();
+          document.getElementById('selectfile').onchange = function() {
+          fileobj = document.getElementById('selectfile').files[0];   alert(fileobj.type);
+          ajaxFileUpload(fileobj,id);
       };
+
+      }
+     
   }
 
    
