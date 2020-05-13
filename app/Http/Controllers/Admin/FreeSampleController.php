@@ -145,7 +145,13 @@ class FreeSampleController extends Controller
         }catch (Exception $e) {
             $orderstate = [];
         }
-        return view('/pages/admin/freesampledetails',compact('freesample' , 'orderstate', 'id'));
+
+        try{
+            $order = FreeSample::where('id', $id)->first();
+        }catch (Exception $e) {
+            $order = [];
+        }
+        return view('/pages/admin/freesampledetails',compact('freesample', 'orderstate', 'id', 'order'));
     }
 
     /**

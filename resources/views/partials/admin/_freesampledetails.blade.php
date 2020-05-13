@@ -18,11 +18,11 @@
             <form class="form-group-inline" method="POST" action="{{ route('freesample-edit', ['id'=> $id]) }}">
                 @csrf
 
+                <label for="state">State:</label>
                 @if(!empty($orderstate))
                     <select name="sample_status">
-                        <option>State</option>
                             @foreach($orderstate as $state)
-                            <option value="{{ $state->order_state }}">{{ $state->order_state }}</option>
+                            <option  <?= ($order->sample_status == $state->order_state)? 'selected' : ''?> value="{{ $state->order_state }}">{{ $state->order_state }}</option>
                             @endforeach
                     </select>
                 @endif
