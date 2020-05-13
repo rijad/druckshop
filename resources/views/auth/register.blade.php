@@ -24,19 +24,13 @@
                     
                         <form method="POST" action="{{ route('user-register') }}">
                             @csrf
-
+                            
                             <div class="form-group row">
                                 <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" autocomplete="name" autofocus>
-
-                                    @error('name')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span> 
-                                    @enderror 
-                                     
+                                    <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" autocomplete="name" autofocus>
+                                    <span class="text-danger">{{ $errors->first('name') }}</span>
                                 </div>
                             </div>
 
@@ -44,14 +38,8 @@
                                 <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" autocomplete="email">
-
-                                    @error('email')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                    
+                                    <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" autocomplete="email">
+                                    <span class="text-danger">{{ $errors->first('email') }}</span>
                                 </div>
                             </div>
 
@@ -60,12 +48,7 @@
 
                                 <div class="col-md-6">
                                     <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" autocomplete="new-password">
-
-                                    @error('password')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
+                                    <span class="text-danger">{{ $errors->first('password') }}</span>
                                     
                                 </div>
                             </div>
@@ -75,15 +58,8 @@
 
                                 <div class="col-md-6">
                                     <input id="password-confirm" type="password" class="form-control" name="password_confirmation" autocomplete="new-password">
+                                    <span class="text-danger">{{ $errors->first('password_confirmation') }}</span>
                                    
-                                    @error('password_confirmation')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                    @if($errors->has('password_confirmation'))
-                                      <div class="error">{{ $errors->first('password_confirmation') }}</div>
-                                      @endif
                                 </div>
                             </div>
 

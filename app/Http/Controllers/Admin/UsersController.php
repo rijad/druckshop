@@ -32,7 +32,7 @@ class UsersController extends Controller
         // return view('/pages/admin/customer',compact('customer'));
 
         try{
-            $customerdata = User::with('customer')->get();
+            $customerdata = User::with('customer')->orderBy('users.created_at','DESC')->get();
         }catch (Exception $e) {
             $customerdata = [];
         }

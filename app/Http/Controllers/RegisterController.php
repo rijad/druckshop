@@ -62,8 +62,7 @@ class RegisterController extends Controller
 			}
 
 		} else{
-
-			return back()->with('errors', $validator->errors());
+			return back()->withInput()->with('errors', $validator->errors());
 
 		}
 
