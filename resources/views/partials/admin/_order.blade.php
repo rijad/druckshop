@@ -13,6 +13,7 @@
                                         <th>No. of copies</th> --}}
                                         <th>Order Assigned To</th>
                                         <th>Priority</th>
+                                        <th>Order Date</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
@@ -26,6 +27,7 @@
                                         <th>No. of copies</th> --}}
                                         <th>Order Assigned To</th> 
                                         <th>Priority</th>
+                                        <th>Order Date</th>
                                         <th>Actions</th>
                                     </tr>
                                 </tfoot>
@@ -44,6 +46,7 @@
                                                         @endphp
                                                 </td>
                                                 <td>{{ $odr->priority }}</td>
+                                                <td>{{ $odr->created_at }}</td>
                                                 <td>
                                                     <button onclick="window.location='{{route('order-details' , 
                                                         ['id'=>$odr->order_id ]) }}'" 

@@ -37,7 +37,7 @@
 					<div class="col-row mb-5"> 
 
 						<div class="product-item-img col-half text-right pull-right">
-							<span class="img-back"><img src="{{ asset($listing->image_path)}}" alt="" /></span>
+							<span class="img-back"><img src="{{ asset('public/images/'.$listing->image_path)}}" alt="" /></span>
 								 
 						</div>
 						

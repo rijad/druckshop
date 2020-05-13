@@ -71,6 +71,8 @@
         <th>No of CDs</th>
         <th>Shipping Addresss</th>
         <th>Billing Address</th>
+        <th>Shipping Company</th>
+        <th>Price</th>
     </tr>
 </thead>
 <thead>
@@ -81,26 +83,32 @@
         <td>{{ $order->no_of_cds }}</td>
         <td>{{ $order->shipping_address }}</td>
         <td>{{ $order->billing_address }}</td>
+        <td>{{ $order->shipping_company }}</td>
+        <td>{{ $order->price_product_qty }}</td>
     </tr>
 </thead>
 <tr>
-<th colspan='6'> <center>Files Uploaded</center> </th>
-</tr>
-<tr>
-<th>S.No</th>
-<th colspan='3'>File</th>
-<th colspan='2'>Actions</th>    
+<th colspan='8'> <center>Files Uploaded</center> </th>
+</tr> 
+<tr> 
+<th>S.No</th> 
+<th colspan='4'>File</th> 
+<th colspan='3'>Actions</th>    
 </tr>
 <?php $i = 1; ?>
 @foreach(json_decode($order->attribute ,true) as $key=>$value)
-@if($key == "selectfile_backcover" || $key == "selectfile_coversheet" || $key == "selectfile_content" || $key == "selectfile_din_A3" || $key == "selectfile_din_A2" || $key == "selectfile_logo" || $key == "selectfile_file" || $key == "selectfile_cd" || $key == "selectfile_logo_cd") @if($value != null )
+@if($key == "selectfile_backcover" || $key == "selectfile_coversheet" || $key == "selectfile_content" || $key == "selectfile_din_A3" || $key == "selectfile_din_A2" || $key == "selectfile_logo" || $key == "selectfile_file" || $key == "selectfile_cd" || $key == "selectfile_logo_cd" || $key == "selectfile_upload_cd_without_logo" || $key == "embossment-template-name" || $key == "cd-template-name") @if($value != null )
 <tr>
 <td>{{$i++}}</td>
-<td colspan='3'>{{$key}}</td>
+<td colspan='4'>{{$key}}</td>
 
-                <td colspan='2'>@if($key == "selectfile_backcover" || $key == "selectfile_coversheet" || $key == "selectfile_content" || $key == "selectfile_din_A3" || $key == "selectfile_din_A2" || $key == "selectfile_logo" || $key == "selectfile_file" || $key == "selectfile_cd" || $key == "selectfile_logo_cd") @if($value != null ) <a href={{url('/').'/public/uploads/'.$value}} target="_blank" >Download</a> @endif @endif
+                <td colspan='2'>@if($key == "selectfile_backcover" || $key == "selectfile_coversheet" || $key == "selectfile_content" || $key == "selectfile_din_A3" || $key == "selectfile_din_A2" || $key == "selectfile_logo" || $key == "selectfile_file" || $key == "selectfile_cd" || $key == "selectfile_logo_cd" || $key == "selectfile_upload_cd_without_logo") @if($value != null ) <a href={{url('/').'/public/uploads/'.$value}} target="_blank" >Download</a> @endif @endif
 
-                @if($key == "selectfile_backcover" || $key == "selectfile_coversheet" || $key == "selectfile_content" || $key == "selectfile_din_A3" || $key == "selectfile_din_A2" || $key == "selectfile_logo" || $key == "selectfile_file" || $key == "selectfile_cd" || $key == "selectfile_logo_cd") @if($value != null )<a href="{{route('defected-order-email',['user_id'=>$order->user_id,'order_id'=>$order->order_id,'old-file-name'=>$value])}}" >Send Mail</a> @endif @endif
+                    @if($key == "embossment-template-name") @if($value != null ) <a href={{url('/').'/public/images/templates/Binding_template/'.$value}} target="_blank" >Download</a> @endif @endif
+
+                    @if($key == "cd-template-name") @if($value != null ) <a href={{url('/').'/public/images/templates/cd_template/'.$value}} target="_blank" >Download</a> @endif @endif
+
+                @if($key == "selectfile_backcover" || $key == "selectfile_coversheet" || $key == "selectfile_content" || $key == "selectfile_din_A3" || $key == "selectfile_din_A2" || $key == "selectfile_logo" || $key == "selectfile_file" || $key == "selectfile_cd" || $key == "selectfile_logo_cd" || $key == "selectfile_upload_cd_without_logo" || $key == "embossment-template-name" || $key == "cd-template-name") @if($value != null )<a href="{{route('defected-order-email',['user_id'=>$order->user_id,'order_id'=>$order->order_id,'old-file-name'=>$value])}}" >Send Mail</a> @endif @endif
                 </td>   
             </tr>
             @endif @endif

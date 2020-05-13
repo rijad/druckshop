@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Validator;
 use App\BackCovers;
 use App\CdBag;
 use App\CoverColor;
-use App\CoverSheet;
+use App\CoverSheet; 
 use App\DataCheck;
 use App\DeliveryService; 
 use App\Discount;
@@ -822,7 +822,7 @@ class CheckoutController extends Controller
 				$OrderAttributes->attribute = $product_attribute;
 		//$OrderAttributes->product_id= $product."_".$user_id."_".time();
 				$OrderAttributes->product_id = $request->input('binding');
-				$OrderAttributes->quantity= $qty;
+				$OrderAttributes->quantity= $qty; 
 				$OrderAttributes->attribute_desc= $product_details;
 				$OrderAttributes->price_per_product=floatval($request->total);
 				$OrderAttributes->price_product_qty= floatval($request->total) * $qty;
@@ -977,7 +977,7 @@ if (Auth::check()) // if user is logged in no need to enter email
 			$update_data->shipping_company = deliveryServiceById($request->shipping_company[$key]);
 			$update_data->shipping_address = $request->shipping_address[$key];
 			$update_data->billing_address = $request->billing_address; 
-			$update_data->save();
+			$update_data->save();   
 
 		}
 
@@ -1188,7 +1188,7 @@ public function paymentPaypalSuccess(Request $request){
     $payment->txn = $_GET['tx'];
     $payment->status = $_GET['st'];
     $payment->user_id = $user_id;
-    $payment->amount = $_GET['amt']; 
+    $payment->amount = number_format($_GET['amt'],2); 
     $payment->type = "paypal";
     $payment->save();
 

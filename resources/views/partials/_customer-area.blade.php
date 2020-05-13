@@ -291,3 +291,4 @@
     </div>
     
 <script src="{{ asset('public/js/frontend/customerarea.js') }}" type="text/javascript" ></script>
+ 
