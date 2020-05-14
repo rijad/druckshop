@@ -26,7 +26,7 @@
             @endif
     </select>
 
-    <label for="priority">Priority:</label>
+    <label for="priority">Priority:</label> 
     <select name="priority">
         <option <?= ($order->priority =='highest')? 'selected' : ''?> value="highest">Highest</option> 
         <option <?= ($order->priority =='high')? 'selected' : ''?> value="high">High</option>
@@ -102,21 +102,22 @@
 <td>{{$i++}}</td>
 <td colspan='4'>{{$key}}</td>
 
-                <td colspan='2'>@if($key == "selectfile_backcover" || $key == "selectfile_coversheet" || $key == "selectfile_content" || $key == "selectfile_din_A3" || $key == "selectfile_din_A2" || $key == "selectfile_logo" || $key == "selectfile_file" || $key == "selectfile_cd" || $key == "selectfile_logo_cd" || $key == "selectfile_upload_cd_without_logo") @if($value != null ) <a href={{url('/').'/public/uploads/'.$value}} target="_blank" >Download</a> @endif @endif
 
-                    @if($key == "embossment-template-name") @if($value != null ) <a href={{url('/').'/public/images/templates/Binding_template/'.$value}} target="_blank" >Download</a> @endif @endif
+<td colspan='2'>@if($key == "selectfile_backcover" || $key == "selectfile_coversheet" || $key == "selectfile_content" || $key == "selectfile_din_A3" || $key == "selectfile_din_A2" || $key == "selectfile_logo" || $key == "selectfile_file" || $key == "selectfile_cd" || $key == "selectfile_logo_cd" || $key == "selectfile_upload_cd_without_logo") @if($value != null ) <a href={{url('/').'/public/uploads/'.$value}} target="_blank" >Download</a> @endif @endif
 
-                    @if($key == "cd-template-name") @if($value != null ) <a href={{url('/').'/public/images/templates/cd_template/'.$value}} target="_blank" >Download</a> @endif @endif
+    @if($key == "embossment-template-name") @if($value != null ) <a href={{url('/').'/public/images/templates/Binding_template/'.$value}} target="_blank" >Download</a> @endif @endif
 
-                @if($key == "selectfile_backcover" || $key == "selectfile_coversheet" || $key == "selectfile_content" || $key == "selectfile_din_A3" || $key == "selectfile_din_A2" || $key == "selectfile_logo" || $key == "selectfile_file" || $key == "selectfile_cd" || $key == "selectfile_logo_cd" || $key == "selectfile_upload_cd_without_logo" || $key == "embossment-template-name" || $key == "cd-template-name") @if($value != null )<a href="{{route('defected-order-email',['user_id'=>$order->user_id,'order_id'=>$order->order_id,'old-file-name'=>$value])}}" >Send Mail</a> @endif @endif
-                </td>   
-            </tr>
-            @endif @endif
-            @endforeach 
-            </table>
-            @endforeach 
-        </div>
-    </div>
-    <div class="form-group">
-        <a href="{{ url('/admin/order') }}" class="btn btn-secondary btn-user btn-block col-md-3">Back</a>
-    </div>
+    @if($key == "cd-template-name") @if($value != null ) <a href={{url('/').'/public/images/templates/cd_template/'.$value}} target="_blank" >Download</a> @endif @endif
+
+@if($key == "selectfile_backcover" || $key == "selectfile_coversheet" || $key == "selectfile_content" || $key == "selectfile_din_A3" || $key == "selectfile_din_A2" || $key == "selectfile_logo" || $key == "selectfile_file" || $key == "selectfile_cd" || $key == "selectfile_logo_cd" || $key == "selectfile_upload_cd_without_logo" || $key == "embossment-template-name" || $key == "cd-template-name") @if($value != null )<a href="{{route('defected-order-email',['user_id'=>$order->user_id,'order_id'=>$order->order_id,'old-file-name'=>$value])}}" >Send Mail</a> @endif @endif
+</td>   
+</tr>
+@endif @endif
+@endforeach 
+</table>
+@endforeach 
+</div>
+</div>
+<div class="form-group">
+    <a href="{{ url('/admin/order') }}" class="btn btn-secondary btn-user btn-block col-md-3">Back</a>
+</div>

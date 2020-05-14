@@ -1609,9 +1609,30 @@ ul.fcopyright-assets li a:hover {
     color: #b88862;;
 }
 
+#div-template-classic img.template-classic {
+    border: 1px solid #746d6d !important;
+    width: 100px;
+    margin-right: 5px;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+
+
+
+
 /*media query starts from here*/
 
 @media only screen and (max-width:768px){
+
+  #div-template-classic img.template-classic {
+    border: 1px solid #746d6d !important;
+    width: 80px;
+    margin-right: 5px;
+    margin-bottom: 10px;
+  }
+
+
   .customer-profile-info ul li {
     display: block;
   }
@@ -1949,7 +1970,12 @@ div#div-section-1  label#field-1 {
 	    width: 50px;
 	}
 
-
+  #div-template-classic img.template-classic {
+    border: 1px solid #746d6d !important;
+    width: 90px;
+    margin-right: 5px;
+    margin-bottom: 10px;
+  }
 
 }
 

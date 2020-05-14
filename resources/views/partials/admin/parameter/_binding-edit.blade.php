@@ -80,7 +80,7 @@
                     
                     <div class="form-group rv-file_upload" id = "preview-image">
                         <label class="small mb-1" for="name">Upload Others Images</label>
-                        <input class="rv-custom-file-input" type="file" id="otherImages" onchange="previewFiles();" name="otherImages[]"  multiple />
+                        <input class="rv-custom-file-input" type="file" id="otherImages" onchange="previewFiles();" name="otherImages[]"/>
 
                         <input type = "hidden" name="removed_files[]" id = "removed_files" value=""> 
                     </div>

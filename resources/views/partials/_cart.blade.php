@@ -37,7 +37,7 @@
                                       <div class="rv-casualBioFields">
                                         <div class="form-group">
                                       <label for="text">{{ trans('cart.no_of_copies') }}*:</label>
-                                      <label id="price_per_product_{{$data->id}}" class = "price_per_product">Price/qty:€ {{$data->price_per_product}}</label>
+                                      <label id="price_per_product_{{$data->id}}" class = "price_per_product">{{-- Price/qty:€ {{$data->price_per_product}} --}}</label>
                                       <input type="text" id="no_of_copies" name={{"no_of_copies[".$key."]"}}  class="form-control" placeholder="{{ trans('cart.enter_here') }}" value=@if(isset($data->attribute)) <?php $array = json_decode($data->attribute); ?>  {{$array->no_of_copies}} @else {{"0"}} @endif readonly>
                                       @if($errors->has('no_of_copies.'.$key))
                                       <div class="error">{{ $errors->first('no_of_copies.'.$key) }}</div>
@@ -45,7 +45,7 @@
                                     </div>
                                     <div class="form-group">
                                       <label for="pwd">{{ trans('cart.no_of_cds') }}:</label>
-                                      <label id="price_per_product_{{$data->id}}" class = "price_per_product">Price/qty:€ 2.00</label>
+                                      <label id="price_per_product_{{$data->id}}" class = "price_per_product">{{-- Price/qty:€ 2.00 --}}</label>
                                       <input readonly id="no_of_cds" type="text" name={{"no_of_cds[".$key."]"}}  class="form-control" placeholder="0" value=@if(isset($data->attribute)) <?php $array = json_decode($data->attribute); ?>  {{$array->number_of_cds}} @else {{"0"}} @endif>
                                        @if($errors->has('no_of_cds.'.$key))
                                       <div class="error">{{ $errors->first('no_of_cds.'.$key) }}</div>
@@ -100,7 +100,7 @@
                                             <button type = "button" name="shipping_address_click" id="shipping_address" class="form-control" data-toggle="modal" data-target="#rv-Modal-shipping">Add Shipping address</button>
                                             
                                           </div>
-                                           <div class="form-group">
+                                           {{-- <div class="form-group">
                                             <label for="email">{{ trans('cart.bill_add') }}*:</label>
                                             <p id="{{'bill-address-one'}}" class="filled-billingAdress">
                                              @foreach($billing_address_data as $keyss=>$billing_address)
@@ -113,7 +113,7 @@
                                              @if($errors->has('billing_address'))
                                             <div class="error">{{ $errors->first('billing_address') }}</div>
                                             @endif
-                                          </div>
+                                          </div> --}}
                                         </div>  
                                       </div>
                                       
@@ -142,6 +142,21 @@
                         </div>
                         <div class="rv-DiscountCheckout">
                         <h4>{{ trans('cart.bill_add') }}</h4>
+
+                        <div class="form-group">
+                          <label for="email">{{ trans('cart.bill_add') }}*:</label>
+                          <p id="{{'bill-address-one'}}" class="filled-billingAdress">
+                           @foreach($billing_address_data as $keyss=>$billing_address)
+                           @if($billing_address->default == 1) 
+                              {{$billing_address->first_name." ".$billing_address->last_name.", Company Name: ".$billing_address->company_name.", House No: ".$billing_address->house_no.", City: ".$billing_address->city.", State: ".$billing_address->state.", Zip Code: ".$billing_address->zip_code}}
+                           @endif
+                           @endforeach
+                          </p>
+                          <button type = "button" name="billing_address_click" id="billing_address" class="form-control" data-toggle="modal" data-target="#rv-Modal-billing">Add Billing Address</button>
+                           @if($errors->has('billing_address'))
+                          <div class="error">{{ $errors->first('billing_address') }}</div>
+                          @endif
+                        </div>
                         <div class="form-group">
                         <label for="pwd">{{ trans('cart.bill_add') }}*:</label>
                         <select class="form-control" name={{"billing_address"}} id="billing_address_data" onchange="displayAddress(this,'{{'bill-address'}}');"> 

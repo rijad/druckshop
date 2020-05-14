@@ -52,10 +52,10 @@
         <div class="Product_qeue">
             <div class="w-100">
                 <div class="left_productdetail"> 
-                        @foreach($OrderHistory as $data) 
-                        @if(count($data->orderProductHistory) >=1)
+                  @foreach($OrderHistory as $data) 
+                  @if(count($data->orderProductHistory) >=1)
                     <div class="text-center quote_heading">
-                        <p>Order id : {{$data->order_id}}    Order date: {{DATE('M j Y',strtotime($data->created_at))}} </p>
+                      <p>Order id : {{$data->order_id}}    Order date: {{DATE('M j Y',strtotime($data->created_at))}} </p>
                     </div>
                     <div class="customer-info">
                         <p>No of Copies: {{$data->no_of_copies}}</p>   
@@ -85,29 +85,29 @@
                         
                         <div class="text-right quote_heading">
                         	<p class="total-amount-rv"><b>Total Amount: {{$data->total}} €<b></p>
-                    	</div>
-                      <div class="text-left repeat-cancel-order">
-                        <p> @if(isset($data->admin_response)) {{ "Comments: " . $data->admin_response}} @endif</p>
-                      </div>
+                    	  </div>
+                        <div class="text-left repeat-cancel-order">
+                          <p> @if(isset($data->admin_response)) {{ "Comments: " . $data->admin_response}} @endif</p>
+                        </div>
                         <div class="text-right repeat-cancel-order" id="return-order-status">
                         	<button class="paypaypal" onclick="window.location='{{route('repeat-order',['order_id'=>$data->order_id])}}'">Repeat Order</button>
                         	@if($data->state == "New")
-                        	<button class="paycash" onclick="window.location='{{route('cancel-order',['order_id'=>$data->order_id])}}'">Cancel Order</button>
+                        	  <button class="paycash" onclick="window.location='{{route('cancel-order',['order_id'=>$data->order_id])}}'">Cancel Order</button>
                         	@elseif($data->state == "Cancelled")
-                         	<button class="paycash" onclick="#">Cancelled</button>
-                            @elseif($data->state == "Done")
+                         	  <button class="paycash" onclick="#">Cancelled</button>
+                          @elseif($data->state == "Done")
                             <button id = "order-status" type="button" class="paycash" onclick="#" data-toggle="modal" data-oid="{{$data->order_id}}" data-uid="{{$data->user_id}}" data-target="#returnModal">Return</button>
-                            @elseif($data->state == "Reversal Request")
+                          @elseif($data->state == "Reversal Request")
                               <button class="paycash" onclick="#">Return Requested</button>
-                            @elseif($data->state == "Reversal declined")
+                          @elseif($data->state == "Reversal declined")
                               <button class="paycash" onclick="#">Return Declined</button>
-                            @elseif($data->state == "Reversal approved")
+                          @elseif($data->state == "Reversal approved")
                               <button class="paycash" onclick="#">Return Approved</button>    
                         	@endif
-                    	</div> 
-                        @endif
-                        @endforeach
-                    </div>
+                    	  </div> 
+                    </div>    
+                  @endif
+                  @endforeach
                 </div>
             </div>  
         </div>  

@@ -14,7 +14,7 @@
                 @foreach ($errors->all() as $error) 
                 @endforeach
             </ul>
-        @endif
+        @endif 
 
             <form class="form-group-inline" method="POST" action="{{ route('product.store') }}" enctype="multipart/form-data">
                 @csrf
@@ -67,7 +67,7 @@
 
                     <div class="form-group rv-file_upload">
                         <label class="small mb-1" for="otherImages">Upload Others Images</label>
-                        <input class="rv-custom-file-input" type="file" id="otherImages" name="otherImages[]" onchange="previewFiles();" multiple />
+                        <input class="rv-custom-file-input" type="file" id="otherImages" name="otherImages[]" onchange="previewFiles();"/>
 
                         <input type = "hidden" name="removed_files[]" id = "removed_files" value=""> 
                     </div>
