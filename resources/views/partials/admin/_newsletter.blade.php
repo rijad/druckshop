@@ -8,14 +8,14 @@
                 <thead>
                     <tr>
                         <th>Email</th>
-                        <th>Created at</th>
+                        <th>Created Date</th>
                         <th>Actions</th>
                     </tr>
                 </thead> 
                 <tfoot>
                     <tr>
                         <th>Email</th>
-                        <th>Created at</th>
+                        <th>Created Date</th>
                         <th>Actions</th> 
                     </tr>
                 </tfoot>

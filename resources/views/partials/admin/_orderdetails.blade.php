@@ -103,13 +103,13 @@
 <td colspan='4'>
     @if($key == "selectfile_backcover") {{'Back Cover File'}} @endif
     @if($key == "selectfile_coversheet") {{'Cover Sheet File'}} @endif
-    @if($key == "selectfile_content") {{'No of Pages'}} @endif
-    @if($key == "selectfile_din_A3") {{'Position of DIN A3 pages'}} @endif
-    @if($key == "selectfile_din_A2") {{'Number of DIN A2 Pages'}} @endif
-    @if($key == "selectfile_logo") {{'Choose your template'}} @endif
-    @if($key == "selectfile_cd") {{'Number of CDs'}} @endif
-    @if($key == "selectfile_logo_cd") {{'CD Imprint'}} @endif
-    @if($key == "selectfile_upload_cd_without_logo") {{'Font'}} @endif
+    @if($key == "selectfile_content") {{'Thesis File'}} @endif
+    @if($key == "selectfile_din_A3") {{'Upload DIN A3 pages'}} @endif
+    @if($key == "selectfile_din_A2") {{'Upload DIN A2 Pages'}} @endif
+    @if($key == "selectfile_logo") {{'Upload Logo for binding template'}} @endif
+    @if($key == "selectfile_cd") {{'Upload file(s) on CD'}} @endif
+    @if($key == "selectfile_logo_cd") {{'Upload logo for CD template'}} @endif
+    @if($key == "selectfile_upload_cd_without_logo") {{'Upload own CD template'}} @endif
     @if($key == "embossment-template-name") {{'Embossment Template File'}} @endif
     @if($key == "cd-template-name") {{'CD Template File'}} @endif
 </td>

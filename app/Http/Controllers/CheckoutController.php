@@ -800,7 +800,8 @@ class CheckoutController extends Controller
 
 					$attribute_value = self::makeOrderDetails($key,$value);
 				// make scentence for product details
-					$product_details .= $key ." ".$attribute_value." ,";
+					// $product_details .= $key ." ".$attribute_value." ,";
+					$product_details .= $attribute_value." ,";
 				}
 
 			} 
@@ -1481,60 +1482,172 @@ public function makeOrderDetails($model = "", $attribute=""){
 
 	if($model == "binding"){
 		$attribute = Product::find($id)->first();
-		return "is ".$attribute->title_english;
+		return "Binding is ".$attribute->title_english;
 	}
 
 	if($model == "page-format"){
 		$attribute = PageFormat::find($id)->first();
-		return "type is ".$attribute->page_format;
+		return "Page Format is ".$attribute->page_format;
 	}
 
 	if($model == "cover-color"){
 		$attribute = CoverColor::find($id)->first();
-		return "is ".$attribute->color;
+		return "Cover Color is ".$attribute->color;
 	}
 
 	if($model == "cover-sheet"){
 		$attribute = CoverSheet::find($id)->first();
-		return "is ".$attribute->sheet;
+		return "Cover Sheet is ".$attribute->sheet;
 	}
 
 	if($model == "back-cover"){
 		$attribute = BackCovers::find($id)->first();
-		return "is ".$attribute->back_cover;
+		return "Back Cover is ".$attribute->back_cover;
 	}
 
 	if($model == "page_options"){
 		$attribute = PageOptions::find($id)->first();
-		return "is ".$attribute->page_options;
+		return "Page Option is ".$attribute->page_options;
 	}
 
 	if($model == "paper-weight"){
 		$attribute = PaperWeight::find($id)->first();
-		return "is ".$attribute->paper_weight . " g/m²";
+		return "Paper Weight is ".$attribute->paper_weight . " g/m²";
 	}
 
 	if($model == "mirror"){
 		$attribute = Mirror::find($id)->first();
-		return "type is ".$attribute->mirror;
+		return "Mirror type is ".$attribute->mirror;
 	}
 
 	if($model == "fonts"){
-		return "is ".$attribute;
+		return "Font is ".$attribute;
 	}
 
 	if($model == "date-format"){
-		return "is ".$attribute;
+		return "Date Format is ".$attribute;
 	}
 
 	if($model == "cd-bag"){
 		$attribute = CdBag::find($id)->first();
-		return "is ".$attribute->bag;
+		return "Cd Bag is ".$attribute->bag;
 	}
 
 	if($model == "data_check"){
 		$attribute = DataCheck::find($id)->first();
-		return "is ".$attribute->check_list;
+		return "Data Check is ".$attribute->check_list;
+	}
+
+	if($model == "no_of_copies"){
+		return "No.of Copies are ".$attribute;
+	}
+
+	if($model == "no_of_pages"){
+		return "No.of Pages are ".$attribute;
+	}
+
+	if($model == "pg_no"){
+		return "No of Pages in uploaded thesis are ".$attribute;
+	}
+
+	if($model == "color-pages"){
+		return "Color-Page is ".$attribute;
+	}
+
+	if($model == "page_numbers"){
+		return "No of colored pages are ".$attribute;
+	}
+
+	if($model == "number_of_pages"){
+		return "No. of pages are ".$attribute;
+	}
+
+	if($model == "pos_of_A3_pages"){
+		return "Pos of A3 pages are ".$attribute;
+	}
+
+	if($model == "number_of_A2_pages"){
+		return "No of A2 pages are ".$attribute;
+	}
+
+	if($model == "embossing"){
+		return "Embossing is ".$attribute;
+	}
+
+	if($model == "template"){
+		return "Template is ".$attribute;
+	}
+
+	if($model == "embossment-spine"){
+		return "Embossment-Spine is ".$attribute;
+	}
+
+	if($model == "spine-count-hidden"){
+		return "Spine Count is ".$attribute;
+	}
+
+	if($model == "fonts-spine"){
+		return "Font Spine is ".$attribute;
+	}
+
+	if($model == "direction"){
+		return "Direction is ".$attribute;
+	}
+
+	if($model == "fields_1"){
+		return "Field 1 is ".$attribute;
+	}
+
+	if($model == "pos_1"){
+		return "Pos 1 is ".$attribute;
+	}
+
+	if($model == "input_1"){
+		return "Input 1 is ".$attribute;
+	}
+
+	if($model == "fields_2"){
+		return "Field 2 is ".$attribute;
+	}
+
+	if($model == "pos_2"){
+		return "Pos 2 is ".$attribute;
+	}
+
+	if($model == "input_2"){
+		return "Input 2 is ".$attribute;
+	}
+
+	if($model == "fields_3"){
+		return "Field 3 is ".$attribute;
+	}
+
+	if($model == "pos_3"){
+		return "Pos 3 is ".$attribute;
+	}
+
+	if($model == "input_3"){
+		return "Input 3 is ".$attribute;
+	}
+
+	if($model == "remarks"){
+		return "Remarks are ".$attribute;
+	}
+
+	if($model == "number_of_cds"){
+		return "No of cds are ".$attribute;
+	}
+
+	if($model == "fonts-cd"){
+		return "Fonts-cd is ".$attribute;
+	}
+
+	if($model == "pos-cd-bag"){
+		return "Pos of cd-bag is ".$attribute;
+	}
+
+	if($model == "total"){
+		return "Total is ".$attribute;
 	}
 
 	return "are ".$attribute;

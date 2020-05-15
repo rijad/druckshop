@@ -34,7 +34,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $order = OrderDetailsFinal::all();
+        $order = OrderDetailsFinal::orderBy('id','DESC')->get();
         return view('/pages/admin/order',compact('order'));
     }
 

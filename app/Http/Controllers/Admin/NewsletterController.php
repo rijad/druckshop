@@ -29,7 +29,7 @@ class NewsletterController extends Controller
     public function index()
     {
         try{
-            $newsletter = NewsLetter::orderBy('created_at','DESC')->get();
+            $newsletter = NewsLetter::orderBy('id','DESC')->get();
         }catch (Exception $e) {
             $newsletter = [];
         }
