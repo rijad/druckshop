@@ -22,7 +22,7 @@
 							<div class="tab" id="tab-fields">
 								<div class="displayBlock">
 									<label>{{ trans('checkout.binding_title') }}*:</label>
-									<p><select class = "" name = "binding" id = "binding" onclick="" onchange="displayFields(this.value); getPrinting(); displayPrice(this.value,'','','','','','','','','','','','','','',''); resetFields(this.id,this.value);  displayProductAttributes('1',this);  sampleImage(); getCoverSetting(this.value); getPageFormatData(this.value); getPaperWeight(this.value);">
+									<p><select class = "" name = "binding" id = "binding" onclick="" onchange="displayFields(this.value); displayPrice(this.value,'','','','','','','','','','','','','','',''); resetFields(this.id,this.value);  displayProductAttributes('1',this);  sampleImage(); getCoverSetting(this.value); getPageFormatData(this.value); ">
 										<option value = "-1">Select</option>
 										@foreach ($product_listing as $key=>$listing)
 										@if($listing->id != 8 && $listing->id != 5)
@@ -92,7 +92,7 @@
 								<div class="tab">
 									<div class="displayBlock">
 										<label>{{ trans('checkout.side_options') }}*:</label>
-										<p><select class = "" id = "page_options" name = "page_options" onclick="displayFieldsContent(this.value);  displayProductAttributes('7',this);"  onchange="displayPrice('','',this.value,'','','','','','','','','','','','','');" >
+										<p><select class = "" id = "page_options" name = "page_options" onclick=""  onchange="displayFieldsContent(this.value);  displayProductAttributes('7',this); displayPrice('','',this.value,'','','','','','','','','','','','','');" >
 											<option value = "-1">Select</option>
 											@foreach ($page_options as $key=>$listing)
 											<option value="{{$listing->id}}">{{$listing->name_english}}</option>  

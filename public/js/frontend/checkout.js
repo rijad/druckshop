@@ -106,20 +106,29 @@ function displayFieldsContent(page_options = ""){
 
 	// Get data for paper weight
 		if (typeof $content_attributes['paper_weight'] !== 'undefined' && $content_attributes['paper_weight'].length > 0) {
-			var len = $content_attributes['paper_weight'].length;
-			$("#paper-weight").empty();
-			$("#paper-weight").append("<option value='-1'>Select</option>");
-			for( var i = 0; i<len; i++){  
-				$("#paper-weight").append("<option value = "+$content_attributes['paper_weight'][i]['id']+">"+$content_attributes['paper_weight'][i]['paper_weight']+" g/m²</option>");
-			}
+			// var len = $content_attributes['paper_weight'].length;
+			// $("#paper-weight").empty();
+			// $("#paper-weight").append("<option value='-1'>Select</option>");
+			// for( var i = 0; i<len; i++){  
+			// 	$("#paper-weight").append("<option value = "+$content_attributes['paper_weight'][i]['id']+">"+$content_attributes['paper_weight'][i]['paper_weight']+" g/m²</option>");
+			// }
 
-			if($("#page_options option:selected").val() == "1"){ //single
-				$("#paper-weight").val(1);  
-				$("#paper-weight").trigger("onchange");
-			}else if($("#page_options option:selected").val() == "2"){ //both
-				$("#paper-weight").val(3);
-				$("#paper-weight").trigger("onchange");  
-			}
+			var binding = document.getElementById('binding').value;
+
+			getPaperWeight(binding);   alert("in");
+
+			// if($("#page_options option:selected").val() == "1"){ //single
+			// 	//$("#paper-weight option:selected").val(1);
+			// 	$("#paper-weight").val(1);
+			// 	//$('#paper-weight option[value="1"]').prop("selected", true);
+			// 	//$('#paper-weight option[value=1]').attr('selected','selected');  
+			// 	//$("#paper-weight").trigger("onchange"); 
+			// 	 alert("in1");
+			// }else if($("#page_options option:selected").val() == "2"){ //both
+			// 	$("#paper-weight").val(3);
+			// 	//$("#paper-weight").trigger("onchange"); 
+			// 	 alert("in2");
+			// }
 
 		}else{}
 
@@ -142,7 +151,7 @@ function displayFieldsContent(page_options = ""){
 
 } 
  
-function getPrinting(value){ 
+function getPrinting(){ 
 
 binding = document.getElementById('binding').value;
 	$.ajax({
@@ -183,6 +192,12 @@ binding = document.getElementById('binding').value;
 function embossingChange(field = ""){
 
 	if($(field).find(":selected").val() != "-1"){
+
+
+		$("#embossment-spine").removeAttr('disabled');
+		$("#embossment-cover-sheet").removeAttr('disabled');
+
+		getPrinting();
 
 		//if($("#embossment-spine").is(":checked")){
 
@@ -235,6 +250,10 @@ function embossingChange(field = ""){
 		//}	
  
 	}else{
+
+
+		$("#embossment-cover-sheet").attr('disabled', true);  
+		$("#embossment-spine").attr('disabled', true);  
 
 		document.getElementById('div-fonts').className = "displayNone";
 
@@ -1161,7 +1180,7 @@ function displayPrice(binding = "", no_ofsheets = "", page_options = "", embossi
 		cdCover = cd_cover;
 
 	}
-
+ 
 
 	$.ajax({
 		url: base_url+'/get-price', 
@@ -1184,7 +1203,7 @@ function displayPrice(binding = "", no_ofsheets = "", page_options = "", embossi
 	}); 
 
 }  
-
+ 
 
 // -------     Code to handle checkout page pagination Starts----------- //
 
@@ -1842,17 +1861,24 @@ function checkPageRange(id1 = '', id2 = '' ,value_id = ''){
 			var max  = parseInt(data['max_sheets']);
 			var no_of_pages = document.getElementById('pg_no').value;
 
-			document.getElementById('error_no_of_pages').innerHTML = "Range is "+ min + " - " + max + " and No of Pages is  "+ no_of_pages + " Page(s), ->  Number of pages are out of range.";
-			
-			//document.getElementById('error_no_of_pages').innerHTML = "Range is "+ min + " - " + max ;
+			// document.getElementById('error_no_of_pages').innerHTML = "Range is "+ min + " - " + max + " and No of Pages is  "+ no_of_pages + " Page(s), ->  Number of pages are out of range.";
+			// document.getElementById('error_no_of_pages').style.color = "#000000";
+			// document.getElementById('error_no_of_pages').innerHTML = "Range is "+ min + " - " + max ;
 
 			console.log(value+"-----"+min+"-----"+max);
 
 			if(value > no_of_pages){
+
+				document.getElementById('error_no_of_pages').innerHTML = "Range is "+ min + " - " + max + " and No of Pages is  "+ no_of_pages + " Page(s), ->  Number of pages are out of range.";
+				document.getElementById('error_no_of_pages').style.color = "red";
+
 				status = false;
 			} 
 
 			if(value < min || value > max){
+
+				document.getElementById('error_no_of_pages').style.color = "#000000";
+				document.getElementById('error_no_of_pages').innerHTML = "Range is "+ min + " - " + max ;
 				status = false;
 			}
 
@@ -2249,10 +2275,9 @@ function getCoverSetting(binding){
 							$('#cover-color').empty();
 							$('#cover-color').append('<option value="-1">Select</option>');
 
-							for(var i = 0; i <= data.length; i++){
-
-								$('#cover-color').append('<option value='+data[i]['id']+'>'+data[i]['color']+'</option>');
-							}
+							data.forEach(function(data) {
+								$('#cover-color').append("<option value='"+data.id+"'>"+data.color+ "</option>");
+							})
 
 							
 						}
@@ -2271,10 +2296,9 @@ function getCoverSetting(binding){
 							$('#cover-sheet').empty();
 							$('#cover-sheet').append('<option value="-1">Select</option>');
 
-							for(var i = 0; i <= data.length; i++){
-
-								$('#cover-sheet').append('<option value='+data[i]['id']+'>'+data[i]['cover']+'</option>');
-							}
+							data.forEach(function(data) {
+								$('#cover-sheet').append("<option value='"+data.id+"'>"+data.cover+ "</option>");
+							})	
 
 							
 						}
@@ -2290,10 +2314,9 @@ function getCoverSetting(binding){
 							$('#back-cover').empty();
 							$('#back-cover').append('<option value="-1">Select</option>');
 
-							for(var i = 0; i <= data.length; i++){
-
-								$('#back-cover').append('<option value='+data[i]['id']+'>'+data[i]['cover']+'</option>');
-							}
+							data.forEach(function(data) {
+								$('#back-cover').append("<option value='"+data.id+"'>"+data.cover+ "</option>");
+							})	
 
 							
 						}
@@ -2319,12 +2342,9 @@ function getPageFormatData(binding = ""){
 			$('#page-format').empty();
 			$('#page-format').append('<option value="-1">Select</option>');
 
-			for(var i = 0; i <= data.length; i++){
-
-				$('#page-format').append('<option value='+data[i]['id']+'>'+data[i]['cover']+'</option>');
-			}
-
-			
+			data.forEach(function(data) {
+				$('#page-format').append("<option value='"+data.id+"'>"+data.cover+ "</option>");
+			})	
 		}
 	});
 }
@@ -2336,15 +2356,27 @@ function getPaperWeight(binding = ""){
 		url: base_url+'/get-paper-weight', 
 		type: 'POST', 
 		data: {'binding': binding , '_token': $('meta[name="csrf-token"]').attr('content')},
-		success: function (response_color){  var data = JSON.parse(response_color); 
+		success: function (response_weight){  var data = JSON.parse(response_weight); 
+
 
 			$('#paper-weight').empty();
 			$('#paper-weight').append('<option value="-1">Select</option>');
 
-			for(var i = 0; i <= data.length; i++){
 
-				$('#paper-weight').append('<option value='+data[i]['id']+'>'+data[i]['weight']+'</option>');
+			data.forEach(function(data) {
+				$('#paper-weight').append("<option value='"+data.pid+"'>"+data.weight+ " g/m²</option>");
+			})
+
+			if($("#page_options option:selected").val() == "1"){ //single
+				$('#paper-weight option[value="1"]').attr('selected','selected');  
+				$("#paper-weight").trigger("onchange"); 
+
+			}else if($("#page_options option:selected").val() == "2"){ //both
+				$('#paper-weight option[value="3"]').attr('selected','selected'); 
+				$("#paper-weight").trigger("onchange"); 
+
 			}
+
 
 			
 		}

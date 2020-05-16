@@ -18,12 +18,12 @@
                                         <th>Active</th>
                                         <th>Created Date</th>
                                         <th>Actions</th> 
-                                    </tr>
+                                    </tr> 
                                 </thead> 
                                
                                 <tbody>
-                                    @if(!empty($latest))
-                                        @foreach($latest as $lat)
+                                    @if(!empty($latest))  
+                                        @foreach($latest as $key => $lat)
                                         <tr>
                                             <!-- <td><img src="{{ asset($lat->image)}}" height="50" width="100" alt="..."></td> -->
                                             <td>{{ $lat->title_english }}</td>

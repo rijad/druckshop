@@ -428,7 +428,7 @@ class CheckoutController extends Controller
 
 		// binding price
 
-		// print_r($request->session()->get('binding_type'));
+		// print_r($request->session()->get('binding_type')); 
 		// print_r($request->session()->get('no_of_sheets'));
 		// print_r($request->session()->get('pageOptions'));
 		if ($request->session()->has('binding_type') && $request->session()->has('no_of_sheets') && $request->session()->has('pageOptions')) {  //print_r("hiii");
@@ -793,7 +793,7 @@ class CheckoutController extends Controller
 		// 	$OrderAttributes->save();
 
 		// }
-
+ 
 			$product_details = "";
 
 			foreach($request->input() as $key => $value){
@@ -1832,7 +1832,7 @@ public static function CartCount(){
 
 		foreach($paper_weight_data as $key=>$value){
 
-			$paper_weight[$key] = ['id' => $value->paper_weight_id, 'weight' => weightById($value->paper_weight_id)];
+			$paper_weight[$key] = ['pid' => $value->paper_weight_id, 'weight' => weightById($value->paper_weight_id)];
 		}
 
 		print_r(json_encode($paper_weight));
