@@ -15,7 +15,7 @@ class LatestController extends Controller
     public function index()
     {
         try{
-            $latest = Latest::where('status', '1')->orderBy('created_at','DESC')->get();
+            $latest = Latest::where('status', '1')->orderBy('id','DESC')->get();
         }catch (Exception $e) {
             $latest = [];
         }

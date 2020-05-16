@@ -34,8 +34,12 @@ use App\PrintoutPaperSurcharge;
 use App\DataCheckPrice;
 use App\CdCoverPrice;
 use App\ProductPrintFinishing;
+use App\ProductCoverSetting;
 use App\CustomerArea;
 use App\UserAddress;
+use App\ProductCoverColor;
+use App\ProductCoverSheet;
+use App\ProductBackSheet;
 use App\User;
 use App\EmbossingCover;
 use App\EmbossingSpine;
@@ -424,7 +428,7 @@ class CheckoutController extends Controller
 
 		// binding price
 
-		// print_r($request->session()->get('binding_type'));
+		// print_r($request->session()->get('binding_type')); 
 		// print_r($request->session()->get('no_of_sheets'));
 		// print_r($request->session()->get('pageOptions'));
 		if ($request->session()->has('binding_type') && $request->session()->has('no_of_sheets') && $request->session()->has('pageOptions')) {  //print_r("hiii");
@@ -789,7 +793,7 @@ class CheckoutController extends Controller
 		// 	$OrderAttributes->save();
 
 		// }
-
+ 
 			$product_details = "";
 
 			foreach($request->input() as $key => $value){
@@ -1740,12 +1744,101 @@ public static function CartCount(){
 
 
 	public function getA3A2Count(Request $request){
-
-
-		$A2_A3_data = PageFormat::where(['id' => $request->page_format])->first();
+ 
+		$A2_A3_data = PageFormat::where(['id' => $request->page_format, 'status' => '1'])->first();
 		print_r(json_encode($A2_A3_data));
 
 	}	
+
+
+	public function getCoverSettings(Request $request){
+
+		$cover_settings = ProductCoverSetting::where(['ps_product_id' => $request->binding, 'status' => '1'])->first('ps_cover_setting_id')->ps_cover_setting_id;
+
+		print_r($cover_settings);
+
+	}
+
+
+	public function getCoverColorData(Request $request){
+
+		$color = [];
+
+		$color_data = ProductCoverColor::where(['product_id' => $request->binding, 'status' => '1'])->get();  
+
+		foreach($color_data as $key=>$value){
+
+			$color[$key] = ['id' => $value->color_id, 'color' => colorById($value->color_id)];
+		}
+
+		print_r(json_encode($color));
+
+	}
+
+
+	public function getCoverSheetData(Request $request){
+
+		$cover_sheet = [];
+
+		$cover_sheet_data = ProductCoverSheet::where(['product_id' => $request->binding, 'status' => '1'])->get();  
+
+		foreach($cover_sheet_data as $key=>$value){
+
+			$cover_sheet[$key] = ['id' => $value->cover_sheet_id, 'cover' => sheetById($value->cover_sheet_id)];
+		}
+
+		print_r(json_encode($cover_sheet));
+
+	}
+
+
+	public function getBackCoverData(Request $request){
+
+		$back_sheet = [];
+
+		$back_sheet_data = ProductBackSheet::where(['product_id' => $request->binding,'status' => '1'])->get();  
+
+		foreach($back_sheet_data as $key=>$value){
+
+			$back_sheet[$key] = ['id' => $value->cover_sheet_id, 'cover' => sheetById($value->back_cover_id)];
+		}
+
+		print_r(json_encode($back_sheet));
+
+	}
+
+
+	public function getPageFormatData(Request $request){ 
+
+		$page_format = [];
+
+		$page_format_data = ProductPageFormat::where(['product_id' => $request->binding, 'status' => '1'])->get();  
+
+		foreach($page_format_data as $key=>$value){
+
+			$page_format[$key] = ['id' => $value->paper_format, 'cover' => pageformatById($value->paper_format)];
+		}
+
+		print_r(json_encode($page_format));
+
+	}
+
+
+	public function getPaperWeightData(Request $request){
+
+		$paper_weight = [];
+
+		$paper_weight_data = ProductPaperWeight::where(['product_id' => $request->binding, 'status' => '1'])->get();  
+
+		foreach($paper_weight_data as $key=>$value){
+
+			$paper_weight[$key] = ['pid' => $value->paper_weight_id, 'weight' => weightById($value->paper_weight_id)];
+		}
+
+		print_r(json_encode($paper_weight));
+
+
+	}
 
 
 }

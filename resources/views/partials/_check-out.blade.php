@@ -14,7 +14,7 @@
 							<div class="step"><span>3</span></div>
 							<div class="step"><span>4</span></div> 
 						</div> 
-     
+      
 						<div class="checkoutBlock col-half text-left">
 							{{-- <h1>Register:</h1> --}} 
 
@@ -22,7 +22,7 @@
 							<div class="tab" id="tab-fields">
 								<div class="displayBlock">
 									<label>{{ trans('checkout.binding_title') }}*:</label>
-									<p><select class = "" name = "binding" id = "binding" onclick="" onchange="getPrinting(); displayPrice(this.value,'','','','','','','','','','','','','','',''); resetFields(this.id,this.value); displayFields(this.value); displayProductAttributes('1',this);  sampleImage(); ">
+									<p><select class = "" name = "binding" id = "binding" onclick="" onchange="displayFields(this.value); displayPrice(this.value,'','','','','','','','','','','','','','',''); resetFields(this.id,this.value);  displayProductAttributes('1',this);  sampleImage(); getCoverSetting(this.value); getPageFormatData(this.value); ">
 										<option value = "-1">Select</option>
 										@foreach ($product_listing as $key=>$listing)
 										@if($listing->id != 8 && $listing->id != 5)
@@ -57,7 +57,7 @@
 										<p>Drop file here<a href="#" data-toggle="tooltip" title="PDF" class="formToolTip">i</a></p>
 										<p>or</p>
 										<p><input type="button" value="Select File" onclick="file_explorer('drop_file_zone_cover_sheet');"></p>
-										<input class = "displayNone" type="file" name="selectfile" id="selectfile" accept="application/pdf" value = "" multiple/>
+										<input class = "displayNone" type="file" name="selectfile" id="selectfile" accept="application/pdf" value = ""/>
 										<input class = "displayNone" type="hidden" name="selectfile_coversheet" id="selectfile_coversheet" value = "" />
 									</div>
 								</div>
@@ -92,7 +92,7 @@
 								<div class="tab">
 									<div class="displayBlock">
 										<label>{{ trans('checkout.side_options') }}*:</label>
-										<p><select class = "" id = "page_options" name = "page_options" onclick="displayFieldsContent(this.value);  displayProductAttributes('7',this);"  onchange="displayPrice('','',this.value,'','','','','','','','','','','','','');" >
+										<p><select class = "" id = "page_options" name = "page_options" onclick=""  onchange="displayFieldsContent(this.value);  displayProductAttributes('7',this); displayPrice('','',this.value,'','','','','','','','','','','','','');" >
 											<option value = "-1">Select</option>
 											@foreach ($page_options as $key=>$listing)
 											<option value="{{$listing->id}}">{{$listing->name_english}}</option>  
@@ -111,9 +111,9 @@
 										<p><select class = "" name="paper-weight" id="paper-weight" onchange="displayPrice('','','','','',this.value,'','','','','','','','','',''); getPaperWeightCount();"><option value="-1">Select</option></select></p> <p class="error" id="error_paper_weight"></p>
 									</div>  
 
-									<div class="displayBlock" id="div-no-of-copies">
+									<div class="displayBlock" id="div-no-of-pages">
 										<label> {{ trans('checkout.no_of_pages') }}*:<a id="page-format-tooltip" href="#" data-toggle="tooltip" title="" class="formToolTip">i</a></label>
-										<p><input type = "text" class = "" name="no_of_pages" id="no-of-pages" placeholder="No of Pages"  oninput="displayPrice('',this.value,'','','','','','','','','','','','','',''); displayProductAttributes('8',this);"></p>
+										<p><input type = "text" class = "" name="no_of_pages" id="no-of-pages" placeholder="No of Pages"  oninput="resetPrice('no-of-pages');displayPrice('',this.value,'','','','','','','','','','','','','',''); displayProductAttributes('8',this); NumberOfPages('binding','paper-weight','no-of-pages')"></p>
 										<p class="error" id="error_no_of_pages"></p>
 									</div>
  									
@@ -307,7 +307,9 @@
 												</div>  
 												<p class="error" id="error_selectfile_file"></p>
 
-												<div id="drop_file_info" class="displayNone"><label id="file_name"></label> <label id="file_page_no"></label> <label class = "displayNone" id="download_stylesheet"> <a href={{url('/').'/public/style_sheet/stylesheet.pdf'}} target="_blank" >Link for sample style sheet</a></label></div>
+												<div id="drop_file_info" class="displayNone"><label id="file_name"></label> <label id="file_page_no"></label></div>
+
+												<label class = "displayNone" id="download_stylesheet"> <a href={{url('/').'/public/style_sheet/stylesheet.pdf'}} target="_blank" >Link for sample style sheet</a></label>
  
 													<div class="displayBlock" id="div-embossment-spine">
 														<label class="csCheckbtn">{{ trans('checkout.refinement_spine') }}<a href="#" data-toggle="tooltip" title="Data is taken from cover sheet" class="formToolTip">i</a>
@@ -457,7 +459,7 @@
 															<p>Drop file here</p>   
 															<p>or</p>
 															<p><input type="button" value="Select File" onclick="file_explorer('upload_cd');"></p>
-															<input type="file" id="selectfile" name="selectfile" multiple>
+															<input type="file" id="selectfile" name="selectfile_upload_cd" multiple>
 															<input type="hidden" id="selectfile_cd" name="selectfile_cd">
 														</div>
 													</div> 
@@ -488,19 +490,19 @@
 													<p class="outside-box-heading displayNone"  id="upload_custom_logo_cd_heading">{{ trans('checkout.upload_logo_for_cd_template') }}</p>
 
 													<div class="displayNone" id="upload_custom_logo_cd" ondrop="upload_file(event,this.id)" ondragover="return false" class="displayBlock">
-														<div id="drag_upload_file_logo">
+														<div id="drag_upload_file_logo_custom">
 															<p class="inside-box-heading">{{ trans('checkout.upload_logo_for_cd_template') }}</p>
 															<p>Drop file here<a href="#" data-toggle="tooltip" title="jpeg,jpg,png" class="formToolTip">i</a></p> 
 															<p>or</p>
 															<p><input type="button" value="Select File" onclick=" file_explorer('upload_custom_logo_cd');"></p>
-															<input type="file" name ="selectfile" id="selectfile" accept="image/x-png">
+															<input type="file" name ="selectfile_custom_logo_cd" id="selectfile_custom_logo_cd" accept="image/*">
  
-															<input type="hidden" name ="selectfile_logo_cd" id="selectfile_logo_cd" accept="image/x-png">
+															<input type="hidden" name ="selectfile_logo_cd" id="selectfile_logo_cd" >
 														</div> 
 													</div>  
 													<p class="error" id="error_selectfile_logo_cd"></p>
 
-													<div id="drop_file_zone_logo_info_cd" class="displayNone"><label id="logo_file_name_cd"></label>
+													<div id="upload_custom_logo_info_cd" class="displayNone"><label id="logo_file_name_cd"></label>
 													<label id="logo_page_no_cd"></label><label id="logo_del_cd"></label></div>
 												
 														
