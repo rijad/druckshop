@@ -87,7 +87,12 @@ Route::post('/get-spine-count','CheckoutController@getSpineCount')->name('get-sp
 Route::post('/add-address','CheckoutController@addAddress')->name('add-address');
 Route::get('/get-discount-code-status','CheckoutController@getDiscountcodeStatus')->name('get-discount-code-status');
 Route::post('/get-A2-A3-count','CheckoutController@getA3A2Count')->name('get-A2-A3-count');
-//Route::post('/remove-particular-session','CheckoutController@removeParticularSession')->name('remove-particular-session');
+Route::post('/get-cover-settings','CheckoutController@getCoverSettings')->name('get-cover-settings');  
+Route::post('/get-cover-color','CheckoutController@getCoverColorData')->name('get-cover-color');
+Route::post('/get-cover-sheet','CheckoutController@getCoverSheetData')->name('get-cover-sheet');
+Route::post('/get-back-cover','CheckoutController@getBackCoverData')->name('get-back-cover');
+Route::post('/get-page-format','CheckoutController@getPageFormatData')->name('get-page-format');
+Route::post('/get-paper-weight','CheckoutController@getPaperWeightData')->name('get-paper-weight');
 
 // Binding Sample Image 
 Route::POST('/binding-sample-image','BindingSampleImageController@getSampleImage')->name('binding-sample-image');

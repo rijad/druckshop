@@ -1609,9 +1609,97 @@ ul.fcopyright-assets li a:hover {
     color: #b88862;;
 }
 
+#div-template-classic img.template-classic {
+    border: 1px solid #746d6d !important;
+    width: 100px;
+    margin-right: 5px;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+
+
+div#drop_file_zone_cover_sheet {
+    clear: both;
+    text-align: center;
+}
+div#drop_file_zone_cover_sheet input#selectfile {
+    visibility: hidden;
+}
+
+div#drop_file_zone_back_cover {
+    clear: both;
+    text-align: center;
+}
+div#drop_file_zone_back_cover input#selectfile {
+    visibility: hidden;
+}
+div#div-A3-pages {
+    padding-top: 15px;
+}
+div#drop_file_din_A3 {
+    margin-top: 15px;
+}
+div#drop_file_din_A2 {
+    margin-top: 15px;
+}
+#drag_upload_file_A2 label.inside-box-heading.diaplayNone {
+    display: none;
+}
+div#div-display-image img {
+    margin-bottom: 15px;
+  }
+div#upload_custom_logo {
+    clear: both;
+    margin-top: 15px;       
+}
+div#upload_custom_logo input#selectfile_logo_img {
+    visibility: hidden;
+}
+div#upload_custom_file {
+    clear: both;
+    margin-top: 15px;
+}
+div#upload_cd {
+    clear: both;
+    margin-top: 15px;
+}
+div#div-display-image-cd img{
+  margin-bottom: 15px;
+}
+div#upload_custom_logo_cd {
+    clear: both;
+    margin-top: 15px;
+}
+div#upload_cd_without_logo {
+    clear: both;
+    margin-top: 15px;
+    text-align: center;
+}
+div#upload_cd_without_logo input#selectfile {
+    visibility: hidden;
+}
+div#upload_custom_logo_cd input#selectfile_custom_logo_cd {
+    visibility: hidden;
+}
+
+
+
+
+
+
 /*media query starts from here*/
 
 @media only screen and (max-width:768px){
+
+  #div-template-classic img.template-classic {
+    border: 1px solid #746d6d !important;
+    width: 80px;
+    margin-right: 5px;
+    margin-bottom: 10px;
+  }
+
+
   .customer-profile-info ul li {
     display: block;
   }
@@ -1949,7 +2037,12 @@ div#div-section-1  label#field-1 {
 	    width: 50px;
 	}
 
-
+  #div-template-classic img.template-classic {
+    border: 1px solid #746d6d !important;
+    width: 90px;
+    margin-right: 5px;
+    margin-bottom: 10px;
+  }
 
 }
 

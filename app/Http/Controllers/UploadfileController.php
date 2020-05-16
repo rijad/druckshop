@@ -9,12 +9,9 @@ class UploadfileController extends Controller
 {
 	public function uploadFile(Request $request){
 
-		$arr_file_types = ['application/pdf'];
+		 $arr_file_types = ['application/pdf'];
 
-		if (!(in_array($_FILES['file']['type'], $arr_file_types))) {
-			echo "false";
-			return;
-		}
+		
 
 		 if (!file_exists(public_path().'/uploads')) {
 		 	mkdir(public_path().'/uploads', 0777); 
@@ -24,7 +21,13 @@ class UploadfileController extends Controller
 
 		move_uploaded_file($_FILES['file']['tmp_name'], public_path().'/uploads/' . time() . '_' . $_FILES['file']['name']);
 
-		$no_of_pages = self::countPages(public_path().'/uploads/' . time() . '_' . $_FILES['file']['name']);
+		if ((in_array($_FILES['file']['type'], $arr_file_types))) {
+			$no_of_pages = self::countPages(public_path().'/uploads/' . time() . '_' . $_FILES['file']['name']);
+		}else{
+			$no_of_pages = 0;
+		}
+
+		
 		$edit_file_name = time() . '_' . $_FILES['file']['name'];
 		$response_array = array('edit_name'=>$edit_file_name,'file_name'=>$_FILES['file']['name'], 'no_of_pages'=>$no_of_pages);
 	

@@ -604,21 +604,22 @@ class ProductController extends Controller
 
                 foreach ($request->cover_sheet as $key_cs => $value_cs) {
 
-                    $check_already_cs = ProductCoverSheet::where(['cover_sheet_id'=> $id, 'cover_sheet_id'=>$value_cs])->first();
+                    $check_already_cs = ProductCoverSheet::where(['product_id'=> $id, 'cover_sheet_id'=>$value_cs])->first();
 
                     if (!empty($check_already_cs)) {
 
-                        $update = ProductCoverSheet::where(['id'=> $check_already_cs->id])->update(['status'=> 1]);
+                        $update = ProductCoverSheet::where(['id'=> $check_already_cs->id])->update(['status'=> 1]);  
                     }else{
 
 
                         $cover_sheet_data = [
 
-                            'product_id' => $insert->id,
+                           // 'product_id' => $insert->id,
+                            'product_id' => $id,
                             'cover_sheet_id' => $value_cs,
                         ];
 
-                        $insert_cs = ProductCoverSheet::create($cover_sheet_data);
+                        $insert_cs = ProductCoverSheet::create($cover_sheet_data);  
                     }
 
                 }
@@ -638,7 +639,8 @@ class ProductController extends Controller
 
                         $back_cover_data = [
 
-                            'product_id' => $insert->id,
+                            //'product_id' => $insert->id,
+                            'product_id' => $id,
                             'back_cover_id' => $value_bc,
                         ];
 
@@ -759,7 +761,7 @@ class ProductController extends Controller
 
                 foreach ($request->art_list as $key_al => $value_al) {
 
-                    $check_already_al = ProductPrintFinishingArtList::where(['ps_product_pf_id'=> $getId->id, 'ps_art_list_id'=>$value_al])->first();
+                    $check_already_al = ProductPrintFinishingArtList::where(['ps_product_pf_id'=> $id, 'ps_art_list_id'=>$value_al])->first();
 
                     if (!empty($check_already_al)) {
 

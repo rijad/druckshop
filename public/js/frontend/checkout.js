@@ -106,20 +106,29 @@ function displayFieldsContent(page_options = ""){
 
 	// Get data for paper weight
 		if (typeof $content_attributes['paper_weight'] !== 'undefined' && $content_attributes['paper_weight'].length > 0) {
-			var len = $content_attributes['paper_weight'].length;
-			$("#paper-weight").empty();
-			$("#paper-weight").append("<option value='-1'>Select</option>");
-			for( var i = 0; i<len; i++){  
-				$("#paper-weight").append("<option value = "+$content_attributes['paper_weight'][i]['id']+">"+$content_attributes['paper_weight'][i]['paper_weight']+" g/m²</option>");
-			}
+			// var len = $content_attributes['paper_weight'].length;
+			// $("#paper-weight").empty();
+			// $("#paper-weight").append("<option value='-1'>Select</option>");
+			// for( var i = 0; i<len; i++){  
+			// 	$("#paper-weight").append("<option value = "+$content_attributes['paper_weight'][i]['id']+">"+$content_attributes['paper_weight'][i]['paper_weight']+" g/m²</option>");
+			// }
 
-			if($("#page_options option:selected").val() == "1"){ //single
-				$("#paper-weight").val(1);  
-				$("#paper-weight").trigger("onchange");
-			}else if($("#page_options option:selected").val() == "2"){ //both
-				$("#paper-weight").val(3);
-				$("#paper-weight").trigger("onchange");  
-			}
+			var binding = document.getElementById('binding').value;
+
+			getPaperWeight(binding);   alert("in");
+
+			// if($("#page_options option:selected").val() == "1"){ //single
+			// 	//$("#paper-weight option:selected").val(1);
+			// 	$("#paper-weight").val(1);
+			// 	//$('#paper-weight option[value="1"]').prop("selected", true);
+			// 	//$('#paper-weight option[value=1]').attr('selected','selected');  
+			// 	//$("#paper-weight").trigger("onchange"); 
+			// 	 alert("in1");
+			// }else if($("#page_options option:selected").val() == "2"){ //both
+			// 	$("#paper-weight").val(3);
+			// 	//$("#paper-weight").trigger("onchange"); 
+			// 	 alert("in2");
+			// }
 
 		}else{}
 
@@ -142,7 +151,7 @@ function displayFieldsContent(page_options = ""){
 
 } 
  
-function getPrinting(value){ 
+function getPrinting(){ 
 
 binding = document.getElementById('binding').value;
 	$.ajax({
@@ -184,15 +193,21 @@ function embossingChange(field = ""){
 
 	if($(field).find(":selected").val() != "-1"){
 
+
+		$("#embossment-spine").removeAttr('disabled');
+		$("#embossment-cover-sheet").removeAttr('disabled');
+
+		getPrinting();
+
 		//if($("#embossment-spine").is(":checked")){
 
 			if($(field).find(":selected").val() == "Classic"){
 					$('#fields_1 option[value="Topic"]').remove();
 
-					//if($("#embossment-cover-sheet").is(":checked")){
+					if($("#embossment-cover-sheet").is(":checked")){
 						document.getElementById('div-template-classic').className = 'displayBlock';
 				 		$("#template-classic").append("<p>Choose layout for standard cover with logo.</p><br><img class='template-classic' id='Klassik-1' src='"+base_url+"/public/images/templates/Binding_template/Klassik-1.jpg' onclick = displayImageClassic('"+base_url+"/public/images/templates/Binding_template/Klassik-1.jpg','Klassik-1.jpg',this);> <img class='template-classic' id='Klassik-2' src='"+base_url+"/public/images/templates/Binding_template/Klassik-2.jpg' onclick = displayImageClassic('"+base_url+"/public/images/templates/Binding_template/Klassik-2.jpg','Klassik-2.jpg',this);> <img class='template-classic' id='Klassik-3' src='"+base_url+"/public/images/templates/Binding_template/Klassik-3.jpg' onclick = displayImageClassic('"+base_url+"/public/images/templates/Binding_template/Klassik-3.jpg','Klassik-3.jpg',this);> ");
-					//}
+					}
 					document.getElementById('input_1').className = "displayNone";
 					document.getElementById('field-1').className = "displayNone";
 					document.getElementById('input_2').className = "displayNone";
@@ -236,6 +251,10 @@ function embossingChange(field = ""){
  
 	}else{
 
+
+		$("#embossment-cover-sheet").attr('disabled', true);  
+		$("#embossment-spine").attr('disabled', true);  
+
 		document.getElementById('div-fonts').className = "displayNone";
 
 	}
@@ -271,8 +290,9 @@ function displayPrintFields(embossment = ""){
 						document.getElementById('div-template-classic').className = 'displayNone';
 						$("#div-display-image-cd").empty();
 					}else if($('#embossing').val() == "Classic"){
-
 						document.getElementById('div-template-classic').className = 'displayBlock';
+						$("#template-classic").empty();
+				 		$("#template-classic").append("<p>Choose layout for standard cover with logo.</p><br><img class='template-classic' id='Klassik-1' src='"+base_url+"/public/images/templates/Binding_template/Klassik-1.jpg' onclick = displayImageClassic('"+base_url+"/public/images/templates/Binding_template/Klassik-1.jpg','Klassik-1.jpg',this);> <img class='template-classic' id='Klassik-2' src='"+base_url+"/public/images/templates/Binding_template/Klassik-2.jpg' onclick = displayImageClassic('"+base_url+"/public/images/templates/Binding_template/Klassik-2.jpg','Klassik-2.jpg',this);> <img class='template-classic' id='Klassik-3' src='"+base_url+"/public/images/templates/Binding_template/Klassik-3.jpg' onclick = displayImageClassic('"+base_url+"/public/images/templates/Binding_template/Klassik-3.jpg','Klassik-3.jpg',this);> ");
 
 					}
 					else{
@@ -280,6 +300,9 @@ function displayPrintFields(embossment = ""){
 						$("#div-display-image-cd").empty();
 					}
 				}else{
+
+					document.getElementById('div-template-classic').className = 'displayNone';
+						$("#template-classic").empty();
 					document.getElementById('div-template').className = "displayNone";
 					//document.getElementById('div-embossment-cover-sheet').className = "displayNone";
 					document.getElementById('upload_custom_logo').className = "displayNone";
@@ -295,6 +318,7 @@ function displayPrintFields(embossment = ""){
 					document.getElementById('div-date-format').className = "displayNone";
 					document.getElementById('upload_custom_file').className = "displayNone";
 					document.getElementById('upload_custom_file_heading').className = "outside-box-heading displayNone";
+
 				}
 
  
@@ -314,6 +338,8 @@ function displayPrintFields(embossment = ""){
 
 					document.getElementById('field-3').className = "displayNone";
 					document.getElementById('div-template-classic').className = 'displayNone';
+					$("#template-classic").empty();
+
 					$("#div-display-image-cd").empty();
 					
 				}else{ 
@@ -341,14 +367,20 @@ function displayPrintFields(embossment = ""){
 
 						document.getElementById('div-template-classic').className = 'displayNone';
 						$("#div-display-image-cd").empty();
-					}else{
+					}else{ 
 						document.getElementById('div-template').className = "displayNone";
 						document.getElementById('upload_custom_logo').className = "displayNone";   
 						document.getElementById('upload_custom_file').className = "displayNone";
 						document.getElementById('upload_custom_logo_heading').className = "displayNone";   
 						document.getElementById('upload_custom_file_heading').className = "displayNone";
-
-						document.getElementById('div-template-classic').className = 'displayBlock';
+						if($('#embossing').val() == "Classic"){  
+							document.getElementById('div-template-classic').className = 'displayBlock';
+							$("#template-classic").empty();
+				 			$("#template-classic").append("<p>Choose layout for standard cover with logo.</p><br><img class='template-classic' id='Klassik-1' src='"+base_url+"/public/images/templates/Binding_template/Klassik-1.jpg' onclick = displayImageClassic('"+base_url+"/public/images/templates/Binding_template/Klassik-1.jpg','Klassik-1.jpg',this);> <img class='template-classic' id='Klassik-2' src='"+base_url+"/public/images/templates/Binding_template/Klassik-2.jpg' onclick = displayImageClassic('"+base_url+"/public/images/templates/Binding_template/Klassik-2.jpg','Klassik-2.jpg',this);> <img class='template-classic' id='Klassik-3' src='"+base_url+"/public/images/templates/Binding_template/Klassik-3.jpg' onclick = displayImageClassic('"+base_url+"/public/images/templates/Binding_template/Klassik-3.jpg','Klassik-3.jpg',this);> ");
+				 		}else{
+				 			document.getElementById('div-template-classic').className = 'displayNone';
+							$("#template-classic").empty();
+				 		}
 					}
 					
 					document.getElementById('upload_custom_file').className = "displayNone";
@@ -359,12 +391,16 @@ function displayPrintFields(embossment = ""){
 					}
 
 					//document.getElementById('div-fonts').className = "displayNone";
-				}else{
+				}else{ 
+
+					document.getElementById('div-template-classic').className = 'displayNone';
+						$("#template-classic").empty();
 					document.getElementById('div-template').className = "displayNone";
 					//document.getElementById('div-embossment-cover-sheet').className = "displayNone";
 					document.getElementById('upload_custom_logo').className = "displayNone";
 					document.getElementById('upload_custom_logo_heading').className = "outside-box-heading displayNone";
-					document.getElementById('drop_file_zone_logo_info_cd').className = "displayNone";
+					//document.getElementById('drop_file_zone_logo_info_cd').className = "displayNone";
+					document.getElementById('upload_custom_logo_info_cd').className = "displayNone";
 					document.getElementById('div-remarks').className = "displayNone"; 
 					document.getElementById('upload_custom_file').className = "displayNone";
 					document.getElementById('upload_custom_file_heading').className = "outside-box-heading displayNone";
@@ -378,8 +414,8 @@ function displayPrintFields(embossment = ""){
 					}
 					document.getElementById('div-date-format').className = "displayNone";
 					document.getElementById('div-display-image').className = "displayNone";
-					document.getElementById('div-template-classic').className = 'displayNone';
-					$("#div-display-image-cd").empty();
+					
+				 	$("#div-display-image-cd").empty();
 					
 				}
 
@@ -388,6 +424,7 @@ function displayPrintFields(embossment = ""){
 				if($("#embossment-spine").is(":checked")){
 					document.getElementById('div-remarks').className = "displayBlock"; 
 					document.getElementById('div-template-classic').className = 'displayNone';
+					$("#template-classic").empty();
 					$("#div-display-image-cd").empty();
 
 					document.getElementById('div-direction').className = "displayBlock";
@@ -1143,7 +1180,7 @@ function displayPrice(binding = "", no_ofsheets = "", page_options = "", embossi
 		cdCover = cd_cover;
 
 	}
-
+ 
 
 	$.ajax({
 		url: base_url+'/get-price', 
@@ -1166,7 +1203,7 @@ function displayPrice(binding = "", no_ofsheets = "", page_options = "", embossi
 	}); 
 
 }  
-
+ 
 
 // -------     Code to handle checkout page pagination Starts----------- //
 
@@ -1378,7 +1415,7 @@ function displayPrice(binding = "", no_ofsheets = "", page_options = "", embossi
 
 				}
 
-				if($("#fields_1").find(":selected").val() == "-1" || $("#pos_1").find(":selected").val() == "-1" || $("#input_1").val() == ""){
+				if($("#fields_1").find(":selected").val() == "-1" || $("#pos_1").find(":selected").val() == "-1" || $("#input_1").val().length <= 0){
 					 $("#fields_1").addClass('invalid'); 
 					 $("#pos_1").addClass('invalid'); $('#error-section-1').html('Fill all Fields in this section 1'); valid = false; return false;
 				} 
@@ -1824,15 +1861,24 @@ function checkPageRange(id1 = '', id2 = '' ,value_id = ''){
 			var max  = parseInt(data['max_sheets']);
 			var no_of_pages = document.getElementById('pg_no').value;
 
-			document.getElementById('error_no_of_pages').innerHTML = "Range is "+ min + " - " + max + " and Uploaded file contains "+ no_of_pages + " Page(s), Range should not exceed this count.";
-			
-			//console.log(value+"-----"+min+"-----"+max);
+			// document.getElementById('error_no_of_pages').innerHTML = "Range is "+ min + " - " + max + " and No of Pages is  "+ no_of_pages + " Page(s), ->  Number of pages are out of range.";
+			// document.getElementById('error_no_of_pages').style.color = "#000000";
+			// document.getElementById('error_no_of_pages').innerHTML = "Range is "+ min + " - " + max ;
 
-			// if(value > no_of_pages){
-			// 	status = false;
-			// }
+			console.log(value+"-----"+min+"-----"+max);
+
+			if(value > no_of_pages){
+
+				document.getElementById('error_no_of_pages').innerHTML = "Range is "+ min + " - " + max + " and No of Pages is  "+ no_of_pages + " Page(s), ->  Number of pages are out of range.";
+				document.getElementById('error_no_of_pages').style.color = "red";
+
+				status = false;
+			} 
 
 			if(value < min || value > max){
+
+				document.getElementById('error_no_of_pages').style.color = "#000000";
+				document.getElementById('error_no_of_pages').innerHTML = "Range is "+ min + " - " + max ;
 				status = false;
 			}
 
@@ -2116,7 +2162,7 @@ function getA3A2Count(format = ""){
 			url: base_url+'/get-A2-A3-count', 
 			type: 'POST', 
 			data: {'_token': $('meta[name="csrf-token"]').attr('content'),'page_format':page_format},
-			success: function (response){  
+			success: function (response){   
 
 				var data = JSON.parse(response); 
 
@@ -2128,18 +2174,25 @@ function getA3A2Count(format = ""){
 
 				if( data['can_add_din_A3']){  alert("1:"+data['can_add_din_A3']);
 
-				$("#A3-pages").removeAttr("disabled");
+				//$("#A3-pages").removeAttr("disabled");
+
+				$("#A3-pages").addClass('displayBlock');
 
 				}else{
-				$("#A3-pages").attr('disabled', true);  
+				//$("#A3-pages").attr('disabled', true);    
+				$("#A3-pages").addClass('displayNone');
 				}
  
 				if(data['can_add_din_A2']){
 
-					  $("#A2-pages").removeAttr("disabled");  
+					  // $("#A2-pages").removeAttr("disabled");   
+					  $("#A2-pages").addClass('displayBlock');
+					  
+
 
 				}else{
-					$("#A2-pages").attr('disabled', true);   
+					//$("#A2-pages").attr('disabled', true);   
+					$("#A2-pages").addClass('displayNone');  
 				}
 				
 			}
@@ -2173,10 +2226,159 @@ function resetPrice(session = ""){
 
 		displayPrice('','','','','','','','0','','','','','','','',''); // A3
 
+	}else if(session == "no-of-pages"){ // No of pages
+
+		var value = $('#no-of-pages').val();
+
+		//displayPrice('',value,'','','','','','','','','','','','','','');
+ 
 	}
 
+}
 
 
+function getCoverSetting(binding){
+
+	$.ajax({
+			url: base_url+'/get-cover-settings', 
+			type: 'POST', 
+			data: {'binding': binding , '_token': $('meta[name="csrf-token"]').attr('content')},
+			success: function (response){  
+
+				if(response == '1'){   
+
+					$('#div-cover-color').addClass('displayBlock');
+					
+
+				}else if(response == '2'){
+
+					$('#div-cover-color').addClass('displayBlock');
+					$('#div-cover-sheet').addClass('displayBlock');
+					$('#div-back-cover').addClass('displayBlock');
 
 
+				}else if(response == '3'){
+
+					$('#div-cover-color').addClass('displayNone');
+					$('#div-cover-sheet').addClass('displayNone');
+					$('#div-back-cover').addClass('displayNone');
+					
+				}
+
+				if(response == '1' || response == '2'){
+					$.ajax({
+						url: base_url+'/get-cover-color', 
+						type: 'POST', 
+						data: {'binding': binding , '_token': $('meta[name="csrf-token"]').attr('content')},
+						success: function (response_color){  var data = JSON.parse(response_color); 
+
+							$('#cover-color').empty();
+							$('#cover-color').append('<option value="-1">Select</option>');
+
+							data.forEach(function(data) {
+								$('#cover-color').append("<option value='"+data.id+"'>"+data.color+ "</option>");
+							})
+
+							
+						}
+					});
+				}
+
+
+				if(response == '2'){
+
+					$.ajax({
+						url: base_url+'/get-cover-sheet', 
+						type: 'POST', 
+						data: {'binding': binding , '_token': $('meta[name="csrf-token"]').attr('content')},
+						success: function (response_cover){  var data = JSON.parse(response_cover); 
+
+							$('#cover-sheet').empty();
+							$('#cover-sheet').append('<option value="-1">Select</option>');
+
+							data.forEach(function(data) {
+								$('#cover-sheet').append("<option value='"+data.id+"'>"+data.cover+ "</option>");
+							})	
+
+							
+						}
+					});
+
+
+					$.ajax({
+						url: base_url+'/get-back-cover', 
+						type: 'POST', 
+						data: {'binding': binding , '_token': $('meta[name="csrf-token"]').attr('content')},
+						success: function (response_cover){  var data = JSON.parse(response_cover); 
+
+							$('#back-cover').empty();
+							$('#back-cover').append('<option value="-1">Select</option>');
+
+							data.forEach(function(data) {
+								$('#back-cover').append("<option value='"+data.id+"'>"+data.cover+ "</option>");
+							})	
+
+							
+						}
+					});
+
+				}
+
+			}
+		});
+	
+}
+
+
+function getPageFormatData(binding = ""){
+
+
+	$.ajax({
+		url: base_url+'/get-page-format', 
+		type: 'POST', 
+		data: {'binding': binding , '_token': $('meta[name="csrf-token"]').attr('content')},
+		success: function (response_color){  var data = JSON.parse(response_color); 
+
+			$('#page-format').empty();
+			$('#page-format').append('<option value="-1">Select</option>');
+
+			data.forEach(function(data) {
+				$('#page-format').append("<option value='"+data.id+"'>"+data.cover+ "</option>");
+			})	
+		}
+	});
+}
+
+function getPaperWeight(binding = ""){
+
+
+	$.ajax({
+		url: base_url+'/get-paper-weight', 
+		type: 'POST', 
+		data: {'binding': binding , '_token': $('meta[name="csrf-token"]').attr('content')},
+		success: function (response_weight){  var data = JSON.parse(response_weight); 
+
+
+			$('#paper-weight').empty();
+			$('#paper-weight').append('<option value="-1">Select</option>');
+
+
+			data.forEach(function(data) {
+				$('#paper-weight').append("<option value='"+data.pid+"'>"+data.weight+ " g/m²</option>");
+			})
+
+			if($("#page_options option:selected").val() == "1"){ //single
+				$('#paper-weight option[value="1"]').attr('selected','selected');  
+				$("#paper-weight").trigger("onchange"); 
+
+			}else if($("#page_options option:selected").val() == "2"){ //both
+				$('#paper-weight option[value="3"]').attr('selected','selected'); 
+				$("#paper-weight").trigger("onchange"); 
+
+			}
+
+
+			
+		}
+	});
 }
