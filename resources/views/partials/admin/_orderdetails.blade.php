@@ -100,7 +100,19 @@
 @if($key == "selectfile_backcover" || $key == "selectfile_coversheet" || $key == "selectfile_content" || $key == "selectfile_din_A3" || $key == "selectfile_din_A2" || $key == "selectfile_logo" || $key == "selectfile_file" || $key == "selectfile_cd" || $key == "selectfile_logo_cd" || $key == "selectfile_upload_cd_without_logo" || $key == "embossment-template-name" || $key == "cd-template-name") @if($value != null )
 <tr>
 <td>{{$i++}}</td>
-<td colspan='4'>{{$key}}</td>
+<td colspan='4'>
+    @if($key == "selectfile_backcover") {{'Back Cover File'}} @endif
+    @if($key == "selectfile_coversheet") {{'Cover Sheet File'}} @endif
+    @if($key == "selectfile_content") {{'Thesis File'}} @endif
+    @if($key == "selectfile_din_A3") {{'Upload DIN A3 pages'}} @endif
+    @if($key == "selectfile_din_A2") {{'Upload DIN A2 Pages'}} @endif
+    @if($key == "selectfile_logo") {{'Upload Logo for binding template'}} @endif
+    @if($key == "selectfile_cd") {{'Upload file(s) on CD'}} @endif
+    @if($key == "selectfile_logo_cd") {{'Upload logo for CD template'}} @endif
+    @if($key == "selectfile_upload_cd_without_logo") {{'Upload own CD template'}} @endif
+    @if($key == "embossment-template-name") {{'Embossment Template File'}} @endif
+    @if($key == "cd-template-name") {{'CD Template File'}} @endif
+</td>
 
 
 <td colspan='2'>@if($key == "selectfile_backcover" || $key == "selectfile_coversheet" || $key == "selectfile_content" || $key == "selectfile_din_A3" || $key == "selectfile_din_A2" || $key == "selectfile_logo" || $key == "selectfile_file" || $key == "selectfile_cd" || $key == "selectfile_logo_cd" || $key == "selectfile_upload_cd_without_logo") @if($value != null ) <a href={{url('/').'/public/uploads/'.$value}} target="_blank" >Download</a> @endif @endif

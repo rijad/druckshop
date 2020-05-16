@@ -573,13 +573,15 @@
             $(this).parents(".paper_div").remove();
         });
 
+        
+        
+
 
     });
 
+    $('#dataTable').dataTable( {
+        "ordering": false,
+        "destroy": true,
+        });
 
-
-$('#dataTable').dataTable( {
-  "ordering": false,
-   "destroy": true,
-} );
 </script>

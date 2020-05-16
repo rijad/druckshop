@@ -11,6 +11,7 @@
                                         <th>Transaction</th>
                                         <th>Amount</th>
                                         <th>Order_id</th>
+                                        <th>Payment Date</th>
                                     </tr>
                                 </thead>
                                 <tfoot>
@@ -21,6 +22,7 @@
                                         <th>Transaction</th>
                                         <th>Amount</th>
                                         <th>Order_id</th>
+                                        <th>Payment Date</th>
                                     </tr>
                                 </tfoot>
                                 <tbody>
@@ -29,10 +31,14 @@
                                             <tr>
                                                 <td>{{ $pay->payment_type }}</td>
                                                 <td>{{ $pay->status }}</td>
-                                                <td>{{ $pay->user_id }}</td>
+                                                <td>    @php
+                                                        echo App\Http\Controllers\Admin\PaymentController::users($pay->user_id);
+                                                        @endphp
+                                                </td>
                                                 <td>{{ $pay->txn }}</td>
                                                 <td>{{ $pay->amount }}</td>
                                                 <td>{{ $pay->order_id }}</td>
+                                                <td>{{ $pay->created_at }}</td>
                                             </tr> 
                                         @endforeach
                                     @endif
