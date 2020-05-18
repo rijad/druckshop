@@ -1,6 +1,6 @@
 <div class="content-wrapper">
 			<div class="container"> 
-
+ 
 				<div class="checkoutStepper col-full text-left"> 
 
 					<!-- ====================== stepper added ================== -->
@@ -22,7 +22,7 @@
 							<div class="tab" id="tab-fields">
 								<div class="displayBlock">
 									<label>{{ trans('checkout.binding_title') }}*:</label>
-									<p><select class = "" name = "binding" id = "binding" onclick="" onchange="displayFields(this.value); displayPrice(this.value,'','','','','','','','','','','','','','',''); resetFields(this.id,this.value);  displayProductAttributes('1',this);  sampleImage(); getCoverSetting(this.value); getPageFormatData(this.value); ">
+									<p><select class = "" name = "binding" id = "binding" onclick="" onchange=" displayPrice(this.value,'','','','','','','','','','','','','','',''); resetFields(this.id,this.value);  displayProductAttributes('1',this);  sampleImage(); getCoverSetting(this.value); getPageFormatData(this.value); ">
 										<option value = "-1">Select</option>
 										@foreach ($product_listing as $key=>$listing)
 										@if($listing->id != 8 && $listing->id != 5)
@@ -151,7 +151,7 @@
 												<p class="error" id="error_page_numbers"></p>
 												<p class="error" id="error_range"></p><label>Example : 3,12,15-23,37</label></p>
 										</div>
-											<div class="displayBlock" id="div-A3-pages">
+											<div class="displayNone" id="div-A3-pages">
 												<label class="csCheckbtn">{{ trans('checkout.din_A3_pages') }}
 													<input class = ""  name = "A3-pages" id = "A3-pages" type="checkbox" onchange="displayContentInput('A3_Pages'); resetPrice('A3');"  > 
 													<span class="checkmark"></span>
@@ -187,7 +187,7 @@
 											<div id="drop_file_din_A3_info" class="displayNone"><label id="A3_file_name"></label>
 												<label id="A3_page_no"></label><label id="A3_del"></label></div>
 
-												<div class="displayBlock" id="div-A2-pages">
+												<div class="displayNone" id="div-A2-pages">
 													<label class="csCheckbtn">Din A2 Pages
 														<input class = "" name = "A2-pages" id = "A2-pages" type="checkbox" onchange="displayContentInput('A2_Pages'); resetPrice('A2');" >
 														<span class="checkmark"></span>
@@ -316,10 +316,12 @@
 															<input class = "" type="checkbox" id = "embossment-spine" name = "embossment-spine" onchange = "displayPrice('','','','',this.value,'','','','','','','','','','',''); displayProductAttributes('10',this); displayPrintFields('Embossment_spine'); " disabled>
 															<span class="checkmark"></span>
 														</label>
-														<p id="spine-count"></p>
-														<p id="spine-message"></p>
+														
 														<input type = "hidden" id="spine-count-hidden" name="spine-count-hidden">
 													</div> 
+
+													<p id="spine-count"></p>
+													<p id="spine-message"></p>
 
 													<div class="displayNone" id="div-fonts-spine">
 														<label>{{ trans('checkout.font_type') }}*:</label>
@@ -459,7 +461,7 @@
 															<p>Drop file here</p>   
 															<p>or</p>
 															<p><input type="button" value="Select File" onclick="file_explorer('upload_cd');"></p>
-															<input type="file" id="selectfile" name="selectfile_upload_cd" multiple>
+															<input type="file" id="selectfile_upload_cd" name="selectfile_upload_cd" accept = "application/pdf" multiple>
 															<input type="hidden" id="selectfile_cd" name="selectfile_cd">
 														</div>
 													</div> 

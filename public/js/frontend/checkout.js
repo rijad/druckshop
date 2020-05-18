@@ -115,7 +115,7 @@ function displayFieldsContent(page_options = ""){
 
 			var binding = document.getElementById('binding').value;
 
-			getPaperWeight(binding);   alert("in");
+			getPaperWeight(binding);   
 
 			// if($("#page_options option:selected").val() == "1"){ //single
 			// 	//$("#paper-weight option:selected").val(1);
@@ -159,7 +159,7 @@ binding = document.getElementById('binding').value;
 		type: 'GET', 
 		data: {'binding_type' : binding},
 		success: function (response){
-			var data = JSON.parse(response);  console.log(response);
+			var data = JSON.parse(response);  
 			
 			if(data == 1){ // page 4
 
@@ -173,17 +173,17 @@ binding = document.getElementById('binding').value;
 				$("#embossment-spine").removeAttr('disabled');  
 				$("#embossment-cover-sheet").removeAttr('disabled');
 
-			}else if(data == 3){
+			}else if(data == 3){ 
 
 				$("#embossment-cover-sheet").attr('disabled', true);
 				$("#embossment-spine").attr('disabled', true);
-				$('#spine-message').html('Standard Refinement and Refinement with Embossing cannot be Activated, it is not available for this Product');
+				$('#spine-message').html('Refinement cannot be activated since it is not available for this product');
 				
 			}else{
 
 				$("#embossment-cover-sheet").attr('disabled', true);
 				$("#embossment-spine").attr('disabled', true);
-				$('#spine-message').html('Standard Refinement and Refinement with Embossing cannot be Activated, it is not available for this Product');
+				$('#spine-message').html('Refinement cannot be activated since it is not available for this product');
 			}
 		}
 	}); 
@@ -197,7 +197,7 @@ function embossingChange(field = ""){
 		$("#embossment-spine").removeAttr('disabled');
 		$("#embossment-cover-sheet").removeAttr('disabled');
 
-		getPrinting();
+		var execute = getPrinting();
 
 		//if($("#embossment-spine").is(":checked")){
 
@@ -222,7 +222,7 @@ function embossingChange(field = ""){
 					document.getElementById('upload_custom_logo_heading').className = "displayNone";   
 					document.getElementById('upload_custom_file_heading').className = "displayNone";
 			}else{
-
+ 
 					document.getElementById('div-template-classic').className = 'displayNone';
 					$("#div-display-image-cd").empty();
 					document.getElementById('input_1').className = "displayBlock";
@@ -301,6 +301,12 @@ function displayPrintFields(embossment = ""){
 					}
 				}else{
 
+					$('#template').val('-1');
+					$("#div-display-image").empty();
+					$("#embossment-template-name").val('');
+
+					document.getElementById('upload_custom_logo_info').className = 'displayNone';
+					document.getElementById('drop_file_info').className = 'displayNone';
 					document.getElementById('div-template-classic').className = 'displayNone';
 						$("#template-classic").empty();
 					document.getElementById('div-template').className = "displayNone";
@@ -312,7 +318,7 @@ function displayPrintFields(embossment = ""){
 
 					document.getElementById('upload_custom_file').className = "displayNone";  
 					document.getElementById('upload_custom_file_heading').className = "displayNone";
-					$("#div-display-image").empty();
+					
 					document.getElementById('div-display-image').className = "displayNone";
 					document.getElementById('div-fonts').className = "displayNone";
 					document.getElementById('div-date-format').className = "displayNone";
@@ -347,6 +353,7 @@ function displayPrintFields(embossment = ""){
 					document.getElementById('div-section-1').className = "displayNone";
 					document.getElementById('div-section-2').className = "displayNone";
 					document.getElementById('div-section-3').className = "displayNone";
+					document.getElementById('fonts-spine').className = "displayNone";
 					}
 			}
 
@@ -393,6 +400,13 @@ function displayPrintFields(embossment = ""){
 					//document.getElementById('div-fonts').className = "displayNone";
 				}else{ 
 
+
+					$('#template').val('-1');
+					$("#div-display-image").empty();
+					$("#embossment-template-name").val('');
+
+					document.getElementById('upload_custom_logo_info').className = 'displayNone';
+					document.getElementById('drop_file_info').className = 'displayNone';
 					document.getElementById('div-template-classic').className = 'displayNone';
 						$("#template-classic").empty();
 					document.getElementById('div-template').className = "displayNone";
@@ -459,6 +473,8 @@ function displayPrintFields(embossment = ""){
 					}
 					
 				}else{
+
+					document.getElementById('fonts-spine').className = "displayNone";
 					document.getElementById('div-direction').className = "displayNone";
 					document.getElementById('div-section-1').className = "displayNone";
 					document.getElementById('div-section-2').className = "displayNone";
@@ -838,10 +854,52 @@ function displayCDFields(value = ""){
 		document.getElementById('upload_cd').className = "displayNone";
 		document.getElementById('upload_cd_heading').className = "outside-box-heading displayNone";
 		document.getElementById('div-cd-imprint').className = "displayNone";
-		document.getElementById('div-cd-bag').className = "displayNone";	
+		document.getElementById('div-cd-bag').className = "displayNone";
+
+
+		document.getElementById('numbers-of-cds').value = '';
+		document.getElementById('selectfile_cd').value ='';	
+		document.getElementById('selectfile_upload_cd').value = '';
+		document.getElementById('drop_file_zone_cd').className = 'displayNone';
+
+
+		file_name = $('#selectfile_cd').val(); 
+    	id = "upload_cd"; 
+     	removeFile(file_name,id,'1');
+
+     	if($("#imprint").is(":checked")){
+
+     		$("#imprint").prop("checked", false);
+     		document.getElementById('cd-template').value = "-1";
+     		document.getElementById('div-cd-template').className = "displayNone";
+     		document.getElementById('div-display-image-cd').className = "displayNone"; 
+     		$('#div-display-image-cd').empty();
+
+     		if($('#cd-template-name').length){
+     			document.getElementById('cd-template-name').value = '';
+     		}
+     		
+     		document.getElementById('selectfile_custom_logo_cd').value='';
+     		document.getElementById('selectfile_logo_cd').value='';
+     		document.getElementById('div-fonts-cd').className = 'displayNone';
+     		document.getElementById('fonts-cd').value=-1;
+     		document.getElementById('upload_custom_logo_cd').className = 'displayNone';
+     		document.getElementById('upload_custom_logo_cd_heading').className = 'displayNone';
+     		document.getElementById('drop_upload_cd_without_logo').className = 'displayNone';
+     		document.getElementById('upload_cd_without_logo_heading').className = 'displayNone';
+
+
+     		file_name = $('#selectfile_logo_cd').val(); 
+		    id = "upload_custom_logo_cd";
+		    removeFile(file_name,id,'1');
+
+
+     	}
+
+		
 		}
 
-	}else if(value == "imprint"){
+	} if(value == "imprint"){
 
 		if($("#imprint").is(":checked")){
 			document.getElementById('div-cd-template').className = "displayBlock";
@@ -849,6 +907,28 @@ function displayCDFields(value = ""){
 			document.getElementById('div-cd-template').className = "displayNone";   
 			document.getElementById('div-display-image-cd').className = "displayNone"; 
 			$('#div-display-image-cd').empty();
+
+
+			//$("#imprint").prop("checked", false);
+     		document.getElementById('div-cd-template').className = "displayNone";
+     		document.getElementById('cd-template').value = "-1";
+     		$('#div-display-image-cd').empty();
+     		if($('#cd-template-name').length){
+     			document.getElementById('cd-template-name').value = '';
+     		}
+     		document.getElementById('selectfile_custom_logo_cd').value='';
+     		document.getElementById('selectfile_logo_cd').value='';
+     		document.getElementById('fonts-cd').value=-1;
+     		document.getElementById('div-fonts-cd').className = 'displayNone';
+     		document.getElementById('upload_custom_logo_cd').className = 'displayNone';
+     		document.getElementById('upload_custom_logo_cd_heading').className = 'displayNone';
+     		document.getElementById('drop_upload_cd_without_logo').className = 'displayNone';
+     		document.getElementById('upload_cd_without_logo_heading').className = 'displayNone';
+
+     		file_name = $('#selectfile_logo_cd').val(); 
+		    id = "upload_custom_logo_cd";
+			removeFile(file_name,id,'1');
+
 		}
 		//document.getElementById('div-cd-bag').className = "displayBlock";
 	}
@@ -865,6 +945,8 @@ function cdBagPosition(){
 	}
 
 }
+
+
 
 
 function displayContentInput(option = ""){
@@ -940,6 +1022,10 @@ function hideBindingElements(value = ""){
 			document.getElementById('drop_file_zone_back_cover_heading').className = "outside-box-heading displayNone";
 			document.getElementById('drop_file_zone_back_cover_sheet_info').className = "displayNone";
 			document.getElementById('selectfile_backcover').value=""; // empty file field as well
+			file_name = $('#selectfile_backcover').val(); 
+		    id = "drop_file_zone_back_cover";
+
+		     removeFile(file_name,id,'1');
 		}
 	}
 
@@ -949,6 +1035,10 @@ function hideBindingElements(value = ""){
 			document.getElementById('drop_file_zone_cover_sheet_heading').className = "outside-box-heading displayNone";
 			document.getElementById('drop_file_zone_cover_sheet_info').className = "displayNone";
 			document.getElementById('selectfile_coversheet').value=""; // empty file field as well
+			file_name = $('#selectfile_coversheet').val();
+		    id = "drop_file_zone_cover_sheet";   
+
+		    removeFile(file_name,id,'1');
 		}
 	}
 
@@ -1232,33 +1322,58 @@ function displayPrice(binding = "", no_ofsheets = "", page_options = "", embossi
 			}
 
 			// binding field is selected
-				$product_attributes = getProductAttributes(binding);
+				//$product_attributes = getProductAttributes(binding);
 
 			// Get data for page format
-			if (typeof $product_attributes['page_format'] !== 'undefined' && $product_attributes['page_format'].length > 0) {
+			// if (typeof $product_attributes['page_format'] !== 'undefined' && $product_attributes['page_format'].length > 0) {
+			// 	if($("#page-format").find(":selected").val() == "-1"){ $("#page-format").addClass('invalid'); $('#error_page_format').html('Page Format Field is required'); valid = false; return false;}
+			// }else{valid = true; return true;}
+
+			// //Get data for cover color
+			// if (typeof $product_attributes['cover_color'] !== 'undefined' && $product_attributes['cover_color'].length > 0) {	
+			// 	if($("#cover-color").find(":selected").val() == "-1"){$("#cover-color").addBack().addClass('invalid'); $('#error_cover_color').html('Cover Color Field is required'); valid = false; return false;}	
+			// }else{valid = true; return true;}
+
+
+			// //Get data for cover sheet
+			// if (typeof $product_attributes['cover_sheet'] !== 'undefined' && $product_attributes['cover_sheet'].length > 0) {	
+			// 	if($("#cover-sheet").find(":selected").val() == "-1"){$("#cover-sheet").addBack().addClass('invalid'); $('#error_cover_sheet').html('Cover Color Field is required'); valid = false; return false;}
+			// }else{valid = true; return true;}
+
+
+			// //Get data for back cover
+			// if (typeof $product_attributes['back_cover'] !== 'undefined' && $product_attributes['back_cover'].length > 0) {	
+			// 	if($("#back-cover").find(":selected").val() == "-1"){$("#back-cover").addBack().addClass('invalid'); $('#error_back_cover').html('Back Cover Field is required'); valid = false; return false;}
+			// }else{valid = true; return true;}
+
+
+			if ($("#page-format").hasClass('displayBlock')) {
 				if($("#page-format").find(":selected").val() == "-1"){ $("#page-format").addClass('invalid'); $('#error_page_format').html('Page Format Field is required'); valid = false; return false;}
-			}else{valid = true; return true;}
+			}
 
 			//Get data for cover color
-			if (typeof $product_attributes['cover_color'] !== 'undefined' && $product_attributes['cover_color'].length > 0) {	
+			if ($("#div-cover-color").hasClass('displayBlock')) {	
 				if($("#cover-color").find(":selected").val() == "-1"){$("#cover-color").addBack().addClass('invalid'); $('#error_cover_color').html('Cover Color Field is required'); valid = false; return false;}	
-			}else{valid = true; return true;}
+			}
 
 
 			//Get data for cover sheet
-			if (typeof $product_attributes['cover_sheet'] !== 'undefined' && $product_attributes['cover_sheet'].length > 0) {	
+			if ($("#div-cover-sheet").hasClass('displayBlock')) {	
 				if($("#cover-sheet").find(":selected").val() == "-1"){$("#cover-sheet").addBack().addClass('invalid'); $('#error_cover_sheet').html('Cover Color Field is required'); valid = false; return false;}
-			}else{valid = true; return true;}
+				// input type file
+			 if($("#selectfile_coversheet").val() == ""){ alert($("#selectfile_coversheet").val()); $("#drop_file_zone_cover_sheet").addBack().addClass('invalid'); $('#error_selectfile_coversheet').html('Field is required'); valid = false; return false;}
+			}
 
 
 			//Get data for back cover
-			if (typeof $product_attributes['back_cover'] !== 'undefined' && $product_attributes['back_cover'].length > 0) {	
+			if ($("#div-back-cover").hasClass('displayBlock')) {	
 				if($("#back-cover").find(":selected").val() == "-1"){$("#back-cover").addBack().addClass('invalid'); $('#error_back_cover').html('Back Cover Field is required'); valid = false; return false;}
-			}else{valid = true; return true;}
+				if($("#selectfile_backcover").val() == ""){alert($("#selectfile_backcover").val()); $("#drop_file_zone_back_cover").addBack().addClass('invalid'); $('#error_selectfile_backcover').html('Field is required'); valid = false; return false;}
+			}
 
-			// input type file
-			 if($("#selectfile_coversheet").val() == ""){ alert($("#selectfile_coversheet").val()); $("#drop_file_zone_cover_sheet").addBack().addClass('invalid'); $('#error_selectfile_coversheet').html('Field is required'); valid = false; return false;}else{valid = true;return true;}
-			 if($("#selectfile_backcover").val() == ""){alert($("#selectfile_backcover").val()); $("#drop_file_zone_back_cover").addBack().addClass('invalid'); $('#error_selectfile_backcover').html('Field is required'); valid = false; return false;}else{valid = true; return true;}
+
+			
+			 
 
 
 			}// end of outer else 
@@ -1400,11 +1515,11 @@ function displayPrice(binding = "", no_ofsheets = "", page_options = "", embossi
 
 			if($("#embossment-spine").is(":checked")){   
 
-			if($('#div-fonts').hasClass("displayBlock")){
+			if($('#div-fonts-spine').hasClass("displayBlock")){   
 
-				if($("#fonts").find(":selected").val() == "-1"){
-						$("#fonts").addClass('invalid'); 
-						$('#error_fonts').html('Fonts Field is required'); 
+				if($("#fonts-spine").find(":selected").val() == "-1"){   
+						$("#fonts-spine").addClass('invalid'); 
+						$('#error_fonts-spine').html('Fonts Field is required'); 
 						valid = false; return false;
 				} 
 			}
@@ -1417,7 +1532,20 @@ function displayPrice(binding = "", no_ofsheets = "", page_options = "", embossi
 
 				if($("#fields_1").find(":selected").val() == "-1" || $("#pos_1").find(":selected").val() == "-1" || $("#input_1").val().length <= 0){
 					 $("#fields_1").addClass('invalid'); 
-					 $("#pos_1").addClass('invalid'); $('#error-section-1').html('Fill all Fields in this section 1'); valid = false; return false;
+					 if($("#input_1").val().length <= 0){
+
+					 	$("#input_1").addClass('invalid');  
+
+					 } if($("#pos_1").find(":selected").val() == "-1"){   
+
+					 	$("#pos_1").addClass('invalid');  
+
+					 } if($("#fields_1").find(":selected").val() == "-1" ){
+					 	 $("#fields_1").addClass('invalid'); 
+					 }
+
+					 $('#error-section-1').html('Fill all Fields in this section 1'); valid = false; return false;
+					 
 				} 
 				
 					var allowed_letters = parseInt($('#spine-count-hidden').val());
@@ -1475,11 +1603,17 @@ function displayPrice(binding = "", no_ofsheets = "", page_options = "", embossi
 					//no. of cd
 					if($("#numbers-of-cds").val() == ""){$("#numbers-of-cds").addBack().addClass('invalid'); $('#error_number_of_cds').html('Field is required'); valid = false; return false; }
 					// upload
-					if($("#selectfile_cd").val() == ""){ alert($("#selectfile_cd").val()); $("#upload_cd").addBack().addClass('invalid'); $('#error_number_of_cds').html('Field is required'); valid = false; return false;}else{valid = true;return true;}	
-										valid = true; return true;
+					if($("#selectfile_cd").val() == ""){ alert($("#selectfile_cd").val()); $("#upload_cd").addBack().addClass('invalid'); $('#error_number_of_cds').html('Field is required'); valid = false; return false;}
+										
 					if($("#cd-bag").find(":selected").val() == "-1")
 					{
 					    $("#cd-bag").addClass('invalid'); $('#error_cd_bag').html('Field is required'); valid = false; return false;
+					}
+
+					if($("#div-fonts-cd").hasClass("displayBlock")){
+
+						if($("#fonts-cd").find(":selected").val() == "-1"){$("#fonts-cd").addClass('invalid'); $('error_fonts').html('Field is required'); valid = false; return false;}	
+
 					}	
 					else{valid = true; return true;
 					}
@@ -1491,7 +1625,7 @@ function displayPrice(binding = "", no_ofsheets = "", page_options = "", embossi
 		// }
 	  return valid; // return the valid status
 
-	} 
+	}  
 
 	function nextPrev(n) {  //alert(currentTab);
 	  // This function will figure out which tab to display
@@ -1837,7 +1971,7 @@ function checkPageRange(id1 = '', id2 = '' ,value_id = ''){
      	return true;
      }
 
-     
+      
  }
 
 
@@ -2166,33 +2300,35 @@ function getA3A2Count(format = ""){
 
 				var data = JSON.parse(response); 
 
+				console.log(data['can_add_din_A2']);
+
 				var max_pages_A2 = data['max_pages_A2']; var max_pages_A3 = data['max_pages_A3'];
 
 				document.getElementById('max-A3').innerHTML = max_pages_A3;
 				document.getElementById('max-A2').innerHTML = max_pages_A2;
 
 
-				if( data['can_add_din_A3']){  alert("1:"+data['can_add_din_A3']);
+				if( data['can_add_din_A3']){  
 
 				//$("#A3-pages").removeAttr("disabled");
 
-				$("#A3-pages").addClass('displayBlock');
+				$("#div-A3-pages").removeClass('displayNone').addClass('displayBlock');
 
 				}else{
-				//$("#A3-pages").attr('disabled', true);    
-				$("#A3-pages").addClass('displayNone');
+				//$("#div-A3-pages").attr('disabled', true);    
+				$("#div-A3-pages").removeClass('displayBlock').addClass('displayNone');
 				}
  
 				if(data['can_add_din_A2']){
 
 					  // $("#A2-pages").removeAttr("disabled");   
-					  $("#A2-pages").addClass('displayBlock');
+					  $("#div-A2-pages").removeClass('displayNone').addClass('displayBlock');
 					  
 
 
 				}else{
-					//$("#A2-pages").attr('disabled', true);   
-					$("#A2-pages").addClass('displayNone');  
+					//$("#div-A3-pages").attr('disabled', true);   
+					$("#div-A2-pages").removeClass('displayBlock').addClass('displayNone');  
 				}
 				
 			}

@@ -246,7 +246,7 @@ function ajaxFileUpload(file_obj,id) {  //alert(id);
         $('#file_del').attr('onclick',"removeFile('"+data['data']['edit_name']+"','"+id+"','0')");
       
       }else if(id == "upload_cd_without_logo"){
-         
+         document.getElementById('drag_upload_cd_without_logo').className = "displayNone";
         // $('#upload_custom_logo').empty();
         document.getElementById('drop_upload_cd_without_logo').className = "displayNone";
         if(document.getElementById('del_file_without_logo')){

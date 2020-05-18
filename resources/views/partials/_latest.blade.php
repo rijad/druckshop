@@ -1,4 +1,4 @@
-<section class=" page-section home-faq">
+<section class=" page-section home-faq" id="section">
 
 	<h1 style="padding-bottom: 50px;">{{ trans('latest.latest_title')}}</h1>
     @if(!empty($latest))      
@@ -34,11 +34,29 @@
 						<p>{!! @$value->text_english !!} </p>
 					</div>
 
-					<?php }  ?>
+					<?php }  ?> 
 
 				</div>
 
 			</div>
 		@endforeach	
     @endif
-</section>   
+</section>  
+
+<script src="{{ asset('public/js/frontend/attrchange.js') }}" type="text/javascript" ></script>
+<script src="{{ asset('public/js/frontend/attrchange_ext.js') }}" type="text/javascript" ></script>
+<script>
+	 
+$("#rv-myHeader").attrchange({
+    trackValues: true, // set to true so that the event object is updated with old & new values
+    callback: function(evnt) {
+        if(evnt.attributeName == "class") { // which attribute you want to watch for changes
+            if(evnt.newValue.search(/nav-wrapper sticky/i) != -1) { // "open" is the class name you search for inside "class" attribute
+
+                $("#section").addClass('navigate-heading');
+            }
+        }
+    }
+});
+
+</script> 

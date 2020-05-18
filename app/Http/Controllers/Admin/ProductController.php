@@ -655,11 +655,13 @@ class ProductController extends Controller
 
             $update = ProductPaperWeight::where(['product_id'=> $id])->update(['status'=> 0]);
 
-            if ($request->paper_weight) {
+            if ($request->paper_weight) {  
 
-                foreach ($request->paper_weight as $key_pw => $value_pw) {
+                foreach ($request->paper_weight as $key_pw => $value_pw) {  
 
                     $check_already_pw = ProductPaperWeight::where(['product_id'=> $id, 'paper_weight_id'=>$value_pw])->first();
+
+
 
                     if (!empty($check_already_pw)) {
 
@@ -673,7 +675,7 @@ class ProductController extends Controller
                                 'min_sheets' => $request['p_min_sheet'][$key_pw],
                                 'max_sheets' => $request['p_max_sheet'][$key_pw],
                                 'status' => 1,
-                            ];
+                            ];   
 
                         }
                         // else if ($value_pw == 2) {
@@ -698,7 +700,7 @@ class ProductController extends Controller
                         //     ];
                         // }
 
-                        if (!empty($paper_weight_data)) {
+                        if (!empty($paper_weight_data)) {   
 
                             $update_paper_weight = ProductPaperWeight::where(['id'=> $check_already_pw->id])->update($paper_weight_data);
                         }
@@ -747,40 +749,58 @@ class ProductController extends Controller
 
 
             //print_finishing
-            if (!empty($request->print_finishing)) {
+            if (!empty($request->print_finishing)) { 
 
-                $getId = ProductPrintFinishing::where(['product_id'=> $id])->first();
-                $update_ps_print_finishing = ProductPrintFinishing::where(['product_id'=> $id])->update(['print_finishing_id'=> $request->print_finishing]);
+                $getId = ProductPrintFinishing::where(['product_id'=> $id])->first();   
+                $update_ps_print_finishing = ProductPrintFinishing::where(['product_id'=> $id])->update(['print_finishing_id'=> $request->print_finishing]);  
+
+                // if( $getId == null){ 
+
+                //     $data_ps_print_finishing = ['product_id' => $id, 'print_finishing_id' => $request->print_finishing];
+                //     $insert_ps_print_finishing = ProductPrintFinishing::create($data_ps_print_finishing);
+
+                // }
             }
 
-            if (!empty($getId)) {
+            if (!empty($getId)) {    
 
                 $update = ProductPrintFinishingArtList::where(['ps_product_pf_id'=> $getId->id])->update(['status'=> 0]);
-            }
-            if ($request->print_finishing == 2) {
 
-                foreach ($request->art_list as $key_al => $value_al) {
+            }else if($getId == null){
 
-                    $check_already_al = ProductPrintFinishingArtList::where(['ps_product_pf_id'=> $id, 'ps_art_list_id'=>$value_al])->first();
+                $data_ps_print_finishing = ['product_id' => $id, 'print_finishing_id' => $request->print_finishing];
+                $insert_ps_print_finishing = ProductPrintFinishing::create($data_ps_print_finishing);
 
-                    if (!empty($check_already_al)) {
+                if ($request->print_finishing == 2) {  //dd($insert_ps_print_finishing->id);
 
-                        $update = ProductPrintFinishingArtList::where(['id'=> $check_already_al->id])->update(['status'=> 1]);
-                    }else{
+                    foreach ($request->art_list as $key_al => $value_al) {   
 
-                        $art_data = [
+                        $check_already_al = ProductPrintFinishingArtList::where(['ps_product_pf_id'=> $insert_ps_print_finishing->id, 'ps_art_list_id'=>$value_al])->first();
 
-                            'ps_product_pf_id' => $getId->id,
-                            'ps_art_list_id' => $value_al,
-                        ];
+                        if (!empty($check_already_al)) {
 
-                        $insert_cc = ProductPrintFinishingArtList::create($art_data);
+                            $update = ProductPrintFinishingArtList::where(['id'=> $check_already_al->id])->update(['status'=> 1]);
+                        }else{
+
+                            $art_data = [
+
+                        //'ps_product_pf_id' => $getId->id,
+                                'ps_product_pf_id' => $id,
+                                'ps_art_list_id' => $value_al,
+                            ];
+
+                            $insert_cc = ProductPrintFinishingArtList::create($art_data);
+                        }
+
                     }
 
                 }
 
-            }
+            } 
 
+
+            
+         
 
 
             if (!empty($request->sheet_start) && !empty($request->sheet_end) && !empty($request->product_price)) {
