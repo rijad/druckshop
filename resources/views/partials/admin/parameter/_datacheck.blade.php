@@ -6,12 +6,14 @@
                                 <thead>
                                     <tr>
                                         <th>Name</th>
+                                        <th>Status</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tfoot>
                                     <tr>
                                         <th>Name</th>
+                                        <th>Status</th>
                                         <th>Actions</th>
                                     </tr>
                                 </tfoot>
@@ -20,6 +22,7 @@
                                         @foreach($datacheck as $check)
                                         <tr>
                                             <td>{{ $check->check_list }}</td>
+                                            <td><?= ($check->status == 1)? 'Active' : 'InActive'?></td>
                                             <td class="form-inline">
                                                 <form method="GET" action="{{ route('datacheck.edit' , $check->id) }}">
                                                     <input type="submit" value="edit" class="btn btn-success">

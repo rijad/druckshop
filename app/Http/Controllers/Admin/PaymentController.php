@@ -29,24 +29,12 @@ class PaymentController extends Controller
     {
         try{
             
-            $payment = Payment::where('status', 'completed')->orderBy('id','DESC')->get();   //dd($payment);
+            $payment = Payment::orderBy('id','DESC')->get();   //dd($payment);
         }catch (Exception $e) {
             $payment = [];
         }
         return view('/pages/admin/payment',compact('payment'));
     }
-
-    public static function users($id)  
-    {
-        $user = User::where(['id' => $id])->first();
-        //dd($user);
-
-        if(! empty($user->name)){
-            return $user->name;
-        }else{
-            return "";
-        }
-    } 
 
     /**
      * Show the form for creating a new resource.

@@ -7,7 +7,7 @@
                                     <tr>
                                         <th>Payment_type</th>
                                         <th>Status</th>
-                                        <th>User_id</th>
+                                        <th>Customer Name</th>
                                         <th>Transaction</th>
                                         <th>Amount</th>
                                         <th>Order_id</th>
@@ -18,7 +18,7 @@
                                     <tr>
                                         <th>Payment_type</th>
                                         <th>Status</th>
-                                        <th>User_id</th>
+                                        <th>Customer Name</th>
                                         <th>Transaction</th>
                                         <th>Amount</th>
                                         <th>Order_id</th>
@@ -31,10 +31,7 @@
                                             <tr>
                                                 <td>{{ $pay->payment_type }}</td>
                                                 <td>{{ $pay->status }}</td>
-                                                <td>    @php
-                                                        echo App\Http\Controllers\Admin\PaymentController::users($pay->user_id);
-                                                        @endphp
-                                                </td>
+                                                <td>{{ customer($pay->user_id) }}</td>
                                                 <td>{{ $pay->txn }}</td>
                                                 <td>{{ $pay->amount }}</td>
                                                 <td>{{ $pay->order_id }}</td>

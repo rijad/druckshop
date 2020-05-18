@@ -14,12 +14,14 @@
                                 <thead>
                                     <tr>
                                         <th>Name</th>
+                                        <th>Status</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tfoot>
                                     <tr>
                                         <th>Name</th>
+                                        <th>Status</th>
                                         <th>Actions</th>
                                     </tr>
                                 </tfoot>
@@ -28,6 +30,7 @@
                                         @foreach($pageformat as $format)
                                         <tr>
                                             <td>{{ $format->page_format }}</td>
+                                            <td><?= ($format->status == 1)? 'Active' : 'InActive'?></td>
                                             <td class="form-inline">
                                                 <form method="GET" action="{{ route('pageformat.edit' , $format->id) }}">
                                                     <input type="submit" value="edit" class="btn btn-success">

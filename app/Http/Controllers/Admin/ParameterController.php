@@ -49,47 +49,47 @@ class ParameterController extends Controller
     public function details(Request $request)
     {
         if($request->model == 'Product'){
-            $binding = Product::where('status' , '1')->get();
+            $binding = Product::all();
             return view('pages.admin.parameter.binding',compact('binding'));
         }
         if($request->model == 'PageFormat'){
-            $pageformat = PageFormat::where('status' , '1')->get();
+            $pageformat = PageFormat::all();
             return view('pages.admin.parameter.pageformat',compact('pageformat'));
         }
         if($request->model == 'CoverColor'){
-            $covercolor = CoverColor::where('status' , '1')->get();
+            $covercolor = CoverColor::all();
             return view('pages.admin.parameter.covercolor',compact('covercolor'));
         }
         if($request->model == 'CoverSheet'){
-            $coversheet = CoverSheet::where('status' , '1')->get();
+            $coversheet = CoverSheet::all();
             return view('pages.admin.parameter.coversheet',compact('coversheet'));
         }
         if($request->model == 'BackCovers'){
-            $backcover = BackCovers::where('status' , '1')->get();
+            $backcover = BackCovers::all();
             return view('pages.admin.parameter.backcover',compact('backcover'));
         }
         if($request->model == 'PaperWeight'){
-            $paperweight = PaperWeight::where('status' , '1')->get();
+            $paperweight = PaperWeight::all();
             return view('pages.admin.parameter.paperweight',compact('paperweight'));
         }
         if($request->model == 'CdBag'){
-            $cdbag = CdBag::where('status' , '1')->get();
+            $cdbag = CdBag::all();
             return view('pages.admin.parameter.cdbag',compact('cdbag'));
         }
         if($request->model == 'DataCheck'){
-            $datacheck = DataCheck::where('status' , '1')->get();
+            $datacheck = DataCheck::all();
             return view('pages.admin.parameter.datacheck',compact('datacheck'));
         }
         if($request->model == 'ArtList'){
-            $art = ArtList::where('status' , '1')->get();
+            $art = ArtList::all();
             return view('pages.admin.parameter.art',compact('art'));
         }
         if($request->model == 'Discount'){
-            $discount = Discount::where('status' , '1')->get();
+            $discount = Discount::all();
             return view('pages.admin.parameter.discount',compact('discount'));
         }
         if($request->model == 'DeliveryService'){
-            $deliveryservice = DeliveryService::where('status' , '1')->get();
+            $deliveryservice = DeliveryService::all();
             return view('pages.admin.parameter.deliveryservice',compact('deliveryservice'));
         }
     }

@@ -101,6 +101,7 @@ class PasswordController extends Controller
             $pass_id = UsersAdmin::find(auth()->guard('admin')->user()->id);
             
             if(!Hash::check($input['old_password'], $pass_id->password)){
+                // dd($pass_id->password);
                 return redirect()->back()->with('status' , 'The specified password does not match the old password');
             }else{
                 $input['password'] = Hash::make($request->password);

@@ -28,11 +28,22 @@
                                     <tr>
                                         <th>Title_english</th>
                                         <th>Title_german</th>
+                                        <th>Status</th>
                                         <!-- <th>Text_english</th> -->
                                         <!-- <th>Text_german</th> -->
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
+                                <tfoot>
+                                    <tr>
+                                        <th>Title_english</th>
+                                        <th>Title_german</th>
+                                        <th>Status</th>
+                                        <!-- <th>Text_english</th> -->
+                                        <!-- <th>Text_german</th> -->
+                                        <th>Actions</th>
+                                    </tr>
+                                </tfoot> 
                                 
                                 <tbody>
                                     @if(!empty($faq))
@@ -40,6 +51,7 @@
                                             <tr>
                                                 <td>{{ $fq->title_english }}</td>
                                                 <td>{{ $fq->title_german }}</td>
+                                                <td><?= ($fq->status == 1)? 'Active' : 'InActive'?></td>
                                                 <!-- <td>{{ substr(($fq->text_english),0,200) }}</td> -->
                                                 <!-- <td>{{ substr(($fq->text_german),0,200) }}</td> -->
                                                 <td class="form-inline">

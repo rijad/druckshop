@@ -27,8 +27,8 @@
                                         <tr>
                                             <!-- <td><img src="{{ asset($lat->image)}}" height="50" width="100" alt="..."></td> -->
                                             <td>{{ $lat->title_english }}</td>
-                                            <td>{{ $lat->title_german }}</td> 
-                                            <td>{{ $lat->status }}</td>
+                                            <td>{{ $lat->title_german }}</td>
+                                            <td><?= ($lat->status == 1)? 'Active' : 'InActive'?></td>
                                             <td>{{ $lat->created_at }}</td>
                                             <td class="form-inline">
                                                 <form method="GET" action="{{ route('latest.edit' , $lat->id) }}">

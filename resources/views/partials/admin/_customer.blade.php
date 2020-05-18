@@ -13,6 +13,7 @@
                         <th>DOB</th>
                         <th>Phone</th>
                         <th>Billing Address</th>
+                        <th>Status</th>
                         {{-- <th>Image</th> --}}
                         <th>Created at</th>
                     </tr>
@@ -25,6 +26,7 @@
                         <th>DOB</th>
                         <th>Phone</th>
                         <th>Billing Address</th>
+                        <th>Status</th>
                         {{-- <th>Image</th> --}}
                         <th>Created at</th>
                     </tr>
@@ -41,6 +43,7 @@
                             <td>{{ $cust->customer->dob }}</td>
                             <td>{{ $cust->customer->phone }}</td>
                             <td>{{ $cust->customer->billing_address }}</td>
+                            <td><?= ($cust->customer->status == 1)? 'Active' : 'InActive'?></td>
                             {{-- <td>
                                 <img src="{{ asset($cust->customer->image)}}" height="50" width="100" alt="...">
                             </td> --}}
@@ -49,10 +52,10 @@
                             <td></td>
                             <td></td>
                             <td></td>
-                            {{-- <td></td> --}}
+                            <td></td>
                         @endif
                         
-                        <td>{{ $cust->created_at->format('d M,Y') }}</td>
+                        <td>{{ $cust->created_at }}</td>
                     </tr>  
                     @endforeach
                 @endif

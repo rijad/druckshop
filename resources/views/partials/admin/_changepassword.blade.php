@@ -24,19 +24,19 @@
 
             <div class="form-group">
                 <label class="small mb-1" for="name">Old Password</label>
-                <input class="form-control" type="password" name="old_password" required>
+                <input class="form-control" type="password" name="old_password">
                 <span class="text-danger">{{ $errors->first('old_password') }}</span>
             </div>
 
             <div class="form-group">
                 <label class="small mb-1" for="name">New Password</label>
-                <input class="form-control" type="password" name="password" required>
+                <input class="form-control" type="password" name="password">
                 <span class="text-danger">{{ $errors->first('new_password') }}</span>
             </div>
 
             <div class="form-group">
                 <label class="small mb-1" for="name">Confirm Password</label>
-                <input class="form-control" type="password" name="confirm_password" required>
+                <input class="form-control" type="password" name="confirm_password">
                 <span class="text-danger">{{ $errors->first('confirm_password') }}</span>
             </div>
 
