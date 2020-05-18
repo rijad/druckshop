@@ -578,8 +578,10 @@
 
 
     });
+
     $('#dataTable').dataTable( {
         "ordering": false,
         "destroy": true,
         });
+
 </script>
