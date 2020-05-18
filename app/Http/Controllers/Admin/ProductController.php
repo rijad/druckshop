@@ -139,7 +139,8 @@ class ProductController extends Controller
                 ]);
 
                 $image = $request->file('product_file');
-                $input['imagename'] = time().@$insert->id.'_'.@$image->getClientOriginalName().'.'.@$image->getClientOriginalExtension();
+                //$input['imagename'] = time().@$insert->id.'_'.@$image->getClientOriginalName().'.'.@$image->getClientOriginalExtension();
+                $input['imagename'] = time().@$insert->id.'_'.@$image->getClientOriginalName();
 
                 $destinationPath = public_path('/images');
 
@@ -161,7 +162,8 @@ class ProductController extends Controller
                     if(! in_array($value->getClientOriginalName(), $array_image)){
 
                     $other_image = $request->file('otherImages')[$key]; 
-                    $inputImage['imagename'] = time().@$insert->id.'_'.$value->getClientOriginalName().'.'.$value->getClientOriginalExtension();
+                    //$inputImage['imagename'] = time().@$insert->id.'_'.$value->getClientOriginalName().'.'.$value->getClientOriginalExtension();
+                    $inputImage['imagename'] = time().@$insert->id.'_'.$value->getClientOriginalName();
 
                     $destinationPathImg = public_path('/images');
 
@@ -468,7 +470,8 @@ class ProductController extends Controller
                 ]);
  
                 $image = $request->file('product_file');
-                $input['imagename'] = time().@$id.'_'.@$image->getClientOriginalName().'.'.@$image->getClientOriginalExtension();
+                // $input['imagename'] = time().@$id.'_'.@$image->getClientOriginalName().'.'.@$image->getClientOriginalExtension();
+                $input['imagename'] = time().@$id.'_'.@$image->getClientOriginalName();
 
 
                 $destinationPath = public_path('/images');
@@ -495,7 +498,8 @@ class ProductController extends Controller
                     if(! in_array($value->getClientOriginalName(), $array_image)){
 
                     $other_image = $request->file('otherImages')[$key];    //dd(@$other_image->getClientOriginalName()); 
-                    $inputImage['imagename'] = time().@$id.'_'.@$value->getClientOriginalName().'.'.@$value->getClientOriginalExtension();
+                    //$inputImage['imagename'] = time().@$id.'_'.@$value->getClientOriginalName().'.'.@$value->getClientOriginalExtension();
+                    $inputImage['imagename'] = time().@$id.'_'.@$value->getClientOriginalName();
 
 
 
