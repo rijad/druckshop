@@ -34,7 +34,7 @@ class FreeSampleController extends Controller
     public function index()
     {   //$this->middleware('auth:admin');
         try{
-            $freesample = FreeSample::where('status', '1')->get();
+            $freesample = FreeSample::all();
         }catch (Exception $e) {
             $freesample = [];
         }

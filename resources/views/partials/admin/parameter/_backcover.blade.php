@@ -13,12 +13,14 @@
                                 <thead>
                                     <tr>
                                         <th>Name</th>
+                                        <th>Status</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tfoot>
                                     <tr>
                                         <th>Name</th>
+                                        <th>Status</th>
                                         <th>Actions</th>
                                     </tr>
                                 </tfoot>
@@ -27,6 +29,7 @@
                                         @foreach($backcover as $cover)
                                         <tr>
                                             <td>{{ $cover->back_cover }}</td>
+                                            <td><?= ($cover->status == 1)? 'Active' : 'InActive'?></td>
                                             <td class="form-inline">
                                                 <form method="GET" action="{{ route('backcover.edit' , $cover->id) }}">
                                                     <input type="submit" value="edit" class="btn btn-success">

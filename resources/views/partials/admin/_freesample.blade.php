@@ -9,6 +9,7 @@
                     <tr>
                         <th>State</th>
                         <th>Order_id</th>
+                        <th>Status</th>
                         <th>Actions</th>
                     </tr>
                 </thead> 
@@ -16,6 +17,7 @@
                     <tr>
                         <th>State</th>
                         <th>Order_id</th>
+                        <th>Status</th>
                         <th>Actions</th> 
                     </tr>
                 </tfoot>
@@ -25,6 +27,7 @@
                         <tr>
                             <td>{{ $sample->sample_status }}</td>
                             <td>{{ $sample->order_id }}</td>
+                            <td><?= ($sample->status == 1)? 'Active' : 'InActive'?></td>
                             <td>
                                 <button onclick="window.location='{{route('freesample-details' , 
                                         ['id'=>$sample->id ]) }}'" class="remove_btn"> Details </button>

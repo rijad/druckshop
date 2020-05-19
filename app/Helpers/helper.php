@@ -9,7 +9,6 @@ if (! function_exists('returnResponse')) {
 
 function productNameById($product_id){
 	$product = \App\Product::find($product_id);
-
 	return $product->title_english;
 
 }
@@ -123,3 +122,15 @@ function showDetails($key, $id){
 	}
 
 }
+
+function customer($id)  
+    {
+        $user = \App\User::where(['id' => $id])->first();
+        //dd($user);
+
+        if(! empty($user->name)){
+            return $user->name;
+        }else{
+            return "";
+        }
+    } 

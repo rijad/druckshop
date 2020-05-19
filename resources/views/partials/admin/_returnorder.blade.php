@@ -7,20 +7,24 @@
                     <thead>
                         <tr>
                             <th>State</th>
+                            <th>Customer Name</th>
                             <th>Order id</th>
                             <th>Image</th>
                             <th>Return Description</th> 
                             <th>Admin Response</th>
+                            <th>Order Date</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tfoot>
                         <tr>
                             <th>State</th>
+                            <th>Customer Name</th>
                             <th>Order id</th>
                             <th>Image</th>
                             <th>Return Description</th>
                             <th>Admin Response</th>
+                            <th>Order Date</th>
                             <th>Actions</th>
                         </tr>
                     </tfoot>
@@ -29,10 +33,12 @@
                                         @foreach($return as $order)
                                             <tr>
                                                 <td>{{ $order->status }}</td>
+                                                <td>{{ customer($order->user_id) }}</td>
                                                 <td>{{ $order->order_id }}</td>
                                                 <td><img src="{{ asset($order->image_path)}}" height="50" width="100" alt="..."></td>
                                                 <td>{{ $order->return_desc }}</td>
                                                 <td>{{ $order->admin_response}}</td>
+                                                <td>{{ $order->created_at }}</td>
                                                 <td>
                                                     <button type="button" class="paycash" onclick="#" data-toggle="modal" data-oid="{{$order->order_id}}" data-uid="{{$order->user_id}}" data-status="Reversal approved" data-target="#returnModal">Redeliver</button>
                                                     <button type="button" class="paycash" onclick="#" data-toggle="modal" data-oid="{{$order->order_id}}" data-uid="{{$order->user_id}}" data-status="Reversal coupon" data-target="#returnModal">Coupon</button>

@@ -14,12 +14,14 @@
                 <thead>
                     <tr>
                         <th>Name</th>
+                        <th>Status</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tfoot>
                     <tr>
                         <th>Name</th>
+                        <th>Status</th>
                         <th>Actions</th>
                     </tr>
                 </tfoot>
@@ -28,6 +30,7 @@
                         @foreach($binding as $bind)
                         <tr>
                             <td>{{ $bind->title_english }}</td>
+                            <td><?= ($bind->status == 1)? 'Active' : 'InActive'?></td>
                             <td class="form-inline">
                                 <form method="GET" action="{{ route('binding.edit' , $bind->id) }}">
                                     <input type="submit" value="edit" class="btn btn-success">

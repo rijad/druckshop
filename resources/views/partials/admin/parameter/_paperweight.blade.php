@@ -14,12 +14,14 @@
                 <thead>
                     <tr>
                         <th>Name</th>
+                        <th>Status</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tfoot>
                     <tr>
                         <th>Name</th>
+                        <th>Status</th>
                         <th>Actions</th>
                     </tr>
                 </tfoot>
@@ -28,6 +30,7 @@
                         @foreach($paperweight as $weight)
                         <tr>
                             <td>{{ $weight->paper_weight }}</td>
+                            <td><?= ($weight->status == 1)? 'Active' : 'InActive'?></td>
                             <td class="form-inline">
                             <form method="GET" action="{{ route('paper.edit' , $weight->id) }}">
                                     <input type="submit" value="edit" class="btn btn-success">

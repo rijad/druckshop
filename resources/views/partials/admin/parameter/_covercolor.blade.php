@@ -14,12 +14,14 @@
                                 <thead>
                                     <tr>
                                         <th>Name</th>
+                                        <th>Status</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tfoot>
                                     <tr>
                                         <th>Name</th>
+                                        <th>Status</th>
                                         <th>Actions</th>
                                     </tr>
                                 </tfoot>
@@ -28,6 +30,7 @@
                                         @foreach($covercolor as $color)
                                         <tr>
                                             <td>{{ $color->color }}</td>
+                                            <td><?= ($color->status == 1)? 'Active' : 'InActive'?></td>
                                             <td class="form-inline">
                                                 <form method="GET" action="{{ route('covercolor.edit' , $color->id) }}">
                                                     <input type="submit" value="edit" class="btn btn-success">

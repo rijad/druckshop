@@ -38,7 +38,7 @@
                                                 <td>{{ productNameById($bind->product_id) }}</td>
                                                 <td>{{ pageformatById($bind->pageformat_id) }}</td>
                                                 <td>{{ colorById($bind->covercolor_id) }}</td>
-                                                <td>{{ $bind->status }}</td>
+                                                <td><?= ($bind->status == 1)? 'Active' : 'InActive'?></td>
                                                 <td class="form-inline">
                                                     <form method="POST" action="{{ route('bindingsample.destroy' , $bind->id) }}">
                                                     @method('DELETE')

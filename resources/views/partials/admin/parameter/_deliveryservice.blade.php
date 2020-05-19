@@ -15,12 +15,14 @@
                 <thead>
                     <tr>
                         <th>Name</th>
+                        <th>Status</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tfoot>
                     <tr>
                         <th>Name</th>
+                        <th>Status</th>
                         <th>Actions</th>
                     </tr>
                 </tfoot>
@@ -29,6 +31,7 @@
                         @foreach($deliveryservice as $service)
                         <tr>
                             <td>{{ $service->delivery_service }}</td>
+                            <td><?= ($service->status == 1)? 'Active' : 'InActive'?></td>
                             <td class="form-inline">
                                 <form method="GET" action="{{ route('deliveryService.edit' , $service->id) }}">
                                     <input type="submit" value="edit" class="btn btn-success">

@@ -30,7 +30,7 @@ class ReturnOrdersController extends Controller
     public function index()
     {
         try{
-            $return = OrderReturn::all();
+            $return = OrderReturn::orderBy('id','DESC')->get();
         }catch (Exception $e) {
             $return = [];
         }

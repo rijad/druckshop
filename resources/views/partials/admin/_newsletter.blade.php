@@ -9,6 +9,7 @@
                     <tr>
                         <th>Email</th>
                         <th>Created Date</th>
+                        <th>Status</th>
                         <th>Actions</th>
                     </tr>
                 </thead> 
@@ -16,6 +17,7 @@
                     <tr>
                         <th>Email</th>
                         <th>Created Date</th>
+                        <th>Status</th>
                         <th>Actions</th> 
                     </tr>
                 </tfoot>
@@ -25,11 +27,12 @@
                         <tr>
                             <td>{{ $news->email }}</td>
                             <td>{{ $news->created_at->format('d M,Y') }}</td>
+                            <td><?= ($news->status == 1)? 'Active' : 'InActive'?></td>
                             <td>
                                 <button type="button" class="btn btn-success btn-sm"  onclick="replyModal('<?php echo $news->id ?>', '<?php echo $news->email ?>');" data-toggle="modal" data-target="#myModal"> Reply</button>
 
                             </td>
-                        </tr>  
+                        </tr>
                         @endforeach
                     @endif
                 </tbody>

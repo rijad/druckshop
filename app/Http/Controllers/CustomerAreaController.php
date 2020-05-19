@@ -17,7 +17,8 @@ class CustomerAreaController extends Controller
 		if(!Auth::check()){
 			return redirect()->route('index');       
 		}
-		$OrderHistory = OrderDetailsFinal::where(['user_id'=>Auth::user()->id])->with('orderProductHistory')->get();
+    $OrderHistory = OrderDetailsFinal::where(['user_id'=>Auth::user()->id])
+                    ->with('orderProductHistory')->orderBy('created_at','DESC')->get();
 
 		return view('/pages/front-end/customer-area',compact('OrderHistory'));
 	}

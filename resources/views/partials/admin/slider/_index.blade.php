@@ -31,7 +31,7 @@
                                         @foreach($slider as $slid)
                                         <tr>
                                             <td><img src="{{ asset($slid->image_path)}}" height="50" width="100" alt="..."></td>
-                                            <td>{{ $slid->is_active }}</td>
+                                            <td><?= ($slid->is_active == 1)? 'Active' : 'InActive'?></td>
                                             <td>{{ $slid->is_slide }}</td>
                                             <td class="form-inline">
                                                 <form method="GET" action="{{ route('slider.edit' , $slid->id) }}">

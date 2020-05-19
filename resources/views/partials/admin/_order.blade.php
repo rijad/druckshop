@@ -6,6 +6,7 @@
                                 <thead>
                                     <tr>
                                         <th>State</th>
+                                        <th>User</th>
                                         <th>Order Id</th>
                                         {{-- <th>Shipping Address</th>
                                         <th>Billing Address</th>
@@ -20,6 +21,7 @@
                                 <tfoot>
                                     <tr>
                                         <th>State</th>
+                                        <th>User</th>
                                         <th>Order Id</th>
                                         {{-- <th>Shipping Address</th>
                                         <th>Billing Address</th>
@@ -36,6 +38,7 @@
                                         @foreach($order as $odr)
                                             <tr>
                                                 <td>{{ $odr->state }}</td>
+                                                <td>{{ customer($odr->user_id) }}</td>
                                                 <td>{{$odr->order_id}}</td>
                                                 {{-- <td>{{ $odr->billing_address }}</td>
                                                 <td>{{ $odr->shipping_address }}</td>
