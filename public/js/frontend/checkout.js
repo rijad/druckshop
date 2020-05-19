@@ -251,9 +251,14 @@ function embossingChange(field = ""){
  
 	}else{
 
-
+		$("#embossment-spine").prop("checked", false);
+		$("#embossment-cover-sheet").prop("checked", false);
 		$("#embossment-cover-sheet").attr('disabled', true);  
-		$("#embossment-spine").attr('disabled', true);  
+		$("#embossment-spine").attr('disabled', true); 
+		$("#embossment-cover-sheet").trigger('onhange');  
+		$("#embossment-spine").trigger('onhange');  
+
+		
 
 		document.getElementById('div-fonts').className = "displayNone";
 
@@ -849,6 +854,10 @@ function displayCDFields(value = ""){
 		document.getElementById('upload_cd_heading').className = "outside-box-heading displayBlock";
 		document.getElementById('div-cd-imprint').className = "displayBlock";
 		document.getElementById('div-cd-bag').className = "displayBlock";
+
+		$('#cd-bag option[value="1"]').attr('selected','selected'); 
+		$("#cd-bag").trigger("onchange"); 
+
 		}else{
 		document.getElementById('div-number-of-cds').className = "displayNone";
 		document.getElementById('upload_cd').className = "displayNone";
@@ -1784,11 +1793,21 @@ function displayPrice(binding = "", no_ofsheets = "", page_options = "", embossi
 
 	  if(n > 0){
 	  	x[n-1].className += " finish";  
+
 	  }
 
 	  // going previous
-	  x[n].className = x[n].className.replace(" finish", " active");
-	  x[n].className += " active";  
+	  if(x[n+1]){
+	  	x[n+1].className = "step";
+	  }
+	  
+	  x[n].className = "step active";
+
+	  if(x[n-1]){
+	   x[n-1].className = "step finish";
+	  }
+	 
+	 
 	}
 
 
@@ -2022,7 +2041,10 @@ function checkPageRange(id1 = '', id2 = '' ,value_id = ''){
 	return(status);
  }
 
- function resetFields(id,value){   
+ function resetFields(id,value){  
+
+
+ // Remove uploaded files 
 
 if($('#selectfile_coversheet').val() != ""){
 
@@ -2119,6 +2141,59 @@ if($('#selectfile_file').val() != ""){
   document.getElementById('div-display-image').className = "displayNone";
   $("#div-display-image-cd").empty();
   document.getElementById('div-display-image-cd').className = "displayNone";
+
+
+  // Cleaar error messages
+
+  $('#error_binding').html('');
+  $('#error_no_of_copies').html('');
+  $('#error_page_format').html('');
+  $('#error_cover_color').html('');
+  $('#error_cover_sheet').html('');
+  $('#error_selectfile_coversheet').html('');
+  $('#error_back_cover').html('');
+  $('#error_selectfile_backcover').html('');
+  $('#error_page_options').html('');
+  $('#error_mirror').html('');
+  $('#error_paper_weight').html('');
+  $('#error_no_of_pages').html('');
+  $('#error_selectfile_content').html('');
+  $('#error_page_numbers').html('');
+  $('#error_range').html('');
+  $('#error_number_of_pages').html('');
+  $('#error_selectfile_din_A3').html('');
+  $('#error_number_of_A2_pages').html('');
+  $('#error_selectfile_din_A2').html('');
+  $('#error_embossing').html('');
+  $('#error_template').html('');
+  $('#error_template_classic').html('');
+  $('#error_selectfile_logo').html('');
+  $('#error_fonts').html('');
+  $('#error_date_format').html('');
+  $('#error_selectfile_file').html('');
+  $('#error_fonts-spine').html('');
+  $('#error_direction').html('');
+  $('#error_sections').html('');
+  $('#error_remarks').html('');
+  $('#error_number_of_cds').html('');
+  $('#error_selectfile_cd').html('');
+  $('#error_selectfile_logo_cd').html('');
+  $('#error_fonts').html('');
+  $('#error_selectfile_logo_cd').html('');
+  $('#error_cd_bag').html('');
+  $('#error_data_check').html('');
+
+  // Clear pricing sessions
+
+      $.ajax({
+			url: base_url+'/clear-session', 
+			type: 'GET', 
+			success: function (response){
+				 
+				$('#data_check').trigger('onchange');
+				$('#cd-bag').trigger('onchange');
+			}
+		}); 
  }
 
 
@@ -2141,7 +2216,7 @@ if($('#selectfile_file').val() != ""){
 
 		}
 	});
-
+  
  } 
 
 
@@ -2340,9 +2415,15 @@ function resetPrice(session = ""){
 
 	if(session == "colored_pages"){  //color pages check box
 
-		displayPrice('','','','','','','','','','','',0,'','','',''); // no of colored pages
+		if($("#color-pages").is(":checked")){}else{
+			displayPrice('','','','','','','','','','','',0,'','','',''); // no of colored pages
+		}
+
+		
 
 	}else if(session == "cd"){
+
+		if($("#cd-check").is(":checked")){}else{
 
 		displayPrice('','','','','','','','','0','','','','','','','');  // no of CDs
 
@@ -2350,17 +2431,32 @@ function resetPrice(session = ""){
 
 		cdBagPosition(); displayPrice('','','','','','','','','','','0','','','','',''); // cd cover
 
+		}
+
+		
+
 	}else if(session == "cd_imprint"){
 
-		displayPrice('','','','','','','','','','','','','','','','0');  // cd imprint
+		if($("#imprint").is(":checked")){}else{displayPrice('','','','','','','','','','','','','','','','0');  // cd imprint
+		 }
+
+		
 
 	}else if(session == "A2"){
 
-		displayPrice('','','','','','','0','','','','','','','','','');  // A2
+		if($("#A2-pages").is(":checked")){}else{
+				displayPrice('','','','','','','0','','','','','','','','','');  // A2
+		}
+
+	
 
 	}else if(session == "A3"){
 
-		displayPrice('','','','','','','','0','','','','','','','',''); // A3
+		if($("#A3-pages").is(":checked")){}else{
+			displayPrice('','','','','','','','0','','','','','','','',''); // A3
+		}
+
+		
 
 	}else if(session == "no-of-pages"){ // No of pages
 
@@ -2368,9 +2464,22 @@ function resetPrice(session = ""){
 
 		//displayPrice('',value,'','','','','','','','','','','','','','');
  
+	}else if(session == "refinement_with_spine"){
+
+		if($("#embossment-spine").is(":checked")){}else{
+			displayPrice('','','','','','','','','','','','','','','','');
+		}
+
+	}else if(session == "refinement_with_embossment"){  
+
+		if($("#embossment-cover-sheet").is(":checked")){}else{  alert("1");
+			displayPrice('','','','','','','','','','','','','','','','');
+		}
+
 	}
 
-}
+}  
+	
 
 
 function getCoverSetting(binding){

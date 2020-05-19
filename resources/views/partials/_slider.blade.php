@@ -39,7 +39,7 @@
 
 						<p>
 							<?php $locale = session()->get('locale'); 
-							if ($locale == 'gr') { ?>
+							if ($locale == 'gr') { ?> 
 							{{ $item->content_german }}
 							<?php } else  { ?>
 							{{ $item->content_english }}
@@ -53,15 +53,18 @@
 
 			@endforeach
 		</div>
-		<a class="carousel-control-prev" href="#heroSlider" role="button" data-slide="prev">
-			<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-			<span class="sr-only">{{ trans('homepage.previous')}}</span>
-		</a>
-		<a class="carousel-control-next" href="#heroSlider" role="button" data-slide="next">
-			<span class="carousel-control-next-icon" aria-hidden="true"></span>
-			<span class="sr-only">{{ trans('homepage.next')}}</span>
-		</a>
+
+		<a class="carousel-control-prev" href="#heroSlider" role="button"  data-slide="prev">
+	        <span class="carousel-control-prev-icon" aria-hidden="true">     </span>
+	        <span class="sr-only">{{ trans('homepage.previous')}}</span>
+   		 </a>
+	    <a class="carousel-control-next" href="#heroSlider" role="button" data-slide="next">
+	        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+	       <span class="sr-only">{{ trans('homepage.next')}}</span>
+	    </a>
 	</div>
 </section>
 <div class="clearfix"></div> 
+
+
  
