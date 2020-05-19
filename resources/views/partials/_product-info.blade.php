@@ -1,4 +1,4 @@
-				
+<div id="navigate-heading">				
 	@if(!empty($product_listing))      
 		@foreach ($product_listing as $listing) 
 
@@ -24,3 +24,25 @@
 
 		@endforeach   
     @endif 
+</div>
+
+
+
+
+<script src="{{ asset('public/js/frontend/attrchange.js') }}" type="text/javascript" ></script>
+<script src="{{ asset('public/js/frontend/attrchange_ext.js') }}" type="text/javascript" ></script>
+<script>
+	 
+$("#rv-myHeader").attrchange({
+    trackValues: true, // set to true so that the event object is updated with old & new values
+    callback: function(evnt) {
+        if(evnt.attributeName == "class") { // which attribute you want to watch for changes
+            if(evnt.newValue.search(/nav-wrapper sticky/i) != -1) { // "open" is the class name you search for inside "class" attribute
+
+                $("#navigate-heading").addClass('navigate-heading');
+            }
+        }
+    }
+});
+
+</script> 

@@ -64,7 +64,7 @@ Route::any('/search',function(){
     else return view ('pages.front-end.search')->withMessage('No Products found. Try to search again !');
 });
 
-//Frontend
+//Frontend 
 Route::get('/', 'IndexController@sendData')->name('index');
 Route::get('/products', 'ProductController@sendData')->name('products'); 
 Route::get('/product-information', 'ProductInfoController@sendData')->name('product-information');
