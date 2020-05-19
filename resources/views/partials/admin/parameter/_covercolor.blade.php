@@ -4,6 +4,7 @@
         <div class="float-right">
             <form method="GET" action="{{ route('covercolor.create') }}">
                 <input type="submit" value="Create New Cover Color" class="btn btn-primary">
+                <a href="{{ url('/admin/parameter') }}" class="btn btn-secondary">Back</a>
             </form>
         </div>
 
