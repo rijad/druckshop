@@ -49,7 +49,7 @@
                 </div>
                 <div class="form-group">
                     <label class="small mb-1" for="discount">Discount</label>
-                    <input class="form-control" type="text" name="discount" value="{{ old('discount') }}" required>
+                    <input class="form-control" type="number" step = "0.01" name="discount" value="{{ old('discount') }}" required>
                     <span class="text-danger">{{ $errors->first('discount') }}</span>
                 </div>
                 <div class="form-group">
@@ -60,7 +60,7 @@
                 </div>
                 <div class="form-group">
                     <div class="custom-control custom-checkbox small">
-                        <input type="checkbox" class="custom-control-input" id="customCheck" name="status">
+                        <input type="checkbox" class="custom-control-input" id="customCheck" name="status" checked>
                         <label class="custom-control-label" for="customCheck">Active</label>
                     </div>
                 </div>

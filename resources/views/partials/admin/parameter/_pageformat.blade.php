@@ -4,6 +4,7 @@
         <div class="float-right">
             <form method="GET" action="{{ route('pageformat.create') }}">
                 <input type="submit" value="Create New Page Format" class="btn btn-primary">
+                <a href="{{ url('/admin/parameter') }}" class="btn btn-secondary">Back</a>
             </form>
         </div>
 

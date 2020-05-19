@@ -58,7 +58,7 @@
                         <tr class="form-inline">
                             <td class="rv-headLtchild1"><input id="from" type="hidden" name="from[]" value="0" />0</td>
                             <td class="rv-headLtchild"><input class="form-control to_input" id="to" type="number" name="to[]" required /></td>
-                            <td class="rv-headRtchild"><input class="form-control price_input" step="0.01" id="price" type="number" name="price[]" required /></td>
+                            <td class="rv-headRtchild"><input class="form-control price_input" step = "0.01" id="price" type="number" name="price[]" required /></td>
                         </tr>
                         @endif
                         
