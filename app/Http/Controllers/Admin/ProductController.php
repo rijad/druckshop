@@ -248,7 +248,7 @@ class ProductController extends Controller
             }
 
 
-            if ($request->paper_weight) {  // dd($request->paper_weight);
+            if ($request->paper_weight) {  //dd($request->paper_weight);
 
                 foreach ($request->paper_weight as $key_pw => $value_pw) {
 
