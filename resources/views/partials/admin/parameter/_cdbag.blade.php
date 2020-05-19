@@ -1,5 +1,10 @@
 <div class="card mb-4 mt-4">
-    <div class="card-header"><span>CdBag</span></div>
+    <div class="card-header"><span>CdBag</span>
+
+        <div class="float-right">
+            <a href="{{ url('/admin/parameter') }}" class="btn btn-secondary">Back</a>
+        </div>
+    </div>
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">

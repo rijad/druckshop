@@ -68,7 +68,7 @@ class DiscountController extends Controller
         }
         
         $input = $request->all();
-        dd($input);
+        // dd($input);
         $from_date = $request->input('from_date');
         $to_date = $request->input('to_date');
        

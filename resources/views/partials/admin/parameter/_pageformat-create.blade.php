@@ -64,7 +64,7 @@
 
                 <div class="form-group">
                     <div class="custom-control custom-checkbox small">
-                        <input type="checkbox" class="custom-control-input" id="customCheck" name="status">
+                        <input type="checkbox" class="custom-control-input" id="customCheck" name="status" checked>
                         <label class="custom-control-label" for="customCheck">Active</label>
                     </div>
                 </div>

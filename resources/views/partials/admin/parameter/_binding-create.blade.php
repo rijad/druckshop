@@ -80,7 +80,7 @@
                         <label class="small mb-1 rv-AbsoluteBorder" for="name">Page Format</label>
                         <div class="form-inline">
                             @foreach ($pageFormat as $key => $value)
-                            <span class="ml-4"><input type="checkbox" class="form-control" name="page_format[]" value="{{ $value->id }}"  />{{ $value->page_format }}</span>
+                            <span class="ml-4"><input type="checkbox" class="form-control" name="page_format[]" value="{{ $value->id }}" {{ ($value->id==1) ? 'checked' : '' }} />{{ $value->page_format }}</span>
                             @endforeach
 
                         </div>
@@ -175,7 +175,7 @@
                         <label class="small mb-1 rv-AbsoluteBorder" for="name">Print Finishing</label>
                         <div class="form-inline">
                             @foreach ($printFinishing as $key5 => $value5)
-                            <span class="ml-4"><input type="radio" class="form-control" id="print_finishing" name="print_finishing" value="{{ $value5->id }}" />{{ $value5->finishing }}</span>
+                            <span class="ml-4"><input type="radio" class="form-control" id="print_finishing" name="print_finishing" value="{{ $value5->id }}" {{ ($value5->id==3) ? 'checked' : '' }} />{{ $value5->finishing }}</span>
                             @endforeach
 
                         </div>
@@ -256,7 +256,7 @@
 
                 <div class="form-group">
                     <div class="custom-control custom-checkbox small">
-                        <input type="checkbox" class="custom-control-input" id="customCheck" name="active">
+                        <input type="checkbox" class="custom-control-input" id="customCheck" name="active" checked>
                         <label class="custom-control-label" for="customCheck">AKTIV</label>
                     </div>
                 </div>

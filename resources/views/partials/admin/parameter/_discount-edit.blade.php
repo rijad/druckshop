@@ -50,7 +50,7 @@
             </div>
             <div class="form-group">
                 <label class="small mb-1" for="discount">Discount</label>
-                <input class="form-control" type="text" name="discount" value="<?php if($discount->by_price) { echo @$discount->by_price ; } else { echo @$discount->by_percent; } ?> " required>
+                <input class="form-control" type="number" step = "0.01" name="discount" value="<?php if($discount->by_price) { echo @$discount->by_price ; } else { echo @$discount->by_percent; } ?> " required>
                 <span class="text-danger">{{ $errors->first('discount') }}</span>
             </div>
             <div class="form-group">
