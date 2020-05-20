@@ -35,7 +35,7 @@
                                                 <form method="POST" action="{{ route('cdbag.destroy' , $bag->id) }}" class="ml-2">
                                                 @method('DELETE')
                                                 @csrf
-                                                    <input type="submit" value="delete" class="btn btn-danger">
+                                                    <input type="submit" value="<?php echo ($bag->status) ? 'InActive' : 'Active'; ?>" class="btn btn-danger">
                                                 </form>
                                             </td>
                                         </tr> 

@@ -40,7 +40,7 @@
                                 <form method="POST" action="{{ route('binding.destroy' , $bind->id) }}" class="ml-2">
                                     @method('DELETE')
                                     @csrf
-                                    <input type="submit" value="delete" class="btn btn-danger">
+                                    <input type="submit" value="<?php echo ($bind->status) ? 'InActive' : 'Active'; ?>" class="btn btn-danger">
                                 </form>
                             </td>
                         </tr> 

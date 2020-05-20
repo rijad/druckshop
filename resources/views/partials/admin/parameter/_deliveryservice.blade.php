@@ -41,7 +41,7 @@
                                 <form method="POST" action="{{ route('deliveryService.destroy' , $service->id) }}" class="ml-2">
                                     @method('DELETE')
                                     @csrf
-                                    <input type="submit" value="delete" class="btn btn-danger">
+                                    <input type="submit" value="<?php echo ($service->status) ? 'InActive' : 'Active'; ?>" class="btn btn-danger">
                                 </form>
                             </td>
                         </tr>

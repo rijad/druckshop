@@ -122,9 +122,19 @@ class ArtController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        $art = ArtList::destroy($id);
+        // $status = ArtList::find($id);
+        // $status->status = $request->status;
+        // dd($request->status);
+
+        // if ($status == '1') {
+        //     $art = ArtList::where(['id' => $id])->update(['status' => 0]);
+        // } else {
+        //     $art = ArtList::where(['id' => $id])->update(['status' => 1]);
+        // }
+    
+        $art = ArtList::where(['id' => $id])->update(['status' => 0]);
         return redirect()->back()->with('status' , 'Deleted');
     }
 }
