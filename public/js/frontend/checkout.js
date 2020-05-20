@@ -151,7 +151,7 @@ function displayFieldsContent(page_options = ""){
 
 } 
  
-function getPrinting(){ 
+function getPrinting(){  
 
 binding = document.getElementById('binding').value;
 	$.ajax({
@@ -159,19 +159,19 @@ binding = document.getElementById('binding').value;
 		type: 'GET', 
 		data: {'binding_type' : binding},
 		success: function (response){
-			var data = JSON.parse(response);  
+			var data = JSON.parse(response);   
 			
 			if(data == 1){ // page 4
 
 				$("#embossment-cover-sheet").removeAttr('disabled');   
 				$("#embossment-spine").removeAttr('disabled');
-
-
+				$('#spine-message').html('');
 
 			}else if(data == 2){ //page 3  
 
 				$("#embossment-spine").removeAttr('disabled');  
 				$("#embossment-cover-sheet").removeAttr('disabled');
+				$('#spine-message').html('');
 
 			}else if(data == 3){ 
 
@@ -202,10 +202,19 @@ function embossingChange(field = ""){
 		//if($("#embossment-spine").is(":checked")){
 
 			if($(field).find(":selected").val() == "Classic"){
+
+					// $("#embossment-spine").prop("checked", false);
+					// $("#embossment-cover-sheet").prop("checked", false);
+					// $("#embossment-cover-sheet").trigger('onhange');  
+					// $("#embossment-spine").trigger('onhange'); 
+
+
+
 					$('#fields_1 option[value="Topic"]').remove();
 
 					if($("#embossment-cover-sheet").is(":checked")){
 						document.getElementById('div-template-classic').className = 'displayBlock';
+						$("#template-classic").empty();
 				 		$("#template-classic").append("<p>Choose layout for standard cover with logo.</p><br><img class='template-classic' id='Klassik-1' src='"+base_url+"/public/images/templates/Binding_template/Klassik-1.jpg' onclick = displayImageClassic('"+base_url+"/public/images/templates/Binding_template/Klassik-1.jpg','Klassik-1.jpg',this);> <img class='template-classic' id='Klassik-2' src='"+base_url+"/public/images/templates/Binding_template/Klassik-2.jpg' onclick = displayImageClassic('"+base_url+"/public/images/templates/Binding_template/Klassik-2.jpg','Klassik-2.jpg',this);> <img class='template-classic' id='Klassik-3' src='"+base_url+"/public/images/templates/Binding_template/Klassik-3.jpg' onclick = displayImageClassic('"+base_url+"/public/images/templates/Binding_template/Klassik-3.jpg','Klassik-3.jpg',this);> ");
 					}
 					document.getElementById('input_1').className = "displayNone";
@@ -222,7 +231,13 @@ function embossingChange(field = ""){
 					document.getElementById('upload_custom_logo_heading').className = "displayNone";   
 					document.getElementById('upload_custom_file_heading').className = "displayNone";
 			}else{
- 
+
+
+					// $("#embossment-spine").prop("checked", false);
+					// $("#embossment-cover-sheet").prop("checked", false);
+					// $("#embossment-cover-sheet").trigger('onhange');  
+					// $("#embossment-spine").trigger('onhange'); 
+			 
 					document.getElementById('div-template-classic').className = 'displayNone';
 					$("#div-display-image-cd").empty();
 					document.getElementById('input_1').className = "displayBlock";
@@ -253,10 +268,11 @@ function embossingChange(field = ""){
 
 		$("#embossment-spine").prop("checked", false);
 		$("#embossment-cover-sheet").prop("checked", false);
+		// $("#embossment-cover-sheet").trigger('onhange');  
+		// $("#embossment-spine").trigger('onhange'); 
 		$("#embossment-cover-sheet").attr('disabled', true);  
 		$("#embossment-spine").attr('disabled', true); 
-		$("#embossment-cover-sheet").trigger('onhange');  
-		$("#embossment-spine").trigger('onhange');  
+		 
 
 		
 
@@ -267,7 +283,7 @@ function embossingChange(field = ""){
 
 }
 
-function displayPrintFields(embossment = ""){
+function displayPrintFields(embossment = ""){  
 
 	var binding = document.getElementById('binding').value;
 
@@ -282,6 +298,9 @@ function displayPrintFields(embossment = ""){
 			//Standard refinement (3)
 			if(data == 1){  
 
+				
+				$("#embossment-spine").removeAttr('disabled');
+				$("#embossment-cover-sheet").removeAttr('disabled');
 				//document.getElementById('div-embossing').className = "displayBlock";
 				document.getElementById('div-embossing').className = "displayNone";
 
@@ -358,7 +377,7 @@ function displayPrintFields(embossment = ""){
 					document.getElementById('div-section-1').className = "displayNone";
 					document.getElementById('div-section-2').className = "displayNone";
 					document.getElementById('div-section-3').className = "displayNone";
-					document.getElementById('fonts-spine').className = "displayNone";
+					document.getElementById('div-fonts-spine').className = "displayNone";
 					}
 			}
 
@@ -427,7 +446,7 @@ function displayPrintFields(embossment = ""){
 					$("#div-display-image").empty();
 					document.getElementById('div-display-image').className = "displayNone";
 					if($('#embossing').val() == "Edition"){
-						if($("#embossment-spine").is(":checked")){
+						if($("#embossment-spine").is(":checked")){  
 						document.getElementById('div-fonts-spine').className = "displayBlock";
 					 }
 					}
@@ -479,13 +498,15 @@ function displayPrintFields(embossment = ""){
 					
 				}else{
 
-					document.getElementById('fonts-spine').className = "displayNone";
+					document.getElementById('div-fonts-spine').className = "displayNone";
 					document.getElementById('div-direction').className = "displayNone";
 					document.getElementById('div-section-1').className = "displayNone";
 					document.getElementById('div-section-2').className = "displayNone";
 					document.getElementById('div-section-3').className = "displayNone";
 					}
 			}else{
+
+				var execute = getPrinting(); 
 
 			}
 		}
@@ -1449,18 +1470,22 @@ function displayPrice(binding = "", no_ofsheets = "", page_options = "", embossi
 						 	if(!range1){$("#page-numbers").addBack().addClass('invalid'); valid = false; return false;}//else{valid = true; return true;}
 						 }
 
-						 if($("#A3-pages").is(":checked")){  alert("A3");
+						 if($("#A3-pages").is(":checked")){  
+
+						 	var max_pages_A3 = document.getElementById('max-A3').innerHTML;   
+				
 						 	// color pages check box is checked
 						 	if($("#numbers-of-A3-pages").val() == ""){$("#numbers-of-A3-pages").addBack().addClass('invalid'); $('#error_number_of_A3_pages').html('This Field is required'); valid = false; return false;} 
-						 	if($("#numbers-of-pages").val() > 10 || $("#numbers-of-pages").val() < 1){$("#numbers-of-pages").addBack().addClass('invalid'); $('#error_number_of_pages').html('Pages out of range'); valid = false; return false;} 
+						 	if($("#numbers-of-pages").val() > max_pages_A3 || $("#numbers-of-pages").val() < 1){$("#numbers-of-pages").addBack().addClass('invalid'); $('#error_number_of_pages').html('Pages out of range'); valid = false; return false;} 
 						 	if($("#selectfile_din_A3").val() == ""){ alert($("#selectfile_din_A3").val()); $("#drop_file_din_A3").addBack().addClass('invalid'); $('#error_selectfile_din_A3').html('This Field is required'); valid = false; return false;}//else{valid = true;return true;}	
 
 						 }
  
-						 if($("#A2-pages").is(":checked")){ alert("A2");
+						 if($("#A2-pages").is(":checked")){   alert("in");
+						 	var max_pages_A2 = document.getElementById('max-A2').innerHTML;
 						 	// color pages check box is checked
 						 	if($("#numbers-of-A2-pages").val() == ""){$("#numbers-of-A2-pages").addBack().addClass('invalid'); $('#error_number_of_A2_pages').html('This Field is required'); valid = false; return false;}
-						 	if($("#numbers-of-A2-pages").val() > 3 || $("#numbers-of-A2-pages").val() < 1){$("#numbers-of-A2-pages").addBack().addClass('invalid'); $('#error_number_of_A2_pages').html('Pages out of range'); valid = false; return false;} 
+						 	if($("#numbers-of-A2-pages").val() > max_pages_A2 || $("#numbers-of-A2-pages").val() < 1){  alert("in--1");$("#numbers-of-A2-pages").addBack().addClass('invalid'); $('#error_number_of_A2_pages').html('Pages out of range'); valid = false; return false;} 
 						 	if($("#selectfile_din_A2").val() == ""){ alert($("#selectfile_din_A2").val()); $("#drop_file_din_A2").addBack().addClass('invalid'); $('#error_selectfile_din_A2').html('This Field is required'); valid = false; return false;}//else{valid = true;return true;}		
 
 						 }
@@ -1540,7 +1565,7 @@ function displayPrice(binding = "", no_ofsheets = "", page_options = "", embossi
 				}
 
 				if($("#fields_1").find(":selected").val() == "-1" || $("#pos_1").find(":selected").val() == "-1" || $("#input_1").val().length <= 0){
-					 $("#fields_1").addClass('invalid'); 
+					  
 					 if($("#input_1").val().length <= 0){
 
 					 	$("#input_1").addClass('invalid');  
@@ -1609,7 +1634,8 @@ function displayPrice(binding = "", no_ofsheets = "", page_options = "", embossi
 				
 				if($("#cd-check").is(":not(:checked)")){$("#cd-check").addBack().addClass('invalid'); valid = true; return true;}
 				else{ 
-					//no. of cd
+					//no. of cd 
+					
 					if($("#numbers-of-cds").val() == ""){$("#numbers-of-cds").addBack().addClass('invalid'); $('#error_number_of_cds').html('Field is required'); valid = false; return false; }
 					// upload
 					if($("#selectfile_cd").val() == ""){ alert($("#selectfile_cd").val()); $("#upload_cd").addBack().addClass('invalid'); $('#error_number_of_cds').html('Field is required'); valid = false; return false;}
@@ -1619,9 +1645,9 @@ function displayPrice(binding = "", no_ofsheets = "", page_options = "", embossi
 					    $("#cd-bag").addClass('invalid'); $('#error_cd_bag').html('Field is required'); valid = false; return false;
 					}
 
-					if($("#div-fonts-cd").hasClass("displayBlock")){
+					if($("#div-fonts-cd").hasClass("displayBlock")){  
 
-						if($("#fonts-cd").find(":selected").val() == "-1"){$("#fonts-cd").addClass('invalid'); $('error_fonts').html('Field is required'); valid = false; return false;}	
+						if($("#fonts-cd").find(":selected").val() == "-1"){$("#fonts-cd").addClass('invalid');  $('#error_fonts_cd').html('Field is required'); valid = false; return false;}	
 
 					}	
 					else{valid = true; return true;
@@ -2133,10 +2159,10 @@ if($('#selectfile_file').val() != ""){
   $('#color-pages').trigger('onchange');
   $('#A3-pages').trigger('onchange');
   $('#A2-pages').trigger('onchange');
-  $('#embossment-cover-sheet').trigger('onchange');  
-  $('#embossment-spine').trigger('onchange');
+  //$('#embossment-cover-sheet').trigger('onchange');  
+  //$('#embossment-spine').trigger('onchange');
   $('#cd-check').trigger('onchange');
-  $('#imprint').trigger('onchange');
+  //$('#imprint').trigger('onchange');
   $("#div-display-image").empty();
   document.getElementById('div-display-image').className = "displayNone";
   $("#div-display-image-cd").empty();
@@ -2369,13 +2395,11 @@ function getA3A2Count(format = ""){
 
 	$.ajax({ 
 			url: base_url+'/get-A2-A3-count', 
-			type: 'POST', 
+			type: 'POST',
 			data: {'_token': $('meta[name="csrf-token"]').attr('content'),'page_format':page_format},
 			success: function (response){   
 
 				var data = JSON.parse(response); 
-
-				console.log(data['can_add_din_A2']);
 
 				var max_pages_A2 = data['max_pages_A2']; var max_pages_A3 = data['max_pages_A3'];
 
@@ -2405,9 +2429,13 @@ function getA3A2Count(format = ""){
 					//$("#div-A3-pages").attr('disabled', true);   
 					$("#div-A2-pages").removeClass('displayBlock').addClass('displayNone');  
 				}
+
+			
 				
 			}
 		});
+
+	
 }
 
 
@@ -2466,14 +2494,30 @@ function resetPrice(session = ""){
  
 	}else if(session == "refinement_with_spine"){
 
-		if($("#embossment-spine").is(":checked")){}else{
-			displayPrice('','','','','','','','','','','','','','','','');
+		if($("#embossment-spine").is(":checked")){}else{  alert("2");
+			//$('#embossment-spine').prop("checked", false);
+			$.ajax({
+			url: base_url+'/clear-session-particular', 
+			type: 'GET', 
+			data:{session:'embossingSpine'},
+			success: function (response){
+				  
+			}
+		}); 
 		}
 
 	}else if(session == "refinement_with_embossment"){  
 
 		if($("#embossment-cover-sheet").is(":checked")){}else{  alert("1");
-			displayPrice('','','','','','','','','','','','','','','','');
+			//$('#embossment-cover-sheet').prop("checked", false); 
+			$.ajax({
+			url: base_url+'/clear-session-particular', 
+			type: 'GET', 
+			data:{session:'embossingCover'},
+			success: function (response){
+				  
+			}
+		}); 
 		}
 
 	}
@@ -2626,4 +2670,28 @@ function getPaperWeight(binding = ""){
 			
 		}
 	});
+}
+
+
+function getEmbossingFields(binding = ''){
+
+
+	$.ajax({
+		url: base_url+'/get-embossing-fields', 
+		type: 'POST', 
+		data: {'binding_type': binding , '_token': $('meta[name="csrf-token"]').attr('content')},
+		success: function (response){  var data = JSON.parse(response); 
+
+			$('#embossing').empty();
+			$('#embossing').append('<option value="-1">Select</option>');
+
+			data.forEach(function(data) { 
+				
+				$('#embossing').append("<option value='"+data.embossment_type+"'>"+data.embossment_type+ "</option>");
+			})
+
+			
+		}
+	});
+
 }

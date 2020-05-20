@@ -1848,7 +1848,9 @@ div#div-section-1  label#field-1 {
 }
 
 
-
+.navigate-heading {
+  margin-top: 165px !important;
+}
 p.inside-box-heading {
     display: none;
 }

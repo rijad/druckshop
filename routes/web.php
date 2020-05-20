@@ -82,6 +82,7 @@ Route::get('/remove-item/{id}','CheckoutController@removeItem')->name('remove-it
 Route::POST('/paper-weight-sheets','CheckoutController@paperWeightSheets')->name('paper-weight-sheets');
 Route::get('/cart','CheckoutController@cart')->name('cart');
 Route::get('/clear-session','CheckoutController@clearSession')->name('clear-session');
+Route::get('/clear-session-particular','CheckoutController@clearSessionParticular')->name('clear-session-particular');
 Route::get('/get-print-finishing-status','CheckoutController@getPrintfinishingStatus')->name('get-print-finishing-status');
 Route::post('/get-spine-count','CheckoutController@getSpineCount')->name('get-spine-count');
 Route::post('/add-address','CheckoutController@addAddress')->name('add-address');
@@ -93,6 +94,7 @@ Route::post('/get-cover-sheet','CheckoutController@getCoverSheetData')->name('ge
 Route::post('/get-back-cover','CheckoutController@getBackCoverData')->name('get-back-cover');
 Route::post('/get-page-format','CheckoutController@getPageFormatData')->name('get-page-format');
 Route::post('/get-paper-weight','CheckoutController@getPaperWeightData')->name('get-paper-weight');
+Route::post('/get-embossing-fields','CheckoutController@getEmbossingFields')->name('get-embossing-fields');
 
 // Binding Sample Image 
 Route::POST('/binding-sample-image','BindingSampleImageController@getSampleImage')->name('binding-sample-image');

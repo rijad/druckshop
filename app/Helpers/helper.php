@@ -134,3 +134,10 @@ function customer($id)
             return "";
         }
     } 
+
+function getEmbossingById($id){
+
+	$list = \App\ArtList::find($id);
+	return $list->name_english;
+
+}    

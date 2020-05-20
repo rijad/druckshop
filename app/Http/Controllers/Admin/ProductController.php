@@ -478,8 +478,13 @@ class ProductController extends Controller
 
                 $image->move($destinationPath, $input['imagename']);
 
-                $product = Product::find($id)->image_path;  
-                unlink(public_path()."\images\\".$product);
+                $product = Product::find($id)->image_path;
+					
+				$path = public_path().'/images/'.$product;
+				//dd($path);
+				if (file_exists($path)){
+                unlink($path);
+				}
 
                 $update = Product::where('id', @$id)->update(['image_path' => @$input['imagename']]);
             }
@@ -869,7 +874,13 @@ class ProductController extends Controller
 
        ProductImage::find($request->rid)->delete();
 
-       unlink(public_path()."/images/".$request->path);
+       //unlink(public_path()."/images/".$request->path);
+	   
+	   $path = public_path().'/images/'.$request->path;
+				//dd($path);
+				if (file_exists($path)){
+                unlink($path);
+				}
 
        echo "success";
 
