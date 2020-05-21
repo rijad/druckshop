@@ -147,8 +147,17 @@ class CoverSheetController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
+        // $status = CoverSheet::find($id);
+
+        // if ($request->status == '1') {
+        //     $status->status = 0;
+        // } else {
+        //     $status->status = 1;
+        // }
+        // $status->update();
+        
         $coversheet = CoverSheet::where(['id' => $id])->update(['status' => 0]);
         return redirect()->back()->with('status' , 'Deleted');
     }

@@ -38,6 +38,7 @@
                                                 <form method="POST" action="{{ route('backcover.destroy' , $cover->id) }}" class="ml-2">
                                                 @method('DELETE')
                                                 @csrf
+                                                    {{-- <input type="hidden" name="status" value="{{$cover->status}}"> --}}
                                                     <input type="submit" value="<?php echo ($cover->status) ? 'InActive' : 'Active'; ?>" class="btn btn-danger">
                                                 </form>
                                             </td>

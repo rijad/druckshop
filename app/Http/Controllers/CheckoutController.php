@@ -1562,12 +1562,20 @@ public function makeOrderDetails($model = "", $attribute=""){
 		return "No of colored pages are ".$attribute;
 	}
 
+	if($model == "A3-pages"){
+		return "A3-page is ".$attribute;
+	}
+
 	if($model == "number_of_pages"){
-		return "No. of pages are ".$attribute;
+		return "No of A3 Pages are ".$attribute;
 	}
 
 	if($model == "pos_of_A3_pages"){
 		return "Pos of A3 pages are ".$attribute;
+	}
+
+	if($model == "A2-pages"){
+		return "A2-page is ".$attribute;
 	}
 
 	if($model == "number_of_A2_pages"){
@@ -1578,8 +1586,16 @@ public function makeOrderDetails($model = "", $attribute=""){
 		return "Embossing is ".$attribute;
 	}
 
+	if($model == "embossment-cover-sheet"){
+		return "Embossment-cover-sheet is ".$attribute;
+	}
+
 	if($model == "template"){
-		return "Template is ".$attribute;
+		return "Binding template is ".$attribute;
+	}
+
+	if($model == "embossment-template-name"){
+		return "Embossment template name is ".$attribute;
 	}
 
 	if($model == "embossment-spine"){
@@ -1638,8 +1654,24 @@ public function makeOrderDetails($model = "", $attribute=""){
 		return "Remarks are ".$attribute;
 	}
 
+	if($model == "cd-check"){
+		return "Cd-check is ".$attribute;
+	}
+
 	if($model == "number_of_cds"){
 		return "No of cds are ".$attribute;
+	}
+
+	if($model == "imprint"){
+		return "Imprint is ".$attribute;
+	}
+
+	if($model == "cd-template"){
+		return "Cd Template is ".$attribute;
+	}
+
+	if($model == "cd-template-name"){
+		return "Cd template name is ".$attribute;
 	}
 
 	if($model == "fonts-cd"){

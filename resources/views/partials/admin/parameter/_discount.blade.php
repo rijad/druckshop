@@ -39,6 +39,7 @@
                                                 <form method="POST" action="{{ route('discount.destroy' , $disc->id) }}" class="ml-2">
                                                 @method('DELETE')
                                                 @csrf
+                                                    {{-- <input type="hidden" name="status" value="{{$disc->status}}"> --}}
                                                     <input type="submit" value="<?php echo ($disc->status) ? 'InActive' : 'Active'; ?>" class="btn btn-danger">
                                                 </form>
                                             </td>

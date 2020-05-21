@@ -39,6 +39,7 @@
                                                 <form method="POST" action="{{ route('coversheet.destroy' , $sheet->id) }}" class="ml-2">
                                                 @method('DELETE')
                                                 @csrf
+                                                    {{-- <input type="hidden" name="status" value="{{$sheet->status}}"> --}}
                                                     <input type="submit" value="<?php echo ($sheet->status) ? 'InActive' : 'Active'; ?>" class="btn btn-danger">
                                                 </form>
                                             </td>

@@ -1,5 +1,5 @@
 <div class="card mb-4 mt-4">
-    <div class="card-header"><span>Paper Weight List</span>
+    <div class="card-header"><span>Binding List</span>
 
         <div class="float-right">
             <form method="GET" action="{{ route('binding.create') }}">
@@ -40,6 +40,7 @@
                                 <form method="POST" action="{{ route('binding.destroy' , $bind->id) }}" class="ml-2">
                                     @method('DELETE')
                                     @csrf
+                                    {{-- <input type="hidden" name="status" value="{{$bind->status}}"> --}}
                                     <input type="submit" value="<?php echo ($bind->status) ? 'InActive' : 'Active'; ?>" class="btn btn-danger">
                                 </form>
                             </td>

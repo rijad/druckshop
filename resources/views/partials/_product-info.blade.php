@@ -7,7 +7,7 @@
 					 <div class="rv-imagelist">
 							<span class="img-back">
 							 @foreach ($listing->psProductImages as $image)
-							 	<img class="zoom" class = "zoom"src="{{ asset('/public/images/'.$listing->image_path)}}" alt="" height="50" width="50" />
+							 	<img class="zoom" class = "zoom"src="{{ asset('/public/images/'.$image->image_path)}}" alt="" height="50" width="50" />
 							 @endforeach
 							 </span>
 						</div>

@@ -124,17 +124,16 @@ class ArtController extends Controller
      */
     public function destroy(Request $request, $id)
     {
-        // $status = ArtList::find($id);
-        // $status->status = $request->status;
-        // dd($request->status);
+        $status = ArtList::find($id);
 
-        // if ($status == '1') {
-        //     $art = ArtList::where(['id' => $id])->update(['status' => 0]);
-        // } else {
-        //     $art = ArtList::where(['id' => $id])->update(['status' => 1]);
-        // }
-    
-        $art = ArtList::where(['id' => $id])->update(['status' => 0]);
+        if ($request->status == '1') {
+            $status->status = 0;
+        } else {
+            $status->status = 1;
+        }
+        $status->update();
+        
+        // $art = ArtList::where(['id' => $id])->update(['status' => 0]);
         return redirect()->back()->with('status' , 'Deleted');
     }
 }
