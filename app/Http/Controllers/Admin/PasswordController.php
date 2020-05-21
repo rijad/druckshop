@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use App\Rules\OldPwdRule;
 use App\UsersAdmin;
 
 class PasswordController extends Controller
@@ -66,7 +67,7 @@ class PasswordController extends Controller
      */
     public function edit($id)
     {
-        //
+        // 
     }
 
     /**
@@ -77,9 +78,11 @@ class PasswordController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
+    {   
+        // $input['password'] = Hash::make('trantor@123');
+        //         UsersAdmin::find(1)->update($input);
         $validator = Validator::make($request->all(), [
-            'old_password' => 'required',
+            'old_password' => ['required',new OldPwdRule('old_password')],
             'password' => 'required|min:8',
             'confirm_password' => 'required_with:password|same:password|min:8',
         ]);
@@ -98,17 +101,12 @@ class PasswordController extends Controller
                 $user_id = Auth::guard('admin')->user()->id;
             }
 
-            $pass_id = UsersAdmin::find(auth()->guard('admin')->user()->id);
-            
-            if(!Hash::check($input['old_password'], $pass_id->password)){
-                // dd($pass_id->password);
-                return redirect()->back()->with('status' , 'The specified password does not match the old password');
-            }else{
-                $input['password'] = Hash::make($request->password);
+            $input['password'] = Hash::make($request->password);
                 UsersAdmin::find($user_id)->update($input);
-            }
+
+                return redirect()->back()->with('status' , 'Updated');
         }
-        return redirect()->back()->with('status' , 'Updated');
+       
     }
 
     /**

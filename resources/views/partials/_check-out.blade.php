@@ -235,7 +235,7 @@
 
 												<div class="displayBlock" id="div-embossment-cover-sheet">
 													<label class="csCheckbtn">{{ trans('checkout.refinement_cover_sheet') }}
-														<input class =""name ="embossment-cover-sheet" id ="embossment-cover-sheet" type="checkbox" onchange="displayPrice('','','','1','','','','','','','','','','','',''); displayPrintFields('Embossment_Cover_Sheet');  displayProductAttributes('9',this);  resetPrice('refinement_with_embossment'); setTimeout(function(){displayPrice('','','','','','','','','','','','','','',$('#embossing').find(':selected').val(),'')},3000); " disabled>
+														<input class =""name ="embossment-cover-sheet" id ="embossment-cover-sheet" type="checkbox" onchange="displayPrice('','','','1','','','','','','','','','','','',''); displayPrintFields('Embossment_Cover_Sheet');  displayProductAttributes('9',this);  resetPrice('refinement_with_embossment'); setTimeout(function(){displayPrice('','','','','','','','','','','','','','',$('#embossing').find(':selected').val(),'')},1500); " disabled>
 														<span class="checkmark"></span>
 													</label>
 												</div> 
@@ -311,7 +311,7 @@
  
 													<div class="displayBlock" id="div-embossment-spine">
 														<label class="csCheckbtn">{{ trans('checkout.refinement_spine') }}<a href="#" data-toggle="tooltip" title="Data is taken from cover sheet" class="formToolTip">i</a>
-															<input class = "" type="checkbox" id = "embossment-spine" name = "embossment-spine" onchange = "   displayPrice('','','','','1','','','','','','','','','','','');  displayProductAttributes('10',this); displayPrintFields('Embossment_spine');  setTimeout(function(){resetPrice('refinement_with_spine')},1000); setTimeout(function(){displayPrice('','','','','','','','','','','','','','',$('#embossing').find(':selected').val(),'')},3000);" disabled>
+															<input class = "" type="checkbox" id = "embossment-spine" name = "embossment-spine" onchange = "   displayPrice('','','','','1','','','','','','','','','','','');  displayProductAttributes('10',this); displayPrintFields('Embossment_spine');  setTimeout(function(){resetPrice('refinement_with_spine')},1000); setTimeout(function(){displayPrice('','','','','','','','','','','','','','',$('#embossing').find(':selected').val(),'')},2000);" disabled>
 															<span class="checkmark"></span>
 														</label>
 														
@@ -471,7 +471,7 @@
 
 														<div class="displayNone" id="div-cd-imprint">
 															<label class="csCheckbtn">{{ trans('checkout.cd_imprint') }}
-																<input id= "imprint" name = "imprint" class = "" type="checkbox" onchange="displayCDFields('imprint'); resetPrice('cd_imprint'); displayPrice('','','','','','','','','','','','','','','',this.value);">
+																<input id= "imprint" name = "imprint" class = "" type="checkbox" onchange=" displayPrice('','','','','','','','','','','','','','','',this.value); displayCDFields('imprint'); resetPrice('cd_imprint');">
 																<span class="checkmark"></span>
 															</label>
 														</div>	

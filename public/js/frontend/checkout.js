@@ -934,6 +934,8 @@ function displayCDFields(value = ""){
 		if($("#imprint").is(":checked")){
 			document.getElementById('div-cd-template').className = "displayBlock";
 		}else{
+
+
 			document.getElementById('div-cd-template').className = "displayNone";   
 			document.getElementById('div-display-image-cd').className = "displayNone"; 
 			$('#div-display-image-cd').empty();
@@ -954,6 +956,8 @@ function displayCDFields(value = ""){
      		document.getElementById('upload_custom_logo_cd_heading').className = 'displayNone';
      		document.getElementById('drop_upload_cd_without_logo').className = 'displayNone';
      		document.getElementById('upload_cd_without_logo_heading').className = 'displayNone';
+     		document.getElementById('upload_cd_without_logo').className = 'displayNone';
+
 
      		file_name = $('#selectfile_logo_cd').val(); 
 		    id = "upload_custom_logo_cd";
@@ -2465,8 +2469,20 @@ function resetPrice(session = ""){
 
 	}else if(session == "cd_imprint"){
 
-		if($("#imprint").is(":checked")){}else{displayPrice('','','','','','','','','','','','','','','','0');  // cd imprint
-		 }
+		// if($("#imprint").is(":checked")){}else{displayPrice('','','','','','','','','','','','','','','','0');  // cd imprint
+		//  }
+
+		 if($("#imprint").is(":checked")){}else{  alert("1");
+			//$('#embossment-cover-sheet').prop("checked", false); 
+			$.ajax({
+			url: base_url+'/clear-session-particular', 
+			type: 'GET', 
+			data:{session:'cd_imprint'},
+			success: function (response){
+				  displayPrice('','','','','','','','','','','','','','','','0');
+			}
+		}); 
+		}
 
 		
 
@@ -2494,7 +2510,7 @@ function resetPrice(session = ""){
  
 	}else if(session == "refinement_with_spine"){
 
-		if($("#embossment-spine").is(":checked")){}else{  alert("2");
+		if($("#embossment-spine").is(":checked")){}else{  //alert("2");
 			//$('#embossment-spine').prop("checked", false);
 			$.ajax({
 			url: base_url+'/clear-session-particular', 
@@ -2508,7 +2524,7 @@ function resetPrice(session = ""){
 
 	}else if(session == "refinement_with_embossment"){  
 
-		if($("#embossment-cover-sheet").is(":checked")){}else{  alert("1");
+		if($("#embossment-cover-sheet").is(":checked")){}else{  //alert("1");
 			//$('#embossment-cover-sheet').prop("checked", false); 
 			$.ajax({
 			url: base_url+'/clear-session-particular', 

@@ -341,8 +341,21 @@ class CheckoutController extends Controller
 
 		}
 
+	 }	
+
+	 if($request->session == "cd_imprint"){
+
+			if($request->session()->has('cd_imprint')){
+			$request->session()->forget('cd_imprint');
+			print_r("done");
+
+		}
+
 	}
- }	
+
+}	
+
+
 
 
 
@@ -481,12 +494,14 @@ class CheckoutController extends Controller
 			$colored = 0.00; $b_w = 0.00; 
 
 			if($request->session()->get('pageOptions') == "1"){
-				$sheets = $request->session()->get('A2_page');
+				//$sheets = $request->session()->get('A2_page');
 				$sided = "one-sided";
 			}else if($request->session()->get('pageOptions') == "2"){
-				$sheets = intval($request->session()->get('A2_page')) / 2;
+				//$sheets = intval($request->session()->get('A2_page')) / 2;
 				$sided = "two-sided";
 				}  //print_r("2---".$sheets);
+
+				$sheets = $request->session()->get('A2_page');
 
 				if($request->session()->has('coloredSheets')){
 					$colored = intval($request->session()->get('coloredSheets'));
@@ -527,19 +542,23 @@ class CheckoutController extends Controller
 				$colored = 0.00; $b_w = 0.00; 
 
 				if($request->session()->get('pageOptions') == "1"){
-					$sheets = $request->session()->get('A3_page');
+					//$sheets = $request->session()->get('A3_page');
 					$sided = "one-sided";
 				}else if($request->session()->get('pageOptions') == "2"){
-					$sheets = intval($request->session()->get('A3_page')) / 2;
+					//$sheets = intval($request->session()->get('A3_page')) / 2;
 					$sided = "two-sided";
 				}
 
+				$sheets = $request->session()->get('A3_page');
+
 				if($request->session()->has('coloredSheets')){
-					if($request->session()->get('pageOptions') == "1"){
-					  $colored = intval($request->session()->get('coloredSheets'));
-					}else if($request->session()->get('pageOptions') == "2"){
-					  $colored = intval($request->session()->get('coloredSheets')) / 2;
-					}
+					// if($request->session()->get('pageOptions') == "1"){
+					//   $colored = intval($request->session()->get('coloredSheets'));
+					// }else if($request->session()->get('pageOptions') == "2"){
+					//   $colored = intval($request->session()->get('coloredSheets')) / 2;
+					// }
+
+					$colored = intval($request->session()->get('coloredSheets'));
 					$b_w = $sheets - $colored;
 
 					try{
@@ -580,20 +599,24 @@ class CheckoutController extends Controller
 				$colored = 0.00; $b_w = 0.00; 
 
 				if($request->session()->get('pageOptions') == "1"){
-					$sheets = $request->session()->get('no_of_sheets');
+					//$sheets = $request->session()->get('no_of_sheets');
 					$sided = "one-sided";
 				}else if($request->session()->get('pageOptions') == "2"){
-					$sheets = intval($request->session()->get('no_of_sheets')) / 2;
+					//$sheets = intval($request->session()->get('no_of_sheets')) / 2;
 					$sided = "two-sided";
 				}
 
+				$sheets = $request->session()->get('no_of_sheets');
+
 				if($request->session()->has('coloredSheets')){
 
-					if($request->session()->get('pageOptions') == "1"){
-					  $colored = intval($request->session()->get('coloredSheets'));
-					}else if($request->session()->get('pageOptions') == "2"){
-					  $colored = intval($request->session()->get('coloredSheets')) / 2;
-					}
+					// if($request->session()->get('pageOptions') == "1"){
+					//   $colored = intval($request->session()->get('coloredSheets'));
+					// }else if($request->session()->get('pageOptions') == "2"){
+					//   $colored = intval($request->session()->get('coloredSheets')) / 2;
+					// }
+
+					$colored = intval($request->session()->get('coloredSheets'));
 
 					$b_w = $sheets - $colored;
 					try{
@@ -636,12 +659,14 @@ class CheckoutController extends Controller
 				$paperWeight = PaperWeight::where('id',$request->session()->get('paperWeight'))->first('paper_weight',$request->session()->get('paperWeight'))->paper_weight;
 
 				if($request->session()->get('pageOptions') == "1"){
-					$sheets = $request->session()->get('A2_page');
+					//$sheets = $request->session()->get('A2_page');
 					$sided = "one-sided";
 				}else if($request->session()->get('pageOptions') == "2"){
-					$sheets = intval($request->session()->get('A2_page')) / 2;
+					//$sheets = intval($request->session()->get('A2_page')) / 2;
 					$sided = "two-sided";
 				}
+
+				$sheets = $request->session()->get('A2_page');
 
 
 				try{  
@@ -663,12 +688,14 @@ class CheckoutController extends Controller
 				$paperWeight = PaperWeight::where('id',$request->session()->get('paperWeight'))->first('paper_weight',$request->session()->get('paperWeight'))->paper_weight;
 
 				if($request->session()->get('pageOptions') == "1"){
-					$sheets = $request->session()->get('A3_page');
+					//$sheets = $request->session()->get('A3_page');
 					$sided = "one-sided";
 				}else if($request->session()->get('pageOptions') == "2"){
-					$sheets = intval($request->session()->get('A3_page')) / 2;
+					//$sheets = intval($request->session()->get('A3_page')) / 2;
 					$sided = "two-sided";
 				}
+
+				$sheets = $request->session()->get('A3_page');
 
 				try{  
 					$Surcharge_A3 = PrintoutPaperSurcharge::where('din','A3')
@@ -687,12 +714,14 @@ class CheckoutController extends Controller
 				$paperWeight = PaperWeight::where('id',$request->session()->get('paperWeight'))->first('paper_weight',$request->session()->get('paperWeight'))->paper_weight;
 
 				if($request->session()->get('pageOptions') == "1"){
-					$sheets = $request->session()->get('no_of_sheets');
+					//$sheets = $request->session()->get('no_of_sheets');
 					$sided = "one-sided"; 
 				}else if($request->session()->get('pageOptions') == "2"){
-					$sheets = floatval($request->session()->get('no_of_sheets')) / 2;
+					//$sheets = floatval($request->session()->get('no_of_sheets')) / 2;
 					$sided = "two-sided";
 				}
+
+				$sheets = $request->session()->get('no_of_sheets');
 
 				try{  
 					$Surcharge_A4 = PrintoutPaperSurcharge::where('din','A4')
@@ -738,13 +767,16 @@ class CheckoutController extends Controller
 
 
 			if($request->session()->has('nosOfCds') && $request->session()->has('cd_imprint')){ 
-				$no_of_cds = $request->session()->get('nosOfCds');
-				$cd_print = 2.00;
-				try{
-					$cd_dvd_print_price = $no_of_cds * $cd_print;
-				}catch(\Exception $e){
-					$cd_dvd_print_price = 0.00;
+				if($request->session()->get('cd_imprint') == '0'){}else{
+					$no_of_cds = $request->session()->get('nosOfCds');
+					$cd_print = 2.00;
+					try{
+						$cd_dvd_print_price = $no_of_cds * $cd_print;
+					}catch(\Exception $e){
+						$cd_dvd_print_price = 0.00;
+					}
 				}
+				
 			}
 
 			$cd_dvd = number_format(($cd_dvd_cover_price + $cd_dvd_price + $cd_dvd_print_price) ,2);
@@ -809,7 +841,7 @@ class CheckoutController extends Controller
 			  $total_unit_price = number_format(($binding_price + $printout + $data_check_price + $embossment_price),2);
 
 			 
-			  if(($binding_price + $printout + $data_check_price) > 0){
+			  if(($binding_price + $printout + $data_check_price) > 0){ 
 			  	$total =number_format((($no_of_copies) * ($binding_price + $printout + $price_embossing_cover + $price_embossing_spine)) + $cd_dvd + $data_check_price , 2);
 			  }else{
 			  	$total = 0.00;
@@ -1962,7 +1994,7 @@ public static function CartCount(){
 
 		foreach($back_sheet_data as $key=>$value){
 
-			$back_sheet[$key] = ['id' => $value->cover_sheet_id, 'cover' => sheetById($value->back_cover_id)];
+			$back_sheet[$key] = ['id' => $value->back_cover_id, 'cover' => sheetById($value->back_cover_id)];
 		}
 
 		print_r(json_encode($back_sheet));
