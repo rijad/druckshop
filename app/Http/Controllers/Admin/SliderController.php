@@ -91,8 +91,12 @@ class SliderController extends Controller
 
 
             $input = $request->all();
-            dd($input);
+
+            //dd($input);
             $input['image_path'] = "public/images/". preg_replace('/\s+/', '_', $file->getClientOriginalName());
+
+     
+
 
             if($request->input('is_active') == "on"){
                 $input['is_active'] = 1;

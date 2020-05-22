@@ -22,7 +22,7 @@
 							<div class="tab" id="tab-fields">
 								<div class="displayBlock">
 									<label>{{ trans('checkout.binding_title') }}*:</label>
-									<p><select class = "" name = "binding" id = "binding" onclick="" onchange=" displayPrice(this.value,'','','','','','','','','','','','','','',''); resetFields(this.id,this.value);  displayProductAttributes('1',this);  sampleImage(); getCoverSetting(this.value); getPageFormatData(this.value); ">
+									<p><select class = "" name = "binding" id = "binding" onclick="" onchange="  displayPrintFields(''); resetFields(this.id,this.value);  displayProductAttributes('1',this);  sampleImage(); getCoverSetting(this.value); getPageFormatData(this.value); getEmbossingFields(this.value);">
 										<option value = "-1">Select</option>
 										@foreach ($product_listing as $key=>$listing)
 										@if($listing->id != 8 && $listing->id != 5)
@@ -33,7 +33,7 @@
 								</div>
 								<div class="displayBlock" id="div-no-of-copies">
 									<label>{{ trans('checkout.no_of_copies') }}*:</label>
-									<p><input type = "text" class = "" name="no_of_copies" id="no-of-copies" placeholder="{{ trans('checkout.no_of_copies') }}" oninput="displayProductAttributes('2',this); displayPrice('','','','','','','','','','','','','',this.value,'','');"></p><p class="error" id="error_no_of_copies"></p>
+									<p><input type = "text" class = "" name="no_of_copies" id="no-of-copies" placeholder="{{ trans('checkout.no_of_copies') }}" oninput="displayPrice(document.getElementById('binding').value,'','','','','','','','','','','','','','',''); displayProductAttributes('2',this);  setTimeout(function(){displayPrice('','','','','','','','','','','','','',this.value,'','')},500);"></p><p class="error" id="error_no_of_copies"></p>
 								</div>
 								<div class="displayBlock" id="div-page-format">
 									<label>{{ trans('checkout.page_format') }}*:</label>
@@ -92,7 +92,7 @@
 								<div class="tab">
 									<div class="displayBlock">
 										<label>{{ trans('checkout.side_options') }}*:</label>
-										<p><select class = "" id = "page_options" name = "page_options" onclick=""  onchange="displayFieldsContent(this.value);  displayProductAttributes('7',this); displayPrice('','',this.value,'','','','','','','','','','','','','');" >
+										<p><select class = "" id = "page_options" name = "page_options" onclick=""  onchange="displayPrice('','',this.value,'','','','','','','','','','','','',''); displayFieldsContent(this.value);  displayProductAttributes('7',this); " >
 											<option value = "-1">Select</option>
 											@foreach ($page_options as $key=>$listing)
 											<option value="{{$listing->id}}">{{$listing->name_english}}</option>  
@@ -230,14 +230,12 @@
 													<label>{{ trans('checkout.embossing') }}*:</label>
 													<p><select class = "" id = "embossing" name = "embossing" onchange="embossingChange(this);  displayPrice('','','','','','','','','','','','','','',this.value,'');">
 														<option value = "-1">Select</option>
-														<option value = "Edition">Edition</option>
-														<option value = "Classic">Classic</option>
 													</select></p> <p class="error" id="error_embossing"></p>
 												</div>
 
 												<div class="displayBlock" id="div-embossment-cover-sheet">
 													<label class="csCheckbtn">{{ trans('checkout.refinement_cover_sheet') }}
-														<input class =""name ="embossment-cover-sheet" id ="embossment-cover-sheet" type="checkbox" onchange="displayPrintFields('Embossment_Cover_Sheet'); displayPrice('','','',this.value,'','','','','','','','','','','',''); displayProductAttributes('9',this);" disabled>
+														<input class =""name ="embossment-cover-sheet" id ="embossment-cover-sheet" type="checkbox" onchange="displayPrice('','','','1','','','','','','','','','','','',''); displayPrintFields('Embossment_Cover_Sheet');  displayProductAttributes('9',this);  resetPrice('refinement_with_embossment'); setTimeout(function(){displayPrice('','','','','','','','','','','','','','',$('#embossing').find(':selected').val(),'')},1500); " disabled>
 														<span class="checkmark"></span>
 													</label>
 												</div> 
@@ -313,13 +311,13 @@
  
 													<div class="displayBlock" id="div-embossment-spine">
 														<label class="csCheckbtn">{{ trans('checkout.refinement_spine') }}<a href="#" data-toggle="tooltip" title="Data is taken from cover sheet" class="formToolTip">i</a>
-															<input class = "" type="checkbox" id = "embossment-spine" name = "embossment-spine" onchange = "displayPrice('','','','',this.value,'','','','','','','','','','',''); displayProductAttributes('10',this); displayPrintFields('Embossment_spine'); " disabled>
+															<input class = "" type="checkbox" id = "embossment-spine" name = "embossment-spine" onchange = "   displayPrice('','','','','1','','','','','','','','','','','');  displayProductAttributes('10',this); displayPrintFields('Embossment_spine');  setTimeout(function(){resetPrice('refinement_with_spine')},1000); setTimeout(function(){displayPrice('','','','','','','','','','','','','','',$('#embossing').find(':selected').val(),'')},2000);" disabled>
 															<span class="checkmark"></span>
 														</label>
 														
 														<input type = "hidden" id="spine-count-hidden" name="spine-count-hidden">
 													</div> 
-
+ 
 													<p id="spine-count"></p>
 													<p id="spine-message"></p>
 
@@ -473,7 +471,7 @@
 
 														<div class="displayNone" id="div-cd-imprint">
 															<label class="csCheckbtn">{{ trans('checkout.cd_imprint') }}
-																<input id= "imprint" name = "imprint" class = "" type="checkbox" onchange="displayCDFields('imprint'); resetPrice('cd_imprint');">
+																<input id= "imprint" name = "imprint" class = "" type="checkbox" onchange=" displayPrice('','','','','','','','','','','','','','','',this.value); displayCDFields('imprint'); resetPrice('cd_imprint');">
 																<span class="checkmark"></span>
 															</label>
 														</div>	
@@ -533,7 +531,7 @@
 															@foreach ($fonts as $key=>$listing)
 															<option value="{{$listing->font}}">{{$listing->font}}</option>  
 															@endforeach
-														</select></p> <p class="error" id="error_fonts"></p>
+														</select></p> <p class="error" id="error_fonts_cd"></p>
 													</div>
  
 													<p class="outside-box-heading displayNone"  id="upload_cd_without_logo_heading">{{ trans('checkout.upload_own_cd_template') }}</p>
@@ -544,7 +542,7 @@
 															<p>Drop file here<a href="#" data-toggle="tooltip" title="jpeg,jpg,png" class="formToolTip">i</a></p> 
 															<p>or</p>
 															<p><input type="button" value="Select File" onclick=" file_explorer('upload_cd_without_logo');"></p>
-															<input type="file" name ="selectfile" id="selectfile" accept="image/x-png" onchange = "displayPrice('','','','','','','','','','','','','','','',this.value);">
+															<input type="file" name ="selectfile" id="selectfile" accept="image/x-png">
  
 															<input type="hidden" name ="selectfile_upload_cd_without_logo" id="selectfile_upload_cd_without_logo" accept="image/x-png">
 														</div>
@@ -642,52 +640,27 @@ $(document).ready(function(){
 		document.getElementById('total').innerHTML = "" ;
 		document.getElementById('total_price').value = "";
 
+		$('#binding').trigger('onchange');
+		$('#binding').trigger('onclick');
+
 
 	    $.ajax({
 			url: base_url+'/clear-session', 
 			type: 'GET', 
 			success: function (response){
 				console.log(response); 
+				$('#cd-bag').trigger('onchange');  
+				$('#data_check').trigger('onchange');
 			}
 		}); 
 
-		$('#binding').trigger('onchange');
-		$('#binding').trigger('onclick');
-		$('#cd-bag').trigger('onchange');  
-		$('#data_check').trigger('onchange');
+		
+		
 });  
 
 });
 
- // $(".morelink").click(function(){
 
-
-	// if($(".servicePrice").find('ul').find('li').hasClass('morelink')){  
- // 		$(".servicePrice").find('ul').find('li').removeClass('morelink');
- // 		$("#toggle").addClass('lesslink').find('p').text('View Less...');
- // 	}
-
- // 	if($(".servicePrice").find('ul').find('li').hasClass('displayNone')){
- // 		$(".servicePrice").find('ul').find('li').removeClass('displayNone');
- // 	}
-
- 	
-    
- //  });
-
- // $("#lesslink").click(function(){  alert('ss');
-
-
- // 	$(".servicePrice").find('ul').find('li').addBack().addClass('displayNone');
-
- // 	 if($(".servicePrice").find('ul').find('li').hasClass('lesslink')){
- // 		$(".servicePrice").find('ul').find('li').removeClass('lesslink');
- // 		$("#toggle").removeClass('displayNone');
- // 		$("#toggle").addClass('morelink').text('View More..');
- // }
-
-    
- //  });
 
 
  function openTray(elem){

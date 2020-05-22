@@ -156,7 +156,7 @@
 
                                 @foreach ($paperWeight as $key_pw => $value_pw)
                                 <tr class="form-inline">
-                                    <td class="rv-bindingswidth"><span class="ml-4"><input type="checkbox" class="form-control" name="paper_weight[]" value="{{ $value_pw->id }}" />{{ $value_pw->paper_weight }}  g/m<sup>2</sup></span></td>
+                                    <td class="rv-bindingswidth"><span class="ml-4"><input type="checkbox" class="form-control" name="paper_weight[]" value="{{ $value_pw->id }}" />{{ $value_pw->paper_weight }}  g/m<sup>2</sup></span><input type="hidden" name = "x_paper_weight[]" value="{{ $value_pw->id }}" ></td>
                                     <td class="rv-bindingswidth"><input id="from" type="number" name="p_min_sheet[]" value="0" /></td>
                                     <td class="rv-bindingswidth"> <input id="from" type="number" name="p_max_sheet[]" value="0" /></td>
                                 </tr>
@@ -208,37 +208,37 @@
                             <tr class="form-inline">
                                 <td class="rv-headLtchild1"><input id="start" type="hidden" name="sheet_start[]" value="1" />1 - </td>
                                 <td class="rv-headLtchild"><input class="form-control end" id="end" type="hidden" name="sheet_end[]" value="50" placeholder="page range" />50</td>
-                                <td class="rv-headRtchild"><input class="form-control product_price" id="product_price" type="number" name="product_price[]" value="10" step = "0.1" required placeholder="price" /></td>
+                                <td class="rv-headRtchild"><input class="form-control product_price" id="product_price" type="number" name="product_price[]" value="10.00" step = "0.01" required placeholder="price" /></td>
                             </tr>
 
                             <tr class="form-inline">
                                 <td class="rv-headLtchild1"><input id="start" type="hidden" name="sheet_start[]" value="51" />51 - </td>
                                 <td class="rv-headLtchild"><input class="form-control end" id="end" type="hidden" name="sheet_end[]" value="100" placeholder="page range" />100</td>
-                                <td class="rv-headRtchild"><input class="form-control product_price" id="product_price" type="number" name="product_price[]" value="11" step = "0.1" required placeholder="price" /></td>
+                                <td class="rv-headRtchild"><input class="form-control product_price" id="product_price" type="number" name="product_price[]" value="11.00" step = "0.01" required placeholder="price" /></td>
                             </tr>
 
                             <tr class="form-inline">
                                 <td class="rv-headLtchild1"><input id="start" type="hidden" name="sheet_start[]" value="101" />101 - </td>
                                 <td class="rv-headLtchild"><input class="form-control end" id="end" type="hidden" name="sheet_end[]" value="150" placeholder="page range" />150</td>
-                                <td class="rv-headRtchild"><input class="form-control product_price" id="product_price" type="number" name="product_price[]" value="12" step = "0.1" required placeholder="price" /></td>
+                                <td class="rv-headRtchild"><input class="form-control product_price" id="product_price" type="number" name="product_price[]" value="12.00" step = "0.01" required placeholder="price" /></td>
                             </tr>
 
                             <tr class="form-inline">
                                 <td class="rv-headLtchild1"><input id="start" type="hidden" name="sheet_start[]" value="191" />191 - </td>
                                 <td class="rv-headLtchild"><input class="form-control end" id="end" type="hidden" name="sheet_end[]" value="250" placeholder="page range" />250</td>
-                                <td class="rv-headRtchild"><input class="form-control product_price" id="product_price" type="number" name="product_price[]" value="13" step = "0.1" required placeholder="price" /></td>
+                                <td class="rv-headRtchild"><input class="form-control product_price" id="product_price" type="number" name="product_price[]" value="13.00" step = "0.01" required placeholder="price" /></td>
                             </tr>
 
                             <tr class="form-inline">
                                 <td class="rv-headLtchild1"><input id="start" type="hidden" name="sheet_start[]" value="201" />201 - </td>
                                 <td class="rv-headLtchild"><input class="form-control end" id="end" type="hidden" name="sheet_end[]" value="250" placeholder="page range" />250</td>
-                                <td class="rv-headRtchild"><input class="form-control product_price" id="product_price" type="number" name="product_price[]" value="14" step = "0.1" required placeholder="price" /></td>
+                                <td class="rv-headRtchild"><input class="form-control product_price" id="product_price" type="number" name="product_price[]" value="14.00" step = "0.01" required placeholder="price" /></td>
                             </tr>
 
                             <tr class="form-inline">
                                 <td class="rv-headLtchild1"><input class="form-control start" id="start" type="hidden" name="sheet_start[]" value="251" />251 - </td>
                                 <td class="rv-headLtchild"><input class="form-control end" id="end" name="sheet_end[]"  placeholder="page range" type="number"  /></td>
-                                <td class="rv-headRtchild"><input class="form-control product_price" id="product_price" type="number" name="product_price[]" step = "0.1" placeholder="price" /></td>
+                                <td class="rv-headRtchild"><input class="form-control product_price" id="product_price" type="number" name="product_price[]" step = "0.01" placeholder="price" /></td>
                             </tr>
 
                         </table>

@@ -40,6 +40,10 @@ $("#rv-myHeader").attrchange({
             if(evnt.newValue.search(/nav-wrapper sticky/i) != -1) { // "open" is the class name you search for inside "class" attribute
 
                 $("#navigate-heading").addClass('navigate-heading');
+            }else{
+
+            	 $("#navigate-heading").removeClass();
+
             }
         }
     }
