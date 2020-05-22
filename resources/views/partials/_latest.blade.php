@@ -53,9 +53,14 @@ $("#rv-myHeader").attrchange({
         if(evnt.attributeName == "class") { // which attribute you want to watch for changes
             if(evnt.newValue.search(/nav-wrapper sticky/i) != -1) { // "open" is the class name you search for inside "class" attribute
 
-                $("#section").addClass('navigate-heading');
+                $("#section").addClass('navigate-heading');   
+            }else{
+
+            	$("#section").removeClass();
+            	$("#section").addClass('page-section home-faq');
+
             }
-        }
+        } 
     }
 });
 

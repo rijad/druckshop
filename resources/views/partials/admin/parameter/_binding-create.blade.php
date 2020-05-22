@@ -156,7 +156,7 @@
 
                                 @foreach ($paperWeight as $key_pw => $value_pw)
                                 <tr class="form-inline">
-                                    <td class="rv-bindingswidth"><span class="ml-4"><input type="checkbox" class="form-control" name="paper_weight[]" value="{{ $value_pw->id }}" />{{ $value_pw->paper_weight }}  g/m<sup>2</sup></span></td>
+                                    <td class="rv-bindingswidth"><span class="ml-4"><input type="checkbox" class="form-control" name="paper_weight[]" value="{{ $value_pw->id }}" />{{ $value_pw->paper_weight }}  g/m<sup>2</sup></span><input type="hidden" name = "x_paper_weight[]" value="{{ $value_pw->id }}" ></td>
                                     <td class="rv-bindingswidth"><input id="from" type="number" name="p_min_sheet[]" value="0" /></td>
                                     <td class="rv-bindingswidth"> <input id="from" type="number" name="p_max_sheet[]" value="0" /></td>
                                 </tr>

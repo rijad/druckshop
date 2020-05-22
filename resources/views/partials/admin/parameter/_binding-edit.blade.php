@@ -234,23 +234,46 @@
              <th class="rv-bindingswidth">Max Sheets</th>
          </tr>
 
+         <?php $i = 0; ?>
+
          @foreach ($paperWeight as $key_pw => $value_pw)
+
+         {{-- {{$value_pw->id}} --}} 
          <tr class="form-inline">
+
+            
             <?php 
 
-            if(in_array($value_pw->id, $selectedPaperWeight)){
+            if(in_array($value_pw->id, $selectedPaperWeight)){  
 
                 $bc_selected = "checked";
+             ?>  
+
+                <td class="rv-bindingswidth"><span class="ml-4"><input type="checkbox" class="form-control" name="paper_weight[]" value="{{ $value_pw->id }}" {{ $bc_selected }} />{{ $value_pw->paper_weight }} g/m<sup>2</sup></span><input type="hidden" name = "x_paper_weight[]" value="{{ $value_pw->id }}" ></td>
+                 <td class="rv-bindingswidth"> <input id="from" type="number" name="p_min_sheet[]" value="{{ @$selectedPaperWeightData[$i]['min_sheets'] }}" /><input type="hidden" name = "px_min_sheet[]" value="{{ $value_pw->id }}" ></td>
+                 <td class="rv-bindingswidth"><input id="from" type="number" name="p_max_sheet[]" value="{{ @$selectedPaperWeightData[$i]['max_sheets'] }}" /><input type="hidden" name = "px_max_sheet[]" value="{{ $value_pw->id }}" ></td>     
+
+             <?php  
+
+              $i = $i+1; 
+
             } else{
 
              $bc_selected = "";
-         } 
+ 
+             ?> 
 
-         ?>
+               {{--  {{ @$value_pw->id }} --}}
+                <td class="rv-bindingswidth"><span class="ml-4"><input type="checkbox" class="form-control" name="paper_weight[]" value="{{ $value_pw->id }}" {{ $bc_selected }} />{{ $value_pw->paper_weight }} g/m<sup>2</sup></span><input type="hidden" name = "x_paper_weight[]" value="{{ $value_pw->id }}" ></td>
+                <td class="rv-bindingswidth"> <input id="from" type="number" name="p_min_sheet[]" value="" /<input type="hidden" name = "px_min_sheet[]" value="{{ $value_pw->id }}" ></td>
+                <td class="rv-bindingswidth"><input id="from" type="number" name="p_max_sheet[]" value="" /><input type="hidden" name = "px_max_sheet[]" value="{{ $value_pw->id }}" ></td>
 
-         <td class="rv-bindingswidth"><span class="ml-4"><input type="checkbox" class="form-control" name="paper_weight[]" value="{{ $value_pw->id }}" {{ $bc_selected }} />{{ $value_pw->paper_weight }} g/m<sup>2</sup></span></td>
-         <td class="rv-bindingswidth"> <input id="from" type="number" name="p_min_sheet[]" value="{{ @$selectedPaperWeightData[$key_pw]['min_sheets'] }}" /></td>
-         <td class="rv-bindingswidth"><input id="from" type="number" name="p_max_sheet[]" value="{{ @$selectedPaperWeightData[$key_pw]['max_sheets'] }}" /></td>
+            <?php
+             } 
+
+             ?>
+
+         
      </tr>
      @endforeach
 

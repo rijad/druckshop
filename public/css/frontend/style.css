@@ -1683,10 +1683,26 @@ div#upload_custom_logo_cd input#selectfile_custom_logo_cd {
     visibility: hidden;
 }
 
+.checkoutStepper .checkoutBlock .tab {
+    max-width: 450px;
+    width: 100%;
+}
+.checkoutStepper input, .checkoutStepper select {
+    height: 44px;
+}
+div#div-remarks {
+    clear: both;
+}
+div#div-fonts-cd label {
+    display: inline-flex;
+}
+div#div-fonts-cd label p {
+    padding-right: 2px;
+}
 
-
-
-
+div#upload_cd input#selectfile_upload_cd {
+    visibility: hidden;
+}
 
 /*media query starts from here*/
 
@@ -1848,7 +1864,9 @@ div#div-section-1  label#field-1 {
 }
 
 
-
+.navigate-heading {
+  margin-top: 165px !important;
+}
 p.inside-box-heading {
     display: none;
 }
@@ -2077,6 +2095,9 @@ div#div-section-1  label#field-1 {
 }
 }
 
+
+
+/* --------------------------------Slider New------------------------------------ */
 
 
 

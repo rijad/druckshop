@@ -40,6 +40,7 @@ use App\UserAddress;
 use App\ProductCoverColor;
 use App\ProductCoverSheet;
 use App\ProductBackSheet;
+use App\ProductPrintFinishingArtList;
 use App\User;
 use App\EmbossingCover;
 use App\EmbossingSpine;
@@ -320,9 +321,47 @@ class CheckoutController extends Controller
 		print_r($response);
 	}
 
+
+	public function clearSessionParticular(Request $request){
+
+		if($request->session == "embossingCover"){
+
+			if($request->session()->has('embossingCover')){
+			$request->session()->forget('embossingCover');
+			print_r("done");
+
+		}
+		}			
+
+		if($request->session == "embossingSpine"){
+
+			if($request->session()->has('embossingSpine')){
+			$request->session()->forget('embossingSpine');
+			print_r("done");
+
+		}
+
+	 }	
+
+	 if($request->session == "cd_imprint"){
+
+			if($request->session()->has('cd_imprint')){
+			$request->session()->forget('cd_imprint');
+			print_r("done");
+
+		}
+
+	}
+
+}	
+
+
+
+
+
 	public function getPrice(Request $request){ 
 
-		//print_r($request->input());
+		
 
 		$binding_price = 0.00; $embosing_spine = 0.00; $embosing_cover = 0.00; $printout = 0.00; $printout_basic = 0.00; 
 		$printout_surcharge = 0.00; $cd_dvd = 0.00; $delivery_cost = 0.00; $colored_price_A2 = 0.00; $b_w_price_A2 = 0.00; $colored_price_A3 = 0.00; $b_w_price_A3 = 0.00; $colored_price_A4 = 0.00; $b_w_price_A4 = 0.00; $Price_surcharge_A2 = 0.00; $Price_surcharge_A3 = 0.00; $Price_surcharge_A4 = 0.00; $data_check_price =0.00; $no_of_copies=0.00; $price_embossing_cover = 0.00;  $price_embossing_spine = 0.00; $cd_dvd_print_price = 0.00;  $cd_dvd_cover_price = 0.00; $cd_dvd_price = 0.00;  $embossment_price = 0.00; $total = 0.00; $total_unit_price = 0.00;
@@ -338,6 +377,7 @@ class CheckoutController extends Controller
 		if($request->input('embossing_type') != ""){
 			$request->session()->forget('embossing_type');
 			$request->session()->put('embossing_type', $request->input('embossing_type'));
+			$request->session()->flash('embossing_type', $request->input('embossing_type'));
 			$request->session()->save();
 		}
 
@@ -367,14 +407,14 @@ class CheckoutController extends Controller
 			$request->session()->save();  
 		}
 
-		if($request->input('embossingCover') != ""){
+		if($request->input('embossingCover') != ""){  //print_r('cover');
 			$request->session()->forget('embossingCover');
 			$request->session()->put('embossingCover', $request->input('embossingCover'));
 			$request->session()->save();
 		}
 
-		if($request->input('embossingSpine') != ""){
-			$request->session()->forget('embossingSpine');
+		if($request->input('embossingSpine') != ""){  //print_r('spine');
+			$request->session()->forget('embossingSpine');   
 			$request->session()->put('embossingSpine', $request->input('embossingSpine'));
 			$request->session()->save();
 		}
@@ -428,7 +468,7 @@ class CheckoutController extends Controller
 		}
 
 
-		print_r(session()->all());
+		//print_r(session()->all());
 
 		if ($request->session()->has('binding_type') && $request->session()->has('no_of_sheets') && $request->session()->has('pageOptions')) {  
 			$sheets = 0;
@@ -454,12 +494,14 @@ class CheckoutController extends Controller
 			$colored = 0.00; $b_w = 0.00; 
 
 			if($request->session()->get('pageOptions') == "1"){
-				$sheets = $request->session()->get('A2_page');
+				//$sheets = $request->session()->get('A2_page');
 				$sided = "one-sided";
 			}else if($request->session()->get('pageOptions') == "2"){
-				$sheets = intval($request->session()->get('A2_page')) / 2;
+				//$sheets = intval($request->session()->get('A2_page')) / 2;
 				$sided = "two-sided";
 				}  //print_r("2---".$sheets);
+
+				$sheets = $request->session()->get('A2_page');
 
 				if($request->session()->has('coloredSheets')){
 					$colored = intval($request->session()->get('coloredSheets'));
@@ -500,19 +542,23 @@ class CheckoutController extends Controller
 				$colored = 0.00; $b_w = 0.00; 
 
 				if($request->session()->get('pageOptions') == "1"){
-					$sheets = $request->session()->get('A3_page');
+					//$sheets = $request->session()->get('A3_page');
 					$sided = "one-sided";
 				}else if($request->session()->get('pageOptions') == "2"){
-					$sheets = intval($request->session()->get('A3_page')) / 2;
+					//$sheets = intval($request->session()->get('A3_page')) / 2;
 					$sided = "two-sided";
 				}
 
+				$sheets = $request->session()->get('A3_page');
+
 				if($request->session()->has('coloredSheets')){
-					if($request->session()->get('pageOptions') == "1"){
-					  $colored = intval($request->session()->get('coloredSheets'));
-					}else if($request->session()->get('pageOptions') == "2"){
-					  $colored = intval($request->session()->get('coloredSheets')) / 2;
-					}
+					// if($request->session()->get('pageOptions') == "1"){
+					//   $colored = intval($request->session()->get('coloredSheets'));
+					// }else if($request->session()->get('pageOptions') == "2"){
+					//   $colored = intval($request->session()->get('coloredSheets')) / 2;
+					// }
+
+					$colored = intval($request->session()->get('coloredSheets'));
 					$b_w = $sheets - $colored;
 
 					try{
@@ -553,20 +599,24 @@ class CheckoutController extends Controller
 				$colored = 0.00; $b_w = 0.00; 
 
 				if($request->session()->get('pageOptions') == "1"){
-					$sheets = $request->session()->get('no_of_sheets');
+					//$sheets = $request->session()->get('no_of_sheets');
 					$sided = "one-sided";
 				}else if($request->session()->get('pageOptions') == "2"){
-					$sheets = intval($request->session()->get('no_of_sheets')) / 2;
+					//$sheets = intval($request->session()->get('no_of_sheets')) / 2;
 					$sided = "two-sided";
 				}
 
+				$sheets = $request->session()->get('no_of_sheets');
+
 				if($request->session()->has('coloredSheets')){
 
-					if($request->session()->get('pageOptions') == "1"){
-					  $colored = intval($request->session()->get('coloredSheets'));
-					}else if($request->session()->get('pageOptions') == "2"){
-					  $colored = intval($request->session()->get('coloredSheets')) / 2;
-					}
+					// if($request->session()->get('pageOptions') == "1"){
+					//   $colored = intval($request->session()->get('coloredSheets'));
+					// }else if($request->session()->get('pageOptions') == "2"){
+					//   $colored = intval($request->session()->get('coloredSheets')) / 2;
+					// }
+
+					$colored = intval($request->session()->get('coloredSheets'));
 
 					$b_w = $sheets - $colored;
 					try{
@@ -609,12 +659,14 @@ class CheckoutController extends Controller
 				$paperWeight = PaperWeight::where('id',$request->session()->get('paperWeight'))->first('paper_weight',$request->session()->get('paperWeight'))->paper_weight;
 
 				if($request->session()->get('pageOptions') == "1"){
-					$sheets = $request->session()->get('A2_page');
+					//$sheets = $request->session()->get('A2_page');
 					$sided = "one-sided";
 				}else if($request->session()->get('pageOptions') == "2"){
-					$sheets = intval($request->session()->get('A2_page')) / 2;
+					//$sheets = intval($request->session()->get('A2_page')) / 2;
 					$sided = "two-sided";
 				}
+
+				$sheets = $request->session()->get('A2_page');
 
 
 				try{  
@@ -636,12 +688,14 @@ class CheckoutController extends Controller
 				$paperWeight = PaperWeight::where('id',$request->session()->get('paperWeight'))->first('paper_weight',$request->session()->get('paperWeight'))->paper_weight;
 
 				if($request->session()->get('pageOptions') == "1"){
-					$sheets = $request->session()->get('A3_page');
+					//$sheets = $request->session()->get('A3_page');
 					$sided = "one-sided";
 				}else if($request->session()->get('pageOptions') == "2"){
-					$sheets = intval($request->session()->get('A3_page')) / 2;
+					//$sheets = intval($request->session()->get('A3_page')) / 2;
 					$sided = "two-sided";
 				}
+
+				$sheets = $request->session()->get('A3_page');
 
 				try{  
 					$Surcharge_A3 = PrintoutPaperSurcharge::where('din','A3')
@@ -660,12 +714,14 @@ class CheckoutController extends Controller
 				$paperWeight = PaperWeight::where('id',$request->session()->get('paperWeight'))->first('paper_weight',$request->session()->get('paperWeight'))->paper_weight;
 
 				if($request->session()->get('pageOptions') == "1"){
-					$sheets = $request->session()->get('no_of_sheets');
+					//$sheets = $request->session()->get('no_of_sheets');
 					$sided = "one-sided"; 
 				}else if($request->session()->get('pageOptions') == "2"){
-					$sheets = floatval($request->session()->get('no_of_sheets')) / 2;
+					//$sheets = floatval($request->session()->get('no_of_sheets')) / 2;
 					$sided = "two-sided";
 				}
+
+				$sheets = $request->session()->get('no_of_sheets');
 
 				try{  
 					$Surcharge_A4 = PrintoutPaperSurcharge::where('din','A4')
@@ -680,7 +736,7 @@ class CheckoutController extends Controller
 
 			$printout_surcharge = $Price_surcharge_A2 + $Price_surcharge_A3 + $Price_surcharge_A4; 
 
-			$printout = $printout_basic + $printout_surcharge;
+			$printout = number_format(($printout_basic + $printout_surcharge),2);
 
 		// price data check
 			if($request->session()->has('dataCheck')){ 
@@ -711,13 +767,16 @@ class CheckoutController extends Controller
 
 
 			if($request->session()->has('nosOfCds') && $request->session()->has('cd_imprint')){ 
-				$no_of_cds = $request->session()->get('nosOfCds');
-				$cd_print = 2.00;
-				try{
-					$cd_dvd_print_price = $no_of_cds * $cd_print;
-				}catch(\Exception $e){
-					$cd_dvd_print_price = 0.00;
+				if($request->session()->get('cd_imprint') == '0'){}else{
+					$no_of_cds = $request->session()->get('nosOfCds');
+					$cd_print = 2.00;
+					try{
+						$cd_dvd_print_price = $no_of_cds * $cd_print;
+					}catch(\Exception $e){
+						$cd_dvd_print_price = 0.00;
+					}
 				}
+				
 			}
 
 			$cd_dvd = number_format(($cd_dvd_cover_price + $cd_dvd_price + $cd_dvd_print_price) ,2);
@@ -727,13 +786,13 @@ class CheckoutController extends Controller
 			if($request->session()->has('embossing_type') && $request->session()->has('embossingCover')){
 
 				//$embossing = 0.00;  
-				print_r("hh111");
+				//print_r("hh111");
 
 					try{ 
 
 						$refinementType = ProductPrintFinishing::where(['product_id' => $request->session()->get('binding_type')])->first('print_finishing_id')->print_finishing_id;  
 
-							$price_embossing_cover = EmbossingCover::where(['type' => $request->session()->get('embossing_type')])->first('price')->price;   
+							$price_embossing_cover = EmbossingCover::where(['type' => $request->session()->get('embossing_type')])->first('price')->price;  // print_r("-----".$price_embossing_cover."-------");
 						
 
 					}catch (Exception $e) {
@@ -747,48 +806,48 @@ class CheckoutController extends Controller
 
 				//$embossing = 0.00;
 
-				print_r("hh222");
+				//print_r("hh222");
 
 					try{ 
 
 						$refinementType = ProductPrintFinishing::where(['product_id' => $request->session()->get('binding_type')])->first('print_finishing_id')->print_finishing_id;  
 
-							$price_embossing_spine = EmbossingSpine::where(['type' => $request->session()->get('embossing_type')])->first('price')->price;
+							$price_embossing_spine = EmbossingSpine::where(['type' => $request->session()->get('embossing_type')])->first('price')->price;   //print_r("-----".$price_embossing_spine."-------");
 						 
 
 					}catch (Exception $e) {
 
 						$price_embossing_spine = 0.00;  
-
+ 
 					}   
  
-			} 
+			}  
 
 
-			// no of copies
+			// no of copies 
 			  if($request->session()->has('no_of_copies')){
 
 			  	$no_of_copies = $request->session()->get('no_of_copies');
 
 			  }
 
-			  print_r("E1".$price_embossing_spine);    print_r("E2:".$price_embossing_cover);
+			  //print_r("E1".$price_embossing_spine);    print_r("E2:".$price_embossing_cover);
 
-			  $embossment_price = $price_embossing_spine  + $price_embossing_cover;
+			  $embossment_price = number_format(($price_embossing_spine  + $price_embossing_cover) ,2);
 
-			  print_r("--------".$embossment_price);
+			 // print_r("--------".$embossment_price);
 
 
-			  $total_unit_price = number_format($binding_price + $printout + $data_check_price + $embossment_price,2);
+			  $total_unit_price = number_format(($binding_price + $printout + $data_check_price + $embossment_price),2);
 
 			 
-			  if(($binding_price + $printout + $data_check_price) > 0){
+			  if(($binding_price + $printout + $data_check_price) > 0){ 
 			  	$total =number_format((($no_of_copies) * ($binding_price + $printout + $price_embossing_cover + $price_embossing_spine)) + $cd_dvd + $data_check_price , 2);
 			  }else{
 			  	$total = 0.00;
 			  }
 
-			//print_r($binding_price); 
+			$binding_price = number_format($binding_price,2); 
 
 			$data = compact('binding_price','printout','data_check_price','embossment_price','cd_dvd','total','total_unit_price');
 			$response = returnResponse($data,'200','Success');
@@ -888,7 +947,7 @@ public function cart(){
 
 
 		try{
-			$billing_address_data = UserAddress::where(['address_type'=>'billing','user_id'=>$user_id, 'default'=>'1'])->get();
+			$billing_address_data = UserAddress::where(['address_type'=>'billing','user_id'=>$user_id, 'default'=>'1'])->limit('1')->get();
 
 			if($billing_address_data->isEmpty()){
 
@@ -902,7 +961,7 @@ public function cart(){
 
 
 		try{
-			$shipping_address_data = UserAddress::where(['address_type'=>'shipping','user_id'=>$user_id,'default'=>'1'])->get();
+			$shipping_address_data = UserAddress::where(['address_type'=>'shipping','user_id'=>$user_id])->get();
  
 
 		}catch(Exception $e){
@@ -945,7 +1004,7 @@ if (Auth::check())
 
 	}  
 
-if (Auth::check()) // if user is logged in no need to enter email
+if (Auth::check() && Auth::user()->name != "Guest") // if user is logged in no need to enter email
 {
 
 	$validator = Validator::make($request->all(), [ 
@@ -964,14 +1023,14 @@ if (Auth::check()) // if user is logged in no need to enter email
 	]); 
 
 }else{ // user not logged in have to enter email
-
+//dd("1");
 	$validator = Validator::make($request->all(), [ 
 		'no_of_copies.*'=> 'required',
 		'no_of_cds.*' => 'nullable',
 		'shipping_company.*' => 'required|not_in:-1',
 		'shipping_address.*' => 'required|not_in:-1',             
 		'billing_address' => 'required|not_in:-1',
-		'email_id' => 'required|email',
+		'email_id' => 'required|email', 
 		'code' => ['nullable','exists:ps_discount',new CheckCodeRule('code')],
 	], [
 		'no_of_copies.*.required' => 'No of Copies are required',
@@ -1507,42 +1566,42 @@ public function makeOrderDetails($model = "", $attribute=""){
 	$id = intval($attribute);  //dd($id);
 
 	if($model == "binding"){
-		$attribute = Product::find($id)->first();
+		$attribute = Product::where(['id' => $id])->first();  
 		return "Binding is ".$attribute->title_english;
 	}
 
 	if($model == "page-format"){
-		$attribute = PageFormat::find($id)->first();
+		$attribute = PageFormat::where(['id' => $id])->first();
 		return "Page Format is ".$attribute->page_format;
 	}
 
 	if($model == "cover-color"){
-		$attribute = CoverColor::find($id)->first();
+		$attribute = CoverColor::where(['id' => $id])->first();
 		return "Cover Color is ".$attribute->color;
 	}
 
 	if($model == "cover-sheet"){
-		$attribute = CoverSheet::find($id)->first();
+		$attribute = CoverSheet::where(['id' => $id])->first();
 		return "Cover Sheet is ".$attribute->sheet;
 	}
 
 	if($model == "back-cover"){
-		$attribute = BackCovers::find($id)->first();
+		$attribute = BackCovers::where(['id' => $id])->first();
 		return "Back Cover is ".$attribute->back_cover;
 	}
 
 	if($model == "page_options"){
-		$attribute = PageOptions::find($id)->first();
+		$attribute = PageOptions::where(['id' => $id])->first();
 		return "Page Option is ".$attribute->page_options;
 	}
 
 	if($model == "paper-weight"){
-		$attribute = PaperWeight::find($id)->first();
+		$attribute = PaperWeight::where(['id' => $id])->first();
 		return "Paper Weight is ".$attribute->paper_weight . " g/m²";
 	}
 
 	if($model == "mirror"){
-		$attribute = Mirror::find($id)->first();
+		$attribute = Mirror::where(['id' => $id])->first();
 		return "Mirror type is ".$attribute->mirror;
 	}
 
@@ -1555,12 +1614,12 @@ public function makeOrderDetails($model = "", $attribute=""){
 	}
 
 	if($model == "cd-bag"){
-		$attribute = CdBag::find($id)->first();
+		$attribute = CdBag::where(['id' => $id])->first();
 		return "Cd Bag is ".$attribute->bag;
 	}
 
 	if($model == "data_check"){
-		$attribute = DataCheck::find($id)->first();
+		$attribute = DataCheck::where(['id' => $id])->first();
 		return "Data Check is ".$attribute->check_list;
 	}
 
@@ -1775,6 +1834,9 @@ public static function CartCount(){
 					$input['default'] = 0;
 
 					$UserAddress= UserAddress::create($input);
+					//print_r($UserAddress->toArray());
+					$CustomerArea_address = $UserAddress->first_name." ".$UserAddress->last_name.", Company Name: ".$UserAddress->company_name.", House No: ".$UserAddress->house_no.", City: ".$UserAddress->city.", State: ".$UserAddress->state.", Zip Code: ".$UserAddress->zip_code;
+					print_r($CustomerArea_address);
 
 				}else{
 
@@ -1783,6 +1845,7 @@ public static function CartCount(){
 						try{
 
 						$exist = UserAddress::where(['user_id' => $user_id, 'default' => 1, 'address_type' => 'shipping'])->first();
+						
 							$update_address = $exist;
 							$update_address->address_type = "shipping";
 							$update_address->first_name = $input['first_name'];
@@ -1797,12 +1860,13 @@ public static function CartCount(){
 							$update_address->save();
 						}catch(Exception $e){ 
 							$input['default'] = 1;
+							$input['address_type'] = "shipping";
 							$UserAddress= UserAddress::create($input);
 						}
 
 						try{
 							$exist = UserAddress::where(['user_id' => $user_id, 'default' => 1, 'address_type' => 'billing'])->first();
-
+							
 							$update_address = $exist;
 							$update_address->address_type = "billing";
 							$update_address->first_name = $input['first_name'];
@@ -1815,17 +1879,14 @@ public static function CartCount(){
 							$update_address->addition = $input['addition'];
 							$update_address->state = $input['state'];
 							$update_address->save();
-						}catch(Exception $e){
+						}catch(Exception $e){  
 							$input['default'] = 1;
 							$input['address_type'] = "billing";
 							$UserAddress= UserAddress::create($input);
 						}
 
 					}
-
-					
-
-						
+	
 
 					try{
 
@@ -1935,7 +1996,7 @@ public static function CartCount(){
 
 		foreach($back_sheet_data as $key=>$value){
 
-			$back_sheet[$key] = ['id' => $value->cover_sheet_id, 'cover' => sheetById($value->back_cover_id)];
+			$back_sheet[$key] = ['id' => $value->back_cover_id, 'cover' => sheetById($value->back_cover_id)];
 		}
 
 		print_r(json_encode($back_sheet));
@@ -1974,6 +2035,24 @@ public static function CartCount(){
 
 
 	}
+
+
+	public function getEmbossingFields(Request $request){
+
+		$embossing_list = [];
+
+		$refinementType = ProductPrintFinishing::where(['product_id' => $request->binding_type])->first()->id;
+
+		$embossing_list_data =  ProductPrintFinishingArtList::where(['ps_product_pf_id' => $refinementType])->get();
+
+		foreach($embossing_list_data as $key=>$value){
+
+			$embossing_list[$key] = ['eid' => $value->ps_art_list_id, 'embossment_type' => getEmbossingById($value->ps_art_list_id)];
+		}
+
+		print_r(json_encode($embossing_list));
+
+	}	
 
 
 }

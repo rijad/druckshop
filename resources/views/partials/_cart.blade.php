@@ -156,10 +156,10 @@
                            @if($errors->has('billing_address'))
                           <div class="error">{{ $errors->first('billing_address') }}</div>
                           @endif
-                        </div>
+                        </div> 
                         <div class="form-group">
                         <label for="pwd">{{ trans('cart.bill_add') }}*:</label>
-                        <select class="form-control" name={{"billing_address"}} id="billing_address_data" onchange="displayAddress(this,'{{'bill-address'}}');"> 
+                        <select class="form-control" name={{"billing_address"}} id="billing_address_data" > 
                           <option value ="-1">Select</option>
                         @if(!empty($billing_address_data))
                         @foreach($billing_address_data as $keyss=>$billing_address)
@@ -184,7 +184,7 @@
                             @endif
                           </div> 
                           
-                          @if( ! Auth::check())
+                          @if( Auth::check() && Auth::user()->name == "Guest")
                           <div class="form-group">
                             <label for="email">{{ trans('cart.email') }}:</label>
                              <input type="text" name="email_id" id="email_id" class="form-control" placeholder="{{ trans('cart.enter_here') }}">
@@ -477,8 +477,11 @@
 
 <script>
 $(document).ready(function() {
+
+
+
   var showChar = 100;
-  var ellipsestext = "...";
+  var ellipsestext = "..."; 
   var moretext = "Read more";
   var lesstext = "Read less";
   $('.more').each(function() {
@@ -512,10 +515,10 @@ $(document).ready(function() {
 });  
 
  
-function displayAddress(select="",address = ""){  
+function displayAddress(select="", address=""){  
 
-  var select_address = document.getElementById(select.id).value; 
-  document.getElementById(address).innerHTML = select_address;
+ var ship_address=$(select).children("option:selected").val();  alert(ship_address);
+  document.getElementById(address).innerHTML = ship_address ;
 
 }
 

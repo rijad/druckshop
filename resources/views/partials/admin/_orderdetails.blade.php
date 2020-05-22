@@ -90,7 +90,7 @@
                     <tr>
                     <th colspan='8'> <center>Files Uploaded</center> </th>
                     </tr> 
-                    <tr> 
+                    <tr>  
                     <th>S.No</th> 
                     <th colspan='4'>File</th> 
                     <th colspan='3'>Actions</th>    

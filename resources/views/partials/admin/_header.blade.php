@@ -5,15 +5,34 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fas fa-user fa-fw"></i></a>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                    <div class="dropdown-menu" aria-labelledby="userDropdown" id = "userDropdownDiv">
                     <h3 class="dropdown-item">{{ ucwords(Auth::guard('admin')->user()->name) }}</h3>
                             <a class="dropdown-item" href="{{route('changepassword.index')}}">Change Password</a>
-                        
                         <a class="dropdown-item" href="#">Activity Log</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="{{route('dashboard-logout-data')}}">Logout</a>
                     </div>
                 </li>
-            </ul>
+                {{-- <div class="dropdown show">
+                  <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Dropdown link
+                  </a>
+
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                  </div>
+                </div> --}}
+             </ul>
         </nav>
-</header>
+</header> 
+
+<script>
+    
+$("#userDropdown").click(function(){
+    $("#userDropdownDiv").toggle();
+  });
+
+
+</script>
