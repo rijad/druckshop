@@ -35,7 +35,7 @@
             </div>
             <div class="form-group">
                 <div class="custom-control custom-checkbox small">
-                    <input class="custom-control-input" type="checkbox" id="status" name="status" checked>
+                    <input class="custom-control-input" type="checkbox" id="status" name="status" <?php echo ($covercolor->status) ? 'checked' : ''; ?> >
                     <label class="custom-control-label" for="status">Active</label>
                 </div>
             </div>

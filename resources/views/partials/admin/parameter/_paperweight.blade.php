@@ -40,6 +40,7 @@
                                 <form method="POST" action="{{ route('paper.destroy' , $weight->id) }}" class="ml-2">
                                     @method('DELETE')
                                     @csrf
+                                    {{-- <input type="hidden" name="status" value="{{$weight->status}}"> --}}
                                     <input type="submit" value="delete" class="btn btn-danger">
                                 </form>
                             </td>

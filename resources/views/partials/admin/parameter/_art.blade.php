@@ -35,7 +35,8 @@
                                         <form method="POST" action="{{ route('art.destroy' , $artlist->id) }}" class="ml-2">
                                             @method('DELETE')
                                             @csrf
-                                            <input type="submit" value="delete" class="btn btn-danger">
+                                            <input type="hidden" name="status" value="{{$artlist->status}}">
+                                            <input type="submit" value="<?= ($artlist->status == 1) ? 'InActive' : 'Active' ?>" class="btn btn-danger">
                                         </form>
                                     </td>
                                 </tr> 

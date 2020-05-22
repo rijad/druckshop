@@ -87,12 +87,16 @@ class SliderController extends Controller
             $file = $request->file('image_path'); 
             //Move Uploaded File
             $destinationPath = public_path().'/images';
-            $file->move($destinationPath,$file->getClientOriginalName());
+            $file->move($destinationPath, preg_replace('/\s+/', '_', $file->getClientOriginalName()));
 
 
             $input = $request->all();
-           // dd($input);
-            $input['image_path'] = "public/images/".$file->getClientOriginalName();
+
+            //dd($input);
+            $input['image_path'] = "public/images/". preg_replace('/\s+/', '_', $file->getClientOriginalName());
+
+     
+
 
             if($request->input('is_active') == "on"){
                 $input['is_active'] = 1;
@@ -181,9 +185,9 @@ class SliderController extends Controller
                 $file = $request->file('image_path'); 
                 //Move Uploaded File
                 $destinationPath = public_path().'/images';
-                $file->move($destinationPath,$file->getClientOriginalName());
+                $file->move($destinationPath, preg_replace('/\s+/', '_', $file->getClientOriginalName()));
 
-                $input['image_path'] = "public/images/".$file->getClientOriginalName();
+                $input['image_path'] = "public/images/". preg_replace('/\s+/', '_', $file->getClientOriginalName());
 
                 $slider->image_path = @$input['image_path'];
             }

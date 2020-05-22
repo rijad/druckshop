@@ -4,8 +4,8 @@
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>Dashboard</title>
-         <link href="{{ asset('public/css/admin/style.css') }}" rel="stylesheet" type="text/css" />
-		 <link href="{{ asset('public/css/admin/custom.css') }}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('public/css/admin/style.css') }}" rel="stylesheet" type="text/css" />
+	<link href="{{ asset('public/css/admin/custom.css') }}" rel="stylesheet" type="text/css" />
         <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
     

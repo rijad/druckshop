@@ -3,15 +3,23 @@
 		<div class="container"> 
 			<div class="site-login d-flex">
 				<ul class="list-inline headerReview mr-auto">						 
-					<li><h4><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i><i class="fa fa-star-half"></i> </h4><a href="#"><small> 4.86 / 5 {{ trans('header.from')}} 1632 {{ trans('header.reviews')}}</small></a></li>						 					 
+					<li><h4><i class="fa fa-star"></i> <i class="fa fa-star"></i> 
+					<i class="fa fa-star"></i> <i class="fa fa-star"></i>
+					<i class="fa fa-star-half"></i> </h4>
+					<a href="#"><small> 4.86 / 5 {{ trans('header.from')}} 1632 {{ trans('header.reviews')}}</small></a></li>						 					 
 				</ul>
 
-
+				@guest
+				@if (Route::has('register'))
+				@endif
+				@else
 				<ul class="align-item-md-end">						 
-					<li><h4><strong><i class="fa fa-phone"></i></strong> : </h4><a href="#"><small>0987654321</small></a></li>
-					<li><h4><strong><i class="fa fa-envelope"></i></strong> : </h4><a href="#"><small>sampleemail@gmail.com</small></a></li>
-
+					{{-- <li><h4><strong><i class="fa fa-phone"></i></strong> : </h4>
+					<a href="#"><small>0987654321</small></a></li> --}}
+					<li><h4><strong><i class="fa fa-envelope"></i></strong> : </h4>
+					<a href="#"><small>{{ Auth::user()->email }}</small></a></li>
 				</ul>
+				@endguest 
 
 				<!-- Right Side Of Navbar -->
 				<ul class="align-item-md-end">

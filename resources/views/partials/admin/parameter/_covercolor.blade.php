@@ -39,6 +39,7 @@
                                                 <form method="POST" action="{{ route('covercolor.destroy' , $color->id) }}" class="ml-2">
                                                 @method('DELETE')
                                                 @csrf
+                                                    {{-- <input type="hidden" name="status" value="{{$color->status}}"> --}}
                                                     <input type="submit" value="delete" class="btn btn-danger">
                                                 </form>
                                             </td>
