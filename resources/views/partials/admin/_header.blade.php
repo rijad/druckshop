@@ -5,10 +5,9 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fas fa-user fa-fw"></i></a>
-                    <div class="dropdown-menu" aria-labelledby="userDropdown">
+                    <div class="dropdown-menu" aria-labelledby="userDropdown" id = "userDropdownDiv">
                     <h3 class="dropdown-item">{{ ucwords(Auth::guard('admin')->user()->name) }}</h3>
                             <a class="dropdown-item" href="{{route('changepassword.index')}}">Change Password</a>
-                        
                         <a class="dropdown-item" href="#">Activity Log</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="{{route('dashboard-logout-data')}}">Logout</a>
@@ -28,3 +27,12 @@
              </ul>
         </nav>
 </header> 
+
+<script>
+    
+$("#userDropdown").click(function(){
+    $("#userDropdownDiv").toggle();
+  });
+
+
+</script>

@@ -33,7 +33,7 @@
 								</div>
 								<div class="displayBlock" id="div-no-of-copies">
 									<label>{{ trans('checkout.no_of_copies') }}*:</label>
-									<p><input type = "text" class = "" name="no_of_copies" id="no-of-copies" placeholder="{{ trans('checkout.no_of_copies') }}" oninput="displayPrice(document.getElementById('binding').value,'','','','','','','','','','','','','','',''); displayProductAttributes('2',this);  displayPrice('','','','','','','','','','','','','',this.value,'','');"></p><p class="error" id="error_no_of_copies"></p>
+									<p><input type = "text" class = "" name="no_of_copies" id="no-of-copies" placeholder="{{ trans('checkout.no_of_copies') }}" oninput="displayPrice(document.getElementById('binding').value,'','','','','','','','','','','','','','',''); displayProductAttributes('2',this);  setTimeout(function(){displayPrice('','','','','','','','','','','','','',this.value,'','')},500);"></p><p class="error" id="error_no_of_copies"></p>
 								</div>
 								<div class="displayBlock" id="div-page-format">
 									<label>{{ trans('checkout.page_format') }}*:</label>

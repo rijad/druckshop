@@ -947,7 +947,7 @@ public function cart(){
 
 
 		try{
-			$billing_address_data = UserAddress::where(['address_type'=>'billing','user_id'=>$user_id, 'default'=>'1'])->get();
+			$billing_address_data = UserAddress::where(['address_type'=>'billing','user_id'=>$user_id, 'default'=>'1'])->limit('1')->get();
 
 			if($billing_address_data->isEmpty()){
 
@@ -961,7 +961,7 @@ public function cart(){
 
 
 		try{
-			$shipping_address_data = UserAddress::where(['address_type'=>'shipping','user_id'=>$user_id,'default'=>'1'])->get();
+			$shipping_address_data = UserAddress::where(['address_type'=>'shipping','user_id'=>$user_id])->get();
  
 
 		}catch(Exception $e){
@@ -1004,7 +1004,7 @@ if (Auth::check())
 
 	}  
 
-if (Auth::check()) // if user is logged in no need to enter email
+if (Auth::check() && Auth::user()->name != "Guest") // if user is logged in no need to enter email
 {
 
 	$validator = Validator::make($request->all(), [ 
@@ -1023,14 +1023,14 @@ if (Auth::check()) // if user is logged in no need to enter email
 	]); 
 
 }else{ // user not logged in have to enter email
-
+//dd("1");
 	$validator = Validator::make($request->all(), [ 
 		'no_of_copies.*'=> 'required',
 		'no_of_cds.*' => 'nullable',
 		'shipping_company.*' => 'required|not_in:-1',
 		'shipping_address.*' => 'required|not_in:-1',             
 		'billing_address' => 'required|not_in:-1',
-		'email_id' => 'required|email',
+		'email_id' => 'required|email', 
 		'code' => ['nullable','exists:ps_discount',new CheckCodeRule('code')],
 	], [
 		'no_of_copies.*.required' => 'No of Copies are required',
@@ -1834,6 +1834,9 @@ public static function CartCount(){
 					$input['default'] = 0;
 
 					$UserAddress= UserAddress::create($input);
+					//print_r($UserAddress->toArray());
+					$CustomerArea_address = $UserAddress->first_name." ".$UserAddress->last_name.", Company Name: ".$UserAddress->company_name.", House No: ".$UserAddress->house_no.", City: ".$UserAddress->city.", State: ".$UserAddress->state.", Zip Code: ".$UserAddress->zip_code;
+					print_r($CustomerArea_address);
 
 				}else{
 
@@ -1842,6 +1845,7 @@ public static function CartCount(){
 						try{
 
 						$exist = UserAddress::where(['user_id' => $user_id, 'default' => 1, 'address_type' => 'shipping'])->first();
+						
 							$update_address = $exist;
 							$update_address->address_type = "shipping";
 							$update_address->first_name = $input['first_name'];
@@ -1856,12 +1860,13 @@ public static function CartCount(){
 							$update_address->save();
 						}catch(Exception $e){ 
 							$input['default'] = 1;
+							$input['address_type'] = "shipping";
 							$UserAddress= UserAddress::create($input);
 						}
 
 						try{
 							$exist = UserAddress::where(['user_id' => $user_id, 'default' => 1, 'address_type' => 'billing'])->first();
-
+							
 							$update_address = $exist;
 							$update_address->address_type = "billing";
 							$update_address->first_name = $input['first_name'];
@@ -1874,17 +1879,14 @@ public static function CartCount(){
 							$update_address->addition = $input['addition'];
 							$update_address->state = $input['state'];
 							$update_address->save();
-						}catch(Exception $e){
+						}catch(Exception $e){  
 							$input['default'] = 1;
 							$input['address_type'] = "billing";
 							$UserAddress= UserAddress::create($input);
 						}
 
 					}
-
-					
-
-						
+	
 
 					try{
 

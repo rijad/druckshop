@@ -2355,7 +2355,7 @@ function addAddress(address_type = ""){
 		}
 
 	}
-
+ 
   
 	$.ajax({
 			url: base_url+'/add-address', 
@@ -2363,9 +2363,14 @@ function addAddress(address_type = ""){
 			data: {'_token': $('meta[name="csrf-token"]').attr('content'),'default':default_flag,'address_type':address_type, 'first_name':first_name, 'last_name':last_name, 'company_name':company_name, 'street':street, 'city':city, 'zip_code':zip_code, 'house_no':house_no, 'addition':addition, 'state':state},
 			success: function (response){  
 
-				if(address_type == "shipping"){ alert("2");
+				if(address_type == "shipping"){ 
 
 					$('#rv-Modal-shipping').modal('hide');$('body').removeClass('modal-open');$('.modal-backdrop').remove();
+					if(response != ''){
+						$('[id^=address_data]').append('<option value="'+response+'" selected>'+response+'</option>');
+						$('[id^=ship-address-]').empty();
+						$('[id^=ship-address-]').text(response);
+					}
 
 				}
 				if(address_type == "billing"){   
