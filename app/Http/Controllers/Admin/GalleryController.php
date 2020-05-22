@@ -82,11 +82,11 @@ class GalleryController extends Controller
               $file = $request->file('image'); 
               //Move Uploaded File
               $destinationPath = public_path().'/gallery';
-              $file->move($destinationPath,$file->getClientOriginalName());
+              $file->move($destinationPath, preg_replace('/\s+/', '_', $file->getClientOriginalName()));
 
 
             $input = $request->all();
-            $input['image'] = "public/gallery/".$file->getClientOriginalName();
+            $input['image'] = "public/gallery/". preg_replace('/\s+/', '_', $file->getClientOriginalName());
            // dd($input);
 
             if($request->input('status') == "on"){

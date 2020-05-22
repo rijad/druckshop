@@ -103,7 +103,7 @@ class FreeSampleController extends Controller
             $input = $request->all();
             $input['order_id'] = "free_".time();
             $input['sample_status'] = 'New';
-            $input['document'] = 'public/uploads/'.$request->input('selectfile_free_sample');
+            $input['document'] = 'public/uploads/'. preg_replace('/\s+/', '_', $request->input('selectfile_free_sample'));
             $input['status'] = 1;
 
             $freesample = FreeSample::create($input);

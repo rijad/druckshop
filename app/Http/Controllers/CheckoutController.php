@@ -1968,7 +1968,6 @@ public static function CartCount(){
 
 	}
 
-
 	public function getPaperWeightData(Request $request){
 
 		$paper_weight = [];
@@ -1981,9 +1980,6 @@ public static function CartCount(){
 		}
 
 		print_r(json_encode($paper_weight));
-
-
 	}
-
 
 }

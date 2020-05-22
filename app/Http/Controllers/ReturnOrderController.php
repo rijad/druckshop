@@ -20,14 +20,14 @@ class ReturnOrderController extends Controller
 		 } 
 
 		 // upload file
-	     move_uploaded_file($_FILES['file']['tmp_name'], public_path().'/returnrequest/' . time() . '_' . $_FILES['file']['name']);
+	     move_uploaded_file($_FILES['file']['tmp_name'], public_path().'/returnrequest/' . time() . '_' . preg_replace('/\s+/', '_', $_FILES['file']['name']));
 
 	 	// Insert data
 	 	$ReturnOrder = new OrderReturn;
 		$ReturnOrder->user_id = $request->input('user_id');
 		$ReturnOrder->order_id = $request->input('order_id');
 		$ReturnOrder->return_desc = $request->input('desc');
-		$ReturnOrder->image_path = 'public/returnrequest/' . time() . '_' . $_FILES['file']['name'];
+		$ReturnOrder->image_path = 'public/returnrequest/' . time() . '_' . preg_replace('/\s+/', '_', $_FILES['file']['name']);
 		$ReturnOrder->status= "Reversal Request";
 		$ReturnOrder->save();
 

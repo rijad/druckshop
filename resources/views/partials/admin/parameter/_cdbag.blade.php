@@ -36,7 +36,7 @@
                                                 @method('DELETE')
                                                 @csrf
                                                     {{-- <input type="hidden" name="status" value="{{$bag->status}}"> --}}
-                                                    <input type="submit" value="<?php echo ($bag->status) ? 'InActive' : 'Active'; ?>" class="btn btn-danger">
+                                                    <input type="submit" value="delete" class="btn btn-danger">
                                                 </form>
                                             </td>
                                         </tr> 

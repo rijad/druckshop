@@ -19,17 +19,17 @@ class UploadfileController extends Controller
 
 		 
 
-		move_uploaded_file($_FILES['file']['tmp_name'], public_path().'/uploads/' . time() . '_' . $_FILES['file']['name']);
+		move_uploaded_file($_FILES['file']['tmp_name'], public_path().'/uploads/' . time() . '_' . preg_replace('/\s+/', '_', $_FILES['file']['name']));
 
 		if ((in_array($_FILES['file']['type'], $arr_file_types))) {
-			$no_of_pages = self::countPages(public_path().'/uploads/' . time() . '_' . $_FILES['file']['name']);
+			$no_of_pages = self::countPages(public_path().'/uploads/' . time() . '_' . preg_replace('/\s+/', '_', $_FILES['file']['name']));
 		}else{
 			$no_of_pages = 0;
 		}
 
 		
-		$edit_file_name = time() . '_' . $_FILES['file']['name'];
-		$response_array = array('edit_name'=>$edit_file_name,'file_name'=>$_FILES['file']['name'], 'no_of_pages'=>$no_of_pages);
+		$edit_file_name = time() . '_' . preg_replace('/\s+/', '_', $_FILES['file']['name']);
+		$response_array = array('edit_name'=>$edit_file_name,'file_name'=>preg_replace('/\s+/', '_', $_FILES['file']['name']), 'no_of_pages'=>$no_of_pages);
 	
 		$response = returnResponse($response_array,'200','File uploaded successfully.');
 
@@ -46,13 +46,13 @@ class UploadfileController extends Controller
 
 	public function removeFile(Request $request){
 
-		$path = public_path()."/uploads/".$request->file_name;
+		$path = public_path()."/uploads/".preg_replace('/\s+/', '_', $request->file_name);
 
 		if($path == public_path()."/uploads/"){
 			
 		}else{
-			if (file_exists(public_path()."/uploads/".$request->file_name)) {
-        		unlink(public_path()."/uploads/".$request->file_name);
+			if (file_exists(public_path()."/uploads/".preg_replace('/\s+/', '_', $request->file_name))) {
+        		unlink(public_path()."/uploads/".preg_replace('/\s+/', '_', $request->file_name));
     		}
 		}
 

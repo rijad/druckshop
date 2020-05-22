@@ -140,7 +140,7 @@ class ProductController extends Controller
 
                 $image = $request->file('product_file');
                 //$input['imagename'] = time().@$insert->id.'_'.@$image->getClientOriginalName().'.'.@$image->getClientOriginalExtension();
-                $input['imagename'] = time().@$insert->id.'_'.@$image->getClientOriginalName();
+                $input['imagename'] = time().@$insert->id.'_'. preg_replace('/\s+/', '_', @$image->getClientOriginalName());
 
                 $destinationPath = public_path('/images');
 
@@ -163,7 +163,7 @@ class ProductController extends Controller
 
                     $other_image = $request->file('otherImages')[$key]; 
                     //$inputImage['imagename'] = time().@$insert->id.'_'.$value->getClientOriginalName().'.'.$value->getClientOriginalExtension();
-                    $inputImage['imagename'] = time().@$insert->id.'_'.$value->getClientOriginalName();
+                    $inputImage['imagename'] = time().@$insert->id.'_'. preg_replace('/\s+/', '_', @$value->getClientOriginalName());
 
                     $destinationPathImg = public_path('/images');
 
@@ -471,7 +471,7 @@ class ProductController extends Controller
  
                 $image = $request->file('product_file');
                 // $input['imagename'] = time().@$id.'_'.@$image->getClientOriginalName().'.'.@$image->getClientOriginalExtension();
-                $input['imagename'] = time().@$id.'_'.@$image->getClientOriginalName();
+                $input['imagename'] = time().@$id.'_'. preg_replace('/\s+/', '_', @$image->getClientOriginalName());
 
 
                 $destinationPath = public_path('/images');
@@ -499,7 +499,7 @@ class ProductController extends Controller
 
                     $other_image = $request->file('otherImages')[$key];    //dd(@$other_image->getClientOriginalName()); 
                     //$inputImage['imagename'] = time().@$id.'_'.@$value->getClientOriginalName().'.'.@$value->getClientOriginalExtension();
-                    $inputImage['imagename'] = time().@$id.'_'.@$value->getClientOriginalName();
+                    $inputImage['imagename'] = time().@$id.'_'. preg_replace('/\s+/', '_', @$value->getClientOriginalName());
 
 
 

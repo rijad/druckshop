@@ -42,7 +42,7 @@
                                     @method('DELETE')
                                     @csrf
                                     {{-- <input type="hidden" name="status" value="{{$service->status}}"> --}}
-                                    <input type="submit" value="<?php echo ($service->status) ? 'InActive' : 'Active'; ?>" class="btn btn-danger">
+                                    <input type="submit" value="delete" class="btn btn-danger">
                                 </form>
                             </td>
                         </tr>

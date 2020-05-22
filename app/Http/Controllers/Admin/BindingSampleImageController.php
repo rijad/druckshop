@@ -77,11 +77,11 @@ class BindingSampleImageController extends Controller
             } 
               //Move Uploaded File
               $destinationPath = public_path().'/bindingsampleimage';
-              $file->move($destinationPath,$file->getClientOriginalName());
+              $file->move($destinationPath, preg_replace('/\s+/', '_', $file->getClientOriginalName()));
 
 
             $input = $request->all();
-            $input['image'] = "public/bindingsampleimage/".$file->getClientOriginalName();
+            $input['image'] = "public/bindingsampleimage/". preg_replace('/\s+/', '_', $file->getClientOriginalName());
 
             if($request->input('status') == "on"){
                 $input['status'] = 1;
