@@ -1,4 +1,4 @@
- 
+@if(Auth::user()->name != "Guest")
 <section class="customer-profile-section">
 	<div class="container">
 		<div class="col-xl-12"> 
@@ -46,7 +46,7 @@
 		</div>
 	</div>
 </section>
-
+@endif
  <div class="mycart customer-area-rv">
     <div class="container">
         <div class="Product_qeue">

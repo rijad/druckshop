@@ -6,7 +6,7 @@
 					<li><h4><i class="fa fa-star"></i> <i class="fa fa-star"></i> 
 					<i class="fa fa-star"></i> <i class="fa fa-star"></i>
 					<i class="fa fa-star-half"></i> </h4>
-					<a href="#"><small> 4.86 / 5 {{ trans('header.from')}} 1632 {{ trans('header.reviews')}}</small></a></li>						 					 
+					{{-- <a href="#"><small> 4.86 / 5 {{ trans('header.from')}} 1632 {{ trans('header.reviews')}}</small></a></li> --}}						 					 
 				</ul>
 
 				@guest

@@ -22,22 +22,22 @@
 							<div class="tab" id="tab-fields">
 								<div class="displayBlock">
 									<label>{{ trans('checkout.binding_title') }}*:</label>
-									<p><select class = "" name = "binding" id = "binding" onclick="" onchange="  displayPrintFields(''); resetFields(this.id,this.value);  displayProductAttributes('1',this);  sampleImage(); getCoverSetting(this.value); getPageFormatData(this.value); getEmbossingFields(this.value);">
+									<p><select class = "" name = "binding" id = "binding" onclick="" onchange="  displayPrintFields(''); resetFields(this.id,this.value);  displayProductAttributes('1',this);  sampleImage(); getCoverSetting(this.value); getPageFormatData(this.value); getEmbossingFields(this.value); ">
 										<option value = "-1">Select</option>
 										@foreach ($product_listing as $key=>$listing)
 										@if($listing->id != 8 && $listing->id != 5)
 										<option value="{{$listing->id}}" @if($listing->id == request()->id) selected @endif>{{$listing->title_english}}</option>  
 										@endif
 										@endforeach 
-									</select></p><p class="error" id="error_binding"></p>
+									</select></p><p class="error" id="error_binding"></p> 
 								</div>
 								<div class="displayBlock" id="div-no-of-copies">
 									<label>{{ trans('checkout.no_of_copies') }}*:</label>
-									<p><input type = "text" class = "" name="no_of_copies" id="no-of-copies" placeholder="{{ trans('checkout.no_of_copies') }}" oninput="displayPrice(document.getElementById('binding').value,'','','','','','','','','','','','','','',''); displayProductAttributes('2',this);  setTimeout(function(){displayPrice('','','','','','','','','','','','','',this.value,'','')},500);"></p><p class="error" id="error_no_of_copies"></p>
+									<p><input type = "text" class = "" name="no_of_copies" id="no-of-copies" placeholder="{{ trans('checkout.no_of_copies') }}" oninput=" displayProductAttributes('2',this); displayPrice('','','','','','','','','','','','','',this.value,'','');"></p><p class="error" id="error_no_of_copies"></p>
 								</div>
 								<div class="displayBlock" id="div-page-format">
 									<label>{{ trans('checkout.page_format') }}*:</label>
-									<p><select class = "" onclick = "displayProductAttributes('3',this); sampleImage();" id="page-format" name="page-format" onchange="addTooltip(this); getA3A2Count(this); " ><option value="-1">Select</option></select></p><p class="error" id="error_page_format"></p>
+									<p><select class = "" onclick = "displayProductAttributes('3',this); sampleImage();" id="page-format" name="page-format" onchange="addTooltip(this); getA3A2Count(this); displayPrice(document.getElementById('binding').value,'','','','','','','','','','','','','','',''); " ><option value="-1">Select</option></select></p><p class="error" id="error_page_format"></p>
 								</div>
 								<div class="displayNone" id="div-cover-color">
 									<label>{{ trans('checkout.cover_color') }}*:</label> 
