@@ -900,7 +900,7 @@ class CheckoutController extends Controller
 				}else{
 					$user_id = time();
 					Session::put('user_id', $user_id);
-				}
+				} 
  //dd($product_attribute);
 				$OrderAttributes = new OrderAttributes;
 				$OrderAttributes->user_id = $user_id;
@@ -911,7 +911,8 @@ class CheckoutController extends Controller
 				$OrderAttributes->quantity= $qty; 
 				$OrderAttributes->attribute_desc= $product_details;
 				$OrderAttributes->price_per_product=floatval($request->total);
-				$OrderAttributes->price_product_qty= floatval($request->total) * $qty;
+				//$OrderAttributes->price_product_qty= floatval($request->total) * $qty;
+				$OrderAttributes->price_product_qty= floatval($request->total) * ($request->no_of_copies);
 				$OrderAttributes->quantity= 1; 
 				$OrderAttributes->status= 1;
 				$OrderAttributes->save();
@@ -984,7 +985,7 @@ public function cart(){
 
 	}
 
-public function orderDetails(Request $request){
+public function orderDetails(Request $request){  
 
 $total = 0;
 
@@ -996,17 +997,17 @@ if (Auth::check())
 	}else{
 		$user_id = Session::get('user_id');
 	}
-
+//dd($user_id);
 	$product_data = OrderAttributes::where('user_id', $user_id)->get();
-	foreach($product_data as $value){
+	// foreach($product_data as $value){
 
-		$total += $value->price_product_qty;
+	// 	$total += $value->price_product_qty; 
 
-	}  
+	// } //dd("aa".$total); 
 
 if (Auth::check() && Auth::user()->name != "Guest") // if user is logged in no need to enter email
 {
-
+  //dd('1');
 	$validator = Validator::make($request->all(), [ 
 		'no_of_copies.*'=> 'required',
 		'no_of_cds.*' => 'nullable',
@@ -1022,8 +1023,8 @@ if (Auth::check() && Auth::user()->name != "Guest") // if user is logged in no n
 		//'billing_address.*.not_in' => 'Billing Address is required',
 	]); 
 
-}else{ // user not logged in have to enter email
-//dd("1");
+}else if((Auth::check() && Auth::user()->name == "Guest") || ! Auth::check()){ // user not logged in have to enter email
+//dd("2");
 	$validator = Validator::make($request->all(), [ 
 		'no_of_copies.*'=> 'required',
 		'no_of_cds.*' => 'nullable',
@@ -1049,10 +1050,11 @@ if (Auth::check() && Auth::user()->name != "Guest") // if user is logged in no n
 	if($user_id == Session::get('user_id')){
 		$user_id = self::checkGuest($request->input('email_id'));
 	// set new user id for Guest in tables
+
 		self::setGuestUserid($user_id);
 	}
 
-	if ($validator->passes()){   
+	if ($validator->passes()){   //dd("pass");
 
 		foreach($product_data as $key=>$product_detail){
 
@@ -1067,6 +1069,12 @@ if (Auth::check() && Auth::user()->name != "Guest") // if user is logged in no n
 
 		}
 
+		$product_data_merge_cart = OrderAttributes::where('user_id', $user_id)->get();
+			foreach($product_data_merge_cart  as $value){
+
+				$total += $value->price_product_qty; 
+
+	}  
 
 		//handling promo code
 		if($request->input('code') != "null" && ! empty($request->input('code'))){
@@ -1132,15 +1140,51 @@ if (Auth::check() && Auth::user()->name != "Guest") // if user is logged in no n
 	$OrderDetailsvalue->save();
 
 
-
+//dd($total);
 
 	$product_data = OrderAttributes::where('user_id', $user_id)->get();
 
 	return view('/pages/front-end/order',compact('product_data','discount_amt','total','net_amt','delivery_cost','net_amt_after_delivery_service'));
 
 
-}else{//dd($validator->errors('shipping_address.0'));
-return back()->with('errors', $validator->errors());
+}else{//dd("faiil");
+
+	try{
+			$billing_address_data = UserAddress::where(['address_type'=>'billing','user_id'=>$user_id, 'default'=>'1'])->limit('1')->get();
+
+			if($billing_address_data->isEmpty()){
+
+				$billing_address_data = []; 
+
+			}
+
+		}catch(Exception $e){
+			$billing_address_data = [];    
+		} 
+
+
+		try{
+			$shipping_address_data = UserAddress::where(['address_type'=>'shipping','user_id'=>$user_id])->get();
+ 
+
+		}catch(Exception $e){
+
+			$shipping_address_data = [];
+
+			
+		}	
+
+		try{
+			$shipping_company = DeliveryService::where(['status' => 1])->get();
+		}catch(Exception $e){
+			$shipping_company =[];
+		} 
+
+
+		$errors = $validator->errors();
+
+		return view('/pages/front-end/cart',compact('product_data','shipping_company','billing_address_data','shipping_address_data','errors'));
+//return back()->with('errors', $validator->errors());
 }
 
 
@@ -1276,6 +1320,8 @@ public function paymentPaypalSuccess(Request $request){
     $payment->user_id = $user_id;
     $payment->amount = number_format($_GET['amt'],2); 
     $payment->type = "paypal";
+    $payment->payment_type = "paypal"; 
+
     $payment->save();
 
 		$OrderDetails = OrderDetails::where('user_id', $user_id)->first();
@@ -1378,12 +1424,14 @@ public function paymentPaypalSuccess(Request $request){
 	}
 
 
-	public function cashOnDelivery(Request $request){
+	public function cashOnDelivery(Request $request){  
 
 		if(Auth::check()) 
 			{
 				$user_id = Auth::user()->id; 
-			}else{return redirect()->route('index');}
+			}else{
+			return redirect()->route('index');
+			}
 
 			$OrderDetails = OrderDetails::where(['user_id'=> $user_id , 'order_id' => Session::get('order_id')])->first();
 			// $net_amt = $OrderDetails->total; 
@@ -1413,6 +1461,7 @@ public function paymentPaypalSuccess(Request $request){
 	$payment->user_id = $user_id;
 	$payment->amount = $net_amt;  
 	$payment->type = "COD";
+	$payment->payment_type = "COD";
 	$payment->save();
 
 
@@ -1510,7 +1559,7 @@ public function paymentPaypalSuccess(Request $request){
 	$delete_order_details = OrderDetails::where(['user_id'=>$user_id])->delete();
 
 	$request->session()->forget('user_id');
-	$request->session()->forget('order_id');
+	$request->session()->forget('order_id');  //dd("cash");
 
 	return view('/pages/front-end/cashondelivery',compact('OrderDetails'));
 
@@ -1520,6 +1569,13 @@ public function checkGuest($email_id = ""){
 //if user email exists return user id
 	if (User::where('email', $email_id)->exists()) {   
 		$user_id = User::where('email', $email_id)->first('id');
+		//dd($user_id);
+		Auth::loginUsingId($user_id->id,true);
+		if(Auth::check()){
+			//dd("in");
+		}else{
+			//dd("out");
+		}
 		return $user_id->id;
 	}else{
 	// if user does not exist, create new user and return new user id
@@ -1817,9 +1873,11 @@ public static function CartCount(){
 
 		try{
 
-			$data = ProductPaperWeight::where(['paper_weight_id' => $request->paper_weight, 'product_id' => $request->binding])->first('min_sheets');
+			//$data = ProductPaperWeight::where(['paper_weight_id' => $request->paper_weight, 'product_id' => $request->binding])->first('min_sheets');
 
-			echo $data->min_sheets;
+			$data = PaperWeight::where(['id' => $request->paper_weight])->first('min_sheets_for_spine');
+
+			echo $data->min_sheets_for_spine;
 
 		}catch (Exception $e) {
 

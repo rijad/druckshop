@@ -1849,9 +1849,9 @@ function displayPrice(binding = "", no_ofsheets = "", page_options = "", embossi
 // -------     Code to handle checkout page pagination Ends ----------- //						
 
 
-function setQuantity(count = ""){
+function setQuantity(count = ""){  
 
-	var qty = []; var price_per_unit = []; var total_price_per_product = []; var total = 0;
+	var qty = []; var price_per_unit = []; var total_price_per_product = []; var total = 0;  var total_price_hidden = [];
 
 	var x = $('#product_price li input[type=text]');
 
@@ -1866,7 +1866,8 @@ function setQuantity(count = ""){
 	y.each(function(e) {
          price_per_unit.push($(this).html());  
          //total_price_per_product[i] = parseFloat(qty[i]) * parseFloat($(this).html()); 
-          total_price_per_product[i] = parseFloat($(this).html());   
+         //alert(parseFloat($(this).html()));
+          total_price_per_product[i] = parseFloat($(this).html());  
          i++;
 	});
 
@@ -1874,12 +1875,20 @@ function setQuantity(count = ""){
 	//console.log(z);
 	var i = 0;
 	z.each(function(e) {
-        $(this).html(total_price_per_product[i]);  
+        $(this).html(parseFloat(total_price_per_product[i]).toFixed(2));  
+         i++;
+	});
+
+	var m = $("input[name='total_price_hidden']");
+	var i = 0;
+	m.each(function(e) {
+         total_price_hidden[i] = parseFloat($(this).val());  
          i++;
 	});
 
 	for(var i = 0; i<count; i++){ 
-	total =  (parseFloat(total) + parseFloat(total_price_per_product[i])).toFixed(2);
+	//total =  (parseFloat(total) + parseFloat(total_price_per_product[i])).toFixed(2);
+	total =  (parseFloat(total) + parseFloat(total_price_hidden[i])).toFixed(2);
 	document.getElementById('checkout_total').innerHTML = total;
 	}
 
@@ -1896,7 +1905,7 @@ function setQuantity(count = ""){
 }
 
 
-function decrementQuantity(id = "",count = ""){ 
+function decrementQuantity(id = "",count = ""){
  
 	document.getElementById('qty_msg').innerHTML = "";
 	qty = document.getElementById(id).value;
@@ -1912,7 +1921,7 @@ function decrementQuantity(id = "",count = ""){
 	
 }
 
-function incrementQuantity(id = "",count = ""){
+function incrementQuantity(id = "",count = ""){ 
 
 	document.getElementById('qty_msg').innerHTML = "";
 	qty = document.getElementById(id).value;

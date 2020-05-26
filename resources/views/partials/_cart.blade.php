@@ -22,7 +22,7 @@
                                         <p class="thisproduct_head">{{$data->product}}</p>
                                         <p class="thisproduct_subhead more">{{$data->attribute_desc}}</p>
                                     </div>
-                                    <ul class="product_price" id="product_price">
+                                    <ul class="product_price" id="product_price"> 
                                         <li class="inputcard_quantity" style="display: none"><h6><strong>€ <span id="price_per_product_{{$data->id}}" class = "price_per_product">{{$data->price_per_product}}</span><span class="text-muted">x</span></strong></h6>
                                             <input id ="qty_{{$data->id}}" name = "qty_{{$data->id}}" type="text" class="form-control input-sm" placeholder="" onchange ="setQuantity({{count($product_data)}});" value = "{{$data->quantity}}"><div><span id="qty_msg"></span></div>
                                         </li> 
@@ -38,7 +38,7 @@
                                         <div class="form-group">
                                       <label for="text">{{ trans('cart.no_of_copies') }}*:</label>
                                       <label id="price_per_product_{{$data->id}}" class = "price_per_product">{{-- Price/qty:€ {{$data->price_per_product}} --}}</label>
-                                      <input type="text" id="no_of_copies" name={{"no_of_copies[".$key."]"}}  class="form-control" placeholder="{{ trans('cart.enter_here') }}" value=@if(isset($data->attribute)) <?php $array = json_decode($data->attribute); ?>  {{$array->no_of_copies}} @else {{"0"}} @endif readonly>
+                                      <input type="text" id="no_of_copies" name={{"no_of_copies[".$key."]"}}  class="form-control" placeholder="{{ trans('cart.enter_here') }}" value=@if(isset($data->attribute)) <?php $array = json_decode($data->attribute); ?>  {{$array->no_of_copies}} @else {{"1"}} @endif readonly>
                                       @if($errors->has('no_of_copies.'.$key))
                                       <div class="error">{{ $errors->first('no_of_copies.'.$key) }}</div>
                                       @endif 
@@ -133,8 +133,9 @@
                           </div>
                           <div class="summary">
                               <h4>Items <span class="price" style="color:black"><i class="fa fa-shopping-cart"></i> <b>{{count($product_data)}}</b></span></h4>
-                              @foreach ($product_data as $data)
-                              <p><a href="#">{{$data->product}}</a> <span style="float: right;">€</span><span id = "total_price_per_item_{{$data->id}}" class="price total_price_per_item"> {{$data->price_per_product}}</span></p>
+                              @foreach ($product_data as $data) 
+                              <p><a href="#">{{$data->product}} </a> <span style="float: right;">€ per copy</span><span id = "total_price_per_item_{{$data->id}}" class="price total_price_per_item">{{$data->price_per_product}}</span>
+                                <input type="hidden" id = "total_price_hidden" name="total_price_hidden" value="{{$data->price_product_qty}}"></p>
                              @endforeach
                               <hr style="margin-top:20%;">
                               <p>Total <span style="float: right;">€</span><span id ="checkout_total" class="price" style="color:black"><b>€</b></span></p>
@@ -184,7 +185,7 @@
                             @endif
                           </div> 
                           
-                          @if( Auth::check() && Auth::user()->name == "Guest")
+                          @if((Auth::check() && Auth::user()->name == "Guest") || ! Auth::check())
                           <div class="form-group">
                             <label for="email">{{ trans('cart.email') }}:</label>
                              <input type="text" name="email_id" id="email_id" class="form-control" placeholder="{{ trans('cart.enter_here') }}">

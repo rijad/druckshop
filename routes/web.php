@@ -55,7 +55,7 @@ Route::get('/config-cache', function() {
 
 Auth::routes();
 
-//Search
+//Search 
 Route::any('/search',function(){
     $search = Input::get( 'search' );
     $product = Product::where('title_english' , 'LIKE' , '%'.$search.'%')->get();

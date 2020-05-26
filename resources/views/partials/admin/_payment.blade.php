@@ -29,11 +29,11 @@
                                     @if(!empty($payment))
                                         @foreach($payment as $pay)
                                             <tr>
-                                                <td>{{ $pay->payment_type }}</td>
+                                                <td>{{ $pay->type }}</td>
                                                 <td>{{ $pay->status }}</td>
                                                 <td>{{ customer($pay->user_id) }}</td>
                                                 <td>{{ $pay->txn }}</td>
-                                                <td>{{ $pay->amount }}</td>
+                                                <td>{{number_format($pay->amount,2)}}</td>
                                                 <td>{{ $pay->order_id }}</td>
                                                 <td>{{ $pay->created_at }}</td>
                                             </tr> 

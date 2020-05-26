@@ -10,7 +10,7 @@
 				</ul>
 
 				@guest
-				@if (Route::has('register'))
+				@if (Route::has('register')) 
 				@endif
 				@else
 				<ul class="align-item-md-end">						 
