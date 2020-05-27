@@ -18,7 +18,7 @@
                                         <p class="thisproduct_subhead more">{{$data->attribute_desc}}</p>
                                     </div>
                                     <ul class="product_price">
-                                        <li class="inputcard_quantity"><h6><strong>{{$data->price_product_qty}}€</strong></h6>
+                                        <li class="inputcard_quantity"><h6><strong>{{number_format($data->price_product_qty,2)}}€</strong></h6>
                                            
                                         </li>
                                     </ul>
@@ -27,13 +27,13 @@
                                 @endforeach
                             </div>
                              <div class="text-right pr-4 pl-4">
-                                <p class="thisproduct_head">{{ trans('order_detail.total') }}: {{$total}} €</p>
+                                <p class="thisproduct_head">{{ trans('order_detail.total') }}: {{number_format($total,2)}} €</p>
                                 @foreach($delivery_cost as $key=>$value)
                                 <p class="thisproduct_head">Delivery Service Charges {{$data->product}} {{$key + 1}}: {{$value}} €</p>
                                 @endforeach
-                                <p class="thisproduct_head">{{ trans('order_detail.discount') }}: {{$discount_amt}} €</p>
+                                <p class="thisproduct_head">{{ trans('order_detail.discount') }}: {{number_format($discount_amt,2)}} €</p>
                                 <hr>
-                                <p class="thisproduct_head">{{ trans('order_detail.amount') }}: {{$net_amt_after_delivery_service}} €</p>
+                                <p class="thisproduct_head">{{ trans('order_detail.amount') }}: {{number_format($net_amt_after_delivery_service,2)}} €</p>
                              </div>
                             <div class="text-right">
                                 <button class="paypaypal" onclick="window.location='{{route('payment-paypal')}}'">{{ trans('order_detail.paypal') }}</button>
