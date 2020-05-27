@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use Illuminate\Http\Request; 
 use Illuminate\Support\Facades\Validator;  
 use App\BackCovers;
 use App\CdBag;
@@ -735,8 +735,9 @@ class CheckoutController extends Controller
 			}   
 
 			$printout_surcharge = $Price_surcharge_A2 + $Price_surcharge_A3 + $Price_surcharge_A4; 
-
+			//print_r($printout_basic."++".$printout_surcharge);
 			$printout = number_format(($printout_basic + $printout_surcharge),2);
+			//$printout = ($printout_basic + $printout_surcharge);
 
 		// price data check
 			if($request->session()->has('dataCheck')){ 
@@ -836,7 +837,7 @@ class CheckoutController extends Controller
 			  $embossment_price = number_format(($price_embossing_spine  + $price_embossing_cover) ,2);
 
 			 // print_r("--------".$embossment_price);
-
+ 
 
 			  $total_unit_price = number_format(($binding_price + $printout + $data_check_price + $embossment_price),2);
 
@@ -855,83 +856,74 @@ class CheckoutController extends Controller
 
 		}
 
-		public function saveOrder(Request $request){ 
-
-		//$count = count($request->input());
-		//dd(Auth::user()->id);   
-		//dd($request->input()); 
-
-			$product_attribute = json_encode($request->input());
-
-			$product = Product::where('id', $request->input('binding'))->first()->title_english;
-
-		// foreach($request->input() as $key => $value){
-
-		// 	$OrderAttributes = new OrderAttributes;
-		// 	$OrderAttributes->user_id = Auth::user()->id;
-		// 	$OrderAttributes->attribute = $key;
-		// 	$OrderAttributes->value = $value;
-		// 	$OrderAttributes->save();
-
-		// }
+public function saveOrder(Request $request){ 
  
-			$product_details = "";
+//$count = count($request->input());
+//dd(Auth::user()->id);   
+//dd($request->input()); 
 
-			foreach($request->input() as $key => $value){
+$product_attribute = json_encode($request->input());
 
-				$str_arr = explode ("_", $key);  
+$product = Product::where('id', $request->input('binding'))->first()->title_english;
 
-				if(!is_null($value) && $value != "-1" && $key != "_token" && $key != "selectfile" && $str_arr[0] != "selectfile" && $key != "total"){
+// foreach($request->input() as $key => $value){
 
-					$attribute_value = self::makeOrderDetails($key,$value);
-				// make scentence for product details
-					// $product_details .= $key ." ".$attribute_value." ,";
-					$product_details .= $attribute_value." ,";
-				}
+// 	$OrderAttributes = new OrderAttributes;
+// 	$OrderAttributes->user_id = Auth::user()->id;
+// 	$OrderAttributes->attribute = $key;
+// 	$OrderAttributes->value = $value;
+// 	$OrderAttributes->save();
 
-			} 
+// }
 
-			$qty = 1;
+$product_details = "";
 
-			if (Auth::check())
-				{
-					$user_id = Auth::user()->id;
-	 //print_r($user_id);
-				}else{
-					$user_id = time();
-					Session::put('user_id', $user_id);
-				} 
- //dd($product_attribute);
-				$OrderAttributes = new OrderAttributes;
-				$OrderAttributes->user_id = $user_id;
-				$OrderAttributes->product= $product;
-				$OrderAttributes->attribute = $product_attribute;
-		//$OrderAttributes->product_id= $product."_".$user_id."_".time();
-				$OrderAttributes->product_id = $request->input('binding');
-				$OrderAttributes->quantity= $qty; 
-				$OrderAttributes->attribute_desc= $product_details;
-				$OrderAttributes->price_per_product=floatval($request->total);
-				//$OrderAttributes->price_product_qty= floatval($request->total) * $qty;
-				$OrderAttributes->price_product_qty= floatval($request->total) * ($request->no_of_copies);
-				$OrderAttributes->quantity= 1; 
-				$OrderAttributes->status= 1;
-				$OrderAttributes->save();
+foreach($request->input() as $key => $value){
 
+	$str_arr = explode ("_", $key);  
 
-				session(['product_id' =>  $product."_".$user_id."_".time()]);
+	if(!is_null($value) && $value != "-1" && $key != "_token" && $key != "selectfile" && $str_arr[0] != "selectfile" && $key != "total" && $key != "embossment-template-name" && $key != "cd-template-name"){
 
+		$attribute_value = self::makeOrderDetails($key,$value);
+	// make scentence for product details
+		// $product_details .= $key ." ".$attribute_value." ,";
+		$product_details .= $attribute_value." ,";
+	}
 
+} 
 
-		//echo $product_details; 
+$qty = 1;
 
-		 //return view('/pages/front-end/cart',compact('product_data'));
+if (Auth::check())
+	{
+		$user_id = Auth::user()->id;
+//print_r($user_id);
+	}else{
+		$user_id = time();
+		Session::put('user_id', $user_id);
+	} 
+//dd(floatval($request->total) * ($request->no_of_copies));  
+	$OrderAttributes = new OrderAttributes;
+	$OrderAttributes->user_id = $user_id;
+	$OrderAttributes->product= $product;
+	$OrderAttributes->attribute = $product_attribute;
+//$OrderAttributes->product_id= $product."_".$user_id."_".time();
+	$OrderAttributes->product_id = $request->input('binding');
+	$OrderAttributes->quantity= $qty; 
+	$OrderAttributes->attribute_desc= $product_details;
+	$OrderAttributes->price_per_product=floatval($request->total);
+	//$OrderAttributes->price_product_qty= floatval($request->total) * $qty;
+	$OrderAttributes->price_product_qty= floatval($request->total) * ($request->no_of_copies);
+	$OrderAttributes->quantity= 1; 
+	$OrderAttributes->status= 1;
+	$OrderAttributes->save();
 
-				return redirect()->route('cart');
+//dd($OrderAttributes);
+	session(['product_id' =>  $product."_".$user_id."_".time()]);
 
+	return redirect()->route('cart');
 
-		//dd($request->input()); 
-
-			} 
+} 
 
 public function cart(){  
 
@@ -1074,7 +1066,7 @@ if (Auth::check() && Auth::user()->name != "Guest") // if user is logged in no n
 
 				$total += $value->price_product_qty; 
 
-	}  
+	}  //dd($user_id); dd($total);
 
 		//handling promo code
 		if($request->input('code') != "null" && ! empty($request->input('code'))){
@@ -1235,16 +1227,16 @@ public function setQuantity(Request $request){
 
 
 
-		$i = 0;
-		foreach($data as $value){
+		// $i = 0;
+		// foreach($data as $value){
 
-			$update_data = $value;
-			$update_data->quantity = $qty[$i];
-			$update_data->price_product_qty = $total_price_per_product[$i];
-			$update_data->save();
-			$i++;
+		// 	$update_data = $value;
+		// 	$update_data->quantity = $qty[$i];
+		// 	$update_data->price_product_qty = $total_price_per_product[$i];
+		// 	$update_data->save();
+		// 	$i++;
 
-		}
+		// }
 
 		exit;
 
@@ -1320,7 +1312,7 @@ public function paymentPaypalSuccess(Request $request){
     $payment->user_id = $user_id;
     $payment->amount = number_format($_GET['amt'],2); 
     $payment->type = "paypal";
-    $payment->payment_type = "paypal"; 
+   // $payment->payment_type = "paypal"; 
 
     $payment->save();
 
@@ -1461,7 +1453,7 @@ public function paymentPaypalSuccess(Request $request){
 	$payment->user_id = $user_id;
 	$payment->amount = $net_amt;  
 	$payment->type = "COD";
-	$payment->payment_type = "COD";
+	//$payment->payment_type = "COD";
 	$payment->save();
 
 
@@ -2129,7 +2121,7 @@ public static function CartCount(){
 
 		$embossing_list = [];
 
-		$refinementType = ProductPrintFinishing::where(['product_id' => $request->binding_type])->first()->id;
+		$refinementType = ProductPrintFinishing::where(['product_id' => $request->binding_type, 'status' => '1'])->first()->id;
 
 		$embossing_list_data =  ProductPrintFinishingArtList::where(['ps_product_pf_id' => $refinementType])->get();
 

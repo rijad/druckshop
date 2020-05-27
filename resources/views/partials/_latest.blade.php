@@ -7,7 +7,7 @@
 
 			<div class="latestpage-rv" >
 
-				<div class="latest-header post-one" id="heading_{{@$key}}"> 
+				<div class="latest-header post-one" id="heading_{{$value->id}}"> 
 					
 					<?php $locale = session()->get('locale'); 
 					if ($locale == 'gr') { ?>
