@@ -140,4 +140,14 @@ function getEmbossingById($id){
 	$list = \App\ArtList::find($id);
 	return $list->name_english;
 
-}    
+} 
+
+
+
+function getFreeSampleImage($id){
+
+		$image = \App\Product::where(['id' => $id])->first('image_path');
+
+		return $image->image_path;
+		
+	}   

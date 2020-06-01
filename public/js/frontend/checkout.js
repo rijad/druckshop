@@ -191,6 +191,9 @@ binding = document.getElementById('binding').value;
 
 function embossingChange(field = ""){
 
+
+	$('#div-display-image').empty();
+
 	if($(field).find(":selected").val() != "-1"){
 
 
@@ -326,8 +329,19 @@ function displayPrintFields(embossment = ""){
 				}else{
 
 					$('#template').val('-1');
+					$('#fonts').val('-1');
+					$('#date-format').val('-1');
 					$("#div-display-image").empty();
 					$("#embossment-template-name").val('');
+
+
+					file_name = $('#selectfile_logo').val(); 
+			    	id = "upload_custom_logo"; 
+			     	removeFile(file_name,id,'1');
+
+			     	file_name = $('#selectfile_file').val(); 
+			    	id = "upload_custom_file"; 
+			     	removeFile(file_name,id,'1');
 
 					document.getElementById('upload_custom_logo_info').className = 'displayNone';
 					document.getElementById('drop_file_info').className = 'displayNone';
@@ -424,10 +438,20 @@ function displayPrintFields(embossment = ""){
 					//document.getElementById('div-fonts').className = "displayNone";
 				}else{ 
 
-
 					$('#template').val('-1');
+					$('#fonts').val('-1');
+					$('#date-format').val('-1');
 					$("#div-display-image").empty();
 					$("#embossment-template-name").val('');
+
+
+					file_name = $('#selectfile_logo').val(); 
+			    	id = "upload_custom_logo"; 
+			     	removeFile(file_name,id,'1');
+
+			     	file_name = $('#selectfile_file').val(); 
+			    	id = "upload_custom_file"; 
+			     	removeFile(file_name,id,'1');
 
 					document.getElementById('upload_custom_logo_info').className = 'displayNone';
 					document.getElementById('drop_file_info').className = 'displayNone';
@@ -745,6 +769,10 @@ function displayPopUpCD(template = ""){
 		
 		document.getElementById('upload_custom_logo_cd').className = "displayBlock"; 
 		document.getElementById('upload_custom_logo_cd_heading').className = "outside-box-heading displayBlock";
+
+
+		document.getElementById('upload_cd_without_logo').className = "displayNone";
+		document.getElementById('upload_cd_without_logo_heading').className = "outside-box-heading displayNone";
 	
 	}else if(template == "Standardvorlage ohne Logo"){
 
@@ -923,6 +951,10 @@ function displayCDFields(value = ""){
 		    id = "upload_custom_logo_cd";
 		    removeFile(file_name,id,'1');
 
+		    file_name = $('#selectfile_upload_cd_without_logo').val();  alert('ini');
+		    id = "upload_cd_without_logo";
+			removeFile(file_name,id,'1');
+
 
      	}
 
@@ -945,7 +977,7 @@ function displayCDFields(value = ""){
      		document.getElementById('div-cd-template').className = "displayNone";
      		document.getElementById('cd-template').value = "-1";
      		$('#div-display-image-cd').empty();
-     		if($('#cd-template-name').length){
+     		if($('#cd-template-name').length){ 
      			document.getElementById('cd-template-name').value = '';
      		}
      		document.getElementById('selectfile_custom_logo_cd').value='';
@@ -959,8 +991,12 @@ function displayCDFields(value = ""){
      		document.getElementById('upload_cd_without_logo').className = 'displayNone';
 
 
-     		file_name = $('#selectfile_logo_cd').val(); 
+     		file_name = $('#selectfile_logo_cd').val();  alert('ini');
 		    id = "upload_custom_logo_cd";
+			removeFile(file_name,id,'1');
+
+			file_name = $('#selectfile_upload_cd_without_logo').val();  alert('ini');
+		    id = "upload_cd_without_logo";
 			removeFile(file_name,id,'1');
 
 		}
@@ -2331,13 +2367,15 @@ function addAddress(address_type = ""){
 			document.getElementById('error_billing_state').innerHTML = "State is compulsory Field.";
 		}
 
+
+
 	}else{
 
 		default_flag = 0;
 
 		first_name = document.getElementById('shipping_first_name').value;
 		if(first_name == ""){
-			document.getElementById('error_shipping_first_name').innerHTML = "First Name is compulsory Field.";
+			document.getElementById('error_shipping_first_name').innerHTML = "First Name is compulsory Field."; 
 		}
 		last_name = document.getElementById('shipping_last_name').value;
 		if(last_name == ""){
@@ -2368,7 +2406,8 @@ function addAddress(address_type = ""){
 
 	}
  
-  
+
+   
 	$.ajax({
 			url: base_url+'/add-address', 
 			type: 'POST', 
@@ -2382,6 +2421,8 @@ function addAddress(address_type = ""){
 						$('[id^=address_data]').append('<option value="'+response+'" selected>'+response+'</option>');
 						$('[id^=ship-address-]').empty();
 						$('[id^=ship-address-]').text(response);
+
+						$('#success-msg').text("Address Added Successfully.");
 					}
 
 				}
@@ -2396,6 +2437,8 @@ function addAddress(address_type = ""){
 		          $('#billing_address_data').append('<option value="-1">Select</option><option value="'+response+'" selected>'+response+'</option>');
 
 		          $('#address_data').append('<option value="'+response+'" selected>'+response+'</option>');
+
+		          $('#success-msg').text("Address Added Successfully.");
 		        }
 
  

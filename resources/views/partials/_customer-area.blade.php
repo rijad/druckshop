@@ -197,7 +197,7 @@
           </div>
           <div class="modal-body">
              <div class="cart-form-shop w-100">
-               <form method = "POST" action="javascript:addAddress('billing');">
+               <form method = "POST" action="javascript:addAddress('billing');" id = "billingForm">
                @csrf
                       <div class="form-group"> 
                           <label for="text">First Name*</label>
@@ -296,3 +296,18 @@
 
 <div class="clearfix"></div>    
 <script src="{{ asset('public/js/frontend/customerarea.js') }}" type="text/javascript" ></script>
+
+
+<script>
+  
+   $(document).ready( function () {
+
+      $('#billingForm').on('submit', function() {
+          $('#rv-Modal-billing').on('hide.bs.modal', function ( e ) {
+            e.preventDefault();
+          }) 
+      });
+
+  });
+
+</script>

@@ -4,7 +4,9 @@
    
 
         <div class="product-item-img col-half text-left">
-            <span class="img-back"><img src="{{ asset('public/images/product2.jpg')}}" alt="" /></span>
+            <?php $id = Request::get('id');  ?>
+            <span class="img-back"><img src="{{ asset('public/images/'.getFreeSampleImage($id))}}" alt="" /></span>
+           
         </div>
 
         <div class="product-item col-half">
@@ -34,7 +36,7 @@
         <div id="drop_file_zone_pdf" class="displayNone"><label id="pdf_file_name"></label>
             <label id="pdf_page_no"></label>
         </div>
-
+ 
     </div>
 
         <div class="free-sample-form-rv">

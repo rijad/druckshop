@@ -20,7 +20,7 @@ use App\Product;
 use App\ProductPageFormat; 
 use App\PageOptions;
 use App\Mirror;
-use App\Font;
+use App\Font; 
 use App\DateFormat;
 use App\OrderAttributes;
 use App\OrderDetails;
@@ -784,7 +784,9 @@ class CheckoutController extends Controller
 
 		// price embossing
 		
-			if($request->session()->has('embossing_type') && $request->session()->has('embossingCover')){
+			//if($request->session()->has('embossing_type') && $request->session()->has('embossingCover')){
+
+				if($request->session()->has('embossingCover')){
 
 				//$embossing = 0.00;  
 				//print_r("hh111");
@@ -803,7 +805,9 @@ class CheckoutController extends Controller
 					}   
  
 			}	 
-			if($request->session()->has('embossing_type') && $request->session()->has('embossingSpine')){
+			//if($request->session()->has('embossing_type') && $request->session()->has('embossingSpine')){
+
+				if($request->session()->has('embossingCover')){
 
 				//$embossing = 0.00;
 
@@ -1917,7 +1921,16 @@ public static function CartCount(){
 
 					$UserAddress= UserAddress::create($input);
 					//print_r($UserAddress->toArray());
-					$CustomerArea_address = $UserAddress->first_name." ".$UserAddress->last_name.", Company Name: ".$UserAddress->company_name.", House No: ".$UserAddress->house_no.", City: ".$UserAddress->city.", State: ".$UserAddress->state.", Zip Code: ".$UserAddress->zip_code;
+
+					$CustomerArea_address = $UserAddress->first_name." ".$UserAddress->last_name;
+
+					if($UserAddress->company_name != ""){
+						$CustomerArea_address .= ", Company Name: ".$UserAddress->company_name.", House No: ".$UserAddress->house_no.", City: ".$UserAddress->city.", State: ".$UserAddress->state.", Zip Code: ".$UserAddress->zip_code;
+					}else{
+						$CustomerArea_address .= ", House No: ".$UserAddress->house_no.", City: ".$UserAddress->city.", State: ".$UserAddress->state.", Zip Code: ".$UserAddress->zip_code;
+					}
+
+					//$CustomerArea_address = $UserAddress->first_name." ".$UserAddress->last_name.", Company Name: ".$UserAddress->company_name.", House No: ".$UserAddress->house_no.", City: ".$UserAddress->city.", State: ".$UserAddress->state.", Zip Code: ".$UserAddress->zip_code;
 					print_r($CustomerArea_address);
 
 				}else{
@@ -2133,6 +2146,9 @@ public static function CartCount(){
 		print_r(json_encode($embossing_list));
 
 	}	
+
+
+
 
 
 }
