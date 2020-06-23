@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use File;
+use File; 
  
 class UploadfileController extends Controller
 {
@@ -40,7 +40,7 @@ class UploadfileController extends Controller
 
 	public function countPages($pdfname) {
 		$pdftext = file_get_contents($pdfname);
-		$no_of_pages = preg_match_all("/\/Page\W/", $pdftext, $dummy);
+		$no_of_pages = preg_match_all("/\/Page\W/", $pdftext, $dummy); 
 		return $no_of_pages;
 	}
 

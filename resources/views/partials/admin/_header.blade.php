@@ -38,4 +38,11 @@
 $("#userDropdown").click(function(){
     $("#userDropdownDiv").toggle();
   });
+
+
+$(document).click(function(event) {
+    if ( !$(event.target).hasClass('nav-link dropdown-toggle')) {
+         $("#userDropdownDiv").hide();
+    }
+});
 </script>

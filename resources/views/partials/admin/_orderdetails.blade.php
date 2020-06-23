@@ -100,7 +100,7 @@
                     <?php $i = 1; ?>
                     @foreach(json_decode($order->attribute ,true) as $key=>$value)
                     @if($key == "selectfile_backcover" || $key == "selectfile_coversheet" || $key == "selectfile_content" || $key == "selectfile_din_A3" || $key == "selectfile_din_A2" || $key == "selectfile_logo" || $key == "selectfile_file" || $key == "selectfile_cd" || $key == "selectfile_logo_cd" || $key == "selectfile_upload_cd_without_logo" || $key == "embossment-template-name" || $key == "cd-template-name") 
-                        @if($value != null )
+                        @if($value != null ) 
                             <tr>
                                 <td>{{$i++}}</td>
                                 <td colspan='4'>
@@ -115,10 +115,22 @@
                                     @if($key == "selectfile_upload_cd_without_logo") {{'Upload own CD template'}} @endif
                                     @if($key == "embossment-template-name") {{'Embossment Template File'}} @endif
                                     @if($key == "cd-template-name") {{'CD Template File'}} @endif
+                                    @if($key == "selectfile_file") {{'Upload Own Binding Template'}} @endif
                                 </td>
+  
 
+                                <td colspan='2'>@if($key == "selectfile_backcover" || $key == "selectfile_coversheet" || $key == "selectfile_content" || $key == "selectfile_din_A3" || $key == "selectfile_din_A2" || $key == "selectfile_logo" || $key == "selectfile_file" || $key == "selectfile_cd" || $key == "selectfile_logo_cd" || $key == "selectfile_upload_cd_without_logo") @if($value != null ) 
 
-                                <td colspan='2'>@if($key == "selectfile_backcover" || $key == "selectfile_coversheet" || $key == "selectfile_content" || $key == "selectfile_din_A3" || $key == "selectfile_din_A2" || $key == "selectfile_logo" || $key == "selectfile_file" || $key == "selectfile_cd" || $key == "selectfile_logo_cd" || $key == "selectfile_upload_cd_without_logo") @if($value != null ) <a href={{url('/').'/public/uploads/'.$value}} target="_blank" >Download</a> @endif @endif
+                                        @if($key == "selectfile_cd") 
+                                            @foreach(explode(',', $value) as $key_file => $info) 
+                                               @if($info != "")
+                                                 <a href={{url('/').'/public/uploads/'.$info}} target="_blank" >Download File {{$key_file+1}}</a><br>
+                                               @endif  
+                                            @endforeach
+                                        @else
+                                        <a href={{url('/').'/public/uploads/'.$value}} target="_blank" >Download</a>
+                                        @endif
+                                        @endif @endif
 
                                     @if($key == "embossment-template-name") @if($value != null ) <a href={{url('/').'/public/images/templates/Binding_template/'.$value}} target="_blank" >Download</a> @endif @endif
 
@@ -129,7 +141,7 @@
                             </tr>
                         @endif 
                     @endif
-                    @endforeach 
+                    @endforeach  
                 </table>
             @endforeach 
         </div>

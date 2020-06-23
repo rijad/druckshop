@@ -1446,16 +1446,19 @@ function displayPrice(binding = "", no_ofsheets = "", page_options = "", embossi
 
 						 if($("#A3-pages").is(":checked")){
 						 	// color pages check box is checked
+
+						 	var count = parseInt(document.getElementById('max-A3').innerHTML);  
 						 	if($("#numbers-of-pages").val() == ""){$("#numbers-of-pages").addBack().addClass('invalid'); $('#error_no_of_pages').html('This Field is required'); valid = false; return false;} 
-						 	if($("#numbers-of-pages").val() > 10 || $("#numbers-of-pages").val() < 1){$("#numbers-of-pages").addBack().addClass('invalid'); $('#error_number_of_pages').html('Pages out of range'); valid = false; return false;} 
-						 	if($("#selectfile_din_A3").val() == ""){ alert($("#selectfile_din_A3").val()); $("#drop_file_din_A3").addBack().addClass('invalid'); $('#error_selectfile_din_A3').html('This Field is required'); valid = false; return false;}else{valid = true;return true;}	
+						 	if($("#numbers-of-pages").val() > count  || $("#numbers-of-pages").val() < 1){ alert("in"); $("#numbers-of-pages").addBack().addClass('invalid'); $('#error_number_of_pages').html('Pages out of range'); valid = false; return false;} 
+						 	if($("#selectfile_din_A3").val() == ""){ alert($("#selectfile_din_A3").val()); $("#drop_file_din_A3").addBack().addClass('invalid'); $('#error_selectfile_din_A3').html('This Field is required'); valid = false; return false;}
 
 						 }
 
 						 if($("#A2-pages").is(":checked")){
 						 	// color pages check box is checked
+						 	var count = parseInt(document.getElementById('max-A2').innerHTML); 	 
 						 	if($("#numbers-of-A2-pages").val() == ""){$("#numbers-of-A2-pages").addBack().addClass('invalid'); $('#error_number_of_A2_pages').html('This Field is required'); valid = false; return false;} 
-						 	if($("#numbers-of-A2-pages").val() > 3 || $("#numbers-of-A2-pages").val() < 1){$("#numbers-of-A2-pages").addBack().addClass('invalid'); $('#error_number_of_A2_pages').html('Pages out of range'); valid = false; return false;} 
+						 	if($("#numbers-of-A2-pages").val() > count || $("#numbers-of-A2-pages").val() < 1){$("#numbers-of-A2-pages").addBack().addClass('invalid'); $('#error_number_of_A2_pages').html('Pages out of range'); valid = false; return false;} 
 						 	if($("#selectfile_din_A2").val() == ""){ alert($("#selectfile_din_A2").val()); $("#drop_file_din_A2").addBack().addClass('invalid'); $('#error_selectfile_din_A2').html('This Field is required'); valid = false; return false;}else{valid = true;return true;}		
 
 						 } 
@@ -1846,9 +1849,9 @@ function displayPrice(binding = "", no_ofsheets = "", page_options = "", embossi
 // -------     Code to handle checkout page pagination Ends ----------- //						
 
 
-function setQuantity(count = ""){
+function setQuantity(count = ""){  
 
-	var qty = []; var price_per_unit = []; var total_price_per_product = []; var total = 0;
+	var qty = []; var price_per_unit = []; var total_price_per_product = []; var total = 0;  var total_price_hidden = [];
 
 	var x = $('#product_price li input[type=text]');
 
@@ -1863,7 +1866,8 @@ function setQuantity(count = ""){
 	y.each(function(e) {
          price_per_unit.push($(this).html());  
          //total_price_per_product[i] = parseFloat(qty[i]) * parseFloat($(this).html()); 
-          total_price_per_product[i] = parseFloat($(this).html());   
+         //alert(parseFloat($(this).html()));
+          total_price_per_product[i] = parseFloat($(this).html());  
          i++;
 	});
 
@@ -1871,12 +1875,20 @@ function setQuantity(count = ""){
 	//console.log(z);
 	var i = 0;
 	z.each(function(e) {
-        $(this).html(total_price_per_product[i]);  
+        $(this).html(parseFloat(total_price_per_product[i]).toFixed(2));  
+         i++;
+	});
+
+	var m = $("input[name='total_price_hidden']");
+	var i = 0;
+	m.each(function(e) {
+         total_price_hidden[i] = parseFloat($(this).val());  
          i++;
 	});
 
 	for(var i = 0; i<count; i++){ 
-	total =  (parseFloat(total) + parseFloat(total_price_per_product[i])).toFixed(2);
+	//total =  (parseFloat(total) + parseFloat(total_price_per_product[i])).toFixed(2);
+	total =  (parseFloat(total) + parseFloat(total_price_hidden[i])).toFixed(2);
 	document.getElementById('checkout_total').innerHTML = total;
 	}
 
@@ -1893,7 +1905,7 @@ function setQuantity(count = ""){
 }
 
 
-function decrementQuantity(id = "",count = ""){ 
+function decrementQuantity(id = "",count = ""){
  
 	document.getElementById('qty_msg').innerHTML = "";
 	qty = document.getElementById(id).value;
@@ -1909,7 +1921,7 @@ function decrementQuantity(id = "",count = ""){
 	
 }
 
-function incrementQuantity(id = "",count = ""){
+function incrementQuantity(id = "",count = ""){ 
 
 	document.getElementById('qty_msg').innerHTML = "";
 	qty = document.getElementById(id).value;

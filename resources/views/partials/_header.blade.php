@@ -3,14 +3,14 @@
 		<div class="container"> 
 			<div class="site-login d-flex">
 				<ul class="list-inline headerReview mr-auto">						 
-					<li><h4><i class="fa fa-star"></i> <i class="fa fa-star"></i> 
+					{{-- <li><h4><i class="fa fa-star"></i> <i class="fa fa-star"></i> 
 					<i class="fa fa-star"></i> <i class="fa fa-star"></i>
-					<i class="fa fa-star-half"></i> </h4>
-					<a href="#"><small> 4.86 / 5 {{ trans('header.from')}} 1632 {{ trans('header.reviews')}}</small></a></li>						 					 
+					<i class="fa fa-star-half"></i> </h4> --}}
+					{{-- <a href="#"><small> 4.86 / 5 {{ trans('header.from')}} 1632 {{ trans('header.reviews')}}</small></a></li> --}}						 					 
 				</ul>
 
 				@guest
-				@if (Route::has('register'))
+				@if (Route::has('register')) 
 				@endif
 				@else
 				<ul class="align-item-md-end">						 

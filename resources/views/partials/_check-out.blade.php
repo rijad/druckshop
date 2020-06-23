@@ -22,22 +22,22 @@
 							<div class="tab" id="tab-fields">
 								<div class="displayBlock">
 									<label>{{ trans('checkout.binding_title') }}*:</label>
-									<p><select class = "" name = "binding" id = "binding" onclick="" onchange="  displayPrintFields(''); resetFields(this.id,this.value);  displayProductAttributes('1',this);  sampleImage(); getCoverSetting(this.value); getPageFormatData(this.value); getEmbossingFields(this.value);">
+									<p><select class = "" name = "binding" id = "binding" onclick="" onchange="  displayPrintFields(''); resetFields(this.id,this.value);  displayProductAttributes('1',this);  sampleImage(); getCoverSetting(this.value); getPageFormatData(this.value); getEmbossingFields(this.value); ">
 										<option value = "-1">Select</option>
 										@foreach ($product_listing as $key=>$listing)
 										@if($listing->id != 8 && $listing->id != 5)
 										<option value="{{$listing->id}}" @if($listing->id == request()->id) selected @endif>{{$listing->title_english}}</option>  
 										@endif
 										@endforeach 
-									</select></p><p class="error" id="error_binding"></p>
+									</select></p><p class="error" id="error_binding"></p> 
 								</div>
 								<div class="displayBlock" id="div-no-of-copies">
 									<label>{{ trans('checkout.no_of_copies') }}*:</label>
-									<p><input type = "text" class = "" name="no_of_copies" id="no-of-copies" placeholder="{{ trans('checkout.no_of_copies') }}" oninput="displayPrice(document.getElementById('binding').value,'','','','','','','','','','','','','','',''); displayProductAttributes('2',this);  setTimeout(function(){displayPrice('','','','','','','','','','','','','',this.value,'','')},500);"></p><p class="error" id="error_no_of_copies"></p>
+									<p><input type = "text" class = "" name="no_of_copies" id="no-of-copies" placeholder="{{ trans('checkout.no_of_copies') }}" oninput=" displayProductAttributes('2',this); displayPrice('','','','','','','','','','','','','',this.value,'','');"></p><p class="error" id="error_no_of_copies"></p>
 								</div>
 								<div class="displayBlock" id="div-page-format">
 									<label>{{ trans('checkout.page_format') }}*:</label>
-									<p><select class = "" onclick = "displayProductAttributes('3',this); sampleImage();" id="page-format" name="page-format" onchange="addTooltip(this); getA3A2Count(this); " ><option value="-1">Select</option></select></p><p class="error" id="error_page_format"></p>
+									<p><select class = "" onclick = "displayProductAttributes('3',this); sampleImage();" id="page-format" name="page-format" onchange="addTooltip(this); getA3A2Count(this); displayPrice(document.getElementById('binding').value,'','','','','','','','','','','','','','',''); " ><option value="-1">Select</option></select></p><p class="error" id="error_page_format"></p>
 								</div>
 								<div class="displayNone" id="div-cover-color">
 									<label>{{ trans('checkout.cover_color') }}*:</label> 
@@ -113,7 +113,7 @@
 
 									<div class="displayBlock" id="div-no-of-pages">
 										<label> {{ trans('checkout.no_of_pages') }}*:<a id="page-format-tooltip" href="#" data-toggle="tooltip" title="" class="formToolTip">i</a></label>
-										<p><input type = "text" class = "" name="no_of_pages" id="no-of-pages" placeholder="No of Pages"  oninput="resetPrice('no-of-pages');displayPrice('',this.value,'','','','','','','','','','','','','',''); displayProductAttributes('8',this); NumberOfPages('binding','paper-weight','no-of-pages')"></p>
+										<p><input type = "text" class = "" name="no_of_pages" id="no-of-pages" placeholder="No of Pages"  oninput="resetPrice('no-of-pages');displayPrice('',this.value,'','','','','','','','','','','','','',''); displayProductAttributes('8',this); NumberOfPages('binding','paper-weight','no-of-pages');  displayPrice(document.getElementById('binding').value,'','','','','','','','','','','','','','','');"></p>
 										<p class="error" id="error_no_of_pages"></p>
 									</div>
  									
@@ -235,7 +235,7 @@
 
 												<div class="displayBlock" id="div-embossment-cover-sheet">
 													<label class="csCheckbtn">{{ trans('checkout.refinement_cover_sheet') }}
-														<input class =""name ="embossment-cover-sheet" id ="embossment-cover-sheet" type="checkbox" onchange="displayPrice('','','','1','','','','','','','','','','','',''); displayPrintFields('Embossment_Cover_Sheet');  displayProductAttributes('9',this);  resetPrice('refinement_with_embossment'); setTimeout(function(){displayPrice('','','','','','','','','','','','','','',$('#embossing').find(':selected').val(),'')},1500); " disabled>
+														<input class =""name ="embossment-cover-sheet" id ="embossment-cover-sheet" type="checkbox" onchange="displayPrice('','','','1','','','','','','','','','','','',''); displayPrintFields('Embossment_Cover_Sheet');  displayProductAttributes('9',this);  setTimeout(function(){resetPrice('refinement_with_embossment')},1000); setTimeout(function(){displayPrice('','','','','','','','','','','','','','',$('#embossing').find(':selected').val(),'')},2000); " disabled>
 														<span class="checkmark"></span>
 													</label>
 												</div> 
@@ -311,7 +311,7 @@
  
 													<div class="displayBlock" id="div-embossment-spine">
 														<label class="csCheckbtn">{{ trans('checkout.refinement_spine') }}<a href="#" data-toggle="tooltip" title="Data is taken from cover sheet" class="formToolTip">i</a>
-															<input class = "" type="checkbox" id = "embossment-spine" name = "embossment-spine" onchange = "   displayPrice('','','','','1','','','','','','','','','','','');  displayProductAttributes('10',this); displayPrintFields('Embossment_spine');  setTimeout(function(){resetPrice('refinement_with_spine')},1000); setTimeout(function(){displayPrice('','','','','','','','','','','','','','',$('#embossing').find(':selected').val(),'')},2000);" disabled>
+															<input class = "" type="checkbox" id = "embossment-spine" name = "embossment-spine" onchange = " displayPrice('','','','','1','','','','','','','','','','','');  displayProductAttributes('10',this); displayPrintFields('Embossment_spine');  setTimeout(function(){resetPrice('refinement_with_spine')},1000); setTimeout(function(){displayPrice('','','','','','','','','','','','','','',$('#embossing').find(':selected').val(),'')},2000);" disabled>
 															<span class="checkmark"></span>
 														</label>
 														
