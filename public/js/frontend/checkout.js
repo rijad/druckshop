@@ -299,8 +299,7 @@ function displayPrintFields(embossment = ""){
 			
 
 			//Standard refinement (3)
-			if(data == 1){  
-
+			if(data == 1){    
 				
 				$("#embossment-spine").removeAttr('disabled');
 				$("#embossment-cover-sheet").removeAttr('disabled');
@@ -326,7 +325,7 @@ function displayPrintFields(embossment = ""){
 						document.getElementById('div-template-classic').className = 'displayNone';
 						$("#div-display-image-cd").empty();
 					}
-				}else{
+				}else{   
 
 					$('#template').val('-1');
 					$('#fonts').val('-1');
@@ -351,7 +350,7 @@ function displayPrintFields(embossment = ""){
 					//document.getElementById('div-embossment-cover-sheet').className = "displayNone";
 					document.getElementById('upload_custom_logo').className = "displayNone";
 					document.getElementById('upload_custom_logo_heading').className = "outside-box-heading displayNone";
-					document.getElementById('drop_file_zone_logo_info').className = "displayNone";
+					//document.getElementById('drop_file_zone_logo_info').className = "displayNone";
 					document.getElementById('div-remarks').className = "displayNone"; 
 
 					document.getElementById('upload_custom_file').className = "displayNone";  
@@ -362,12 +361,10 @@ function displayPrintFields(embossment = ""){
 					document.getElementById('div-date-format').className = "displayNone";
 					document.getElementById('upload_custom_file').className = "displayNone";
 					document.getElementById('upload_custom_file_heading').className = "outside-box-heading displayNone";
-
+					 
 				}
-
- 
 				
-				if($("#embossment-spine").is(":checked")){
+				if($("#embossment-spine").is(":checked")){   
 					document.getElementById('div-direction').className = "displayBlock";
 					document.getElementById('div-remarks').className = "displayBlock"; 
 					document.getElementById('div-section-1').className = "displayBlock";

@@ -29,7 +29,7 @@
                              <div class="text-right pr-4 pl-4">
                                 <p class="thisproduct_head">{{ trans('order_detail.total') }}: {{number_format($total,2)}} €</p>
                                 @foreach($delivery_cost as $key=>$value)
-                                <p class="thisproduct_head">Delivery Service Charges {{$data->product}} {{$key + 1}}: {{$value}} €</p>
+                                <p class="thisproduct_head">Delivery Service Charges {{$data->product}} {{$key + 1}}: {{number_format($value,2)}} €</p>
                                 @endforeach
                                 <p class="thisproduct_head">{{ trans('order_detail.discount') }}: {{number_format($discount_amt,2)}} €</p>
                                 <hr>
