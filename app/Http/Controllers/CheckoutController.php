@@ -1301,11 +1301,14 @@ public function paymentPaypalSuccess(Request $request){
   }else{
     return redirect()->route('index'); 
   }
-
+  	try{
 		$order_details = OrderDetails::where('user_id', $user_id)->first();
 
 		// $order_details_amt = $order_details->total;
 		$order_details_amt = $order_details->net_amt;
+	}catch (Exception $e) {
+		return redirect()->route('index');
+	}
 		$txn = $_GET['tx'];
 
 
@@ -1422,141 +1425,152 @@ public function paymentPaypalSuccess(Request $request){
 
 	public function cashOnDelivery(Request $request){  
 
-		if(Auth::check()) 
-			{
-				$user_id = Auth::user()->id; 
-			}else{
-			return redirect()->route('index');
+	// try{
+	
+			if(Auth::check()) 
+				{
+					$user_id = Auth::user()->id; 
+				}else{
+				return redirect()->route('index');
+				}
+			try{
+				
+				$OrderDetails = OrderDetails::where(['user_id'=> $user_id , 'order_id' => Session::get('order_id')])->first();
+				// $net_amt = $OrderDetails->total; 
+				$net_amt = $OrderDetails->net_amt; 
+				$order_details_amt = $OrderDetails->net_amt;
+
+			}catch (Exception $e) {
+				return redirect()->route('index');
 			}
+		// // handling promo code
+		// 		if($OrderDetails->promo_code != "null" && ! empty($OrderDetails->promo_code)){  
 
-			$OrderDetails = OrderDetails::where(['user_id'=> $user_id , 'order_id' => Session::get('order_id')])->first();
-			// $net_amt = $OrderDetails->total; 
-			$net_amt = $OrderDetails->net_amt; 
-	// // handling promo code
-	// 		if($OrderDetails->promo_code != "null" && ! empty($OrderDetails->promo_code)){  
-
-	// 			$discount = Discount::where(['code' => $OrderDetails->promo_code])->first(['by_price','by_percent']);
-	// 		//dd($discount->by_price);
-	// 			if($discount->by_price != "null" && ! empty($discount->by_price)){
-	// 				$discount_amt = $discount->by_price;
-	// 			}else{
-	// 				$discount_amt = ($OrderDetails->total / 100 ) * $discount->by_percent;
-	// 			}
-	// 			$net_amt = $OrderDetails->total - $discount_amt;
-	// }  //dd($net_amt);
+		// 			$discount = Discount::where(['code' => $OrderDetails->promo_code])->first(['by_price','by_percent']);
+		// 		//dd($discount->by_price);
+		// 			if($discount->by_price != "null" && ! empty($discount->by_price)){
+		// 				$discount_amt = $discount->by_price;
+		// 			}else{
+		// 				$discount_amt = ($OrderDetails->total / 100 ) * $discount->by_percent;
+		// 			}
+		// 			$net_amt = $OrderDetails->total - $discount_amt;
+		// }  //dd($net_amt);
 
 
-	// $order_details_amt = $OrderDetails->total;
-	$order_details_amt = $OrderDetails->net_amt;
-	$txn = time();
+		// $order_details_amt = $OrderDetails->total;
+		$txn = time();
 
-	$payment = new Payment;
-	$payment->order_id = $OrderDetails->order_id;
-	$payment->txn = $txn;
-	$payment->status = "Pending";
-	$payment->user_id = $user_id;
-	$payment->amount = $net_amt;  
-	$payment->type = "COD";
-	//$payment->payment_type = "COD";
-	$payment->save();
-
-
-	$OrderDetails = OrderDetails::where(['user_id'=> $user_id , 'order_id' => Session::get('order_id')])->first();
-
-	$OrderDetailsFinal = new OrderDetailsFinal;
-	$OrderDetailsFinal->user_id = $user_id;
-	$OrderDetailsFinal->order_id= $OrderDetails->order_id;
-		//$OrderDetailsFinal->no_of_copies= $OrderDetails->no_of_copies;
-		//$OrderDetailsFinal->no_of_cds= $OrderDetails->no_of_cds;
-		//$OrderDetailsFinal->shipping_company= $OrderDetails->shipping_company;
-	$OrderDetailsFinal->promo_code= $OrderDetails->promo_code;
-		//$OrderDetailsFinal->shipping_address= $OrderDetails->shipping_address;
-		//$OrderDetailsFinal->billing_address= $OrderDetails->billing_address;
-	$OrderDetailsFinal->total= $OrderDetails->total;
-	$OrderDetailsFinal->net_amt= $OrderDetails->net_amt;
-	$OrderDetailsFinal->status= "Pending";
-	$OrderDetailsFinal->txn= $txn;
-	$OrderDetailsFinal->state="New";
-	$OrderDetailsFinal->assigned_to = 0;
-	$OrderDetailsFinal->priority= "Normal";
-	$OrderDetailsFinal->save();
-
-	//$OrderDetailsFinal = $OrderDetails;
+		$payment = new Payment;
+		$payment->order_id = $OrderDetails->order_id;
+		$payment->txn = $txn;
+		$payment->status = "Pending";
+		$payment->user_id = $user_id;
+		$payment->amount = $net_amt;  
+		$payment->type = "COD";
+		//$payment->payment_type = "COD";
+		$payment->save();
 
 
-	$OrderAttributes = OrderAttributes::where(['status'=>'1','user_id'=>$user_id])->get();
+		$OrderDetails = OrderDetails::where(['user_id'=> $user_id , 'order_id' => Session::get('order_id')])->first();
 
-	foreach($OrderAttributes as $order){
-		$OrderHistory = new OrderHistory;
-		$OrderHistory->user_id = $order->user_id;
-		$OrderHistory->item_sequence = $order->item_sequence;
-		$OrderHistory->product= $order->product;
-		$OrderHistory->no_of_copies = $order->no_of_copies;
-		$OrderHistory->no_of_cds = $order->no_of_cds;
-		$OrderHistory->shipping_company = $order->shipping_company;
-		$OrderHistory->shipping_address = $order->shipping_address;
-		$OrderHistory->billing_address = $order->billing_address;
-		$OrderHistory->attribute = $order->attribute;
-		$OrderHistory->order_history_id= $OrderDetailsFinal->id;
-		$OrderHistory->product_id =$order->product_id;
-		$OrderHistory->quantity= $order->quantity;
-		$OrderHistory->attribute_desc= $order->attribute_desc;
-		$OrderHistory->price_per_product= $order->price_per_product;
-		$OrderHistory->price_product_qty= $order->price_product_qty;
-		$OrderHistory->quantity= $order->quantity; 
-		$OrderHistory->status= $order->status; 
-		$OrderHistory->order_id= $OrderDetails->order_id;;
-		$OrderHistory->save();
-	}
+		$OrderDetailsFinal = new OrderDetailsFinal;
+		$OrderDetailsFinal->user_id = $user_id;
+		$OrderDetailsFinal->order_id= $OrderDetails->order_id;
+			//$OrderDetailsFinal->no_of_copies= $OrderDetails->no_of_copies;
+			//$OrderDetailsFinal->no_of_cds= $OrderDetails->no_of_cds;
+			//$OrderDetailsFinal->shipping_company= $OrderDetails->shipping_company;
+		$OrderDetailsFinal->promo_code= $OrderDetails->promo_code;
+			//$OrderDetailsFinal->shipping_address= $OrderDetails->shipping_address;
+			//$OrderDetailsFinal->billing_address= $OrderDetails->billing_address;
+		$OrderDetailsFinal->total= $OrderDetails->total;
+		$OrderDetailsFinal->net_amt= $OrderDetails->net_amt;
+		$OrderDetailsFinal->status= "Pending";
+		$OrderDetailsFinal->txn= $txn;
+		$OrderDetailsFinal->state="New";
+		$OrderDetailsFinal->assigned_to = 0;
+		$OrderDetailsFinal->priority= "Normal";
+		$OrderDetailsFinal->save();
 
-	//send mail for order place
-	if ($OrderDetails->order_id) {
-
-		$order_history = OrderHistory::where(['order_id' => $OrderDetails->order_id])->get()->toArray();
-
-		$data = User::where(['id' => $user_id])->first();
-
-		if (!empty($data) && !empty($order_history)) {
-
-			$user_data = [
-
-				'name' => @$data->name,
-				'email' => @$data->email,
-				'order_id' => $OrderDetails->order_id,
-				'base_url' => \URL::to('/'),
-				'logo_url' => \URL::to('/'). '/public/images/logo.png',
-				'order_history' => $order_history,
-			];
+		//$OrderDetailsFinal = $OrderDetails;
 
 
-			try {
+		$OrderAttributes = OrderAttributes::where(['status'=>'1','user_id'=>$user_id])->get();
 
-				$sent = Mail::send('emails.place_order_cod', $user_data, function($message) use ($user_data) {
-
-					$message->to($user_data['email'], $user_data['name'])->subject('Druckshop - Order Success');
-					$message->from(env('MAIL_USERNAME'), env('MAIL_FROM_NAME'));
-				});
-
-			} catch (Exception $e) {
-
-                //Avoid error 
-
-			}
-
-
+		foreach($OrderAttributes as $order){
+			$OrderHistory = new OrderHistory;
+			$OrderHistory->user_id = $order->user_id;
+			$OrderHistory->item_sequence = $order->item_sequence;
+			$OrderHistory->product= $order->product;
+			$OrderHistory->no_of_copies = $order->no_of_copies;
+			$OrderHistory->no_of_cds = $order->no_of_cds;
+			$OrderHistory->shipping_company = $order->shipping_company;
+			$OrderHistory->shipping_address = $order->shipping_address;
+			$OrderHistory->billing_address = $order->billing_address;
+			$OrderHistory->attribute = $order->attribute;
+			$OrderHistory->order_history_id= $OrderDetailsFinal->id;
+			$OrderHistory->product_id =$order->product_id;
+			$OrderHistory->quantity= $order->quantity;
+			$OrderHistory->attribute_desc= $order->attribute_desc;
+			$OrderHistory->price_per_product= $order->price_per_product;
+			$OrderHistory->price_product_qty= $order->price_product_qty;
+			$OrderHistory->quantity= $order->quantity; 
+			$OrderHistory->status= $order->status; 
+			$OrderHistory->order_id= $OrderDetails->order_id;;
+			$OrderHistory->save();
 		}
 
-	}
-		// End send mail
+		//send mail for order place
+		if ($OrderDetails->order_id) {
+
+			$order_history = OrderHistory::where(['order_id' => $OrderDetails->order_id])->get()->toArray();
+
+			$data = User::where(['id' => $user_id])->first();
+
+			if (!empty($data) && !empty($order_history)) {
+
+				$user_data = [
+
+					'name' => @$data->name,
+					'email' => @$data->email,
+					'order_id' => $OrderDetails->order_id,
+					'base_url' => \URL::to('/'),
+					'logo_url' => \URL::to('/'). '/public/images/logo.png',
+					'order_history' => $order_history,
+				];
+
+
+				try {
+
+					$sent = Mail::send('emails.place_order_cod', $user_data, function($message) use ($user_data) {
+
+						$message->to($user_data['email'], $user_data['name'])->subject('Druckshop - Order Success');
+						$message->from(env('MAIL_USERNAME'), env('MAIL_FROM_NAME'));
+					});
+
+				} catch (Exception $e) {
+
+					//Avoid error 
+
+				}
+
+
+			}
+
+		}
+			// End send mail
 
 
 
-	$delete_cart = OrderAttributes::where(['user_id'=>$user_id])->delete();
-	$delete_order_details = OrderDetails::where(['user_id'=>$user_id])->delete();
+		$delete_cart = OrderAttributes::where(['user_id'=>$user_id])->delete();
+		$delete_order_details = OrderDetails::where(['user_id'=>$user_id])->delete();
 
-	$request->session()->forget('user_id');
-	$request->session()->forget('order_id');  //dd("cash");
+		$request->session()->forget('user_id');
+		$request->session()->forget('order_id');  //dd("cash");
 
+
+	// }catch (Exception $e) {
+	// 	return redirect()->route('/');
+	// }
 	return view('/pages/front-end/cashondelivery',compact('OrderDetails'));
 
 }

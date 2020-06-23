@@ -157,7 +157,7 @@ class CoverColorController extends Controller
         // }
         // $status->update();
         
-        $covercolor = CoverColor::where(['id' => $id])->update(['status' => 0]);
-        return redirect()->back()->with('status' , 'Deleted');
+        // $covercolor = CoverColor::where(['id' => $id])->update(['status' => 0]);
+        // return redirect()->back()->with('status' , 'Deleted');
     }
 }

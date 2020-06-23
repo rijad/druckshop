@@ -239,7 +239,7 @@ class DiscountController extends Controller
         // }
         // $status->update();
         
-        $discount = Discount::where(['id' => $id])->update(['status' => 0]);
-        return redirect()->back()->with('status' , 'Deleted');
+        // $discount = Discount::where(['id' => $id])->update(['status' => 0]);
+        // return redirect()->back()->with('status' , 'Deleted');
     }
 }

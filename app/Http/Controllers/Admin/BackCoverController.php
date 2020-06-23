@@ -158,7 +158,7 @@ class BackCoverController extends Controller
         // }
         // $status->update();
         
-        $backcover = BackCovers::where(['id' => $id])->update(['status' => 0]);
-        return redirect()->back()->with('status' , 'Deleted');
+        // $backcover = BackCovers::where(['id' => $id])->update(['status' => 0]);
+        // return redirect()->back()->with('status' , 'Deleted');
     }
 }
