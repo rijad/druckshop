@@ -281,7 +281,7 @@
           </div>
           <div class="modal-body">
              <div class="cart-form-shop w-100">
-               <form method = "POST" action="javascript:addAddress('shipping');">
+               <form method = "POST" action="javascript:addAddress('shipping');" id = "shippingForm">
                       <div class="form-group">
                           <label for="text">{{ trans('cart.first_name') }}*</label>
                         <input type="text" class="form-control" placeholder="{{ trans('cart.enter_here') }}" name="shipping_first_name" id="shipping_first_name">
@@ -329,7 +329,10 @@
                       <div class="text-right">
                           <button type= "submit" class="continue_btn">{{ trans('cart.add') }}</button>
                       </div>
+
+                      <p id = "success-msg" style="color:green;"></p>
                </form>
+
             </div>   
           </div>
       </div>
@@ -347,7 +350,7 @@
           </div>
           <div class="modal-body">
              <div class="cart-form-shop w-100">
-               <form method = "POST" action="javascript:addAddress('billing');"> 
+               <form method = "POST" action="javascript:addAddress('billing');" id = "billingForm"> 
                 @if(! empty($billing_address_data))
                  @foreach($billing_address_data as $keyss=>$billing_address)
                         @if($billing_address->default == 1)
@@ -455,6 +458,8 @@
                           <button type= "submit" class="continue_btn">{{ trans('cart.add') }}</button>
                       </div>
                       @endif
+
+                       <p id = "success-msg" style="color:green;"></p>
                </form>
             </div>   
           </div> 
@@ -471,8 +476,29 @@
 
 <script>
   $(document).ready( function () {
+
     setQuantity({{count($product_data)}});
+
+
+        $('#shippingForm').on('submit', function() {
+          $('#rv-Modal-shipping').on('hide.bs.modal', function ( e ) {
+            e.preventDefault();
+          }) 
+      });
+
+
+      $('#billingForm').on('submit', function() {
+          $('#rv-Modal-billing').on('hide.bs.modal', function ( e ) {
+            e.preventDefault();
+          }) 
+      });
+
+
   });
+
+
+
+
 
 </script>
 
@@ -518,7 +544,7 @@ $(document).ready(function() {
  
 function displayAddress(select="", address=""){  
 
- var ship_address=$(select).children("option:selected").val();  alert(ship_address);
+ var ship_address=$(select).children("option:selected").val();  //alert(ship_address);
   document.getElementById(address).innerHTML = ship_address ;
 
 }

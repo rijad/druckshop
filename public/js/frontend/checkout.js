@@ -191,6 +191,9 @@ binding = document.getElementById('binding').value;
 
 function embossingChange(field = ""){
 
+
+	$('#div-display-image').empty();
+
 	if($(field).find(":selected").val() != "-1"){
 
 
@@ -326,8 +329,19 @@ function displayPrintFields(embossment = ""){
 				}else{
 
 					$('#template').val('-1');
+					$('#fonts').val('-1');
+					$('#date-format').val('-1');
 					$("#div-display-image").empty();
 					$("#embossment-template-name").val('');
+
+
+					file_name = $('#selectfile_logo').val(); 
+			    	id = "upload_custom_logo"; 
+			     	removeFile(file_name,id,'1');
+
+			     	file_name = $('#selectfile_file').val(); 
+			    	id = "upload_custom_file"; 
+			     	removeFile(file_name,id,'1');
 
 					document.getElementById('upload_custom_logo_info').className = 'displayNone';
 					document.getElementById('drop_file_info').className = 'displayNone';
@@ -367,8 +381,8 @@ function displayPrintFields(embossment = ""){
 					document.getElementById('input_3').className = "displayNone";
 
 					document.getElementById('field-3').className = "displayNone";
-					document.getElementById('div-template-classic').className = 'displayNone';
-					$("#template-classic").empty();
+					// document.getElementById('div-template-classic').className = 'displayNone';
+					// $("#template-classic").empty();
 
 					$("#div-display-image-cd").empty();
 					
@@ -424,10 +438,20 @@ function displayPrintFields(embossment = ""){
 					//document.getElementById('div-fonts').className = "displayNone";
 				}else{ 
 
-
 					$('#template').val('-1');
+					$('#fonts').val('-1');
+					$('#date-format').val('-1');
 					$("#div-display-image").empty();
 					$("#embossment-template-name").val('');
+
+
+					file_name = $('#selectfile_logo').val(); 
+			    	id = "upload_custom_logo"; 
+			     	removeFile(file_name,id,'1');
+
+			     	file_name = $('#selectfile_file').val(); 
+			    	id = "upload_custom_file"; 
+			     	removeFile(file_name,id,'1');
 
 					document.getElementById('upload_custom_logo_info').className = 'displayNone';
 					document.getElementById('drop_file_info').className = 'displayNone';
@@ -461,8 +485,8 @@ function displayPrintFields(embossment = ""){
 				 
 				if($("#embossment-spine").is(":checked")){
 					document.getElementById('div-remarks').className = "displayBlock"; 
-					document.getElementById('div-template-classic').className = 'displayNone';
-					$("#template-classic").empty();
+					// document.getElementById('div-template-classic').className = 'displayNone';
+					// $("#template-classic").empty();
 					$("#div-display-image-cd").empty();
 
 					document.getElementById('div-direction').className = "displayBlock";
@@ -745,6 +769,10 @@ function displayPopUpCD(template = ""){
 		
 		document.getElementById('upload_custom_logo_cd').className = "displayBlock"; 
 		document.getElementById('upload_custom_logo_cd_heading').className = "outside-box-heading displayBlock";
+
+
+		document.getElementById('upload_cd_without_logo').className = "displayNone";
+		document.getElementById('upload_cd_without_logo_heading').className = "outside-box-heading displayNone";
 	
 	}else if(template == "Standardvorlage ohne Logo"){
 
@@ -923,6 +951,10 @@ function displayCDFields(value = ""){
 		    id = "upload_custom_logo_cd";
 		    removeFile(file_name,id,'1');
 
+		    file_name = $('#selectfile_upload_cd_without_logo').val();  //alert('ini');
+		    id = "upload_cd_without_logo";
+			removeFile(file_name,id,'1');
+
 
      	}
 
@@ -945,7 +977,7 @@ function displayCDFields(value = ""){
      		document.getElementById('div-cd-template').className = "displayNone";
      		document.getElementById('cd-template').value = "-1";
      		$('#div-display-image-cd').empty();
-     		if($('#cd-template-name').length){
+     		if($('#cd-template-name').length){ 
      			document.getElementById('cd-template-name').value = '';
      		}
      		document.getElementById('selectfile_custom_logo_cd').value='';
@@ -959,8 +991,12 @@ function displayCDFields(value = ""){
      		document.getElementById('upload_cd_without_logo').className = 'displayNone';
 
 
-     		file_name = $('#selectfile_logo_cd').val(); 
+     		file_name = $('#selectfile_logo_cd').val();  //alert('ini');
 		    id = "upload_custom_logo_cd";
+			removeFile(file_name,id,'1');
+
+			file_name = $('#selectfile_upload_cd_without_logo').val();  //alert('ini');
+		    id = "upload_cd_without_logo";
 			removeFile(file_name,id,'1');
 
 		}
@@ -1395,14 +1431,14 @@ function displayPrice(binding = "", no_ofsheets = "", page_options = "", embossi
 			if ($("#div-cover-sheet").hasClass('displayBlock')) {	
 				if($("#cover-sheet").find(":selected").val() == "-1"){$("#cover-sheet").addBack().addClass('invalid'); $('#error_cover_sheet').html('Cover Color Field is required'); valid = false; return false;}
 				// input type file
-			 if($("#selectfile_coversheet").val() == ""){ alert($("#selectfile_coversheet").val()); $("#drop_file_zone_cover_sheet").addBack().addClass('invalid'); $('#error_selectfile_coversheet').html('Field is required'); valid = false; return false;}
+			 if($("#selectfile_coversheet").val() == ""){ $("#drop_file_zone_cover_sheet").addBack().addClass('invalid'); $('#error_selectfile_coversheet').html('Field is required'); valid = false; return false;}
 			}
 
 
 			//Get data for back cover
 			if ($("#div-back-cover").hasClass('displayBlock')) {	
 				if($("#back-cover").find(":selected").val() == "-1"){$("#back-cover").addBack().addClass('invalid'); $('#error_back_cover').html('Back Cover Field is required'); valid = false; return false;}
-				if($("#selectfile_backcover").val() == ""){alert($("#selectfile_backcover").val()); $("#drop_file_zone_back_cover").addBack().addClass('invalid'); $('#error_selectfile_backcover').html('Field is required'); valid = false; return false;}
+				if($("#selectfile_backcover").val() == ""){ $("#drop_file_zone_back_cover").addBack().addClass('invalid'); $('#error_selectfile_backcover').html('Field is required'); valid = false; return false;}
 			}
 
 
@@ -1434,7 +1470,7 @@ function displayPrice(binding = "", no_ofsheets = "", page_options = "", embossi
 					if(page_options == "1"){// unilaterally  
 						
 
-						 if($("#selectfile_content").val() == ""){ alert($("#selectfile_content").val()); $("#drop_file_zone_content").addBack().addClass('invalid'); $('#error_selectfile_content').html('This Field is required'); valid = false; return false;} //else{valid = true;return true;}
+						 if($("#selectfile_content").val() == ""){  $("#drop_file_zone_content").addBack().addClass('invalid'); $('#error_selectfile_content').html('This Field is required'); valid = false; return false;} //else{valid = true;return true;}
 
 						 if($("#color-pages").is(":checked")){ //alert("chk");
 						 	// color pages check box is checked
@@ -1449,8 +1485,8 @@ function displayPrice(binding = "", no_ofsheets = "", page_options = "", embossi
 
 						 	var count = parseInt(document.getElementById('max-A3').innerHTML);  
 						 	if($("#numbers-of-pages").val() == ""){$("#numbers-of-pages").addBack().addClass('invalid'); $('#error_no_of_pages').html('This Field is required'); valid = false; return false;} 
-						 	if($("#numbers-of-pages").val() > count  || $("#numbers-of-pages").val() < 1){ alert("in"); $("#numbers-of-pages").addBack().addClass('invalid'); $('#error_number_of_pages').html('Pages out of range'); valid = false; return false;} 
-						 	if($("#selectfile_din_A3").val() == ""){ alert($("#selectfile_din_A3").val()); $("#drop_file_din_A3").addBack().addClass('invalid'); $('#error_selectfile_din_A3').html('This Field is required'); valid = false; return false;}
+						 	if($("#numbers-of-pages").val() > count  || $("#numbers-of-pages").val() < 1){  $("#numbers-of-pages").addBack().addClass('invalid'); $('#error_number_of_pages').html('Pages out of range'); valid = false; return false;} 
+						 	if($("#selectfile_din_A3").val() == ""){  $("#drop_file_din_A3").addBack().addClass('invalid'); $('#error_selectfile_din_A3').html('This Field is required'); valid = false; return false;}
 
 						 }
 
@@ -1459,14 +1495,14 @@ function displayPrice(binding = "", no_ofsheets = "", page_options = "", embossi
 						 	var count = parseInt(document.getElementById('max-A2').innerHTML); 	 
 						 	if($("#numbers-of-A2-pages").val() == ""){$("#numbers-of-A2-pages").addBack().addClass('invalid'); $('#error_number_of_A2_pages').html('This Field is required'); valid = false; return false;} 
 						 	if($("#numbers-of-A2-pages").val() > count || $("#numbers-of-A2-pages").val() < 1){$("#numbers-of-A2-pages").addBack().addClass('invalid'); $('#error_number_of_A2_pages').html('Pages out of range'); valid = false; return false;} 
-						 	if($("#selectfile_din_A2").val() == ""){ alert($("#selectfile_din_A2").val()); $("#drop_file_din_A2").addBack().addClass('invalid'); $('#error_selectfile_din_A2').html('This Field is required'); valid = false; return false;}else{valid = true;return true;}		
+						 	if($("#selectfile_din_A2").val() == ""){  $("#drop_file_din_A2").addBack().addClass('invalid'); $('#error_selectfile_din_A2').html('This Field is required'); valid = false; return false;}else{valid = true;return true;}		
 
 						 } 
 
 					}else if(page_options == "2"){// both sides  
 						//alert("2");
 
-						if($("#selectfile_content").val() == ""){ alert($("#selectfile_content").val()); $("#drop_file_zone_content").addBack().addClass('invalid'); $('#error_selectfile_content').html('This Field is required'); valid = false; return false;}//else{valid = true;return true;}
+						if($("#selectfile_content").val() == ""){  $("#drop_file_zone_content").addBack().addClass('invalid'); $('#error_selectfile_content').html('This Field is required'); valid = false; return false;}//else{valid = true;return true;}
 
 						 if($("#mirror").find(":selected").val() == "-1"){$("#mirror").addClass('invalid'); $('#error_mirror').html('Mirror Field is required'); valid = false; return false;}
 
@@ -1484,16 +1520,16 @@ function displayPrice(binding = "", no_ofsheets = "", page_options = "", embossi
 						 	// color pages check box is checked
 						 	if($("#numbers-of-A3-pages").val() == ""){$("#numbers-of-A3-pages").addBack().addClass('invalid'); $('#error_number_of_A3_pages').html('This Field is required'); valid = false; return false;} 
 						 	if($("#numbers-of-pages").val() > max_pages_A3 || $("#numbers-of-pages").val() < 1){$("#numbers-of-pages").addBack().addClass('invalid'); $('#error_number_of_pages').html('Pages out of range'); valid = false; return false;} 
-						 	if($("#selectfile_din_A3").val() == ""){ alert($("#selectfile_din_A3").val()); $("#drop_file_din_A3").addBack().addClass('invalid'); $('#error_selectfile_din_A3').html('This Field is required'); valid = false; return false;}//else{valid = true;return true;}	
+						 	if($("#selectfile_din_A3").val() == ""){ $("#drop_file_din_A3").addBack().addClass('invalid'); $('#error_selectfile_din_A3').html('This Field is required'); valid = false; return false;}//else{valid = true;return true;}	
 
 						 }
  
-						 if($("#A2-pages").is(":checked")){   alert("in");
+						 if($("#A2-pages").is(":checked")){   //alert("in");
 						 	var max_pages_A2 = document.getElementById('max-A2').innerHTML;
 						 	// color pages check box is checked
 						 	if($("#numbers-of-A2-pages").val() == ""){$("#numbers-of-A2-pages").addBack().addClass('invalid'); $('#error_number_of_A2_pages').html('This Field is required'); valid = false; return false;}
-						 	if($("#numbers-of-A2-pages").val() > max_pages_A2 || $("#numbers-of-A2-pages").val() < 1){  alert("in--1");$("#numbers-of-A2-pages").addBack().addClass('invalid'); $('#error_number_of_A2_pages').html('Pages out of range'); valid = false; return false;} 
-						 	if($("#selectfile_din_A2").val() == ""){ alert($("#selectfile_din_A2").val()); $("#drop_file_din_A2").addBack().addClass('invalid'); $('#error_selectfile_din_A2').html('This Field is required'); valid = false; return false;}//else{valid = true;return true;}		
+						 	if($("#numbers-of-A2-pages").val() > max_pages_A2 || $("#numbers-of-A2-pages").val() < 1){  $("#numbers-of-A2-pages").addBack().addClass('invalid'); $('#error_number_of_A2_pages').html('Pages out of range'); valid = false; return false;} 
+						 	if($("#selectfile_din_A2").val() == ""){  $("#drop_file_din_A2").addBack().addClass('invalid'); $('#error_selectfile_din_A2').html('This Field is required'); valid = false; return false;}//else{valid = true;return true;}		
 
 						 }
 
@@ -1516,7 +1552,7 @@ function displayPrice(binding = "", no_ofsheets = "", page_options = "", embossi
 				    if($("#template").find(":selected").val() == "-1"){  
 				      $("#template").addClass('invalid'); $('#error_template').html('Template Field is required'); valid = false; return false;
 					}else if($("#template").find(":selected").val() == "Eigene Vorlage"){
-					if($("#selectfile_file").val() == ""){ alert($("#selectfile_file").val()); $("#upload_custom_file").addBack().addClass('invalid'); $('#error_selectfile_file').html('Field is required'); valid = false; return false;}	
+					if($("#selectfile_file").val() == ""){ $("#upload_custom_file").addBack().addClass('invalid'); $('#error_selectfile_file').html('Field is required'); valid = false; return false;}	
 					}else{ 	
 				    //fonts
 					if($("#fonts").find(":selected").val() == "-1"){
@@ -1645,7 +1681,7 @@ function displayPrice(binding = "", no_ofsheets = "", page_options = "", embossi
 					
 					if($("#numbers-of-cds").val() == ""){$("#numbers-of-cds").addBack().addClass('invalid'); $('#error_number_of_cds').html('Field is required'); valid = false; return false; }
 					// upload
-					if($("#selectfile_cd").val() == ""){ alert($("#selectfile_cd").val()); $("#upload_cd").addBack().addClass('invalid'); $('#error_number_of_cds').html('Field is required'); valid = false; return false;}
+					if($("#selectfile_cd").val() == ""){ $("#upload_cd").addBack().addClass('invalid'); $('#error_number_of_cds').html('Field is required'); valid = false; return false;}
 										
 					if($("#cd-bag").find(":selected").val() == "-1")
 					{
@@ -2331,13 +2367,15 @@ function addAddress(address_type = ""){
 			document.getElementById('error_billing_state').innerHTML = "State is compulsory Field.";
 		}
 
+
+
 	}else{
 
 		default_flag = 0;
 
 		first_name = document.getElementById('shipping_first_name').value;
 		if(first_name == ""){
-			document.getElementById('error_shipping_first_name').innerHTML = "First Name is compulsory Field.";
+			document.getElementById('error_shipping_first_name').innerHTML = "First Name is compulsory Field."; 
 		}
 		last_name = document.getElementById('shipping_last_name').value;
 		if(last_name == ""){
@@ -2368,7 +2406,8 @@ function addAddress(address_type = ""){
 
 	}
  
-  
+
+   
 	$.ajax({
 			url: base_url+'/add-address', 
 			type: 'POST', 
@@ -2382,6 +2421,8 @@ function addAddress(address_type = ""){
 						$('[id^=address_data]').append('<option value="'+response+'" selected>'+response+'</option>');
 						$('[id^=ship-address-]').empty();
 						$('[id^=ship-address-]').text(response);
+
+						$('#success-msg').text("Address Added Successfully.");
 					}
 
 				}
@@ -2396,6 +2437,8 @@ function addAddress(address_type = ""){
 		          $('#billing_address_data').append('<option value="-1">Select</option><option value="'+response+'" selected>'+response+'</option>');
 
 		          $('#address_data').append('<option value="'+response+'" selected>'+response+'</option>');
+
+		          $('#success-msg').text("Address Added Successfully.");
 		        }
 
  
@@ -2489,7 +2532,7 @@ function resetPrice(session = ""){
 		// if($("#imprint").is(":checked")){}else{displayPrice('','','','','','','','','','','','','','','','0');  // cd imprint
 		//  }
 
-		 if($("#imprint").is(":checked")){}else{  alert("1");
+		 if($("#imprint").is(":checked")){}else{ // alert("1");
 			//$('#embossment-cover-sheet').prop("checked", false); 
 			$.ajax({
 			url: base_url+'/clear-session-particular', 

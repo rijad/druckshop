@@ -69,7 +69,7 @@
                                         <th>Document</th>
                                     </tr>
                                 </tfoot>
-                                <tbody> 
+                                <tbody>  
                                     @if(!empty($freesample))
                                         @foreach($freesample as $sample)
                                             <tr>
@@ -84,7 +84,7 @@
                                                 <td>{{ $sample->addition_to_address }}</td>
                                                 <td>{{ $sample->city }}</td>
                                                 <td>{{ $sample->zip_code }}</td>
-                                                <td><a href = '{{asset($sample->document)}}'>Document</a></td>
+                                                <td><a href = '{{asset($sample->document)}}' target='_blank'>Document</a></td>
                                             </tr>  
                                         @endforeach
                                     @endif
