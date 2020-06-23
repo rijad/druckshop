@@ -68,7 +68,7 @@
                             <th>Order ID</th>
                             <th>Product description</th>
                             <th>No of Copies</th>
-                            <th>No of CDs</th>
+                            <th>No of CDs</th> 
                             <th>Shipping Addresss</th>
                             <th>Billing Address</th>
                             <th>Shipping Company</th>
@@ -84,7 +84,7 @@
                             <td>{{ $order->shipping_address }}</td>
                             <td>{{ $order->billing_address }}</td>
                             <td>{{ $order->shipping_company }}</td>
-                            <td>{{ $order->price_product_qty }}</td>
+                            <td>{{ number_format($order->price_product_qty,2) }}</td>
                         </tr>
                     </thead>
                     <tr>
