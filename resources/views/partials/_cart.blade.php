@@ -544,7 +544,7 @@ $(document).ready(function() {
  
 function displayAddress(select="", address=""){  
 
- var ship_address=$(select).children("option:selected").val();  alert(ship_address);
+ var ship_address=$(select).children("option:selected").val();  //alert(ship_address);
   document.getElementById(address).innerHTML = ship_address ;
 
 }

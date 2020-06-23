@@ -284,7 +284,7 @@ function uploadDisplay(node,value){
 }
  
 
-function removeFile(file_name,id,status){  alert(id);  
+function removeFile(file_name,id,status){  //alert(id);  
 
    if(status == '0'){  // Explicit removal of file
 
@@ -358,7 +358,7 @@ function removeFile(file_name,id,status){  alert(id);
         document.getElementById('selectfile_file').value = "";
         document.getElementById('drag_upload_file_file').className = "displayBlock"
         document.getElementById('del_file').remove();
-      }else if(id == "upload_cd_without_logo"){  alert("test1");
+      }else if(id == "upload_cd_without_logo"){ // alert("test1");
         document.getElementById('file_name_upload_cd_without_logo').innerHTML = "";
         document.getElementById('page_no_upload_cd_without_logo').innerHTML = "";
         document.getElementById('selectfile_upload_cd_without_logo').value = "";
@@ -373,7 +373,7 @@ function removeFile(file_name,id,status){  alert(id);
   } else { }
 
   }else{  // Automatic removal of file  
-    alert("i am here");
+    //alert("i am here");
 
     $.ajax({
     url: base_url+'/remove-file', 
@@ -444,7 +444,7 @@ function removeFile(file_name,id,status){  alert(id);
         document.getElementById('selectfile_file').value = "";
         document.getElementById('drag_upload_file_file').className = "displayBlock"
         document.getElementById('del_file').remove();
-      }else if(id == "upload_cd_without_logo"){  alert("test");
+      }else if(id == "upload_cd_without_logo"){ // alert("test");
         document.getElementById('file_name_upload_cd_without_logo').innerHTML = "";
         document.getElementById('page_no_upload_cd_without_logo').innerHTML = "";
         document.getElementById('selectfile_upload_cd_without_logo').value = "";

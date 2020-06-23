@@ -67,7 +67,9 @@ return [
     |
     */
 
-    'timezone' => 'Europe/Berlin',
+    //'timezone' => 'Europe/Berlin',
+
+     'timezone' => 'Europe/Busingen',
  
     /*
     |--------------------------------------------------------------------------

@@ -784,12 +784,12 @@ class CheckoutController extends Controller
 
 		// price embossing
 		
-			//if($request->session()->has('embossing_type') && $request->session()->has('embossingCover')){
+			if($request->session()->has('embossing_type') && $request->session()->has('embossingCover')){
 
-				if($request->session()->has('embossingCover')){
+				//if($request->session()->has('embossingCover')){
 
 				//$embossing = 0.00;  
-				//print_r("hh111");
+				//print_r("cover");
 
 					try{ 
 
@@ -805,9 +805,9 @@ class CheckoutController extends Controller
 					}   
  
 			}	 
-			//if($request->session()->has('embossing_type') && $request->session()->has('embossingSpine')){
-
-				if($request->session()->has('embossingCover')){
+		 if($request->session()->has('embossing_type') && $request->session()->has('embossingSpine')){
+				//print_r("spine");
+				//if($request->session()->has('embossingCover')){
 
 				//$embossing = 0.00;
 

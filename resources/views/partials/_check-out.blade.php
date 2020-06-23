@@ -235,7 +235,7 @@
 
 												<div class="displayBlock" id="div-embossment-cover-sheet">
 													<label class="csCheckbtn">{{ trans('checkout.refinement_cover_sheet') }}
-														<input class =""name ="embossment-cover-sheet" id ="embossment-cover-sheet" type="checkbox" onchange="displayPrice('','','','1','','','','','','','','','','','',''); displayPrintFields('Embossment_Cover_Sheet');  displayProductAttributes('9',this);  setTimeout(function(){resetPrice('refinement_with_embossment')},1000); setTimeout(function(){displayPrice('','','','','','','','','','','','','','',$('#embossing').find(':selected').val(),'')},2000); " disabled>
+														<input class =""name ="embossment-cover-sheet" id ="embossment-cover-sheet" type="checkbox" onchange="displayPrice('','','','1','','','','','','','','','','','',''); setTimeout(function(){displayPrintFields('Embossment_Cover_Sheet')},200);  setTimeout(function(){displayProductAttributes('9',this)},300);  setTimeout(function(){resetPrice('refinement_with_embossment')},500); setTimeout(function(){displayPrice('','','','','','','','','','','','','','',$('#embossing').find(':selected').val(),'')},1000); " disabled>
 														<span class="checkmark"></span>
 													</label>
 												</div> 
@@ -311,7 +311,7 @@
  
 													<div class="displayBlock" id="div-embossment-spine">
 														<label class="csCheckbtn">{{ trans('checkout.refinement_spine') }}<a href="#" data-toggle="tooltip" title="Data is taken from cover sheet" class="formToolTip">i</a>
-															<input class = "" type="checkbox" id = "embossment-spine" name = "embossment-spine" onchange = " displayPrice('','','','','1','','','','','','','','','','','');  displayProductAttributes('10',this); displayPrintFields('Embossment_spine');  setTimeout(function(){resetPrice('refinement_with_spine')},1000); setTimeout(function(){displayPrice('','','','','','','','','','','','','','',$('#embossing').find(':selected').val(),'')},2000);" disabled>
+															<input class = "" type="checkbox" id = "embossment-spine" name = "embossment-spine" onchange = " displayPrice('','','','','1','','','','','','','','','','','');  setTimeout(function(){displayProductAttributes('10',this)},200); setTimeout(function(){displayPrintFields('Embossment_spine')},300);  setTimeout(function(){resetPrice('refinement_with_spine')},500); setTimeout(function(){displayPrice('','','','','','','','','','','','','','',$('#embossing').find(':selected').val(),'')},1000);" disabled>
 															<span class="checkmark"></span>
 														</label>
 														
