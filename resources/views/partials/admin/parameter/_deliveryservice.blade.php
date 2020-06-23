@@ -38,12 +38,12 @@
                                     <input type="submit" value="edit" class="btn btn-success">
                                 </form>
 
-                                <form method="POST" action="{{ route('deliveryService.destroy' , $service->id) }}" class="ml-2">
+                                {{-- <form method="POST" action="{{ route('deliveryService.destroy' , $service->id) }}" class="ml-2">
                                     @method('DELETE')
                                     @csrf
-                                    {{-- <input type="hidden" name="status" value="{{$service->status}}"> --}}
+                                    <input type="hidden" name="status" value="{{$service->status}}">
                                     <input type="submit" value="delete" class="btn btn-danger">
-                                </form>
+                                </form> --}}
                             </td>
                         </tr>
                         @endforeach

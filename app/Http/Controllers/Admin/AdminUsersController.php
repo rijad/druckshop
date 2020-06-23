@@ -67,7 +67,7 @@ class AdminUsersController extends Controller
             'name' => 'required',
             'phone' => 'required',
             'email' => 'required|email|unique:users_admin',
-            'password' => 'required|min:6',
+            'password' => 'required|min:8',
             'role' => 'required',
         ]);
 
@@ -221,7 +221,7 @@ class AdminUsersController extends Controller
 
         $validator = Validator::make($request->all(), [
             'user_id' => 'required',
-            'password' => 'required:min:6',
+            'password' => 'required|min:8',
             
         ]);
 
