@@ -32,12 +32,12 @@
                                                 <form method="GET" action="{{ route('datacheck.edit' , $check->id) }}">
                                                     <input type="submit" value="edit" class="btn btn-success">
                                                 </form>
-                                                <form method="POST" action="{{ route('datacheck.destroy' , $check->id) }}" class="ml-2">
+                                                {{-- <form method="POST" action="{{ route('datacheck.destroy' , $check->id) }}" class="ml-2">
                                                 @method('DELETE')
                                                 @csrf
-                                                    {{-- <input type="hidden" name="status" value="{{$check->status}}"> --}}
+                                                    <input type="hidden" name="status" value="{{$check->status}}">
                                                     <input type="submit" value="delete" class="btn btn-danger">
-                                                </form>
+                                                </form> --}}
                                             </td>
                                         </tr> 
                                         @endforeach

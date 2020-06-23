@@ -35,7 +35,7 @@ class LoginController extends Controller
       $validatedData = $this->validate($request, [
 
         'email'   => 'required|email',
-        'password' => 'required|min:6'
+        'password' => 'required|min:8'
       ]);
 
       if (Auth::guard('admin')->attempt(['email' => trim($request->email), 'password' => trim($request->password)])) {
