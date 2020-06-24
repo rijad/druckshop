@@ -104,7 +104,7 @@
                         <label class="small mb-1 rv-AbsoluteBorder" for="name">Cover Color</label>
                         <div class="form-inline">
                             @foreach ($coverColor as $key => $value2)
-                            <span class="ml-4"><input type="checkbox" class="form-control" name="cover_color[]" value="{{ $value2->id }}" {{ ($value2->id==1) ? 'checked' : '' }} />{{ $value2->color }}</span>
+                            <span class="ml-4"><input type="checkbox" class="form-control" name="cover_color[]" value="{{ $value2->id }}" {{ ($value2->id==1) ? 'checked' : '' }} />{{ $value2->name_english  }}</span>
                             @endforeach
 
                         </div>
@@ -114,7 +114,7 @@
                         <label class="small mb-1 rv-AbsoluteBorder" for="cover_sheet">Cover Sheet</label>
                         <div class="form-inline">
                             @foreach ($coverSheet as $key => $value3)
-                            <span class="ml-4"><input type="checkbox" class="form-control" name="cover_sheet[]"  value="{{ $value3->id }}" {{ ($value3->id==1) ? 'checked' : '' }} />{{ $value3->sheet }}</span>
+                            <span class="ml-4"><input type="checkbox" class="form-control" name="cover_sheet[]"  value="{{ $value3->id }}" {{ ($value3->id==1) ? 'checked' : '' }} />{{ $value3->name_english  }}</span>
                             @endforeach
 
                         </div>
@@ -124,7 +124,7 @@
                         <label class="small mb-1 rv-AbsoluteBorder" for="back_cover">Back Cover</label>
                         <div class="form-inline">
                             @foreach ($backCover as $key => $value4)
-                            <span class="ml-4"><input type="checkbox" class="form-control" name="back_cover[]" value="{{ $value4->id }}" {{ ($value4->id==1) ? 'checked' : '' }} />{{ $value4->back_cover  }}</span>
+                            <span class="ml-4"><input type="checkbox" class="form-control" name="back_cover[]" value="{{ $value4->id }}" {{ ($value4->id==1) ? 'checked' : '' }} />{{ $value4->name_english  }}</span>
                             @endforeach
 
                         </div>

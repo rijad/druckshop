@@ -158,7 +158,7 @@
 
                  ?>
 
-                 <span class="ml-4"><input type="checkbox" class="form-control" name="cover_color[]" value="{{ $value2->id }}" {{ $cc_selected }} />{{ $value2->color }}</span>
+                 <span class="ml-4"><input type="checkbox" class="form-control" name="cover_color[]" value="{{ $value2->id }}" {{ $cc_selected }} />{{ $value2->name_english  }}</span>
                  @endforeach
 
              </div>
@@ -181,7 +181,7 @@
 
              ?>
 
-             <span class="ml-4"><input type="checkbox" class="form-control" name="cover_sheet[]"  value="{{ $value3->id }}" {{ $cs_selected }} />{{ $value3->sheet }}</span>
+             <span class="ml-4"><input type="checkbox" class="form-control" name="cover_sheet[]"  value="{{ $value3->id }}" {{ $cs_selected }} />{{ $value3->name_english  }}</span>
              @endforeach
 
          </div>
@@ -204,7 +204,7 @@
 
          ?>
 
-         <span class="ml-4"><input type="checkbox" class="form-control" name="back_cover[]" value="{{ $value4->id }}" {{ $bc_selected }} />{{ $value4->back_cover  }}</span>
+         <span class="ml-4"><input type="checkbox" class="form-control" name="back_cover[]" value="{{ $value4->id }}" {{ $bc_selected }} />{{ $value4->name_english   }}</span>
          @endforeach
 
      </div>

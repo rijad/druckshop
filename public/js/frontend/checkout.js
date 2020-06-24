@@ -35,7 +35,7 @@ function displayFields(binding){
 		$("#cover-sheet").append("<option value='-1'>Select</option>");
 		for( var i = 0; i<len; i++){
 			$("#cover-sheet").append("<option value = "+$product_attributes['cover_sheet'][i]['id']+">"+$product_attributes['cover_sheet'][i]['sheet']+"</option>");
-		}
+		} 
 	}else{
 		document.getElementById('drop_file_zone_cover_sheet').className = "displayNone";
 		document.getElementById('drop_file_zone_cover_sheet_heading').className = "outside-box-heading displayNone";
@@ -211,7 +211,8 @@ function embossingChange(field = ""){
 					// $("#embossment-cover-sheet").trigger('onhange');  
 					// $("#embossment-spine").trigger('onhange'); 
 
-
+					$('#spine-title').removeClass();  // add tooltip text for spine refinement
+					$('#spine-title').addClass('formToolTip'); 
 
 					$('#fields_1 option[value="Topic"]').remove();
 
@@ -240,7 +241,11 @@ function embossingChange(field = ""){
 					// $("#embossment-cover-sheet").prop("checked", false);
 					// $("#embossment-cover-sheet").trigger('onhange');  
 					// $("#embossment-spine").trigger('onhange'); 
-			 
+			 		
+
+			 		$('#spine-title').removeClass();  // remove tooltip text for spine refinement
+					$('#spine-title').addClass('formToolTip displayNone');
+
 					document.getElementById('div-template-classic').className = 'displayNone';
 					$("#div-display-image-cd").empty();
 					document.getElementById('input_1').className = "displayBlock";
@@ -268,6 +273,10 @@ function embossingChange(field = ""){
 		//}	
  
 	}else{
+
+		$('#spine-title').removeClass();  // remove tooltip text for spine refinement
+		$('#spine-title').addClass('formToolTip displayNone'); 
+
 
 		$("#embossment-spine").prop("checked", false);
 		$("#embossment-cover-sheet").prop("checked", false);
@@ -819,6 +828,14 @@ function displayPopUpCD(template = ""){
 		document.getElementById('drop_upload_cd_without_logo').className = "displayNone";
 	}	
 
+}
+
+
+// Reset templlate field after clicking n cancel button
+
+function resetTemplate(id = ""){  
+
+	$('select[id="'+id+'"]').val('-1').attr("selected",true);
 }
 
 
@@ -1604,23 +1621,43 @@ function displayPrice(binding = "", no_ofsheets = "", page_options = "", embossi
 
 				}
 
-				if($("#fields_1").find(":selected").val() == "-1" || $("#pos_1").find(":selected").val() == "-1" || $("#input_1").val().length <= 0){
-					  
-					 if($("#input_1").val().length <= 0){
+				if($("#embossing").find(":selected").val() == "Edition"){
 
-					 	$("#input_1").addClass('invalid');  
+						if($("#fields_1").find(":selected").val() == "-1" || $("#pos_1").find(":selected").val() == "-1" || $("#input_1").val().length <= 0){
+							  
+							 if($("#input_1").val().length <= 0){
 
-					 } if($("#pos_1").find(":selected").val() == "-1"){   
+							 	$("#input_1").addClass('invalid');  
 
-					 	$("#pos_1").addClass('invalid');  
+							 } if($("#pos_1").find(":selected").val() == "-1"){   
 
-					 } if($("#fields_1").find(":selected").val() == "-1" ){
-					 	 $("#fields_1").addClass('invalid'); 
-					 }
+							 	$("#pos_1").addClass('invalid');  
 
-					 $('#error-section-1').html('Fill all Fields in this section 1'); valid = false; return false;
-					 
-				} 
+							 } if($("#fields_1").find(":selected").val() == "-1" ){
+							 	 $("#fields_1").addClass('invalid'); 
+							 }
+
+							 $('#error-section-1').html('Fill all Fields in this section 1'); valid = false; return false;
+							 
+						} 
+				}else{
+
+					if($("#fields_1").find(":selected").val() == "-1"){
+
+						 $("#fields_1").addClass('invalid');
+						 $('#error-section-1').html('Fill all Fields in this section 1'); valid = false; return false;
+
+					}
+
+					if($("#pos_1").find(":selected").val() == "-1"){
+
+						$("#pos_1").addClass('invalid');  
+						$('#error-section-1').html('Fill all Fields in this section 1'); valid = false; return false;
+						
+					}
+
+
+				}
 				
 					var allowed_letters = parseInt($('#spine-count-hidden').val());
 					var total = 0;
@@ -2664,7 +2701,7 @@ function getCoverSetting(binding){
 
 							
 						}
-					});
+					}); 
 
 
 					$.ajax({

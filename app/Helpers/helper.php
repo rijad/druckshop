@@ -25,7 +25,7 @@ function colorById($covercolor_id){
 
 function sheetById($coversheet_id){
 	$sheet = \App\CoverSheet::find($coversheet_id);
-	return $sheet->sheet;
+	return $sheet->name_english;
 }
 
 function weightById($weight_id){
@@ -35,7 +35,7 @@ function weightById($weight_id){
 
 function backcoverById($backcover_id){
 	$backcover = \App\BackCovers::find($backcover_id);
-	return $backcover->back_cover;
+	return $backcover->name_english;
 }
 
 function optionsById($options_id){

@@ -156,7 +156,7 @@
 													<input class = ""  name = "A3-pages" id = "A3-pages" type="checkbox" onchange="displayContentInput('A3_Pages'); resetPrice('A3');"  > 
 													<span class="checkmark"></span>
 												</label>
-											</div> 
+											</div>  
  
 											<div class="displayNone" id="div-number-of-pages">
 												<label>{{ trans('checkout.number_din_A3_pages') }}*:<a href="#" data-toggle="tooltip" title=" It is printed with the same paper type and one-sided. &#013; It is printed with the same paper type and one-sided. " class="formToolTip">i</a></label>
@@ -310,7 +310,7 @@
 												<label class = "displayNone" id="download_stylesheet"> <a href={{url('/').'/public/style_sheet/stylesheet.pdf'}} target="_blank" >Link for sample style sheet</a></label>
  
 													<div class="displayBlock" id="div-embossment-spine">
-														<label class="csCheckbtn">{{ trans('checkout.refinement_spine') }}<a href="#" data-toggle="tooltip" title="Data is taken from cover sheet" class="formToolTip">i</a>
+														<label class="csCheckbtn">{{ trans('checkout.refinement_spine') }}<a href="#" data-toggle="tooltip" title="Data is taken from cover sheet" id="spine-title" class="displayNone formToolTip">i</a>
 															<input class = "" type="checkbox" id = "embossment-spine" name = "embossment-spine" onchange = " displayPrice('','','','','1','','','','','','','','','','','');  setTimeout(function(){displayProductAttributes('10',this)},200); setTimeout(function(){displayPrintFields('Embossment_spine')},300);  setTimeout(function(){resetPrice('refinement_with_spine')},500); setTimeout(function(){displayPrice('','','','','','','','','','','','','','',$('#embossing').find(':selected').val(),'')},1000);" disabled>
 															<span class="checkmark"></span>
 														</label>
@@ -359,7 +359,7 @@
 														<option value = "Bottom">Bottom</option>
 													</select></p> 
 
-													<p><input type="text" id ="input_1" name = "input_1" class="displayBlock" placeholder=""></p>
+													<p><label id="input-1" class = "displayBlock">{{ trans('checkout.content') }} 1:</label><input type="text" id ="input_1" name = "input_1" class="displayBlock" placeholder=""></p>
 													<div>
 													<button type="button" onclick="addSection('div-section-2')">{{ trans('checkout.add_section') }}</button> 
 													</div>
@@ -379,7 +379,7 @@
 														<option value = "-1">Select</option>
 													</select></p> 
 
-													<p><input type="text" id ="input_2" name = "input_2" class="displayBlock" placeholder=""></p>
+													<p><label id="input-2" class = "displayBlock">{{ trans('checkout.content') }} 1:</label><input type="text" id ="input_2" name = "input_2" class="displayBlock" placeholder=""></p>
 
 													<div>
 													<button type="button" onclick="addSection('div-section-3')">{{ trans('checkout.add_section') }}</button> <button type="button" onclick = "removeSection('div-section-2','fields_2','pos_2')">{{ trans('checkout.remove_section') }}</button>
@@ -400,7 +400,7 @@
 														<option value = "-1">Select</option>
 													</select></p> 
 
-													<p><input type="text" id ="input_3" name = "input_3" class="displayBlock" placeholder=""></p>
+													<p><label id="input-3" class = "displayBlock">{{ trans('checkout.content') }} 1:</label><input type="text" id ="input_3" name = "input_3" class="displayBlock" placeholder=""></p>
 
 													<div>
 													<button type="button" onclick = "removeSection('div-section-3','fields_3','pos_3')">{{ trans('checkout.remove_section') }}</button>
@@ -426,7 +426,7 @@
 
 																</div>
 																<div class="modal-footer">
-																	<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+																	<button type="button" class="btn btn-default" data-dismiss="modal" onclick = "resetTemplate('template');">Cancel</button>
 																	<button type="button" class="btn btn-primary" data-dismiss="modal" onclick = "displayImgSelect();">Save changes</button>
 																</div>
 															</div><!-- /.modal-content -->
@@ -518,7 +518,7 @@
 
 																</div>
 																<div class="modal-footer">
-																	<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+																	<button type="button" class="btn btn-default" data-dismiss="modal" onclick = "resetTemplate('cd-template');">Cancel</button>
 																	<button type="button" class="btn btn-primary" data-dismiss="modal" onclick = "displayImgSelectCd();">Save changes</button>
 																</div>
 															</div><!-- /.modal-content -->

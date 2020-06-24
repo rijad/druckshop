@@ -271,14 +271,27 @@ function ajaxFileUpload(file_obj,id) {  //alert(id);
  
 function uploadDisplay(node,value){
 
-  if(node == "cover-sheet" && value != "-1"){
+  if(node == "cover-sheet" && value != "-1" && (value == "5" || value == "6")){
     document.getElementById('drop_file_zone_cover_sheet').className = "displayBlock";
     document.getElementById('drop_file_zone_cover_sheet_heading').className = "outside-box-heading displayBlock";
     document.getElementById('drop_file_zone_cover_sheet_info').className = "displayBlock";
-  }else if(node == "back-cover" && value != "-1"){ //alert("in");
+  }else{
+    document.getElementById('drop_file_zone_cover_sheet').className = "displayNone";
+    document.getElementById('drop_file_zone_cover_sheet_heading').className = "outside-box-heading displayNone";
+    document.getElementById('drop_file_zone_cover_sheet_info').className = "displayNone";
+  }
+
+
+  if(node == "back-cover" && value != "-1" && (value == "5" || value == "6")){ 
     document.getElementById('drop_file_zone_back_cover').className = "displayBlock";
     document.getElementById('drop_file_zone_back_cover_heading').className = "outside-box-heading displayBlock";
     document.getElementById('drop_file_zone_back_cover_sheet_info').className = "displayBlock";
+  }else{
+
+    document.getElementById('drop_file_zone_back_cover').className = "displayNone";
+    document.getElementById('drop_file_zone_back_cover_heading').className = "outside-box-heading displayNone";
+    document.getElementById('drop_file_zone_back_cover_sheet_info').className = "displayNone";
+
   }
 
 }

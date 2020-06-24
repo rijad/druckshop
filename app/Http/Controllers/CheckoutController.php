@@ -2074,7 +2074,7 @@ public static function CartCount(){
 
 			$cover_sheet[$key] = ['id' => $value->cover_sheet_id, 'cover' => sheetById($value->cover_sheet_id)];
 		}
-
+ 
 		print_r(json_encode($cover_sheet));
 
 	}
