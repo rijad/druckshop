@@ -150,7 +150,59 @@ function displayFieldsContent(page_options = ""){
 		}
 
 } 
- 
+
+function getPrintingdata(){
+
+	binding = document.getElementById('binding').value;
+	$.ajax({
+		url: base_url+'/get-print-finishing-status', 
+		type: 'GET', 
+		data: {'binding_type' : binding},
+		success: function (response){
+			var data = JSON.parse(response);  
+
+			var paper_weight_count = getPaperWeightCount();
+			var no_of_pages = $('#no-of-pages').val();
+			
+			if(data == 1){ // page 4
+
+				$("#embossment-cover-sheet").removeAttr('disabled');   
+				$("#embossment-spine").removeAttr('disabled');
+				$('#spine-message').html('');
+
+			}else if(data == 2){ //page 3  
+
+				$("#embossment-spine").removeAttr('disabled');  
+				$("#embossment-cover-sheet").removeAttr('disabled');
+				$('#spine-message').html('');
+
+			}else if(data == 3){ 
+
+				$("#embossment-cover-sheet").attr('disabled', true);
+
+				if(parseInt(paper_weight_count) <= parseInt(no_of_pages)){ 
+					$("#embossment-spine").removeAttr('disabled');
+					$('#spine-message').html('Refinement can be activated for this product');
+				}else{ 
+					$("#embossment-spine").attr('disabled', true);
+					$('#spine-message').html('Refinement cannot be activated since it is not available for this product');
+				}
+				
+				
+			}else{
+
+				$("#embossment-cover-sheet").attr('disabled', true);
+				$("#embossment-spine").attr('disabled', true);
+				$('#spine-message').html('Refinement cannot be activated since it is not available for this product');
+			}
+
+
+
+		}
+	}); 
+}
+
+
 function getPrinting(){  
 
 binding = document.getElementById('binding').value;
@@ -159,7 +211,7 @@ binding = document.getElementById('binding').value;
 		type: 'GET', 
 		data: {'binding_type' : binding},
 		success: function (response){
-			var data = JSON.parse(response);   
+			var data = JSON.parse(response);  
 			
 			if(data == 1){ // page 4
 
@@ -178,13 +230,16 @@ binding = document.getElementById('binding').value;
 				$("#embossment-cover-sheet").attr('disabled', true);
 				$("#embossment-spine").attr('disabled', true);
 				$('#spine-message').html('Refinement cannot be activated since it is not available for this product');
-				
+	
 			}else{
 
 				$("#embossment-cover-sheet").attr('disabled', true);
 				$("#embossment-spine").attr('disabled', true);
 				$('#spine-message').html('Refinement cannot be activated since it is not available for this product');
 			}
+
+
+
 		}
 	}); 
 }
@@ -274,6 +329,7 @@ function embossingChange(field = ""){
  
 	}else{
 
+
 		$('#spine-title').removeClass();  // remove tooltip text for spine refinement
 		$('#spine-title').addClass('formToolTip displayNone'); 
 
@@ -312,6 +368,10 @@ function displayPrintFields(embossment = ""){
 				
 				$("#embossment-spine").removeAttr('disabled');
 				$("#embossment-cover-sheet").removeAttr('disabled');
+
+
+				//getPrintingdata();
+				
 				//document.getElementById('div-embossing').className = "displayBlock";
 				document.getElementById('div-embossing').className = "displayNone";
 
@@ -536,7 +596,33 @@ function displayPrintFields(embossment = ""){
 					}
 			}else{
 
-				var execute = getPrinting(); 
+				var execute = getPrintingdata(); 
+				if($("#embossment-spine").is(":checked")){   
+					document.getElementById('div-direction').className = "displayBlock";
+					document.getElementById('div-remarks').className = "displayBlock"; 
+					document.getElementById('div-section-1').className = "displayBlock";
+					
+					document.getElementById('div-fonts').className = "displayNone";
+					
+					document.getElementById('input_1').className = "displayNone";
+					document.getElementById('field-1').className = "displayNone";
+					document.getElementById('input_2').className = "displayNone";
+					document.getElementById('field-2').className = "displayNone";
+					document.getElementById('input_3').className = "displayNone";
+
+					document.getElementById('field-3').className = "displayNone";
+					// document.getElementById('div-template-classic').className = 'displayNone';
+					// $("#template-classic").empty();
+
+					$("#div-display-image-cd").empty();
+					
+				}else{ 
+					document.getElementById('div-direction').className = "displayNone";
+					document.getElementById('div-section-1').className = "displayNone";
+					document.getElementById('div-section-2').className = "displayNone";
+					document.getElementById('div-section-3').className = "displayNone";
+					document.getElementById('div-fonts-spine').className = "displayNone";
+					}
 
 			}
 		}
@@ -2336,26 +2422,28 @@ if($('#selectfile_file').val() != ""){
 function getPaperWeightCount(){
  
 	//if($("#embossment-spine").is(":checked")){
-
+		var min_sheets="";
 		if($("#paper-weight option:selected").val() != "-1"){
 
 			var paper_weight = document.getElementById('paper-weight').value;
 			var binding = document.getElementById('binding').value;
+			
 
 			$.ajax({
 			url: base_url+'/get-spine-count', 
 			type: 'POST', 
+			async:false,
 			data: {'binding': binding,'paper_weight': paper_weight, '_token': $('meta[name="csrf-token"]').attr('content')},
 			success: function (response){  var data = JSON.parse(response); 
 
 				$("#spine-count").html("Minimum Number of sheets for spine is "+ data);
 				$("#spine-count-hidden").val(data);
-
-
+				min_sheets  = data;  
+				callback.call(min_sheets);
 			}
-		});
+		}); 
 
-		}
+		}  return min_sheets;
 	//}	
 }
 

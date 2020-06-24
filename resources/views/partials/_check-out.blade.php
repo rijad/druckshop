@@ -113,7 +113,7 @@
 
 									<div class="displayBlock" id="div-no-of-pages">
 										<label> {{ trans('checkout.no_of_pages') }}*:<a id="page-format-tooltip" href="#" data-toggle="tooltip" title="" class="formToolTip">i</a></label>
-										<p><input type = "text" class = "" name="no_of_pages" id="no-of-pages" placeholder="No of Pages"  oninput="resetPrice('no-of-pages');displayPrice('',this.value,'','','','','','','','','','','','','',''); displayProductAttributes('8',this); NumberOfPages('binding','paper-weight','no-of-pages');  displayPrice(document.getElementById('binding').value,'','','','','','','','','','','','','','','');"></p>
+										<p><input type = "text" class = "" name="no_of_pages" id="no-of-pages" placeholder="No of Pages"  oninput="resetPrice('no-of-pages');displayPrice('',this.value,'','','','','','','','','','','','','',''); displayProductAttributes('8',this); NumberOfPages('binding','paper-weight','no-of-pages');  displayPrice(document.getElementById('binding').value,'','','','','','','','','','','','','','',''); getPrintingdata()"></p>
 										<p class="error" id="error_no_of_pages"></p>
 									</div>
  									
