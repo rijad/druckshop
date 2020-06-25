@@ -80,7 +80,7 @@ function getProductAttributes(binding){
 
 }
 
-//Get Product attributes
+//Get Content attributes
 function getContentAttributes(page_options){
 
 	var content_attributes = "";
@@ -1745,7 +1745,8 @@ function displayPrice(binding = "", no_ofsheets = "", page_options = "", embossi
 
 				}
 				
-					var allowed_letters = parseInt($('#spine-count-hidden').val());
+					//var allowed_letters = parseInt($('#spine-count-hidden').val());
+					var allowed_letters = parseInt(getLettersSpine());  
 					var total = 0;
 					if($('#input_1').hasClass('displayBlock')){    
 
@@ -2192,12 +2193,35 @@ function checkPageRange(id1 = '', id2 = '' ,value_id = ''){
  }
 
 
+function BasicRange(binding = "", weight = "", no_pages=""){ 
+
+	var binding_val = document.getElementById(binding).value;
+    var weight_val = document.getElementById(weight).value; 
+
+    $.ajax({ 
+		url: base_url+'/paper-weight-sheets',  
+		type: 'POST',
+		data: {'binding': binding_val,'weight' : weight_val, '_token': $('meta[name="csrf-token"]').attr('content')}, 
+		success: function (response){
+
+			var data = JSON.parse(response)[0];
+			var min  =  parseInt(data['min_sheets']);
+			var max  = parseInt(data['max_sheets']);
+			var no_of_pages = document.getElementById('pg_no').value; // no of pages of uploaded file
+			document.getElementById('error_no_of_pages').style.color = "#000000";
+			document.getElementById('error_no_of_pages').innerHTML = "Range is "+ min + " - " + max ;
+			
+		}
+	}); 
+}
+
+
  // step 2 Number of pages dependency C
  function NumberOfPages(binding = "", weight = "", no_pages=""){
     
     var binding_val = document.getElementById(binding).value;
     var weight_val = document.getElementById(weight).value;
-    var value = parseInt(document.getElementById(no_pages).value);
+    var value = parseInt(document.getElementById(no_pages).value); // alert(value);
     var status = true;
 
     $.ajax({ 
@@ -2210,25 +2234,20 @@ function checkPageRange(id1 = '', id2 = '' ,value_id = ''){
 			var data = JSON.parse(response)[0];
 			var min  =  parseInt(data['min_sheets']);
 			var max  = parseInt(data['max_sheets']);
-			var no_of_pages = document.getElementById('pg_no').value;
+			var no_of_pages = document.getElementById('pg_no').value; // no of pages of uploaded file
 
-			// document.getElementById('error_no_of_pages').innerHTML = "Range is "+ min + " - " + max + " and No of Pages is  "+ no_of_pages + " Page(s), ->  Number of pages are out of range.";
-			// document.getElementById('error_no_of_pages').style.color = "#000000";
-			// document.getElementById('error_no_of_pages').innerHTML = "Range is "+ min + " - " + max ;
+			
+			if(value != no_of_pages){ 
 
-			console.log(value+"-----"+min+"-----"+max);
-
-			if(value > no_of_pages){
-
-				document.getElementById('error_no_of_pages').innerHTML = "Range is "+ min + " - " + max + " and No of Pages is  "+ no_of_pages + " Page(s), ->  Number of pages are out of range.";
-				document.getElementById('error_no_of_pages').style.color = "red";
+				document.getElementById('error_no_of_pages_match').innerHTML = "Entered number of pages does not match with the number of pages of the uploaded file";
+				document.getElementById('error_no_of_pages_match').style.color = "red";
 
 				status = false;
 			} 
 
-			if(value < min || value > max){
+			if(value < min || value > max){ 
 
-				document.getElementById('error_no_of_pages').style.color = "#000000";
+				document.getElementById('error_no_of_pages').style.color = "red";
 				document.getElementById('error_no_of_pages').innerHTML = "Range is "+ min + " - " + max ;
 				status = false;
 			}
@@ -2891,5 +2910,29 @@ function getEmbossingFields(binding = ''){
 			
 		}
 	});
+
+}
+
+
+
+//Get lletters of spine
+function getLettersSpine(){ 
+
+
+	var paperWeight = $('#paper-weight').val();
+	var numberOfPages = $('#no-of-pages').val();
+	var letters;
+
+	$.ajax({
+		url: base_url+'/get-letters-spine', 
+		type: 'POST', 
+		data: {'paperWeight': paperWeight, 'numberOfPages':numberOfPages,'_token': $('meta[name="csrf-token"]').attr('content')},
+		async: false,
+		success: function (response){
+			var data = JSON.parse(response); console.log(data);
+			letters  = data;
+			callback.call(letters);
+		}
+	}); return letters;
 
 }

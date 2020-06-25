@@ -108,24 +108,25 @@
 									<div class="displayBlock" id="div-paper-weight">
 										<label>{{ trans('checkout.paper_weight') }}*:<a href="#" data-toggle="tooltip" title="
 											for one-sided 100 g/m² paper &#013; for two-sided 120 g/m² paper" class="formToolTip">i</a></label>
-										<p><select class = "" name="paper-weight" id="paper-weight" onchange="displayPrice('','','','','',this.value,'','','','','','','','','',''); getPaperWeightCount();"><option value="-1">Select</option></select></p> <p class="error" id="error_paper_weight"></p>
+										<p><select class = "" name="paper-weight" id="paper-weight" onchange="displayPrice('','','','','',this.value,'','','','','','','','','',''); getPaperWeightCount(); BasicRange('binding','paper-weight','no-of-pages');"><option value="-1">Select</option></select></p> <p class="error" id="error_paper_weight"></p>
 									</div>  
 
 									<div class="displayBlock" id="div-no-of-pages">
 										<label> {{ trans('checkout.no_of_pages') }}*:<a id="page-format-tooltip" href="#" data-toggle="tooltip" title="" class="formToolTip">i</a></label>
-										<p><input type = "text" class = "" name="no_of_pages" id="no-of-pages" placeholder="No of Pages"  oninput="resetPrice('no-of-pages');displayPrice('',this.value,'','','','','','','','','','','','','',''); displayProductAttributes('8',this); NumberOfPages('binding','paper-weight','no-of-pages');  displayPrice(document.getElementById('binding').value,'','','','','','','','','','','','','','',''); getPrintingdata()"></p>
+										<p><input type = "text" class = "" name="no_of_pages" id="no-of-pages" placeholder="No of Pages"  oninput="resetPrice('no-of-pages');displayPrice('',this.value,'','','','','','','','','','','','','',''); displayProductAttributes('8',this); displayPrice(document.getElementById('binding').value,'','','','','','','','','','','','','','',''); getPrintingdata()"></p>
 										<p class="error" id="error_no_of_pages"></p>
-									</div>
+										<p class="error" id="error_no_of_pages_match"></p>
+									</div> 
  									
  									<p class="outside-box-heading displayBlock"  id="drop_file_zone_content_heading">{{ trans('checkout.upload_thesis') }}</p>
-									<div id="drop_file_zone_content" ondrop="upload_file(event,this.id)" ondragover="return false" class="displayBlock">
+									<div id="drop_file_zone_content" ondrop="upload_file(event,this.id) " ondragover="return false" class="displayBlock">
 										<div id="drag_upload_file">
 											<p class="inside-box-heading">{{ trans('checkout.upload_thesis') }}</p>
 											<p>Drop file here<a href="#" data-toggle="tooltip" title="
 											PDF" class="formToolTip">i</a></p> 
 											<p>or</p>
 											<p><input class = "" type="button" value="Select File" onclick="file_explorer('drop_file_zone_content');"></p>
-											<input type="file" name="selectfile" id="selectfile" accept="application/pdf">
+											<input type="file" name="selectfile" id="selectfile" onchange="" accept="application/pdf">
 											<input type="hidden" name="selectfile_content" id="selectfile_content">
 											<input type="hidden" name="pg_no" id="pg_no">
 										</div>
@@ -599,11 +600,11 @@
 													<div class="servicePrice">  
 														<ul> 
 															<li id="no_toggle"><p>{{ trans('checkout.total') }}</p><span id="total"><big>0.00 €</big></span></li>
-															<li class="displayNone"><p>{{ trans('checkout.binding_price') }}</p><span id="binding_price"><big>0.00 €</big></span></li>
-															<li class="displayNone"><p>{{ trans('checkout.printouts') }}</p><span id="printout"><big>0.00 €</big></span></li>
-															<li class="displayNone"><p>{{ trans('checkout.embossment') }}</p><span id="embossment"><big>0.00 €</big></span></li>
-															<li class="displayNone"><p>{{ trans('checkout.data_checks') }}</p><span id="data_check_price"><big>0.00 €</big></span></li>
+															<li class="displayNone"><p>{{ trans('checkout.binding_price') }}</p><span id="binding_price"><big>0.00 €</big></span><p class="per-copy">{{ trans('checkout.per_copy') }}</p></li>
+															<li class="displayNone"><p>{{ trans('checkout.printouts') }}</p><span id="printout"><big>0.00 €</big></span><p class="per-copy">{{ trans('checkout.per_copy') }}</p></li>
+															<li class="displayNone"><p>{{ trans('checkout.embossment') }}</p><span id="embossment"><big>0.00 €</big><p class="per-copy">{{ trans('checkout.per_copy') }}</p></span></li>
 															<li class="displayNone"><p>{{ trans('checkout.cds') }}</p><span id="cd_dvd"><big>0.00 €</big></span></li>
+															<li class="displayNone"><p>{{ trans('checkout.data_checks') }}</p><span id="data_check_price"><big>0.00 €</big></span></li>
 															<li id="toggle" class="morelink" onclick="openTray(this);"><p>View More...</p></li>
 															<input type="hidden" name="total" id="total_price" value="">
 														</ul>

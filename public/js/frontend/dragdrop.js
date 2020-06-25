@@ -35,7 +35,7 @@ if(id == "upload_cd"){  // multiple file uploading
 
     }
    
-}
+} 
    
 }
 
@@ -82,6 +82,7 @@ function file_explorer(id) {   //alert(id);
       }
      
   }
+
 
    
 }
@@ -263,7 +264,7 @@ function ajaxFileUpload(file_obj,id) {  //alert(id);
       
     }
   });
-}
+}//NumberOfPages('binding','paper-weight','no-of-pages');
 } 
 
 

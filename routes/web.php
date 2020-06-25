@@ -95,6 +95,7 @@ Route::post('/get-back-cover','CheckoutController@getBackCoverData')->name('get-
 Route::post('/get-page-format','CheckoutController@getPageFormatData')->name('get-page-format');
 Route::post('/get-paper-weight','CheckoutController@getPaperWeightData')->name('get-paper-weight');
 Route::post('/get-embossing-fields','CheckoutController@getEmbossingFields')->name('get-embossing-fields');
+Route::post('/get-letters-spine','CheckoutController@getLettersSpine')->name('get-letters-spine');
 
 // Binding Sample Image 
 Route::POST('/binding-sample-image','BindingSampleImageController@getSampleImage')->name('binding-sample-image');

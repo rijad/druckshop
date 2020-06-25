@@ -2145,6 +2145,28 @@ public static function CartCount(){
 	}	
 
 
+	public function getLettersSpine(Request $request){
+
+		try{
+			$letters = LettesOfSpine::where('paper_weight_id', '=', $request->paperWeight)
+		                          ->where('sheets_range_start', '<=', $request->numberOfPages)
+		                          ->where('sheets_range_end', '>=', $request->numberOfPages)
+		                          ->where('status', '=', '1')->first()->letters;
+
+		}catch(\Exception $e){
+			$letters = 0;
+		}
+
+
+		print_r(json_encode($letters));
+
+
+	}
+
+
+
+
+
 
 
 

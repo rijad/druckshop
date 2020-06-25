@@ -54,16 +54,13 @@ return [
     'font' => 'Font',
     'cd_bag' => 'CD Bag', 
     'data_check' => 'Data Check',
-    'cds' => 'CDs Price',
+    'cds' => 'CD Total Price',
     'upload_template' => 'Upload Template',
-
-
-
+    'per_copy' => ' per copy',
     'binding_price' => 'Binding Price',
     'printouts' => 'Printout Price',
     'embossment' => 'Embossment Price',
-    'data_checks' => 'Data checks Price',
-    'cds' => 'CDs',
+    'data_checks' => 'Data Check Price',
     'total' => 'Total',
 
     'throttle' => 'Binding',

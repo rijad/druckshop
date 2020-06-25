@@ -44,7 +44,7 @@ return [
     'direction' => 'Richtung',
     'section' => 'Sektion',
     'field' => 'Auswahl',
-    'position' => 'Position der Auswahl',
+    'position' => 'Position der Auswahl', 
     'content' => 'Inhalt der Auswahl',
     'add_section' => 'Abschnitt hinzufügen',
     'remove_section' => 'Abschnitt entfernen',
@@ -53,15 +53,13 @@ return [
     'cd_imprint' => 'CD-Aufdruck',
     'font' => 'Schriftart',
     'cd_bag' => 'CD-Tasche',
-
-
-
+    'per_copy' => ' pro Kopie',
     'data_check' => 'Datenprüfung',
     'binding_price' => 'Verbindlicher Preis',
     'printouts' => 'Ausdrucks preis',
     'embossment' => 'Präge preis',
-    'data_checks' => 'Datenprüfungen Preis',
-    'cds' => 'CDs Preis',
+    'data_checks' => 'Datenprüfungspreise',
+    'cds' => 'CD Gesamtpreis',
     'total' => 'Gesamt',
 
     'throttle' => 'Bindung',
