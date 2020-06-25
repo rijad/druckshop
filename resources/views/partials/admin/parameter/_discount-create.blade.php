@@ -38,20 +38,44 @@
                 </div>
                 <div class="form-group">
                     <label class="small mb-1" for="to_date">To Date</label>
-                    <input type="date" id="to_date" name="to_date" value="{{ old('to_date') }}" required>
+                    <input type="date" id="to_date" name="to_date" value="{{ old('to_date') }}">
                 </div>
                 <div class="form-group">
                     <input type="radio" id="by_price" name="by_discount" value="by_price" checked>
                     <label class="small mb-1" for="by_price">By_Price</label><br>
                     <input type="radio" id="by_percent" name="by_discount" value="by_percent">
                     <label class="small mb-1" for="by_percent">By_Percent</label><br>
-                    
                 </div>
+
                 <div class="form-group">
                     <label class="small mb-1" for="discount">Discount</label>
                     <input class="form-control" type="number" step = "0.01" name="discount" value="{{ old('discount') }}" required>
                     <span class="text-danger">{{ $errors->first('discount') }}</span>
                 </div>
+
+                <div class="form-group">
+                    <label class="small mb-1" for="type">Type</label><br>
+
+                    <input type="radio" id="product_delivery" name="type" value="product_delivery">
+                    <label class="small mb-1" for="product_delivery">Delivery Product</label><br>
+
+                    <input type="radio" id="one" name="type" value="one">
+                    <label class="small mb-1" for="one">Single Product</label><br>
+                        <div id="single-pro" class="form-inline">
+                            @foreach ($binding as $key => $product)
+                            <span class="ml-4"><input type="radio" class="form-control" name="binding[]" value="{{ $product->id }}" />{{ $product->title_english }}</span>
+                            @endforeach
+                        </div>
+
+                    <input type="radio" id="multiple" name="type" value="multiple">
+                    <label class="small mb-1" for="multiple">Multiple Product</label><br>
+                        <div id="many-pro" class="form-inline">
+                            @foreach ($binding as $key => $product)
+                            <span class="ml-4"><input type="checkbox" class="form-control" name="product[]" value="{{ $product->id }}" />{{ $product->title_english }}</span>
+                            @endforeach
+                        </div>
+                </div>
+
                 <div class="form-group">
                     <div class="custom-control custom-checkbox small">
                     <input type="checkbox" class="custom-control-input" id="needs_code" name="needs_code" checked>
@@ -68,6 +92,7 @@
                     <a href="{{ url('/admin/details/Discount/10') }}" class="btn btn-secondary btn-user btn-block col-md-3">Back</a>
                     <input type="submit" class="btn btn-primary btn-user btn-block col-md-3" value="Add">
                 </div>
+
             </form>
         </div>
     </div>
@@ -76,3 +101,4 @@
 
 </body>
 </html>
+

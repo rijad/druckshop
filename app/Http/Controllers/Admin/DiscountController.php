@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use App\Discount;
+use App\Product;
 use DateTime;
 
 class DiscountController extends Controller
@@ -38,7 +39,8 @@ class DiscountController extends Controller
      */
     public function create()
     {
-        return view('pages.admin.parameter.discount-create');
+        $binding = Product::where('status', 1)->orderBy('id', 'DESC')->get();
+        return view('pages.admin.parameter.discount-create', compact('binding'));
     }
 
     /**
@@ -50,6 +52,7 @@ class DiscountController extends Controller
     public function store(Request $request)
     { 
         // dd($request->input());
+        // $product=[];
         $validator = Validator::make($request->all(), [
             'code' => 'required',
             'name_english' => 'required',
@@ -57,6 +60,7 @@ class DiscountController extends Controller
             'from_date' => 'required|date',
             'to_date' => 'nullable|date',
             'by_discount' => 'required',
+            'type' => 'required',
             'discount' => 'required',
             'needs_code' => 'nullable',
             'status' => 'nullable',
@@ -103,9 +107,24 @@ class DiscountController extends Controller
             $input['status'] = 0;
         }
 
+
+        // dd($request->input());
+        if($request->input('type') == "product_delivery"){
+            $input['type'] = 0;
+            $input['product_id'] = json_encode(['-1']);
+
+        }else if($request->input('type') == "one"){
+            $input['type'] = 1;
+            $input['product_id'] = json_encode($request->input('binding'));
+
+        }else if($request->input('type') == "multiple"){
+            $input['type'] = 2;
+            $input['product_id'] = json_encode($request->input('product'));
+        }
+
         // dd($input);
         $users = Discount::create($input);
-
+// dd($users);
         return redirect()->back()->with('status' , 'Created');
     }
 
@@ -129,7 +148,8 @@ class DiscountController extends Controller
     public function edit($id)
     {
         $discount = Discount::find($id);
-        return view('pages.admin.parameter.discount-edit', compact('discount'));
+        $binding = Product::where('status', 1)->orderBy('id', 'DESC')->get();
+        return view('pages.admin.parameter.discount-edit', compact('discount','binding'));
     }
 
     /**
@@ -149,6 +169,7 @@ class DiscountController extends Controller
             'to_date' => 'nullable|date',
             'by_discount' => 'required',
             'discount' => 'required',
+            'type' => 'nullable',
             'needs_code' => 'nullable',
             'status' => 'nullable',  
         ]);
@@ -197,7 +218,21 @@ class DiscountController extends Controller
             }else{
                 $input['status'] = 0;
             }
-            // dd($status);
+
+            if($request->input('type') == "product_delivery"){
+                $input['type'] = 0;
+                $input['product_id'] = json_encode(['-1']);
+
+            }if($request->input('type') == "one"){
+                $input['type'] = 1;
+                $input['product_id'] = json_encode($request->input('binding'));
+
+            }if($request->input('type') == "multiple"){
+                $input['type'] = 2;
+                $input['product_id'] = json_encode($request->input('product'));
+            } 
+
+            // dd($type);
             $discount = Discount::find($id);
             $discount->code = $input['code'];
             $discount->name_english = $input['name_english'];
@@ -206,6 +241,8 @@ class DiscountController extends Controller
             $discount->to_date = $input['to_date'];
             $discount->needs_code = $input['needs_code'];
             $discount->status = $input['status'];
+            $discount->type = $input['type'];
+            $discount->product_id = $input['product_id'];
 
             $discount->duration = $interval;
 
