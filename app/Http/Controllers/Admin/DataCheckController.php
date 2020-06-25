@@ -134,7 +134,7 @@ class DataCheckController extends Controller
         // }
         // $status->update();
         
-        $datacheck = DataCheck::where(['id' => $id])->update(['status' => 0]);
-        return redirect()->back()->with('status' , 'Deleted');
+        // $datacheck = DataCheck::where(['id' => $id])->update(['status' => 0]);
+        // return redirect()->back()->with('status' , 'Deleted');
     }
 }

@@ -40,7 +40,7 @@
             </div>
             <div class="form-group">
                 <label class="small mb-1" for="to_date">To Date</label>
-                <input class="form-control" type="date" id="to_date" name="to_date" value="{{ $discount->to_date }}" required>
+                <input class="form-control" type="date" id="to_date" name="to_date" value="{{ $discount->to_date }}" >
             </div>
             <div class="form-group">
                 <input type="radio" id="by_price" name="by_discount" value="by_price" <?php echo ($discount->by_price) ? 'checked' : ''; ?>>
@@ -53,6 +53,30 @@
                 <input class="form-control" type="number" step = "0.01" name="discount" value="<?php if($discount->by_price) { echo @$discount->by_price ; } else { echo @$discount->by_percent; } ?> " required>
                 <span class="text-danger">{{ $errors->first('discount') }}</span>
             </div>
+
+            <div class="form-group">
+                    <label class="small mb-1" for="type">Type</label><br>
+
+                    <input type="radio" id="product_delivery_edit" name="type" value="product_delivery" @if($discount->type == 0){{ 'checked' }} @endif>
+                    <label class="small mb-1" for="product_delivery">Delivery Product</label><br>
+
+                    <input type="radio" id="one_edit" name="type" value="one" @if($discount->type == 1){{ 'checked' }} @endif>
+                    <label class="small mb-1" for="one">Single Product</label><br>
+                        <div class="form-inline" id="single">
+                            @foreach ($binding as $key => $product)
+                            <span class="ml-4"><input type="radio" class="form-control" name="binding[]" value="{{ $product->id }}" @if($discount->product_id == $product->id){{ 'checked' }} @endif />{{ $product->title_english }}</span>
+                            @endforeach
+                        </div>
+
+                    <input type="radio" id="multiple_edit" name="type" value="multiple" @if($discount->type == 2){{ 'checked' }} @endif>
+                    <label class="small mb-1" for="multiple">Multiple Product</label><br>
+                        <div class="form-inline" id="many">
+                            @foreach ($binding as $key => $product)
+                            <span class="ml-4"><input type="checkbox" class="form-control" name="product[]" value="{{ $product->id }}" />{{ $product->title_english }}</span>
+                            @endforeach
+                        </div>
+                </div>
+
             <div class="form-group">
                 <div class="custom-control custom-checkbox small">
                     <input class="custom-control-input" type="checkbox" id="needs_code" name="needs_code" <?php echo ($discount->needs_code) ? 'checked' : ''; ?> >

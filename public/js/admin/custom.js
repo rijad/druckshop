@@ -42,3 +42,54 @@ $(document).ready(function () {
     }
 
 });
+
+//Create Discount
+    //for single product
+        $(document).ready(function() {
+            $("#one").click(function() {
+
+                $("#single-pro").show();
+                $("#many-pro").hide();
+        });
+    //for multiple product
+        $("#multiple").click(function() {
+
+            $("#many-pro").show();
+            $("#single-pro").hide();
+        });
+    //for delivery product
+        $("#product_delivery").click(function() {
+
+            $("#many-pro").hide();
+            $("#single-pro").hide();
+        });
+    });
+
+//Edit Discount
+    //for single product
+        $(document).ready(function() {
+            $("#one_edit").click(function() {
+
+                $("#single").show();
+                $("#many").hide();
+        });
+    //for multiple product
+        $("#multiple_edit").click(function() {
+
+            $("#many").show();
+            $("#single").hide();
+        });
+    //for delivery product
+        $("#product_delivery_edit").click(function() {
+
+            $("#many").hide();
+            $("#single").hide();
+        });
+
+
+        // if($('#multiple_edit').is(':checked')){
+        //     $('#many').show();
+        // }else{
+        //     $('#many').hide();
+        // }
+});

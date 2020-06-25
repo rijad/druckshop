@@ -235,9 +235,9 @@ class DeliveryController extends Controller
         // }
         // $status->update();
         
-        $format = DeliveryService::where(['id' => $id])->update(['status' => 0]);
+        // $format = DeliveryService::where(['id' => $id])->update(['status' => 0]);
 
-        return redirect()->back()->with('status' , 'Deleted successfull !');
+        // return redirect()->back()->with('status' , 'Deleted successfull !');
     }
 
     /**

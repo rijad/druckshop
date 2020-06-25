@@ -210,7 +210,7 @@ class PageFormatController extends Controller
         // }
         // $status->update();
         
-        $format = PageFormat::where(['id' => $id])->update(['status' => 0]);
-        return redirect()->back()->with('status' , 'Deleted');
+        // $format = PageFormat::where(['id' => $id])->update(['status' => 0]);
+        // return redirect()->back()->with('status' , 'Deleted');
     }
 }

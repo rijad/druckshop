@@ -158,7 +158,7 @@ class CoverSheetController extends Controller
         // }
         // $status->update();
         
-        $coversheet = CoverSheet::where(['id' => $id])->update(['status' => 0]);
-        return redirect()->back()->with('status' , 'Deleted');
+        // $coversheet = CoverSheet::where(['id' => $id])->update(['status' => 0]);
+        // return redirect()->back()->with('status' , 'Deleted');
     }
 }
