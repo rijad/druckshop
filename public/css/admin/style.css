@@ -52,7 +52,6 @@
     margin-top: 10px;
 }
 
-/* PageFormat Create page */
 #max_a2{
   display: none;
 }
@@ -60,31 +59,12 @@
   display: none;
 }
 
-/* PageFormat Edit page */
 #max_a22{
   display: none;
 }
 #max_a33{
   display: none;
 }
-
-/* Discount Create page */
-#single-pro{
-  display:none;
-}
-#many-pro{
-  display:none;
-}
-
-/* Discount Edit page */
-#single{
-  display:none;
-}
-#many{
-  display:none;
-}
-
-
 
 html {
   font-family: sans-serif;

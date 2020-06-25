@@ -97,7 +97,7 @@
                                              @endif
                                              @endforeach
                                             </p>
-                                            <button type = "button" name="shipping_address_click" id="shipping_address" class="form-control" data-toggle="modal" data-target="#rv-Modal-shipping">Add Shipping address</button>
+                                            <button type = "button" name="shipping_address_click" id="shipping_address" class="form-control" data-toggle="modal" data-target="#rv-Modal-shipping" onclick="resetModal('shippingForm');">Add Shipping address</button>
                                             
                                           </div>
                                            {{-- <div class="form-group">
@@ -497,7 +497,21 @@
   });
 
 
+function resetModal(form = ""){
 
+  $('form#shippingForm').trigger("reset");
+  $('form#shippingForm').trigger("change");
+  $('#success-msg').text('');  
+  $('#error_shipping_first_name').text('');
+  $('#error_shipping_last_name').text('');  
+  $('#shipping_company_name').text('');  
+  $('#error_shipping_street').text('');  
+  $('#error_shipping_house_no').text('');  
+  $('#error_shipping_zip_code').text('');  
+  $('#error_shipping_city').text('');  
+  $('#error_shipping_state').text('');  
+
+}
 
 
 </script>

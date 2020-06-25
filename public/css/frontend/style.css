@@ -1929,6 +1929,20 @@ p.empty-cart {
     border-bottom: 1px solid rgba(0,0,0,.125);
 }
 
+p.per-copy {
+    display: contents;
+}
+
+
+
+
+
+
+
+
+
+
+
 
 @media (min-width: 769px) and (max-width: 1367px){
   .rv-casualBioFields .form-group select#address_data {
