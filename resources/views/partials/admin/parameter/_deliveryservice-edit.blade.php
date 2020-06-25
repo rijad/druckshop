@@ -51,14 +51,14 @@
                                 <?php } ?>
                             </td>
 
-                            <td><input class="form-control price_input" id="price" type="number" name="price[]" value="{{ $value['ds_price'] }}" step="0.01" required /></td>
+                            <td><input class="form-control price_input" id="price" type="number" name="price[]" value="{{ $value['ds_price'] }}" step="0.01" required onchange="decimalplace(this);" onkeyup="decimalplace(this);"/></td>
                         </tr>
                         @endforeach
                         @else
                         <tr class="form-inline">
                             <td class="rv-headLtchild1"><input id="from" type="hidden" name="from[]" value="0" />0</td>
                             <td class="rv-headLtchild"><input class="form-control to_input" id="to" type="number" name="to[]" required /></td>
-                            <td class="rv-headRtchild"><input class="form-control price_input" step = "0.01" id="price" type="number" name="price[]" required /></td>
+                            <td class="rv-headRtchild"><input class="form-control price_input" step = "0.01" id="price" type="number" name="price[]" required onchange="decimalplace(this);" onkeyup="decimalplace(this);"/></td>
                         </tr>
                         @endif
                         
@@ -101,3 +101,22 @@
         padding: 8px;
     }
 </style>
+
+
+<script type="text/javascript">
+    
+$(document).ready(function () {
+
+        $("[id]").each(function(){
+         if($(this).attr("id")=="price"){
+            $(this).val(parseFloat($(this).val()).toFixed(2));
+         }
+        }); 
+    });
+
+    function decimalplace(value =""){
+        $(value).val(parseFloat($(value).val()).toFixed(2));
+    }
+
+
+</script>

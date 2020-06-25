@@ -35,7 +35,7 @@ function displayFields(binding){
 		$("#cover-sheet").append("<option value='-1'>Select</option>");
 		for( var i = 0; i<len; i++){
 			$("#cover-sheet").append("<option value = "+$product_attributes['cover_sheet'][i]['id']+">"+$product_attributes['cover_sheet'][i]['sheet']+"</option>");
-		}
+		} 
 	}else{
 		document.getElementById('drop_file_zone_cover_sheet').className = "displayNone";
 		document.getElementById('drop_file_zone_cover_sheet_heading').className = "outside-box-heading displayNone";
@@ -80,7 +80,7 @@ function getProductAttributes(binding){
 
 }
 
-//Get Product attributes
+//Get Content attributes
 function getContentAttributes(page_options){
 
 	var content_attributes = "";
@@ -150,7 +150,59 @@ function displayFieldsContent(page_options = ""){
 		}
 
 } 
- 
+
+function getPrintingdata(){
+
+	binding = document.getElementById('binding').value;
+	$.ajax({
+		url: base_url+'/get-print-finishing-status', 
+		type: 'GET', 
+		data: {'binding_type' : binding},
+		success: function (response){
+			var data = JSON.parse(response);  
+
+			var paper_weight_count = getPaperWeightCount();
+			var no_of_pages = $('#no-of-pages').val();
+			
+			if(data == 1){ // page 4
+
+				$("#embossment-cover-sheet").removeAttr('disabled');   
+				$("#embossment-spine").removeAttr('disabled');
+				$('#spine-message').html('');
+
+			}else if(data == 2){ //page 3  
+
+				$("#embossment-spine").removeAttr('disabled');  
+				$("#embossment-cover-sheet").removeAttr('disabled');
+				$('#spine-message').html('');
+
+			}else if(data == 3){ 
+
+				$("#embossment-cover-sheet").attr('disabled', true);
+
+				if(parseInt(paper_weight_count) <= parseInt(no_of_pages)){ 
+					$("#embossment-spine").removeAttr('disabled');
+					$('#spine-message').html('Refinement can be activated for this product');
+				}else{ 
+					$("#embossment-spine").attr('disabled', true);
+					$('#spine-message').html('Refinement cannot be activated since it is not available for this product');
+				}
+				
+				
+			}else{
+
+				$("#embossment-cover-sheet").attr('disabled', true);
+				$("#embossment-spine").attr('disabled', true);
+				$('#spine-message').html('Refinement cannot be activated since it is not available for this product');
+			}
+
+
+
+		}
+	}); 
+}
+
+
 function getPrinting(){  
 
 binding = document.getElementById('binding').value;
@@ -159,7 +211,7 @@ binding = document.getElementById('binding').value;
 		type: 'GET', 
 		data: {'binding_type' : binding},
 		success: function (response){
-			var data = JSON.parse(response);   
+			var data = JSON.parse(response);  
 			
 			if(data == 1){ // page 4
 
@@ -178,13 +230,16 @@ binding = document.getElementById('binding').value;
 				$("#embossment-cover-sheet").attr('disabled', true);
 				$("#embossment-spine").attr('disabled', true);
 				$('#spine-message').html('Refinement cannot be activated since it is not available for this product');
-				
+	
 			}else{
 
 				$("#embossment-cover-sheet").attr('disabled', true);
 				$("#embossment-spine").attr('disabled', true);
 				$('#spine-message').html('Refinement cannot be activated since it is not available for this product');
 			}
+
+
+
 		}
 	}); 
 }
@@ -211,7 +266,8 @@ function embossingChange(field = ""){
 					// $("#embossment-cover-sheet").trigger('onhange');  
 					// $("#embossment-spine").trigger('onhange'); 
 
-
+					$('#spine-title').removeClass();  // add tooltip text for spine refinement
+					$('#spine-title').addClass('formToolTip'); 
 
 					$('#fields_1 option[value="Topic"]').remove();
 
@@ -240,7 +296,11 @@ function embossingChange(field = ""){
 					// $("#embossment-cover-sheet").prop("checked", false);
 					// $("#embossment-cover-sheet").trigger('onhange');  
 					// $("#embossment-spine").trigger('onhange'); 
-			 
+			 		
+
+			 		$('#spine-title').removeClass();  // remove tooltip text for spine refinement
+					$('#spine-title').addClass('formToolTip displayNone');
+
 					document.getElementById('div-template-classic').className = 'displayNone';
 					$("#div-display-image-cd").empty();
 					document.getElementById('input_1').className = "displayBlock";
@@ -268,6 +328,11 @@ function embossingChange(field = ""){
 		//}	
  
 	}else{
+
+
+		$('#spine-title').removeClass();  // remove tooltip text for spine refinement
+		$('#spine-title').addClass('formToolTip displayNone'); 
+
 
 		$("#embossment-spine").prop("checked", false);
 		$("#embossment-cover-sheet").prop("checked", false);
@@ -299,11 +364,14 @@ function displayPrintFields(embossment = ""){
 			
 
 			//Standard refinement (3)
-			if(data == 1){  
-
+			if(data == 1){    
 				
 				$("#embossment-spine").removeAttr('disabled');
 				$("#embossment-cover-sheet").removeAttr('disabled');
+
+
+				//getPrintingdata();
+				
 				//document.getElementById('div-embossing').className = "displayBlock";
 				document.getElementById('div-embossing').className = "displayNone";
 
@@ -326,7 +394,7 @@ function displayPrintFields(embossment = ""){
 						document.getElementById('div-template-classic').className = 'displayNone';
 						$("#div-display-image-cd").empty();
 					}
-				}else{
+				}else{   
 
 					$('#template').val('-1');
 					$('#fonts').val('-1');
@@ -351,7 +419,7 @@ function displayPrintFields(embossment = ""){
 					//document.getElementById('div-embossment-cover-sheet').className = "displayNone";
 					document.getElementById('upload_custom_logo').className = "displayNone";
 					document.getElementById('upload_custom_logo_heading').className = "outside-box-heading displayNone";
-					document.getElementById('drop_file_zone_logo_info').className = "displayNone";
+					//document.getElementById('drop_file_zone_logo_info').className = "displayNone";
 					document.getElementById('div-remarks').className = "displayNone"; 
 
 					document.getElementById('upload_custom_file').className = "displayNone";  
@@ -362,12 +430,10 @@ function displayPrintFields(embossment = ""){
 					document.getElementById('div-date-format').className = "displayNone";
 					document.getElementById('upload_custom_file').className = "displayNone";
 					document.getElementById('upload_custom_file_heading').className = "outside-box-heading displayNone";
-
+					 
 				}
-
- 
 				
-				if($("#embossment-spine").is(":checked")){
+				if($("#embossment-spine").is(":checked")){   
 					document.getElementById('div-direction').className = "displayBlock";
 					document.getElementById('div-remarks').className = "displayBlock"; 
 					document.getElementById('div-section-1').className = "displayBlock";
@@ -530,7 +596,33 @@ function displayPrintFields(embossment = ""){
 					}
 			}else{
 
-				var execute = getPrinting(); 
+				var execute = getPrintingdata(); 
+				if($("#embossment-spine").is(":checked")){   
+					document.getElementById('div-direction').className = "displayBlock";
+					document.getElementById('div-remarks').className = "displayBlock"; 
+					document.getElementById('div-section-1').className = "displayBlock";
+					
+					document.getElementById('div-fonts').className = "displayNone";
+					
+					document.getElementById('input_1').className = "displayNone";
+					document.getElementById('field-1').className = "displayNone";
+					document.getElementById('input_2').className = "displayNone";
+					document.getElementById('field-2').className = "displayNone";
+					document.getElementById('input_3').className = "displayNone";
+
+					document.getElementById('field-3').className = "displayNone";
+					// document.getElementById('div-template-classic').className = 'displayNone';
+					// $("#template-classic").empty();
+
+					$("#div-display-image-cd").empty();
+					
+				}else{ 
+					document.getElementById('div-direction').className = "displayNone";
+					document.getElementById('div-section-1').className = "displayNone";
+					document.getElementById('div-section-2').className = "displayNone";
+					document.getElementById('div-section-3').className = "displayNone";
+					document.getElementById('div-fonts-spine').className = "displayNone";
+					}
 
 			}
 		}
@@ -822,6 +914,14 @@ function displayPopUpCD(template = ""){
 		document.getElementById('drop_upload_cd_without_logo').className = "displayNone";
 	}	
 
+}
+
+
+// Reset templlate field after clicking n cancel button
+
+function resetTemplate(id = ""){  
+
+	$('select[id="'+id+'"]').val('-1').attr("selected",true);
 }
 
 
@@ -1607,25 +1707,46 @@ function displayPrice(binding = "", no_ofsheets = "", page_options = "", embossi
 
 				}
 
-				if($("#fields_1").find(":selected").val() == "-1" || $("#pos_1").find(":selected").val() == "-1" || $("#input_1").val().length <= 0){
-					  
-					 if($("#input_1").val().length <= 0){
+				if($("#embossing").find(":selected").val() == "Edition"){
 
-					 	$("#input_1").addClass('invalid');  
+						if($("#fields_1").find(":selected").val() == "-1" || $("#pos_1").find(":selected").val() == "-1" || $("#input_1").val().length <= 0){
+							  
+							 if($("#input_1").val().length <= 0){
 
-					 } if($("#pos_1").find(":selected").val() == "-1"){   
+							 	$("#input_1").addClass('invalid');  
 
-					 	$("#pos_1").addClass('invalid');  
+							 } if($("#pos_1").find(":selected").val() == "-1"){   
 
-					 } if($("#fields_1").find(":selected").val() == "-1" ){
-					 	 $("#fields_1").addClass('invalid'); 
-					 }
+							 	$("#pos_1").addClass('invalid');  
 
-					 $('#error-section-1').html('Fill all Fields in this section 1'); valid = false; return false;
-					 
-				} 
+							 } if($("#fields_1").find(":selected").val() == "-1" ){
+							 	 $("#fields_1").addClass('invalid'); 
+							 }
+
+							 $('#error-section-1').html('Fill all Fields in this section 1'); valid = false; return false;
+							 
+						} 
+				}else{
+
+					if($("#fields_1").find(":selected").val() == "-1"){
+
+						 $("#fields_1").addClass('invalid');
+						 $('#error-section-1').html('Fill all Fields in this section 1'); valid = false; return false;
+
+					}
+
+					if($("#pos_1").find(":selected").val() == "-1"){
+
+						$("#pos_1").addClass('invalid');  
+						$('#error-section-1').html('Fill all Fields in this section 1'); valid = false; return false;
+						
+					}
+
+
+				}
 				
-					var allowed_letters = parseInt($('#spine-count-hidden').val());
+					//var allowed_letters = parseInt($('#spine-count-hidden').val());
+					var allowed_letters = parseInt(getLettersSpine());  
 					var total = 0;
 					if($('#input_1').hasClass('displayBlock')){    
 
@@ -2072,12 +2193,35 @@ function checkPageRange(id1 = '', id2 = '' ,value_id = ''){
  }
 
 
+function BasicRange(binding = "", weight = "", no_pages=""){ 
+
+	var binding_val = document.getElementById(binding).value;
+    var weight_val = document.getElementById(weight).value; 
+
+    $.ajax({ 
+		url: base_url+'/paper-weight-sheets',  
+		type: 'POST',
+		data: {'binding': binding_val,'weight' : weight_val, '_token': $('meta[name="csrf-token"]').attr('content')}, 
+		success: function (response){
+
+			var data = JSON.parse(response)[0];
+			var min  =  parseInt(data['min_sheets']);
+			var max  = parseInt(data['max_sheets']);
+			var no_of_pages = document.getElementById('pg_no').value; // no of pages of uploaded file
+			document.getElementById('error_no_of_pages').style.color = "#000000";
+			document.getElementById('error_no_of_pages').innerHTML = "Range is "+ min + " - " + max ;
+			
+		}
+	}); 
+}
+
+
  // step 2 Number of pages dependency C
  function NumberOfPages(binding = "", weight = "", no_pages=""){
     
     var binding_val = document.getElementById(binding).value;
     var weight_val = document.getElementById(weight).value;
-    var value = parseInt(document.getElementById(no_pages).value);
+    var value = parseInt(document.getElementById(no_pages).value); // alert(value);
     var status = true;
 
     $.ajax({ 
@@ -2090,25 +2234,20 @@ function checkPageRange(id1 = '', id2 = '' ,value_id = ''){
 			var data = JSON.parse(response)[0];
 			var min  =  parseInt(data['min_sheets']);
 			var max  = parseInt(data['max_sheets']);
-			var no_of_pages = document.getElementById('pg_no').value;
+			var no_of_pages = document.getElementById('pg_no').value; // no of pages of uploaded file
 
-			// document.getElementById('error_no_of_pages').innerHTML = "Range is "+ min + " - " + max + " and No of Pages is  "+ no_of_pages + " Page(s), ->  Number of pages are out of range.";
-			// document.getElementById('error_no_of_pages').style.color = "#000000";
-			// document.getElementById('error_no_of_pages').innerHTML = "Range is "+ min + " - " + max ;
+			
+			if(value != no_of_pages){ 
 
-			console.log(value+"-----"+min+"-----"+max);
-
-			if(value > no_of_pages){
-
-				document.getElementById('error_no_of_pages').innerHTML = "Range is "+ min + " - " + max + " and No of Pages is  "+ no_of_pages + " Page(s), ->  Number of pages are out of range.";
-				document.getElementById('error_no_of_pages').style.color = "red";
+				document.getElementById('error_no_of_pages_match').innerHTML = "Entered number of pages does not match with the number of pages of the uploaded file";
+				document.getElementById('error_no_of_pages_match').style.color = "red";
 
 				status = false;
 			} 
 
-			if(value < min || value > max){
+			if(value < min || value > max){ 
 
-				document.getElementById('error_no_of_pages').style.color = "#000000";
+				document.getElementById('error_no_of_pages').style.color = "red";
 				document.getElementById('error_no_of_pages').innerHTML = "Range is "+ min + " - " + max ;
 				status = false;
 			}
@@ -2302,26 +2441,28 @@ if($('#selectfile_file').val() != ""){
 function getPaperWeightCount(){
  
 	//if($("#embossment-spine").is(":checked")){
-
+		var min_sheets="";
 		if($("#paper-weight option:selected").val() != "-1"){
 
 			var paper_weight = document.getElementById('paper-weight').value;
 			var binding = document.getElementById('binding').value;
+			
 
 			$.ajax({
 			url: base_url+'/get-spine-count', 
 			type: 'POST', 
+			async:false,
 			data: {'binding': binding,'paper_weight': paper_weight, '_token': $('meta[name="csrf-token"]').attr('content')},
 			success: function (response){  var data = JSON.parse(response); 
 
 				$("#spine-count").html("Minimum Number of sheets for spine is "+ data);
 				$("#spine-count-hidden").val(data);
-
-
+				min_sheets  = data;  
+				callback.call(min_sheets);
 			}
-		});
+		}); 
 
-		}
+		}  return min_sheets;
 	//}	
 }
 
@@ -2667,7 +2808,7 @@ function getCoverSetting(binding){
 
 							
 						}
-					});
+					}); 
 
 
 					$.ajax({
@@ -2769,5 +2910,29 @@ function getEmbossingFields(binding = ''){
 			
 		}
 	});
+
+}
+
+
+
+//Get lletters of spine
+function getLettersSpine(){ 
+
+
+	var paperWeight = $('#paper-weight').val();
+	var numberOfPages = $('#no-of-pages').val();
+	var letters;
+
+	$.ajax({
+		url: base_url+'/get-letters-spine', 
+		type: 'POST', 
+		data: {'paperWeight': paperWeight, 'numberOfPages':numberOfPages,'_token': $('meta[name="csrf-token"]').attr('content')},
+		async: false,
+		success: function (response){
+			var data = JSON.parse(response); console.log(data);
+			letters  = data;
+			callback.call(letters);
+		}
+	}); return letters;
 
 }

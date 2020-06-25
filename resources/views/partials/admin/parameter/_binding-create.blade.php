@@ -104,7 +104,7 @@
                         <label class="small mb-1 rv-AbsoluteBorder" for="name">Cover Color</label>
                         <div class="form-inline">
                             @foreach ($coverColor as $key => $value2)
-                            <span class="ml-4"><input type="checkbox" class="form-control" name="cover_color[]" value="{{ $value2->id }}" {{ ($value2->id==1) ? 'checked' : '' }} />{{ $value2->color }}</span>
+                            <span class="ml-4"><input type="checkbox" class="form-control" name="cover_color[]" value="{{ $value2->id }}" {{ ($value2->id==1) ? 'checked' : '' }} />{{ $value2->name_english  }}</span>
                             @endforeach
 
                         </div>
@@ -114,7 +114,7 @@
                         <label class="small mb-1 rv-AbsoluteBorder" for="cover_sheet">Cover Sheet</label>
                         <div class="form-inline">
                             @foreach ($coverSheet as $key => $value3)
-                            <span class="ml-4"><input type="checkbox" class="form-control" name="cover_sheet[]"  value="{{ $value3->id }}" {{ ($value3->id==1) ? 'checked' : '' }} />{{ $value3->sheet }}</span>
+                            <span class="ml-4"><input type="checkbox" class="form-control" name="cover_sheet[]"  value="{{ $value3->id }}" {{ ($value3->id==1) ? 'checked' : '' }} />{{ $value3->name_english  }}</span>
                             @endforeach
 
                         </div>
@@ -124,7 +124,7 @@
                         <label class="small mb-1 rv-AbsoluteBorder" for="back_cover">Back Cover</label>
                         <div class="form-inline">
                             @foreach ($backCover as $key => $value4)
-                            <span class="ml-4"><input type="checkbox" class="form-control" name="back_cover[]" value="{{ $value4->id }}" {{ ($value4->id==1) ? 'checked' : '' }} />{{ $value4->back_cover  }}</span>
+                            <span class="ml-4"><input type="checkbox" class="form-control" name="back_cover[]" value="{{ $value4->id }}" {{ ($value4->id==1) ? 'checked' : '' }} />{{ $value4->name_english  }}</span>
                             @endforeach
 
                         </div>
@@ -208,37 +208,37 @@
                             <tr class="form-inline">
                                 <td class="rv-headLtchild1"><input id="start" type="hidden" name="sheet_start[]" value="1" />1 - </td>
                                 <td class="rv-headLtchild"><input class="form-control end" id="end" type="hidden" name="sheet_end[]" value="50" placeholder="page range" />50</td>
-                                <td class="rv-headRtchild"><input class="form-control product_price" id="product_price" type="number" name="product_price[]" value="10.00" step = "0.01" required placeholder="price" /></td>
+                                <td class="rv-headRtchild"><input class="form-control product_price" id="product_price" type="number" name="product_price[]" value="10.00" step = "0.01" required placeholder="price" onchange="decimalplace(this);" onkeyup="decimalplace(this);"/></td>
                             </tr>
 
                             <tr class="form-inline">
                                 <td class="rv-headLtchild1"><input id="start" type="hidden" name="sheet_start[]" value="51" />51 - </td>
                                 <td class="rv-headLtchild"><input class="form-control end" id="end" type="hidden" name="sheet_end[]" value="100" placeholder="page range" />100</td>
-                                <td class="rv-headRtchild"><input class="form-control product_price" id="product_price" type="number" name="product_price[]" value="11.00" step = "0.01" required placeholder="price" /></td>
+                                <td class="rv-headRtchild"><input class="form-control product_price" id="product_price" type="number" name="product_price[]" value="11.00" step = "0.01" required placeholder="price" onchange="decimalplace(this);" onkeyup="decimalplace(this);"/></td>
                             </tr>
 
                             <tr class="form-inline">
                                 <td class="rv-headLtchild1"><input id="start" type="hidden" name="sheet_start[]" value="101" />101 - </td>
                                 <td class="rv-headLtchild"><input class="form-control end" id="end" type="hidden" name="sheet_end[]" value="150" placeholder="page range" />150</td>
-                                <td class="rv-headRtchild"><input class="form-control product_price" id="product_price" type="number" name="product_price[]" value="12.00" step = "0.01" required placeholder="price" /></td>
+                                <td class="rv-headRtchild"><input class="form-control product_price" id="product_price" type="number" name="product_price[]" value="12.00" step = "0.01" required placeholder="price" onchange="decimalplace(this);" onkeyup="decimalplace(this);" /></td>
                             </tr>
 
                             <tr class="form-inline">
                                 <td class="rv-headLtchild1"><input id="start" type="hidden" name="sheet_start[]" value="191" />191 - </td>
                                 <td class="rv-headLtchild"><input class="form-control end" id="end" type="hidden" name="sheet_end[]" value="250" placeholder="page range" />250</td>
-                                <td class="rv-headRtchild"><input class="form-control product_price" id="product_price" type="number" name="product_price[]" value="13.00" step = "0.01" required placeholder="price" /></td>
+                                <td class="rv-headRtchild"><input class="form-control product_price" id="product_price" type="number" name="product_price[]" value="13.00" step = "0.01" required placeholder="price" onchange="decimalplace(this);" onkeyup="decimalplace(this);" /></td>
                             </tr>
 
                             <tr class="form-inline">
                                 <td class="rv-headLtchild1"><input id="start" type="hidden" name="sheet_start[]" value="201" />201 - </td>
                                 <td class="rv-headLtchild"><input class="form-control end" id="end" type="hidden" name="sheet_end[]" value="250" placeholder="page range" />250</td>
-                                <td class="rv-headRtchild"><input class="form-control product_price" id="product_price" type="number" name="product_price[]" value="14.00" step = "0.01" required placeholder="price" /></td>
+                                <td class="rv-headRtchild"><input class="form-control product_price" id="product_price" type="number" name="product_price[]" value="14.00" step = "0.01" required placeholder="price" onchange="decimalplace(this);" onkeyup="decimalplace(this);" /></td>
                             </tr>
 
                             <tr class="form-inline">
                                 <td class="rv-headLtchild1"><input class="form-control start" id="start" type="hidden" name="sheet_start[]" value="251" />251 - </td>
                                 <td class="rv-headLtchild"><input class="form-control end" id="end" name="sheet_end[]"  placeholder="page range" type="number"  /></td>
-                                <td class="rv-headRtchild"><input class="form-control product_price" id="product_price" type="number" name="product_price[]" step = "0.01" placeholder="price" /></td>
+                                <td class="rv-headRtchild"><input class="form-control product_price" id="product_price" type="number" name="product_price[]" step = "0.01" placeholder="price" onchange="decimalplace(this);" onkeyup="decimalplace(this);" /></td>
                             </tr>
 
                         </table>
@@ -292,6 +292,10 @@
 
 
 <script>
+
+function decimalplace(value =""){
+  $(value).val(parseFloat($(value).val()).toFixed(2));
+}
 
 
 function test(image = "", button = ""){

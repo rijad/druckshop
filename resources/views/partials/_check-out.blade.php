@@ -108,24 +108,25 @@
 									<div class="displayBlock" id="div-paper-weight">
 										<label>{{ trans('checkout.paper_weight') }}*:<a href="#" data-toggle="tooltip" title="
 											for one-sided 100 g/m² paper &#013; for two-sided 120 g/m² paper" class="formToolTip">i</a></label>
-										<p><select class = "" name="paper-weight" id="paper-weight" onchange="displayPrice('','','','','',this.value,'','','','','','','','','',''); getPaperWeightCount();"><option value="-1">Select</option></select></p> <p class="error" id="error_paper_weight"></p>
+										<p><select class = "" name="paper-weight" id="paper-weight" onchange="displayPrice('','','','','',this.value,'','','','','','','','','',''); getPaperWeightCount(); BasicRange('binding','paper-weight','no-of-pages');"><option value="-1">Select</option></select></p> <p class="error" id="error_paper_weight"></p>
 									</div>  
 
 									<div class="displayBlock" id="div-no-of-pages">
 										<label> {{ trans('checkout.no_of_pages') }}*:<a id="page-format-tooltip" href="#" data-toggle="tooltip" title="" class="formToolTip">i</a></label>
-										<p><input type = "text" class = "" name="no_of_pages" id="no-of-pages" placeholder="No of Pages"  oninput="resetPrice('no-of-pages');displayPrice('',this.value,'','','','','','','','','','','','','',''); displayProductAttributes('8',this); NumberOfPages('binding','paper-weight','no-of-pages');  displayPrice(document.getElementById('binding').value,'','','','','','','','','','','','','','','');"></p>
+										<p><input type = "text" class = "" name="no_of_pages" id="no-of-pages" placeholder="No of Pages"  oninput="resetPrice('no-of-pages');displayPrice('',this.value,'','','','','','','','','','','','','',''); displayProductAttributes('8',this); displayPrice(document.getElementById('binding').value,'','','','','','','','','','','','','','',''); getPrintingdata()"></p>
 										<p class="error" id="error_no_of_pages"></p>
-									</div>
+										<p class="error" id="error_no_of_pages_match"></p>
+									</div> 
  									
  									<p class="outside-box-heading displayBlock"  id="drop_file_zone_content_heading">{{ trans('checkout.upload_thesis') }}</p>
-									<div id="drop_file_zone_content" ondrop="upload_file(event,this.id)" ondragover="return false" class="displayBlock">
+									<div id="drop_file_zone_content" ondrop="upload_file(event,this.id) " ondragover="return false" class="displayBlock">
 										<div id="drag_upload_file">
 											<p class="inside-box-heading">{{ trans('checkout.upload_thesis') }}</p>
 											<p>Drop file here<a href="#" data-toggle="tooltip" title="
 											PDF" class="formToolTip">i</a></p> 
 											<p>or</p>
 											<p><input class = "" type="button" value="Select File" onclick="file_explorer('drop_file_zone_content');"></p>
-											<input type="file" name="selectfile" id="selectfile" accept="application/pdf">
+											<input type="file" name="selectfile" id="selectfile" onchange="" accept="application/pdf">
 											<input type="hidden" name="selectfile_content" id="selectfile_content">
 											<input type="hidden" name="pg_no" id="pg_no">
 										</div>
@@ -156,7 +157,7 @@
 													<input class = ""  name = "A3-pages" id = "A3-pages" type="checkbox" onchange="displayContentInput('A3_Pages'); resetPrice('A3');"  > 
 													<span class="checkmark"></span>
 												</label>
-											</div> 
+											</div>  
  
 											<div class="displayNone" id="div-number-of-pages">
 												<label>{{ trans('checkout.number_din_A3_pages') }}*:<a href="#" data-toggle="tooltip" title=" It is printed with the same paper type and one-sided. &#013; It is printed with the same paper type and one-sided. " class="formToolTip">i</a></label>
@@ -310,7 +311,7 @@
 												<label class = "displayNone" id="download_stylesheet"> <a href={{url('/').'/public/style_sheet/stylesheet.pdf'}} target="_blank" >Link for sample style sheet</a></label>
  
 													<div class="displayBlock" id="div-embossment-spine">
-														<label class="csCheckbtn">{{ trans('checkout.refinement_spine') }}<a href="#" data-toggle="tooltip" title="Data is taken from cover sheet" class="formToolTip">i</a>
+														<label class="csCheckbtn">{{ trans('checkout.refinement_spine') }}<a href="#" data-toggle="tooltip" title="Data is taken from cover sheet" id="spine-title" class="displayNone formToolTip">i</a>
 															<input class = "" type="checkbox" id = "embossment-spine" name = "embossment-spine" onchange = " displayPrice('','','','','1','','','','','','','','','','','');  setTimeout(function(){displayProductAttributes('10',this)},200); setTimeout(function(){displayPrintFields('Embossment_spine')},300);  setTimeout(function(){resetPrice('refinement_with_spine')},500); setTimeout(function(){displayPrice('','','','','','','','','','','','','','',$('#embossing').find(':selected').val(),'')},1000);" disabled>
 															<span class="checkmark"></span>
 														</label>
@@ -359,7 +360,7 @@
 														<option value = "Bottom">Bottom</option>
 													</select></p> 
 
-													<p><input type="text" id ="input_1" name = "input_1" class="displayBlock" placeholder=""></p>
+													<p><label id="input-1" class = "displayBlock">{{ trans('checkout.content') }} 1:</label><input type="text" id ="input_1" name = "input_1" class="displayBlock" placeholder=""></p>
 													<div>
 													<button type="button" onclick="addSection('div-section-2')">{{ trans('checkout.add_section') }}</button> 
 													</div>
@@ -379,7 +380,7 @@
 														<option value = "-1">Select</option>
 													</select></p> 
 
-													<p><input type="text" id ="input_2" name = "input_2" class="displayBlock" placeholder=""></p>
+													<p><label id="input-2" class = "displayBlock">{{ trans('checkout.content') }} 1:</label><input type="text" id ="input_2" name = "input_2" class="displayBlock" placeholder=""></p>
 
 													<div>
 													<button type="button" onclick="addSection('div-section-3')">{{ trans('checkout.add_section') }}</button> <button type="button" onclick = "removeSection('div-section-2','fields_2','pos_2')">{{ trans('checkout.remove_section') }}</button>
@@ -400,7 +401,7 @@
 														<option value = "-1">Select</option>
 													</select></p> 
 
-													<p><input type="text" id ="input_3" name = "input_3" class="displayBlock" placeholder=""></p>
+													<p><label id="input-3" class = "displayBlock">{{ trans('checkout.content') }} 1:</label><input type="text" id ="input_3" name = "input_3" class="displayBlock" placeholder=""></p>
 
 													<div>
 													<button type="button" onclick = "removeSection('div-section-3','fields_3','pos_3')">{{ trans('checkout.remove_section') }}</button>
@@ -426,7 +427,7 @@
 
 																</div>
 																<div class="modal-footer">
-																	<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+																	<button type="button" class="btn btn-default" data-dismiss="modal" onclick = "resetTemplate('template');">Cancel</button>
 																	<button type="button" class="btn btn-primary" data-dismiss="modal" onclick = "displayImgSelect();">Save changes</button>
 																</div>
 															</div><!-- /.modal-content -->
@@ -518,7 +519,7 @@
 
 																</div>
 																<div class="modal-footer">
-																	<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+																	<button type="button" class="btn btn-default" data-dismiss="modal" onclick = "resetTemplate('cd-template');">Cancel</button>
 																	<button type="button" class="btn btn-primary" data-dismiss="modal" onclick = "displayImgSelectCd();">Save changes</button>
 																</div>
 															</div><!-- /.modal-content -->
@@ -599,11 +600,11 @@
 													<div class="servicePrice">  
 														<ul> 
 															<li id="no_toggle"><p>{{ trans('checkout.total') }}</p><span id="total"><big>0.00 €</big></span></li>
-															<li class="displayNone"><p>{{ trans('checkout.binding_price') }}</p><span id="binding_price"><big>0.00 €</big></span></li>
-															<li class="displayNone"><p>{{ trans('checkout.printouts') }}</p><span id="printout"><big>0.00 €</big></span></li>
-															<li class="displayNone"><p>{{ trans('checkout.embossment') }}</p><span id="embossment"><big>0.00 €</big></span></li>
-															<li class="displayNone"><p>{{ trans('checkout.data_checks') }}</p><span id="data_check_price"><big>0.00 €</big></span></li>
+															<li class="displayNone"><p>{{ trans('checkout.binding_price') }}</p><span id="binding_price"><big>0.00 €</big></span><p class="per-copy">{{ trans('checkout.per_copy') }}</p></li>
+															<li class="displayNone"><p>{{ trans('checkout.printouts') }}</p><span id="printout"><big>0.00 €</big></span><p class="per-copy">{{ trans('checkout.per_copy') }}</p></li>
+															<li class="displayNone"><p>{{ trans('checkout.embossment') }}</p><span id="embossment"><big>0.00 €</big><p class="per-copy">{{ trans('checkout.per_copy') }}</p></span></li>
 															<li class="displayNone"><p>{{ trans('checkout.cds') }}</p><span id="cd_dvd"><big>0.00 €</big></span></li>
+															<li class="displayNone"><p>{{ trans('checkout.data_checks') }}</p><span id="data_check_price"><big>0.00 €</big></span></li>
 															<li id="toggle" class="morelink" onclick="openTray(this);"><p>View More...</p></li>
 															<input type="hidden" name="total" id="total_price" value="">
 														</ul>

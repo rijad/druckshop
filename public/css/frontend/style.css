@@ -613,8 +613,8 @@ button:focus {outline:none !important;}
 
 /*--------------------------------------- 13-02-2020 ---------------------------------*/
 
-.displayNone {display:none;}
-.displayBlock {display:block;}
+.displayNone {display:none !important;}
+.displayBlock {display:block !important;}
 .formToolTip {
     display: inline-block;
     height: 18px;

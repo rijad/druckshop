@@ -356,12 +356,7 @@ class CheckoutController extends Controller
 }	
 
 
-
-
-
 	public function getPrice(Request $request){ 
-
-		
 
 		$binding_price = 0.00; $embosing_spine = 0.00; $embosing_cover = 0.00; $printout = 0.00; $printout_basic = 0.00; 
 		$printout_surcharge = 0.00; $cd_dvd = 0.00; $delivery_cost = 0.00; $colored_price_A2 = 0.00; $b_w_price_A2 = 0.00; $colored_price_A3 = 0.00; $b_w_price_A3 = 0.00; $colored_price_A4 = 0.00; $b_w_price_A4 = 0.00; $Price_surcharge_A2 = 0.00; $Price_surcharge_A3 = 0.00; $Price_surcharge_A4 = 0.00; $data_check_price =0.00; $no_of_copies=0.00; $price_embossing_cover = 0.00;  $price_embossing_spine = 0.00; $cd_dvd_print_price = 0.00;  $cd_dvd_cover_price = 0.00; $cd_dvd_price = 0.00;  $embossment_price = 0.00; $total = 0.00; $total_unit_price = 0.00;
@@ -862,7 +857,7 @@ class CheckoutController extends Controller
 
 public function saveOrder(Request $request){ 
  
-//$count = count($request->input());
+//dd(str_replace(',', '', $request->input('total')));
 //dd(Auth::user()->id);   
 //dd($request->input()); 
 
@@ -881,7 +876,7 @@ $product = Product::where('id', $request->input('binding'))->first()->title_engl
 // }
 
 $product_details = "";
-
+ 
 foreach($request->input() as $key => $value){
 
 	$str_arr = explode ("_", $key);  
@@ -906,6 +901,8 @@ if (Auth::check())
 		$user_id = time();
 		Session::put('user_id', $user_id);
 	} 
+
+	$total = str_replace(',', '', $request->input('total'));
 //dd(floatval($request->total) * ($request->no_of_copies));  
 	$OrderAttributes = new OrderAttributes;
 	$OrderAttributes->user_id = $user_id;
@@ -915,9 +912,9 @@ if (Auth::check())
 	$OrderAttributes->product_id = $request->input('binding');
 	$OrderAttributes->quantity= $qty; 
 	$OrderAttributes->attribute_desc= $product_details;
-	$OrderAttributes->price_per_product=floatval($request->total);
+	$OrderAttributes->price_per_product=floatval($total);
 	//$OrderAttributes->price_product_qty= floatval($request->total) * $qty;
-	$OrderAttributes->price_product_qty= floatval($request->total) * ($request->no_of_copies);
+	$OrderAttributes->price_product_qty= floatval($total) * ($request->no_of_copies);
 	$OrderAttributes->quantity= 1; 
 	$OrderAttributes->status= 1;
 	$OrderAttributes->save();
@@ -1129,7 +1126,7 @@ if (Auth::check() && Auth::user()->name != "Guest") // if user is logged in no n
 	$OrderDetailsvalue = new OrderDetails;
 	$OrderDetailsvalue->user_id = $user_id;
 	$OrderDetailsvalue->order_id= $user_id.'_'.time();
-	$OrderDetailsvalue->promo_code= $request->input('code');
+	$OrderDetailsvalue->promo_code= $request->input('code'); 
 	$OrderDetailsvalue->email_id= $request->input('email_id');
 	$OrderDetailsvalue->total= $total;
 	$OrderDetailsvalue->net_amt= $net_amt_after_delivery_service;  
@@ -2077,7 +2074,7 @@ public static function CartCount(){
 
 			$cover_sheet[$key] = ['id' => $value->cover_sheet_id, 'cover' => sheetById($value->cover_sheet_id)];
 		}
-
+ 
 		print_r(json_encode($cover_sheet));
 
 	}
@@ -2146,6 +2143,28 @@ public static function CartCount(){
 		print_r(json_encode($embossing_list));
 
 	}	
+
+
+	public function getLettersSpine(Request $request){
+
+		try{
+			$letters = LettesOfSpine::where('paper_weight_id', '=', $request->paperWeight)
+		                          ->where('sheets_range_start', '<=', $request->numberOfPages)
+		                          ->where('sheets_range_end', '>=', $request->numberOfPages)
+		                          ->where('status', '=', '1')->first()->letters;
+
+		}catch(\Exception $e){
+			$letters = 0;
+		}
+
+
+		print_r(json_encode($letters));
+
+
+	}
+
+
+
 
 
 

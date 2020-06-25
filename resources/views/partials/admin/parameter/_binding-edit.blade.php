@@ -158,7 +158,7 @@
 
                  ?>
 
-                 <span class="ml-4"><input type="checkbox" class="form-control" name="cover_color[]" value="{{ $value2->id }}" {{ $cc_selected }} />{{ $value2->color }}</span>
+                 <span class="ml-4"><input type="checkbox" class="form-control" name="cover_color[]" value="{{ $value2->id }}" {{ $cc_selected }} />{{ $value2->name_english  }}</span>
                  @endforeach
 
              </div>
@@ -181,7 +181,7 @@
 
              ?>
 
-             <span class="ml-4"><input type="checkbox" class="form-control" name="cover_sheet[]"  value="{{ $value3->id }}" {{ $cs_selected }} />{{ $value3->sheet }}</span>
+             <span class="ml-4"><input type="checkbox" class="form-control" name="cover_sheet[]"  value="{{ $value3->id }}" {{ $cs_selected }} />{{ $value3->name_english  }}</span>
              @endforeach
 
          </div>
@@ -204,7 +204,7 @@
 
          ?>
 
-         <span class="ml-4"><input type="checkbox" class="form-control" name="back_cover[]" value="{{ $value4->id }}" {{ $bc_selected }} />{{ $value4->back_cover  }}</span>
+         <span class="ml-4"><input type="checkbox" class="form-control" name="back_cover[]" value="{{ $value4->id }}" {{ $bc_selected }} />{{ $value4->name_english   }}</span>
          @endforeach
 
      </div>
@@ -353,7 +353,7 @@
             <input id="from" type="hidden" name="product_price_id[]" value="{{ $value_pp['id'] }}" />
             <td class="rv-headLtchild1" ><input id="start" type="hidden" name="sheet_start[]" value="{{ $value_pp['min_range'] }}" />{{ $value_pp['min_range'] }} - </td>
             <td><input class="form-control end" id="end" type="hidden" name="sheet_end[]" value="{{ $value_pp['max_range'] }}" placeholder="page range" />{{ $value_pp['max_range'] }}</td>
-            <td><input class="form-control product_price" id="product_price" type="number" name="product_price[]" value="{{ $value_pp['price'] }}" required placeholder="price" step = "0.01"/></td>
+            <td><input class="form-control product_price" id="product_price" type="number" name="product_price[]" value="{{ $value_pp['price'] }}" required placeholder="price" step = "0.01" onchange="decimalplace(this);" onkeyup="decimalplace(this);" /></td>
         </tr>
 
         @endforeach
@@ -362,37 +362,37 @@
         <tr class="form-inline">
          <td class="rv-headLtchild1"><input id="start" type="hidden" name="sheet_start[]" value="1" />1 - </td>
          <td class="rv-headLtchild"><input class="form-control end" id="end" type="hidden" name="sheet_end[]" value="50" placeholder="page range" />50</td>
-         <td class="rv-headRtchild"><input class="form-control product_price" id="product_price" type="number" name="product_price[]" value="10.00"  step = "0.01" required placeholder="price" /></td>
+         <td class="rv-headRtchild"><input class="form-control product_price" id="product_price" type="number" name="product_price[]" value="10.00"  step = "0.01" required placeholder="price" onchange="decimalplace(this);" onkeyup="decimalplace(this);" /></td>
      </tr>
 
      <tr class="form-inline">
          <td class="rv-headLtchild1"><input id="start" type="hidden" name="sheet_start[]" value="51" />51 - </td>
          <td class="rv-headLtchild"><input class="form-control end" id="end" type="hidden" name="sheet_end[]" value="100" placeholder="page range" />100</td>
-         <td class="rv-headRtchild"><input class="form-control product_price" id="product_price" type="number" name="product_price[]" value="11.00" step = "0.01" required placeholder="price" /></td>
+         <td class="rv-headRtchild"><input class="form-control product_price" id="product_price" type="number" name="product_price[]" value="11.00" step = "0.01" required placeholder="price" onchange="decimalplace(this);" onkeyup="decimalplace(this);" /></td>
      </tr>
  
      <tr class="form-inline">
          <td class="rv-headLtchild1"><input id="start" type="hidden" name="sheet_start[]" value="101" />101 - </td>
          <td class="rv-headLtchild"><input class="form-control end" id="end" type="hidden" name="sheet_end[]" value="150" placeholder="page range" />150</td>
-         <td class="rv-headRtchild"><input class="form-control product_price" id="product_price" type="number" name="product_price[]" value="12.00" step = "0.01" required placeholder="price" /></td>
+         <td class="rv-headRtchild"><input class="form-control product_price" id="product_price" type="number" name="product_price[]" value="12.00" step = "0.01" required placeholder="price" onchange="decimalplace(this);" onkeyup="decimalplace(this);"/></td>
      </tr>
 
      <tr class="form-inline">
          <td class="rv-headLtchild1"><input id="start" type="hidden" name="sheet_start[]" value="191" />191 - </td>
          <td class="rv-headLtchild"><input class="form-control end" id="end" type="hidden" name="sheet_end[]" value="250" placeholder="page range" />250</td>
-         <td class="rv-headRtchild"><input class="form-control product_price" id="product_price" type="number" name="product_price[]" value="13.00" step = "0.01" required placeholder="price" /></td>
+         <td class="rv-headRtchild"><input class="form-control product_price" id="product_price" type="number" name="product_price[]" value="13.00" step = "0.01" required placeholder="price" onchange="decimalplace(this);" onkeyup="decimalplace(this);"/></td>
      </tr>
 
      <tr class="form-inline">
          <td class="rv-headLtchild1"><input id="start" type="hidden" name="sheet_start[]" value="201" />201 - </td>
          <td class="rv-headLtchild"><input class="form-control end" id="end" type="hidden" name="sheet_end[]" value="250" placeholder="page range" />250</td>
-         <td class="rv-headRtchild"><input class="form-control product_price" id="product_price" type="number" name="product_price[]" value="14.00" step = "0.01" required placeholder="price" /></td>
+         <td class="rv-headRtchild"><input class="form-control product_price" id="product_price" type="number" name="product_price[]" value="14.00" step = "0.01" required placeholder="price" onchange="decimalplace(this);" onkeyup="decimalplace(this);"/></td>
      </tr>
 
      <tr class="form-inline">
          <td class="rv-headLtchild1"><input class="form-control start" id="start" type="hidden" name="sheet_start[]" value="251" />251 - </td>
          <td class="rv-headLtchild"><input class="form-control end" id="end" name="sheet_end[]"  placeholder="page range" type="number"  /></td>
-         <td class="rv-headRtchild"><input class="form-control product_price" id="product_price" type="number" name="product_price[]" step = "0.01" placeholder="price" /></td>
+         <td class="rv-headRtchild"><input class="form-control product_price" id="product_price" type="number" name="product_price[]" step = "0.01" placeholder="price" onchange="decimalplace(this);" onkeyup="decimalplace(this);"/></td>
      </tr>
      @endif
 
@@ -446,7 +446,22 @@ body .popover{display:none !important; }
 </style>
 
 
-<script type="text/javascript">  
+<script type="text/javascript"> 
+
+    $(document).ready(function () {
+
+        $("[id]").each(function(){
+         if($(this).attr("id")=="product_price"){
+            $(this).val(parseFloat($(this).val()).toFixed(2));
+         }
+        }); 
+    });
+
+    function decimalplace(value =""){
+        $(value).val(parseFloat($(value).val()).toFixed(2));
+    } 
+
+
     function removeImage(btn ="" ,image_path = "" ,id = "" ,image_id = ""){  
 
         $.ajax({  
