@@ -17,7 +17,7 @@
 <form method="POST" action="{{ route('order-edit', ['id'=> $orderhistory->id]) }}">
     @csrf
 
-    <label for="state">State:</label>
+    <label for="state">State:</label> 
     <select name="state">
             @if(!empty($orderstate))
                 @foreach($orderstate as $state)

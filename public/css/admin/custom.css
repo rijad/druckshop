@@ -339,6 +339,7 @@ div#many-pro span.ml-4 {
     margin-right: 10px !important;
     margin-left: 0px !important;
 }
+
 /* Discount Create page */
 #single-pro{
   display:none;
@@ -354,6 +355,7 @@ div#many-pro span.ml-4 {
 #many{
   display:none;
 }
+
 
 
 @media only screen and (max-width: 767px){

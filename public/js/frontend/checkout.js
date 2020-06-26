@@ -2292,7 +2292,7 @@ if($('#selectfile_content').val() != ""){
 
 if($('#selectfile_din_A3').val() != ""){
 
-    file_name = $('#selectfile_din_A3').val(); 
+    file_name = $('#selectfile_din_A3').val();  
     id = "drop_file_din_A3";
 
      removeFile(file_name,id,'1');
@@ -2467,7 +2467,7 @@ function getPaperWeightCount(){
 }
 
 
-function addAddress(address_type = ""){
+function addAddress(address_type = "", address = "", drop_down = ""){
 
 	var first_name, last_name, company_name, street, city, zip_code, house_no, addition, state, default_flag; 
 
@@ -2478,34 +2478,41 @@ function addAddress(address_type = ""){
 		first_name = document.getElementById('billing_first_name').value;
 		if(first_name == ""){
 			document.getElementById('error_billing_first_name').innerHTML = "First Name is compulsory Field.";
+			return false;
 		}
 		last_name = document.getElementById('billing_last_name').value;
 		if(last_name == ""){
 			document.getElementById('error_billing_last_name').innerHTML = "Last Name is compulsory Field.";
+			return false;
 		}
 		company_name = document.getElementById('billing_company_name').value;
 		
 		street = document.getElementById('billing_street').value;
 		if(street == ""){
 			document.getElementById('error_billing_street').innerHTML = "Street is compulsory Field.";
+			return false;
 		}
 		city = document.getElementById('billing_city').value;
 		if(city == ""){
 			document.getElementById('error_billing_city').innerHTML = "Street is compulsory Field.";
+			return false;
 		}
 		zip_code = document.getElementById('billing_zip_code').value;
 		if(zip_code == ""){
 			document.getElementById('error_billing_zip_code').innerHTML = "Zip Code is compulsory Field.";
+			return false;
 		}
 		house_no = document.getElementById('billing_house_no').value;
 		if(house_no == ""){
 			document.getElementById('error_billing_house_no').innerHTML = "House No is compulsory Field.";
+			return false;
 		}
 		addition = document.getElementById('billing_addition').value;
 
 		state = document.getElementById('billing_state').value;
 		if(state == ""){
 			document.getElementById('error_billing_state').innerHTML = "State is compulsory Field.";
+			return false;
 		}
 
 
@@ -2517,32 +2524,39 @@ function addAddress(address_type = ""){
 		first_name = document.getElementById('shipping_first_name').value;
 		if(first_name == ""){
 			document.getElementById('error_shipping_first_name').innerHTML = "First Name is compulsory Field."; 
+			return false;
 		}
 		last_name = document.getElementById('shipping_last_name').value;
 		if(last_name == ""){
 			document.getElementById('error_shipping_last_name').innerHTML = "Last Name is compulsory Field.";
+			return false;
 		}
 		company_name = document.getElementById('shipping_company_name').value;
 		street = document.getElementById('shipping_street').value;
 		if(street == ""){
 			document.getElementById('error_shipping_street').innerHTML = "Street is compulsory Field.";
+			return false;
 		}
 		city = document.getElementById('shipping_city').value;
 		if(city == ""){
 			document.getElementById('error_shipping_city').innerHTML = "Street is compulsory Field.";
+			return false;
 		} 
 		zip_code = document.getElementById('shipping_zip_code').value;
 		if(zip_code == ""){
 			document.getElementById('error_shipping_zip_code').innerHTML = "Zip Code is compulsory Field.";
+			return false;
 		}
 		house_no = document.getElementById('shipping_house_no').value;
 		if(house_no == ""){
 			document.getElementById('error_shipping_house_no').innerHTML = "House No is compulsory Field.";
+			return false;
 		} 
 		addition = document.getElementById('shipping_addition').value;
 		state = document.getElementById('shipping_state').value;
 		if(state == ""){
 			document.getElementById('error_shipping_state').innerHTML = "State is compulsory Field.";
+			return false;
 		}
 
 	}
@@ -2553,38 +2567,56 @@ function addAddress(address_type = ""){
 			url: base_url+'/add-address', 
 			type: 'POST', 
 			data: {'_token': $('meta[name="csrf-token"]').attr('content'),'default':default_flag,'address_type':address_type, 'first_name':first_name, 'last_name':last_name, 'company_name':company_name, 'street':street, 'city':city, 'zip_code':zip_code, 'house_no':house_no, 'addition':addition, 'state':state},
-			success: function (response){  
+			success: function (response){  console.log(response);
 
 				if(address_type == "shipping"){ 
 
-					$('#rv-Modal-shipping').modal('hide');$('body').removeClass('modal-open');$('.modal-backdrop').remove();
-					if(response != ''){
-						$('[id^=address_data]').append('<option value="'+response+'" selected>'+response+'</option>');
-						$('[id^=ship-address-]').empty();
-						$('[id^=ship-address-]').text(response);
+					try{
+						$('#rv-Modal-shipping').modal('hide'); $('body').removeClass('modal-open');$('.modal-backdrop').remove();
+					}catch(e){ 
 
-						$('#success-msg').text("Address Added Successfully.");
-					}
+					}finally {
+						 if(response != ''){ 
+					    	
+								$('[id^=address_data]').append('<option value="'+response+'">'+response+'</option>');
+
+								$("[name='"+ drop_down +"']").val(response);
+								// $('[id^=ship-address-]').empty();
+								// $('[id^=ship-address-]').text(response);
+
+								$("[id='"+address+"']").empty();
+								$("[id='"+address+"']").text(response);
+
+								$('#success-msg').text("Address Added Successfully.");
+						
+						}
+      				}	
 
 				}
 				if(address_type == "billing"){   
 
-		          $('#rv-Modal-billing').modal('hide');$('body').removeClass('modal-open');$('.modal-backdrop').remove();
+			          try{
+							 $('#rv-Modal-billing').modal('hide');$('body').removeClass('modal-open');$('.modal-backdrop').remove();
+						}catch(e){ 
 
-		          $('#bill-address-one').text(response);
+						}finally{
+							if(response != ''){ 
+						          $('#bill-address-one').text(response);
 
-		          $('#billing_address_data').empty(); 
+						          $('#billing_address_data').empty(); 
 
-		          $('#billing_address_data').append('<option value="-1">Select</option><option value="'+response+'" selected>'+response+'</option>');
+						          $('#billing_address_data').append('<option value="-1">Select</option><option value="'+response+'" selected>'+response+'</option>');
 
-		          $('#address_data').append('<option value="'+response+'" selected>'+response+'</option>');
+						          $('#address_data').append('<option value="'+response+'" selected>'+response+'</option>');
 
-		          $('#success-msg').text("Address Added Successfully.");
+						          $('#success-msg').text("Address Added Successfully.");
+						    }      
+			      	}
 		        }
 
  
 			}
-		});
+		}); 
 } 
 
 function addTooltip(value){
@@ -2637,7 +2669,7 @@ function getA3A2Count(format = ""){
 
 			
 				
-			}
+			} 
 		});
 
 	

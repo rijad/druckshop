@@ -42,6 +42,8 @@ class RegisterController extends Controller
 
 				try {
 
+					print_r($user_data['email']); print_r(env('MAIL_USERNAME')); print_r(env('MAIL_FROM_NAME'));exit;
+
 					$sent = Mail::send('emails.welcome', $user_data, function($message) use ($user_data) {
 
 						$message->to(@$user_data['email'], $user_data['name'])->subject('Welcome to Druckshop');
@@ -50,10 +52,10 @@ class RegisterController extends Controller
 
 				} catch (Exception $e) {
 
-                //Avoid error 
+                //Avoid error  
 
 				} 
-			}
+			} 
 
 			Auth::loginUsingId($user->id,true);
 
