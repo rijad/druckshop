@@ -2292,7 +2292,7 @@ if($('#selectfile_content').val() != ""){
 
 if($('#selectfile_din_A3').val() != ""){
 
-    file_name = $('#selectfile_din_A3').val(); 
+    file_name = $('#selectfile_din_A3').val();  
     id = "drop_file_din_A3";
 
      removeFile(file_name,id,'1');
@@ -2467,7 +2467,7 @@ function getPaperWeightCount(){
 }
 
 
-function addAddress(address_type = ""){
+function addAddress(address_type = "", address = "", drop_down = ""){
 
 	var first_name, last_name, company_name, street, city, zip_code, house_no, addition, state, default_flag; 
 
@@ -2567,7 +2567,7 @@ function addAddress(address_type = ""){
 			url: base_url+'/add-address', 
 			type: 'POST', 
 			data: {'_token': $('meta[name="csrf-token"]').attr('content'),'default':default_flag,'address_type':address_type, 'first_name':first_name, 'last_name':last_name, 'company_name':company_name, 'street':street, 'city':city, 'zip_code':zip_code, 'house_no':house_no, 'addition':addition, 'state':state},
-			success: function (response){  
+			success: function (response){  console.log(response);
 
 				if(address_type == "shipping"){ 
 
@@ -2578,9 +2578,14 @@ function addAddress(address_type = ""){
 					}finally {
 						 if(response != ''){ 
 					    	
-								$('[id^=address_data]').append('<option value="'+response+'" selected>'+response+'</option>');
-								$('[id^=ship-address-]').empty();
-								$('[id^=ship-address-]').text(response);
+								$('[id^=address_data]').append('<option value="'+response+'">'+response+'</option>');
+
+								$("[name='"+ drop_down +"']").val(response);
+								// $('[id^=ship-address-]').empty();
+								// $('[id^=ship-address-]').text(response);
+
+								$("[id='"+address+"']").empty();
+								$("[id='"+address+"']").text(response);
 
 								$('#success-msg').text("Address Added Successfully.");
 						

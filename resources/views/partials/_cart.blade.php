@@ -54,7 +54,7 @@
                                      <div class="form-group">
                                       <label for="pwd">{{ trans('cart.ship_add') }}*:</label>
                                       <select class="form-control" name={{"shipping_address[".$key."]"}} id="address_data" onchange="displayAddress(this,'{{'ship-address-'.$key}}');"> <option value ="-1">Select</option>
-                                      @foreach($shipping_address_data as $keysss=>$shipping_address)<option value = "{{$shipping_address->first_name." ".$shipping_address->last_name.", Company Name: ".$shipping_address->company_name.", House No: ".$shipping_address->house_no.", City: ".$shipping_address->city.", State: ".$shipping_address->state.", Zip Code: ".$shipping_address->zip_code}}" @if($shipping_address->default == 1) selected @endif>{{$shipping_address->first_name." ".$shipping_address->last_name.", Company Name: ".$shipping_address->company_name.", House No: ".$shipping_address->house_no.", City: ".$shipping_address->city.", State: ".$shipping_address->state.", Zip Code: ".$shipping_address->zip_code}}</option> 
+                                      @foreach($shipping_address_data as $keysss=>$shipping_address)<option value = "{{$shipping_address->first_name." ".$shipping_address->last_name.", ".$shipping_address->company_name.", ".$shipping_address->street.", ".$shipping_address->house_no.", ".$shipping_address->zip_code.", ".$shipping_address->city.", ".$shipping_address->state}}" @if($shipping_address->default == 1) selected @endif>{{$shipping_address->first_name." ".$shipping_address->last_name.", ".$shipping_address->company_name.", ".$shipping_address->street.", ".$shipping_address->house_no.", ".$shipping_address->zip_code.", ".$shipping_address->city.", ".$shipping_address->state}}</option> 
                                       @endforeach
                                       </select>
                                        @if($errors->has('shipping_address.'.$key))
@@ -93,11 +93,11 @@
                                              <p id="{{'ship-address-'.$key}}" class="filled-shippingAdress">
                                               @foreach($shipping_address_data as $keysss=>$shipping_address)
                                               @if($shipping_address->default == 1)
-                                                {{$shipping_address->first_name." ".$shipping_address->last_name.", Company Name: ".$shipping_address->company_name.", House No: ".$shipping_address->house_no.", City: ".$shipping_address->city.", State: ".$shipping_address->state.", Zip Code: ".$shipping_address->zip_code}}
+                                                {{$shipping_address->first_name." ".$shipping_address->last_name.", ".$shipping_address->company_name.", ".$shipping_address->street.", ".$shipping_address->house_no.", ".$shipping_address->zip_code.", ".$shipping_address->city.", ".$shipping_address->state}}
                                              @endif
                                              @endforeach
                                             </p>
-                                            <button type = "button" name="shipping_address_click" id="shipping_address" class="form-control" data-toggle="modal" data-target="#rv-Modal-shipping" onclick="resetModal('shippingForm');">Add Shipping address</button>
+                                            <button type = "button" name="shipping_address_click" id="{{'shipping_address_'.$key}}" class="form-control" data-toggle="modal" data-target="#rv-Modal-shipping" data-ids = "{{$key}}" onclick="resetModal('shippingForm');">Add Shipping address</button>
                                             
                                           </div>
                                            {{-- <div class="form-group">
@@ -149,27 +149,29 @@
                           <p id="{{'bill-address-one'}}" class="filled-billingAdress">
                            @foreach($billing_address_data as $keyss=>$billing_address)
                            @if($billing_address->default == 1) 
-                              {{$billing_address->first_name." ".$billing_address->last_name.", Company Name: ".$billing_address->company_name.", House No: ".$billing_address->house_no.", City: ".$billing_address->city.", State: ".$billing_address->state.", Zip Code: ".$billing_address->zip_code}}
+                              {{$billing_address->first_name." ".$billing_address->last_name.", ".$billing_address->company_name.", ".$billing_address->street.", ".$billing_address->house_no.", ".$billing_address->zip_code.", ".$billing_address->city.", ".$billing_address->state}}
                            @endif
                            @endforeach
                           </p>
-                          <button type = "button" name="billing_address_click" id="billing_address" class="form-control" data-toggle="modal" data-target="#rv-Modal-billing">Add Billing Address</button>
+                          <button type = "button" name="billing_address_click" id="billing_address" class="form-control" data-toggle="modal" data-target="#rv-Modal-billing">{{ trans('cart.change_bill_add') }}</button>
                            @if($errors->has('billing_address'))
                           <div class="error">{{ $errors->first('billing_address') }}</div>
                           @endif
                         </div> 
                         <div class="form-group">
-                        <label for="pwd">{{ trans('cart.bill_add') }}*:</label>
-                        <select class="form-control" name={{"billing_address"}} id="billing_address_data" > 
-                          <option value ="-1">Select</option>
+
+                       {{--  <select class="form-control" name={{"billing_address"}} id="billing_address_data" > 
+                          <option value ="-1">Select</option> --}}
                         @if(!empty($billing_address_data))
                         @foreach($billing_address_data as $keyss=>$billing_address)
                         @if($billing_address->default == 1)
-                        <option value = "{{$billing_address->first_name." ".$billing_address->last_name.", Company Name: ".$billing_address->company_name.", House No: ".$billing_address->house_no.", City: ".$billing_address->city.", State: ".$billing_address->state.", Zip Code: ".$billing_address->zip_code}}" @if($billing_address->default == 1) selected @endif>{{$billing_address->first_name." ".$billing_address->last_name.", Company Name: ".$billing_address->company_name.", House No: ".$billing_address->house_no.", City: ".$billing_address->city.", State: ".$billing_address->state.", Zip Code: ".$billing_address->zip_code}}</option> 
+
+                         <input type="hidden" id="billing_address_data"  name={{"billing_address"}} value = "{{$billing_address->first_name." ".$billing_address->last_name.", ".$billing_address->company_name.", ".$billing_address->street.", ".$billing_address->house_no.", ".$billing_address->zip_code.", ".$billing_address->city.", ".$billing_address->state}}">
+                        {{-- <option value = "{{$billing_address->first_name." ".$billing_address->last_name.", ".$billing_address->company_name.", ".$billing_address->street.", ".$billing_address->house_no.", ".$billing_address->zip_code.", ".$billing_address->city.", ".$billing_address->state}}" @if($billing_address->default == 1) selected @endif>{{$billing_address->first_name." ".$billing_address->last_name.", ".$billing_address->company_name.", ".$billing_address->street.", ".$billing_address->house_no.", ".$billing_address->zip_code.", ".$billing_address->city.", ".$billing_address->state}}</option>  --}}
                         @endif
                         @endforeach
                         @endif
-                        </select>
+                       {{--  </select> --}}
                          @if($errors->has('billing_address'))
                               <div class="error">{{ $errors->first('billing_address.'.$key) }}</div>
                               @endif
@@ -281,7 +283,7 @@
           </div>
           <div class="modal-body">
              <div class="cart-form-shop w-100">
-               <form method = "POST" action="javascript:addAddress('shipping');" id = "shippingForm">
+               <form method = "POST"  id = "shippingForm">
                       <div class="form-group">
                           <label for="text">{{ trans('cart.first_name') }}*</label>
                         <input type="text" class="form-control" placeholder="{{ trans('cart.enter_here') }}" name="shipping_first_name" id="shipping_first_name">
@@ -480,6 +482,13 @@
     setQuantity({{count($product_data)}});
 
 
+    $('#rv-Modal-shipping').on('show.bs.modal', function(e) {
+      //get data-id attribute of the clicked element
+      var Id = $(e.relatedTarget).data('ids');
+      $('#shippingForm').attr('action', "javascript:addAddress('shipping','ship-address-"+Id+"','shipping_address["+Id+"]')");
+    });
+
+
         $('#shippingForm').on('submit', function() {
           $('#rv-Modal-shipping').on('hide.bs.modal', function ( e ) {
             e.preventDefault();
@@ -559,7 +568,11 @@ $(document).ready(function() {
 function displayAddress(select="", address=""){  
 
  var ship_address=$(select).children("option:selected").val();  //alert(ship_address);
-  document.getElementById(address).innerHTML = ship_address ;
+
+  $("[id='"+address+"']").empty();
+  $("[id='"+address+"']").text(ship_address);
+
+  //document.getElementById(address).innerHTML = ship_address ;
 
 }
 
@@ -592,7 +605,7 @@ function discountCode(code = ""){
 
           $('#discount-code-error').text('');
 
-         }
+         } 
     }
   });
 

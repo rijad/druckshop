@@ -62,9 +62,7 @@ return [
     'embossment' => 'Embossment Price',
     'data_checks' => 'Data Check Price',
     'total' => 'Total',
-
     'throttle' => 'Binding',
-
     'upload_thesis' => 'Upload Thesis',
     'upload_own_binding_template' => 'Upload own binding template',
     'upload_files_on_cd' => 'Upload file(s) on CD',

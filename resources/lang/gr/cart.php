@@ -35,5 +35,6 @@ return [
     'add' => 'Hinzufügen',
     'add_bill_add' => 'Rechnungsadresse hinzufügen',
     'enter_here' => 'hier eintreten',
+    'change_bill_add' => 'Rechnungsadresse ändern',
 
 ];
