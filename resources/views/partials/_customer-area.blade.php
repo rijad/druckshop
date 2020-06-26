@@ -15,25 +15,31 @@
                                 <input type="button" onclick="javascript:saveProfile();" class="userSaveInfo" value="Save">
                             </div>
                             <ul class="GeneralInfoListing">
-                            <li><span>Date of Birth</span>
-                                <span><input name="dob" id="userIdBirth" value="" disabled></span></li>
-                            
-                            <li><span>E-mail</span>
-                                <span><input name="email" id="userIdEmail" value="" disabled></span></li>
-                            <li><span>Phone </span>
-                                <span><input name="phone" id="userIdPhone" value="" disabled></span></li>
-                           {{--  <li><span>Shipping Address </span>
-                                <span><textarea name="shipping_address" id="userIdshipping" value="" disabled></textarea>
-                                    <a  type = "button" name="billing_address_click" id="billing_address" class="form-control" data-toggle="modal" data-target="#rv-Modal-shipping">Edit Address</a>
+                              <li><span>Date of Birth</span>
+                                  <span><input name="dob" id="userIdBirth" value="" disabled></span></li>
+                              
+                              <li><span>E-mail</span>
+                                  <span><input name="email" id="userIdEmail" value="" disabled></span></li>
+                              <li><span>Phone </span>
+                                  <span><input name="phone" id="userIdPhone" value="" disabled></span></li>
+                            {{--  <li><span>Shipping Address </span>
+                                  <span><textarea name="shipping_address" id="userIdshipping" value="" disabled></textarea>
+                                      <a  type = "button" name="billing_address_click" id="billing_address" class="form-control" data-toggle="modal" data-target="#rv-Modal-shipping">Edit Address</a>
+                                  </span>
+                              </li> --}}
+                              <li><span>Address </span>
+                                  <span><textarea name="billing_address" id="userIdBilling" value="" disabled></textarea>
+                                  <button  type = "button" name="billing_address_click" id="billing_address" class="form-control" data-toggle="modal" data-target="#rv-Modal-billing">Edit Address</button>
                                 </span>
-                            </li> --}}
-                            <li><span>Address </span>
-                                <span><textarea name="billing_address" id="userIdBilling" value="" disabled></textarea>
-                                <button  type = "button" name="billing_address_click" id="billing_address" class="form-control" data-toggle="modal" data-target="#rv-Modal-billing">Edit Address</button>
-                            </span></li>
+                              </li>
+                              <li>
+                                <span>
+                                  <a type = "button" href="{{route('shipping-address.index')}}" name="shipping_address_click" id="shipping_address" class="form-control" >Shipping Address</a>
+                                </span>
+                              </li>
                             </ul>
                             </div>
-                        </div> 
+              </div> 
                        {{--  <div class="col-lg-5">
                             <figure class="customer-profile-image">
                             <div id="img-preview-block" class="avatar avatar-original center-block" style="background-size:cover; 
@@ -41,10 +47,10 @@
                                 <span class="btn btn-link btn-file">Edit Profile <input type="file" name="image" id="upload-img" accept="image/*"></span>
                             </figure>
                         </div> --}}
-                </div>
-			</div>
-		</div>
-	</div>
+          </div>
+        </div>
+      </div>
+    </div>
 </section>
 @endif
  <div class="mycart customer-area-rv">
