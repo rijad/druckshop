@@ -278,3 +278,90 @@ div#container_preview_image_single button#dynamic-button {
     border-radius: 5px;
     text-align: center;
 }
+
+
+div#single {
+    max-height: 80px;
+    overflow-y: scroll;
+    border: 1px solid #ccc;
+    padding: 0 10px;
+    border-radius: 5px;
+    margin: 5px 0 10px;
+}
+
+div#single span.ml-4 {
+    font-size: 13px;
+    margin-right: 10px !important;
+    margin-left: 0px !important;
+}
+
+div#many{
+  max-height: 80px;
+    overflow-y: scroll;
+    border: 1px solid #ccc;
+    padding: 0 10px;
+    border-radius: 5px;
+    margin: 5px 0 10px;
+}
+
+#many span.ml-4 {
+    font-size: 13px;
+    margin-right: 10px !important;
+    margin-left: 0px !important;
+}
+
+div#single-pro {
+    max-height: 80px;
+    overflow-y: scroll;
+    border: 1px solid #ccc;
+    padding: 0 10px;
+    border-radius: 5px;
+    margin: 5px 0 10px;
+}
+
+div#single-pro span.ml-4 {
+    font-size: 13px;
+    margin-right: 10px !important;
+    margin-left: 0px !important;
+}
+
+div#many-pro{
+  max-height: 80px;
+    overflow-y: scroll;
+    border: 1px solid #ccc;
+    padding: 0 10px;
+    border-radius: 5px;
+    margin: 5px 0 10px;
+}
+
+div#many-pro span.ml-4 {
+    font-size: 13px;
+    margin-right: 10px !important;
+    margin-left: 0px !important;
+}
+
+
+
+@media only screen and (max-width: 767px){
+#single span.ml-4 input.form-control {
+    display: inline-block;
+    width: auto;
+    vertical-align: middle;
+}
+#many span.ml-4 input.form-control {
+    display: inline-block;
+    width: auto;
+    vertical-align: middle;
+}
+#single-pro span.ml-4 input.form-control {
+    display: inline-block;
+    width: auto;
+    vertical-align: middle;
+}
+#many-pro span.ml-4 input.form-control {
+    display: inline-block;
+    width: auto;
+    vertical-align: middle;
+}
+
+}

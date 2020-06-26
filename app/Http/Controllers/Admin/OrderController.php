@@ -9,6 +9,7 @@ use App\User;
 use App\OrderDetailsFinal;
 use App\UsersAdmin;
 use App\OrderState;
+use App\OrderHistory;
 
 use Auth;
 use Mail;
@@ -145,6 +146,42 @@ class OrderController extends Controller
         $order->priority = $request->priority;
         $order->assigned_to = $request->assigned_to;
         $order->save();
+
+        $order = OrderDetailsFinal::find($id);  //dd($order->order_id);
+
+        $orderDetails = OrderHistory::where(['order_id' => $order->order_id])->get()->toArray(); //dd($orderDetails);
+
+        $data = User::where(['id' => $order->user_id])->first();
+
+            if (!empty($data) && !empty($orderDetails)) {   //dd($data);
+
+                $user_data = [ 
+
+                    'name' => @$data->name,
+                    'email' => @$data->email,
+                    'order_id' => $order->order_id,
+                    'base_url' => \URL::to('/'),
+                    'logo_url' => \URL::to('/'). '/public/images/logo.png',
+                    'order_history' => $orderDetails,
+                    'order_state' => $request->state,
+                    'subject' => 'Druckshop - Order '.$request->state
+                ];
+
+                try {
+
+                    $sent = Mail::send('emails.state_change_order', $user_data, function($message) use ($user_data) {
+
+                        $message->to($user_data['email'], $user_data['name'])->subject($user_data['subject']);
+                        $message->from(env('MAIL_USERNAME'), env('MAIL_FROM_NAME'));
+                    });
+
+                } catch (Exception $e) {
+
+                //Avoid error 
+
+                }
+            }    
+
 
         return redirect()->back()->with('status' , 'Updated');
 

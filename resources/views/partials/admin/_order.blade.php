@@ -19,7 +19,7 @@
                                     </tr>
                                 </thead>
                                 <tfoot>
-                                    <tr>
+                                    <tr> 
                                         <th>State</th>
                                         <th>User</th>
                                         <th>Order Id</th>

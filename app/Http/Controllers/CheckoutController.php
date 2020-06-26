@@ -980,6 +980,7 @@ public function cart(){
 
 public function orderDetails(Request $request){  
 
+
 $total = 0;
 
 //$total_cart = self::CartCount();  
@@ -1209,7 +1210,7 @@ public function getDiscountcodeStatus(Request $request){
         return "false";
 
        }
-
+ 
 }
 
 
@@ -1551,7 +1552,7 @@ public function paymentPaypalSuccess(Request $request){
 				}
 
 
-			}
+			} 
 
 		}
 			// End send mail
@@ -1936,9 +1937,9 @@ public static function CartCount(){
 					$CustomerArea_address = $UserAddress->first_name." ".$UserAddress->last_name;
 
 					if($UserAddress->company_name != ""){
-						$CustomerArea_address .= ", Company Name: ".$UserAddress->company_name.", House No: ".$UserAddress->house_no.", City: ".$UserAddress->city.", State: ".$UserAddress->state.", Zip Code: ".$UserAddress->zip_code;
+						$CustomerArea_address .= ", ".$UserAddress->company_name.", ".$UserAddress->street.", ".$UserAddress->house_no.", ".$UserAddress->zip_code.", ".$UserAddress->city.", ".$UserAddress->state;
 					}else{
-						$CustomerArea_address .= ", House No: ".$UserAddress->house_no.", City: ".$UserAddress->city.", State: ".$UserAddress->state.", Zip Code: ".$UserAddress->zip_code;
+						$CustomerArea_address .= ", ".$UserAddress->street.", ".$UserAddress->house_no.", ".$UserAddress->zip_code.", ".$UserAddress->city.", ".$UserAddress->state;
 					}
 
 					//$CustomerArea_address = $UserAddress->first_name." ".$UserAddress->last_name.", Company Name: ".$UserAddress->company_name.", House No: ".$UserAddress->house_no.", City: ".$UserAddress->city.", State: ".$UserAddress->state.", Zip Code: ".$UserAddress->zip_code;
@@ -1999,9 +2000,9 @@ public static function CartCount(){
 						$area = CustomerArea::where(['user_id' => $user_id])->first();
 						if($request->address_type == "billing"){
 
-							$area->billing_address = $request->first_name." ".$request->last_name.", Company Name: ".$request->company_name.", House No: ".$request->house_no.", City: ".$request->city.", State: ".$request->state.", Zip Code: ".$request->zip_code;
+							$area->billing_address = $request->first_name." ".$request->last_name.", ".$request->company_name.",  ".$request->street.", ".$request->house_no.",  ".$request->zip_code.", ".$request->city.", ".$request->state;
 
-							$CustomerArea_address = $request->first_name." ".$request->last_name.", Company Name: ".$request->company_name.", House No: ".$request->house_no.", City: ".$request->city.", State: ".$request->state.", Zip Code: ".$request->zip_code;
+							$CustomerArea_address = $request->first_name." ".$request->last_name.", ".$request->company_name.",  ".$request->street.", ".$request->house_no.",  ".$request->zip_code.", ".$request->city.", ".$request->state;
 
 						 }//else{
 
@@ -2019,7 +2020,7 @@ public static function CartCount(){
 
 						if($request->address_type == "billing"){
 
-							$area->billing_address = $request->first_name." ".$request->last_name.", Company Name: ".$request->company_name.", House No: ".$request->house_no.", City: ".$request->city.", State: ".$request->state.", Zip Code: ".$request->zip_code;
+							$area->billing_address = $request->first_name." ".$request->last_name.", ".$request->company_name.",  ".$request->street.", ".$request->house_no.",  ".$request->zip_code.", ".$request->city.", ".$request->state;
 
 						 }
 							//else{
@@ -2032,14 +2033,14 @@ public static function CartCount(){
 
 					}
 
-				}
+				} //print_r($CustomerArea_address);
 
 			}else{
 
 			}
 
 
-			print_r($CustomerArea_address);
+			//print_r($CustomerArea_address);
 
 		}
 

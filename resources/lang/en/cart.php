@@ -35,5 +35,6 @@ return [
     'add' => 'Add',
     'add_bill_add' => 'Add Billing Address',
     'enter_here' => 'enter here',
+    'change_bill_add' => 'Change Billing Address',
 
 ];
