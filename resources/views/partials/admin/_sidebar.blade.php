@@ -28,6 +28,14 @@
                     </div>Customers
                 </a>
 
+                @if(Auth::guard('admin')->user()->role == 0)
+                <a class="nav-link" href="{{ route('roles') }}"> 
+                    <div class="sb-nav-link-icon">
+                        <i class="fa fa-sliders"></i>
+                    </div>Roles & Permissions
+                </a>
+                @endif
+
                 @if(Auth::guard('admin')->user()->role == 0 || Auth::guard('admin')->user()->role == 1)
                 <a class="nav-link" href="{{ route('change-password', 2) }}">
                     <div class="sb-nav-link-icon">

@@ -120,11 +120,11 @@
 			</div>
 			@if (Auth::guard('admin')->check())
 			<div class="loginBtn my-lg-0">					    
-				<button onclick="window.location='{{route('dashboard')}}'" >Administration</button>			
+				<button onclick="admin()" >Administration</button>			
 			</div>
 			@else
 			<div class="loginBtn my-lg-0">					    
-				<button onclick="window.location='{{route('dashboard-login')}}'"  data-toggle="modal" data-target="#exampleModal"><i class="fa fa-sign-out"></i></button>						 
+				<button onclick="adminLogin()"  data-toggle="modal" data-target="#exampleModal"><i class="fa fa-sign-out"></i></button>						 
 			</div>
 			@endif
 			
@@ -132,6 +132,15 @@
 	</div>
 </div>
 </header>
+
+	<script> 
+        function adminLogin() { 
+            window.open("{{URL::to('dashboard-login')}}", "_blank"); 
+		} 
+		function admin() { 
+            window.open("{{URL::to('admin/dashboard')}}", "_blank"); 
+		}
+    </script> 
 
 <style>
 .sticky {

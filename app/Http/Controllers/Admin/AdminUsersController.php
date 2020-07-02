@@ -9,6 +9,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use App\UsersAdmin;
+use App\Permissions;
+use App\UserPermissions;
 
 
 class AdminUsersController extends Controller
@@ -243,5 +245,89 @@ class AdminUsersController extends Controller
 
     }
 
+    public function getRoles(){
+        
+        try{
+            $rows = Permissions::get();
+        }catch (Exception $e) {
+            $return = [];
+        }
 
+        try{
+        $permission_details = UserPermissions::with('roles')->get();
+        }catch (Exception $e) {
+            $return = [];
+        }
+
+
+        return view('pages.admin.roles.rolespermission',compact('rows', 'permission_details'));
+    }
+
+    public function updateRoles(Request $request, $id)
+    { 
+        $details=[];
+
+            $input = $request->all();
+
+            if($request->exists('Parameter')){
+                $parameter = '1';
+            }else{
+                $parameter = '0';
+            }
+
+            if($request->exists('Return_orders')){
+                $return = '1';
+            }else{
+                $return = '0';
+            }
+
+            if($request->exists('Sliders')){
+                $slider = '1';
+            }else{
+                $slider = '0';
+            }
+
+            if($request->exists('Latest')){
+                $latest = '1';
+            }else{
+                $latest = '0';
+            }
+
+            if($request->exists('Change_Orders_Attributes')){
+                $change = '1';
+            }else{
+                $change = '0';
+            }
+
+            if($request->exists('Order_Files')){
+                $files = '1';
+            }else{
+                $files = '0';
+            }
+
+            $details = ['Parameter'=> $parameter, 'Return orders' => $return, 'Sliders' => $slider, 'Latest' => $latest, 'Change Orders Attributes' => $change, 'Order Files' => $files];
+            
+            $roles = UserPermissions::with('roles')->where(['user_id' => $id])->first();
+            if(empty($roles) || $roles == 'null'){
+
+                $user = UsersAdmin::where(['id' => $id])->first();
+                $roles_new = new UserPermissions;
+
+                $roles_new->user_id = $id;
+                $roles_new->user_name = $user->name;
+                $roles_new->user_role = $user->role;
+                $roles_new->permissions = json_encode($details);
+                $roles_new->save();
+
+                return redirect()->back()->with('status' , 'Created');
+            }else{
+
+                $roles_update = UserPermissions::where(['user_id' => $id])
+                                ->update(['permissions' => json_encode($details)]);
+                
+            }
+
+            return redirect()->back()->with('status' , 'Updated');
+    
+    }
 }

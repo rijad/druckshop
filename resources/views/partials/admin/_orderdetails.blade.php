@@ -14,40 +14,46 @@
 @endif
 
 <div class="update-attrib">
-<form method="POST" action="{{ route('order-edit', ['id'=> $orderhistory->id]) }}">
-    @csrf
+        <form method="POST" action="{{ route('order-edit', ['id'=> $orderhistory->id]) }}">
+            @csrf
 
-    <label for="state">State:</label> 
-    <select name="state">
-            @if(!empty($orderstate))
-                @foreach($orderstate as $state)
-                <option value="{{ $state->order_state }}" <?= ($order->state == $state->order_state)? 'selected' : ''?> >{{ $state->order_state }}</option>
-                @endforeach
-            @endif
-    </select>
+            <label for="state">State:</label> 
+            <select name="state">
+                    @if(!empty($orderstate))
+                        @foreach($orderstate as $state)
+                        <option value="{{ $state->order_state }}" <?= ($order->state == $state->order_state)? 'selected' : ''?> >{{ $state->order_state }}</option>
+                        @endforeach
+                    @endif
+            </select>
 
-    <label for="priority">Priority:</label> 
-    <select name="priority">
-        <option <?= ($order->priority =='highest')? 'selected' : ''?> value="highest">Highest</option> 
-        <option <?= ($order->priority =='high')? 'selected' : ''?> value="high">High</option>
-        <option <?= ($order->priority =='normal')? 'selected' : ''?> value="normal">Normal</option>
-        <option <?= ($order->priority =='low')? 'selected' : ''?> value="low">Low</option>
-        <option <?= ($order->priority =='lowest')? 'selected' : ''?> value="lowest">Lowest</option>
-    </select>
+            <label for="priority">Priority:</label> 
+            <select name="priority">
+                <option <?= ($order->priority =='highest')? 'selected' : ''?> value="highest">Highest</option> 
+                <option <?= ($order->priority =='high')? 'selected' : ''?> value="high">High</option>
+                <option <?= ($order->priority =='normal')? 'selected' : ''?> value="normal">Normal</option>
+                <option <?= ($order->priority =='low')? 'selected' : ''?> value="low">Low</option>
+                <option <?= ($order->priority =='lowest')? 'selected' : ''?> value="lowest">Lowest</option>
+            </select>
 
-    <label for="assigned_to">Assigned To:</label>
-    <select name="assigned_to">
-            @if(!empty($users))                                                                              
-                @foreach($users as $list)
-                <option <?= ($order->assigned_to ==$list->id)? 'selected' : ''?> value="{{ $list->id }}">{{ $list->name }}</option>
-                @endforeach
-            @endif
-    </select>
-    <div class="form-group">
-        <input type="submit" class="btn btn-primary" value="Update">
-    </div>
-    
-    </form> 
+            <label for="assigned_to">Assigned To:</label>
+            <select name="assigned_to">
+                    @if(!empty($users))                                                                              
+                        @foreach($users as $list)
+                        <option <?= ($order->assigned_to ==$list->id)? 'selected' : ''?> value="{{ $list->id }}">{{ $list->name }}</option>
+                        @endforeach
+                    @endif
+            </select>
+            @if (Session::get('OrderAccessMiddleware', 1))
+                <div class="form-group">
+                    <input type="submit" class="btn btn-primary" value="Update">
+                </div>
+            @elseif (Session::get('OrderAccessMiddleware', 0))
+                <div class="form-group">
+                </div>
+            @endif 
+            
+        </form>
+
     <div class="form-group">
         <a href="{{ url('/admin/order') }}" class="btn btn-secondary btn-user btn-block col-md-3">Back</a>
     </div>
