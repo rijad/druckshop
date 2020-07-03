@@ -9,7 +9,7 @@
                         <div class="left_productdetail">   
                             <div class="text-center quote_heading"> 
                                 <p>Product list</p>
-                            </div> 
+                            </div>  
  
                             <div class="product">
  
@@ -37,7 +37,7 @@
                                       <div class="rv-casualBioFields">
                                         <div class="form-group">
                                       <label for="text">{{ trans('cart.no_of_copies') }}*:</label>
-                                      <label id="price_per_product_{{$data->id}}" class = "price_per_product">Price/qty: € {{$data->price_per_product}}</label>
+                                      <label id="binding_price_per_product_{{$data->id}}" class = "price_per_product"></label>
                                       <input type="number" id="no_of_copies" onchange="setQuantity({{count($product_data)}});" name={{"no_of_copies[".$key."]"}}  class="form-control" placeholder="{{ trans('cart.enter_here') }}" value=@if(isset($data->attribute)) <?php $array = json_decode($data->attribute); ?>  {{$array->no_of_copies}} @else {{"1"}} @endif >
                                       @if($errors->has('no_of_copies.'.$key))
                                       <div class="error">{{ $errors->first('no_of_copies.'.$key) }}</div>
@@ -45,7 +45,7 @@
                                     </div>
                                     <div class="form-group">
                                       <label for="pwd">{{ trans('cart.no_of_cds') }}:</label>
-                                      <label id="price_per_product_{{$data->id}}" class = "price_per_product">Price/qty: € 2.00</label>
+                                      <label id="cd_price_per_product_{{$data->id}}" class = "cd price_per_product">Price/qty: 2.00 € </label>
                                       <input id="no_of_cds" type="number" name={{"no_of_cds[".$key."]"}}  class="form-control" placeholder="0" onchange="setQuantity({{count($product_data)}});" value=@if(isset($data->attribute)) <?php $array = json_decode($data->attribute); ?>  {{$array->number_of_cds}} @else {{"0"}} @endif>
                                        @if($errors->has('no_of_cds.'.$key))
                                       <div class="error">{{ $errors->first('no_of_cds.'.$key) }}</div>
@@ -146,7 +146,7 @@
                           <div class="summary">
                               <h4>Items <span class="price" style="color:black"><i class="fa fa-shopping-cart"></i> <b>{{count($product_data)}}</b></span></h4>
                               @foreach ($product_data as $data) 
-                              <p><a href="#">{{$data->product}} </a> <span style="float: right;">€ per copy</span><span id = "total_price_per_item_{{$data->id}}" class="price total_price_per_item">{{$data->price_per_product}}</span>
+                              <p><a href="#">{{$data->product}} </a> <span style="float: right;">{{-- € per copy --}}</span><span id = "total_price_per_item_{{$data->id}}" class="price total_price_per_item">{{$data->price_product_qty}}</span>
                                 <input type="hidden" id = "total_price_hidden" name="total_price_hidden" value="{{$data->price_product_qty}}"></p>
                              @endforeach
                               <hr style="margin-top:20%;">

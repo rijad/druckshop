@@ -65,6 +65,7 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'permissions' => \App\Http\Middleware\Permissions::class,
         'orderaccess' => \App\Http\Middleware\OrderAccessMiddleware::class,
+        'orderfiles' => \App\Http\Middleware\OrderFiles::class,
 
     ];
 

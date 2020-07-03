@@ -1,6 +1,6 @@
 
 function displayFields(binding){  
- 
+  
 	$product_attributes = getProductAttributes(binding);
 
 		// Get data for page format
@@ -2110,8 +2110,6 @@ function setQuantity(count = ""){
 		
 			for(var i = 0; i < data.length; i++){  
 
-				console.log(data[i]);
-
 				no_of_copies = $("[name = 'no_of_copies["+i+"]' ]").val();
 
 				if($("[name = 'no_of_cds["+i+"]' ]").val() !=""){
@@ -2191,19 +2189,15 @@ function setQuantity(count = ""){
 				url: base_url+'/clear-session', 
 				type: 'GET', 
 					success: function (response){
-						console.log(response); 
-						$('#cd-bag').trigger('onchange');  
-						$('#data_check').trigger('onchange');
+						//console.log(response); 
 					}
 				});
 				
 			new_data[i] = displayPrice('1', data[i]['binding'] , data[i]['no_of_pages'] , data[i]['page_options'] , embossment_cover,embossment_spine,paper_weight,number_of_A2_pages,number_of_pages,no_of_cds,data[i]['data_check'],cd_bag,no_of_colored_pages,'',no_of_copies,embossing,imprint);
 			new_total_unit_price[i] = new_data[i]['data']['total_unit_price'];
-			new_total[i] = parseFloat(new_data[i]['data']['total']);
+			new_total[i] = new_data[i]['data']['total'];
 
-
-			console.log("new unit price "+ i + " : "  +new_data[i]['data']['total']);
-			console.log("new total"+ i + " : "  +new_data[i]['data']['total']);
+			console.log(new_total_unit_price);
 
 			// update in database
 			$.ajax({
@@ -2212,7 +2206,7 @@ function setQuantity(count = ""){
 				data: {'sequence' : i ,'no_of_copies': no_of_copies,'no_of_cds': no_of_cds,'qty': '-1','total' : new_total[i], 'count' : count, '_token': $('meta[name="csrf-token"]').attr('content')},
 				success: function (response){
 
-					console.log(response);
+					//console.log(response);
 				}
 			});   
 
@@ -2235,12 +2229,20 @@ function setQuantity(count = ""){
 		         i++;
 			});
 
+			var a =  $('[id^=binding_price_per_product_]')
+		    var i = 0;
+			a.each(function(e) {
+		         $(this).html("Price/qty: "+ new_total_unit_price[i] + " €"); 
+		         i++;
+			});
+
+
 			
 			var y = $('#product_price li .price_per_product');
 		    var i = 0;
 			y.each(function(e) {
 		         price_per_unit.push($(this).html()); 
-		          total_price_per_product[i] = parseFloat($(this).html());  
+		          total_price_per_product[i] = $(this).html();  
 		         i++;
 			});
 
@@ -2251,7 +2253,7 @@ function setQuantity(count = ""){
 		
 			z.each(function(e) {
 				var value = new_total[i];
-		        $(this).html(value);  
+		        $(this).html(value + " €");  
 		         i++;
 			});
 
@@ -2259,12 +2261,12 @@ function setQuantity(count = ""){
 			var i = 0; 
 			m.each(function(e) {
 				 $(this).val(new_total[i]);
-		         total_price_hidden[i] = parseFloat($(this).val());  
+		         total_price_hidden[i] = $(this).val();  
 		         i++;
 			});
 
 			for(var i = 0; i<count; i++){ 
-			total =  (parseFloat(total) + (parseFloat(total_price_hidden[i]))).toFixed(2);
+			total =  (parseFloat(total.toString().replace(/,/g,'')) + parseFloat(total_price_hidden[i].toString().replace(/,/g,''))).toFixed(2);
 			document.getElementById('checkout_total').innerHTML = total;
 			}    
 		}

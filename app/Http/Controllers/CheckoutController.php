@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Validator;
 use App\BackCovers;
 use App\CdBag;
 use App\CoverColor;
-use App\CoverSheet; 
+use App\CoverSheet;  
 use App\DataCheck;
 use App\DeliveryService; 
 use App\Discount;
@@ -51,6 +51,7 @@ use App\Rules\CheckCodeRule;
 
 
 use Mail;
+
 
 
 class CheckoutController extends Controller
@@ -906,7 +907,10 @@ if (Auth::check())
 	} 
 //dd($request->input('total'));
 	$total = str_replace(',', '', $request->input('total'));
-//dd($total);
+
+$total = filter_var(floatval($total), FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+//dd(floatval($total));
+
 //dd(floatval($request->total) * ($request->no_of_copies));  
 	$OrderAttributes = new OrderAttributes;
 	$OrderAttributes->user_id = $user_id;
@@ -1259,8 +1263,6 @@ print_r(json_encode($attributes_details));
 
 public function setQuantity(Request $request){
 
-	//print_r($request->input());
-
 	$qty = $request->input('qty');
 	$no_of_copies = $request->input('no_of_copies');
 	$no_of_cds = $request->input('no_of_cds');
@@ -1276,8 +1278,6 @@ public function setQuantity(Request $request){
 	}
 		
 	$data = OrderAttributes::where('user_id', $user_id)->take($request->input('count'))->get()->toArray();
-
-	//print_r($data);
 
 	$record_id = $data[$sequence]['id'];
 
@@ -1330,11 +1330,14 @@ public function setQuantity(Request $request){
 
     }    
 
+
+    $total_new = filter_var($total_new, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+		
 		$data = OrderAttributes::where('id', $record_id)->first();
 
 			$update_data = $data;
 			$update_data->quantity = $qty;
-			$update_data->price_product_qty =  (double)$total_new;
+			$update_data->price_product_qty = floatval($total_new);
 			$update_data->no_of_copies = $no_of_copies;
 			$update_data->no_of_cds = $no_of_cds;
 			$update_data->attribute = json_encode($attributes);
@@ -1412,21 +1415,20 @@ public function paymentPaypalSuccess(Request $request){
 		return redirect()->route('index');
 	}
 		$txn = $_GET['tx'];
-
+//dd(floatval($_GET['amt']));
 
     $payment = new Payment;
     $payment->order_id = $order_details->order_id;
     $payment->txn = $_GET['tx'];
     $payment->status = $_GET['st'];
     $payment->user_id = $user_id;
-    $payment->amount = number_format($_GET['amt'],2); 
+    $payment->amount = floatval($_GET['amt']); 
     $payment->type = "paypal";
    // $payment->payment_type = "paypal"; 
 
     $payment->save();
 
 		$OrderDetails = OrderDetails::where('user_id', $user_id)->first();
-
 		$OrderDetailsFinal = new OrderDetailsFinal;
 		$OrderDetailsFinal->user_id = $user_id;
 		$OrderDetailsFinal->order_id= $OrderDetails->order_id;
@@ -1436,7 +1438,7 @@ public function paymentPaypalSuccess(Request $request){
 		$OrderDetailsFinal->promo_code= $OrderDetails->promo_code;
 		//$OrderDetailsFinal->shipping_address= $OrderDetails->shipping_address;
 		//$OrderDetailsFinal->billing_address= $OrderDetails->billing_address;
-		$OrderDetailsFinal->total= $OrderDetails->total;
+		$OrderDetailsFinal->total= floatval($OrderDetails->total);
 		$OrderDetailsFinal->net_amt= $OrderDetails->net_amt;
 		$OrderDetailsFinal->status= $_GET['st'];
 		$OrderDetailsFinal->txn= $_GET['tx'];

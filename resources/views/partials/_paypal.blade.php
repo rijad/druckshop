@@ -6,7 +6,7 @@ $paypal_username = 'aditya.bandral-facilitator@trantorinc.com'; //Business Email
 
 
 <form action="<?php echo $paypal_link; ?>" method="post">
-
+ 
         <!-- Identify your business so that you can collect the payments. -->
         <input type="hidden" name="business" value="<?php echo $paypal_username; ?>">
         
@@ -14,9 +14,9 @@ $paypal_username = 'aditya.bandral-facilitator@trantorinc.com'; //Business Email
         <input type="hidden" name="cmd" value="_xclick">
         
         <!-- Specify details about the item that buyers will purchase. -->
-        <input type="hidden" name="item_name" value="Order Payment">
+        <input type="hidden" name="item_name" value="Order Payment"> 
         <input type="hidden" name="item_number" value="101">
-        <input type="hidden" name="amount" value="{{$net_amt}}">
+        <input type="hidden" name="amount" value="{{$net_amt}}"> 
         <input type="hidden" name="currency_code" value="USD">
         
         <!-- Specify URLs -->
