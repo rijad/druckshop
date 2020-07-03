@@ -23,6 +23,13 @@ Route::get('/clear-cache', function() {
     return '<h1>Cache facade value cleared</h1>';
 });
 
+
+Route::get('/clear-config', function() {
+    $exitCode = Artisan::call('config:clear');
+    return '<h1>Cache facade value cleared</h1>';
+});
+
+
 //Reoptimized class loader:
 Route::get('/optimize', function() {
     $exitCode = Artisan::call('optimize');
@@ -78,6 +85,7 @@ Route::get('/loose-print','CheckoutController@loosePrint')->name('loose-print');
 Route::POST('/product-order','CheckoutController@saveOrder')->name('product-order');
 Route::POST('/orders-details','CheckoutController@orderDetails')->name('orders-details'); 
 Route::POST('/set-quantity','CheckoutController@setQuantity')->name('set-quantity'); 
+Route::POST('/get-attributes','CheckoutController@getAttributes')->name('get-attributes'); 
 Route::get('/remove-item/{id}','CheckoutController@removeItem')->name('remove-item');
 Route::POST('/paper-weight-sheets','CheckoutController@paperWeightSheets')->name('paper-weight-sheets');
 Route::get('/cart','CheckoutController@cart')->name('cart');

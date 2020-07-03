@@ -163,22 +163,14 @@ function getPrintingdata(){
 
 			var paper_weight_count = getPaperWeightCount();
 			var no_of_pages = $('#no-of-pages').val();
+
+			console.log(paper_weight_count + no_of_pages);
 			
 			if(data == 1){ // page 4
 
 				$("#embossment-cover-sheet").removeAttr('disabled');   
-				$("#embossment-spine").removeAttr('disabled');
+				//$("#embossment-spine").removeAttr('disabled');
 				$('#spine-message').html('');
-
-			}else if(data == 2){ //page 3  
-
-				$("#embossment-spine").removeAttr('disabled');  
-				$("#embossment-cover-sheet").removeAttr('disabled');
-				$('#spine-message').html('');
-
-			}else if(data == 3){ 
-
-				$("#embossment-cover-sheet").attr('disabled', true);
 
 				if(parseInt(paper_weight_count) <= parseInt(no_of_pages)){ 
 					$("#embossment-spine").removeAttr('disabled');
@@ -187,6 +179,25 @@ function getPrintingdata(){
 					$("#embossment-spine").attr('disabled', true);
 					$('#spine-message').html('Refinement cannot be activated since it is not available for this product');
 				}
+
+			}else if(data == 2){ //page 3  
+
+				//$("#embossment-spine").removeAttr('disabled');  
+				$("#embossment-cover-sheet").removeAttr('disabled');
+				$('#spine-message').html('');
+
+				if(parseInt(paper_weight_count) <= parseInt(no_of_pages)){ 
+					$("#embossment-spine").removeAttr('disabled');
+					$('#spine-message').html('Refinement can be activated for this product');
+				}else{ 
+					$("#embossment-spine").attr('disabled', true);
+					$('#spine-message').html('Refinement cannot be activated since it is not available for this product');
+				}
+
+			}else if(data == 3){ 
+
+				$("#embossment-cover-sheet").attr('disabled', true);
+				$("#embossment-spine").attr('disabled', true);
 				
 				
 			}else{
@@ -255,7 +266,9 @@ function embossingChange(field = ""){
 		$("#embossment-spine").removeAttr('disabled');
 		$("#embossment-cover-sheet").removeAttr('disabled');
 
-		var execute = getPrinting();
+		//var execute = getPrinting();
+
+		var execute = getPrintingdata();
 
 		//if($("#embossment-spine").is(":checked")){
 
@@ -465,6 +478,8 @@ function displayPrintFields(embossment = ""){
 			//Refinement with embossing (4)
 			if(data == 2){ 
 
+				//getPrintingdata();
+
 				//document.getElementById('div-embossing').className = "displayNone";
 				document.getElementById('div-embossing').className = "displayBlock";
 
@@ -596,7 +611,7 @@ function displayPrintFields(embossment = ""){
 					}
 			}else{
 
-				var execute = getPrintingdata(); 
+				//var execute = getPrintingdata(); 
 				if($("#embossment-spine").is(":checked")){   
 					document.getElementById('div-direction').className = "displayBlock";
 					document.getElementById('div-remarks').className = "displayBlock"; 
@@ -823,17 +838,19 @@ function displayPopUp(template = ""){
 		document.getElementById('div-remarks').className = "displayBlock";
 		document.getElementById('download_stylesheet').className = "displayBlock";
 		$("#div-display-image").empty();
-		document.getElementById('div-display-image').className = "displayNone"; 
+		document.getElementById('div-display-image').className = "displayNone";  
 		document.getElementById('div-date-format').className = "displayNone";
 
 		document.getElementById('upload_custom_file').className = "displayBlock";
 		document.getElementById('upload_custom_file_heading').className = "outside-box-heading displayBlock";
 	}
 
-	if($("#template").find(":selected").val() == "-1"){
+	if($("#template").find(":selected").val() == "-1"){ 
+
+
 		document.getElementById('upload_custom_logo').className = "displayNone";
 		document.getElementById('upload_custom_logo_heading').className = "outside-box-heading displayNone";
-		document.getElementById('drop_file_zone_logo_info').className = "outside-box-heading displayNone";
+		//document.getElementById('drop_file_zone_logo_info').className = "outside-box-heading displayNone";
 		document.getElementById('div-remarks').className = "displayNone"; 
 		document.getElementById('download_stylesheet').className = "displayNone";
 		$("#div-display-image").empty();
@@ -842,6 +859,15 @@ function displayPopUp(template = ""){
 
 		document.getElementById('upload_custom_file').className = "displayNone";
 		document.getElementById('upload_custom_file_heading').className = "outside-box-heading displayNone";
+
+		document.getElementById('div-fonts').className = "displayNone";
+		document.getElementById('div-date-format').className = "displayNone";
+		document.getElementById('div-embossment-spine').className = "displayNone";
+
+
+		document.getElementById('download_stylesheet').className = "displayNone";
+		$("#div-display-image").empty();
+		document.getElementById('div-display-image').className = "displayNone";  
 	}	
 
 }
@@ -892,7 +918,7 @@ function displayPopUpCD(template = ""){
 
 		document.getElementById('upload_custom_logo_cd').className = "displayNone";
 		document.getElementById('upload_custom_logo_cd_heading').className = "outside-box-heading displayNone";
-		document.getElementById('drop_file_zone_logo_info_cd').className = "displayNone";
+		//document.getElementById('drop_file_zone_logo_info_cd').className = "displayNone";
 	}
 
 	if($("#cd-template").find(":selected").val() == "-1"){
@@ -922,6 +948,25 @@ function displayPopUpCD(template = ""){
 function resetTemplate(id = ""){  
 
 	$('select[id="'+id+'"]').val('-1').attr("selected",true);
+	$('select[id="'+id+'"]').trigger("onchange"); 
+
+	// if(){
+
+	// document.getElementById('upload_custom_logo').className = "displayNone";
+	// document.getElementById('upload_custom_logo_heading').className = "outside-box-heading displayNone";
+	// document.getElementById('drop_file_zone_logo_info').className = "outside-box-heading displayNone";
+	// document.getElementById('div-remarks').className = "displayNone"; 
+	// document.getElementById('download_stylesheet').className = "displayNone";
+	// $("#div-display-image").empty();
+	// document.getElementById('div-display-image').className = "displayNone"; 
+	// document.getElementById('div-embossment-spine').className = "displayBlock";
+
+	// document.getElementById('upload_custom_file').className = "displayNone";
+	// document.getElementById('upload_custom_file_heading').className = "outside-box-heading displayNone";
+
+	//}
+
+
 }
 
 
@@ -1366,14 +1411,14 @@ function displayProductAttributes(field_flag = "", values = ""){
 		el.innerHTML = "Number of CDs: "+values.value;
 		el.setAttribute("value","Number of CDs");
 		}
-	}
+	} 
 
 
 	document.getElementById('prodkt-attrib').appendChild(el);
 }
 
 
-function displayPrice(binding = "", no_ofsheets = "", page_options = "", embossing_cover = "", embossing_spine="", paper_weight = "", A2="", A3="", nos_of_cds = "", data_check = "", cd_cover = "", no_of_colored_sheets = "", delivery_service = '', no_ofcopies = '', embossing = '', imprint = ''){
+function displayPrice(status = "", binding = "", no_ofsheets = "", page_options = "", embossing_cover = "", embossing_spine="", paper_weight = "", A2="", A3="", nos_of_cds = "", data_check = "", cd_cover = "", no_of_colored_sheets = "", delivery_service = '', no_ofcopies = '', embossing = '', imprint = ''){
 
 
 	var binding_type = "",no_of_sheets = "", pageOptions = "", embossingCover = "", embossingSpine="", paperWeight = "", A2_page="", A3_page="", nosOfCds = "", dataCheck = "", cdCover = "", coloredSheets = "", deliveryService = '', no_of_copies = '', embossing_type = '', cd_imprint = '';
@@ -1384,7 +1429,7 @@ function displayPrice(binding = "", no_ofsheets = "", page_options = "", embossi
 
 	if(embossing != ""){
 		embossing_type = embossing; 
-	}
+	} 
 
 	if(imprint != ""){
 		cd_imprint = imprint; 
@@ -1440,9 +1485,14 @@ function displayPrice(binding = "", no_ofsheets = "", page_options = "", embossi
 		cdCover = cd_cover;
 
 	}
- 
 
-	$.ajax({
+	var total = 0 ; var data;
+
+
+    // price is calculated from checkout page
+	if(status == "0"){
+
+		$.ajax({
 		url: base_url+'/get-price', 
 		type: 'GET', 
 		data: {'cd_imprint': cd_imprint,'embossing_type':embossing_type,'no_of_copies':no_of_copies,'binding_type' : binding, 'no_of_sheets' : no_ofsheets, 'pageOptions' : page_options, 'embossingCover' : embossing_cover, 'embossingSpine' : embossing_spine, 'paperWeight' : paper_weight, 'A2_page' : A2, 'A3_page': A3, 'nosOfCds' : nos_of_cds, 'dataCheck' : data_check, 'coloredSheets' : no_of_colored_sheets, 'deliveryService' : delivery_service, 'cdCover':cdCover},
@@ -1461,6 +1511,36 @@ function displayPrice(binding = "", no_ofsheets = "", page_options = "", embossi
 			
 		}
 	}); 
+
+    // price is calculated from cart page
+	}else{
+
+		$.ajax({
+		url: base_url+'/get-price', 
+		type: 'GET', 
+		async : false,
+		data: {'cd_imprint': cd_imprint,'embossing_type':embossing_type,'no_of_copies':no_of_copies,'binding_type' : binding, 'no_of_sheets' : no_ofsheets, 'pageOptions' : page_options, 'embossingCover' : embossing_cover, 'embossingSpine' : embossing_spine, 'paperWeight' : paper_weight, 'A2_page' : A2, 'A3_page': A3, 'nosOfCds' : nos_of_cds, 'dataCheck' : data_check, 'coloredSheets' : no_of_colored_sheets, 'deliveryService' : delivery_service, 'cdCover':cdCover},
+		success: function (response){
+			data = JSON.parse(response); 
+
+			//total = data['data']['total'];
+
+			callback.call(data);
+			//console.log(response);
+			//console.log(data['data']['price_per_copy']);  cd_dvd
+			// document.getElementById('binding_price').innerHTML = data['data']['binding_price'] + "€" ;
+			// document.getElementById('printout').innerHTML = data['data']['printout'] + "€" ;
+			// document.getElementById('data_check_price').innerHTML = data['data']['data_check_price'] + "€" ;
+			// document.getElementById('cd_dvd').innerHTML = data['data']['cd_dvd'] + "€" ;
+			// document.getElementById('embossment').innerHTML = data['data']['embossment_price'] + "€" ;
+			// document.getElementById('total').innerHTML = data['data']['total'] + "€" ;
+			// document.getElementById('total_price').value = data['data']['total'];
+			// document.getElementById('total_unit_price').value = data['data']['total_unit_price'];
+			
+		}
+	}); 
+
+	} return data;
 
 }  
  
@@ -1531,14 +1611,15 @@ function displayPrice(binding = "", no_ofsheets = "", page_options = "", embossi
 			if ($("#div-cover-sheet").hasClass('displayBlock')) {	
 				if($("#cover-sheet").find(":selected").val() == "-1"){$("#cover-sheet").addBack().addClass('invalid'); $('#error_cover_sheet').html('Cover Color Field is required'); valid = false; return false;}
 				// input type file
-			 if($("#selectfile_coversheet").val() == ""){ $("#drop_file_zone_cover_sheet").addBack().addClass('invalid'); $('#error_selectfile_coversheet').html('Field is required'); valid = false; return false;}
+
+			 if($("#drop_file_zone_cover_sheet").hasClass('displayBlock') && $("#selectfile_coversheet").val() == ""){ $("#drop_file_zone_cover_sheet").addBack().addClass('invalid'); $('#error_selectfile_coversheet').html('Field is required'); valid = false; return false;}
 			}
 
 
 			//Get data for back cover
 			if ($("#div-back-cover").hasClass('displayBlock')) {	
 				if($("#back-cover").find(":selected").val() == "-1"){$("#back-cover").addBack().addClass('invalid'); $('#error_back_cover').html('Back Cover Field is required'); valid = false; return false;}
-				if($("#selectfile_backcover").val() == ""){ $("#drop_file_zone_back_cover").addBack().addClass('invalid'); $('#error_selectfile_backcover').html('Field is required'); valid = false; return false;}
+				if($("#drop_file_zone_back_cover").hasClass('displayBlock') && $("#selectfile_backcover").val() == ""){ $("#drop_file_zone_back_cover").addBack().addClass('invalid'); $('#error_selectfile_backcover').html('Field is required'); valid = false; return false;}
 			}
 
 
@@ -1997,7 +2078,7 @@ function displayPrice(binding = "", no_ofsheets = "", page_options = "", embossi
 	   x[n-1].className = "step finish";
 	  }
 	 
-	 
+	  
 	}
 
 
@@ -2009,56 +2090,190 @@ function displayPrice(binding = "", no_ofsheets = "", page_options = "", embossi
 function setQuantity(count = ""){  
 
 	var qty = []; var price_per_unit = []; var total_price_per_product = []; var total = 0;  var total_price_hidden = [];
+	var no_of_copies = []; var no_of_cds = []; var imprint = ""; var new_total_unit_price = []; new_total = []; new_data = [];
 
-	var x = $('#product_price li input[type=text]');
-
-	x.each(function(e) {
-         qty.push($(this).val());
-       
-	});
-	var y = $('#product_price li .price_per_product');
-	//console.log(y);
-
-    var i = 0;
-	y.each(function(e) {
-         price_per_unit.push($(this).html());  
-         //total_price_per_product[i] = parseFloat(qty[i]) * parseFloat($(this).html()); 
-         //alert(parseFloat($(this).html()));
-          total_price_per_product[i] = parseFloat($(this).html());  
-         i++;
-	});
-
-	var z = $('.total_price_per_item');
-	//console.log(z);
-	var i = 0;
-	z.each(function(e) {
-        $(this).html(parseFloat(total_price_per_product[i]).toFixed(2));  
-         i++;
-	});
-
-	var m = $("input[name='total_price_hidden']");
-	var i = 0;
-	m.each(function(e) {
-         total_price_hidden[i] = parseFloat($(this).val());  
-         i++;
-	});
-
-	for(var i = 0; i<count; i++){ 
-	//total =  (parseFloat(total) + parseFloat(total_price_per_product[i])).toFixed(2);
-	total =  (parseFloat(total) + parseFloat(total_price_hidden[i])).toFixed(2);
-	document.getElementById('checkout_total').innerHTML = total;
-	}
-
-	// console.log(qty);  
-	// console.log(price_per_unit);
 
 	$.ajax({
-		url: base_url+'/set-quantity', 
+		url: base_url+'/get-attributes',  
 		type: 'POST', 
-		data: {'qty': qty,'total_price_per_product' : total_price_per_product, 'count' : count, '_token': $('meta[name="csrf-token"]').attr('content')},
+		data: {'_token': $('meta[name="csrf-token"]').attr('content')},
 		success: function (response){
+
+			var data = JSON.parse(response);
+
+			var embossment_cover = ""; 	var embossment_spine = ""; 	var number_of_A2_pages = "";
+			var number_of_pages = ""; var number_of_A2_pages = ""; var paper_weight = '0';
+			var cd_bag = ""; var no_of_colored_pages = ""; var embossing = ""; var no_of_copies = 0; 
+			var no_of_cds = 0;
+
+			
+		
+			for(var i = 0; i < data.length; i++){  
+
+				console.log(data[i]);
+
+				no_of_copies = $("[name = 'no_of_copies["+i+"]' ]").val();
+
+				if($("[name = 'no_of_cds["+i+"]' ]").val() !=""){
+
+					no_of_cds = $("[name = 'no_of_cds["+i+"]' ]").val();
+
+				}else{
+
+					no_of_cds = 0;
+
+				}
+				
+							
+				if(data[i].hasOwnProperty('embossment-cover-sheet')){
+
+					if(data[i]['embossment-cover-sheet'] == "on"){
+						embossment_cover = '1';
+					}
+
+				}
+
+				if(data[i].hasOwnProperty('embossment-spine')){
+
+					if(data[i]['embossment-spine'] == "on"){
+						embossment_spine = '1';
+					}
+
+				}
+
+				if(data[i].hasOwnProperty('number_of_A2_pages')){
+					
+						number_of_A2_pages = data[i]['number_of_A2_pages'];					
+				}
+
+				if(data[i].hasOwnProperty('number_of_pages')){
+
+						number_of_pages = data[i]['number_of_pages'];
+
+				}
+
+				if(data[i].hasOwnProperty('cd-bag')){
+
+					if(data[i]['cd-bag'] != '-1'){
+
+						cd_bag = data[i]['cd-bag'];
+					}
+				}
+
+				if(data[i].hasOwnProperty('page_numbers')){
+
+						no_of_colored_pages = data[i]['page_numbers'];
+
+				}
+
+				if(data[i].hasOwnProperty('embossing')){
+
+					if(data[i]['embossing'] != '-1'){
+
+						embossing = data[i]['embossing'];
+
+					}	
+
+				}
+
+				if(data[i].hasOwnProperty('imprint')){
+
+
+					if(data[i]['imprint'] == "on"){
+						embossment_spine = '1';
+					}
+
+				}
+
+				paper_weight = data[i]['paper-weight'];  
+
+				$.ajax({
+				url: base_url+'/clear-session', 
+				type: 'GET', 
+					success: function (response){
+						console.log(response); 
+						$('#cd-bag').trigger('onchange');  
+						$('#data_check').trigger('onchange');
+					}
+				});
+				
+			new_data[i] = displayPrice('1', data[i]['binding'] , data[i]['no_of_pages'] , data[i]['page_options'] , embossment_cover,embossment_spine,paper_weight,number_of_A2_pages,number_of_pages,no_of_cds,data[i]['data_check'],cd_bag,no_of_colored_pages,'',no_of_copies,embossing,imprint);
+			new_total_unit_price[i] = new_data[i]['data']['total_unit_price'];
+			new_total[i] = parseFloat(new_data[i]['data']['total']);
+
+
+			console.log("new unit price "+ i + " : "  +new_data[i]['data']['total']);
+			console.log("new total"+ i + " : "  +new_data[i]['data']['total']);
+
+			// update in database
+			$.ajax({
+				url: base_url+'/set-quantity',  
+				type: 'POST', 
+				data: {'sequence' : i ,'no_of_copies': no_of_copies,'no_of_cds': no_of_cds,'qty': '-1','total' : new_total[i], 'count' : count, '_token': $('meta[name="csrf-token"]').attr('content')},
+				success: function (response){
+
+					console.log(response);
+				}
+			});   
+
+
+			}
+
+			// Update in frontend
+
+			var m = $("input[id='no_of_cds']");
+			var i = 0;
+			m.each(function(e) {
+
+				if(isNaN(parseInt($(this).val())) || parseInt($(this).val()) <= 0){
+
+					$(this).prop("readonly", true);
+					no_of_cds[i] = 0;
+				}else{
+					$(this).prop("readonly", false); 
+		        } 
+		         i++;
+			});
+
+			
+			var y = $('#product_price li .price_per_product');
+		    var i = 0;
+			y.each(function(e) {
+		         price_per_unit.push($(this).html()); 
+		          total_price_per_product[i] = parseFloat($(this).html());  
+		         i++;
+			});
+
+
+			var z = $('.total_price_per_item');
+			var i = 0;
+			
+		
+			z.each(function(e) {
+				var value = new_total[i];
+		        $(this).html(value);  
+		         i++;
+			});
+
+			var m = $("input[name='total_price_hidden']");
+			var i = 0; 
+			m.each(function(e) {
+				 $(this).val(new_total[i]);
+		         total_price_hidden[i] = parseFloat($(this).val());  
+		         i++;
+			});
+
+			for(var i = 0; i<count; i++){ 
+			total =  (parseFloat(total) + (parseFloat(total_price_hidden[i]))).toFixed(2);
+			document.getElementById('checkout_total').innerHTML = total;
+			}    
 		}
 	}); 
+    
+
+
+
+	                   
 }
 
 
@@ -2681,7 +2896,7 @@ function resetPrice(session = ""){
 	if(session == "colored_pages"){  //color pages check box
 
 		if($("#color-pages").is(":checked")){}else{
-			displayPrice('','','','','','','','','','','',0,'','','',''); // no of colored pages
+			displayPrice('0','','','','','','','','','','','',0,'','','',''); // no of colored pages
 		}
 
 		
@@ -2690,11 +2905,11 @@ function resetPrice(session = ""){
 
 		if($("#cd-check").is(":checked")){}else{
 
-		displayPrice('','','','','','','','','0','','','','','','','');  // no of CDs
+		displayPrice('0','','','','','','','','','0','','','','','','','');  // no of CDs
 
-		displayPrice('','','','','','','','','','','','','','','','0');  // cd imprint
+		displayPrice('0','','','','','','','','','','','','','','','','0');  // cd imprint
 
-		cdBagPosition(); displayPrice('','','','','','','','','','','0','','','','',''); // cd cover
+		cdBagPosition(); displayPrice('0','','','','','','','','','','','0','','','','',''); // cd cover
 
 		}
 
@@ -2702,7 +2917,7 @@ function resetPrice(session = ""){
 
 	}else if(session == "cd_imprint"){
 
-		// if($("#imprint").is(":checked")){}else{displayPrice('','','','','','','','','','','','','','','','0');  // cd imprint
+		// if($("#imprint").is(":checked")){}else{displayPrice('0','','','','','','','','','','','','','','','','0');  // cd imprint
 		//  }
 
 		 if($("#imprint").is(":checked")){}else{ // alert("1");
@@ -2712,7 +2927,7 @@ function resetPrice(session = ""){
 			type: 'GET', 
 			data:{session:'cd_imprint'},
 			success: function (response){
-				  displayPrice('','','','','','','','','','','','','','','','0');
+				  displayPrice('0','','','','','','','','','','','','','','','','0');
 			}
 		}); 
 		}
@@ -2722,7 +2937,7 @@ function resetPrice(session = ""){
 	}else if(session == "A2"){
 
 		if($("#A2-pages").is(":checked")){}else{
-				displayPrice('','','','','','','0','','','','','','','','','');  // A2
+				displayPrice('0','','','','','','','0','','','','','','','','','');  // A2
 		}
 
 	
@@ -2730,7 +2945,7 @@ function resetPrice(session = ""){
 	}else if(session == "A3"){
 
 		if($("#A3-pages").is(":checked")){}else{
-			displayPrice('','','','','','','','0','','','','','','','',''); // A3
+			displayPrice('0','','','','','','','','0','','','','','','','',''); // A3
 		}
 
 		
@@ -2739,7 +2954,7 @@ function resetPrice(session = ""){
 
 		var value = $('#no-of-pages').val();
 
-		//displayPrice('',value,'','','','','','','','','','','','','','');
+		//displayPrice('0','',value,'','','','','','','','','','','','','','');
  
 	}else if(session == "refinement_with_spine"){
 
@@ -2918,10 +3133,10 @@ function getPaperWeight(binding = ""){
 
 			
 		}
-	});
+	}); 
 }
 
-
+ 
 function getEmbossingFields(binding = ''){
 
 

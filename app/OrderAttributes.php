@@ -18,7 +18,7 @@ class OrderAttributes extends Model
     /**
      * @var array
      */
-    protected $fillable = ['user_id','status', 'attribute', 'value', 'created_at', 'updated_at', 'deleted_at'];
+    protected $fillable = ['user_id','status', 'attribute', 'value', 'price_per_product','price_product_qty','created_at', 'updated_at', 'deleted_at'];
 
 
     public function psUsers()

@@ -37,24 +37,32 @@
                                       <div class="rv-casualBioFields">
                                         <div class="form-group">
                                       <label for="text">{{ trans('cart.no_of_copies') }}*:</label>
-                                      <label id="price_per_product_{{$data->id}}" class = "price_per_product">{{-- Price/qty:€ {{$data->price_per_product}} --}}</label>
-                                      <input type="text" id="no_of_copies" name={{"no_of_copies[".$key."]"}}  class="form-control" placeholder="{{ trans('cart.enter_here') }}" value=@if(isset($data->attribute)) <?php $array = json_decode($data->attribute); ?>  {{$array->no_of_copies}} @else {{"1"}} @endif readonly>
+                                      <label id="price_per_product_{{$data->id}}" class = "price_per_product">Price/qty: € {{$data->price_per_product}}</label>
+                                      <input type="number" id="no_of_copies" onchange="setQuantity({{count($product_data)}});" name={{"no_of_copies[".$key."]"}}  class="form-control" placeholder="{{ trans('cart.enter_here') }}" value=@if(isset($data->attribute)) <?php $array = json_decode($data->attribute); ?>  {{$array->no_of_copies}} @else {{"1"}} @endif >
                                       @if($errors->has('no_of_copies.'.$key))
                                       <div class="error">{{ $errors->first('no_of_copies.'.$key) }}</div>
                                       @endif 
                                     </div>
                                     <div class="form-group">
                                       <label for="pwd">{{ trans('cart.no_of_cds') }}:</label>
-                                      <label id="price_per_product_{{$data->id}}" class = "price_per_product">{{-- Price/qty:€ 2.00 --}}</label>
-                                      <input readonly id="no_of_cds" type="text" name={{"no_of_cds[".$key."]"}}  class="form-control" placeholder="0" value=@if(isset($data->attribute)) <?php $array = json_decode($data->attribute); ?>  {{$array->number_of_cds}} @else {{"0"}} @endif>
+                                      <label id="price_per_product_{{$data->id}}" class = "price_per_product">Price/qty: € 2.00</label>
+                                      <input id="no_of_cds" type="number" name={{"no_of_cds[".$key."]"}}  class="form-control" placeholder="0" onchange="setQuantity({{count($product_data)}});" value=@if(isset($data->attribute)) <?php $array = json_decode($data->attribute); ?>  {{$array->number_of_cds}} @else {{"0"}} @endif>
                                        @if($errors->has('no_of_cds.'.$key))
                                       <div class="error">{{ $errors->first('no_of_cds.'.$key) }}</div>
                                       @endif
                                     </div>
                                      <div class="form-group">
                                       <label for="pwd">{{ trans('cart.ship_add') }}*:</label>
-                                      <select class="form-control" name={{"shipping_address[".$key."]"}} id="address_data" onchange="displayAddress(this,'{{'ship-address-'.$key}}');"> <option value ="-1">Select</option>
-                                      @foreach($shipping_address_data as $keysss=>$shipping_address)<option value = "{{$shipping_address->first_name." ".$shipping_address->last_name.", ".$shipping_address->company_name.", ".$shipping_address->street.", ".$shipping_address->house_no.", ".$shipping_address->zip_code.", ".$shipping_address->city.", ".$shipping_address->state}}" @if($shipping_address->default == 1) selected @endif>{{$shipping_address->first_name." ".$shipping_address->last_name.", ".$shipping_address->company_name.", ".$shipping_address->street.", ".$shipping_address->house_no.", ".$shipping_address->zip_code.", ".$shipping_address->city.", ".$shipping_address->state}}</option> 
+                                      <select class="form-control" name={{"shipping_address[".$key."]"}} id="address_data" onchange="displayAddress(this,'{{'ship-address-'.$key}}');"> <option value ="-1">Select</option> 
+                                      @foreach($shipping_address_data as $keysss=>$shipping_address)<option value = "{{$shipping_address->first_name." ".$shipping_address->last_name .
+                                        
+                                       (($shipping_address->company_name) ? ", ".$shipping_address->company_name : "" )
+                                       
+                                       . ", ".$shipping_address->street." ".$shipping_address->house_no.", ".$shipping_address->zip_code." ".$shipping_address->city.", ".$shipping_address->state}}" @if($shipping_address->default == 1) selected @endif>{{$shipping_address->first_name." ".$shipping_address->last_name.
+
+                                        (($shipping_address->company_name) ? ", ".$shipping_address->company_name : "" )
+
+                                        .", ".$shipping_address->street." ".$shipping_address->house_no.", ".$shipping_address->zip_code." ".$shipping_address->city.", ".$shipping_address->state}}</option> 
                                       @endforeach
                                       </select>
                                        @if($errors->has('shipping_address.'.$key))
@@ -93,7 +101,11 @@
                                              <p id="{{'ship-address-'.$key}}" class="filled-shippingAdress">
                                               @foreach($shipping_address_data as $keysss=>$shipping_address)
                                               @if($shipping_address->default == 1)
-                                                {{$shipping_address->first_name." ".$shipping_address->last_name.", ".$shipping_address->company_name.", ".$shipping_address->street.", ".$shipping_address->house_no.", ".$shipping_address->zip_code.", ".$shipping_address->city.", ".$shipping_address->state}}
+                                                {{$shipping_address->first_name." ".$shipping_address->last_name.
+
+                                                  (($shipping_address->company_name) ? ", ".$shipping_address->company_name : "" )
+
+                                                .", ".$shipping_address->street." ".$shipping_address->house_no.", ".$shipping_address->zip_code." ".$shipping_address->city.", ".$shipping_address->state}}
                                              @endif
                                              @endforeach
                                             </p>
@@ -114,7 +126,7 @@
                                             <div class="error">{{ $errors->first('billing_address') }}</div>
                                             @endif
                                           </div> --}}
-                                        </div>  
+                                        </div>   
                                       </div>
                                       
                                      </div>
@@ -145,7 +157,7 @@
                         <h4>{{ trans('cart.bill_add') }}</h4>
 
                         <div class="form-group">
-                          <label for="email">{{ trans('cart.bill_add') }}*:</label>
+                          {{-- <label for="email">{{ trans('cart.bill_add') }}*:</label> --}}
                           <p id="{{'bill-address-one'}}" class="filled-billingAdress">
                            @foreach($billing_address_data as $keyss=>$billing_address)
                            @if($billing_address->default == 1) 

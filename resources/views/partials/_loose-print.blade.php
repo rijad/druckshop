@@ -20,7 +20,7 @@
 							<div class="tab" id="tab-fields">
 								<div class="displayBlock">
 									<label>Binding*:</label>
-									<p><select class = "" name = "binding" id = "binding" onchange="displayFields(this.value);displayProductAttributes('1',this); resetFields(this.id,this.value);" oninput="displayPrice(this.value,'','','','','','','','','','','','');">
+									<p><select class = "" name = "binding" id = "binding" onchange="displayFields(this.value);displayProductAttributes('1',this); resetFields(this.id,this.value);" oninput="displayPrice('0',this.value,'','','','','','','','','','','','');">
 										<option value = "-1">Select</option>
 										@foreach ($product_listing as $key=>$listing)
 											@if($listing->id == "5")
@@ -91,7 +91,7 @@
 								<div class="tab">
 									<div class="displayBlock">
 										<label>Side Options*:</label>
-										<p><select class = "" id = "page_options" name = "page_options" onclick="displayFieldsContent(this.value);"  onchange="displayPrice('','',this.value,'','','','','','','','','','');" >
+										<p><select class = "" id = "page_options" name = "page_options" onclick="displayFieldsContent(this.value);"  onchange="displayPrice('0','','',this.value,'','','','','','','','','','');" >
 											<option value = "-1">Select</option>
 											@foreach ($page_options as $key=>$listing)
 											<option value="{{$listing->id}}">{{$listing->name_english}}</option>  
@@ -107,14 +107,14 @@
 									<div class="displayBlock" id="div-paper-weight">
 										<label>Paper Weight*:<a href="#" data-toggle="tooltip" title="
 											for one-sided 100 g/m² paper &#013; for two-sided 120 g/m² paper" class="formToolTip">i</a></label>
-										<p><select class = "" name="paper-weight" id="paper-weight" onchange="displayPrice('','','','','',this.value,'','','','','','','');"><option value="-1">Select</option></select></p> <p class="error" id="error_paper_weight"></p>
+										<p><select class = "" name="paper-weight" id="paper-weight" onchange="displayPrice('0','','','','','',this.value,'','','','','','','');"><option value="-1">Select</option></select></p> <p class="error" id="error_paper_weight"></p>
 									</div>  
 
 									<div class="displayBlock" id="div-no-of-copies">
 										<label>No of Pages*:<a href="#" data-toggle="tooltip" title="
 											number of the PDF file and &#013; only number of DIN A4
 											" class="formToolTip">i</a></label>
-										<p><input type = "text" class = "" name="no_of_pages" id="no-of-pages" placeholder="No of Pages" value = "" oninput="displayPrice('',this.value,'','','','','','','','','','','');"></p>
+										<p><input type = "text" class = "" name="no_of_pages" id="no-of-pages" placeholder="No of Pages" value = "" oninput="displayPrice('0','',this.value,'','','','','','','','','','','');"></p>
 										<p class="error" id="error_no_of_pages"></p>
 									</div>
 
