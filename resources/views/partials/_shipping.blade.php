@@ -42,7 +42,8 @@
                             <td>{{ $index +1 }}</td>
                             <td>{{$ship->first_name .' '. $ship->last_name . 
                                 ($ship->company_name == '' ? '': ", $ship->company_name")
-                            .', '. $ship->street .', '. $ship->house_no .', '. $ship->zip_code .', '. $ship->city .', '. $ship->state}}
+                            .', '. $ship->street .' '. $ship->house_no .', '. $ship->zip_code 
+                            .' '. $ship->city .', '. $ship->state}}
                             </td>
                             <td class="form-inline">
                                 <form method="GET" action="{{ route('shipping-address.edit' , $ship->id) }}">

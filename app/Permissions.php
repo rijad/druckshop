@@ -4,14 +4,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class UserAddress extends Model
+class Permissions extends Model
 {
     /**
      * The table associated with the model.
      * 
      * @var string
      */
-    protected $table = 'ps_user_addresses';
+    protected $table = 'ps_permissions';
 
     /**
      * The "type" of the auto-incrementing ID.
@@ -23,9 +23,6 @@ class UserAddress extends Model
     /**
      * @var array
      */
+    protected $fillable = ['permission_name'];
 
-    protected $fillable = ['user_id','address_type','first_name','last_name','company_name',
-    'street','house_no','zip_code', 'addition', 'city', 'created_at', 'updated_at',
-    'deleted_at','state','default'];
 }
- 

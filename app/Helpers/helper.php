@@ -133,7 +133,7 @@ function customer($id)
         }else{
             return "";
         }
-    } 
+	} 
 
 function getEmbossingById($id){
 
@@ -141,8 +141,6 @@ function getEmbossingById($id){
 	return $list->name_english;
 
 } 
-
-
 
 function getFreeSampleImage($id){
 

@@ -47,5 +47,10 @@ class UsersAdmin extends Authenticatable
     ];
 
     protected $keyType = 'integer';
+
+    public function rolePermission()
+    {
+        return $this->hasOne('App\UserPermissions', 'user_id');
+    }
 }
  
