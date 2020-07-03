@@ -369,13 +369,7 @@ class CheckoutController extends Controller
 			$request->session()->save();
 		}
 
-		if($request->input('embossing_type') != ""){
-			$request->session()->forget('embossing_type');
-			$request->session()->put('embossing_type', $request->input('embossing_type'));
-			$request->session()->flash('embossing_type', $request->input('embossing_type'));
-			$request->session()->save();
-		}
-
+		
 		if($request->input('cd_imprint') != ""){
 			$request->session()->forget('cd_imprint');
 			$request->session()->put('cd_imprint', $request->input('cd_imprint'));
@@ -461,6 +455,14 @@ class CheckoutController extends Controller
 			$request->session()->put('deliveryService', $request->input('deliveryService'));
 			$request->session()->save();
 		}
+
+		if($request->input('embossing_type') != ""){ 
+			$request->session()->forget('embossing_type');
+			$request->session()->put('embossing_type', $request->input('embossing_type'));
+			$request->session()->flash('embossing_type', $request->input('embossing_type'));
+			$request->session()->save();
+		}  //print_r("E: ".$request->session()->get('embossing_type'));
+
 
 
 		//print_r(session()->all());
@@ -777,7 +779,8 @@ class CheckoutController extends Controller
 
 			$cd_dvd = number_format(($cd_dvd_cover_price + $cd_dvd_price + $cd_dvd_print_price) ,2);
 
-		// price embossing
+		// price embossing   
+			//print_r("E: ".$request->session()->get('embossing_type'));
 		
 			if($request->session()->has('embossing_type') && $request->session()->has('embossingCover')){
 
@@ -901,8 +904,9 @@ if (Auth::check())
 		$user_id = time();
 		Session::put('user_id', $user_id);
 	} 
-
+//dd($request->input('total'));
 	$total = str_replace(',', '', $request->input('total'));
+//dd($total);
 //dd(floatval($request->total) * ($request->no_of_copies));  
 	$OrderAttributes = new OrderAttributes;
 	$OrderAttributes->user_id = $user_id;
@@ -914,10 +918,14 @@ if (Auth::check())
 	$OrderAttributes->attribute_desc= $product_details;
 	$OrderAttributes->price_per_product=floatval($total);
 	//$OrderAttributes->price_product_qty= floatval($request->total) * $qty;
-	$OrderAttributes->price_product_qty= floatval($total) * ($request->no_of_copies);
-	$OrderAttributes->quantity= 1; 
+	$OrderAttributes->price_product_qty = floatval($total) * ($request->no_of_copies);
+	$OrderAttributes->quantity = 1; 
+	$OrderAttributes->no_of_copies = $request->no_of_copies; 
+	$OrderAttributes->no_of_cds = $request->no_of_cds;
 	$OrderAttributes->status= 1;
 	$OrderAttributes->save();
+
+	//dd($OrderAttributes);
 
 //dd($OrderAttributes);
 	session(['product_id' =>  $product."_".$user_id."_".time()]);
@@ -1214,33 +1222,129 @@ public function getDiscountcodeStatus(Request $request){
 }
 
 
+public function getAttributes(Request $request){
+
+	$attributes = [];
+
+	if (Auth::check())
+	{
+		$user_id = Auth::user()->id;
+	}else{
+		$user_id = 0;
+	}
+		
+	$data = OrderAttributes::where('user_id', $user_id)->take($request->input('count'))->get('attribute');
+      
+    $i = 0;
+
+    foreach($data as $key_data => $data_value){
+
+		$attributes = json_decode($data_value->attribute,true);
+		$count = count(json_decode($data_value->attribute,true));
+
+		$details = [];
+
+		foreach($attributes as $key=>$value){
+
+			$details[$key] = $value;
+			$attributes_details[$i] = $details;	
+			
+		}     $i++; 
+       
+    }
+print_r(json_encode($attributes_details));
+
+}
+
+
 public function setQuantity(Request $request){
 
-	//print_r($request->input('qty'));
+	//print_r($request->input());
 
 	$qty = $request->input('qty');
-	$total_price_per_product = $request->input('total_price_per_product');
+	$no_of_copies = $request->input('no_of_copies');
+	$no_of_cds = $request->input('no_of_cds');
+	$total_new = $request->input('total');
+	$sequence = $request->input('sequence');
+	$product_details = "";
+
 	if (Auth::check())
-		{
-			$user_id = Auth::user()->id;
-	 //print_r($user_id);
-		}else{$user_id = 0;}
-		$data = OrderAttributes::where('user_id', $user_id)->take($request->input('count'))->get();
+	{
+		$user_id = Auth::user()->id;
+	}else{
+		$user_id = 0;
+	}
+		
+	$data = OrderAttributes::where('user_id', $user_id)->take($request->input('count'))->get()->toArray();
+
+	//print_r($data);
+
+	$record_id = $data[$sequence]['id'];
 
 
+    $attributes = json_decode($data[$sequence]['attribute'],true);
 
-		// $i = 0;
-		// foreach($data as $value){
+    foreach($attributes as $key => $value){
 
-		// 	$update_data = $value;
-		// 	$update_data->quantity = $qty[$i];
-		// 	$update_data->price_product_qty = $total_price_per_product[$i];
-		// 	$update_data->save();
-		// 	$i++;
+    	if($key == "no_of_copies"){
 
-		// }
+    		$attributes[$key] = $no_of_copies;
 
-		exit;
+    	}
+
+    	if($key == "number_of_cds"){
+
+    		$attributes[$key] = $no_of_cds;
+
+    	}
+
+    	if($key == "total"){
+
+    		$attributes[$key] = $total_new;
+
+    	}
+
+    	$str_arr = explode ("_", $key);  
+
+    	if(!is_null($value) && $value != "-1" && $key != "_token" && $key != "selectfile" && $str_arr[0] != "selectfile" && $key != "total" && $key != "embossment-template-name" && $key != "cd-template-name"){
+
+    		if($key == "no_of_copies"){
+
+    		$attribute_value = self::makeOrderDetails($key, $no_of_copies);
+
+    		}elseif($key == "number_of_cds"){
+
+	    		$attribute_value = self::makeOrderDetails($key,$no_of_cds);
+
+	    	}elseif($key == "total"){
+
+	    		$attribute_value = self::makeOrderDetails($key,$total_new);
+
+	    	}else{
+	    		$attribute_value = self::makeOrderDetails($key,$value);
+	    	}
+
+			// make scentence for product details
+			$product_details .= $attribute_value." ,";
+		}
+
+    }    
+
+		$data = OrderAttributes::where('id', $record_id)->first();
+
+			$update_data = $data;
+			$update_data->quantity = $qty;
+			$update_data->price_product_qty =  (double)$total_new;
+			$update_data->no_of_copies = $no_of_copies;
+			$update_data->no_of_cds = $no_of_cds;
+			$update_data->attribute = json_encode($attributes);
+			$update_data->attribute_desc = $product_details;
+			$update_data->save();
+
+		// exit;
+
+
+		print_r("Quantity Updated");
 
 	}
 
@@ -1937,9 +2041,9 @@ public static function CartCount(){
 					$CustomerArea_address = $UserAddress->first_name." ".$UserAddress->last_name;
 
 					if($UserAddress->company_name != ""){
-						$CustomerArea_address .= ", ".$UserAddress->company_name.", ".$UserAddress->street.", ".$UserAddress->house_no.", ".$UserAddress->zip_code.", ".$UserAddress->city.", ".$UserAddress->state;
+						$CustomerArea_address .= ", ".$UserAddress->company_name.", ".$UserAddress->street." ".$UserAddress->house_no.", ".$UserAddress->zip_code." ".$UserAddress->city.", ".$UserAddress->state;
 					}else{
-						$CustomerArea_address .= ", ".$UserAddress->street.", ".$UserAddress->house_no.", ".$UserAddress->zip_code.", ".$UserAddress->city.", ".$UserAddress->state;
+						$CustomerArea_address .= ", ".$UserAddress->street." ".$UserAddress->house_no.", ".$UserAddress->zip_code." ".$UserAddress->city.", ".$UserAddress->state;
 					}
 
 					//$CustomerArea_address = $UserAddress->first_name." ".$UserAddress->last_name.", Company Name: ".$UserAddress->company_name.", House No: ".$UserAddress->house_no.", City: ".$UserAddress->city.", State: ".$UserAddress->state.", Zip Code: ".$UserAddress->zip_code;
@@ -2000,9 +2104,17 @@ public static function CartCount(){
 						$area = CustomerArea::where(['user_id' => $user_id])->first();
 						if($request->address_type == "billing"){
 
-							$area->billing_address = $request->first_name." ".$request->last_name.", ".$request->company_name.",  ".$request->street.", ".$request->house_no.",  ".$request->zip_code.", ".$request->city.", ".$request->state;
+							$area->billing_address = $request->first_name." ".$request->last_name.", ".$request->company_name.",  ".$request->street." ".$request->house_no.",  ".$request->zip_code." ".$request->city.", ".$request->state;
 
-							$CustomerArea_address = $request->first_name." ".$request->last_name.", ".$request->company_name.",  ".$request->street.", ".$request->house_no.",  ".$request->zip_code.", ".$request->city.", ".$request->state;
+							$CustomerArea_address = $UserAddress->first_name." ".$UserAddress->last_name;
+
+							if($UserAddress->company_name != ""){
+								$CustomerArea_address .= ", ".$request->company_name.",  ".$request->street." ".$request->house_no.",  ".$request->zip_code." ".$request->city.", ".$request->state;
+							}else{
+								$CustomerArea_address .= ",  ".$request->street." ".$request->house_no.",  ".$request->zip_code." ".$request->city.", ".$request->state;
+							}
+
+							
 
 						 }//else{
 
@@ -2020,7 +2132,7 @@ public static function CartCount(){
 
 						if($request->address_type == "billing"){
 
-							$area->billing_address = $request->first_name." ".$request->last_name.", ".$request->company_name.",  ".$request->street.", ".$request->house_no.",  ".$request->zip_code.", ".$request->city.", ".$request->state;
+							$area->billing_address = $request->first_name." ".$request->last_name.", ".$request->company_name.",  ".$request->street." ".$request->house_no.",  ".$request->zip_code." ".$request->city.", ".$request->state;
 
 						 }
 							//else{
@@ -2041,7 +2153,7 @@ public static function CartCount(){
 
 
 			//print_r($CustomerArea_address);
-
+ 
 		}
 
 
@@ -2093,7 +2205,7 @@ public static function CartCount(){
 		print_r(json_encode($cover_sheet));
 
 	}
-
+ 
 
 	public function getBackCoverData(Request $request){
 
@@ -2103,7 +2215,7 @@ public static function CartCount(){
 
 		foreach($back_sheet_data as $key=>$value){
 
-			$back_sheet[$key] = ['id' => $value->back_cover_id, 'cover' => sheetById($value->back_cover_id)];
+			$back_sheet[$key] = ['id' => $value->back_cover_id, 'cover' => backcoverById($value->back_cover_id)];
 		}
 
 		print_r(json_encode($back_sheet));

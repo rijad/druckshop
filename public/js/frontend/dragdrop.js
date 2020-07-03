@@ -270,7 +270,7 @@ function ajaxFileUpload(file_obj,id) {  //alert(id);
 
 //upload files 
  
-function uploadDisplay(node,value){
+function uploadDisplayCoverSheet(node,value){
 
   if(node == "cover-sheet" && value != "-1" && (value == "5" || value == "6")){
     document.getElementById('drop_file_zone_cover_sheet').className = "displayBlock";
@@ -282,6 +282,11 @@ function uploadDisplay(node,value){
     document.getElementById('drop_file_zone_cover_sheet_info').className = "displayNone";
   }
 
+}
+
+
+
+function uploadDisplayBackCover(node,value){
 
   if(node == "back-cover" && value != "-1" && (value == "5" || value == "6")){ 
     document.getElementById('drop_file_zone_back_cover').className = "displayBlock";
@@ -366,7 +371,7 @@ function removeFile(file_name,id,status){  //alert(id);
         document.getElementById('selectfile_logo_cd').value = "";
         document.getElementById('drag_upload_file_logo_custom').className = "displayBlock"
         document.getElementById('del_logo_cd').remove();
-      }else if(id == "upload_custom_file"){
+      }else if(id == "upload_custom_file"){ 
         document.getElementById('file_name').innerHTML = "";
         document.getElementById('file_page_no').innerHTML = "";
         document.getElementById('selectfile_file').value = "";
@@ -377,7 +382,7 @@ function removeFile(file_name,id,status){  //alert(id);
         document.getElementById('page_no_upload_cd_without_logo').innerHTML = "";
         document.getElementById('selectfile_upload_cd_without_logo').value = "";
         document.getElementById('drag_upload_cd_without_logo').className = "displayBlock"
-        document.getElementById('del_file_logo_without').remove();
+        document.getElementById('del_file_without_logo').remove();  
       }
      // console.log(data);
     }

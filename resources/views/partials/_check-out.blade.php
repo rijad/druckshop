@@ -33,11 +33,11 @@
 								</div>
 								<div class="displayBlock" id="div-no-of-copies">
 									<label>{{ trans('checkout.no_of_copies') }}*:</label>
-									<p><input type = "text" class = "" name="no_of_copies" id="no-of-copies" placeholder="{{ trans('checkout.no_of_copies') }}" oninput=" displayProductAttributes('2',this); displayPrice('','','','','','','','','','','','','',this.value,'','');"></p><p class="error" id="error_no_of_copies"></p>
+									<p><input type = "text" class = "" name="no_of_copies" id="no-of-copies" placeholder="{{ trans('checkout.no_of_copies') }}" oninput=" displayProductAttributes('2',this); displayPrice('0','','','','','','','','','','','','','',this.value,'','');"></p><p class="error" id="error_no_of_copies"></p>
 								</div>
-								<div class="displayBlock" id="div-page-format">
+								<div class="displayBlock" id="div-page-format"> 
 									<label>{{ trans('checkout.page_format') }}*:</label>
-									<p><select class = "" onclick = "displayProductAttributes('3',this); sampleImage();" id="page-format" name="page-format" onchange="addTooltip(this); getA3A2Count(this); displayPrice(document.getElementById('binding').value,'','','','','','','','','','','','','','',''); " ><option value="-1">Select</option></select></p><p class="error" id="error_page_format"></p>
+									<p><select class = "" onclick = "displayProductAttributes('3',this); sampleImage();" id="page-format" name="page-format" onchange="addTooltip(this); getA3A2Count(this); displayPrice('0',document.getElementById('binding').value,'','','','','','','','','','','','','','',''); " ><option value="-1">Select</option></select></p><p class="error" id="error_page_format"></p>
 								</div>
 								<div class="displayNone" id="div-cover-color">
 									<label>{{ trans('checkout.cover_color') }}*:</label> 
@@ -45,7 +45,7 @@
 								</div>
 								<div class="displayNone" id="div-cover-sheet">
 									<label>{{ trans('checkout.cover_sheet') }}*:<a href="#" data-toggle="tooltip" title="200 gm/m2 sheets" class="formToolTip">i</a></label>
-									<p><select class = "" onclick = "displayProductAttributes('5',this);uploadDisplay(this.id,this.value);hideBindingElements('cover-sheet');" id="cover-sheet" name="cover-sheet"><option value="-1">Select</option></select></p>
+									<p><select class = "" onclick = "displayProductAttributes('5',this);uploadDisplayCoverSheet(this.id,this.value);hideBindingElements('cover-sheet');" id="cover-sheet" name="cover-sheet"><option value="-1">Select</option></select></p>
 									<p class="error" id="error_cover_sheet">
   
 								</div> 
@@ -69,7 +69,7 @@
 
 									<div class="displayNone" id="div-back-cover">
 										<label>{{ trans('checkout.back_sheet') }}*:<div title="200 gm/m2 sheets" class="formToolTip">i</div></label>
-										<p><select class = "" onclick = "displayProductAttributes('6',this);uploadDisplay(this.id,this.value); hideBindingElements('back-cover');" id="back-cover" name="back-cover"><option value="-1">Select</option></select></p> <p class="error" id="error_back_cover">
+										<p><select class = "" onclick = "displayProductAttributes('6',this);uploadDisplayBackCover(this.id,this.value); hideBindingElements('back-cover');" id="back-cover" name="back-cover"><option value="-1">Select</option></select></p> <p class="error" id="error_back_cover">
 									</div>
 									
 									<p class="outside-box-heading displayNone" id="drop_file_zone_back_cover_heading">{{ trans('checkout.upload_back_sheet') }}</p>
@@ -92,7 +92,7 @@
 								<div class="tab">
 									<div class="displayBlock">
 										<label>{{ trans('checkout.side_options') }}*:</label>
-										<p><select class = "" id = "page_options" name = "page_options" onclick=""  onchange="displayPrice('','',this.value,'','','','','','','','','','','','',''); displayFieldsContent(this.value);  displayProductAttributes('7',this); " >
+										<p><select class = "" id = "page_options" name = "page_options" onclick=""  onchange="displayPrice('0','','',this.value,'','','','','','','','','','','','',''); displayFieldsContent(this.value);  displayProductAttributes('7',this); " >
 											<option value = "-1">Select</option>
 											@foreach ($page_options as $key=>$listing)
 											<option value="{{$listing->id}}">{{$listing->name_english}}</option>  
@@ -108,12 +108,12 @@
 									<div class="displayBlock" id="div-paper-weight">
 										<label>{{ trans('checkout.paper_weight') }}*:<a href="#" data-toggle="tooltip" title="
 											for one-sided 100 g/m² paper &#013; for two-sided 120 g/m² paper" class="formToolTip">i</a></label>
-										<p><select class = "" name="paper-weight" id="paper-weight" onchange="displayPrice('','','','','',this.value,'','','','','','','','','',''); getPaperWeightCount(); BasicRange('binding','paper-weight','no-of-pages');"><option value="-1">Select</option></select></p> <p class="error" id="error_paper_weight"></p>
+										<p><select class = "" name="paper-weight" id="paper-weight" onchange="displayPrice('0','','','','','',this.value,'','','','','','','','','',''); getPaperWeightCount(); BasicRange('binding','paper-weight','no-of-pages');"><option value="-1">Select</option></select></p> <p class="error" id="error_paper_weight"></p>
 									</div>  
 
 									<div class="displayBlock" id="div-no-of-pages">
 										<label> {{ trans('checkout.no_of_pages') }}*:<a id="page-format-tooltip" href="#" data-toggle="tooltip" title="" class="formToolTip">i</a></label>
-										<p><input type = "text" class = "" name="no_of_pages" id="no-of-pages" placeholder="No of Pages"  oninput="resetPrice('no-of-pages');displayPrice('',this.value,'','','','','','','','','','','','','',''); displayProductAttributes('8',this); displayPrice(document.getElementById('binding').value,'','','','','','','','','','','','','','',''); getPrintingdata()"></p>
+										<p><input type = "text" class = "" name="no_of_pages" id="no-of-pages" placeholder="No of Pages"  oninput="resetPrice('no-of-pages');displayPrice('0','',this.value,'','','','','','','','','','','','','',''); displayProductAttributes('8',this); displayPrice('0',document.getElementById('binding').value,'','','','','','','','','','','','','','',''); getPrintingdata()"></p>
 										<p class="error" id="error_no_of_pages"></p>
 										<p class="error" id="error_no_of_pages_match"></p>
 									</div> 
@@ -148,7 +148,7 @@
 										<div class="displayNone" id="div-page-numbers">
 											<label>{{ trans('checkout.number_of_color_pages') }}*:<a href="#" data-toggle="tooltip" title="Page numbers of the PDF file, not of &#013; the thesis (document)" class="formToolTip">i</a></label>
 
-											<p><input type = "text" class= "" name="page_numbers" id="page-numbers" placeholder="Page Numbers" value = "" oninput = "displayPrice('','','','','','','','','','','',this.value,'','','',''), checkPageRange('selectfile_content','content_page_no','page-numbers')">
+											<p><input type = "text" class= "" name="page_numbers" id="page-numbers" placeholder="Page Numbers" value = "" oninput = "displayPrice('0','','','','','','','','','','','',this.value,'','','',''), checkPageRange('selectfile_content','content_page_no','page-numbers')">
 												<p class="error" id="error_page_numbers"></p>
 												<p class="error" id="error_range"></p><label>Example : 3,12,15-23,37</label></p>
 										</div>
@@ -161,7 +161,7 @@
  
 											<div class="displayNone" id="div-number-of-pages">
 												<label>{{ trans('checkout.number_din_A3_pages') }}*:<a href="#" data-toggle="tooltip" title=" It is printed with the same paper type and one-sided. &#013; It is printed with the same paper type and one-sided. " class="formToolTip">i</a></label>
-												<p><input type = "text" class = "" name="number_of_pages" id="numbers-of-pages" placeholder="Number of Pages"  max="10" oninput = "displayPrice('','','','','','','',this.value,'','','','','','','','');">
+												<p><input type = "text" class = "" name="number_of_pages" id="numbers-of-pages" placeholder="Number of Pages"  max="10" oninput = "displayPrice('0','','','','','','','',this.value,'','','','','','','','');">
 												</p>
 												<p id="A3_msg" class="displayNone">The maximum number of DIN A3 pages is: <span id="max-A3"></span></p>
 												<p class="error" id="error_number_of_pages"></p>
@@ -199,7 +199,7 @@
 												<label class="outside-box-heading displayNone" id="div-number-of-A2-pages_heading">{{ trans('checkout.number_din_A2_pages') }}</label>
 												<div class="displayNone" id="div-number-of-A2-pages">
 													<label class="inside-box-heading">{{ trans('checkout.number_din_A2_pages') }}*:<a href="#" data-toggle="tooltip" title="It is folded and glued into a bag at the end of the thesis. &#013; The maximum number of DIN A2 pages is: 3 " class="formToolTip">i</a></label>
-													<p><input type = "text" class = "" name="number_of_A2_pages" id="numbers-of-A2-pages" placeholder="Number of Pages" value = "" max="3" oninput = "displayPrice('','','','','','',this.value,'','','','','','','','','');"></p>
+													<p><input type = "text" class = "" name="number_of_A2_pages" id="numbers-of-A2-pages" placeholder="Number of Pages" value = "" max="3" oninput = "displayPrice('0','','','','','','',this.value,'','','','','','','','','');"></p>
 													<p id="A2_msg" class="displayNone">The maximum number of DIN A2 pages is: <span id="max-A2"></p>
 													<p class="error" id="error_number_of_A2_pages"></p>
 												</div>
@@ -229,14 +229,14 @@
 
 												<div class="displayNone" id="div-embossing">
 													<label>{{ trans('checkout.embossing') }}*:</label>
-													<p><select class = "" id = "embossing" name = "embossing" onchange="embossingChange(this);  displayPrice('','','','','','','','','','','','','','',this.value,'');">
+													<p><select class = "" id = "embossing" name = "embossing" onchange="embossingChange(this);  displayPrice('0','','','','','','','','','','','','','','',this.value,'');">
 														<option value = "-1">Select</option>
 													</select></p> <p class="error" id="error_embossing"></p>
 												</div>
 
 												<div class="displayBlock" id="div-embossment-cover-sheet">
 													<label class="csCheckbtn">{{ trans('checkout.refinement_cover_sheet') }}
-														<input class =""name ="embossment-cover-sheet" id ="embossment-cover-sheet" type="checkbox" onchange="displayPrice('','','','1','','','','','','','','','','','',''); setTimeout(function(){displayPrintFields('Embossment_Cover_Sheet')},200);  setTimeout(function(){displayProductAttributes('9',this)},300);  setTimeout(function(){resetPrice('refinement_with_embossment')},500); setTimeout(function(){displayPrice('','','','','','','','','','','','','','',$('#embossing').find(':selected').val(),'')},1000); " disabled>
+														<input class =""name ="embossment-cover-sheet" id ="embossment-cover-sheet" type="checkbox" onchange="displayPrice('0','','','','1','','','','','','','','','','','',''); setTimeout(function(){displayPrintFields('Embossment_Cover_Sheet')},200);  setTimeout(function(){displayProductAttributes('9',this)},300);  setTimeout(function(){resetPrice('refinement_with_embossment')},500); setTimeout(function(){displayPrice('0','','','','','','','','','','','','','','',$('#embossing').find(':selected').val(),'')},1000); " disabled>
 														<span class="checkmark"></span>
 													</label>
 												</div> 
@@ -312,7 +312,7 @@
  
 													<div class="displayBlock" id="div-embossment-spine">
 														<label class="csCheckbtn">{{ trans('checkout.refinement_spine') }}<a href="#" data-toggle="tooltip" title="Data is taken from cover sheet" id="spine-title" class="displayNone formToolTip">i</a>
-															<input class = "" type="checkbox" id = "embossment-spine" name = "embossment-spine" onchange = " displayPrice('','','','','1','','','','','','','','','','','');  setTimeout(function(){displayProductAttributes('10',this)},200); setTimeout(function(){displayPrintFields('Embossment_spine')},300);  setTimeout(function(){resetPrice('refinement_with_spine')},500); setTimeout(function(){displayPrice('','','','','','','','','','','','','','',$('#embossing').find(':selected').val(),'')},1000);" disabled>
+															<input class = "" type="checkbox" id = "embossment-spine" name = "embossment-spine" onchange = " displayPrice('0','','','','','1','','','','','','','','','','','');  setTimeout(function(){displayProductAttributes('10',this)},200); setTimeout(function(){displayPrintFields('Embossment_spine')},300);  setTimeout(function(){resetPrice('refinement_with_spine')},500); setTimeout(function(){displayPrice('0','','','','','','','','','','','','','','',$('#embossing').find(':selected').val(),'')},1000);" disabled>
 															<span class="checkmark"></span>
 														</label>
 														
@@ -447,7 +447,7 @@
 
 													<div class="displayNone" id="div-number-of-cds">
 														<label>{{ trans('checkout.number_of_cds') }}*:</label>
-														<p><input type = "text" class = "" name="number_of_cds" id="numbers-of-cds" placeholder="Number of CDs" oninput= "displayPrice('','','','','','','','',this.value,'','','','','','',''); displayProductAttributes('11',this);"></p>
+														<p><input type = "text" class = "" name="number_of_cds" id="numbers-of-cds" placeholder="Number of CDs" oninput= "displayPrice('0','','','','','','','','',this.value,'','','','','','',''); displayProductAttributes('11',this);"></p>
 														<p class="error" id="error_number_of_cds"></p>
 													</div>
 
@@ -472,7 +472,7 @@
 
 														<div class="displayNone" id="div-cd-imprint">
 															<label class="csCheckbtn">{{ trans('checkout.cd_imprint') }}
-																<input id= "imprint" name = "imprint" class = "" type="checkbox" onchange=" displayPrice('','','','','','','','','','','','','','','',this.value); displayCDFields('imprint'); resetPrice('cd_imprint');">
+																<input id= "imprint" name = "imprint" class = "" type="checkbox" onchange=" displayPrice('0','','','','','','','','','','','','','','','',this.value); displayCDFields('imprint'); resetPrice('cd_imprint');">
 																<span class="checkmark"></span>
 															</label>
 														</div>	
@@ -555,7 +555,7 @@
 
 														<div class="displayNone" id="div-cd-bag">
 															<label>{{ trans('checkout.cd_bag') }}*:</label>
-															<p><select class = "" name = "cd-bag" id = "cd-bag" onchange="cdBagPosition(); displayPrice('','','','','','','','','','',this.value,'','','','','');"><option value = "-1">Select</option>
+															<p><select class = "" name = "cd-bag" id = "cd-bag" onchange="cdBagPosition(); displayPrice('0','','','','','','','','','','',this.value,'','','','','');"><option value = "-1">Select</option>
 																@foreach ($cd_bag as $key=>$listing)
 																<option value="{{$listing->id}}" @if($listing->id == '1') selected @endif>{{$listing->bag}}</option>  
 																@endforeach
@@ -569,7 +569,7 @@
 			 
 														<div class="displayBlock" id="div-data-check">
 															<label>{{ trans('checkout.data_check') }}*:<a href="#" title="wird erklärt" data-toggle="tooltip" title="Data Check Select" class="formToolTip">i</a></label>
-															<p><select id = "data_check" name = "data_check" onchange="displayPrice('','','','','','','','','',this.value,'','','','','','');"><option value = "-1">Select</option>
+															<p><select id = "data_check" name = "data_check" onchange="displayPrice('0','','','','','','','','','',this.value,'','','','','','');"><option value = "-1">Select</option>
 																@foreach ($data_check as $key=>$listing)
 																<option value="{{$listing->id}}" @if($listing->id == "1") selected @endif>{{$listing->check_list}}</option>  
 																@endforeach

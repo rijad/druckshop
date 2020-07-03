@@ -42,7 +42,7 @@ class RegisterController extends Controller
 
 				try {
 
-					print_r($user_data['email']); print_r(env('MAIL_USERNAME')); print_r(env('MAIL_FROM_NAME'));exit;
+					//print_r($user_data['email']); print_r(env('MAIL_USERNAME')); print_r(env('MAIL_FROM_NAME'));exit;
 
 					$sent = Mail::send('emails.welcome', $user_data, function($message) use ($user_data) {
 
