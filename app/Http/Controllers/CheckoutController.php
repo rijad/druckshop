@@ -44,6 +44,7 @@ use App\ProductPrintFinishingArtList;
 use App\User;
 use App\EmbossingCover;
 use App\EmbossingSpine;
+use App\SplitOrderShippingAddress;
 use \Exception;
 use Auth;
 use Session; 
@@ -1350,6 +1351,59 @@ public function setQuantity(Request $request){
 		print_r("Quantity Updated");
 
 	}
+
+    
+
+    public function InsertSplitOrder(Request $request){
+
+    //print_r($request->input('no_of_copies'));
+
+    	$record = SplitOrderShippingAddress::where('unique_id' , $request->input('rowId'))->first();
+
+    	print_r(json_encode($record));
+
+    	if(json_encode($record) == "null"){
+
+    		$new_record = new SplitOrderShippingAddress;
+    		$new_record->no_of_copies = $request->input('no_of_copies');
+    		$new_record->no_of_cds = $request->input('no_of_cds');
+    		$new_record->shipping_address = $request->input('shipping_address');
+    		$new_record->shipping_company = $request->input('shipping_company');
+    		$new_record->unique_id = $request->input('rowId');
+    		$new_record->save();
+
+    		print_r($new_record);
+
+
+    	}else{
+
+    		$update_record = $record;
+
+    		if($request->input('no_of_copies') != ""){
+    			$update_record->no_of_copies = $request->input('no_of_copies');
+    		}
+
+    		if($request->input('no_of_cds') != ""){
+    			$update_record->no_of_cds = $request->input('no_of_cds');
+    		}
+
+    		if($request->input('shipping_address') != ""){
+    			$update_record->shipping_address = $request->input('shipping_address');
+    		}
+
+    		if($request->input('shipping_company') != ""){
+    			$update_record->shipping_company = $request->input('shipping_company');
+    		}
+    		
+    		$update_record->unique_id = $request->input('rowId');
+    		$update_record->save();
+
+    		print_r($update_record);
+
+    	}
+
+    }
+
 
 
 	public function removeItem(Request $request){

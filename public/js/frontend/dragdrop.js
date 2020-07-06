@@ -272,6 +272,16 @@ function ajaxFileUpload(file_obj,id) {  //alert(id);
  
 function uploadDisplayCoverSheet(node,value){
 
+  if($('#selectfile_coversheet').val() != ""){
+
+    file_name = $('#selectfile_coversheet').val();
+    id = "drop_file_zone_cover_sheet";   
+
+     removeFile(file_name,id,'1');
+
+}
+
+
   if(node == "cover-sheet" && value != "-1" && (value == "5" || value == "6")){
     document.getElementById('drop_file_zone_cover_sheet').className = "displayBlock";
     document.getElementById('drop_file_zone_cover_sheet_heading').className = "outside-box-heading displayBlock";
@@ -287,6 +297,15 @@ function uploadDisplayCoverSheet(node,value){
 
 
 function uploadDisplayBackCover(node,value){
+
+  if($('#selectfile_backcover').val() != ""){
+
+    file_name = $('#selectfile_backcover').val(); 
+    id = "drop_file_zone_back_cover";
+
+     removeFile(file_name,id,'1');
+
+}
 
   if(node == "back-cover" && value != "-1" && (value == "5" || value == "6")){ 
     document.getElementById('drop_file_zone_back_cover').className = "displayBlock";

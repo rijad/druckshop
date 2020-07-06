@@ -85,10 +85,14 @@ class PasswordController extends Controller
             'old_password' => ['required',new OldPwdRule('old_password')],
             'password' => 'required|min:8',
             'confirm_password' => 'required_with:password|same:password|min:8',
+        ],[
+            'password.min' => 'The password must be at least 8 characters' ,
+            'confirm_password.min' => 'The password must be at least 8 characters'
+
         ]);
         if ($validator->fails()) {
             return redirect()->back()
-                        ->withErrors($validator)
+                        ->withErrors($validator) 
                         ->withInput();
         }
 

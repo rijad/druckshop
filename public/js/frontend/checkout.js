@@ -174,10 +174,10 @@ function getPrintingdata(){
 
 				if(parseInt(paper_weight_count) <= parseInt(no_of_pages)){ 
 					$("#embossment-spine").removeAttr('disabled');
-					$('#spine-message').html('Refinement can be activated for this product');
+					$('#spine-message').html('Refinement spine can be activated since actual number of sheets is equals or greater than the required minimum number of sheets');
 				}else{ 
 					$("#embossment-spine").attr('disabled', true);
-					$('#spine-message').html('Refinement cannot be activated since it is not available for this product');
+					$('#spine-message').html('Refinement spine cannot be activated since actual number of sheets is less than the required minimum number of sheets');
 				}
 
 			}else if(data == 2){ //page 3  
@@ -188,10 +188,10 @@ function getPrintingdata(){
 
 				if(parseInt(paper_weight_count) <= parseInt(no_of_pages)){ 
 					$("#embossment-spine").removeAttr('disabled');
-					$('#spine-message').html('Refinement can be activated for this product');
+					$('#spine-message').html('Refinement spine can be activated since actual number of sheets is equals or greater than the required minimum number of sheets');
 				}else{ 
 					$("#embossment-spine").attr('disabled', true);
-					$('#spine-message').html('Refinement cannot be activated since it is not available for this product');
+					$('#spine-message').html('Refinement spine cannot be activated since actual number of sheets is less than the required minimum number of sheets');
 				}
 
 			}else if(data == 3){ 
@@ -204,7 +204,7 @@ function getPrintingdata(){
 
 				$("#embossment-cover-sheet").attr('disabled', true);
 				$("#embossment-spine").attr('disabled', true);
-				$('#spine-message').html('Refinement cannot be activated since it is not available for this product');
+				$('#spine-message').html('Refinement spine cannot be activated since actual number of sheets is less than the required minimum number of sheets');
 			}
 
 
@@ -240,13 +240,13 @@ binding = document.getElementById('binding').value;
 
 				$("#embossment-cover-sheet").attr('disabled', true);
 				$("#embossment-spine").attr('disabled', true);
-				$('#spine-message').html('Refinement cannot be activated since it is not available for this product');
+				$('#spine-message').html('Refinement spine cannot be activated since actual number of sheets is less than the required minimum number of sheets');
 	
 			}else{
 
 				$("#embossment-cover-sheet").attr('disabled', true);
 				$("#embossment-spine").attr('disabled', true);
-				$('#spine-message').html('Refinement cannot be activated since it is not available for this product');
+				$('#spine-message').html('Refinement spine cannot be activated since actual number of sheets is less than the required minimum number of sheets');
 			}
 
 
@@ -342,8 +342,8 @@ function embossingChange(field = ""){
  
 	}else{
 
-
-		$('#spine-title').removeClass();  // remove tooltip text for spine refinement
+		// remove tooltip text for spine refinement
+		$('#spine-title').removeClass();  
 		$('#spine-title').addClass('formToolTip displayNone'); 
 
 
@@ -862,7 +862,7 @@ function displayPopUp(template = ""){
 
 		document.getElementById('div-fonts').className = "displayNone";
 		document.getElementById('div-date-format').className = "displayNone";
-		document.getElementById('div-embossment-spine').className = "displayNone";
+		//document.getElementById('div-embossment-spine').className = "displayNone";
 
 
 		document.getElementById('download_stylesheet').className = "displayNone";
@@ -948,25 +948,7 @@ function displayPopUpCD(template = ""){
 function resetTemplate(id = ""){  
 
 	$('select[id="'+id+'"]').val('-1').attr("selected",true);
-	$('select[id="'+id+'"]').trigger("onchange"); 
-
-	// if(){
-
-	// document.getElementById('upload_custom_logo').className = "displayNone";
-	// document.getElementById('upload_custom_logo_heading').className = "outside-box-heading displayNone";
-	// document.getElementById('drop_file_zone_logo_info').className = "outside-box-heading displayNone";
-	// document.getElementById('div-remarks').className = "displayNone"; 
-	// document.getElementById('download_stylesheet').className = "displayNone";
-	// $("#div-display-image").empty();
-	// document.getElementById('div-display-image').className = "displayNone"; 
-	// document.getElementById('div-embossment-spine').className = "displayBlock";
-
-	// document.getElementById('upload_custom_file').className = "displayNone";
-	// document.getElementById('upload_custom_file_heading').className = "outside-box-heading displayNone";
-
-	//}
-
-
+	$('select[id="'+id+'"]').trigger("onchange");
 }
 
 
@@ -1830,7 +1812,7 @@ function displayPrice(status = "", binding = "", no_ofsheets = "", page_options 
 					var allowed_letters = parseInt(getLettersSpine());  
 					var total = 0;
 					if($('#input_1').hasClass('displayBlock')){    
-
+ 
 						Total = parseInt($('#input_1').val().trim().length);
 					}  
 
@@ -1845,7 +1827,7 @@ function displayPrice(status = "", binding = "", no_ofsheets = "", page_options 
 					}
 
 					  	if($('#input_1').hasClass('displayBlock')){    
-						if(Total >= allowed_letters){    
+						if(Total > allowed_letters){    
 							$("#input_1").addClass('invalid');
 							$("#input_2").addClass('invalid'); 
 							$("#input_3").addClass('invalid');
@@ -2091,6 +2073,7 @@ function setQuantity(count = ""){
 
 	var qty = []; var price_per_unit = []; var total_price_per_product = []; var total = 0;  var total_price_hidden = [];
 	var no_of_copies = []; var no_of_cds = []; var imprint = ""; var new_total_unit_price = []; new_total = []; new_data = [];
+	 var no_of_cds_new = [];
 
 
 	$.ajax({
@@ -2104,7 +2087,7 @@ function setQuantity(count = ""){
 			var embossment_cover = ""; 	var embossment_spine = ""; 	var number_of_A2_pages = "";
 			var number_of_pages = ""; var number_of_A2_pages = ""; var paper_weight = '0';
 			var cd_bag = ""; var no_of_colored_pages = ""; var embossing = ""; var no_of_copies = 0; 
-			var no_of_cds = 0;
+			var no_of_cds = 0; 
 
 			
 		
@@ -2197,7 +2180,7 @@ function setQuantity(count = ""){
 			new_total_unit_price[i] = new_data[i]['data']['total_unit_price'];
 			new_total[i] = new_data[i]['data']['total'];
 
-			console.log(new_total_unit_price);
+			// console.log(new_total_unit_price);
 
 			// update in database
 			$.ajax({
@@ -2222,17 +2205,42 @@ function setQuantity(count = ""){
 				if(isNaN(parseInt($(this).val())) || parseInt($(this).val()) <= 0){
 
 					$(this).prop("readonly", true);
-					no_of_cds[i] = 0;
+					
 				}else{
 					$(this).prop("readonly", false); 
+					
 		        } 
 		         i++;
+			}); 
+
+			
+			for(var i = 0; i < data.length; i++){  
+				if($("[name = 'no_of_cds["+i+"]' ]").val() !=""){
+
+					 no_of_cds_new[i] = $("[name = 'no_of_cds["+i+"]' ]").val();
+
+				}else{
+
+					 no_of_cds_new[i] = 0;
+
+				}
+			}
+
+
+			var b =  $('[id^=cd_price_per_product_]');
+		    var i = 0;
+			b.each(function(e) { 
+				if( no_of_cds_new[i] == 0){
+					$(this).html("Unit Price per CD : "+ 0 + " €"); 
+				}
+				 i++;
+		         
 			});
 
-			var a =  $('[id^=binding_price_per_product_]')
+			var a =  $('[id^=binding_price_per_product_]');
 		    var i = 0;
 			a.each(function(e) {
-		         $(this).html("Price/qty: "+ new_total_unit_price[i] + " €"); 
+		         $(this).html("Unit Price per binding copy : "+ new_total_unit_price[i] + " €"); 
 		         i++;
 			});
 
@@ -2271,11 +2279,7 @@ function setQuantity(count = ""){
 			}    
 		}
 	}); 
-    
-
-
-
-	                   
+                       
 }
 
 
@@ -2309,6 +2313,66 @@ function incrementQuantity(id = "",count = ""){
 	}
 
 } 
+
+
+function splitOrder(rowId = "", sequenceUI = ""){  alert(sequenceUI);
+
+	var newel = $("#cloneBioFields"+sequenceUI).clone(true);
+	$(newel).find("[name = 'no_of_cds["+sequenceUI+"]' ]").attr("onchange","InsertSplitOrder("+rowId+","+sequenceUI+")");
+	$(newel).find("[name = 'no_of_copies["+sequenceUI+"]' ]").attr("onchange","InsertSplitOrder("+rowId+","+sequenceUI+")");
+	$(newel).find("[name = 'shipping_address["+sequenceUI+"]' ]").attr("onchange","InsertSplitOrder("+rowId+","+sequenceUI+")");
+	$(newel).find("[name = 'shipping_company["+sequenceUI+"]' ]").attr("onchange","InsertSplitOrder("+rowId+","+sequenceUI+")");
+	$(newel).insertAfter("#cloneBioFields"+sequenceUI);	
+}
+
+function RemoveSplitOrder(rowId = "", sequenceUI = ""){
+	alert("hi");
+}
+
+function InsertSplitOrder(rowId = "", sequenceUI = "", field = ""){ alert("insert");
+
+	var no_of_copies = ""; var no_of_cds = ""; var shipping_address = ""; var shipping_company = "";
+
+		
+	if(field.id == "no_of_copies"){
+
+		no_of_copies = $(field).val();
+
+	}
+
+	if(field.id == "no_of_cds"){
+
+		no_of_cds = $(field).val();
+
+	} 
+
+	if(field.id == "address_data"){
+
+		shipping_address = $(field).val();  alert(shipping_address);
+
+	}
+
+	if(field.id == "shipping_company"){
+
+		shipping_company = $(field).val();
+
+	}
+
+	// update in database
+	$.ajax({
+		url: base_url+'/insert-split-order',  
+		type: 'POST', 
+		data: {'no_of_copies': no_of_copies,'no_of_cds': no_of_cds,'rowId': rowId,'shipping_address' : shipping_address, 'shipping_company' : shipping_company,'_token': $('meta[name="csrf-token"]').attr('content')},
+		success: function (response){
+
+			console.log(response);
+		}
+	}); 
+
+
+
+
+}
 
 
 function checkPageRange(id1 = '', id2 = '' ,value_id = ''){  
