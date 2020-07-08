@@ -144,8 +144,13 @@ function getEmbossingById($id){
 
 function getFreeSampleImage($id){
 
-		$image = \App\Product::where(['id' => $id])->first('image_path');
+	$image = \App\Product::where(['id' => $id])->first('image_path');
+	return $image->image_path;
+	
+}   
 
-		return $image->image_path;
-		
-	}   
+function getShippingCompanyById($id){
+
+	$shippingCompany = \App\DeliveryService::where(['id' => $id])->first('delivery_service');
+	return $shippingCompany->delivery_service;
+}

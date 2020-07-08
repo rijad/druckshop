@@ -164,7 +164,7 @@ function getPrintingdata(){
 			var paper_weight_count = getPaperWeightCount();
 			var no_of_pages = $('#no-of-pages').val();
 
-			console.log(paper_weight_count + no_of_pages);
+			//console.log(paper_weight_count + no_of_pages);
 			
 			if(data == 1){ // page 4
 
@@ -2067,33 +2067,7 @@ function displayPrice(status = "", binding = "", no_ofsheets = "", page_options 
 
 
 // -------     Code to handle checkout page pagination Ends ----------- //	
-
-
-function setSession(prodSequence = "" , id = ""){
-
-	if(id == "no_of_copies" || id == "no_of_cds"){   //alert("in");
-
-		sessionStorage.removeItem("copies_prod_sequence");
-		sessionStorage.setItem("copies_prod_sequence", prodSequence);
-
-		sessionStorage.removeItem("cds_prod_sequence");
-		sessionStorage.setItem("cds_prod_sequence", prodSequence);
-
-	}  
-
-
-	// if(id == "no_of_cds"){
-
-	// 	sessionStorage.removeItem("cds_prod_sequence");
-	// 	sessionStorage.setItem("cds_prod_sequence", prodSequence);
-
-	// }  
-
-	//alert("cds session : "+sessionStorage.getItem("cds_prod_sequence"));
-
-
-
-}					
+			
 
 
 function setQuantity(count = ""){  
@@ -2116,59 +2090,56 @@ function setQuantity(count = ""){
 			var cd_bag = ""; var no_of_colored_pages = ""; var embossing = ""; var no_of_copies = 0; 
 			var no_of_cds = 0; 
 
+			
 
-			// alert("copies session : "+sessionStorage.getItem("cds_prod_sequence"));
-			// var m = $("input[name='no_of_cds["+sessionStorage.getItem("cds_prod_sequence")+"]']");
-			// m.each(function(e) {
-			// 	total_cds_after_split += parseInt($(this).val());
-			// }); 
+			for(var i = 0; i < count; i++){
 
-			// alert("copies session : "+sessionStorage.getItem("copies_prod_sequence"));
-			// var n = $("input[name='no_of_copies["+sessionStorage.getItem("copies_prod_sequence")+"]']");
-			// n.each(function(e) {	
-			// 	total_copies_after_split += parseInt($(this).val());	
-			// });
+			    var m = $("[name='no_of_cds["+i+"]']"); 
+			    total_cds_after_split[i] = 0;
+				m.each(function(e) { 
+					total_cds_after_split[i] += parseInt($(this).val());
+				}); 
 
-			// sessionStorage.removeItem("copies_prod_sequence");
-			// sessionStorage.removeItem("cds_prod_sequence");
+				// $("[id='total_cds_after_split"+i+"']").val(total_cds_after_split[i]);
+
+				var n = $("[name='no_of_copies["+i+"]']");
+				total_copies_after_split[i] = 0;
+				n.each(function(e) {	
+					total_copies_after_split[i] += parseInt($(this).val());	
+				});
+
+				// $("[id='total_copies_after_split"+i+"']").val(total_copies_after_split[i]);
+
+				
+			}
 			
 			for(var i = 0; i < data.length; i++){
 
-			    var m = $("[name='no_of_cds["+i+"]']"); 
-				m.each(function(e) { alert(i +"   "+ "  cd-each" + $(this).id);
-					total_cds_after_split[i] = parseInt($(this).val());
-				}); 
+			 //    var m = $("[name='no_of_cds["+i+"]']"); 
+				// m.each(function(e) { alert(i +"   "+ "  cd-each" + $(this).val());
+				// 	total_cds_after_split += parseInt($(this).val());
+				// }); 
 
-//alert("cds : "+total_cds_after_split[i]);
-				var n = $("[name='no_of_copies["+i+"]']");
-				n.each(function(e) {	alert("copy-each" + $(this).id );
-					total_copies_after_split[i] = parseInt($(this).val());	
-				});
-
-				//alert("copies : "+total_copies_after_split[i]);
-
-		    
-		
-		
+				// var n = $("[name='no_of_copies["+i+"]']");
+				// n.each(function(e) {	alert(i +"   "+ "copy-each" + $(this).val() );
+				// 	total_copies_after_split += parseInt($(this).val());	
+				// });
 
 
-			// for(var i = 0; i < data.length; i++){  
+				// for(var i = 0; i < data.length; i++){  
 
-			// 	no_of_copies = $("[name = 'no_of_copies["+i+"]' ]").val();
+				// 	no_of_copies = $("[name = 'no_of_copies["+i+"]' ]").val();  alert("cp : "+no_of_copies);
 
-			// 	if($("[name = 'no_of_cds["+i+"]' ]").val() !=""){
+				// 	if($("[name = 'no_of_cds["+i+"]' ]").val() !=""){
 
-			// 		no_of_cds = $("[name = 'no_of_cds["+i+"]' ]").val();
+				// 		no_of_cds = $("[name = 'no_of_cds["+i+"]' ]").val();   alert("cd : "+no_of_cds);
 
-			// 	}else{
+				// 	}else{
 
-			// 		no_of_cds = 0;
+				// 		no_of_cds = 0;   alert(no_of_cds);
 
-			// 	}
-
-
+				// 	}
 				
-							
 				if(data[i].hasOwnProperty('embossment-cover-sheet')){
 
 					if(data[i]['embossment-cover-sheet'] == "on"){
@@ -2238,25 +2209,25 @@ function setQuantity(count = ""){
 						//console.log(response); 
 					}
 				});
-				
-			new_data[i] = displayPrice('1', data[i]['binding'] , data[i]['no_of_pages'] , data[i]['page_options'] , embossment_cover,embossment_spine,paper_weight,number_of_A2_pages,number_of_pages,no_of_cds,data[i]['data_check'],cd_bag,no_of_colored_pages,'',no_of_copies,embossing,imprint);
-			//new_data[i] = displayPrice('1', data[i]['binding'] , data[i]['no_of_pages'] , data[i]['page_options'] , embossment_cover,embossment_spine,paper_weight,number_of_A2_pages,number_of_pages,total_cds_after_split[i],data[i]['data_check'],cd_bag,no_of_colored_pages,'',total_copies_after_split[i],embossing,imprint);
-			new_total_unit_price[i] = new_data[i]['data']['total_unit_price'];
-			new_total[i] = new_data[i]['data']['total'];
+					
+				//new_data[i] = displayPrice('1', data[i]['binding'] , data[i]['no_of_pages'] , data[i]['page_options'] , embossment_cover,embossment_spine,paper_weight,number_of_A2_pages,number_of_pages,no_of_cds,data[i]['data_check'],cd_bag,no_of_colored_pages,'',no_of_copies,embossing,imprint);
+				new_data[i] = displayPrice('1', data[i]['binding'] , data[i]['no_of_pages'] , data[i]['page_options'] , embossment_cover,embossment_spine,paper_weight,number_of_A2_pages,number_of_pages,total_cds_after_split[i],data[i]['data_check'],cd_bag,no_of_colored_pages,'',total_copies_after_split[i],embossing,imprint);
+				new_total_unit_price[i] = new_data[i]['data']['total_unit_price'];
+				new_total[i] = new_data[i]['data']['total'];
 
-			// console.log(new_total_unit_price);
+				// console.log(new_total_unit_price);
 
-			// update in database
-			$.ajax({
-				url: base_url+'/set-quantity',  
-				type: 'POST', 
-				data: {'sequence' : i ,'no_of_copies': no_of_copies,'no_of_cds': no_of_cds,'qty': '-1','total' : new_total[i], 'count' : count, '_token': $('meta[name="csrf-token"]').attr('content')},
-				//data: {'sequence' : i ,'no_of_copies': total_copies_after_split[i],'no_of_cds': total_cds_after_split[i],'qty': '-1','total' : new_total[i], 'count' : count, '_token': $('meta[name="csrf-token"]').attr('content')},
-				success: function (response){
+				// update in database
+				$.ajax({
+					url: base_url+'/set-quantity',  
+					type: 'POST', 
+					//data: {'sequence' : i ,'no_of_copies': no_of_copies,'no_of_cds': no_of_cds,'qty': '-1','total' : new_total[i], 'count' : count, '_token': $('meta[name="csrf-token"]').attr('content')},
+					data: {'sequence' : i ,'no_of_copies': total_copies_after_split[i],'no_of_cds': total_cds_after_split[i],'qty': '-1','total' : new_total[i], 'count' : count, '_token': $('meta[name="csrf-token"]').attr('content')},
+					success: function (response){
 
-					//console.log(response);
-				}
-			});   
+						//console.log(response);
+					}
+				});   
 
 
 			}
@@ -2265,20 +2236,20 @@ function setQuantity(count = ""){
 
 			// Update in frontend
 
-			var m = $("input[id='no_of_cds']");
-			var i = 0;
-			m.each(function(e) {
+			// var m = $("input[id='no_of_cds']");
+			// var i = 0;
+			// m.each(function(e) {
 
-				if(isNaN(parseInt($(this).val())) || parseInt($(this).val()) <= 0){
+			// 	if(isNaN(parseInt($(this).val())) || parseInt($(this).val()) <= 0){
 
-					$(this).prop("readonly", true);
+			// 		$(this).prop("readonly", true);
 					
-				}else{
-					$(this).prop("readonly", false); 
+			// 	}else{
+			// 		$(this).prop("readonly", false); 
 					
-		        } 
-		         i++;
-			});
+		 //        } 
+		 //         i++;
+			// });
 
 
 			
@@ -2348,7 +2319,21 @@ function setQuantity(count = ""){
 			}    
 		}
 	}); 
-                       
+                        
+}
+
+function clearSplitOrderTable(){ 
+
+		$.ajax({
+			url: base_url+'/clear-split-order',  
+			type: 'POST', 
+			data: {'_token': $('meta[name="csrf-token"]').attr('content')},
+			success: function (response){
+
+				//console.log(response);
+			}
+		});  
+
 }
 
 
@@ -2396,18 +2381,18 @@ function splitOrder(rowId = "", prodSequence = "", count = ""){
 	//alert(split_id + "--------------" + index +"************"+sequenceUI);
 
 	var newel = $("#cloneBioFields_"+prodSequence).last().clone(true);
-	$(newel).find("[name = 'no_of_cds["+prodSequence+"]' ]").attr("onchange","InsertSplitOrder("+rowId+","+(parseInt(uiSequence) + 1)+",this)");
-	$(newel).find("[name = 'no_of_copies["+prodSequence+"]' ]").attr("onchange","InsertSplitOrder("+rowId+","+(parseInt(uiSequence)+ 1)+",this)");
-	$(newel).find("[name = 'shipping_address["+prodSequence+"]' ]").attr("onchange","InsertSplitOrder("+rowId+","+(parseInt(uiSequence)+ 1)+",this)");
-	$(newel).find("[name = 'shipping_company["+prodSequence+"]' ]").attr("onchange","InsertSplitOrder("+rowId+","+(parseInt(uiSequence)+ 1)+",this)");
+	$(newel).find("[name = 'no_of_cds["+prodSequence+"]' ]").attr("onchange","InsertSplitOrder("+rowId+","+(parseInt(uiSequence) + 1)+",this)").val(0);
+	$(newel).find("[name = 'no_of_copies["+prodSequence+"]' ]").attr("onchange","InsertSplitOrder("+rowId+","+(parseInt(uiSequence)+ 1)+",this)").val(0);
+	$(newel).find("[name = 'shipping_address["+prodSequence+"]' ]").attr("onchange","InsertSplitOrder("+rowId+","+(parseInt(uiSequence)+ 1)+",this)").val(-1);
+	$(newel).find("[name = 'shipping_company["+prodSequence+"]' ]").attr("onchange","InsertSplitOrder("+rowId+","+(parseInt(uiSequence)+ 1)+",this)").val(-1);
 	$(newel).find("[id = 'remove_split_order_"+prodSequence+"' ]").attr("class","remove_btn displayBlock").attr("onclick","RemoveSplitOrder("+rowId+","+prodSequence+","+(parseInt(uiSequence) + 1)+")");
 	$(newel).find("[id = 'sequence_"+prodSequence+"']").last().attr('name',"sequence_"+prodSequence+"_"+(parseInt(uiSequence) + 1)+"").val(parseInt(uiSequence) + 1);  
 	
 	$(newel).insertAfter("[name = 'cloneBioFields_"+prodSequence+"_"+(parseInt(uiSequence))+"']");	
 
 	$("[id = 'cloneBioFields_"+prodSequence+"']").last().attr('name',"cloneBioFields_"+prodSequence+"_"+(parseInt(uiSequence) + 1)+"").val(parseInt(uiSequence) +1 );    
-	$("[name = 'no_of_cds["+prodSequence+"]' ]").attr("onchange","setSession("+prodSequence+",'no_of_cds'); setQuantity("+ count +"); InsertSplitOrder("+rowId+","+(parseInt(uiSequence) + 1)+",this)");
-	$("[name = 'no_of_copies["+prodSequence+"]' ]").attr("onchange","setSession("+prodSequence+",'no_of_copies'); setQuantity("+ count +"); InsertSplitOrder("+rowId+","+(parseInt(uiSequence)+ 1)+",this)");
+	$("[name = 'no_of_cds["+prodSequence+"]' ]").attr("onchange","setQuantity("+ count +"); InsertSplitOrder("+rowId+","+(parseInt(uiSequence) + 1)+",this)");
+	$("[name = 'no_of_copies["+prodSequence+"]' ]").attr("onchange","setQuantity("+ count +"); InsertSplitOrder("+rowId+","+(parseInt(uiSequence)+ 1)+",this)");
 }
 
 
@@ -2466,7 +2451,7 @@ function InsertSplitOrder(rowId = "", sequenceUI = "", field = ""){ //alert(sequ
 		data: {'sequence':sequenceUI,'no_of_copies': no_of_copies,'no_of_cds': no_of_cds,'rowId': rowId,'shipping_address' : shipping_address, 'shipping_company' : shipping_company,'_token': $('meta[name="csrf-token"]').attr('content')},
 		success: function (response){
 
-			console.log(response);
+			//console.log(response);
 		}
 	}); 
 
@@ -2946,7 +2931,7 @@ function addAddress(address_type = "", address = "", drop_down = ""){
 			url: base_url+'/add-address', 
 			type: 'POST', 
 			data: {'_token': $('meta[name="csrf-token"]').attr('content'),'default':default_flag,'address_type':address_type, 'first_name':first_name, 'last_name':last_name, 'company_name':company_name, 'street':street, 'city':city, 'zip_code':zip_code, 'house_no':house_no, 'addition':addition, 'state':state},
-			success: function (response){  console.log(response);
+			success: function (response){  //console.log(response);
 
 				if(address_type == "shipping"){ 
 
@@ -3340,7 +3325,7 @@ function getLettersSpine(){
 		data: {'paperWeight': paperWeight, 'numberOfPages':numberOfPages,'_token': $('meta[name="csrf-token"]').attr('content')},
 		async: false,
 		success: function (response){
-			var data = JSON.parse(response); console.log(data);
+			var data = JSON.parse(response); //console.log(data);
 			letters  = data;
 			callback.call(letters);
 		}
