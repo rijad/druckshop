@@ -45,7 +45,7 @@
                                       <label for="text">{{ trans('cart.no_of_copies') }}*:</label>
                                      {{--  <label id="binding_price_per_product_{{$data->id}}" class = "price_per_product"></label> --}}
                                      <input type="hidden" id = "{{'sequence_'.$key}}" value="0" name={{"sequence_".$key."_0"}}>
-                                      <input type="number" id="no_of_copies" min="0" onchange="setQuantity({{count($product_data)}});InsertSplitOrder({{$data->id}} , 0, this)"; name={{"no_of_copies[".$key."]"}}  class="form-control" placeholder="{{ trans('cart.enter_here') }}" value={{$data->no_of_copies}}>
+                                      <input type="number" id="no_of_copies" min="0" onchange="InsertSplitOrder({{$data->id}} , 0, this); " name={{"no_of_copies[".$key."]"}}  class="form-control" placeholder="{{ trans('cart.enter_here') }}" value={{$data->no_of_copies}}>
                                       @if($errors->has('no_of_copies.'.$key))
                                       <div class="error">{{ $errors->first('no_of_copies.'.$key) }}</div>
                                       @endif 
@@ -53,7 +53,7 @@
                                     <div class="form-group">
                                       <label for="pwd">{{ trans('cart.no_of_cds') }}:</label>
                                       {{-- <label id="cd_price_per_product_{{$data->id}}" class = "cd price_per_product">Price/qty: 2.00 € </label> --}}
-                                      <input id="no_of_cds" type="number" min="0" name={{"no_of_cds[".$key."]"}}  class="form-control" placeholder="0" onchange="setQuantity({{count($product_data)}}); InsertSplitOrder({{$data->id}} , 0 , this);" value= @if(isset($data->no_of_cds)){{$data->no_of_cds}} @else {{0}} @endif>
+                                      <input id="no_of_cds" type="number" min="0" name={{"no_of_cds[".$key."]"}}  class="form-control" placeholder="0" onchange="InsertSplitOrder({{$data->id}} , 0 , this);" value= @if(isset($data->no_of_cds)){{$data->no_of_cds}} @else {{0}} @endif>
                                        @if($errors->has('no_of_cds.'.$key))
                                       <div class="error">{{ $errors->first('no_of_cds.'.$key) }}</div>
                                       @endif
@@ -514,20 +514,20 @@
 
     clearSplitOrderTable();
 
-     setTimeout(function(){
-
-        var l = $("[id='no_of_cds']");
-        l.each(function(e) { 
-          $(this).trigger('onchange');
-        }); 
-      }, 150);   
+     
 
      setTimeout(function(){
         var n = $("[id='no_of_copies']");
         n.each(function(e) {  
           $(this).trigger('onchange');
         });
-     }, 170);   
+     }, 170);  
+
+    setTimeout(function(){ var l = $("[id='no_of_cds']");
+      l.each(function(e) { 
+        $(this).trigger('onchange');
+      }); 
+     }, 200);  
 
       setTimeout(function(){   
 
@@ -535,7 +535,7 @@
         o.each(function(e) { 
           $(this).trigger('onchange');
         }); 
-      }, 180);  
+      }, 230);  
 
       setTimeout(function(){ 
 
@@ -543,10 +543,10 @@
         p.each(function(e) {  
           $(this).trigger('onchange');
         }); 
-      }, 200);  
+      }, 260);  
 
      
-   window.setTimeout('setQuantity({{count($product_data)}})', 230);
+   window.setTimeout('setQuantity({{count($product_data)}})', 310);
 
 
     $('#rv-Modal-shipping').on('show.bs.modal', function(e) {
