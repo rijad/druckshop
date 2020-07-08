@@ -19,7 +19,7 @@ class Slider extends Model
      * 
      * @var string
      */
-    protected $table = 'ps_slider';
+    protected $table = 'ps_slider'; 
 
     /**
      * The "type" of the auto-incrementing ID.

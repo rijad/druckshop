@@ -85,6 +85,8 @@ Route::get('/loose-print','CheckoutController@loosePrint')->name('loose-print');
 Route::POST('/product-order','CheckoutController@saveOrder')->name('product-order');
 Route::POST('/orders-details','CheckoutController@orderDetails')->name('orders-details'); 
 Route::POST('/set-quantity','CheckoutController@setQuantity')->name('set-quantity'); 
+Route::POST('/insert-split-order','CheckoutController@insertSplitOrder')->name('insert-split-order'); 
+Route::POST('/remove-split-order','CheckoutController@removeSplitOrder')->name('remove-split-order');
 Route::POST('/get-attributes','CheckoutController@getAttributes')->name('get-attributes'); 
 Route::get('/remove-item/{id}','CheckoutController@removeItem')->name('remove-item');
 Route::POST('/paper-weight-sheets','CheckoutController@paperWeightSheets')->name('paper-weight-sheets');
@@ -143,7 +145,7 @@ Route::get('/payment-paypal','CheckoutController@paymentPaypal')->name('payment-
 Route::get('/cash-on-delivery','CheckoutController@cashOnDelivery')->name('cash-on-delivery');
 
 Route::get('/payment-fail', function () {
-    return view('paypalfail'); 
+    return view('/pages/front-end/paypalfail'); 
 })->name('payment-fail');
 
 Route::get('/gallery-images','Admin\GalleryController@gallery')->name('gallery-images');
@@ -178,7 +180,7 @@ Route::group(['namespace'=>'Admin', 'prefix' => 'admin'], function()
     Route::post('/delete-user','AdminUsersController@destroy')->name('delete-user');
 
     Route::resource('/changepassword','PasswordController');
-
+ 
 //Roles Permissions
     Route::get('/roles','AdminUsersController@getRoles')->name('roles');
     Route::get('/roles-update/{id}','AdminUsersController@updateRoles')->name('roles-update');
@@ -208,7 +210,8 @@ Route::group(['namespace'=>'Admin', 'prefix' => 'admin'], function()
 
 //order
     Route::get('/order','OrderController@index')->name('order');
-    Route::get('/order-details/{order_id}','OrderController@edit')->name('order-details')->middleware(['orderaccess:Change Orders Attributes']);
+    Route::get('/order-details/{order_id}','OrderController@edit')->name('order-details')->middleware('orderaccess','orderfiles');
+
     Route::post('/order-edit/{id}','OrderController@update')->name('order-edit'); 
 
     Route::get('/defected-order-email/{user_id}/{order_id}/{old_file_name}','OrderController@sendDefectedOrderEmail')->name('defected-order-email'); 

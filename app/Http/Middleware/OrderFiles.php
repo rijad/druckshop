@@ -7,9 +7,10 @@ use Illuminate\Support\Facades\Auth;
 use App\UserPermissions;
 use Session;
 
-class OrderAccessMiddleware
+
+class OrderFiles
 {
-    /**  
+    /**
      * Handle an incoming request.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -18,6 +19,7 @@ class OrderAccessMiddleware
      */
     public function handle($request, Closure $next)
     {
+
         if (Auth::user()) {
             $user_id = Auth::user()->id;
         } 
@@ -30,19 +32,19 @@ class OrderAccessMiddleware
             $data = ['Parameter'=> 0, 'Return orders' => 0, 'Sliders' => 0, 'Latest' => 0, 'Change Orders Attributes' => 0, 'Order Files' => 0];
         }
         
-        if(array_key_exists('Change Orders Attributes', $data)){  
+        
+        if(array_key_exists('Order Files', $data)){    
 
-            if($data['Change Orders Attributes'] == 1){ 
-                Session::put('Change Orders Attributes', true);
-               return $next($request);
+            if($data['Order Files'] == 1){
+                 Session::put('Order Files', true);
+                 return $next($request);
             }else{
-                 Session::put('Change Orders Attributes', false);
-                return $next($request);
-            } 
-        }
-       
+                 Session::put('Order Files', false);
+                 return $next($request); 
+            }
+
+        }    
     
-               
-       //return $next($request);
+       // return $next($request); 
     }
 }

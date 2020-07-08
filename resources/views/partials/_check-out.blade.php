@@ -1,6 +1,6 @@
 <div class="content-wrapper">
 			<div class="container"> 
- 
+  
 				<div class="checkoutStepper col-full text-left"> 
 
 					<!-- ====================== stepper added ================== -->
@@ -600,9 +600,9 @@
 													<div class="servicePrice">  
 														<ul> 
 															<li id="no_toggle"><p>{{ trans('checkout.total') }}</p><span id="total"><big>0.00 €</big></span></li>
-															<li class="displayNone"><p>{{ trans('checkout.binding_price') }}</p><span id="binding_price"><big>0.00 €</big></span><p class="per-copy">{{ trans('checkout.per_copy') }}</p></li>
-															<li class="displayNone"><p>{{ trans('checkout.printouts') }}</p><span id="printout"><big>0.00 €</big></span><p class="per-copy">{{ trans('checkout.per_copy') }}</p></li>
-															<li class="displayNone"><p>{{ trans('checkout.embossment') }}</p><span id="embossment"><big>0.00 €</big><p class="per-copy">{{ trans('checkout.per_copy') }}</p></span></li>
+															<li class="displayNone"><p>{{ trans('checkout.binding_price')}} {{ trans('checkout.per_copy') }}</p> <p class="per-copy"></p><span id="binding_price"><big>0.00 €</big></span></li>
+															<li class="displayNone"><p>{{ trans('checkout.printouts') }} {{ trans('checkout.per_copy') }}</p><p class="per-copy"></p><span id="printout"><big>0.00 €</big> ></span</li>
+															<li class="displayNone"><p>{{ trans('checkout.embossment') }} {{ trans('checkout.per_copy') }}</p> <p class="per-copy"></p><span id="embossment"><big>0.00 €</big></span></li>
 															<li class="displayNone"><p>{{ trans('checkout.cds') }}</p><span id="cd_dvd"><big>0.00 €</big></span></li>
 															<li class="displayNone"><p>{{ trans('checkout.data_checks') }}</p><span id="data_check_price"><big>0.00 €</big></span></li>
 															<li id="toggle" class="morelink" onclick="openTray(this);"><p>View More...</p></li>
