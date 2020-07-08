@@ -28,11 +28,19 @@
                     </div>Customers
                 </a>
 
-                @if(Auth::guard('admin')->user()->role == 0)
+                
                 <a class="nav-link" href="{{ route('roles') }}"> 
                     <div class="sb-nav-link-icon">
                         <i class="fa fa-sliders"></i>
-                    </div>Roles & Permissions
+                    </div>Permissions
+                </a>
+                
+
+                @if(Auth::guard('admin')->user()->role == 0)
+                <a class="nav-link" href="{{ route('user-roles') }}"> 
+                    <div class="sb-nav-link-icon">
+                        <i class="fa fa-sliders"></i>
+                    </div>Roles
                 </a>
                 @endif
 
@@ -44,36 +52,47 @@
                 </a>
                 @endif
 
+                @if (Session::get('Sliders') == true)
                 <a class="nav-link" href="{{ route('slider.index') }}"> 
                     <div class="sb-nav-link-icon">
                         <i class="fa fa-sliders"></i>
                     </div>Sliders
                 </a>
+                @elseif (Session::get('Sliders') == false)
+                    <a></a>
+                @endif 
 
                 <!-- <a class="nav-link" href="{{ route('gallery.index') }}">
                     <div class="sb-nav-link-icon">
                         <i class="fa fa-sliders"></i>
                     </div>Gallery
                 </a> -->
-
-                @if(Auth::guard('admin')->user()->role == 0 || Auth::guard('admin')->user()->role == 1)
+                
+                @if (Session::get('Parameter') == true)
                 <a class="nav-link" href="{{ route('parameter.index') }}">
                     <div class="sb-nav-link-icon">
                         <i class="fas fa-tachometer-alt"></i>
                     </div>Parameters
                 </a>
-                @endif
+                @elseif (Session::get('Parameter') == false)
+                    <a></a>
+                @endif 
 
                 <a class="nav-link" href="{{ route('order') }}">
                     <div class="sb-nav-link-icon">
                         <i class="fa fa-shopping-cart"></i>
                     </div>Orders
                 </a>
+
+                @if (Session::get('Return Orders') == true)
                 <a class="nav-link" href="{{ route('returnorder.index') }}">
                     <div class="sb-nav-link-icon">
                         <i class="fa fa-shopping-cart"></i>
                     </div>Return Orders
                 </a>
+                @elseif (Session::get('Return Orders') == false)
+                    <a></a>
+                @endif 
 
                 <a class="nav-link" href="{{ route('newsletter.index') }}"> 
                     <div class="sb-nav-link-icon">
@@ -101,11 +120,16 @@
                         <i class="fas fa-tachometer-alt"></i>
                     </div>About
                 </a>
+
+                @if (Session::get('Latest') == true)
                 <a class="nav-link" href="{{ route('latest.index') }}">
                     <div class="sb-nav-link-icon">
                         <i class="fas fa-tachometer-alt"></i>
                     </div>Latest
                 </a>
+                @elseif (Session::get('Latest') == false)
+                    <a></a>
+                @endif 
 
                 <a class="nav-link" href="{{ route('bindingsample.index') }}">
                     <div class="sb-nav-link-icon">

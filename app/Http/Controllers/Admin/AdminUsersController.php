@@ -252,9 +252,17 @@ class AdminUsersController extends Controller
         }catch (Exception $e) {
             $return = [];
         }
+        // try{
+        //     $counting = Permissions::count();
+        //     // dd($counting);
+
+        // }catch (Exception $e) {
+        //     $return = [];
+        // }
 
         try{
-        $permission_details = UserPermissions::with('roles')->get();
+        // $permission_details = UserPermissions::with('roles')->where('user_role', '2')->get();
+        $permission_details = UsersAdmin::with('rolePermission')->where('role', '2')->get();
         }catch (Exception $e) {
             $return = [];
         }
@@ -265,6 +273,7 @@ class AdminUsersController extends Controller
 
     public function updateRoles(Request $request, $id)
     { 
+        // dd($request->input());
         $details=[];
 
             $input = $request->all();

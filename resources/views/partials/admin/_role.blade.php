@@ -1,5 +1,5 @@
 <div class="card mb-4 mt-4">
-    <div class="card-header"><span>Roles & Permissions</span>
+    <div class="card-header"><span>Roles</span>
     </div>
                 @if (session('status'))
                     <div class="alert alert-success" role="alert">
@@ -23,9 +23,6 @@
                                         <th>S No.</th>
                                         <th>Name</th>
                                         <th>Role</th>
-                                        @foreach($rows as $row)
-                                            <th>{{ $row->permission_name}}</th>
-                                        @endforeach
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
@@ -34,37 +31,32 @@
                                         <th>S No.</th>
                                         <th>Name</th>
                                         <th>Role</th>
-                                        @foreach($rows as $row)
-                                            <th>{{ $row->permission_name}}</th>
-                                        @endforeach
                                         <th>Actions</th>
                                     </tr>
                                 </tfoot> 
                                 
                                 <tbody>
-                                    @if(!empty($permission_details))
-                                        @foreach($permission_details as $index => $detail)
+                                    @if(!empty($names))
+                                        @foreach($names as $index => $name)
                                             <tr>
-                                                <form method="GET" action="{{route('roles-update', $detail->id )}}" class="ml-2">
+                                                <form method="GET" action="{{route('user-roles-update', $name->id )}}" class="ml-2">
                                                     @csrf
                                                     <td>{{ $index +1 }}</td>
-                                                    <td>{{ $detail->name }}</td>
-                                                    <td>@if($detail->role == '2'){{'Employee'}}
-                                                    @endif</td>
-                                                    @if(!empty($detail->rolePermission->permissions))
-                                                        @foreach(json_decode($detail->rolePermission->permissions , true) as $key=>$value)
-                                                            <td>
-                                                                <input type="checkbox" value="{{ $value }}" <?= ($value == 1)? 'checked':''?> name="{{ $key }}">
-                                                            </td>
+                                                    <td>{{ $name->name }}</td>
+                                                    <td>
+                                                        @foreach($roles as $role)
+                                                            <div class="form-group">
+                                                                <label class="small mb-1">{{ $role->role }}</label>
+                                                                <input type="radio" name="role" value="@if($role->role == 'SuperAdmin'){{'0'}}
+                                                                                                        @elseif($role->role == 'Admin'){{'1'}}
+                                                                                                        @elseif($role->role == 'Employee'){{'2'}}
+                                                                                                        @endif" 
+                                                                                                        <?php echo ($name->role == '0' && $role->role == 'SuperAdmin') ? 'checked':'' ?>
+                                                                                                        <?php echo ($name->role == '1' && $role->role == 'Admin') ? 'checked':'' ?>
+                                                                                                        <?php echo ($name->role == '2' && $role->role == 'Employee') ? 'checked':'' ?> >
+                                                            </div>
                                                         @endforeach
-                                                    @else
-                                                        @foreach($rows as $key=>$value)
-                                                                <td>
-                                                                    <input type="checkbox" value="{{ $value->permission_name }}" name="{{ $value->permission_name }}">
-                                                                </td>
-                                                        @endforeach
-                                                    @endif
-
+                                                    </td>
                                                     <td class="form-inline">
                                                         <input type="submit" value="save" class="btn btn-success">
                                                     </td>
