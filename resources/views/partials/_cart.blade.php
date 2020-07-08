@@ -35,11 +35,17 @@
                                     </ul>
                                     <div class="rv-formCart" id = {{"appendContents".$key}}>
                                       <div class="rv-casualBioFields" id = {{"cloneBioFields_".$key}} name = {{"cloneBioFields_".$key."_".'0'}}>
+
+
+                                      {{-- <input type="hidden" id = {{"total_cds_after_split".$key}} value="0" name={{"total_cds_after_split".$key}}>
+                                      <input type="hidden" id = {{"total_copies_after_split".$key}} value="0" name={{"total_copies_after_split".$key}}> --}}
+
+
                                         <div class="form-group">
                                       <label for="text">{{ trans('cart.no_of_copies') }}*:</label>
                                      {{--  <label id="binding_price_per_product_{{$data->id}}" class = "price_per_product"></label> --}}
                                      <input type="hidden" id = "{{'sequence_'.$key}}" value="0" name={{"sequence_".$key."_0"}}>
-                                      <input type="number" id="no_of_copies" onchange="setSession({{$key}},'no_of_copies'); setQuantity({{count($product_data)}});InsertSplitOrder({{$data->id}} , 0, this)"; name={{"no_of_copies[".$key."]"}}  class="form-control" placeholder="{{ trans('cart.enter_here') }}" value=@if(isset($data->attribute)) <?php $array = json_decode($data->attribute); ?>  {{$array->no_of_copies}} @else {{1}} @endif >
+                                      <input type="number" id="no_of_copies" min="0" onchange="setQuantity({{count($product_data)}});InsertSplitOrder({{$data->id}} , 0, this)"; name={{"no_of_copies[".$key."]"}}  class="form-control" placeholder="{{ trans('cart.enter_here') }}" value={{$data->no_of_copies}}>
                                       @if($errors->has('no_of_copies.'.$key))
                                       <div class="error">{{ $errors->first('no_of_copies.'.$key) }}</div>
                                       @endif 
@@ -47,7 +53,7 @@
                                     <div class="form-group">
                                       <label for="pwd">{{ trans('cart.no_of_cds') }}:</label>
                                       {{-- <label id="cd_price_per_product_{{$data->id}}" class = "cd price_per_product">Price/qty: 2.00 € </label> --}}
-                                      <input id="no_of_cds" type="number" name={{"no_of_cds[".$key."]"}}  class="form-control" placeholder="0" onchange="setSession({{$key}},'no_of_cds'); setQuantity({{count($product_data)}}); InsertSplitOrder({{$data->id}} , 0 , this);" value=@if(isset($data->attribute)) <?php $array = json_decode($data->attribute); ?>  {{$array->number_of_cds}} @else {{0}} @endif>
+                                      <input id="no_of_cds" type="number" min="0" name={{"no_of_cds[".$key."]"}}  class="form-control" placeholder="0" onchange="setQuantity({{count($product_data)}}); InsertSplitOrder({{$data->id}} , 0 , this);" value= @if(isset($data->no_of_cds)){{$data->no_of_cds}} @else {{0}} @endif>
                                        @if($errors->has('no_of_cds.'.$key))
                                       <div class="error">{{ $errors->first('no_of_cds.'.$key) }}</div>
                                       @endif
@@ -506,10 +512,41 @@
 <script>
   $(document).ready( function () {
 
-      
-    setTimeout(function(){
-      setQuantity({{count($product_data)}});
-    },700);   
+    clearSplitOrderTable();
+
+     setTimeout(function(){
+
+        var l = $("[id='no_of_cds']");
+        l.each(function(e) { 
+          $(this).trigger('onchange');
+        }); 
+      }, 150);   
+
+     setTimeout(function(){
+        var n = $("[id='no_of_copies']");
+        n.each(function(e) {  
+          $(this).trigger('onchange');
+        });
+     }, 170);   
+
+      setTimeout(function(){   
+
+        var o = $("[id='address_data']");
+        o.each(function(e) { 
+          $(this).trigger('onchange');
+        }); 
+      }, 180);  
+
+      setTimeout(function(){ 
+
+        var p = $("[id='shipping_company']");
+        p.each(function(e) {  
+          $(this).trigger('onchange');
+        }); 
+      }, 200);  
+
+     
+   window.setTimeout('setQuantity({{count($product_data)}})', 230);
 
 
     $('#rv-Modal-shipping').on('show.bs.modal', function(e) {
@@ -591,6 +628,9 @@ $(document).ready(function() {
     $(this).prev().toggle(); 
     return false; 
   }); 
+
+
+
 
 });  
 

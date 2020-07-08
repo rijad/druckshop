@@ -926,13 +926,13 @@ $total = filter_var(floatval($total), FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_
 	$OrderAttributes->price_product_qty = floatval($total) * ($request->no_of_copies);
 	$OrderAttributes->quantity = 1; 
 	$OrderAttributes->no_of_copies = $request->no_of_copies; 
-	$OrderAttributes->no_of_cds = $request->no_of_cds;
+	$OrderAttributes->no_of_cds = $request->number_of_cds;
 	$OrderAttributes->status= 1;
 	$OrderAttributes->save();
 
 	//dd($OrderAttributes);
 
-//dd($OrderAttributes);
+
 	session(['product_id' =>  $product."_".$user_id."_".time()]);
 
 	return redirect()->route('cart');
@@ -951,7 +951,7 @@ public function cart(){
 		}catch(Exception $e){
 			$product_data = [];
 		}
-
+//dd($product_data);
 
 		try{
 			$billing_address_data = UserAddress::where(['address_type'=>'billing','user_id'=>$user_id, 'default'=>'1'])->limit('1')->get();
@@ -992,6 +992,8 @@ public function cart(){
 	}
 
 public function orderDetails(Request $request){  
+
+	//dd($request->input());
 
 
 $total = 0;
@@ -1067,10 +1069,12 @@ if (Auth::check() && Auth::user()->name != "Guest") // if user is logged in no n
 
 			$update_data = $product_detail;
 			$update_data->item_sequence = $key+1;
-			$update_data->no_of_copies = $request->no_of_copies[$key];
-			$update_data->no_of_cds = $request->no_of_cds[$key];
-			$update_data->shipping_company = deliveryServiceById($request->shipping_company[$key]);
-			$update_data->shipping_address = $request->shipping_address[$key];
+			// $update_data->no_of_copies = $request->no_of_copies[$key];
+			// $update_data->no_of_cds = $request->no_of_cds[$key];
+			// $update_data->no_of_copies = $request->total_copies_after_split.$key;
+			// $update_data->no_of_cds = $request->total_cds_after_split.$key;
+			// $update_data->shipping_company = deliveryServiceById($request->shipping_company[$key]);
+			// $update_data->shipping_address = $request->shipping_address[$key];
 			$update_data->billing_address = $request->billing_address; 
 			$update_data->save();   
 
@@ -1134,17 +1138,34 @@ if (Auth::check() && Auth::user()->name != "Guest") // if user is logged in no n
    $net_amt_after_delivery_service = $net_amt + $total_delivery_service;
 
 
-	Session::put('order_id', $user_id.'_'.time());
+   $order_id = $user_id.'_'.time();
+
+	Session::put('order_id', $order_id);
 
 
 	$OrderDetailsvalue = new OrderDetails;
 	$OrderDetailsvalue->user_id = $user_id;
-	$OrderDetailsvalue->order_id= $user_id.'_'.time();
+	$OrderDetailsvalue->order_id= $order_id;
 	$OrderDetailsvalue->promo_code= $request->input('code'); 
 	$OrderDetailsvalue->email_id= $request->input('email_id');
 	$OrderDetailsvalue->total= $total;
+	$OrderDetailsvalue->billing_address= $request->input('billing_address');
 	$OrderDetailsvalue->net_amt= $net_amt_after_delivery_service;  
 	$OrderDetailsvalue->save();
+
+
+	//update unique id in split order addresses table with order id, so that it could be fetched in admin panel.
+
+	$split_order_record = SplitOrderShippingAddress::where(['user_id' => $user_id , 'status' => 0])->get();
+
+	foreach ($split_order_record as $key => $value) {
+
+		$UpdateSplitOrder = $value;
+		$UpdateSplitOrder->unique_id = $order_id;
+		$UpdateSplitOrder->status = 1;
+		$UpdateSplitOrder->save();
+
+	}
 
 
 //dd($total);
@@ -1196,6 +1217,20 @@ if (Auth::check() && Auth::user()->name != "Guest") // if user is logged in no n
 
 
 }   
+
+
+public function clearSplitOrderTable(Request $request){
+
+	if (Auth::check())
+	{
+		$user_id = Auth::user()->id;
+	}else{
+		$user_id = 0;
+	}
+
+	$record = SplitOrderShippingAddress::where(['user_id' => $user_id, 'status' => 0])->delete();
+
+}
 
 
 public function getDiscountcodeStatus(Request $request){
@@ -1520,7 +1555,7 @@ public function paymentPaypalSuccess(Request $request){
 		//$OrderDetailsFinal->shipping_company= $OrderDetails->shipping_company;
 		$OrderDetailsFinal->promo_code= $OrderDetails->promo_code;
 		//$OrderDetailsFinal->shipping_address= $OrderDetails->shipping_address;
-		//$OrderDetailsFinal->billing_address= $OrderDetails->billing_address;
+		$OrderDetailsFinal->billing_address= $OrderDetails->billing_address;
 		$OrderDetailsFinal->total= floatval($OrderDetails->total);
 		$OrderDetailsFinal->net_amt= $OrderDetails->net_amt;
 		$OrderDetailsFinal->status= $_GET['st'];
@@ -1668,7 +1703,7 @@ public function paymentPaypalSuccess(Request $request){
 			//$OrderDetailsFinal->shipping_company= $OrderDetails->shipping_company;
 		$OrderDetailsFinal->promo_code= $OrderDetails->promo_code;
 			//$OrderDetailsFinal->shipping_address= $OrderDetails->shipping_address;
-			//$OrderDetailsFinal->billing_address= $OrderDetails->billing_address;
+		$OrderDetailsFinal->billing_address= $OrderDetails->billing_address;
 		$OrderDetailsFinal->total= $OrderDetails->total;
 		$OrderDetailsFinal->net_amt= $OrderDetails->net_amt;
 		$OrderDetailsFinal->status= "Pending";

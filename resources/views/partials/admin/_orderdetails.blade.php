@@ -77,9 +77,9 @@
                             <th>Product description</th>
                             <th>No of Copies</th>
                             <th>No of CDs</th> 
-                            <th>Shipping Addresss</th>
-                            <th>Billing Address</th>
-                            <th>Shipping Company</th>
+                            {{-- <th>Shipping Addresss</th> --}}
+                            <th colspan = "3">Billing Address</th>
+                            {{-- <th>Shipping Company</th> --}}
                             <th>Price</th>
                         </tr>
                     </thead>
@@ -89,9 +89,9 @@
                             <td>{{ $order->attribute_desc}}</td>
                             <td>{{ $order->no_of_copies }}</td>
                             <td>{{ $order->no_of_cds }}</td>
-                            <td>{{ $order->shipping_address }}</td>
-                            <td>{{ $order->billing_address }}</td>
-                            <td>{{ $order->shipping_company }}</td>
+                           {{--  <td>{{ $order->shipping_address }}</td> --}}
+                            <td colspan = "3">{{ $order->billing_address }}</td>
+                            {{-- <td>{{ $order->shipping_company }}</td> --}}
                             <td>{{ number_format($order->price_product_qty,2) }}</td>
                         </tr>
                     </thead>
@@ -101,8 +101,8 @@
 
                     <tr> 
                         <th>S.No</th> 
-                        <th colspan='4'>File</th> 
-                        <th colspan='3'>Actions</th>    
+                        <th colspan='4'>File</th>  
+                        <th colspan='4'>Actions</th>    
 
                     </tr>
                     <?php $i = 1; ?>
@@ -127,7 +127,7 @@
                                 </td>
   
 
-                                <td colspan='2'>@if($key == "selectfile_backcover" || $key == "selectfile_coversheet" || $key == "selectfile_content" || $key == "selectfile_din_A3" || $key == "selectfile_din_A2" || $key == "selectfile_logo" || $key == "selectfile_file" || $key == "selectfile_cd" || $key == "selectfile_logo_cd" || $key == "selectfile_upload_cd_without_logo") @if($value != null ) 
+                                <td colspan='3'>@if($key == "selectfile_backcover" || $key == "selectfile_coversheet" || $key == "selectfile_content" || $key == "selectfile_din_A3" || $key == "selectfile_din_A2" || $key == "selectfile_logo" || $key == "selectfile_file" || $key == "selectfile_cd" || $key == "selectfile_logo_cd" || $key == "selectfile_upload_cd_without_logo") @if($value != null ) 
 
                                      @if (Session::get('Order Files') == true)
 
@@ -151,13 +151,36 @@
                                              @endif 
 
                                          @endif
+                                         <br>
+                                          @if($key == "selectfile_backcover" || $key == "selectfile_coversheet" || $key == "selectfile_content" || $key == "selectfile_din_A3" || $key == "selectfile_din_A2" || $key == "selectfile_logo" || $key == "selectfile_file" || $key == "selectfile_cd" || $key == "selectfile_logo_cd" || $key == "selectfile_upload_cd_without_logo" || $key == "embossment-template-name" || $key == "cd-template-name") @if($value != null )<a href="{{route('defected-order-email',['user_id'=>$order->user_id,'order_id'=>$order->order_id,'old-file-name'=>$value])}}" >Send Mail</a> @endif @endif
                                     @endif
-                                @if($key == "selectfile_backcover" || $key == "selectfile_coversheet" || $key == "selectfile_content" || $key == "selectfile_din_A3" || $key == "selectfile_din_A2" || $key == "selectfile_logo" || $key == "selectfile_file" || $key == "selectfile_cd" || $key == "selectfile_logo_cd" || $key == "selectfile_upload_cd_without_logo" || $key == "embossment-template-name" || $key == "cd-template-name") @if($value != null )<a href="{{route('defected-order-email',['user_id'=>$order->user_id,'order_id'=>$order->order_id,'old-file-name'=>$value])}}" >Send Mail</a> @endif @endif
                                 </td>   
                             </tr>
-                        @endif 
+                        @endif  
                     @endif
-                    @endforeach  
+                    @endforeach
+                    
+                    <tr><th colspan = "8"><center>Order - Shipping Addresses Details</center></th></tr>
+
+                    <tr>
+                    <th>S.no</th>
+                    <th>No of Copies</th>
+                    <th>No of CDs</th>
+                    <th  colspan = "4">Shipping Address</th>
+                    <th>Shipping Company</th>
+                    </tr>  
+
+                    @foreach($splitOrder as $key=>$details)
+                    
+                    <tr>
+                    <td> {{ $key + 1 }} </td>
+                    <td> {{$details->no_of_copies}} </td>
+                    <td> {{$details->no_of_cds}}  </td>
+                    <td  colspan = "4"> {{$details->shipping_address}}  </td>
+                    <td>{{getShippingCompanyById($details->shipping_company)}}</td>
+                    </tr>
+
+                    @endforeach
                 </table>
             @endforeach 
         </div>

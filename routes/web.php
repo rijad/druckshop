@@ -84,9 +84,12 @@ Route::get('/get-relations-content','CheckoutController@getContentAttributes')->
 Route::get('/loose-print','CheckoutController@loosePrint')->name('loose-print');
 Route::POST('/product-order','CheckoutController@saveOrder')->name('product-order');
 Route::POST('/orders-details','CheckoutController@orderDetails')->name('orders-details'); 
+
 Route::POST('/set-quantity','CheckoutController@setQuantity')->name('set-quantity'); 
 Route::POST('/insert-split-order','CheckoutController@insertSplitOrder')->name('insert-split-order'); 
 Route::POST('/remove-split-order','CheckoutController@removeSplitOrder')->name('remove-split-order');
+Route::POST('/clear-split-order','CheckoutController@clearSplitOrderTable')->name('clear-split-order');
+
 Route::POST('/get-attributes','CheckoutController@getAttributes')->name('get-attributes'); 
 Route::get('/remove-item/{id}','CheckoutController@removeItem')->name('remove-item');
 Route::POST('/paper-weight-sheets','CheckoutController@paperWeightSheets')->name('paper-weight-sheets');
