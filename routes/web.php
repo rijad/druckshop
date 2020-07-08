@@ -163,9 +163,9 @@ Route::get('/payment-success','CheckoutController@paymentPaypalSuccess')->name('
 Route::group(['namespace'=>'Admin', 'prefix' => 'admin'], function()
 {
     Route::get('/dashboard','DashboardController@index')->name('dashboard');
-    Route::resource('/slider','SliderController')->middleware(['permissions:Sliders']);
+    Route::resource('/slider','SliderController')->middleware('sliders');
     Route::resource('/bindingsample','BindingSampleImageController');
-    Route::resource('/latest','LatestController')->middleware(['permissions:Latest']);
+    Route::resource('/latest','LatestController')->middleware('latest');
     Route::resource('/stylesheet','StyleSheetController');
     Route::resource('/customer','UsersController');
     Route::resource('/newsletter','NewsletterController');
@@ -187,6 +187,8 @@ Route::group(['namespace'=>'Admin', 'prefix' => 'admin'], function()
 //Roles Permissions
     Route::get('/roles','AdminUsersController@getRoles')->name('roles');
     Route::get('/roles-update/{id}','AdminUsersController@updateRoles')->name('roles-update');
+    Route::get('/user-roles','RolesController@index')->name('user-roles');
+    Route::get('/user-roles-update/{id}','RolesController@update')->name('user-roles-update');
 
 // details about user
     Route::get('/change-password/{role}','AdminUsersController@changeAdminPassword')->name('change-password');
@@ -197,7 +199,7 @@ Route::group(['namespace'=>'Admin', 'prefix' => 'admin'], function()
     Route::post('/about-update','PagesController@aboutupdate')->name('about-update');
 
 //Parameters
-    Route::resource('/parameter','ParameterController')->middleware(['permissions:Parameter']);
+    Route::resource('/parameter','ParameterController')->middleware('parameter');
     Route::get('/details/{model}/{id}','ParameterController@details')->name('details');
     Route::resource('/covercolor','CoverColorController'); 
     Route::resource('/coversheet','CoverSheetController');
@@ -220,12 +222,9 @@ Route::group(['namespace'=>'Admin', 'prefix' => 'admin'], function()
     Route::get('/defected-order-email/{user_id}/{order_id}/{old_file_name}','OrderController@sendDefectedOrderEmail')->name('defected-order-email'); 
     Route::post('/trackingNumberSendMail','OrderController@trackingNumberSendMail')->name('trackingNumberSendMail');
 
-
-    Route::resource('/returnorder','ReturnOrdersController')->middleware(['permissions:Return orders']);
-
+    Route::resource('/returnorder','ReturnOrdersController')->middleware('returnorders');
 
     Route::resource('/stylesheet','StyleSheetController'); 
-
 
     Route::resource('/customer','UsersController'); 
     Route::resource('/newsletter','NewsletterController');
