@@ -1280,10 +1280,11 @@ public function setQuantity(Request $request){
 		
 	$data = OrderAttributes::where('user_id', $user_id)->take($request->input('count'))->get()->toArray();
 
+
 	$record_id = $data[$sequence]['id'];
 
 
-    $attributes = json_decode($data[$sequence]['attribute'],true);
+	$attributes = json_decode($data[$sequence]['attribute'],true);
 
     foreach($attributes as $key => $value){
 
@@ -1354,13 +1355,24 @@ public function setQuantity(Request $request){
 
     
 
-    public function InsertSplitOrder(Request $request){
+    public function insertSplitOrder(Request $request){
 
-    //print_r($request->input('no_of_copies'));
+   // print_r($request->input('no_of_copies'));
 
-    	$record = SplitOrderShippingAddress::where('unique_id' , $request->input('rowId'))->first();
 
-    	print_r(json_encode($record));
+    	if (Auth::check())
+		{
+			$user_id = Auth::user()->id;
+	
+		}else{
+			$user_id = time();
+			Session::put('user_id', $user_id);
+		}
+
+
+    	$record = SplitOrderShippingAddress::where(['user_id'=>$user_id, 'unique_id' => $request->input('rowId') , 'sequence' => $request->input('sequence') ])->first();
+
+    	//print_r(json_encode($record)); 
 
     	if(json_encode($record) == "null"){
 
@@ -1370,6 +1382,9 @@ public function setQuantity(Request $request){
     		$new_record->shipping_address = $request->input('shipping_address');
     		$new_record->shipping_company = $request->input('shipping_company');
     		$new_record->unique_id = $request->input('rowId');
+    		$new_record->sequence = $request->input('sequence');
+    		$new_record->user_id = $user_id;
+    		$new_record->status = 0;
     		$new_record->save();
 
     		print_r($new_record);
@@ -1394,14 +1409,28 @@ public function setQuantity(Request $request){
     		if($request->input('shipping_company') != ""){
     			$update_record->shipping_company = $request->input('shipping_company');
     		}
+
+    		if($request->input('sequence') != ""){
+    			$update_record->sequence = $request->input('sequence');
+    		}
     		
     		$update_record->unique_id = $request->input('rowId');
+    		$update_record->user_id = $user_id;
+    		$update_record->status = 0;
     		$update_record->save();
 
     		print_r($update_record);
 
     	}
 
+    }
+
+
+    public function removeSplitOrder(Request $request){
+
+    print_r($request->input());
+
+    	$record = SplitOrderShippingAddress::where(['unique_id' => $request->input('rowId') , 'sequence' => $request->input('sequence') ])->delete();
     }
 
 

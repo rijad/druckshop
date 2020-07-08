@@ -34,11 +34,12 @@
                                     </li>
                                     </ul>
                                     <div class="rv-formCart" id = {{"appendContents".$key}}>
-                                      <div class="rv-casualBioFields" id = {{"cloneBioFields".$key}}>
+                                      <div class="rv-casualBioFields" id = {{"cloneBioFields_".$key}} name = {{"cloneBioFields_".$key."_".'0'}}>
                                         <div class="form-group">
                                       <label for="text">{{ trans('cart.no_of_copies') }}*:</label>
                                      {{--  <label id="binding_price_per_product_{{$data->id}}" class = "price_per_product"></label> --}}
-                                      <input type="number" id="no_of_copies" onchange="setQuantity({{count($product_data)}});InsertSplitOrder({{$data->id}} , {{$key}}, this)"; name={{"no_of_copies[".$key."]"}}  class="form-control" placeholder="{{ trans('cart.enter_here') }}" value=@if(isset($data->attribute)) <?php $array = json_decode($data->attribute); ?>  {{$array->no_of_copies}} @else {{1}} @endif >
+                                     <input type="hidden" id = "{{'sequence_'.$key}}" value="0" name={{"sequence_".$key."_0"}}>
+                                      <input type="number" id="no_of_copies" onchange="setSession({{$key}},'no_of_copies'); setQuantity({{count($product_data)}});InsertSplitOrder({{$data->id}} , 0, this)"; name={{"no_of_copies[".$key."]"}}  class="form-control" placeholder="{{ trans('cart.enter_here') }}" value=@if(isset($data->attribute)) <?php $array = json_decode($data->attribute); ?>  {{$array->no_of_copies}} @else {{1}} @endif >
                                       @if($errors->has('no_of_copies.'.$key))
                                       <div class="error">{{ $errors->first('no_of_copies.'.$key) }}</div>
                                       @endif 
@@ -46,14 +47,14 @@
                                     <div class="form-group">
                                       <label for="pwd">{{ trans('cart.no_of_cds') }}:</label>
                                       {{-- <label id="cd_price_per_product_{{$data->id}}" class = "cd price_per_product">Price/qty: 2.00 € </label> --}}
-                                      <input id="no_of_cds" type="number" name={{"no_of_cds[".$key."]"}}  class="form-control" placeholder="0" onchange="setQuantity({{count($product_data)}}); InsertSplitOrder({{$data->id}} , {{$key}} , this);" value=@if(isset($data->attribute)) <?php $array = json_decode($data->attribute); ?>  {{$array->number_of_cds}} @else {{0}} @endif>
+                                      <input id="no_of_cds" type="number" name={{"no_of_cds[".$key."]"}}  class="form-control" placeholder="0" onchange="setSession({{$key}},'no_of_cds'); setQuantity({{count($product_data)}}); InsertSplitOrder({{$data->id}} , 0 , this);" value=@if(isset($data->attribute)) <?php $array = json_decode($data->attribute); ?>  {{$array->number_of_cds}} @else {{0}} @endif>
                                        @if($errors->has('no_of_cds.'.$key))
                                       <div class="error">{{ $errors->first('no_of_cds.'.$key) }}</div>
                                       @endif
                                     </div>
                                      <div class="form-group">
                                       <label for="pwd">{{ trans('cart.ship_add') }}*:</label>
-                                      <select class="form-control" name={{"shipping_address[".$key."]"}} id="address_data" onchange="displayAddress(this,'{{'ship-address-'.$key}}'); InsertSplitOrder({{$data->id}} , {{$key}} , this);"> <option value ="-1">Select</option> 
+                                      <select class="form-control" name={{"shipping_address[".$key."]"}} id="address_data" onchange="displayAddress(this,'{{'ship-address-'.$key}}'); InsertSplitOrder({{$data->id}} , 0 , this);"> <option value ="-1">Select</option> 
                                       @foreach($shipping_address_data as $keysss=>$shipping_address)<option value = "{{$shipping_address->first_name." ".$shipping_address->last_name .
                                         
                                        (($shipping_address->company_name) ? ", ".$shipping_address->company_name : "" )
@@ -87,7 +88,7 @@
 
                                     <div class="form-group">
                                       <label for="email">{{ trans('cart.ship_comp') }}*:</label>
-                                      <select class="form-control" name={{"shipping_company[".$key."]"}} id="shipping_company" onchange = "InsertSplitOrder({{$data->id}} , {{$key}} , this);"> 
+                                      <select class="form-control" name={{"shipping_company[".$key."]"}} id="shipping_company" onchange = "InsertSplitOrder({{$data->id}} , 0 , this);"> 
                                       <option value ="-1">Select</option>
                                       @foreach($shipping_company as $value)<option value = "{{$value->id}}">{{$value->delivery_service}}</option> @endforeach
                                       </select>
@@ -96,12 +97,12 @@
                                       @endif
                                     </div>
 
-                                     <button type="button" onclick="RemoveSplitOrder({{$data->id}} , {{$key}});" class="remove_btn" > X </button> 
+                                     <button type="button"  id = {{'remove_split_order_'.$key}} onclick="RemoveSplitOrder({{$data->id}} , {{$key}});" class="remove_btn displayNone" > X </button> 
 
 
                                       </div>
                                       <div class="add-multi-address">
-                                        <button type = "button" name="add_multi_address_click" id="{{'add_multi_address_'.$key}}" class="rv-adressesfields" onclick="splitOrder({{$data->id}} , {{$key}});">Split Your Order</button>
+                                        <button type = "button" name="add_multi_address_click" id="{{'add_multi_address_'.$key}}" class="rv-adressesfields" onclick="splitOrder({{$data->id}} , {{$key}} , {{count($product_data)}});">Split Your Order</button>
                                       </div>
                                       <div class="rv-manageAddressFields">
                                         <h4>{{ trans('cart.manage_add') }}</h4>
@@ -494,7 +495,7 @@
       </div> 
   </div>
 </div>
-@else
+@else 
 
 <p class = "empty-cart">Your Cart is Empty.<p>
 @endif
@@ -505,7 +506,10 @@
 <script>
   $(document).ready( function () {
 
-    setQuantity({{count($product_data)}});
+      
+    setTimeout(function(){
+      setQuantity({{count($product_data)}});
+    },700);   
 
 
     $('#rv-Modal-shipping').on('show.bs.modal', function(e) {

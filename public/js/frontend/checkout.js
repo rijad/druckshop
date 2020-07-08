@@ -2066,14 +2066,41 @@ function displayPrice(status = "", binding = "", no_ofsheets = "", page_options 
 
 
 
-// -------     Code to handle checkout page pagination Ends ----------- //						
+// -------     Code to handle checkout page pagination Ends ----------- //	
+
+
+function setSession(prodSequence = "" , id = ""){
+
+	if(id == "no_of_copies" || id == "no_of_cds"){   //alert("in");
+
+		sessionStorage.removeItem("copies_prod_sequence");
+		sessionStorage.setItem("copies_prod_sequence", prodSequence);
+
+		sessionStorage.removeItem("cds_prod_sequence");
+		sessionStorage.setItem("cds_prod_sequence", prodSequence);
+
+	}  
+
+
+	// if(id == "no_of_cds"){
+
+	// 	sessionStorage.removeItem("cds_prod_sequence");
+	// 	sessionStorage.setItem("cds_prod_sequence", prodSequence);
+
+	// }  
+
+	//alert("cds session : "+sessionStorage.getItem("cds_prod_sequence"));
+
+
+
+}					
 
 
 function setQuantity(count = ""){  
 
 	var qty = []; var price_per_unit = []; var total_price_per_product = []; var total = 0;  var total_price_hidden = [];
 	var no_of_copies = []; var no_of_cds = []; var imprint = ""; var new_total_unit_price = []; new_total = []; new_data = [];
-	 var no_of_cds_new = [];
+	 var no_of_cds_new = []; var total_cds_after_split = []; var total_copies_after_split = [];
 
 
 	$.ajax({
@@ -2089,21 +2116,57 @@ function setQuantity(count = ""){
 			var cd_bag = ""; var no_of_colored_pages = ""; var embossing = ""; var no_of_copies = 0; 
 			var no_of_cds = 0; 
 
+
+			// alert("copies session : "+sessionStorage.getItem("cds_prod_sequence"));
+			// var m = $("input[name='no_of_cds["+sessionStorage.getItem("cds_prod_sequence")+"]']");
+			// m.each(function(e) {
+			// 	total_cds_after_split += parseInt($(this).val());
+			// }); 
+
+			// alert("copies session : "+sessionStorage.getItem("copies_prod_sequence"));
+			// var n = $("input[name='no_of_copies["+sessionStorage.getItem("copies_prod_sequence")+"]']");
+			// n.each(function(e) {	
+			// 	total_copies_after_split += parseInt($(this).val());	
+			// });
+
+			// sessionStorage.removeItem("copies_prod_sequence");
+			// sessionStorage.removeItem("cds_prod_sequence");
 			
+			for(var i = 0; i < data.length; i++){
+
+			    var m = $("[name='no_of_cds["+i+"]']"); 
+				m.each(function(e) { alert(i +"   "+ "  cd-each" + $(this).id);
+					total_cds_after_split[i] = parseInt($(this).val());
+				}); 
+
+//alert("cds : "+total_cds_after_split[i]);
+				var n = $("[name='no_of_copies["+i+"]']");
+				n.each(function(e) {	alert("copy-each" + $(this).id );
+					total_copies_after_split[i] = parseInt($(this).val());	
+				});
+
+				//alert("copies : "+total_copies_after_split[i]);
+
+		    
 		
-			for(var i = 0; i < data.length; i++){  
+		
 
-				no_of_copies = $("[name = 'no_of_copies["+i+"]' ]").val();
 
-				if($("[name = 'no_of_cds["+i+"]' ]").val() !=""){
+			// for(var i = 0; i < data.length; i++){  
 
-					no_of_cds = $("[name = 'no_of_cds["+i+"]' ]").val();
+			// 	no_of_copies = $("[name = 'no_of_copies["+i+"]' ]").val();
 
-				}else{
+			// 	if($("[name = 'no_of_cds["+i+"]' ]").val() !=""){
 
-					no_of_cds = 0;
+			// 		no_of_cds = $("[name = 'no_of_cds["+i+"]' ]").val();
 
-				}
+			// 	}else{
+
+			// 		no_of_cds = 0;
+
+			// 	}
+
+
 				
 							
 				if(data[i].hasOwnProperty('embossment-cover-sheet')){
@@ -2177,6 +2240,7 @@ function setQuantity(count = ""){
 				});
 				
 			new_data[i] = displayPrice('1', data[i]['binding'] , data[i]['no_of_pages'] , data[i]['page_options'] , embossment_cover,embossment_spine,paper_weight,number_of_A2_pages,number_of_pages,no_of_cds,data[i]['data_check'],cd_bag,no_of_colored_pages,'',no_of_copies,embossing,imprint);
+			//new_data[i] = displayPrice('1', data[i]['binding'] , data[i]['no_of_pages'] , data[i]['page_options'] , embossment_cover,embossment_spine,paper_weight,number_of_A2_pages,number_of_pages,total_cds_after_split[i],data[i]['data_check'],cd_bag,no_of_colored_pages,'',total_copies_after_split[i],embossing,imprint);
 			new_total_unit_price[i] = new_data[i]['data']['total_unit_price'];
 			new_total[i] = new_data[i]['data']['total'];
 
@@ -2187,6 +2251,7 @@ function setQuantity(count = ""){
 				url: base_url+'/set-quantity',  
 				type: 'POST', 
 				data: {'sequence' : i ,'no_of_copies': no_of_copies,'no_of_cds': no_of_cds,'qty': '-1','total' : new_total[i], 'count' : count, '_token': $('meta[name="csrf-token"]').attr('content')},
+				//data: {'sequence' : i ,'no_of_copies': total_copies_after_split[i],'no_of_cds': total_cds_after_split[i],'qty': '-1','total' : new_total[i], 'count' : count, '_token': $('meta[name="csrf-token"]').attr('content')},
 				success: function (response){
 
 					//console.log(response);
@@ -2195,6 +2260,8 @@ function setQuantity(count = ""){
 
 
 			}
+
+			
 
 			// Update in frontend
 
@@ -2211,7 +2278,8 @@ function setQuantity(count = ""){
 					
 		        } 
 		         i++;
-			}); 
+			});
+
 
 			
 			for(var i = 0; i < data.length; i++){  
@@ -2224,6 +2292,7 @@ function setQuantity(count = ""){
 					 no_of_cds_new[i] = 0;
 
 				}
+
 			}
 
 
@@ -2315,24 +2384,56 @@ function incrementQuantity(id = "",count = ""){
 } 
 
 
-function splitOrder(rowId = "", sequenceUI = ""){  alert(sequenceUI);
+function splitOrder(rowId = "", prodSequence = "", count = ""){  
 
-	var newel = $("#cloneBioFields"+sequenceUI).clone(true);
-	$(newel).find("[name = 'no_of_cds["+sequenceUI+"]' ]").attr("onchange","InsertSplitOrder("+rowId+","+sequenceUI+")");
-	$(newel).find("[name = 'no_of_copies["+sequenceUI+"]' ]").attr("onchange","InsertSplitOrder("+rowId+","+sequenceUI+")");
-	$(newel).find("[name = 'shipping_address["+sequenceUI+"]' ]").attr("onchange","InsertSplitOrder("+rowId+","+sequenceUI+")");
-	$(newel).find("[name = 'shipping_company["+sequenceUI+"]' ]").attr("onchange","InsertSplitOrder("+rowId+","+sequenceUI+")");
-	$(newel).insertAfter("#cloneBioFields"+sequenceUI);	
+	var sequence = "";  var split_order_button = ""; var split_id=""; var index = "";
+
+	sequence = $("[id = 'sequence_"+prodSequence+"']").last().attr('name'); 
+	split_id = sequence.split('_');  
+	prodSequence = Number(split_id[1]); 
+	uiSequence = Number(split_id[2]); 
+
+	//alert(split_id + "--------------" + index +"************"+sequenceUI);
+
+	var newel = $("#cloneBioFields_"+prodSequence).last().clone(true);
+	$(newel).find("[name = 'no_of_cds["+prodSequence+"]' ]").attr("onchange","InsertSplitOrder("+rowId+","+(parseInt(uiSequence) + 1)+",this)");
+	$(newel).find("[name = 'no_of_copies["+prodSequence+"]' ]").attr("onchange","InsertSplitOrder("+rowId+","+(parseInt(uiSequence)+ 1)+",this)");
+	$(newel).find("[name = 'shipping_address["+prodSequence+"]' ]").attr("onchange","InsertSplitOrder("+rowId+","+(parseInt(uiSequence)+ 1)+",this)");
+	$(newel).find("[name = 'shipping_company["+prodSequence+"]' ]").attr("onchange","InsertSplitOrder("+rowId+","+(parseInt(uiSequence)+ 1)+",this)");
+	$(newel).find("[id = 'remove_split_order_"+prodSequence+"' ]").attr("class","remove_btn displayBlock").attr("onclick","RemoveSplitOrder("+rowId+","+prodSequence+","+(parseInt(uiSequence) + 1)+")");
+	$(newel).find("[id = 'sequence_"+prodSequence+"']").last().attr('name',"sequence_"+prodSequence+"_"+(parseInt(uiSequence) + 1)+"").val(parseInt(uiSequence) + 1);  
+	
+	$(newel).insertAfter("[name = 'cloneBioFields_"+prodSequence+"_"+(parseInt(uiSequence))+"']");	
+
+	$("[id = 'cloneBioFields_"+prodSequence+"']").last().attr('name',"cloneBioFields_"+prodSequence+"_"+(parseInt(uiSequence) + 1)+"").val(parseInt(uiSequence) +1 );    
+	$("[name = 'no_of_cds["+prodSequence+"]' ]").attr("onchange","setSession("+prodSequence+",'no_of_cds'); setQuantity("+ count +"); InsertSplitOrder("+rowId+","+(parseInt(uiSequence) + 1)+",this)");
+	$("[name = 'no_of_copies["+prodSequence+"]' ]").attr("onchange","setSession("+prodSequence+",'no_of_copies'); setQuantity("+ count +"); InsertSplitOrder("+rowId+","+(parseInt(uiSequence)+ 1)+",this)");
 }
 
-function RemoveSplitOrder(rowId = "", sequenceUI = ""){
-	alert("hi");
+
+
+function RemoveSplitOrder(rowId = "", prodSequence ="" ,sequenceUI = ""){
+	//alert("-------INDEX-------" + index +"****SEQ********"+sequenceUI);
+	//alert("[id = 'cloneBioFields_"+sequenceUI+"_"+(parseInt(index))+"']");
+
+	// remove from database 
+	$.ajax({
+		url: base_url+'/remove-split-order',  
+		type: 'POST', 
+		data: {'sequence':sequenceUI,'rowId': rowId,'_token': $('meta[name="csrf-token"]').attr('content')},
+		success: function (response){
+		$("[name = 'cloneBioFields_"+prodSequence+"_"+(parseInt(sequenceUI))+"']").remove(); 
+		}
+	}); 
+
+		$("[name = 'cloneBioFields_"+prodSequence+"_"+(parseInt(sequenceUI))+"']").remove(); 
 }
 
-function InsertSplitOrder(rowId = "", sequenceUI = "", field = ""){ alert("insert");
 
-	var no_of_copies = ""; var no_of_cds = ""; var shipping_address = ""; var shipping_company = "";
 
+function InsertSplitOrder(rowId = "", sequenceUI = "", field = ""){ //alert(sequenceUI);
+
+	var no_of_copies = ""; var no_of_cds = ""; var shipping_address = ""; var shipping_company = ""; 
 		
 	if(field.id == "no_of_copies"){
 
@@ -2348,7 +2449,7 @@ function InsertSplitOrder(rowId = "", sequenceUI = "", field = ""){ alert("inser
 
 	if(field.id == "address_data"){
 
-		shipping_address = $(field).val();  alert(shipping_address);
+		shipping_address = $(field).val();  //alert(shipping_address);
 
 	}
 
@@ -2362,15 +2463,12 @@ function InsertSplitOrder(rowId = "", sequenceUI = "", field = ""){ alert("inser
 	$.ajax({
 		url: base_url+'/insert-split-order',  
 		type: 'POST', 
-		data: {'no_of_copies': no_of_copies,'no_of_cds': no_of_cds,'rowId': rowId,'shipping_address' : shipping_address, 'shipping_company' : shipping_company,'_token': $('meta[name="csrf-token"]').attr('content')},
+		data: {'sequence':sequenceUI,'no_of_copies': no_of_copies,'no_of_cds': no_of_cds,'rowId': rowId,'shipping_address' : shipping_address, 'shipping_company' : shipping_company,'_token': $('meta[name="csrf-token"]').attr('content')},
 		success: function (response){
 
 			console.log(response);
 		}
 	}); 
-
-
-
 
 }
 
