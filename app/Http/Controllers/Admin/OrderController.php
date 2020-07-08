@@ -10,6 +10,7 @@ use App\OrderDetailsFinal;
 use App\UsersAdmin;
 use App\OrderState;
 use App\OrderHistory;
+use App\SplitOrderShippingAddress;
 
 use Auth;
 use Mail;
@@ -109,6 +110,12 @@ class OrderController extends Controller
         }
 
         try{
+            $splitOrder = SplitOrderShippingAddress::where(['unique_id' => $id , 'status' => 1])->get();
+        }catch (Exception $e) {
+            $splitOrder = [];
+        }
+
+        try{
             $orderhistory = OrderDetailsFinal::with('orderProductHistory')
             ->where(['order_id' => $request->order_id ])
             ->first();
@@ -117,7 +124,7 @@ class OrderController extends Controller
         }
 
        // dd($orderhistory);
-        return view('/pages/admin/orderdetails',compact('orderhistory', 'users', 'orderstate', 'order'));
+        return view('/pages/admin/orderdetails',compact('orderhistory', 'users', 'orderstate', 'order', 'splitOrder'));
     }
 
     /**
