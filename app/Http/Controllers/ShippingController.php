@@ -137,19 +137,37 @@ class ShippingController extends Controller
         if ($validator->passes()){
             
             $input = $request->all();
-            
-            // dd($status);
-            $shipping = UserAddress::find($id);
-            $shipping->first_name = $input['first_name'];
-            $shipping->last_name = $input['last_name'];
-            $shipping->company_name = $input['company_name'];
-            $shipping->street = $input['street'];
-            $shipping->house_no = $input['house_no'];
-            $shipping->zip_code = $input['zip_code'];
-            $shipping->city = $input['city'];
-            $shipping->state = $input['state'];
-            $shipping->addition = $input['addition'];
-            $shipping->save();
+
+            if($id == 0){
+
+                $shipping = new UserAddress;
+                $shipping->first_name = $input['first_name'];
+                $shipping->last_name = $input['last_name'];
+                $shipping->company_name = $input['company_name'];
+                $shipping->street = $input['street'];
+                $shipping->house_no = $input['house_no'];
+                $shipping->zip_code = $input['zip_code'];
+                $shipping->city = $input['city'];
+                $shipping->state = $input['state'];
+                $shipping->addition = $input['addition'];
+                $shipping->save();
+
+            }else{
+
+                // dd($status);
+                $shipping = UserAddress::find($id);
+                $shipping->first_name = $input['first_name'];
+                $shipping->last_name = $input['last_name'];
+                $shipping->company_name = $input['company_name'];
+                $shipping->street = $input['street'];
+                $shipping->house_no = $input['house_no'];
+                $shipping->zip_code = $input['zip_code'];
+                $shipping->city = $input['city'];
+                $shipping->state = $input['state'];
+                $shipping->addition = $input['addition'];
+                $shipping->save();
+
+            }
             
         }
             return redirect()->back()->with('status' , 'Updated');

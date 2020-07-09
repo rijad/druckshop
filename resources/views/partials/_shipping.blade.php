@@ -141,53 +141,53 @@
             </div>
             <div class="modal-body">
                 <div class="cart-form-shop w-100">
-                    <form method = "POST" action="{{route('shipping-address.update', $ship->id )}}" id = "shippingForm">
+                    <form method = "POST" action="{{route('shipping-address.update', (isset($ship->id)) ? $ship->id : 0  )}}" id = "shippingForm">
                     @method('PUT')
                     @csrf
                         <div class="form-group"> 
                             <label for="text">First Name*</label>
-                            <input type="text" class="form-control" placeholder="enter here" value="{{ $ship->first_name }}" name="first_name" id="first_name">
+                            <input type="text" class="form-control" placeholder="enter here" value="{{ (isset($ship->first_name)) ? $ship->id :  '' }}" name="first_name" id="first_name">
                             <p class="error" id="error_first_name"></p>
-                        </div>
+                        </div> 
                         <div class="form-group">
                             <label for="text">last Name*</label>
-                            <input type="text"  class="form-control" placeholder="enter here" value="{{ $ship->last_name }}" name="last_name" id="last_name">
+                            <input type="text"  class="form-control" placeholder="enter here" value="{{ (isset($ship->last_name)) ? $ship->id :  ''  }}" name="last_name" id="last_name">
                             <p class="error" id="error_last_name"></p>
                         </div>
                         <div class="form-group w-100">
                             <label for="text">Company</label>
-                            <input type="text"  class="form-control" placeholder="enter here" value="{{ $ship->company_name }}" name = "company_name" id = "company_name">
+                            <input type="text"  class="form-control" placeholder="enter here" value="{{ (isset($ship->company_name)) ? $ship->id :  '' }}" name = "company_name" id = "company_name">
                             <p class="error" id="error_company_name"></p>
                         </div>
                         <div class="form-group">
                             <label for="text">Street*</label>
-                            <input type="text"  class="form-control" placeholder="enter here" value="{{ $ship->street }}" name = "street"  id = "street">
+                            <input type="text"  class="form-control" placeholder="enter here" value="{{ (isset($ship->street)) ? $ship->id :  '' }}" name = "street"  id = "street">
                             <p class="error" id="error_street"></p>
                         </div>
                         <div class="form-group">
                             <label for="text">House Number*</label>
-                            <input type="text"  class="form-control" placeholder="enter here" value="{{ $ship->house_no }}" name = "house_no" id = "house_no">
+                            <input type="text"  class="form-control" placeholder="enter here" value="{{ (isset($ship->house_no)) ? $ship->id :  '' }}" name = "house_no" id = "house_no">
                             <p class="error" id="error_house_no"></p>
                         </div>
                         
                         <div class="form-group">
                             <label for="text">Zip Code*</label>
-                            <input type="text"  class="form-control" placeholder="Zip Code" value="{{ $ship->zip_code }}" name="zip_code" id="zip_code">
+                            <input type="text"  class="form-control" placeholder="Zip Code" value="{{ (isset($ship->zip_code)) ? $ship->id :  '' }}" name="zip_code" id="zip_code">
                             <p class="error" id="error_zip_code"></p>
                         </div>
                         <div class="form-group">
                             <label for="text">City*</label>
-                            <input type="text"  class="form-control" placeholder="enter here" value="{{ $ship->city }}" name="city" id="city">
+                            <input type="text"  class="form-control" placeholder="enter here" value="{{ (isset($ship->city)) ? $ship->id :  '' }}" name="city" id="city">
                             <p class="error" id="error_city"></p>
                         </div>
                         <div class="form-group">
                             <label for="text">State*</label>
-                            <input type="text"  class="form-control" placeholder="enter here" value="{{ $ship->state }}" name="state" id="state">
+                            <input type="text"  class="form-control" placeholder="enter here" value="{{ (isset($ship->state)) ? $ship->id :  '' }}" name="state" id="state">
                             <p class="error" id="error_state"></p>
                         </div>
                         <div class="form-group">
                             <label for="text">Addition to Adrress</label>
-                            <input type="text"  class="form-control" placeholder="enter here" value="{{ $ship->addition }}" name = "addition" id = "addition">
+                            <input type="text"  class="form-control" placeholder="enter here" value="{{ (isset($ship->addition)) ? $ship->id :  '' }}" name = "addition" id = "addition">
                             <p class="error" id="error_addition"></p>
                         </div>
 
