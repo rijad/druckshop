@@ -8,7 +8,7 @@ use Auth;
 use Closure;
 
 class Latest
-{
+{ 
     /**
      * Handle an incoming request.
      *
@@ -23,7 +23,7 @@ class Latest
         } 
        
         $users = UserPermissions::where('user_id' , $user_id)->first();
-        if(!empty($users) || $users!= 'null'){
+       if(!empty($users) || !is_null($users)){
     
         $data = json_decode($users->permissions, true);
         }else{ 

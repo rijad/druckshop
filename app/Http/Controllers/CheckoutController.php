@@ -1090,7 +1090,9 @@ if (Auth::check() && Auth::user()->name != "Guest") // if user is logged in no n
 		//handling promo code
 		if($request->input('code') != "null" && ! empty($request->input('code'))){
 
-			$discount = Discount::where(['code' => $request->input('code')])->first(['by_price','by_percent']);
+			$discount = Discount::where(['code' => $request->input('code')])->first(['by_price','by_percent','type']);
+
+			dd($discount);
 		
 			if($discount->by_price != "null" && ! empty($discount->by_price)){
 				$discount_amt = number_format($discount->by_price,2);
@@ -2210,6 +2212,19 @@ public static function CartCount(){
 							$update_address->addition = $input['addition'];
 							$update_address->state = $input['state'];
 							$update_address->save();
+
+
+							$CustomerArea_address = $update_address->first_name." ".$update_address->last_name;
+
+							if($update_address->company_name != ""){
+								$CustomerArea_address .= ", ".$update_address->company_name.",  ".$update_address->street." ".$update_address->house_no.",  ".$update_address->zip_code." ".$update_address->city.", ".$update_address->state;
+							}else{
+								$CustomerArea_address .= ",  ".$update_address->street." ".$update_address->house_no.",  ".$update_address->zip_code." ".$update_address->city.", ".$update_address->state;
+							}
+
+							
+							print_r($CustomerArea_address);
+
 						}catch(Exception $e){  
 							$input['default'] = 1;
 							$input['address_type'] = "billing";
@@ -2235,6 +2250,7 @@ public static function CartCount(){
 							}
 
 							
+							print_r($CustomerArea_address);
 
 						 }//else{
 
@@ -2261,7 +2277,7 @@ public static function CartCount(){
 
 						// }
 
-						$area->save();
+						$area->save(); 
 
 					}
 

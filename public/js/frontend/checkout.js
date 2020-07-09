@@ -2957,7 +2957,7 @@ function addAddress(address_type = "", address = "", drop_down = ""){
       				}	
 
 				}
-				if(address_type == "billing"){   
+				if(address_type == "billing"){    
 
 			          try{
 							 $('#rv-Modal-billing').modal('hide');$('body').removeClass('modal-open');$('.modal-backdrop').remove();
@@ -2973,7 +2973,7 @@ function addAddress(address_type = "", address = "", drop_down = ""){
 
 						          $('#address_data').append('<option value="'+response+'" selected>'+response+'</option>');
 
-						          $('#success-msg').text("Address Added Successfully.");
+						          $('#success-msg-billing').text("Address Added Successfully.");
 						    }      
 			      	}
 		        }

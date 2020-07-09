@@ -494,7 +494,7 @@
                       </div>
                       @endif
 
-                       <p id = "success-msg" style="color:green;"></p>
+                       <p id = "success-msg-billing" style="color:green;"></p>
                </form>
             </div>   
           </div> 

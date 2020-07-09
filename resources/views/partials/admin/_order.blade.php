@@ -10,7 +10,7 @@
                                         <th>Order Id</th>
                                         {{-- <th>Shipping Address</th>
                                         <th>Billing Address</th>
-                                        <th>CD</th>
+                                        <th>CD</th> 
                                         <th>No. of copies</th> --}}
                                         <th>Order Assigned To</th>
                                         <th>Priority</th>
