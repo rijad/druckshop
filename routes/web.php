@@ -227,6 +227,8 @@ Route::group(['namespace'=>'Admin', 'prefix' => 'admin'], function()
     Route::resource('/stylesheet','StyleSheetController'); 
 
     Route::resource('/customer','UsersController'); 
+    // Route::post('/delete-customer','UsersController@deleteCustomer')->name('delete-customer');
+
     Route::resource('/newsletter','NewsletterController');
     Route::post('/newsLetterSendMail','NewsletterController@sendMail')->name('newsLetterSendMail');
 

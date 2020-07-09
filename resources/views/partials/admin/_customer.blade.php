@@ -16,6 +16,7 @@
                         <th>Status</th>
                         {{-- <th>Image</th> --}}
                         <th>Created at</th>
+                        <th>Action</th>
                     </tr>
                 </thead> 
                 <tfoot>
@@ -29,6 +30,7 @@
                         <th>Status</th>
                         {{-- <th>Image</th> --}}
                         <th>Created at</th>
+                        <th>Action</th>
                     </tr>
                 </tfoot>
                 <tbody>
@@ -56,6 +58,13 @@
                         @endif
                         
                         <td>{{ $cust->created_at }}</td>
+                        <td>
+                            <form method="POST" action="{{ route('customer.destroy' , $cust->id) }}"class="ml-2">
+                            @method('DELETE')
+                            @csrf
+                                <input type="submit" value="delete" class="btn btn-danger">
+                            </form>
+                        </td>
                     </tr>  
                     @endforeach
                 @endif
