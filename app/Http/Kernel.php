@@ -46,7 +46,7 @@ class Kernel extends HttpKernel
         ],
     ];
 
-    /**
+    /** 
      * The application's route middleware.
      *
      * These middleware may be assigned to groups or used individually.
@@ -66,6 +66,10 @@ class Kernel extends HttpKernel
         'permissions' => \App\Http\Middleware\Permissions::class,
         'orderaccess' => \App\Http\Middleware\OrderAccessMiddleware::class,
         'orderfiles' => \App\Http\Middleware\OrderFiles::class,
+        'sliders' => \App\Http\Middleware\Sliders::class,
+        'parameter' => \App\Http\Middleware\Parameter::class,
+        'latest' => \App\Http\Middleware\Latest::class,
+        'returnorders' => \App\Http\Middleware\ReturnOrders::class,
 
     ];
 

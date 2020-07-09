@@ -41,7 +41,7 @@
                     <div class="sb-nav-link-icon">
                         <i class="fa fa-sliders"></i>
                     </div>Roles
-                </a>
+                </a> 
                 @endif
 
                 @if(Auth::guard('admin')->user()->role == 0 || Auth::guard('admin')->user()->role == 1)
@@ -84,13 +84,13 @@
                     </div>Orders
                 </a>
 
-                @if (Session::get('Return Orders') == true)
+                @if (Session::get('Return orders') == true)
                 <a class="nav-link" href="{{ route('returnorder.index') }}">
                     <div class="sb-nav-link-icon">
                         <i class="fa fa-shopping-cart"></i>
                     </div>Return Orders
                 </a>
-                @elseif (Session::get('Return Orders') == false)
+                @elseif (Session::get('Return orders') == false)
                     <a></a>
                 @endif 
 
