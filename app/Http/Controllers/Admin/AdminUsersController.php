@@ -104,6 +104,23 @@ class AdminUsersController extends Controller
         if ($data) {
 
             $users = UsersAdmin::create($data);
+        } 
+
+
+        if($request->input('role') == "superadmin" || $request->input('role') == "admin"){
+
+            $details = ['Parameter'=> 1 , 'Return orders' => 1 , 'Sliders' => 1 , 'Latest' => 1 , 'Change Orders Attributes' => 1 , 'Order Files' => 1 ];
+            
+           
+                $roles_new = new UserPermissions;
+                $roles_new->user_id = $users->id;
+                $roles_new->user_name = $users->name;
+                $roles_new->user_role = $users->role;
+                $roles_new->permissions = json_encode($details);
+                $roles_new->save();
+
+                return redirect()->back()->with('status' , 'Created');
+
         }
 
         return redirect('/admin/users');

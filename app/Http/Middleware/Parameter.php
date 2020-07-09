@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 use App\UserPermissions;
 use Session;
+use Auth;
 
 use Closure;
 

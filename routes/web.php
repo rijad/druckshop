@@ -162,10 +162,10 @@ Route::get('/payment-success','CheckoutController@paymentPaypalSuccess')->name('
 //Admin
 Route::group(['namespace'=>'Admin', 'prefix' => 'admin'], function()
 {
-    Route::get('/dashboard','DashboardController@index')->name('dashboard');
-    Route::resource('/slider','SliderController')->middleware('sliders');
+    Route::get('/dashboard','DashboardController@index')->name('dashboard')->middleware('sliders','latest','parameter','returnorders');
+    Route::resource('/slider','SliderController');
     Route::resource('/bindingsample','BindingSampleImageController');
-    Route::resource('/latest','LatestController')->middleware('latest');
+    Route::resource('/latest','LatestController');
     Route::resource('/stylesheet','StyleSheetController');
     Route::resource('/customer','UsersController');
     Route::resource('/newsletter','NewsletterController');
@@ -199,7 +199,7 @@ Route::group(['namespace'=>'Admin', 'prefix' => 'admin'], function()
     Route::post('/about-update','PagesController@aboutupdate')->name('about-update');
 
 //Parameters
-    Route::resource('/parameter','ParameterController')->middleware('parameter');
+    Route::resource('/parameter','ParameterController');
     Route::get('/details/{model}/{id}','ParameterController@details')->name('details');
     Route::resource('/covercolor','CoverColorController'); 
     Route::resource('/coversheet','CoverSheetController');
@@ -222,7 +222,7 @@ Route::group(['namespace'=>'Admin', 'prefix' => 'admin'], function()
     Route::get('/defected-order-email/{user_id}/{order_id}/{old_file_name}','OrderController@sendDefectedOrderEmail')->name('defected-order-email'); 
     Route::post('/trackingNumberSendMail','OrderController@trackingNumberSendMail')->name('trackingNumberSendMail');
 
-    Route::resource('/returnorder','ReturnOrdersController')->middleware('returnorders');
+    Route::resource('/returnorder','ReturnOrdersController');
 
     Route::resource('/stylesheet','StyleSheetController'); 
 

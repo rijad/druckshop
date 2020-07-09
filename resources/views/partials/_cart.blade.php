@@ -15,7 +15,7 @@
  
                               @if(isset($product_data)) 
                               @foreach ($product_data as $key=>$data)
- 
+  
                                 <div class="product_listing">
                                     <img src="http://druckshop.trantorglobal.com/public/images/product1.jpg" alt="" width="75px" />
                                     <div class="product_description">
@@ -24,7 +24,7 @@
                                     </div>
                                     <ul class="product_price" id="product_price"> 
                                         <li class="inputcard_quantity" style="display: none"><h6><strong>€ <span id="price_per_product_{{$data->id}}" class = "price_per_product">{{$data->price_per_product}}</span><span class="text-muted">x</span></strong></h6>
-                                            <input id ="qty_{{$data->id}}" name = "qty_{{$data->id}}" type="text" class="form-control input-sm" placeholder="" onchange ="setQuantity({{count($product_data)}});" value = "{{$data->quantity}}"><div><span id="qty_msg"></span></div>
+                                            {{-- <input id ="qty_{{$data->id}}" name = "qty_{{$data->id}}" type="text" class="form-control input-sm" placeholder="" onchange ="setQuantity({{count($product_data)}});" value = "{{$data->quantity}}"><div><span id="qty_msg"></span></div> --}}
                                         </li> 
                                         <li>
                                         {{-- <button class="remove_btn" type="button" onclick = "decrementQuantity('qty_{{$data->id}}',{{count($product_data)}})">-</button>
@@ -45,7 +45,7 @@
                                       <label for="text">{{ trans('cart.no_of_copies') }}*:</label>
                                      {{--  <label id="binding_price_per_product_{{$data->id}}" class = "price_per_product"></label> --}}
                                      <input type="hidden" id = "{{'sequence_'.$key}}" value="0" name={{"sequence_".$key."_0"}}>
-                                      <input type="number" id="no_of_copies" min="0" onchange="InsertSplitOrder({{$data->id}} , 0, this); " name={{"no_of_copies[".$key."]"}}  class="form-control" placeholder="{{ trans('cart.enter_here') }}" value={{$data->no_of_copies}}>
+                                      <input type="number" id="no_of_copies" min="0" onchange="InsertSplitOrder({{$data->id}} , 0, this); setTimeout(function(){ setQuantity({{count($product_data)}}) },320);" name={{"no_of_copies[".$key."]"}}  class="form-control" placeholder="{{ trans('cart.enter_here') }}" value={{$data->no_of_copies}}>
                                       @if($errors->has('no_of_copies.'.$key))
                                       <div class="error">{{ $errors->first('no_of_copies.'.$key) }}</div>
                                       @endif 
@@ -53,7 +53,7 @@
                                     <div class="form-group">
                                       <label for="pwd">{{ trans('cart.no_of_cds') }}:</label>
                                       {{-- <label id="cd_price_per_product_{{$data->id}}" class = "cd price_per_product">Price/qty: 2.00 € </label> --}}
-                                      <input id="no_of_cds" type="number" min="0" name={{"no_of_cds[".$key."]"}}  class="form-control" placeholder="0" onchange="InsertSplitOrder({{$data->id}} , 0 , this);" value= @if(isset($data->no_of_cds)){{$data->no_of_cds}} @else {{0}} @endif>
+                                      <input id="no_of_cds" type="number" min="0" name={{"no_of_cds[".$key."]"}}  class="form-control" placeholder="0" onchange="InsertSplitOrder({{$data->id}} , 0 , this); setTimeout(function(){ setQuantity({{count($product_data)}}) },320)" value= @if(isset($data->no_of_cds)){{$data->no_of_cds}} @else {{0}} @endif>
                                        @if($errors->has('no_of_cds.'.$key))
                                       <div class="error">{{ $errors->first('no_of_cds.'.$key) }}</div>
                                       @endif
@@ -527,7 +527,7 @@
       l.each(function(e) { 
         $(this).trigger('onchange');
       }); 
-     }, 200);  
+     }, 260);  
 
       setTimeout(function(){   
 
@@ -535,7 +535,7 @@
         o.each(function(e) { 
           $(this).trigger('onchange');
         }); 
-      }, 230);  
+      }, 290);  
 
       setTimeout(function(){ 
 
@@ -543,10 +543,10 @@
         p.each(function(e) {  
           $(this).trigger('onchange');
         }); 
-      }, 260);  
+      }, 3100);  
 
      
-   window.setTimeout('setQuantity({{count($product_data)}})', 310);
+  // window.setTimeout('setQuantity({{count($product_data)}})', 350);
 
 
     $('#rv-Modal-shipping').on('show.bs.modal', function(e) {
