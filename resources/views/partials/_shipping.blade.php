@@ -15,7 +15,7 @@
     
     <div class="float-right">
         <form method="GET" action="{{ route('shipping-address.create') }}">
-            <input type="button" value="Create New Address" class="btn btn-primary" data-toggle="modal" data-target="#rv-Modal-shipping">
+            <input type="button" class= "shipping-address-page-button" value="Create New Address" class="btn btn-primary" data-toggle="modal" data-target="#rv-Modal-shipping">
         </form>
     </div>
 

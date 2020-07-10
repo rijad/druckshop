@@ -501,8 +501,8 @@
       </div> 
   </div>
 </div>
-@else 
-
+@else  
+ 
 <p class = "empty-cart">Your Cart is Empty.<p>
 @endif
 

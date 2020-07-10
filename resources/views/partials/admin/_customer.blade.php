@@ -55,7 +55,7 @@
                             <td></td>
                         @endif
                         
-                        <td>{{ $cust->created_at }}</td>
+                        <td>{{ changeTimeZone($cust->created_at)}}</td>
                     </tr>  
                     @endforeach
                 @endif
