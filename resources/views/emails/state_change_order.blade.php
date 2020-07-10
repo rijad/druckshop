@@ -16,7 +16,7 @@
 							<img src="{{ @$logo_url }}" alt="Druckshop Shop Logo"></img>
 							<h2>Druckshop</h2>
 						</strong></td>
-					</tr>
+					</tr> 
 				</table>
 				<table cellspacing="0" border="0" align="center" cellpadding="0" width="100%" style="border:0px solid #efefef; margin-top:0px; padding:15px;">
 					

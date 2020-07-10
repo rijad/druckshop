@@ -49,7 +49,7 @@
                                                         @endphp
                                                 </td>
                                                 <td>{{ $odr->priority }}</td>
-                                                <td>{{ $odr->created_at }}</td>
+                                                <td>{{ changeTimeZone($odr->created_at) }}</td>
                                                 <td>
                                                     <button onclick="window.location='{{route('order-details' , 
                                                         ['id'=>$odr->order_id ]) }}'" 

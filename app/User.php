@@ -19,7 +19,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * 
      * @var string
      */
-    protected $table = 'users';
+    protected $table = 'users'; 
 
     /**
      * The "type" of the auto-incrementing ID.
@@ -28,7 +28,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'verified'
     ]; 
 
     /**
@@ -88,6 +88,12 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function customer()
     {
-        return $this->hasOne('App\CustomerArea', 'user_id');
+        return $this->hasOne('App\CustomerArea', 'user_id'); 
+    }
+
+
+    public function verifyUser()
+    {
+        return $this->hasOne('App\VerifyUser');
     }
 }

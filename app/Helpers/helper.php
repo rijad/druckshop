@@ -168,7 +168,7 @@ function changeTimeZone($dateString){
     $timeZoneTarget = date_default_timezone_get();
   }
 
-  $dt = new DateTime($dateString, new DateTimeZone($timeZoneSource));
+  $dt = new DateTime($dateString, new DateTimeZone($timeZoneSource));  //dd($dt);
   $dt->setTimezone(new DateTimeZone($timeZoneTarget));
 
   return $dt->format("Y-m-d H:i:s");

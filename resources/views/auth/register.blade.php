@@ -15,6 +15,14 @@
                                 {{ session('status') }}
                             </div>
                         @endif
+
+                         @if (session('success'))
+                            <div class="alert alert-success" role="alert">
+                                {{ session('success') }}
+                            </div>
+                        @endif
+
+
                         @if ($errors->any())
                             <ul>
                                 @foreach ($errors->all() as $error)
