@@ -45,15 +45,16 @@
                                                     <td>{{ $name->name }}</td>
                                                     <td>
                                                         @foreach($roles as $role)
-                                                            <div class="form-group">
-                                                                <label class="small mb-1">{{ $role->role }}</label>
-                                                                <input type="radio" name="role" value="@if($role->role == 'SuperAdmin'){{'0'}}
+                                                            <div class="form-group admin-role-main">
+                                                                
+                                                                <input class = "admin-role-radio" type="radio" name="role" value="@if($role->role == 'SuperAdmin'){{'0'}}
                                                                                                         @elseif($role->role == 'Admin'){{'1'}}
                                                                                                         @elseif($role->role == 'Employee'){{'2'}}
                                                                                                         @endif" 
                                                                                                         <?php echo ($name->role == '0' && $role->role == 'SuperAdmin') ? 'checked':'' ?>
                                                                                                         <?php echo ($name->role == '1' && $role->role == 'Admin') ? 'checked':'' ?>
                                                                                                         <?php echo ($name->role == '2' && $role->role == 'Employee') ? 'checked':'' ?> >
+                                                                <label class="small mb-1">{{ $role->role }}</label>
                                                             </div>
                                                         @endforeach
                                                     </td>

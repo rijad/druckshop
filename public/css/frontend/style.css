@@ -1550,7 +1550,7 @@ img.zoom:hover {
     z-index: 99;
 }
 
-.rv-formCart .rv-casualBioFields {display: flex;padding: 30px 0 30px 20px;}
+.rv-formCart .rv-casualBioFields {display: flex;padding:10px 0 10px 20px;}
 .rv-casualBioFields .form-group label {height: 50px;}
 .rv-casualBioFields .form-group {width: 30%;padding: 20px 0 0 5px;}
 .rv-casualBioFields .form-group input, .rv-casualBioFields .form-group select  { margin: 0; border-color: black; background-color: lightgray; padding: 4px; }
@@ -1704,75 +1704,18 @@ div#upload_cd input#selectfile_upload_cd {
     visibility: hidden;
 }
 
-/*media query starts from here*/
-
-@media only screen and (max-width:768px){
-
-  #div-template-classic img.template-classic {
-    border: 1px solid #746d6d !important;
-    width: 80px;
-    margin-right: 5px;
-    margin-bottom: 10px;
-  }
-
-
-  .customer-profile-info ul li {
-    display: block;
-  }
-  .customer-profile-info ul li span {
-    display: block;
-  }
-  .customer-profile-text h2 {
-    font-size: 50px;
-    margin-bottom: 10px;
-  }
-  .customer-profile-text p {
-    font-size: 20px;
-  }
-
-
-  .Product_qeue .product .product_description {
-    padding-top: 30px;
-  }
-  .Product_qeue .product .product_description {
-    width: 100%;
-        padding-top: 60px;
-	}
-	.Product_qeue .product ul.product_price li .remove_btn {
-	    margin-top: 15px;
-	  }
-
-  	
-	.rv-formCart .rv-casualBioFields {
-    display: block;
-    padding: 30px 0 0px 0px;
-	}
-	.rv-casualBioFields .form-group label {
-    height: auto;
-	}
-	.rv-casualBioFields .form-group label {
-    height: auto;
-	}
-	.rv-manageAddressFields {
-    padding: 20px 0 0 0px;
-	}
-	.rv-casualBioFields .form-group {
-    width: 100%;
-    padding: 20px 0 0 5px;
-	}
-	.rv-manageAddressFields .rv-adressesfields {
-    display: block;
-	}
-	.rv-manageAddressFields .form-group {
-    width: 100%;
-    padding: 0 0 0 5px;
-	}
-	.rv-adressesfields p.filled-billingAdress, .rv-adressesfields p.filled-shippingAdress  {
-    height: 20px;
-	}
-
-
+.add-multi-address button {
+    background-color: #79879a;
+    color: white;
+    border-color: #79879a;
+    font-size: 16px;
+    padding: 10px 15px;
+    margin: 15px 25px 50px;
+    width: auto;
 }
+
+
+
 
 div#drop_pdf {
     background-color: #EEE;
@@ -1840,10 +1783,10 @@ div#div-section-1  label#field-1 {
     margin-top: 20px;
 }
 .rv-casualBioFields .form-group select#address_data {
-    margin-top: 44px;
+    margin-top: 26px;
 }
 .rv-casualBioFields .form-group select#shipping_company {
-    margin-top: 44px;
+    margin-top: 26px;
 }
 .rv-casualBioFields .form-group input#no_of_copies {
     margin-top: 26px;
@@ -1932,11 +1875,139 @@ p.empty-cart {
 p.per-copy {
     display: contents;
 }
+.Product_qeue .summary label.price_per_product {
+    display: block;
+    text-align: right;
+}
+
+.rv-formCart .rv-casualBioFields {
+    position: relative;
+}
+
+.rv-formCart .rv-casualBioFields button#remove_split_order_0 {
+    background-color: unset;
+    position: absolute;
+    right: 0;
+    top: 0;
+    color: #78869a;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.Product_qeue .summary p a {
+    padding-bottom: 15px;
+    display: block;
+}
+ul.GeneralInfoListing span a#shipping_address {
+    border-radius: 3px;
+    font-size: 18px;
+    background-color: #79879a;
+    color: white;
+    text-align: center;
+    margin-top: 50px;
+    text-decoration: unset;	
+}
+
+input.shipping-address-page-button {
+    border-radius: 3px;
+    font-size: 18px;
+    background-color: #79879a;
+    color: white;
+    text-align: center;
+    margin: 50px 20px 30px;
+    text-decoration: unset;
+    padding: 5px 15px;
+}
 
 
 
 
+/*media query starts from here*/
 
+@media only screen and (max-width:768px){
+
+  #div-template-classic img.template-classic {
+    border: 1px solid #746d6d !important;
+    width: 80px;
+    margin-right: 5px;
+    margin-bottom: 10px;
+  }
+
+
+  .customer-profile-info ul li {
+    display: block;
+  }
+  .customer-profile-info ul li span {
+    display: block;
+  }
+  .customer-profile-text h2 {
+    font-size: 50px;
+    margin-bottom: 10px;
+  }
+  .customer-profile-text p {
+    font-size: 20px;
+  }
+
+
+  .Product_qeue .product .product_description {
+    padding-top: 30px;
+  }
+  .Product_qeue .product .product_description {
+    width: 100%;
+        padding-top: 60px;
+	}
+	.Product_qeue .product ul.product_price li .remove_btn {
+	    margin-top: 15px;
+	  }
+
+  	
+	.rv-formCart .rv-casualBioFields {
+    display: block;
+    padding: 30px 0 0px 0px;
+	}
+	.rv-casualBioFields .form-group label {
+    height: auto;
+	}
+	.rv-casualBioFields .form-group label {
+    height: auto;
+	}
+	.rv-manageAddressFields {
+    padding: 20px 0 0 0px;
+	}
+	.rv-casualBioFields .form-group {
+    width: 100%;
+    padding: 20px 0 0 5px;
+	}
+	.rv-manageAddressFields .rv-adressesfields {
+    display: block;
+	}
+	.rv-manageAddressFields .form-group {
+    width: 100%;
+    padding: 0 0 0 5px;
+	}
+	.rv-adressesfields p.filled-billingAdress, .rv-adressesfields p.filled-shippingAdress  {
+    height: 20px;
+	}
+
+
+	.rv-formCart .rv-casualBioFields button#remove_split_order_0 {
+    	background-color: unset;
+    	position: absolute;
+    	right: 0;
+    	top: 30px;
+	}
+
+	.rv-formCart .add-multi-address button {
+	    background-color: #79879a;
+	    color: white;
+	    border-color: #79879a;
+	    font-size: 16px;
+	    padding: 10px 15px;
+	    margin: 15px 5px 50px;
+	    width: auto;
+	}
+
+}
 
 
 
@@ -1946,10 +2017,10 @@ p.per-copy {
 
 @media (min-width: 769px) and (max-width: 1367px){
   .rv-casualBioFields .form-group select#address_data {
-    margin-top: 42px;
+    margin-top: 26px;
   }
   .rv-casualBioFields .form-group select#shipping_company {
-    margin-top: 42px;
+    margin-top: 26px;
   }
 }
 

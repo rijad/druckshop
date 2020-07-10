@@ -356,6 +356,10 @@ div#many-pro span.ml-4 {
   display:none;
 }
 
+/*role*/
+.admin-role-main input.admin-role-radio {
+    vertical-align: middle;
+}
 
 
 @media only screen and (max-width: 767px){

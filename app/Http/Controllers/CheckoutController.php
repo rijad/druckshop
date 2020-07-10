@@ -1092,7 +1092,48 @@ if (Auth::check() && Auth::user()->name != "Guest") // if user is logged in no n
 
 			$discount = Discount::where(['code' => $request->input('code')])->first(['by_price','by_percent','type']);
 
-			dd($discount);
+			//dd($discount);
+			
+			// delivery discount
+			if($discount->type == 0){
+
+
+			// single product discount
+			}elseif($discount->type == 0){
+
+
+			// multi product discount
+			}elseif($discount->type == 0){
+
+			}
+
+
+			// calculate delivery cost if discount code is not of type delivery cost 
+
+			$delivery_cost = []; $total_delivery_service = 0;
+
+			if($discount->type != 0 ){
+
+				foreach($product_data as $key=>$product_detail){
+
+						$quantity[$key] = $request->no_of_copies[$key] + $request->no_of_cds[$key];
+
+						try{
+
+							$delivery_cost[$key] = LettesOfSpine::where('delivery_service_id' ,'=', $request->shipping_company[$key])
+						                               ->where('ds_from','<=',$quantity[$key])
+						                               ->where('ds_to','>=',$quantity[$key])
+						                               ->where('ds_del_status','=','1')->first()->ds_price; 
+
+						}catch(Exception $e){
+
+							$delivery_cost[$key] = 0;
+
+						}
+
+						$total_delivery_service +=  floatval($delivery_cost[$key]);
+				}  
+			}
 		
 			if($discount->by_price != "null" && ! empty($discount->by_price)){
 				$discount_amt = number_format($discount->by_price,2);
@@ -1110,33 +1151,36 @@ if (Auth::check() && Auth::user()->name != "Guest") // if user is logged in no n
 		}else{ 
 			$discount_amt = 0.0;
 			$net_amt = $total - $discount_amt;
-		}
 
-		// handling delivery service costing
 
-		$delivery_cost = []; $total_delivery_service = 0;
-		foreach($product_data as $key=>$product_detail){
+			// handling delivery service costing in case when user has not applied any of the discount code
 
-			$quantity[$key] = $request->no_of_copies[$key] + $request->no_of_cds[$key];
 
-			try{
+			$delivery_cost = []; $total_delivery_service = 0;
 
-				$delivery_cost[$key] = LettesOfSpine::where('delivery_service_id' ,'=', $request->shipping_company[$key])
-			                               ->where('ds_from','<=',$quantity[$key])
-			                               ->where('ds_to','>=',$quantity[$key])
-			                               ->where('ds_del_status','=','1')->first()->ds_price; 
+					foreach($product_data as $key=>$product_detail){
 
-			}catch(Exception $e){
+							$quantity[$key] = $request->no_of_copies[$key] + $request->no_of_cds[$key];
 
-				$delivery_cost[$key] = 0;
+							try{
 
+								$delivery_cost[$key] = LettesOfSpine::where('delivery_service_id' ,'=', $request->shipping_company[$key])
+							                               ->where('ds_from','<=',$quantity[$key])
+							                               ->where('ds_to','>=',$quantity[$key])
+							                               ->where('ds_del_status','=','1')->first()->ds_price; 
+
+							}catch(Exception $e){
+
+								$delivery_cost[$key] = 0;
+
+							}
+
+							$total_delivery_service +=  floatval($delivery_cost[$key]);
+					}  
 			}
+		
 
-			$total_delivery_service +=  floatval($delivery_cost[$key]);
-
-			
-		}  
-
+		
    $net_amt_after_delivery_service = $net_amt + $total_delivery_service;
 
 

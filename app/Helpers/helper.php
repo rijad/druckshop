@@ -138,7 +138,7 @@ function customer($id)
 function getEmbossingById($id){
 
 	$list = \App\ArtList::find($id);
-	return $list->name_english;
+	return $list->name_english;  
 
 } 
 
@@ -153,4 +153,23 @@ function getShippingCompanyById($id){
 
 	$shippingCompany = \App\DeliveryService::where(['id' => $id])->first('delivery_service');
 	return $shippingCompany->delivery_service;
+}
+
+function changeTimeZone($dateString){
+
+  $timeZoneSource = null;
+
+  $timeZoneTarget = 'Europe/Busingen';
+
+  if (empty($timeZoneSource)) {
+    $timeZoneSource = date_default_timezone_get();
+  }
+  if (empty($timeZoneTarget)) {
+    $timeZoneTarget = date_default_timezone_get();
+  }
+
+  $dt = new DateTime($dateString, new DateTimeZone($timeZoneSource));
+  $dt->setTimezone(new DateTimeZone($timeZoneTarget));
+
+  return $dt->format("Y-m-d H:i:s");
 }
