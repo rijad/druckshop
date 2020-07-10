@@ -37,7 +37,7 @@
                                                     </form>
                                                     <form method="POST" action="{{ route('delete-user' , $data->id) }}" class="ml-2">
                                                         @method('DELETE')
-                                                @csrf
+                                                        @csrf
                                                     <input type="submit" value="delete" class="btn btn-danger">
                                                     </form>
                                                 </td>
