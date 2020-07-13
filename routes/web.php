@@ -287,3 +287,7 @@ Route::post('updateAdminPassword', 'Auth\ForgotPasswordController@updateAdminPas
 // Testing mail
 Route::get('testMail/{email}', 'HomeController@testMail');
 
+// Email verification
+Route::get('/user/verify/{token}', 'RegisterController@verifyUser');
+
+ 

@@ -35,7 +35,7 @@
                                                 <td>{{ $pay->txn }}</td>
                                                 <td>{{number_format($pay->amount,2)}}</td>
                                                 <td>{{ $pay->order_id }}</td>
-                                                <td>{{ $pay->created_at }}</td>
+                                                <td>{{ changeTimeZone($pay->created_at) }}</td>
                                             </tr> 
                                         @endforeach
                                     @endif

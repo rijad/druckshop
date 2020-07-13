@@ -38,7 +38,7 @@
                                                 <td><img src="{{ asset($order->image_path)}}" height="50" width="100" alt="..."></td>
                                                 <td>{{ $order->return_desc }}</td>
                                                 <td>{{ $order->admin_response}}</td>
-                                                <td>{{ $order->created_at }}</td>
+                                                <td>{{ changeTimeZone($order->created_at)  }}</td>
                                                 <td>
                                                     <button type="button" class="paycash" onclick="#" data-toggle="modal" data-oid="{{$order->order_id}}" data-uid="{{$order->user_id}}" data-status="Reversal approved" data-target="#returnModal">Redeliver</button>
                                                     <button type="button" class="paycash" onclick="#" data-toggle="modal" data-oid="{{$order->order_id}}" data-uid="{{$order->user_id}}" data-status="Reversal coupon" data-target="#returnModal">Coupon</button>
