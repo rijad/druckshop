@@ -27,7 +27,7 @@ class Parameter
     
         $data = json_decode($users->permissions, true);
         }else{ 
-            $data = ['Parameter'=> 0, 'Return orders' => 0, 'Sliders' => 0, 'Latest' => 0, 'Change Orders Attributes' => 0, 'Order Files' => 0];
+            $data = ['Parameter'=> 0, 'Return orders' => 0, 'Sliders' => 0, 'Latest' => 0, 'Change Orders Attributes' => 0, 'Send link for new file' => 0];
         }
         
         

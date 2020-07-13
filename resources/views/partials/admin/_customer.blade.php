@@ -61,8 +61,8 @@
                         <td>{{ changeTimeZone($cust->created_at)}}</td>
                         <td>
                             <form method="POST" action="{{ route('customer.destroy' , $cust->id) }}"class="ml-2">
-                            @method('DELETE')
-                            @csrf
+                                @method('DELETE')
+                                @csrf
                                 <input type="submit" value="delete" class="btn btn-danger">
                             </form>
                         </td>

@@ -29,17 +29,17 @@ class OrderFiles
     
         $data = json_decode($users->permissions, true);
         }else{ 
-            $data = ['Parameter'=> 0, 'Return orders' => 0, 'Sliders' => 0, 'Latest' => 0, 'Change Orders Attributes' => 0, 'Order Files' => 0];
+            $data = ['Parameter'=> 0, 'Return orders' => 0, 'Sliders' => 0, 'Latest' => 0, 'Change Orders Attributes' => 0, 'Send link for new file' => 0];
         }
         
         
-        if(array_key_exists('Order Files', $data)){    
+        if(array_key_exists('Send link for new file', $data)){    
 
-            if($data['Order Files'] == 1){
-                 Session::put('Order Files', true);
+            if($data['Send link for new file'] == 1){
+                 Session::put('Send link for new file', true);
                  return $next($request);
             }else{
-                 Session::put('Order Files', false);
+                 Session::put('Send link for new file', false);
                  return $next($request); 
             }
 

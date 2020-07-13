@@ -325,13 +325,13 @@ class AdminUsersController extends Controller
                 $change = '0';
             }
 
-            if($request->exists('Order_Files')){
+            if($request->exists('Send_link_for_new_file')){
                 $files = '1';
             }else{
                 $files = '0';
             }
 
-            $details = ['Parameter'=> $parameter, 'Return orders' => $return, 'Sliders' => $slider, 'Latest' => $latest, 'Change Orders Attributes' => $change, 'Order Files' => $files];
+            $details = ['Parameter'=> $parameter, 'Return orders' => $return, 'Sliders' => $slider, 'Latest' => $latest, 'Change Orders Attributes' => $change, 'Send link for new file' => $files];
             
             $roles = UserPermissions::with('roles')->where(['user_id' => $id])->first();
             if(empty($roles) || $roles == 'null'){

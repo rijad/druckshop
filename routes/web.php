@@ -162,7 +162,8 @@ Route::get('/payment-success','CheckoutController@paymentPaypalSuccess')->name('
 //Admin
 Route::group(['namespace'=>'Admin', 'prefix' => 'admin'], function()
 {
-    Route::get('/dashboard','DashboardController@index')->name('dashboard')->middleware('sliders','latest','parameter','returnorders');
+    Route::get('/dashboard','DashboardController@index')->name('dashboard')
+            ->middleware('sliders','latest','parameter','returnorders','roles');
     Route::resource('/slider','SliderController');
     Route::resource('/bindingsample','BindingSampleImageController');
     Route::resource('/latest','LatestController');
