@@ -45,7 +45,7 @@
 								</div>
 								<div class="displayNone" id="div-cover-sheet">
 									<label>{{ trans('checkout.cover_sheet') }}*:<a href="#" data-toggle="tooltip" title="200 gm/m2 sheets" class="formToolTip">i</a></label>
-									<p><select class = "" onclick = "displayProductAttributes('5',this);uploadDisplayCoverSheet(this.id,this.value);hideBindingElements('cover-sheet');" id="cover-sheet" name="cover-sheet"><option value="-1">Select</option></select></p>
+									<p><select class = "" onclick = "displayProductAttributes('5',this);uploadDisplayCoverSheet(this.id,this.value); hideBindingElements('cover-sheet');" onchange="" id="cover-sheet" name="cover-sheet"><option onclick ="" value="-1">Select</option></select></p>
 									<p class="error" id="error_cover_sheet">
   
 								</div> 
@@ -69,7 +69,7 @@
 
 									<div class="displayNone" id="div-back-cover">
 										<label>{{ trans('checkout.back_sheet') }}*:<div title="200 gm/m2 sheets" class="formToolTip">i</div></label>
-										<p><select class = "" onclick = "displayProductAttributes('6',this);uploadDisplayBackCover(this.id,this.value); hideBindingElements('back-cover');" id="back-cover" name="back-cover"><option value="-1">Select</option></select></p> <p class="error" id="error_back_cover">
+										<p><select class = "" onclick = "displayProductAttributes('6',this); uploadDisplayBackCover(this.id,this.value); hideBindingElements('back-cover');" onclose=""  id="back-cover" name="back-cover"><option value="-1">Select</option></select></p> <p class="error" id="error_back_cover">
 									</div>
 									
 									<p class="outside-box-heading displayNone" id="drop_file_zone_back_cover_heading">{{ trans('checkout.upload_back_sheet') }}</p>
