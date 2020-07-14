@@ -92,7 +92,7 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id) 
     {
         //
     }
@@ -106,29 +106,9 @@ class UsersController extends Controller
     public function destroy($id)
     {
         $customerdata = User::destroy($id);
-        // dd($id);
-        // DB::table('ps_customer_area')->where('user_id','=',$id)->delete();
-        // DB::table('ps_order')->where('user_id','=',$id)->delete();
-        // DB::table('ps_order_attributes')->where('user_id','=',$id)->delete();
-        // DB::table('ps_order_details')->where('user_id','=',$id)->delete();
-        // DB::table('ps_order_details_final')->where('user_id','=',$id)->delete();
-        // DB::table('ps_order_history')->where('user_id','=',$id)->delete();
-        // DB::table('ps_order_return')->where('user_id','=',$id)->delete();
-        // DB::table('ps_payment')->where('user_id','=',$id)->delete();
-        // DB::table('ps_split_order_shipping_address')->where('user_id','=',$id)->delete();
-        // DB::table('ps_order_return')->where('user_id','=',$id)->delete();
-        // $customerdata = User::with('customer')->where('id', $id)->delete();
-
-        // $postl =  Post::with('likes')->whereId($post)->delete();
-        // $customerdata = User::destroy($id);
-        // $customerarea = CustomerArea::where('user_id', $user_id)->delete();
-        // $permission = UserPermissions::where('user_id', $user_id)->delete();
         return redirect()->back()->with('status' , 'Deleted');
     }
-    // public function deleteCustomer($id)
-    // {
-    //     $customerarea = CustomerArea::where('user_id', $user_id)->delete();
-    //     $permission = UserPermissions::where('user_id', $user_id)->delete();
-    //     return redirect()->back()->with('status' , 'Deleted');
-    // }
+    
+   
+
 }
