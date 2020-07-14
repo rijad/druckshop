@@ -129,8 +129,6 @@
 
                                 <td colspan='3'>@if($key == "selectfile_backcover" || $key == "selectfile_coversheet" || $key == "selectfile_content" || $key == "selectfile_din_A3" || $key == "selectfile_din_A2" || $key == "selectfile_logo" || $key == "selectfile_file" || $key == "selectfile_cd" || $key == "selectfile_logo_cd" || $key == "selectfile_upload_cd_without_logo") @if($value != null ) 
 
-                                    @if (Session::get('Order Files') == true)
-
                                         @if($key == "selectfile_cd") 
                                             @foreach(explode(',', $value) as $key_file => $info) 
                                                @if($info != "")
@@ -151,10 +149,12 @@
 
                                              @endif 
 
-                                         @endif
                                          <br>
+                                    @if (Session::get('Send link for new file') == true)
                                           @if($key == "selectfile_backcover" || $key == "selectfile_coversheet" || $key == "selectfile_content" || $key == "selectfile_din_A3" || $key == "selectfile_din_A2" || $key == "selectfile_logo" || $key == "selectfile_file" || $key == "selectfile_cd" || $key == "selectfile_logo_cd" || $key == "selectfile_upload_cd_without_logo" || $key == "embossment-template-name" || $key == "cd-template-name") @if($value != null )<a href="{{route('defected-order-email',['user_id'=>$order->user_id,'order_id'=>$order->order_id,'old-file-name'=>$value])}}" >Send Mail</a> @endif @endif
                                     @endif
+                                        @elseif (Session::get('Send link for new file') == false)
+                                        @endif 
                                 </td>   
                             </tr>
                         @endif  

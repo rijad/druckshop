@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\CustomerArea;
 use App\User;
 use App\UserPermissions;
+use Illuminate\Support\Facades\DB;
 
 class UsersController extends Controller
 {
@@ -107,5 +108,7 @@ class UsersController extends Controller
         $customerdata = User::destroy($id);
         return redirect()->back()->with('status' , 'Deleted');
     }
+    
    
+
 }

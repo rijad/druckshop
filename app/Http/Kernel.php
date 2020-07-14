@@ -70,6 +70,7 @@ class Kernel extends HttpKernel
         'parameter' => \App\Http\Middleware\Parameter::class,
         'latest' => \App\Http\Middleware\Latest::class,
         'returnorders' => \App\Http\Middleware\ReturnOrders::class,
+        'roles' => \App\Http\Middleware\RoleMiddleware::class,
 
     ];
 
