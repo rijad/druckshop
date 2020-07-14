@@ -928,7 +928,7 @@ function displayPopUpCD(template = ""){
 		document.getElementById('drop_file_zone_logo_info_cd').className = "displayNone";
 
 		document.getElementById('div-fonts-cd').className = "displayNone"; 
-		$("#div-display-image-cd").empty();
+		$("#div-display-image-cd").empty(); 
 		document.getElementById('div-display-image-cd').className = "displayNone"; 
 
 		document.getElementById('upload_cd').className = "displayNone";
@@ -942,12 +942,12 @@ function displayPopUpCD(template = ""){
 
 }
 
-
-// Reset templlate field after clicking n cancel button
+ 
+// Reset template field after clicking n cancel button
 
 function resetTemplate(id = ""){  
 
-	$('select[id="'+id+'"]').val('-1').attr("selected",true);
+	//$('select[id="'+id+'"]').val('-1').attr("selected",true);
 	$('select[id="'+id+'"]').trigger("onchange");
 }
 
@@ -2107,7 +2107,13 @@ function setQuantity(count = ""){
 			    var m = $("[name='no_of_cds["+i+"]']"); 
 			    total_cds_after_split[i] = 0;
 				m.each(function(e) { 
-					total_cds_after_split[i] += parseInt($(this).val());
+
+					if(isNaN(parseInt($(this).val()))){
+						total_cds_after_split[i] += parseInt(0);
+					}else{
+						total_cds_after_split[i] += parseInt($(this).val());
+					}
+					
 				}); 
 
 				// $("[id='total_cds_after_split"+i+"']").val(total_cds_after_split[i]);
@@ -2339,8 +2345,6 @@ function clearSplitOrderTable(){
 			type: 'POST', 
 			data: {'_token': $('meta[name="csrf-token"]').attr('content')},
 			success: function (response){
-
-				//console.log(response);
 			}
 		});  
 
@@ -2391,18 +2395,18 @@ function splitOrder(rowId = "", prodSequence = "", count = ""){
 	//alert(split_id + "--------------" + index +"************"+sequenceUI);
 
 	var newel = $("#cloneBioFields_"+prodSequence).last().clone(true);
-	$(newel).find("[name = 'no_of_cds["+prodSequence+"]' ]").attr("onchange","InsertSplitOrder("+rowId+","+(parseInt(uiSequence) + 1)+",this)").val(0);
-	$(newel).find("[name = 'no_of_copies["+prodSequence+"]' ]").attr("onchange","InsertSplitOrder("+rowId+","+(parseInt(uiSequence)+ 1)+",this)").val(0);
-	$(newel).find("[name = 'shipping_address["+prodSequence+"]' ]").attr("onchange","InsertSplitOrder("+rowId+","+(parseInt(uiSequence)+ 1)+",this)").val(-1);
-	$(newel).find("[name = 'shipping_company["+prodSequence+"]' ]").attr("onchange","InsertSplitOrder("+rowId+","+(parseInt(uiSequence)+ 1)+",this)").val(-1);
+	$(newel).find("[name = 'no_of_cds["+prodSequence+"]' ]").attr("onchange","InsertSplitOrder("+rowId+","+(parseInt(uiSequence) + 1)+",this ,"+prodSequence+")").val(parseInt(0));
+	$(newel).find("[name = 'no_of_copies["+prodSequence+"]' ]").attr("onchange","InsertSplitOrder("+rowId+","+(parseInt(uiSequence)+ 1)+",this ,"+prodSequence+")").val(parseInt(0));
+	$(newel).find("[name = 'shipping_address["+prodSequence+"]' ]").attr("onchange","InsertSplitOrder("+rowId+","+(parseInt(uiSequence)+ 1)+",this ,"+prodSequence+")").val(-1);
+	$(newel).find("[name = 'shipping_company["+prodSequence+"]' ]").attr("onchange","InsertSplitOrder("+rowId+","+(parseInt(uiSequence)+ 1)+",this ,"+prodSequence+")").val(-1);
 	$(newel).find("[id = 'remove_split_order_"+prodSequence+"' ]").attr("class","remove_btn displayBlock").attr("onclick","RemoveSplitOrder("+rowId+","+prodSequence+","+(parseInt(uiSequence) + 1)+")");
 	$(newel).find("[id = 'sequence_"+prodSequence+"']").last().attr('name',"sequence_"+prodSequence+"_"+(parseInt(uiSequence) + 1)+"").val(parseInt(uiSequence) + 1);  
 	
 	$(newel).insertAfter("[name = 'cloneBioFields_"+prodSequence+"_"+(parseInt(uiSequence))+"']");	
 
 	$("[id = 'cloneBioFields_"+prodSequence+"']").last().attr('name',"cloneBioFields_"+prodSequence+"_"+(parseInt(uiSequence) + 1)+"").val(parseInt(uiSequence) +1 );    
-	$("[name = 'no_of_cds["+prodSequence+"]' ]").attr("onchange","setQuantity("+ count +"); InsertSplitOrder("+rowId+","+(parseInt(uiSequence) + 1)+",this)");
-	$("[name = 'no_of_copies["+prodSequence+"]' ]").attr("onchange","setQuantity("+ count +"); InsertSplitOrder("+rowId+","+(parseInt(uiSequence)+ 1)+",this)");
+	$("[name = 'no_of_cds["+prodSequence+"]' ]").attr("onchange","setQuantity("+ count +"); InsertSplitOrder("+rowId+","+(parseInt(uiSequence) + 1)+",this ,"+prodSequence+")");
+	$("[name = 'no_of_copies["+prodSequence+"]' ]").attr("onchange","setQuantity("+ count +"); InsertSplitOrder("+rowId+","+(parseInt(uiSequence)+ 1)+",this ,"+prodSequence+")");
 }
 
 
@@ -2426,7 +2430,7 @@ function RemoveSplitOrder(rowId = "", prodSequence ="" ,sequenceUI = ""){
 
 
 
-function InsertSplitOrder(rowId = "", sequenceUI = "", field = ""){ //alert(sequenceUI);
+function InsertSplitOrder(rowId = "", sequenceUI = "", field = "", prodSequence = ""){ //alert(sequenceUI);
 
 	var no_of_copies = ""; var no_of_cds = ""; var shipping_address = ""; var shipping_company = ""; 
 		
@@ -2458,7 +2462,7 @@ function InsertSplitOrder(rowId = "", sequenceUI = "", field = ""){ //alert(sequ
 	$.ajax({
 		url: base_url+'/insert-split-order',  
 		type: 'POST', 
-		data: {'sequence':sequenceUI,'no_of_copies': no_of_copies,'no_of_cds': no_of_cds,'rowId': rowId,'shipping_address' : shipping_address, 'shipping_company' : shipping_company,'_token': $('meta[name="csrf-token"]').attr('content')},
+		data: {'prod_sequence': prodSequence ,'sequence':sequenceUI,'no_of_copies': no_of_copies,'no_of_cds': no_of_cds,'rowId': rowId,'shipping_address' : shipping_address, 'shipping_company' : shipping_company,'_token': $('meta[name="csrf-token"]').attr('content')},
 		success: function (response){
 
 			//console.log(response);

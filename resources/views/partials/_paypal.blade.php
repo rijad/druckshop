@@ -5,6 +5,7 @@ $paypal_username = 'aditya.bandral-facilitator@trantorinc.com'; //Business Email
 ?>
 
 
+
 <form action="<?php echo $paypal_link; ?>" method="post">
  
         <!-- Identify your business so that you can collect the payments. -->

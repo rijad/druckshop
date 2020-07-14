@@ -16,7 +16,7 @@
             @endif
             @if ($errors->any())
             <ul>
-                @foreach ($errors->all() as $error)
+                @foreach ($errors->all() as $error) 
                 @endforeach
             </ul>
             @endif
@@ -44,7 +44,7 @@
                         <tr class="form-inline form-inline-row">
                             <td class="rv-headLtchild1"><input id="from" type="hidden" name="from[]" value="0" />0</td>
                             <td class="rv-headLtchild"><input class="form-control to_input" id="to" type="number" name="to[]" required /></td>
-                            <td class="rv-headRtchild3"><input class="form-control price_input" id="price" type="number" step="0.01" name="price[]" required onchange="decimalplace(this);" onkeyup="decimalplace(this);"/></td>
+                            <td class="rv-headRtchild3"><input class="form-control price_input" id="price" type="number" step="0.01" name="price[]" required onchange="decimalplace(this);" onfocusout="decimalplace(this);"/></td>
                         </tr>
 
                     </table>
