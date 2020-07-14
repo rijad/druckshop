@@ -420,7 +420,7 @@
 														<div class="modal-dialog" role="document">
 															<div class="modal-content">
 																<div class="modal-header">
-																	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+																	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" onclick = "resetTemplate('template');" >&times;</span></button>
 																	<h4 class="modal-title">Modal title</h4>
 																</div>
 																<div class="modal-body" id="modal-body">
@@ -512,7 +512,7 @@
 														<div class="modal-dialog" role="document">
 															<div class="modal-content">
 																<div class="modal-header">
-																	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+																	<button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick = "resetTemplate('cd-template');"><span aria-hidden="true">&times;</span></button>
 																	<h4 class="modal-title">Modal title</h4>
 																</div>
 																<div class="modal-body" id="modal-body-cd">

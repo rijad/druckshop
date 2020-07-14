@@ -985,9 +985,13 @@ public function cart(){
 		} 
 
 
-		
+		try{
+			$split_order = SplitOrderShippingAddress::where(['user_id' => $user_id, 'status' => 0])->get();
+		}catch(Exception $e){
+			$split_order =[];
+		} 	dd($split_order);
 
-		return view('/pages/front-end/cart',compact('product_data','shipping_company','billing_address_data','shipping_address_data'));
+		return view('/pages/front-end/cart',compact('product_data','shipping_company','billing_address_data','shipping_address_data','split_order'));
 
 	}
 
@@ -1275,6 +1279,7 @@ public function clearSplitOrderTable(Request $request){
 	}
 
 	$record = SplitOrderShippingAddress::where(['user_id' => $user_id, 'status' => 0])->delete();
+	print_r($record);
 
 }
 
@@ -1451,13 +1456,14 @@ public function setQuantity(Request $request){
 		}
 
 
-    	$record = SplitOrderShippingAddress::where(['user_id'=>$user_id, 'unique_id' => $request->input('rowId') , 'sequence' => $request->input('sequence') ])->first();
+    	$record = SplitOrderShippingAddress::where(['user_id'=>$user_id, 'unique_id' => $request->input('rowId') , 'sequence' => $request->input('sequence'), 'status' => 0 , 'prod_sequence' => $request->input('prod_sequence')])->first();
 
     	//print_r(json_encode($record)); 
 
     	if(json_encode($record) == "null"){
 
     		$new_record = new SplitOrderShippingAddress;
+    		$new_record->prod_sequence = $request->input('prod_sequence');
     		$new_record->no_of_copies = $request->input('no_of_copies');
     		$new_record->no_of_cds = $request->input('no_of_cds');
     		$new_record->shipping_address = $request->input('shipping_address');
@@ -1467,7 +1473,7 @@ public function setQuantity(Request $request){
     		$new_record->user_id = $user_id;
     		$new_record->status = 0;
     		$new_record->save();
-
+    		print_r('new_record');
     		print_r($new_record);
 
 
@@ -1494,12 +1500,17 @@ public function setQuantity(Request $request){
     		if($request->input('sequence') != ""){
     			$update_record->sequence = $request->input('sequence');
     		}
+
+    		if($request->input('prod_sequence') != ""){
+    			$update_record->prod_sequence = $request->input('prod_sequence');
+    		}
     		
     		$update_record->unique_id = $request->input('rowId');
     		$update_record->user_id = $user_id;
     		$update_record->status = 0;
     		$update_record->save();
 
+    		print_r('old_record');
     		print_r($update_record);
 
     	}
