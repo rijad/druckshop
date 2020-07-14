@@ -17,7 +17,7 @@ $paypal_username = 'aditya.bandral-facilitator@trantorinc.com'; //Business Email
         <input type="hidden" name="item_name" value="Order Payment"> 
         <input type="hidden" name="item_number" value="101">
         <input type="hidden" name="amount" value="{{$net_amt}}"> 
-        <input type="hidden" name="currency_code" value="USD">
+        <input type="hidden" name="currency_code" value="EUR">
         
         <!-- Specify URLs -->
         <input type='hidden' name='cancel_return' value='{{route("payment-fail")}}'>

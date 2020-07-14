@@ -8,6 +8,12 @@
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700&display=swap" rel="stylesheet"> 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="{{ asset('public/js/frontend/bootstrap.min.js') }}" type="text/javascript" ></script>
+<script src="{{ asset('public/js/frontend/bootstrap.bundle.js') }}" type="text/javascript" ></script>
+<script src="{{ asset('public/js/frontend/bootstrap.bundle.min.js') }}" type="text/javascript" ></script>
+<script src="{{ asset('public/js/frontend/bootstrap.bundle.min.js.map') }}" type="text/javascript" ></script>
+<script src="{{ asset('public/js/frontend/bootstrap.js') }}" type="text/javascript" ></script>
+<script src="{{ asset('public/js/frontend/bootstrap.js.map') }}" type="text/javascript" ></script>
+<script src="{{ asset('public/js/frontend/bootstrap.min.js.map') }}" type="text/javascript" ></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
 
