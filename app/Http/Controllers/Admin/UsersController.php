@@ -91,7 +91,7 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id) 
     {
         //
     }
@@ -105,15 +105,7 @@ class UsersController extends Controller
     public function destroy($id)
     {
         $customerdata = User::destroy($id);
-        $customerarea = CustomerArea::where('user_id', $user_id)->delete();
-        $permission = UserPermissions::where('user_id', $user_id)->delete();
         return redirect()->back()->with('status' , 'Deleted');
     }
-    // public function deleteCustomer($id)
-    // {
-    //     $customerdata = User::destroy($id);
-    //     $customerarea = CustomerArea::where('user_id', $user_id)->delete();
-    //     $permission = UserPermissions::where('user_id', $user_id)->delete();
-    //     return redirect()->back()->with('status' , 'Deleted');
-    // }
+   
 }

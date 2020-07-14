@@ -1210,11 +1210,11 @@ function displayContentInput(option = ""){
 	}
 }
 
+ 
+function hideBindingElements(value = ""){   
 
-function hideBindingElements(value = ""){
-
-	if(value == "back-cover"){
-		if($("#back-cover").find(":selected").val() == "-1"){
+	if(value == "back-cover"){  alert("BK IN");  alert("BK : "+ $("#back-cover").find(":selected").val());
+		if($("#back-cover").find(":selected").val() == "-1"){  
 			document.getElementById('drop_file_zone_back_cover').className = "displayNone";
 			document.getElementById('drop_file_zone_back_cover_heading').className = "outside-box-heading displayNone";
 			document.getElementById('drop_file_zone_back_cover_sheet_info').className = "displayNone";
@@ -1224,19 +1224,29 @@ function hideBindingElements(value = ""){
 
 		     removeFile(file_name,id,'1');
 		}
+
+		file_name = $('#selectfile_backcover').val(); 
+		    id = "drop_file_zone_back_cover";
+
+		     removeFile(file_name,id,'1');
 	}
 
-	if(value == "cover-sheet"){
-		if($("#cover-sheet").find(":selected").val() == "-1"){
+	if(value == "cover-sheet"){  //alert("CK : "+ $("#cover-sheet").find(":selected").val()); alert("ck IN");
+		if($("#cover-sheet").find(":selected").val() == "-1"){  
 			document.getElementById('drop_file_zone_cover_sheet').className = "displayNone";
 			document.getElementById('drop_file_zone_cover_sheet_heading').className = "outside-box-heading displayNone";
 			document.getElementById('drop_file_zone_cover_sheet_info').className = "displayNone";
 			document.getElementById('selectfile_coversheet').value=""; // empty file field as well
-			file_name = $('#selectfile_coversheet').val();
+			// file_name = $('#selectfile_coversheet').val();
+		 //    id = "drop_file_zone_cover_sheet";   
+
+		 //    removeFile(file_name,id,'1');
+		}
+
+		file_name = $('#selectfile_coversheet').val();
 		    id = "drop_file_zone_cover_sheet";   
 
 		    removeFile(file_name,id,'1');
-		}
 	}
 
 }
@@ -2231,25 +2241,25 @@ function setQuantity(count = ""){
 
 
 			}
-
+ 
 			
 
-			// Update in frontend
+			//Update in frontend
 
-			// var m = $("input[id='no_of_cds']");
-			// var i = 0;
-			// m.each(function(e) {
+			var m = $("input[id='no_of_cds']");
+			var i = 0;
+			m.each(function(e) {
 
-			// 	if(isNaN(parseInt($(this).val())) || parseInt($(this).val()) <= 0){
+				if(isNaN(parseInt($(this).val())) || parseInt($(this).val()) <= 0){
 
-			// 		$(this).prop("readonly", true);
+					$(this).prop("readonly", true);
 					
-			// 	}else{
-			// 		$(this).prop("readonly", false); 
+				}else{
+					$(this).prop("readonly", false); 
 					
-		 //        } 
-		 //         i++;
-			// });
+		        } 
+		         i++;
+			});
 
 
 			
@@ -3167,7 +3177,7 @@ function getCoverSetting(binding){
 					
 				}
 
-				if(response == '1' || response == '2'){
+				if(response == '1' || response == '2'){ 
 					$.ajax({
 						url: base_url+'/get-cover-color', 
 						type: 'POST', 
@@ -3218,6 +3228,7 @@ function getCoverSetting(binding){
 
 							data.forEach(function(data) {
 								$('#back-cover').append("<option value='"+data.id+"'>"+data.cover+ "</option>");
+								//$('#back-cover').append("<option onclick=hideBindingElements('back-cover'); value='"+data.id+"'>"+data.cover+ "</option>");
 							})	
 
 							
