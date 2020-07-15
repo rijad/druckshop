@@ -1919,12 +1919,27 @@ input.shipping-address-page-button {
     padding: 5px 15px;
 }
 
-
+div#template-classic {
+    position: relative;
+}
+#div-template-classic img.template-classic:hover {
+    transform: scale(2);
+    position: relative;
+    top: 20%;
+    z-index: 9;
+}
+#div-template-classic img#Klassik-1:hover{
+	margin-left: 10%;
+}
 
 
 /*media query starts from here*/
 
 @media only screen and (max-width:768px){
+	#div-template-classic img#Klassik-1:hover {
+    	margin-left: 40px;
+	}
+
 
   #div-template-classic img.template-classic {
     border: 1px solid #746d6d !important;
@@ -2027,6 +2042,8 @@ input.shipping-address-page-button {
 
 @media only screen and (max-width: 768px){
 
+
+
   .rv-casualBioFields .form-group input#no_of_copies {
     margin-top: 15px;
     float: left;
@@ -2055,6 +2072,8 @@ input.shipping-address-page-button {
     font-size: 18px;
     clear: both;
   }
+
+
 }
 
 @media (min-width: 1400px){
@@ -2121,6 +2140,17 @@ div#div-section-1  label#field-1 {
       margin-top: 0 !important;
       width: 100% !important;
   }
+ 
+	#div-template-classic img.template-classic:hover {
+    transform: scale(1.8);
+    position: relative;
+    top: 20%;
+    z-index: 9;
+	}
+
+	#div-template-classic img#Klassik-1:hover {
+	    margin-left: 11%;
+	}
 }
 
 @media (min-width: 992px){
@@ -2147,8 +2177,14 @@ div#div-section-1  label#field-1 {
     margin-bottom: 10px;
   }
 
-}
+  #div-template-classic img#Klassik-1:hover{
+	margin-left: 16%;
+	}
+	#div-template-classic img.template-classic:hover {
+    transform: scale(2.5);
+	}
 
+}
 
 @media only screen and (max-width: 1300px){
 .w-35 {

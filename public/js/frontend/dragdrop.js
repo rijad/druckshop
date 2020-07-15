@@ -267,26 +267,50 @@ function ajaxFileUpload(file_obj,id) {  //alert(id);
 }//NumberOfPages('binding','paper-weight','no-of-pages');
 } 
 
+var previous_back_cover; var previous_cover_sheet;
+
+$("#back-cover").on('focus', function () {
+    previous_back_cover = this.value;  
+});
+
+$("#cover-sheet").on('focus', function () {
+    previous_cover_sheet = this.value;
+});
+
 
 //upload files 
  
 function uploadDisplayCoverSheet(node,value){
 
-//   if($('#selectfile_coversheet').val() != ""){
 
-//     file_name = $('#selectfile_coversheet').val();
-//     id = "drop_file_zone_cover_sheet";   
-
-//      removeFile(file_name,id,'1');
-
-// }
-
-
-  if(node == "cover-sheet" && value != "-1" && (value == "5" || value == "6")){
+  if(node == "cover-sheet" && value != "-1" &&  window.previous_cover_sheet == value && (value == "5" || value == "6")){
     document.getElementById('drop_file_zone_cover_sheet').className = "displayBlock";
     document.getElementById('drop_file_zone_cover_sheet_heading').className = "outside-box-heading displayBlock";
     document.getElementById('drop_file_zone_cover_sheet_info').className = "displayBlock";
+
+  }else if(window.previous_cover_sheet != value && (value == "5" || value == "6")){  
+
+
+    document.getElementById('drop_file_zone_cover_sheet').className = "displayBlock";
+    document.getElementById('drop_file_zone_cover_sheet_heading').className = "outside-box-heading displayBlock";
+    document.getElementById('drop_file_zone_cover_sheet_info').className = "displayBlock";
+    
+    if($('#selectfile_coversheet').val() != ""){
+      file_name = $('#selectfile_coversheet').val();
+      id = "drop_file_zone_cover_sheet";   
+      removeFile(file_name,id,'1');
+    }
+
+
   }else{
+
+    if($('#selectfile_coversheet').val() != ""){
+      file_name = $('#selectfile_coversheet').val();
+      id = "drop_file_zone_cover_sheet";   
+      removeFile(file_name,id,'1');
+    }
+
+
     document.getElementById('drop_file_zone_cover_sheet').className = "displayNone";
     document.getElementById('drop_file_zone_cover_sheet_heading').className = "outside-box-heading displayNone";
     document.getElementById('drop_file_zone_cover_sheet_info').className = "displayNone";
@@ -298,20 +322,34 @@ function uploadDisplayCoverSheet(node,value){
 
 function uploadDisplayBackCover(node,value){
 
-//   if($('#selectfile_backcover').val() != ""){
-
-//     file_name = $('#selectfile_backcover').val(); 
-//     id = "drop_file_zone_back_cover";
-
-//      removeFile(file_name,id,'1');
-
-// }
-
-  if(node == "back-cover" && value != "-1" && (value == "5" || value == "6")){ 
+  if(node == "back-cover" && value != "-1" && window.previous_back_cover == value && (value == "5" || value == "6")){   console.log("1");
     document.getElementById('drop_file_zone_back_cover').className = "displayBlock";
     document.getElementById('drop_file_zone_back_cover_heading').className = "outside-box-heading displayBlock";
     document.getElementById('drop_file_zone_back_cover_sheet_info').className = "displayBlock";
-  }else{
+
+  }else if(window.previous_back_cover != value && (value == "5" || value == "6")){   
+
+
+    document.getElementById('drop_file_zone_back_cover').className = "displayBlock";
+    document.getElementById('drop_file_zone_back_cover_heading').className = "outside-box-heading displayBlock";
+    document.getElementById('drop_file_zone_back_cover_sheet_info').className = "displayBlock";
+
+      if($('#selectfile_backcover').val() != ""){
+      file_name = $('#selectfile_backcover').val(); 
+      id = "drop_file_zone_back_cover";
+      removeFile(file_name,id,'1');
+
+    }
+
+
+  }else{  
+
+
+      if($('#selectfile_backcover').val() != ""){
+      file_name = $('#selectfile_backcover').val(); 
+      id = "drop_file_zone_back_cover";
+      removeFile(file_name,id,'1');
+    }
 
     document.getElementById('drop_file_zone_back_cover').className = "displayNone";
     document.getElementById('drop_file_zone_back_cover_heading').className = "outside-box-heading displayNone";
@@ -487,7 +525,7 @@ function removeFile(file_name,id,status){  //alert(id);
         document.getElementById('page_no_upload_cd_without_logo').innerHTML = "";
         document.getElementById('selectfile_upload_cd_without_logo').value = "";
         document.getElementById('drag_upload_cd_without_logo').className = "displayBlock"
-        document.getElementById('del_file_logo_without').remove();
+        document.getElementById('del_file_without_logo').remove();
       }
      // console.log(data);
     }

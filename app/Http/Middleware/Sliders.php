@@ -12,7 +12,7 @@ class Sliders
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request  $request 
      * @param  \Closure  $next
      * @return mixed
      */ 
@@ -20,6 +20,8 @@ class Sliders
     {
         if (Auth::user()) {
             $user_id = Auth::user()->id;
+        }else{
+            return redirect('/admin/dashboard');
         } 
        
         $users = UserPermissions::where('user_id' , $user_id)->first(); //dd($users);
@@ -43,6 +45,6 @@ class Sliders
 
         }    
     
-       // return $next($request); 
+       return $next($request); 
     }
 }

@@ -300,6 +300,7 @@ function embossingChange(field = ""){
 					document.getElementById('div-template').className = "displayNone";   
 					document.getElementById('upload_custom_logo').className = "displayNone";   
 					document.getElementById('upload_custom_file').className = "displayNone"; 
+					document.getElementById('selectfile_file').value = "";
 					document.getElementById('upload_custom_logo_heading').className = "displayNone";   
 					document.getElementById('upload_custom_file_heading').className = "displayNone";
 			}else{
@@ -391,6 +392,7 @@ function displayPrintFields(embossment = ""){
 				if($("#embossment-cover-sheet").is(":checked")){
 					document.getElementById('div-template').className = "displayBlock";
 					document.getElementById('upload_custom_file').className = "displayNone";
+					document.getElementById('selectfile_file').value = "";
 					document.getElementById('upload_custom_file_heading').className = "outside-box-heading displayNone";
 					document.getElementById('div-remarks').className = "displayBlock"; 
 
@@ -436,13 +438,14 @@ function displayPrintFields(embossment = ""){
 					document.getElementById('div-remarks').className = "displayNone"; 
 
 					document.getElementById('upload_custom_file').className = "displayNone";  
+					document.getElementById('selectfile_file').value = "";
 					document.getElementById('upload_custom_file_heading').className = "displayNone";
 					
 					document.getElementById('div-display-image').className = "displayNone";
 					document.getElementById('div-fonts').className = "displayNone";
 					document.getElementById('div-date-format').className = "displayNone";
-					document.getElementById('upload_custom_file').className = "displayNone";
-					document.getElementById('upload_custom_file_heading').className = "outside-box-heading displayNone";
+					//document.getElementById('upload_custom_file').className = "displayNone";
+					//document.getElementById('upload_custom_file_heading').className = "outside-box-heading displayNone";
 					 
 				}
 				
@@ -497,6 +500,7 @@ function displayPrintFields(embossment = ""){
 						document.getElementById('div-template').className = "displayNone";
 						document.getElementById('upload_custom_logo').className = "displayNone";   
 						document.getElementById('upload_custom_file').className = "displayNone";
+						document.getElementById('selectfile_file').value = "";
 						document.getElementById('upload_custom_logo_heading').className = "displayNone";   
 						document.getElementById('upload_custom_file_heading').className = "displayNone";
 						if($('#embossing').val() == "Classic"){  
@@ -510,6 +514,7 @@ function displayPrintFields(embossment = ""){
 					}
 					
 					document.getElementById('upload_custom_file').className = "displayNone";
+					document.getElementById('selectfile_file').value = "";
 					document.getElementById('upload_custom_file_heading').className = "outside-box-heading displayNone";
 					document.getElementById('div-remarks').className = "displayBlock"; 
 					if($('#embossing').val() == "Classic"){
@@ -546,6 +551,7 @@ function displayPrintFields(embossment = ""){
 					document.getElementById('upload_custom_logo_info_cd').className = "displayNone";
 					document.getElementById('div-remarks').className = "displayNone"; 
 					document.getElementById('upload_custom_file').className = "displayNone";
+					document.getElementById('selectfile_file').value = "";
 					document.getElementById('upload_custom_file_heading').className = "outside-box-heading displayNone";
 					document.getElementById('div-fonts').className = "displayNone";
 					$("#div-display-image").empty();
@@ -804,6 +810,7 @@ function displayPopUp(template = ""){
 		document.getElementById('upload_custom_logo_heading').className = "outside-box-heading displayBlock";
 
 		document.getElementById('upload_custom_file').className = "displayNone";
+		document.getElementById('selectfile_file').value = "";
 		document.getElementById('upload_custom_file_heading').className = "outside-box-heading displayNone";
 
 		document.getElementById('div-date-format').className = "displayBlock";
@@ -829,8 +836,12 @@ function displayPopUp(template = ""){
 		document.getElementById('upload_custom_logo_heading').className = "outside-box-heading displayNone"; 
 
 		document.getElementById('upload_custom_file').className = "displayNone";
+		document.getElementById('selectfile_file').value = "";
 		document.getElementById('upload_custom_file_heading').className = "outside-box-heading displayNone";
+		document.getElementById('upload_custom_logo_info').className = 'displayNone';
+		document.getElementById('selectfile_logo').value='';
 
+ 
 	}else if(template == "Eigene Vorlage"){
 		document.getElementById('div-fonts').className = "displayNone";
 		document.getElementById('upload_custom_logo').className = "displayNone";
@@ -842,6 +853,10 @@ function displayPopUp(template = ""){
 		document.getElementById('div-date-format').className = "displayNone";
 
 		document.getElementById('upload_custom_file').className = "displayBlock";
+		document.getElementById('selectfile_file').value = "";
+		document.getElementById('upload_custom_logo_info').className = 'displayNone';
+		document.getElementById('selectfile_logo').value='';
+
 		document.getElementById('upload_custom_file_heading').className = "outside-box-heading displayBlock";
 	}
 
@@ -849,6 +864,8 @@ function displayPopUp(template = ""){
 
 
 		document.getElementById('upload_custom_logo').className = "displayNone";
+		document.getElementById('upload_custom_logo_info').className = 'displayNone';
+		document.getElementById('selectfile_logo').value='';
 		document.getElementById('upload_custom_logo_heading').className = "outside-box-heading displayNone";
 		//document.getElementById('drop_file_zone_logo_info').className = "outside-box-heading displayNone";
 		document.getElementById('div-remarks').className = "displayNone"; 
@@ -858,6 +875,7 @@ function displayPopUp(template = ""){
 		document.getElementById('div-embossment-spine').className = "displayBlock";
 
 		document.getElementById('upload_custom_file').className = "displayNone";
+		document.getElementById('selectfile_file').value = "";
 		document.getElementById('upload_custom_file_heading').className = "outside-box-heading displayNone";
 
 		document.getElementById('div-fonts').className = "displayNone";
@@ -1207,49 +1225,10 @@ function displayContentInput(option = ""){
 
 
 		}
-	}
+	} 
 }
 
  
-function hideBindingElements(value = ""){   
-
-	if(value == "back-cover"){  alert("BK IN");  alert("BK : "+ $("#back-cover").find(":selected").val());
-		if($("#back-cover").find(":selected").val() == "-1"){  
-			document.getElementById('drop_file_zone_back_cover').className = "displayNone";
-			document.getElementById('drop_file_zone_back_cover_heading').className = "outside-box-heading displayNone";
-			document.getElementById('drop_file_zone_back_cover_sheet_info').className = "displayNone";
-			document.getElementById('selectfile_backcover').value=""; // empty file field as well
-			file_name = $('#selectfile_backcover').val(); 
-		    id = "drop_file_zone_back_cover";
-
-		     removeFile(file_name,id,'1');
-		}
-
-		file_name = $('#selectfile_backcover').val(); 
-		    id = "drop_file_zone_back_cover";
-
-		     removeFile(file_name,id,'1');
-	}
-
-	if(value == "cover-sheet"){  //alert("CK : "+ $("#cover-sheet").find(":selected").val()); alert("ck IN");
-		if($("#cover-sheet").find(":selected").val() == "-1"){  
-			document.getElementById('drop_file_zone_cover_sheet').className = "displayNone";
-			document.getElementById('drop_file_zone_cover_sheet_heading').className = "outside-box-heading displayNone";
-			document.getElementById('drop_file_zone_cover_sheet_info').className = "displayNone";
-			document.getElementById('selectfile_coversheet').value=""; // empty file field as well
-			// file_name = $('#selectfile_coversheet').val();
-		 //    id = "drop_file_zone_cover_sheet";   
-
-		 //    removeFile(file_name,id,'1');
-		}
-
-		file_name = $('#selectfile_coversheet').val();
-		    id = "drop_file_zone_cover_sheet";   
-
-		    removeFile(file_name,id,'1');
-	}
-
-}
 
 function displayProductAttributes(field_flag = "", values = ""){
 
@@ -1613,10 +1592,6 @@ function displayPrice(status = "", binding = "", no_ofsheets = "", page_options 
 				if($("#back-cover").find(":selected").val() == "-1"){$("#back-cover").addBack().addClass('invalid'); $('#error_back_cover').html('Back Cover Field is required'); valid = false; return false;}
 				if($("#drop_file_zone_back_cover").hasClass('displayBlock') && $("#selectfile_backcover").val() == ""){ $("#drop_file_zone_back_cover").addBack().addClass('invalid'); $('#error_selectfile_backcover').html('Field is required'); valid = false; return false;}
 			}
-
-
-			
-			 
 
 
 			}// end of outer else 

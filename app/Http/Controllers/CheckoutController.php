@@ -989,7 +989,7 @@ public function cart(){
 			$split_order = SplitOrderShippingAddress::where(['user_id' => $user_id, 'status' => 0])->get();
 		}catch(Exception $e){
 			$split_order =[];
-		} 	dd($split_order);
+		} 	//dd($split_order);
 
 		return view('/pages/front-end/cart',compact('product_data','shipping_company','billing_address_data','shipping_address_data','split_order'));
 
@@ -1067,7 +1067,7 @@ if (Auth::check() && Auth::user()->name != "Guest") // if user is logged in no n
 		self::setGuestUserid($user_id);
 	}
 
-	if ($validator->passes()){   //dd("pass");
+	if ($validator->passes()){  // dd("pass");
 
 		foreach($product_data as $key=>$product_detail){
 
@@ -1225,7 +1225,9 @@ if (Auth::check() && Auth::user()->name != "Guest") // if user is logged in no n
 	return view('/pages/front-end/order',compact('product_data','discount_amt','total','net_amt','delivery_cost','net_amt_after_delivery_service'));
 
 
-}else{//dd("faiil");
+}else{//dd("faiil"); 
+
+//dd($validator->errors());
 
 	try{
 			$billing_address_data = UserAddress::where(['address_type'=>'billing','user_id'=>$user_id, 'default'=>'1'])->limit('1')->get();
@@ -1648,7 +1650,7 @@ public function paymentPaypalSuccess(Request $request){
 			$OrderHistory->order_id= $OrderDetails->order_id;
 			$OrderHistory->save();
 		}
-
+ 
 
 		//send mail for order place
 		if ($OrderDetails->order_id) {
@@ -1667,6 +1669,7 @@ public function paymentPaypalSuccess(Request $request){
 					'base_url' => \URL::to('/'),
 					'logo_url' => \URL::to('/'). '/public/images/logo.png',
 					'order_history' => $order_history,
+					'total' => $OrderDetails->total,
 				];
 
 
@@ -1815,6 +1818,7 @@ public function paymentPaypalSuccess(Request $request){
 					'base_url' => \URL::to('/'),
 					'logo_url' => \URL::to('/'). '/public/images/logo.png',
 					'order_history' => $order_history,
+					'total' => $OrderDetails->total,
 				];
 
 

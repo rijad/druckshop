@@ -177,7 +177,7 @@
                     <td> {{ $key + 1 }} </td>
                     <td> {{$details->no_of_copies}} </td>
                     <td> {{$details->no_of_cds}}  </td>
-                    <td  colspan = "4"> {{$details->shipping_address}}  </td>
+                    <td  colspan = "4"> {{$details->shipping_address}}  </td> 
                     <td>{{getShippingCompanyById($details->shipping_company)}}</td>
                     </tr>
 
