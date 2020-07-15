@@ -549,7 +549,7 @@
                        
                         <div class="form-group">
                             <label for="text">{{ trans('cart.zip_code') }}*</label>
-                             <input type="text"  class="form-control" placeholder="ename="billing_zip_code" id="billing_zip_code" value="{{$billing_address->zip_code}}">
+                             <input type="text"  class="form-control" placeholder="{{ trans('cart.enter_here') }}" name="billing_zip_code" id="billing_zip_code" value="{{$billing_address->zip_code}}">
                           <p class="error" id="error_billing_zip_code"></p>
                         </div>
                         <div class="form-group">
