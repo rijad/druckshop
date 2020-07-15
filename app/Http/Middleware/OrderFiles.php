@@ -38,7 +38,7 @@ class OrderFiles
         if(array_key_exists('Send link for new file', $data)){    
 
             if($data['Send link for new file'] == 1){
-                 Session::put('Send link for new file', true);
+                 Session::put('Send link for new file', true); 
                  return $next($request);
             }else{
                  Session::put('Send link for new file', false);

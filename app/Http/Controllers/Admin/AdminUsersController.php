@@ -109,7 +109,7 @@ class AdminUsersController extends Controller
 
         if($request->input('role') == "superadmin" || $request->input('role') == "admin"){
 
-            $details = ['Parameter'=> 1 , 'Return orders' => 1 , 'Sliders' => 1 , 'Latest' => 1 , 'Change Orders Attributes' => 1 , 'Order Files' => 1 ];
+            $details = ['Parameter'=> 1 , 'Return orders' => 1 , 'Sliders' => 1 , 'Latest' => 1 , 'Change Orders Attributes' => 1 , 'Send link for new file' => 1 ];
             
            
                 $roles_new = new UserPermissions;
