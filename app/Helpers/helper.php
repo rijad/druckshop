@@ -59,7 +59,7 @@ function listById($list_id){
 }
 
 function deliveryServiceById($list_id){
-	$list = \App\DeliveryService::find($list_id);
+	$list = \App\DeliveryService::find($list_id);  
 	return $list->delivery_service;
 }
 
@@ -149,11 +149,11 @@ function getFreeSampleImage($id){
 	
 }   
 
-function getShippingCompanyById($id){
+ function getShippingCompanyById($id){
 
-	$shippingCompany = \App\DeliveryService::where(['id' => $id])->first('delivery_service');
-	return $shippingCompany->delivery_service;
-}
+	$shippingCompany = \App\DeliveryService::find($id);
+	return $shippingCompany['delivery_service'];
+} 
 
 function changeTimeZone($dateString){
 

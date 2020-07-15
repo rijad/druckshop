@@ -11,7 +11,7 @@ class RoleMiddleware
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request  $request 
      * @param  \Closure  $next
      * @return mixed
      */
@@ -20,6 +20,8 @@ class RoleMiddleware
         if (Auth::user()) {
             $user_id = Auth::user()->id;
             // dd($user_id);
+        }else{
+            return redirect('/admin/dashboard');
         } 
         
             if(Auth::guard('admin')->user()->role == 0){

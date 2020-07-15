@@ -35,21 +35,24 @@
 						<td><span><h4>{{ @$count }} - Product :   {{ @$value['product'] }} <h4></span>
 						</td>
 					</tr>
-					<tr>
+					{{-- <tr>
 						<td><span><h4>Shipping Company :   {{ @$value['shipping_company'] }} <h4></span>
 						</td>
-					</tr>
+					</tr> --}}
 
 					<tr>
 						<td><span><h4>Billing Address :   {{ @$value['billing_address'] }} <h4></span>
 						</td>
 					</tr>
 
-					<tr>
+					{{-- <tr>
 						<td><span><h4>Shipping Address :   {{ @$value['shipping_address'] }} <h4></span>
 						</td>
+					</tr> --}}
+					<tr>
+						<td><span><h4>Amount :   {{ @$value['price_product_qty'] }}  €<h4></span>
+						</td>
 					</tr>
-
 
 
 					<?php $count++; ?>
@@ -57,6 +60,10 @@
 
 					<br>
 					<br>
+					<tr>
+						<td><span><hr><h4>Total Amount :   {{ @$total }}  €<h4></span>
+						</td>
+					</tr>
 					<tr>
 						<td>
 							<table cellspacing="0" border="0" cellpadding="0" width="100%">	

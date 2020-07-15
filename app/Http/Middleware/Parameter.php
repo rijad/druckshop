@@ -9,7 +9,7 @@ use Closure;
 
 class Parameter
 {
-    /**
+    /** 
      * Handle an incoming request.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -20,6 +20,8 @@ class Parameter
     {
         if (Auth::user()) {
             $user_id = Auth::user()->id;
+        }else{
+            return redirect('/admin/dashboard');
         } 
        
         $users = UserPermissions::where('user_id' , $user_id)->first();
@@ -43,6 +45,6 @@ class Parameter
 
         }    
     
-       // return $next($request); 
+       return $next($request); 
     }
 }

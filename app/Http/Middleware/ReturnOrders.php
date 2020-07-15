@@ -16,11 +16,13 @@ class ReturnOrders
      * @param  \Closure  $next
      * @return mixed 
      */
-    public function handle($request, Closure $next)
+    public function handle($request, Closure $next) 
     {
         if (Auth::user()) {
             $user_id = Auth::user()->id;
-        } 
+        }else{
+            return redirect('/admin/dashboard');
+        }
        
         $users = UserPermissions::where('user_id' , $user_id)->first();
         if(!empty($users) || !is_null($users)){
@@ -43,6 +45,6 @@ class ReturnOrders
 
         }    
     
-       // return $next($request); 
+       return $next($request); 
     }
 }

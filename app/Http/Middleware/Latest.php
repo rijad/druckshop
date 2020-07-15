@@ -20,9 +20,11 @@ class Latest
     {
         if (Auth::user()) {
             $user_id = Auth::user()->id;
-        } 
+        }else{
+            return redirect('/admin/dashboard');
+        }
        
-        $users = UserPermissions::where('user_id' , $user_id)->first();
+       $users = UserPermissions::where('user_id' , $user_id)->first();
        if(!empty($users) || !is_null($users)){
     
         $data = json_decode($users->permissions, true);
@@ -43,6 +45,6 @@ class Latest
 
         }    
     
-       // return $next($request); 
+       return $next($request); 
     }
 }

@@ -11,7 +11,7 @@ class Permissions
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request  $request 
      * @param  \Closure  $next
      * @return mixed 
      */
@@ -19,6 +19,8 @@ class Permissions
     { 
         if (Auth::user()) {
             $user_id = Auth::user()->id;
+        }else{
+            return redirect('/admin/dashboard');
         }
 
 
@@ -41,5 +43,7 @@ class Permissions
             }else{
                 return redirect('/admin/dashboard');
             }
+
+            return $next($request); 
     }
 }

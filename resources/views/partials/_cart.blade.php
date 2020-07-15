@@ -30,13 +30,13 @@
 
 
                                         {{-- all odl data --}}
-{{"test" . count($split_order)}}
+{{-- {{"test" . count($split_order)}} --}}
                                         @if(isset($split_order) && count($split_order) != 0 )
 
                                         @foreach($split_order as $split_key => $split_details)
 
                                             @if($data->id == $split_details->unique_id)
-{{"S K " . $split_key}}
+{{-- {{"S K " . $split_key}} --}}
                                                           <div class="rv-casualBioFields" id = {{"cloneBioFields_".$key}} name = {{"cloneBioFields_".$key."_".'0'}}>
 
                                                             <div class="form-group">
@@ -90,7 +90,7 @@
                                                          <button type="button"  id = {{'remove_split_order_'.$split_details->prod_sequence}} onclick="RemoveSplitOrder({{$data->id}} , {{$key}});" class="remove_btn displayNone" > X </button> 
 
                                                           </div>
-
+ 
 
 
                                                           {{-- New + old --}}
