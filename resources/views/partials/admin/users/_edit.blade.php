@@ -33,20 +33,6 @@
             <span class="text-danger">{{ $errors->first('phone') }}</span>
           </div>
           
-
-          <div class="form-group">
-
-            <label class="small mb-1" for="roles">Roles</label><br>
-            
-
-            <input type="radio" id="admin" name="role" value="admin" @if($users->role == 1){{ 'checked' }} @endif>
-            <label for="admin">Admin</label><br>
-            <input type="radio" id="superadmin" name="role" value="superadmin" @if($users->role == 0){{ 'checked' }} @endif>
-            <label for="vehicle3">Superadmin</label><br>
-            <input type="radio" id="employee" name="role" value="employee" @if($users->role == 2){{ 'checked' }} @endif>
-            <label for="vehicle3">Employee</label><br>
-            
-          </div>
           <div class="form-inline">
             <a href="{{ url('/admin/users') }}" class="btn btn-secondary btn-user btn-block col-md-3">Back</a>
             <input type="submit" class="btn btn-primary btn-user btn-block col-md-3" value="Update">

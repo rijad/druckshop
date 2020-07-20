@@ -24,7 +24,8 @@
                                         <th>Name</th>
                                         <th>Role</th>
                                         @foreach($rows as $row)
-                                            <th>{{ $row->permission_name}}</th>
+                                            <th>{{ ($row->permission_name  == 'Send link for new file')? 'Send mail to upload file':$row->permission_name }}
+                                                </th>
                                         @endforeach
                                         <th>Actions</th>
                                     </tr>
@@ -49,8 +50,7 @@
                                                     @csrf
                                                     <td>{{ $index +1 }}</td>
                                                     <td>{{ $detail->name }}</td>
-                                                    <td>@if($detail->role == '2'){{'Employee'}}
-                                                    @endif</td>
+                                                    <td>@if($detail->role == '2'){{'Employee'}} @endif</td>
                                                     @if(!empty($detail->rolePermission->permissions))
                                                         @foreach(json_decode($detail->rolePermission->permissions , true) as $key=>$value)
                                                             <td>

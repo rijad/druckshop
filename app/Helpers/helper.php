@@ -173,3 +173,34 @@ function changeTimeZone($dateString){
 
   return $dt->format("Y-m-d H:i:s");
 }
+
+function countCustomers(){
+	$cust = \App\User::with('customer')->count();
+	return $cust;
+}
+
+function countOrders(){
+	$order = \App\OrderDetailsFinal::count();
+	return $order;
+}
+
+function countPending(){
+	$order = \App\OrderDetailsFinal::where('state', 'New')
+			->orwhere('state', 'In-Progress')->count();
+	return $order;
+}
+
+function countCompleted(){
+	$order = \App\OrderDetailsFinal::where('state', 'Done')->count();
+	return $order;
+}
+
+function countReturn(){
+	$order = \App\OrderReturn::count();
+	return $order;
+}
+
+function countPayment(){
+	$order = \App\Payment::where('status', 'Completed')->count();
+	return $order;
+}

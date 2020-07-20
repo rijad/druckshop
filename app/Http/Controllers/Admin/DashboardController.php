@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\OrderDetailsFinal;
 
 use Auth;
 
@@ -25,7 +26,8 @@ class DashboardController extends Controller
      */
     public function index() 
     {
-        return view ('/pages/admin/index');
+        $order = OrderDetailsFinal::orderBy('id','DESC')->get();
+        return view ('/pages/admin/index',compact('order'));
     }
 
     /**

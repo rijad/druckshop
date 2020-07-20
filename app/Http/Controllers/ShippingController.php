@@ -19,7 +19,7 @@ class ShippingController extends Controller
         if(!Auth::check()){
 			return redirect()->route('index');       
 		}
-        $shipping = UserAddress::where('address_type','shipping')->get();
+        $shipping = UserAddress::where('address_type','shipping')->where(['user_id'=>Auth::user()->id])->get();
         return view('/pages/front-end/shipping',compact('shipping'));
     }
 
