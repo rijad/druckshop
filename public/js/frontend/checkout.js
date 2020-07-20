@@ -890,7 +890,7 @@ function displayPopUp(template = ""){
 
 }
 
-function displayPopUpCD(template = ""){
+function displayPopUpCD(template = ""){  
 	 var title = template;
   $('.modal-title').html(title); 
  
@@ -943,7 +943,7 @@ function displayPopUpCD(template = ""){
 
 		document.getElementById('upload_custom_logo_cd').className = "displayNone";
 		document.getElementById('upload_custom_logo_cd_heading').className = "outside-box-heading displayNone";
-		document.getElementById('drop_file_zone_logo_info_cd').className = "displayNone";
+		//document.getElementById('drop_file_zone_logo_info_cd').className = "displayNone";
 
 		document.getElementById('div-fonts-cd').className = "displayNone"; 
 		$("#div-display-image-cd").empty(); 
@@ -966,7 +966,7 @@ function displayPopUpCD(template = ""){
 function resetTemplate(id = ""){  
 
 	$('select[id="'+id+'"]').val('-1').attr("selected",true);
-	//$('select[id="'+id+'"]').trigger("onchange");
+	$('select[id="'+id+'"]').trigger("onchange");
 }
 
 
