@@ -14,7 +14,11 @@
                               <div class="product">
    
                                 @if(isset($product_data)) 
-                                @foreach ($product_data as $key=>$data)
+                                @foreach ($product_data as $key=>$data)  {{"i am in : ". $key}}
+                                
+                                {{-- declare flags for each product to avoid re-rendering due to split order loop --}}
+                              
+                                   {{$variable[$key] = 0}}   {{ 'flag_start : ' .$key.'---' . $variable[$key]}}
     
                                   <div class="product_listing">
                                       <img src="http://druckshop.trantorglobal.com/public/images/product1.jpg" alt="" width="75px" />
@@ -33,9 +37,15 @@
 {{-- {{"test" . count($split_order)}} --}}
                                         @if(isset($split_order) && count($split_order) != 0 )
 
+
+
                                         @foreach($split_order as $split_key => $split_details)
 
-                                            @if($data->id == $split_details->unique_id)
+                                            @if($data->id == $split_details->unique_id)   {{"Old " .':'. $data->id .'-------'. $split_details->unique_id }}
+
+                                            {{$variable_split[$split_key] = 0}}   {{ 'flag_start_split : ' .$split_key.'---' . $variable_split[$split_key]}}
+
+                                                @if($variable_split[$split_key] == 0)
 {{-- {{"S K " . $split_key}} --}}
                                                           <div class="rv-casualBioFields" id = {{"cloneBioFields_".$key}} name = {{"cloneBioFields_".$key."_".'0'}}>
 
@@ -43,7 +53,7 @@
                                                           <label for="text">{{ trans('cart.no_of_copies') }}*:</label>
 
                                                          <input type="hidden" id = "{{'sequence_'.$split_details->prod_sequence}}" value="0" name={{"sequence_".$split_details->prod_sequence."_".$split_details->sequence}}>
-                                                          <input type="number" id="no_of_copies" min="0" onchange="InsertSplitOrder({{$data->id}} , {{$split_key}}, this,{{$split_details->prod_sequence}}); setTimeout(function(){ setQuantity({{count($product_data)}}) },500);" name={{"no_of_copies[".$split_details->prod_sequence."]"}}  class="form-control" placeholder="{{ trans('cart.enter_here') }}" value={{$split_details->no_of_copies}}>
+                                                          <input type="number" id="no_of_copies" min="0" onchange="InsertSplitOrder({{$data->id}} , {{$split_details->sequence}}, this,{{$split_details->prod_sequence}}); setTimeout(function(){ setQuantity({{count($product_data)}}) },1200);" name={{"no_of_copies[".$split_details->prod_sequence."]"}}  class="form-control" placeholder="{{ trans('cart.enter_here') }}" value={{$split_details->no_of_copies}}>
                                                           @if($errors->has('no_of_copies.'.$split_details->prod_sequence))
                                                           <div class="error">{{ $errors->first('no_of_copies.'.$split_details->prod_sequence) }}</div>
                                                           @endif 
@@ -51,14 +61,14 @@
                                                         <div class="form-group">
                                                           <label for="pwd">{{ trans('cart.no_of_cds') }}:</label>
 
-                                                          <input id="no_of_cds" type="number" min="0" name={{"no_of_cds[".$split_details->prod_sequence."]"}}  class="form-control" placeholder="0" onchange="InsertSplitOrder({{$data->id}} , {{$split_key}} , this ,{{$split_details->prod_sequence}}); setTimeout(function(){ setQuantity({{count($product_data)}}) },500)" value= @if(isset($data->no_of_cds) || ! is_nan($data->no_of_cds)){{$split_details->no_of_cds}} @else {{0}} @endif>
+                                                          <input id="no_of_cds" type="number" min="0" name={{"no_of_cds[".$split_details->prod_sequence."]"}}  class="form-control" placeholder="0" onchange="InsertSplitOrder({{$data->id}} , {{$split_details->sequence}} , this ,{{$split_details->prod_sequence}}); setTimeout(function(){ setQuantity({{count($product_data)}}) },1200)" value= @if(isset($data->no_of_cds) || ! is_nan($data->no_of_cds)){{$split_details->no_of_cds}} @else {{0}} @endif>
                                                            @if($errors->has('no_of_cds.'.$split_details->prod_sequence))
                                                           <div class="error">{{ $errors->first('no_of_cds.'.$split_details->prod_sequence) }}</div>
                                                           @endif
                                                         </div>
                                                          <div class="form-group">
                                                           <label for="pwd">{{ trans('cart.ship_add') }}*:</label>
-                                                          <select class="form-control" name={{"shipping_address[".$split_details->prod_sequence."]"}} id="address_data" onchange="displayAddress(this,'{{'ship-address-'.$split_details->prod_sequence}}'); InsertSplitOrder({{$data->id}} , {{$split_key}} , this ,{{$split_details->prod_sequence}} );"> <option value ="-1">Select</option> 
+                                                          <select class="form-control" name={{"shipping_address[".$split_details->prod_sequence."]"}} id="address_data" onchange="displayAddress(this,'{{'ship-address-'.$split_details->prod_sequence}}'); InsertSplitOrder({{$data->id}} , {{$split_details->sequence}} , this ,{{$split_details->prod_sequence}} );"> <option value ="-1">Select</option> 
                                                           @foreach($shipping_address_data as $keysss=>$shipping_address)<option value = "{{$shipping_address->first_name." ".$shipping_address->last_name .
                                                             
                                                            (($shipping_address->company_name) ? ", ".$shipping_address->company_name : "" )
@@ -77,7 +87,7 @@
 
                                                         <div class="form-group">
                                                           <label for="email">{{ trans('cart.ship_comp') }}*:</label>
-                                                          <select class="form-control" name={{"shipping_company[".$split_details->prod_sequence."]"}} id="shipping_company" onchange = "InsertSplitOrder({{$data->id}} , {{$split_key}} , this ,{{$split_details->prod_sequence}});"> 
+                                                          <select class="form-control" name={{"shipping_company[".$split_details->prod_sequence."]"}} id="shipping_company" onchange = "InsertSplitOrder({{$data->id}} , {{$split_details->sequence}} , this ,{{$split_details->prod_sequence}});"> 
                                                           <option value ="-1">Select</option>
                                                           @foreach($shipping_company as $value)<option value = "{{$value->id}}" @if($value->id == $split_details->shipping_company) {{"selected"}} @endif>{{$value->delivery_service}}</option> 
                                                           @endforeach
@@ -90,11 +100,14 @@
                                                          <button type="button"  id = {{'remove_split_order_'.$split_details->prod_sequence}} onclick="RemoveSplitOrder({{$data->id}} , {{$key}});" class="remove_btn displayNone" > X </button> 
 
                                                           </div>
- 
+                                                          {{$variable_split[$split_key] = 1 }}   {{ 'flag_end_split : ' .$split_key.'---' . $variable_split[$split_key]}}
+                                                      @endif
 
 
                                                           {{-- New + old --}}
-                                                       @else 
+                                                       @elseif($data->id != $split_details->unique_id)  {{"New + Old " .':'. $data->id .'-------'. $split_details->unique_id }}
+
+                                                          @if($variable[$key] == 0)
 
                                                             <div class="rv-casualBioFields" id = {{"cloneBioFields_".$key}} name = {{"cloneBioFields_".$key."_".'0'}}>
                                                           
@@ -102,7 +115,7 @@
                                                             <label for="text">{{ trans('cart.no_of_copies') }}*:</label>
                                                        
                                                            <input type="hidden" id = "{{'sequence_'.$key}}" value="0" name={{"sequence_".$key."_0"}}>
-                                                            <input type="number" id="no_of_copies" min="0" onchange="InsertSplitOrder({{$data->id}} , {{$split_key}}, this,{{$key}}); setTimeout(function(){ setQuantity({{count($product_data)}}) },500);" name={{"no_of_copies[".$key."]"}}  class="form-control" placeholder="{{ trans('cart.enter_here') }}" value={{$data->no_of_copies}}>
+                                                            <input type="number" id="no_of_copies" min="0" onchange="InsertSplitOrder({{$data->id}} , {{$split_details->sequence}}, this,{{$key}}); setTimeout(function(){ setQuantity({{count($product_data)}}) },1200);" name={{"no_of_copies[".$key."]"}}  class="form-control" placeholder="{{ trans('cart.enter_here') }}" value={{$data->no_of_copies}}>
                                                             @if($errors->has('no_of_copies.'.$key))
                                                             <div class="error">{{ $errors->first('no_of_copies.'.$key) }}</div>
                                                             @endif 
@@ -110,7 +123,7 @@
                                                           <div class="form-group">
                                                             <label for="pwd">{{ trans('cart.no_of_cds') }}:</label>
                                                            
-                                                            <input id="no_of_cds" type="number" min="0" name={{"no_of_cds[".$key."]"}}  class="form-control" placeholder="0" onchange="InsertSplitOrder({{$data->id}} , {{$split_key}} , this ,{{$key}}); setTimeout(function(){ setQuantity({{count($product_data)}}) },500)" value= @if(isset($data->no_of_cds) || ! is_nan($data->no_of_cds)){{$data->no_of_cds}} @else {{0}} @endif>
+                                                            <input id="no_of_cds" type="number" min="0" name={{"no_of_cds[".$key."]"}}  class="form-control" placeholder="0" onchange="InsertSplitOrder({{$data->id}} , {{$split_details->sequence}} , this ,{{$key}}); setTimeout(function(){ setQuantity({{count($product_data)}}) },1200)" value= @if(isset($data->no_of_cds) || ! is_nan($data->no_of_cds)){{$data->no_of_cds}} @else {{0}} @endif>
                                                              @if($errors->has('no_of_cds.'.$key))
                                                             <div class="error">{{ $errors->first('no_of_cds.'.$key) }}</div>
                                                             @endif
@@ -118,7 +131,7 @@
 
                                                            <div class="form-group">
                                                             <label for="pwd">{{ trans('cart.ship_add') }}*:</label>
-                                                            <select class="form-control" name={{"shipping_address[".$key."]"}} id="address_data" onchange="displayAddress(this,'{{'ship-address-'.$key}}'); InsertSplitOrder({{$data->id}} ,{{$split_key}} , this ,{{$key}} );"> <option value ="-1">Select</option> 
+                                                            <select class="form-control" name={{"shipping_address[".$key."]"}} id="address_data" onchange="displayAddress(this,'{{'ship-address-'.$key}}'); InsertSplitOrder({{$data->id}} ,{{$split_details->sequence}} , this ,{{$key}} );"> <option value ="-1">Select</option> 
                                                             @foreach($shipping_address_data as $keysss=>$shipping_address)<option value = "{{$shipping_address->first_name." ".$shipping_address->last_name .
                                                               
                                                              (($shipping_address->company_name) ? ", ".$shipping_address->company_name : "" )
@@ -138,7 +151,7 @@
 
                                                           <div class="form-group">
                                                             <label for="email">{{ trans('cart.ship_comp') }}*:</label>
-                                                            <select class="form-control" name={{"shipping_company[".$key."]"}} id="shipping_company" onchange = "InsertSplitOrder({{$data->id}} ,{{$split_key}} , this ,{{$key}});"> 
+                                                            <select class="form-control" name={{"shipping_company[".$key."]"}} id="shipping_company" onchange = "InsertSplitOrder({{$data->id}} ,{{$split_details->sequence}} , this ,{{$key}});"> 
                                                             <option value ="-1">Select</option>
                                                             @foreach($shipping_company as $value)<option value = "{{$value->id}}">{{$value->delivery_service}}</option> @endforeach
                                                             </select>
@@ -151,16 +164,14 @@
 
 
                                                             </div>  
-
-                                                            
-                                                       @continue
-
+                                                          {{$variable[$key] = 1 }}   {{ 'flag_end : ' .$key.'---' . $variable[$key]}}
+                                                      @endif
                                                     @endif
                                                 @endforeach
 
                                           {{-- All New --}}
 
-                                         @elseif(isset($split_order) && count($split_order) == 0 )  {{$key}}
+                                         @elseif( ! isset($split_order) || count($split_order) == 0 )  {{"New" . $key}}
 
                                                           <div class="rv-casualBioFields" id = {{"cloneBioFields_".$key}} name = {{"cloneBioFields_".$key."_".'0'}}>
 
@@ -173,7 +184,7 @@
                                                           <label for="text">{{ trans('cart.no_of_copies') }}*:</label>
                                                          {{--  <label id="binding_price_per_product_{{$data->id}}" class = "price_per_product"></label> --}}
                                                          <input type="hidden" id = "{{'sequence_'.$key}}" value="0" name={{"sequence_".$key."_0"}}>
-                                                          <input type="number" id="no_of_copies" min="0" onchange="InsertSplitOrder({{$data->id}} , 0, this,{{$key}}); setTimeout(function(){ setQuantity({{count($product_data)}}) },500);" name={{"no_of_copies[".$key."]"}}  class="form-control" placeholder="{{ trans('cart.enter_here') }}" value={{$data->no_of_copies}}>
+                                                          <input type="number" id="no_of_copies" min="0" onchange="InsertSplitOrder({{$data->id}} , 0, this,{{$key}}); setTimeout(function(){ setQuantity({{count($product_data)}}) },1200);" name={{"no_of_copies[".$key."]"}}  class="form-control" placeholder="{{ trans('cart.enter_here') }}" value={{$data->no_of_copies}}>
                                                           @if($errors->has('no_of_copies.'.$key))
                                                           <div class="error">{{ $errors->first('no_of_copies.'.$key) }}</div>
                                                           @endif 
@@ -181,7 +192,7 @@
                                                         <div class="form-group">
                                                           <label for="pwd">{{ trans('cart.no_of_cds') }}:</label>
                                                           {{-- <label id="cd_price_per_product_{{$data->id}}" class = "cd price_per_product">Price/qty: 2.00 € </label> --}}
-                                                          <input id="no_of_cds" type="number" min="0" name={{"no_of_cds[".$key."]"}}  class="form-control" placeholder="0" onchange="InsertSplitOrder({{$data->id}} , 0 , this ,{{$key}}); setTimeout(function(){ setQuantity({{count($product_data)}}) },500)" value= @if(isset($data->no_of_cds) || ! is_nan($data->no_of_cds)) {{$data->no_of_cds}} @else {{0}} @endif>
+                                                          <input id="no_of_cds" type="number" min="0" name={{"no_of_cds[".$key."]"}}  class="form-control" placeholder="0" onchange="InsertSplitOrder({{$data->id}} , 0 , this ,{{$key}}); setTimeout(function(){ setQuantity({{count($product_data)}}) },1200)" value= @if(isset($data->no_of_cds) || ! is_nan($data->no_of_cds)) {{$data->no_of_cds}} @else {{0}} @endif>
                                                            @if($errors->has('no_of_cds.'.$key))
                                                           <div class="error">{{ $errors->first('no_of_cds.'.$key) }}</div>
                                                           @endif
@@ -279,7 +290,7 @@
                                         </div>
                                         
                                        </div>
-                                  </div>
+                                  </div> 
                                   <hr>
                                   @endforeach  
                                   @endif
@@ -659,7 +670,7 @@
         l.each(function(e) { 
           $(this).trigger('onchange');
         }); 
-       }, 300);  
+       }, 570);  
 
         setTimeout(function(){   
 
@@ -667,7 +678,7 @@
           o.each(function(e) { 
             $(this).trigger('onchange');
           }); 
-        }, 350);  
+        }, 770);  
 
         setTimeout(function(){ 
 
@@ -675,7 +686,7 @@
           p.each(function(e) {  
             $(this).trigger('onchange');
           }); 
-        }, 420);  
+        }, 970);  
 
        
     // window.setTimeout('setQuantity({{count($product_data)}})', 350);
