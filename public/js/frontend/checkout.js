@@ -965,8 +965,8 @@ function displayPopUpCD(template = ""){
 
 function resetTemplate(id = ""){  
 
-	//$('select[id="'+id+'"]').val('-1').attr("selected",true);
-	$('select[id="'+id+'"]').trigger("onchange");
+	$('select[id="'+id+'"]').val('-1').attr("selected",true);
+	//$('select[id="'+id+'"]').trigger("onchange");
 }
 
 
@@ -2048,7 +2048,7 @@ function displayPrice(status = "", binding = "", no_ofsheets = "", page_options 
 	  
 	}
 
-
+ 
 
 
 // -------     Code to handle checkout page pagination Ends ----------- //	
