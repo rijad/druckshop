@@ -181,7 +181,8 @@ class CheckoutController extends Controller
 				$response = returnResponse($page_format,'200','Success');
 				print_r($response);
 			}
-		} catch (Exception $e) {
+		} catch (\Exception $e) {
+			//print_r($e->getMessage());
 			return [];
 		}
 	}
@@ -195,7 +196,8 @@ class CheckoutController extends Controller
 				$response = returnResponse($cover_color,'200','Success');
 				print_r($response);
 			}
-		}catch (Exception $e) {
+		}catch (\Exception $e) {
+			//print_r($e->getMessage());
 			return [];
 		}
 
@@ -213,7 +215,8 @@ class CheckoutController extends Controller
 				print_r($response);
 			}
 
-		}catch (Exception $e){
+		}catch (\Exception $e){
+			//print_r($e->getMessage());
 			return [];
 		}
 
@@ -232,7 +235,8 @@ class CheckoutController extends Controller
 				print_r($response);
 			}
 
-		}catch (Exception $e){
+		}catch (\Exception $e){
+			//print_r($e->getMessage());
 			return [];
 		}
 
@@ -248,7 +252,8 @@ class CheckoutController extends Controller
 				$response = returnResponse($page_format,'200','Success');
 				print_r($response);
 			}
-		} catch (Exception $e) {
+		} catch (\Exception $e) {
+			//print_r($e->getMessage());
 			return [];
 		}
 	}
@@ -262,7 +267,8 @@ class CheckoutController extends Controller
 				$response = returnResponse($mirror,'200','Success');
 				print_r($response);
 			}
-		} catch (Exception $e) {
+		} catch (\Exception $e) {
+			//print_r($e->getMessage());
 			return [];
 		}
 	}
@@ -483,6 +489,7 @@ class CheckoutController extends Controller
 				->where('ps_product_id',$request->session()->get('binding_type'))
 				->where('status','1')->first('price')->price,2);  
 			}catch(\Exception $e){
+
 				$binding_price = 0.00;
 			}	    
 		} 
@@ -962,7 +969,7 @@ public function cart(){
 
 			}
 
-		}catch(Exception $e){
+		}catch(Exception $e){ 
 			$billing_address_data = [];    
 		} 
 
@@ -1325,6 +1332,9 @@ public function getAttributes(Request $request){
 	}else{
 		$user_id = 0;
 	}
+
+
+	try{
 		
 	$data = OrderAttributes::where('user_id', $user_id)->take($request->input('count'))->get('attribute');
       
@@ -1345,6 +1355,13 @@ public function getAttributes(Request $request){
 		}     $i++; 
        
     }
+
+}catch(\Exception $e){
+
+	//print_r($e->getMessage());
+	$attributes_details = [];
+
+}
 print_r(json_encode($attributes_details));
 
 }
@@ -1430,7 +1447,7 @@ public function setQuantity(Request $request){
 			$update_data->price_product_qty = floatval($total_new);
 			$update_data->no_of_copies = $no_of_copies;
 			$update_data->no_of_cds = $no_of_cds;
-			$update_data->attribute = json_encode($attributes);
+			$update_data->attribute = json_encode($attributes); 
 			$update_data->attribute_desc = $product_details;
 			$update_data->save();
 
@@ -1683,6 +1700,8 @@ public function paymentPaypalSuccess(Request $request){
 
 				} catch (Exception $e) {
 
+					//print_r($e->getMessage());
+
                 //Avoid error 
 
 				}
@@ -1723,6 +1742,7 @@ public function paymentPaypalSuccess(Request $request){
 				$order_details_amt = $OrderDetails->net_amt;
 
 			}catch (Exception $e) {
+				//print_r($e->getMessage());
 				return redirect()->route('index');
 			}
 		// // handling promo code
@@ -1833,6 +1853,7 @@ public function paymentPaypalSuccess(Request $request){
 				} catch (Exception $e) {
 
 					//Avoid error 
+					//print_r($e->getMessage());
 
 				}
 
@@ -2355,7 +2376,12 @@ public static function CartCount(){
 
 	public function getA3A2Count(Request $request){
  
-		$A2_A3_data = PageFormat::where(['id' => $request->page_format, 'status' => '1'])->first();
+		try{
+			$A2_A3_data = PageFormat::where(['id' => $request->page_format, 'status' => '1'])->first();
+		}catch(Exception $e){
+			//print_r($e->getMessage());
+			$A2_A3_data = NULL; 
+		}
 		print_r(json_encode($A2_A3_data));
 
 	}	
@@ -2363,7 +2389,12 @@ public static function CartCount(){
 
 	public function getCoverSettings(Request $request){
 
-		$cover_settings = ProductCoverSetting::where(['ps_product_id' => $request->binding, 'status' => '1'])->first('ps_cover_setting_id')->ps_cover_setting_id;
+		try{
+			$cover_settings = ProductCoverSetting::where(['ps_product_id' => $request->binding, 'status' => '1'])->first('ps_cover_setting_id')->ps_cover_setting_id;
+		}catch(Exception $e){
+			//print_r($e->getMessage());
+			$cover_settings = NULL;
+		}
 
 		print_r($cover_settings);
 
@@ -2374,12 +2405,20 @@ public static function CartCount(){
 
 		$color = [];
 
-		$color_data = ProductCoverColor::where(['product_id' => $request->binding, 'status' => '1'])->get();  
-
-		foreach($color_data as $key=>$value){
+		try{
+			$color_data = ProductCoverColor::where(['product_id' => $request->binding, 'status' => '1'])->get();
+			foreach($color_data as $key=>$value){
 
 			$color[$key] = ['id' => $value->color_id, 'color' => colorById($value->color_id)];
 		}
+
+		}catch(Exception $e){
+
+			//print_r($e->getMessage());
+			$color = ['id' => '', 'color' => ''];
+		}  
+
+		
 
 		print_r(json_encode($color));
 
@@ -2390,12 +2429,22 @@ public static function CartCount(){
 
 		$cover_sheet = [];
 
+		try{
+
 		$cover_sheet_data = ProductCoverSheet::where(['product_id' => $request->binding, 'status' => '1'])->get();  
 
 		foreach($cover_sheet_data as $key=>$value){
 
 			$cover_sheet[$key] = ['id' => $value->cover_sheet_id, 'cover' => sheetById($value->cover_sheet_id)];
 		}
+
+	}catch(Exception $e){
+
+		//print_r($e->getMessage());
+
+		$cover_sheet= ['id' => '', 'cover' => ''];
+
+	}
  
 		print_r(json_encode($cover_sheet));
 
@@ -2406,12 +2455,20 @@ public static function CartCount(){
 
 		$back_sheet = [];
 
+		try{
+
 		$back_sheet_data = ProductBackSheet::where(['product_id' => $request->binding,'status' => '1'])->get();  
 
 		foreach($back_sheet_data as $key=>$value){
 
 			$back_sheet[$key] = ['id' => $value->back_cover_id, 'cover' => backcoverById($value->back_cover_id)];
 		}
+
+	}catch(Exception $e){
+
+		//print_r($e->getMessage());
+		$back_sheet = ['id' => '', 'cover' => ''];
+	}
 
 		print_r(json_encode($back_sheet));
 
@@ -2422,12 +2479,19 @@ public static function CartCount(){
 
 		$page_format = [];
 
-		$page_format_data = ProductPageFormat::where(['product_id' => $request->binding, 'status' => '1'])->get();  
+		try{
+			$page_format_data = ProductPageFormat::where(['product_id' => $request->binding, 'status' => '1'])->get();  
 
 		foreach($page_format_data as $key=>$value){
 
 			$page_format[$key] = ['id' => $value->paper_format, 'cover' => pageformatById($value->paper_format)];
 		}
+
+	}catch(Exception $e){
+
+		//print_r($e->getMessage());
+		$page_format = ['id' => '', 'cover' => ''];
+	}
 
 		print_r(json_encode($page_format));
 
@@ -2437,12 +2501,22 @@ public static function CartCount(){
 
 		$paper_weight = [];
 
-		$paper_weight_data = ProductPaperWeight::where(['product_id' => $request->binding, 'status' => '1'])->get();  
+		try{
 
-		foreach($paper_weight_data as $key=>$value){
+			$paper_weight_data = ProductPaperWeight::where(['product_id' => $request->binding, 'status' => '1'])->get();  
 
-			$paper_weight[$key] = ['pid' => $value->paper_weight_id, 'weight' => weightById($value->paper_weight_id)];
+			foreach($paper_weight_data as $key=>$value){
+
+				$paper_weight[$key] = ['pid' => $value->paper_weight_id, 'weight' => weightById($value->paper_weight_id)];
+			}
+
+		}catch(Exception $e){
+
+			//print_r($e->getMessage());
+			$paper_weight[$key] = ['pid' => '', 'weight' => ''];
 		}
+
+		
 
 		print_r(json_encode($paper_weight));
 	}
@@ -2453,6 +2527,8 @@ public static function CartCount(){
 
 		$embossing_list = [];
 
+		try{ 
+
 		$refinementType = ProductPrintFinishing::where(['product_id' => $request->binding_type, 'status' => '1'])->first()->id;
 
 		$embossing_list_data =  ProductPrintFinishingArtList::where(['ps_product_pf_id' => $refinementType])->get();
@@ -2461,6 +2537,12 @@ public static function CartCount(){
 
 			$embossing_list[$key] = ['eid' => $value->ps_art_list_id, 'embossment_type' => getEmbossingById($value->ps_art_list_id)];
 		}
+
+	}catch(Exception $e){
+
+		print_r($e->getMessage());
+		$embossing_list = ['eid' => '', 'embossment_type' => ''];
+	}
 
 		print_r(json_encode($embossing_list));
 
@@ -2476,6 +2558,8 @@ public static function CartCount(){
 		                          ->where('status', '=', '1')->first()->letters;
 
 		}catch(\Exception $e){
+
+			//print_r($e->getMessage());
 			$letters = 0;
 		}
 

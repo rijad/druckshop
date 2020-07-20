@@ -77,7 +77,7 @@ Route::get('/products', 'ProductController@sendData')->name('products');
 Route::get('/product-information', 'ProductInfoController@sendData')->name('product-information');
 Route::POST('/news-letter','NewsLetterController@sendData')->name('news-letter');
 
-Route::get('/checkout/{id}','CheckoutController@sendData')->name('check-out');
+Route::get('/checkout/{id}','CheckoutController@sendData')->name('check-out'); 
 Route::get('/get-relations','CheckoutController@getProductAttributes')->name('get-relations');
 Route::get('/get-price','CheckoutController@getPrice')->name('get-price'); 
 Route::get('/get-relations-content','CheckoutController@getContentAttributes')->name('get-relations-content');
