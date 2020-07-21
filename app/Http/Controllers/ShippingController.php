@@ -95,7 +95,7 @@ class ShippingController extends Controller
      */
     public function edit($id)
     {
-        $shipping = UserAddress::find($id);
+        $shipping = UserAddress::find($id);  
         return view('/pages/front-end/shipping', compact('shipping'));
     }
 

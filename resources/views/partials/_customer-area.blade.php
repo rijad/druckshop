@@ -34,7 +34,7 @@
                               </li>
                               <li>
                                 <span>
-                                  <a type = "button" href="{{route('shipping-address.index')}}" name="shipping_address_click" id="shipping_address" class="form-control" >Shipping Address</a>
+                                  <a type = "button" href="{{route('shipping-address.index')}}" name="shipping_address_click" id="shipping_address" class="form-control" >Manage Shipping Addresses</a>
                                 </span>
                               </li>
                             </ul>

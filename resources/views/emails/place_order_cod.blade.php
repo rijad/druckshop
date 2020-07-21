@@ -50,7 +50,7 @@
 						</td>
 					</tr> --}}
 					<tr>
-						<td><span><h4>Amount :   {{ @$value['price_product_qty'] }}  €<h4></span>
+						<td><span><h4>Amount :   {{ number_format(@$value['price_product_qty'],2) }}  €<h4></span>
 						</td>
 					</tr>
 
@@ -60,7 +60,7 @@
 					<br>
 					<br>
 					<tr>
-						<td><span><hr><h4>Total Amount :   {{ @$total }}  €<h4></span>
+						<td><span><hr><h4>Total Amount :  {{ number_format(@$total,2) }}  €<h4></span>
 						</td>
 					</tr>
 					<tr>
