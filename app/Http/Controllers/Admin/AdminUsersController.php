@@ -161,7 +161,6 @@ class AdminUsersController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required',
             'phone' => 'required',
-            'role' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -174,21 +173,9 @@ class AdminUsersController extends Controller
 
             $input = $request->all();
 
-            if($request->input('role') == "superadmin"){
-                $role = 0;
-
-            }if($request->input('role') == "admin"){
-                $role = 1;
-
-            }if($request->input('role') == "employee"){
-                $role = 2;
-            } 
-
-
             $users = UsersAdmin::find($id);
             $users->name = $input['name'];
             $users->phone = $input['phone'];
-            $users->role = $role;
             $users->save();
 
         }

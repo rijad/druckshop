@@ -6,6 +6,5 @@
 @stop 
  
 @section('table')
-@include('partials/admin/_charts')
-@include('partials/admin/_table') 			
+@include('partials/admin/_homeorders')  
 @stop  

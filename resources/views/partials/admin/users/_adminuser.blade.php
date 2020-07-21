@@ -47,19 +47,25 @@
                                                     @elseif($data->role == '1'){{'Admin'}}
                                                     @elseif($data->role == '2'){{'Employee'}}
                                                     @endif</td>
-                                                @if (Session::get('RoleMiddleware') == true)
-                                                    <td class="form-inline">
-                                                        <form method="GET" action="{{ route('edit-user' , $data->id) }}">
-                                                        <input type="submit" value="edit" class="btn btn-success">
-                                                        </form>
-                                                        <form method="POST" action="{{ route('delete-user' , $data->id) }}" class="ml-2">
-                                                            @method('DELETE')
-                                                            @csrf
-                                                        <input type="submit" value="delete" class="btn btn-danger">
-                                                        </form>
-                                                    </td>
-                                                @elseif (Session::get('RoleMiddleware') == false)
-                                                @endif 
+                                                    
+                                                    @if (Session::get('RoleMiddleware') == true)
+                                                    @if($data->role == 0 && Auth::guard('admin')->user()->id != $data->id)
+                                                    
+                                                        <td></td>
+                                                    @else
+                                                        <td class="form-inline">
+                                                            <form method="GET" action="{{ route('edit-user' , $data->id) }}">
+                                                            <input type="submit" value="edit" class="btn btn-success">
+                                                            </form>
+                                                            <form method="POST" action="{{ route('delete-user' , $data->id) }}" class="ml-2">
+                                                                @method('DELETE')
+                                                                @csrf
+                                                            <input type="submit" value="delete" class="btn btn-danger">
+                                                            </form>
+                                                        </td>
+                                                    @endif 
+                                                    @elseif (Session::get('RoleMiddleware') == false)
+                                                    @endif 
                                             </tr>  
                                         @endforeach
                                     @endif
