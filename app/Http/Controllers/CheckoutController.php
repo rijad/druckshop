@@ -1017,12 +1017,69 @@ public function cart(){
 
 	}
 
+
+public function calculateDeliveryCost($delivery = "", $copies = "", $cds = "", $discountFlag = ""){
+
+	$product_shipping = []; $quantity = 0; $delivery_cost = 0; $total_delivery_cost = 0;
+
+	$counter = 0;
+
+	foreach($delivery as $key_shipping_company => $value_shipping_company){
+
+		$product = explode ("_", $key_shipping_company)[0];  
+		$sequence = explode ("_", $key_shipping_company)[1];
+		$shipping_company = $value_shipping_company;
+		$quantity = $copies[$key_shipping_company] + $cds[$key_shipping_company];
+
+
+		try{
+
+				$delivery_cost = LettesOfSpine::where('delivery_service_id' ,'=', $shipping_company)
+			                               ->where('ds_from','<=',$quantity)
+			                               ->where('ds_to','>=',$quantity)
+			                               ->where('ds_del_status','=','1')->first()->ds_price; 
+
+			}catch(Exception $e){
+
+				$delivery_cost = 0;
+
+		}
+
+		
+		$total_delivery_cost += $delivery_cost;
+
+		// if($discountFlag == 1 ){  $counter = $counter + 1;
+		// 	if($counter == 1){ 
+		// 		$product_shipping[$product][$sequence] = ['product' => $product, 'shipping_cost' => 0];
+		// 		$discountFlag = 0; 
+		// 	} 
+		// }else{
+		// 	$product_shipping[$product][$sequence] = ['product' => $product, 'shipping_cost' => $delivery_cost];
+		// }
+
+
+		// This will skipp adding of delivery cost of first order's first shipping cost (This is case of Discount Code Type 0 )
+
+		$product_shipping[$product][$sequence] = ['product' => $product, 'shipping_cost' => $delivery_cost];
+		
+	} 
+
+	return $product_shipping;
+
+}
+
+
+public function calculateDiscountAmount(){
+
+}
+
+
 public function orderDetails(Request $request){  
 
 	//dd($request->input());
 
 
-$total = 0;  $net_amt_after_delivery_service  = 0; $net_amt = 0;
+$total = 0;  $net_amt_after_delivery_service  = 0; $net_amt = 0; $delivery_cost_per_product = []; $total_delivery_service = 0; $delivery_cost = []; $discount_type = -1; $discount_amt = 0;
 
 //$total_cart = self::CartCount();  
 
@@ -1116,92 +1173,85 @@ if (Auth::check() && Auth::user()->name != "Guest") // if user is logged in no n
 					if($request->input('code') != "null" && ! empty($request->input('code'))){
 
 						$discount = Discount::where(['code' => $request->input('code')])->first(['by_price','by_percent','type']);
-
-						//dd($discount);
 						
 						// delivery discount
 						if($discount->type == 0){
 
+							 $discount_type = 0;
+
+							$delivery_cost_per_product = self::calculateDeliveryCost($request->input('shipping_company'),$request->input('no_of_copies'),$request->input('no_of_cds'), 1);
+
+
+							$delivery_cost = $delivery_cost_per_product;
+
+							$counter = 0;
+						
+							foreach($delivery_cost_per_product as $prod_key => $prod_value){
+
+								foreach($prod_value as $prod_detail_key => $prod_detail_value){  
+
+									if($discount_type == 0 ){ $counter = $counter + 1; if ($counter == 1)  $discount_amt = $prod_detail_value['shipping_cost']; continue; }
+
+									$total_delivery_service+= $prod_detail_value['shipping_cost'];
+
+								}	
+							}  
+
 
 						// single product discount
-						}elseif($discount->type == 0){
+						}elseif($discount->type == 1){
+
+							$discount_type = 1;
 
 
 						// multi product discount
-						}elseif($discount->type == 0){
+						}elseif($discount->type == 2){
+
+							$discount_type = 2;
 
 						}
 
 
 						// calculate delivery cost if discount code is not of type delivery cost 
-
-						$delivery_cost = []; $total_delivery_service = 0;
-
-						if($discount->type != 0 ){
-
-							foreach($product_data as $key=>$product_detail){
-
-									$quantity[$key] = $request->no_of_copies[$key] + $request->no_of_cds[$key];
-
-									try{
-
-										$delivery_cost[$key] = LettesOfSpine::where('delivery_service_id' ,'=', $request->shipping_company[$key])
-									                               ->where('ds_from','<=',$quantity[$key])
-									                               ->where('ds_to','>=',$quantity[$key])
-									                               ->where('ds_del_status','=','1')->first()->ds_price; 
-
-									}catch(Exception $e){
-
-										$delivery_cost[$key] = 0;
-
-									}
-
-									$total_delivery_service +=  floatval($delivery_cost[$key]);
-							}  
-						}
 					
-						if($discount->by_price != "null" && ! empty($discount->by_price)){
-							$discount_amt = number_format($discount->by_price,2);
-						}else{
-							$discount_amt =number_format( ($total / 100 ) * $discount->by_percent,2);
-						}
+						// if($discount->by_price != "null" && ! empty($discount->by_price)){
+						// 	$discount_amt = number_format($discount->by_price,2);
+						// }else{
+						// 	$discount_amt =number_format( ($total / 100 ) * $discount->by_percent,2);
+						// }
 
-						// discount is more then total i.e no code will be applied
+						// // discount is more then total i.e no code will be applied
 
-						if($discount_amt > $total){ 
-							$net_amt = $total - 0.00;
-						}else{
-							$net_amt = $total - $discount_amt; 
-						}
+						// if($discount_amt > $total){ 
+						// 	$net_amt = $total - 0.00;
+						// }else{
+						// 	$net_amt = $total - $discount_amt; 
+						// }
 					}else{ 
-						$discount_amt = 0.0;
-						$net_amt = $total - $discount_amt;
+
+							$discount_amt = 0.0;
+							$net_amt = $total - $discount_amt;
 
 
-						// handling delivery service costing in case when user has not applied any of the discount code
+							// handling delivery service costing in case when user has not applied any of the discount code
+
+							$delivery_cost_per_product = self::calculateDeliveryCost($request->input('shipping_company'),$request->input('no_of_copies'),$request->input('no_of_cds'), 0);
+
+							$delivery_cost = $delivery_cost_per_product;
+						
+							foreach($delivery_cost_per_product as $prod_key => $prod_value){
 
 
-						$delivery_cost = []; $total_delivery_service = 0;  
+								foreach($prod_value as $prod_detail_key => $prod_detail_value){
 
-								foreach($product_data as $key=>$product_detail){
+									$total_delivery_service+= $prod_detail_value['shipping_cost'];
 
-										$quantity[$key] = $request->no_of_copies[$key] + $request->no_of_cds[$key];
+								}
 
-										try{
+								
+							}
 
-											$delivery_cost[$key] = LettesOfSpine::where('delivery_service_id' ,'=', $request->shipping_company[$key])
-										                               ->where('ds_from','<=',$quantity[$key])
-										                               ->where('ds_to','>=',$quantity[$key])
-										                               ->where('ds_del_status','=','1')->first()->ds_price; 
 
-										}catch(Exception $e){
-
-											$delivery_cost[$key] = 0;
-
-										}
-
-										$total_delivery_service +=  floatval($delivery_cost[$key]);
-								}  
 						}
 					
 
@@ -1243,7 +1293,7 @@ if (Auth::check() && Auth::user()->name != "Guest") // if user is logged in no n
 
 				$product_data = OrderAttributes::where('user_id', $user_id)->get();
 
-				return view('/pages/front-end/order',compact('product_data','discount_amt','total','net_amt','delivery_cost','net_amt_after_delivery_service'));
+				return view('/pages/front-end/order',compact('product_data','discount_amt','total','net_amt','delivery_cost','net_amt_after_delivery_service','discount_type'));
 
 
 }else{//dd("faiil"); 
@@ -1322,7 +1372,7 @@ public function clearSplitOrderTable(Request $request){
 }
 
 
-public function getDiscountcodeStatus(Request $request){
+public function getDiscountcodeStatus(Request $request){ 
 
 	if($request->code == ''){
 		return "";

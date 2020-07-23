@@ -2370,7 +2370,7 @@ function splitOrder(rowId = "", prodSequence = "", count = ""){
 
 	sequence = $("[id = 'sequence_"+prodSequence+"']").last().attr('name'); 
 	split_id = sequence.split('_');  
-	prodSequence = Number(split_id[1]); 
+	prodSequence = Number(split_id[1]);  
 	uiSequence = Number(split_id[2]);  alert(uiSequence); 
 
 	var no_of_cds = $("[name = 'no_of_cds["+prodSequence+"_"+(parseInt(uiSequence))+"]' ]").last().val();  
@@ -2383,7 +2383,7 @@ function splitOrder(rowId = "", prodSequence = "", count = ""){
 	$(newel).find("[name = 'no_of_copies["+prodSequence+"_"+(parseInt(uiSequence))+"]' ]").last().attr("onchange","InsertSplitOrder("+rowId+","+(parseInt(uiSequence)+ 1)+",this ,"+prodSequence+")").attr('name',"no_of_copies["+prodSequence+"_"+(parseInt(uiSequence) + 1)+"]" ).val(parseInt(0));
 	$(newel).find("[name = 'shipping_address["+prodSequence+"_"+(parseInt(uiSequence))+"]' ]").last().attr("onchange","InsertSplitOrder("+rowId+","+(parseInt(uiSequence)+ 1)+",this ,"+prodSequence+")").attr('name',"shipping_address["+prodSequence+"_"+(parseInt(uiSequence) + 1)+"]" ).val(parseInt(-1));
 	$(newel).find("[name = 'shipping_company["+prodSequence+"_"+(parseInt(uiSequence))+"]']").last().attr("onchange","InsertSplitOrder("+rowId+","+(parseInt(uiSequence)+ 1)+",this ,"+prodSequence+")").attr('name',"shipping_company["+prodSequence+"_"+(parseInt(uiSequence) + 1 )+"]" ).val(parseInt(-1));
-	$(newel).find("[id = 'remove_split_order_"+prodSequence+"' ]").last().attr("class","remove_btn displayBlock").attr("onclick","RemoveSplitOrder("+rowId+","+prodSequence+","+(parseInt(uiSequence) + 1)+")");
+	$(newel).find("[id = 'remove_split_order_"+prodSequence+"' ]").last().removeClass().attr("class","remove_btn displayBlock").attr("onclick","RemoveSplitOrder("+rowId+","+prodSequence+","+(parseInt(uiSequence) + 1)+")");
 	$(newel).find("[id = 'sequence_"+prodSequence+"']").last().attr('name',"sequence_"+prodSequence+"_"+(parseInt(uiSequence) + 1)+"").val(parseInt(uiSequence) + 1);  
 	
 	$(newel).insertAfter("[name = 'cloneBioFields_"+prodSequence+"_"+(parseInt(uiSequence))+"']");	
