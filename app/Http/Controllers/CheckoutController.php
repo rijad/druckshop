@@ -1022,7 +1022,7 @@ public function orderDetails(Request $request){
 	//dd($request->input());
 
 
-$total = 0;
+$total = 0;  $net_amt_after_delivery_service  = 0; $net_amt = 0;
 
 //$total_cart = self::CartCount();  
 
@@ -1048,7 +1048,7 @@ if (Auth::check() && Auth::user()->name != "Guest") // if user is logged in no n
 		'no_of_cds.*' => 'nullable',
 		'shipping_company.*' => 'required|not_in:-1',
 		'shipping_address.*' => 'required|not_in:-1',             
-		'billing_address' => 'required|not_in:-1',
+		'billing_address' => 'required',
 		'email_id' => 'nullable|email',
 		'code' => ['nullable','exists:ps_discount',new CheckCodeRule('code')],
 	], [
@@ -1065,7 +1065,7 @@ if (Auth::check() && Auth::user()->name != "Guest") // if user is logged in no n
 		'no_of_cds.*' => 'nullable',
 		'shipping_company.*' => 'required|not_in:-1',
 		'shipping_address.*' => 'required|not_in:-1',             
-		'billing_address' => 'required|not_in:-1',
+		'billing_address' => 'required',
 		'email_id' => 'required|email', 
 		'code' => ['nullable','exists:ps_discount',new CheckCodeRule('code')],
 	], [
@@ -1078,14 +1078,13 @@ if (Auth::check() && Auth::user()->name != "Guest") // if user is logged in no n
 }
 
 
-//dd($validator->errors());
 
-	// Check if Guest already exists (using email id)
+
+// Check if Guest already exists (using email id)
 // get already existing or new user_id
 	if($user_id == Session::get('user_id')){
 		$user_id = self::checkGuest($request->input('email_id'));
 	// set new user id for Guest in tables
-
 		self::setGuestUserid($user_id);
 	}
 
@@ -1182,7 +1181,7 @@ if (Auth::check() && Auth::user()->name != "Guest") // if user is logged in no n
 						// handling delivery service costing in case when user has not applied any of the discount code
 
 
-						$delivery_cost = []; $total_delivery_service = 0;
+						$delivery_cost = []; $total_delivery_service = 0;  
 
 								foreach($product_data as $key=>$product_detail){
 
@@ -1360,7 +1359,7 @@ public function getAttributes(Request $request){
 	{
 		$user_id = Auth::user()->id;
 	}else{
-		$user_id = 0;
+		$user_id = session::get('user_id');
 	}
 
 
@@ -1412,7 +1411,7 @@ public function setQuantity(Request $request){
 	{
 		$user_id = Auth::user()->id;
 	}else{
-		$user_id = 0;
+		$user_id = session::get('user_id');
 	}
 		
 	$data = OrderAttributes::where('user_id', $user_id)->take($request->input('count'))->get()->toArray();
@@ -1502,8 +1501,7 @@ public function setQuantity(Request $request){
 			$user_id = Auth::user()->id;
 	
 		}else{
-			$user_id = time();
-			Session::put('user_id', $user_id);
+			$user_id = Session::get('user_id');	
 		}
 
 
@@ -1911,16 +1909,19 @@ public function paymentPaypalSuccess(Request $request){
 
 public function checkGuest($email_id = ""){
 //if user email exists return user id
-	if (User::where('email', $email_id)->exists()) {   
+	if (User::where('email', $email_id)->exists()) {  
+
 		$user_id = User::where('email', $email_id)->first('id');
-		//dd($user_id);
+		
 		Auth::loginUsingId($user_id->id,true);
+
 		if(Auth::check()){
 			//dd("in");
 		}else{
 			//dd("out");
 		}
 		return $user_id->id;
+
 	}else{
 	// if user does not exist, create new user and return new user id
 
@@ -1930,6 +1931,7 @@ public function checkGuest($email_id = ""){
 		$GuestUser->save();	
 
 		Auth::loginUsingId($GuestUser->id,true);
+
 		return $GuestUser->id;
 	}
 } 
