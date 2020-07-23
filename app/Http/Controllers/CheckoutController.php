@@ -182,7 +182,7 @@ class CheckoutController extends Controller
 				print_r($response);
 			}
 		} catch (\Exception $e) {
-			//print_r($e->getMessage());
+			print_r($e->getMessage());
 			return [];
 		}
 	}
@@ -197,7 +197,7 @@ class CheckoutController extends Controller
 				print_r($response);
 			}
 		}catch (\Exception $e) {
-			//print_r($e->getMessage());
+			print_r($e->getMessage());
 			return [];
 		}
 
@@ -216,7 +216,7 @@ class CheckoutController extends Controller
 			}
 
 		}catch (\Exception $e){
-			//print_r($e->getMessage());
+			print_r($e->getMessage());
 			return [];
 		}
 
@@ -236,7 +236,7 @@ class CheckoutController extends Controller
 			}
 
 		}catch (\Exception $e){
-			//print_r($e->getMessage());
+			print_r($e->getMessage());
 			return [];
 		}
 
@@ -253,7 +253,7 @@ class CheckoutController extends Controller
 				print_r($response);
 			}
 		} catch (\Exception $e) {
-			//print_r($e->getMessage());
+			print_r($e->getMessage());
 			return [];
 		}
 	}
@@ -268,13 +268,16 @@ class CheckoutController extends Controller
 				print_r($response);
 			}
 		} catch (\Exception $e) {
-			//print_r($e->getMessage());
+			print_r($e->getMessage());
 			return [];
 		}
 	}
 
 
 	public function clearSession(Request $request){
+
+
+		try{
 
 		if($request->session()->has('embossing_type')){
 			$request->session()->forget('embossing_type');
@@ -327,6 +330,11 @@ class CheckoutController extends Controller
 		
 		$response = returnResponse([""],'200','Success');
 		print_r($response);
+
+	}catch(\Exception $e){
+		print_r($e->getMessage());
+	}
+
 	}
 
 
@@ -994,11 +1002,18 @@ public function cart(){
 
 		try{
 			$split_order = SplitOrderShippingAddress::where(['user_id' => $user_id, 'status' => 0])->get();
+
+			foreach($split_order as $key => $value){
+
+				$split_record_unique_id[$value->unique_id][$key] = ['id' => $value->id, 'prod_sequence' => $value->prod_sequence, 'sequence' => $value->sequence, 'unique_id' => $value->unique_id, 'no_of_copies' => $value->no_of_copies, 'no_of_cds' => $value->no_of_cds, 'shipping_address' => $value->shipping_address, 'shipping_company' => $value->shipping_company];
+
+			}
+
 		}catch(Exception $e){
 			$split_order =[];
-		} 	//dd($split_order);
+		} 	//dd($split_record_unique_id);
 
-		return view('/pages/front-end/cart',compact('product_data','shipping_company','billing_address_data','shipping_address_data','split_order'));
+		return view('/pages/front-end/cart',compact('product_data','shipping_company','billing_address_data','shipping_address_data','split_order','split_record_unique_id'));
 
 	}
 
@@ -1063,7 +1078,7 @@ if (Auth::check() && Auth::user()->name != "Guest") // if user is logged in no n
 }
 
 
-//dd($validator);
+//dd($validator->errors());
 
 	// Check if Guest already exists (using email id)
 // get already existing or new user_id
@@ -1076,202 +1091,217 @@ if (Auth::check() && Auth::user()->name != "Guest") // if user is logged in no n
 
 	if ($validator->passes()){  // dd("pass");
 
-		foreach($product_data as $key=>$product_detail){
+					foreach($product_data as $key=>$product_detail){
 
-			$update_data = $product_detail;
-			$update_data->item_sequence = $key+1;
-			// $update_data->no_of_copies = $request->no_of_copies[$key];
-			// $update_data->no_of_cds = $request->no_of_cds[$key];
-			// $update_data->no_of_copies = $request->total_copies_after_split.$key;
-			// $update_data->no_of_cds = $request->total_cds_after_split.$key;
-			// $update_data->shipping_company = deliveryServiceById($request->shipping_company[$key]);
-			// $update_data->shipping_address = $request->shipping_address[$key];
-			$update_data->billing_address = $request->billing_address; 
-			$update_data->save();   
+						$update_data = $product_detail;
+						$update_data->item_sequence = $key+1;
+						// $update_data->no_of_copies = $request->no_of_copies[$key];
+						// $update_data->no_of_cds = $request->no_of_cds[$key];
+						// $update_data->no_of_copies = $request->total_copies_after_split.$key;
+						// $update_data->no_of_cds = $request->total_cds_after_split.$key;
+						// $update_data->shipping_company = deliveryServiceById($request->shipping_company[$key]);
+						// $update_data->shipping_address = $request->shipping_address[$key];
+						$update_data->billing_address = $request->billing_address; 
+						$update_data->save();   
 
-		}
+					}
 
-		$product_data_merge_cart = OrderAttributes::where('user_id', $user_id)->get();
-			foreach($product_data_merge_cart  as $value){
+					$product_data_merge_cart = OrderAttributes::where('user_id', $user_id)->get();
+						foreach($product_data_merge_cart  as $value){
 
-				$total += $value->price_product_qty; 
+							$total += $value->price_product_qty; 
 
-	}  //dd($user_id); dd($total);
+						}  //dd($user_id); dd($total);
 
-		//handling promo code
-		if($request->input('code') != "null" && ! empty($request->input('code'))){
+					//handling promo code
+					if($request->input('code') != "null" && ! empty($request->input('code'))){
 
-			$discount = Discount::where(['code' => $request->input('code')])->first(['by_price','by_percent','type']);
+						$discount = Discount::where(['code' => $request->input('code')])->first(['by_price','by_percent','type']);
 
-			//dd($discount);
-			
-			// delivery discount
-			if($discount->type == 0){
-
-
-			// single product discount
-			}elseif($discount->type == 0){
+						//dd($discount);
+						
+						// delivery discount
+						if($discount->type == 0){
 
 
-			// multi product discount
-			}elseif($discount->type == 0){
-
-			}
+						// single product discount
+						}elseif($discount->type == 0){
 
 
-			// calculate delivery cost if discount code is not of type delivery cost 
-
-			$delivery_cost = []; $total_delivery_service = 0;
-
-			if($discount->type != 0 ){
-
-				foreach($product_data as $key=>$product_detail){
-
-						$quantity[$key] = $request->no_of_copies[$key] + $request->no_of_cds[$key];
-
-						try{
-
-							$delivery_cost[$key] = LettesOfSpine::where('delivery_service_id' ,'=', $request->shipping_company[$key])
-						                               ->where('ds_from','<=',$quantity[$key])
-						                               ->where('ds_to','>=',$quantity[$key])
-						                               ->where('ds_del_status','=','1')->first()->ds_price; 
-
-						}catch(Exception $e){
-
-							$delivery_cost[$key] = 0;
+						// multi product discount
+						}elseif($discount->type == 0){
 
 						}
 
-						$total_delivery_service +=  floatval($delivery_cost[$key]);
-				}  
-			}
-		
-			if($discount->by_price != "null" && ! empty($discount->by_price)){
-				$discount_amt = number_format($discount->by_price,2);
-			}else{
-				$discount_amt =number_format( ($total / 100 ) * $discount->by_percent,2);
-			}
 
-			// discount is more then total i.e no code will be applied
+						// calculate delivery cost if discount code is not of type delivery cost 
 
-			if($discount_amt > $total){ 
-				$net_amt = $total - 0.00;
-			}else{
-				$net_amt = $total - $discount_amt; 
-			}
-		}else{ 
-			$discount_amt = 0.0;
-			$net_amt = $total - $discount_amt;
+						$delivery_cost = []; $total_delivery_service = 0;
 
+						if($discount->type != 0 ){
 
-			// handling delivery service costing in case when user has not applied any of the discount code
+							foreach($product_data as $key=>$product_detail){
 
+									$quantity[$key] = $request->no_of_copies[$key] + $request->no_of_cds[$key];
 
-			$delivery_cost = []; $total_delivery_service = 0;
+									try{
 
-					foreach($product_data as $key=>$product_detail){
+										$delivery_cost[$key] = LettesOfSpine::where('delivery_service_id' ,'=', $request->shipping_company[$key])
+									                               ->where('ds_from','<=',$quantity[$key])
+									                               ->where('ds_to','>=',$quantity[$key])
+									                               ->where('ds_del_status','=','1')->first()->ds_price; 
 
-							$quantity[$key] = $request->no_of_copies[$key] + $request->no_of_cds[$key];
+									}catch(Exception $e){
 
-							try{
+										$delivery_cost[$key] = 0;
 
-								$delivery_cost[$key] = LettesOfSpine::where('delivery_service_id' ,'=', $request->shipping_company[$key])
-							                               ->where('ds_from','<=',$quantity[$key])
-							                               ->where('ds_to','>=',$quantity[$key])
-							                               ->where('ds_del_status','=','1')->first()->ds_price; 
+									}
 
-							}catch(Exception $e){
+									$total_delivery_service +=  floatval($delivery_cost[$key]);
+							}  
+						}
+					
+						if($discount->by_price != "null" && ! empty($discount->by_price)){
+							$discount_amt = number_format($discount->by_price,2);
+						}else{
+							$discount_amt =number_format( ($total / 100 ) * $discount->by_percent,2);
+						}
 
-								$delivery_cost[$key] = 0;
+						// discount is more then total i.e no code will be applied
 
-							}
-
-							$total_delivery_service +=  floatval($delivery_cost[$key]);
-					}  
-			}
-		
-
-		
-   $net_amt_after_delivery_service = $net_amt + $total_delivery_service;
+						if($discount_amt > $total){ 
+							$net_amt = $total - 0.00;
+						}else{
+							$net_amt = $total - $discount_amt; 
+						}
+					}else{ 
+						$discount_amt = 0.0;
+						$net_amt = $total - $discount_amt;
 
 
-   $order_id = $user_id.'_'.time();
-
-	Session::put('order_id', $order_id);
+						// handling delivery service costing in case when user has not applied any of the discount code
 
 
-	$OrderDetailsvalue = new OrderDetails;
-	$OrderDetailsvalue->user_id = $user_id;
-	$OrderDetailsvalue->order_id= $order_id;
-	$OrderDetailsvalue->promo_code= $request->input('code'); 
-	$OrderDetailsvalue->email_id= $request->input('email_id');
-	$OrderDetailsvalue->total= $total;
-	$OrderDetailsvalue->billing_address= $request->input('billing_address');
-	$OrderDetailsvalue->net_amt= $net_amt_after_delivery_service;  
-	$OrderDetailsvalue->save();
+						$delivery_cost = []; $total_delivery_service = 0;
+
+								foreach($product_data as $key=>$product_detail){
+
+										$quantity[$key] = $request->no_of_copies[$key] + $request->no_of_cds[$key];
+
+										try{
+
+											$delivery_cost[$key] = LettesOfSpine::where('delivery_service_id' ,'=', $request->shipping_company[$key])
+										                               ->where('ds_from','<=',$quantity[$key])
+										                               ->where('ds_to','>=',$quantity[$key])
+										                               ->where('ds_del_status','=','1')->first()->ds_price; 
+
+										}catch(Exception $e){
+
+											$delivery_cost[$key] = 0;
+
+										}
+
+										$total_delivery_service +=  floatval($delivery_cost[$key]);
+								}  
+						}
+					
+
+					
+			   $net_amt_after_delivery_service = $net_amt + $total_delivery_service;
 
 
-	//update unique id in split order addresses table with order id, so that it could be fetched in admin panel.
+			   $order_id = $user_id.'_'.time();
 
-	$split_order_record = SplitOrderShippingAddress::where(['user_id' => $user_id , 'status' => 0])->get();
-
-	foreach ($split_order_record as $key => $value) {
-
-		$UpdateSplitOrder = $value;
-		$UpdateSplitOrder->unique_id = $order_id;
-		$UpdateSplitOrder->status = 1;
-		$UpdateSplitOrder->save();
-
-	}
+				Session::put('order_id', $order_id);
 
 
-//dd($total);
+				$OrderDetailsvalue = new OrderDetails;
+				$OrderDetailsvalue->user_id = $user_id;
+				$OrderDetailsvalue->order_id= $order_id;
+				$OrderDetailsvalue->promo_code= $request->input('code'); 
+				$OrderDetailsvalue->email_id= $request->input('email_id');
+				$OrderDetailsvalue->total= $total;
+				$OrderDetailsvalue->billing_address= $request->input('billing_address');
+				$OrderDetailsvalue->net_amt= $net_amt_after_delivery_service;  
+				$OrderDetailsvalue->save();
 
-	$product_data = OrderAttributes::where('user_id', $user_id)->get();
 
-	return view('/pages/front-end/order',compact('product_data','discount_amt','total','net_amt','delivery_cost','net_amt_after_delivery_service'));
+				//update unique id in split order addresses table with order id, so that it could be fetched in admin panel.
+
+				$split_order_record = SplitOrderShippingAddress::where(['user_id' => $user_id , 'status' => 0])->get();
+
+				foreach ($split_order_record as $key => $value) {
+
+					$UpdateSplitOrder = $value;
+					$UpdateSplitOrder->unique_id = $order_id;
+					$UpdateSplitOrder->status = 1;
+					$UpdateSplitOrder->save();
+
+				}
+
+
+			//dd($total);
+
+				$product_data = OrderAttributes::where('user_id', $user_id)->get();
+
+				return view('/pages/front-end/order',compact('product_data','discount_amt','total','net_amt','delivery_cost','net_amt_after_delivery_service'));
 
 
 }else{//dd("faiil"); 
 
 //dd($validator->errors());
 
-	try{
-			$billing_address_data = UserAddress::where(['address_type'=>'billing','user_id'=>$user_id, 'default'=>'1'])->limit('1')->get();
+			try{
+					$billing_address_data = UserAddress::where(['address_type'=>'billing','user_id'=>$user_id, 'default'=>'1'])->limit('1')->get();
 
-			if($billing_address_data->isEmpty()){
+					if($billing_address_data->isEmpty()){
 
-				$billing_address_data = []; 
+						$billing_address_data = []; 
 
-			}
+					}
 
-		}catch(Exception $e){
-			$billing_address_data = [];    
-		} 
-
-
-		try{
-			$shipping_address_data = UserAddress::where(['address_type'=>'shipping','user_id'=>$user_id])->get();
- 
-
-		}catch(Exception $e){
-
-			$shipping_address_data = [];
-
-			
-		}	
-
-		try{
-			$shipping_company = DeliveryService::where(['status' => 1])->get();
-		}catch(Exception $e){
-			$shipping_company =[];
-		} 
+				}catch(Exception $e){
+					$billing_address_data = [];    
+				} 
 
 
-		$errors = $validator->errors();
+				try{
+					$shipping_address_data = UserAddress::where(['address_type'=>'shipping','user_id'=>$user_id])->get();
+		 
 
-		return view('/pages/front-end/cart',compact('product_data','shipping_company','billing_address_data','shipping_address_data','errors'));
-//return back()->with('errors', $validator->errors());
+				}catch(Exception $e){
+
+					$shipping_address_data = [];
+
+					
+				}	
+
+				try{
+					$shipping_company = DeliveryService::where(['status' => 1])->get();
+				}catch(Exception $e){
+					$shipping_company =[];
+				} 
+
+
+
+				try{
+					$split_order = SplitOrderShippingAddress::where(['user_id' => $user_id, 'status' => 0])->get();
+
+					foreach($split_order as $key => $value){
+
+						$split_record_unique_id[$value->unique_id][$key] = ['id' => $value->id, 'prod_sequence' => $value->prod_sequence, 'sequence' => $value->sequence, 'unique_id' => $value->unique_id, 'no_of_copies' => $value->no_of_copies, 'no_of_cds' => $value->no_of_cds, 'shipping_address' => $value->shipping_address, 'shipping_company' => $value->shipping_company];
+
+					}
+
+				}catch(Exception $e){
+					$split_order =[];
+				} 
+
+
+				$errors = $validator->errors();
+
+				return view('/pages/front-end/cart',compact('product_data','shipping_company','billing_address_data','shipping_address_data','errors','split_order','split_record_unique_id'));
+		//return back()->with('errors', $validator->errors());
 }
 
 
@@ -1356,13 +1386,15 @@ public function getAttributes(Request $request){
        
     }
 
+    print_r(json_encode($attributes_details));
+
 }catch(\Exception $e){
 
-	//print_r($e->getMessage());
+	print_r($e->getMessage());
 	$attributes_details = [];
 
 }
-print_r(json_encode($attributes_details));
+
 
 }
 
@@ -1548,17 +1580,15 @@ public function setQuantity(Request $request){
 
 	public function removeItem(Request $request){
 
-	//dd($request->id);
-
 		if (Auth::check())
 			{
 				$user_id = Auth::user()->id;
-	 //print_r($user_id);
+	
 			}else{$user_id = 0;}
 
 			$delete = OrderAttributes::destroy($request->id);
-	// $product_data = OrderAttributes::where('user_id', $user_id)->get();
-	// return view('/pages/front-end/cart',compact('product_data'));
+			$delete_split_order = SplitOrderShippingAddress::where(['unique_id' => $request->id] , ['user_id' => $user_id ])->delete();
+	
 			return redirect()->route('cart');
 
 		}
@@ -1700,7 +1730,7 @@ public function paymentPaypalSuccess(Request $request){
 
 				} catch (Exception $e) {
 
-					//print_r($e->getMessage());
+					print_r($e->getMessage());
 
                 //Avoid error 
 
@@ -1742,7 +1772,7 @@ public function paymentPaypalSuccess(Request $request){
 				$order_details_amt = $OrderDetails->net_amt;
 
 			}catch (Exception $e) {
-				//print_r($e->getMessage());
+				print_r($e->getMessage());
 				return redirect()->route('index');
 			}
 		// // handling promo code
@@ -1853,7 +1883,7 @@ public function paymentPaypalSuccess(Request $request){
 				} catch (Exception $e) {
 
 					//Avoid error 
-					//print_r($e->getMessage());
+					print_r($e->getMessage());
 
 				}
 
@@ -2379,7 +2409,7 @@ public static function CartCount(){
 		try{
 			$A2_A3_data = PageFormat::where(['id' => $request->page_format, 'status' => '1'])->first();
 		}catch(Exception $e){
-			//print_r($e->getMessage());
+			print_r($e->getMessage());
 			$A2_A3_data = NULL; 
 		}
 		print_r(json_encode($A2_A3_data));
@@ -2392,7 +2422,7 @@ public static function CartCount(){
 		try{
 			$cover_settings = ProductCoverSetting::where(['ps_product_id' => $request->binding, 'status' => '1'])->first('ps_cover_setting_id')->ps_cover_setting_id;
 		}catch(Exception $e){
-			//print_r($e->getMessage());
+			print_r($e->getMessage());
 			$cover_settings = NULL;
 		}
 
@@ -2414,7 +2444,7 @@ public static function CartCount(){
 
 		}catch(Exception $e){
 
-			//print_r($e->getMessage());
+			print_r($e->getMessage());
 			$color = ['id' => '', 'color' => ''];
 		}  
 
@@ -2440,7 +2470,7 @@ public static function CartCount(){
 
 	}catch(Exception $e){
 
-		//print_r($e->getMessage());
+		print_r($e->getMessage());
 
 		$cover_sheet= ['id' => '', 'cover' => ''];
 
@@ -2452,7 +2482,7 @@ public static function CartCount(){
  
 
 	public function getBackCoverData(Request $request){
-
+ 
 		$back_sheet = [];
 
 		try{
@@ -2466,7 +2496,7 @@ public static function CartCount(){
 
 	}catch(Exception $e){
 
-		//print_r($e->getMessage());
+		print_r($e->getMessage());
 		$back_sheet = ['id' => '', 'cover' => ''];
 	}
 
@@ -2489,7 +2519,7 @@ public static function CartCount(){
 
 	}catch(Exception $e){
 
-		//print_r($e->getMessage());
+		print_r($e->getMessage());
 		$page_format = ['id' => '', 'cover' => ''];
 	}
 
@@ -2512,7 +2542,7 @@ public static function CartCount(){
 
 		}catch(Exception $e){
 
-			//print_r($e->getMessage());
+			print_r($e->getMessage());
 			$paper_weight[$key] = ['pid' => '', 'weight' => ''];
 		}
 

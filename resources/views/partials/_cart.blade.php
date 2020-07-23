@@ -16,256 +16,277 @@
                                 @if(isset($product_data)) 
                                 @foreach ($product_data as $key=>$data)  {{"i am in : ". $key}}
                                 
-                                {{-- declare flags for each product to avoid re-rendering due to split order loop --}}
-                              
-                                   {{$variable[$key] = 0}}   {{ 'flag_start : ' .$key.'---' . $variable[$key]}}
-    
-                                  <div class="product_listing">
-                                      <img src="http://druckshop.trantorglobal.com/public/images/product1.jpg" alt="" width="75px" />
-                                      <div class="product_description">
-                                          <p class="thisproduct_head">{{$data->product}}</p>
-                                          <p class="thisproduct_subhead more">{{$data->attribute_desc}}</p>
-                                      </div>
-                                      <ul class="product_price" id="product_price"> 
-                                          <li class="inputcard_quantity" style="display: none"><h6><strong>€ <span id="price_per_product_{{$data->id}}" class = "price_per_product">{{$data->price_per_product}}</span><span class="text-muted">x</span></strong></h6></li> 
-                                          <li><button type="button" onclick="window.location='{{route('remove-item',['id'=>$data->id]) }}'" class="remove_btn" > Remove Product</button></li>
-                                      </ul>
-                                      <div class="rv-formCart" id = {{"appendContents".$key}}>
+                                            {{-- declare flags for each product to avoid re-rendering due to split order loop --}}
+                                          
+                                              {{$variable[$key] = 0}}   {{ 'flag_start : ' .$key.'---' . $variable[$key]}}
+                
+                                              <div class="product_listing">
+                                                  <img src="http://druckshop.trantorglobal.com/public/images/product1.jpg" alt="" width="75px" />
+                                                  <div class="product_description">
+                                                      <p class="thisproduct_head">{{$data->product}}</p>
+                                                      <p class="thisproduct_subhead more">{{$data->attribute_desc}}</p>
+                                                  </div>
+                                                  <ul class="product_price" id="product_price"> 
+                                                      <li class="inputcard_quantity" style="display: none"><h6><strong>€ <span id="price_per_product_{{$data->id}}" class = "price_per_product">{{$data->price_per_product}}</span><span class="text-muted">x</span></strong></h6></li> 
+                                                      <li><button type="button" onclick="window.location='{{route('remove-item',['id'=>$data->id]) }}'" class="remove_btn" > Remove Product</button></li>
+                                                  </ul>
+                                                  <div class="rv-formCart" id = {{"appendContents".$key}}>
 
+             
+                                                    {{-- all odl data --}}
+                                                    @if(isset($split_record_unique_id) && count($split_record_unique_id) != 0 )
 
-                                        {{-- all odl data --}}
-{{-- {{"test" . count($split_order)}} --}}
-                                        @if(isset($split_order) && count($split_order) != 0 )
-
-
-
-                                        @foreach($split_order as $split_key => $split_details)
-
-                                            @if($data->id == $split_details->unique_id)   {{"Old " .':'. $data->id .'-------'. $split_details->unique_id }}
-
-                                            {{$variable_split[$split_key] = 0}}   {{ 'flag_start_split : ' .$split_key.'---' . $variable_split[$split_key]}}
-
-                                                @if($variable_split[$split_key] == 0)
-{{-- {{"S K " . $split_key}} --}}
-                                                          <div class="rv-casualBioFields" id = {{"cloneBioFields_".$key}} name = {{"cloneBioFields_".$key."_".'0'}}>
-
-                                                            <div class="form-group">
-                                                          <label for="text">{{ trans('cart.no_of_copies') }}*:</label>
-
-                                                         <input type="hidden" id = "{{'sequence_'.$split_details->prod_sequence}}" value="0" name={{"sequence_".$split_details->prod_sequence."_".$split_details->sequence}}>
-                                                          <input type="number" id="no_of_copies" min="0" onchange="InsertSplitOrder({{$data->id}} , {{$split_details->sequence}}, this,{{$split_details->prod_sequence}}); setTimeout(function(){ setQuantity({{count($product_data)}}) },1200);" name={{"no_of_copies[".$split_details->prod_sequence."]"}}  class="form-control" placeholder="{{ trans('cart.enter_here') }}" value={{$split_details->no_of_copies}}>
-                                                          @if($errors->has('no_of_copies.'.$split_details->prod_sequence))
-                                                          <div class="error">{{ $errors->first('no_of_copies.'.$split_details->prod_sequence) }}</div>
-                                                          @endif 
-                                                        </div>
-                                                        <div class="form-group">
-                                                          <label for="pwd">{{ trans('cart.no_of_cds') }}:</label>
-
-                                                          <input id="no_of_cds" type="number" min="0" name={{"no_of_cds[".$split_details->prod_sequence."]"}}  class="form-control" placeholder="0" onchange="InsertSplitOrder({{$data->id}} , {{$split_details->sequence}} , this ,{{$split_details->prod_sequence}}); setTimeout(function(){ setQuantity({{count($product_data)}}) },1200)" value= @if(isset($data->no_of_cds) || ! is_nan($data->no_of_cds)){{$split_details->no_of_cds}} @else {{0}} @endif>
-                                                           @if($errors->has('no_of_cds.'.$split_details->prod_sequence))
-                                                          <div class="error">{{ $errors->first('no_of_cds.'.$split_details->prod_sequence) }}</div>
-                                                          @endif
-                                                        </div>
-                                                         <div class="form-group">
-                                                          <label for="pwd">{{ trans('cart.ship_add') }}*:</label>
-                                                          <select class="form-control" name={{"shipping_address[".$split_details->prod_sequence."]"}} id="address_data" onchange="displayAddress(this,'{{'ship-address-'.$split_details->prod_sequence}}'); InsertSplitOrder({{$data->id}} , {{$split_details->sequence}} , this ,{{$split_details->prod_sequence}} );"> <option value ="-1">Select</option> 
-                                                          @foreach($shipping_address_data as $keysss=>$shipping_address)<option value = "{{$shipping_address->first_name." ".$shipping_address->last_name .
-                                                            
-                                                           (($shipping_address->company_name) ? ", ".$shipping_address->company_name : "" )
-                                                           
-                                                           . ", ".$shipping_address->street." ".$shipping_address->house_no.", ".$shipping_address->zip_code." ".$shipping_address->city.", ".$shipping_address->state}}" @if($shipping_address->default == 1) selected @endif>{{$shipping_address->first_name." ".$shipping_address->last_name.
-
-                                                            (($shipping_address->company_name) ? ", ".$shipping_address->company_name : "" )
-
-                                                            .", ".$shipping_address->street." ".$shipping_address->house_no.", ".$shipping_address->zip_code." ".$shipping_address->city.", ".$shipping_address->state}}</option> 
-                                                          @endforeach
-                                                          </select>
-                                                           @if($errors->has('shipping_address.'.$split_details->prod_sequence))
-                                                                <div class="error">{{ $errors->first('shipping_address.'.$split_details->prod_sequence) }}</div>
-                                                                @endif
-                                                        </div>
-
-                                                        <div class="form-group">
-                                                          <label for="email">{{ trans('cart.ship_comp') }}*:</label>
-                                                          <select class="form-control" name={{"shipping_company[".$split_details->prod_sequence."]"}} id="shipping_company" onchange = "InsertSplitOrder({{$data->id}} , {{$split_details->sequence}} , this ,{{$split_details->prod_sequence}});"> 
-                                                          <option value ="-1">Select</option>
-                                                          @foreach($shipping_company as $value)<option value = "{{$value->id}}" @if($value->id == $split_details->shipping_company) {{"selected"}} @endif>{{$value->delivery_service}}</option> 
-                                                          @endforeach
-                                                          </select>
-                                                          @if($errors->has('shipping_company.'.$split_details->prod_sequence))
-                                                          <div class="error">{{ $errors->first('shipping_company.'.$split_details->prod_sequence) }}</div>
-                                                          @endif
-                                                        </div>
-
-                                                         <button type="button"  id = {{'remove_split_order_'.$split_details->prod_sequence}} onclick="RemoveSplitOrder({{$data->id}} , {{$key}});" class="remove_btn displayNone" > X </button> 
-
-                                                          </div>
-                                                          {{$variable_split[$split_key] = 1 }}   {{ 'flag_end_split : ' .$split_key.'---' . $variable_split[$split_key]}}
-                                                      @endif
-
-
-                                                          {{-- New + old --}}
-                                                       @elseif($data->id != $split_details->unique_id)  {{"New + Old " .':'. $data->id .'-------'. $split_details->unique_id }}
-
-                                                          @if($variable[$key] == 0)
-
-                                                            <div class="rv-casualBioFields" id = {{"cloneBioFields_".$key}} name = {{"cloneBioFields_".$key."_".'0'}}>
+                                                         @php $is_found = 0  @endphp
                                                           
-                                                            <div class="form-group">
-                                                            <label for="text">{{ trans('cart.no_of_copies') }}*:</label>
-                                                       
-                                                           <input type="hidden" id = "{{'sequence_'.$key}}" value="0" name={{"sequence_".$key."_0"}}>
-                                                            <input type="number" id="no_of_copies" min="0" onchange="InsertSplitOrder({{$data->id}} , {{$split_details->sequence}}, this,{{$key}}); setTimeout(function(){ setQuantity({{count($product_data)}}) },1200);" name={{"no_of_copies[".$key."]"}}  class="form-control" placeholder="{{ trans('cart.enter_here') }}" value={{$data->no_of_copies}}>
-                                                            @if($errors->has('no_of_copies.'.$key))
-                                                            <div class="error">{{ $errors->first('no_of_copies.'.$key) }}</div>
-                                                            @endif 
-                                                          </div>
-                                                          <div class="form-group">
-                                                            <label for="pwd">{{ trans('cart.no_of_cds') }}:</label>
-                                                           
-                                                            <input id="no_of_cds" type="number" min="0" name={{"no_of_cds[".$key."]"}}  class="form-control" placeholder="0" onchange="InsertSplitOrder({{$data->id}} , {{$split_details->sequence}} , this ,{{$key}}); setTimeout(function(){ setQuantity({{count($product_data)}}) },1200)" value= @if(isset($data->no_of_cds) || ! is_nan($data->no_of_cds)){{$data->no_of_cds}} @else {{0}} @endif>
-                                                             @if($errors->has('no_of_cds.'.$key))
-                                                            <div class="error">{{ $errors->first('no_of_cds.'.$key) }}</div>
-                                                            @endif
-                                                          </div>
+                                                          @foreach($split_record_unique_id as $split_key => $split_orders)
 
-                                                           <div class="form-group">
-                                                            <label for="pwd">{{ trans('cart.ship_add') }}*:</label>
-                                                            <select class="form-control" name={{"shipping_address[".$key."]"}} id="address_data" onchange="displayAddress(this,'{{'ship-address-'.$key}}'); InsertSplitOrder({{$data->id}} ,{{$split_details->sequence}} , this ,{{$key}} );"> <option value ="-1">Select</option> 
-                                                            @foreach($shipping_address_data as $keysss=>$shipping_address)<option value = "{{$shipping_address->first_name." ".$shipping_address->last_name .
-                                                              
-                                                             (($shipping_address->company_name) ? ", ".$shipping_address->company_name : "" )
-                                                             
-                                                             . ", ".$shipping_address->street." ".$shipping_address->house_no.", ".$shipping_address->zip_code." ".$shipping_address->city.", ".$shipping_address->state}}" @if($shipping_address->default == 1) selected @endif>{{$shipping_address->first_name." ".$shipping_address->last_name.
+                                                          @if($is_found == 1) @break; @endif
 
-                                                              (($shipping_address->company_name) ? ", ".$shipping_address->company_name : "" )
+                                                                  @if($data->id == $split_key)   
 
-                                                              .", ".$shipping_address->street." ".$shipping_address->house_no.", ".$shipping_address->zip_code." ".$shipping_address->city.", ".$shipping_address->state}}</option> 
-                                                            @endforeach
-                                                            </select>
-                                                             @if($errors->has('shipping_address.'.$key))
-                                                                  <div class="error">{{ $errors->first('shipping_address.'.$key) }}</div>
-                                                                  @endif
-                                                          </div>
+                                                                      @php $is_found = 1;
+                                                                            $counter = 0;
+                                                                      @endphp
+                                                                
+                                                                       @foreach($split_orders as $plit_order_id => $split_details)
 
+                                                                              {{"Old " .':'. $data->id .'-------'. $split_details['unique_id'] }}  
 
-                                                          <div class="form-group">
-                                                            <label for="email">{{ trans('cart.ship_comp') }}*:</label>
-                                                            <select class="form-control" name={{"shipping_company[".$key."]"}} id="shipping_company" onchange = "InsertSplitOrder({{$data->id}} ,{{$split_details->sequence}} , this ,{{$key}});"> 
-                                                            <option value ="-1">Select</option>
-                                                            @foreach($shipping_company as $value)<option value = "{{$value->id}}">{{$value->delivery_service}}</option> @endforeach
-                                                            </select>
-                                                            @if($errors->has('shipping_company.'.$key))
-                                                            <div class="error">{{ $errors->first('shipping_company.'.$key) }}</div>
-                                                            @endif
-                                                          </div>
+                                                                                  <div class="rv-casualBioFields" id = {{"cloneBioFields_".$key}} name = {{"cloneBioFields_".$key."_".'0'}}>
 
-                                                           <button type="button"  id = {{'remove_split_order_'.$key}} onclick="RemoveSplitOrder({{$data->id}} , {{$key}});" class="remove_btn displayNone" > X </button> 
+                                                                                    <div class="form-group">
+                                                                                  <label for="text">{{ trans('cart.no_of_copies') }}*:</label>
 
+                                                                                 <input type="hidden" id = "{{'sequence_'.$split_details['prod_sequence']}}" value="0" name={{"sequence_".$split_details['prod_sequence']."_".$split_details['sequence']}}>
+                                                                                  <input type="number" id="no_of_copies" min="0" onchange="InsertSplitOrder({{$data->id}} , {{$split_details['sequence']}}, this,{{$split_details['prod_sequence']}}); setTimeout(function(){ setQuantity({{count($product_data)}}) },1200);" name={{"no_of_copies[".$split_details['prod_sequence'].'_'.$split_details['sequence']."]"}}  class="form-control" placeholder="{{ trans('cart.enter_here') }}" value="{{$split_details['no_of_copies']}}">
+                                                                                  @if($errors->has('no_of_copies.'.$split_details['prod_sequence']))
+                                                                                  <div class="error">{{ $errors->first('no_of_copies.'.$split_details['prod_sequence']) }}</div>
+                                                                                  @endif 
+                                                                                </div>
+                                                                                <div class="form-group">
+                                                                                  <label for="pwd">{{ trans('cart.no_of_cds') }}:</label>
 
-                                                            </div>  
-                                                          {{$variable[$key] = 1 }}   {{ 'flag_end : ' .$key.'---' . $variable[$key]}}
-                                                      @endif
-                                                    @endif
-                                                @endforeach
+                                                                                  <input id="no_of_cds" type="number" min="0" name={{"no_of_cds[".$split_details['prod_sequence'].'_'.$split_details['sequence']."]"}} class="form-control" placeholder="0" onchange="InsertSplitOrder({{$data->id}} , {{$split_details['sequence']}} , this ,{{$split_details['prod_sequence']}}); setTimeout(function(){ setQuantity({{count($product_data)}}) },1200)" value= @if(isset($data->no_of_cds) || ! is_nan($data->no_of_cds)) {{$split_details['no_of_cds']}} @else {{0}} @endif>
+                                                                                   @if($errors->has('no_of_cds.'.$split_details['prod_sequence']))
+                                                                                  <div class="error">{{ $errors->first('no_of_cds.'.$split_details['prod_sequence']) }}</div>
+                                                                                  @endif
+                                                                                </div>
+                                                                                 <div class="form-group">
+                                                                                  <label for="pwd">{{ trans('cart.ship_add') }}*:</label>
+                                                                                  <select class="form-control" name={{"shipping_address[".$split_details['prod_sequence'].'_'.$split_details['sequence']."]"}} id="address_data" onchange="displayAddress(this,'{{'ship-address-'.$split_details['prod_sequence']}}'); InsertSplitOrder({{$data->id}} , {{$split_details['sequence']}} , this ,{{$split_details['prod_sequence']}} );"> <option value ="-1">Select</option> 
+                                                                                  @foreach($shipping_address_data as $keysss=>$shipping_address)<option value = "{{$shipping_address->first_name." ".$shipping_address->last_name .
+                                                                                    
+                                                                                   (($shipping_address->company_name) ? ", ".$shipping_address->company_name : "" )
+                                                                                   
+                                                                                   . ", ".$shipping_address->street." ".$shipping_address->house_no.", ".$shipping_address->zip_code." ".$shipping_address->city.", ".$shipping_address->state}}" @if($shipping_address->default == 1) selected @endif>{{$shipping_address->first_name." ".$shipping_address->last_name.
 
-                                          {{-- All New --}}
+                                                                                    (($shipping_address->company_name) ? ", ".$shipping_address->company_name : "" )
 
-                                         @elseif( ! isset($split_order) || count($split_order) == 0 )  {{"New" . $key}}
+                                                                                    .", ".$shipping_address->street." ".$shipping_address->house_no.", ".$shipping_address->zip_code." ".$shipping_address->city.", ".$shipping_address->state}}</option> 
+                                                                                  @endforeach
+                                                                                  </select>
+                                                                                   @if($errors->has('shipping_address.'.$split_details['prod_sequence'].'_'.$split_details['sequence']))
+                                                                                        <div class="error">{{ $errors->first('shipping_address.'.$split_details['prod_sequence'].'_'.$split_details['sequence']) }}</div>
+                                                                                        @endif
+                                                                                </div>
 
-                                                          <div class="rv-casualBioFields" id = {{"cloneBioFields_".$key}} name = {{"cloneBioFields_".$key."_".'0'}}>
+                                                                                <div class="form-group">
+                                                                                  <label for="email">{{ trans('cart.ship_comp') }}*:</label>
+                                                                                  <select class="form-control" name={{"shipping_company[".$split_details['prod_sequence'].'_'.$split_details['sequence']."]"}} id="shipping_company" onchange = "InsertSplitOrder({{$data->id}} , {{$split_details['sequence']}} , this ,{{$split_details['prod_sequence']}});"> 
+                                                                                  <option value ="-1">Select</option>
+                                                                                  @foreach($shipping_company as $value)<option value = "{{$value->id}}" @if($value->id == $split_details['shipping_company']) {{"selected"}} @endif>{{$value->delivery_service}}</option> 
+                                                                                  @endforeach
+                                                                                  </select>
+                                                                                  @if($errors->has('shipping_company.'.$split_details['prod_sequence'].'_'.$split_details['sequence']))
+                                                                                  <div class="error">{{ $errors->first('shipping_company.'.$split_details['prod_sequence'].'_'.$split_details['sequence']) }}</div>
+                                                                                  @endif
+                                                                                </div>
 
+                                                                                 @if($counter != 0)
+              
+                                                                                 <button type="button"  id = {{'remove_split_order_'.$split_details['prod_sequence']}} onclick="RemoveSplitOrder({{$data->id}} , {{$key}});" class="remove_btn" > X </button> 
 
-                                                          {{-- <input type="hidden" id = {{"total_cds_after_split".$key}} value="0" name={{"total_cds_after_split".$key}}>
-                                                          <input type="hidden" id = {{"total_copies_after_split".$key}} value="0" name={{"total_copies_after_split".$key}}> --}}
-
-
-                                                            <div class="form-group">
-                                                          <label for="text">{{ trans('cart.no_of_copies') }}*:</label>
-                                                         {{--  <label id="binding_price_per_product_{{$data->id}}" class = "price_per_product"></label> --}}
-                                                         <input type="hidden" id = "{{'sequence_'.$key}}" value="0" name={{"sequence_".$key."_0"}}>
-                                                          <input type="number" id="no_of_copies" min="0" onchange="InsertSplitOrder({{$data->id}} , 0, this,{{$key}}); setTimeout(function(){ setQuantity({{count($product_data)}}) },1200);" name={{"no_of_copies[".$key."]"}}  class="form-control" placeholder="{{ trans('cart.enter_here') }}" value={{$data->no_of_copies}}>
-                                                          @if($errors->has('no_of_copies.'.$key))
-                                                          <div class="error">{{ $errors->first('no_of_copies.'.$key) }}</div>
-                                                          @endif 
-                                                        </div>
-                                                        <div class="form-group">
-                                                          <label for="pwd">{{ trans('cart.no_of_cds') }}:</label>
-                                                          {{-- <label id="cd_price_per_product_{{$data->id}}" class = "cd price_per_product">Price/qty: 2.00 € </label> --}}
-                                                          <input id="no_of_cds" type="number" min="0" name={{"no_of_cds[".$key."]"}}  class="form-control" placeholder="0" onchange="InsertSplitOrder({{$data->id}} , 0 , this ,{{$key}}); setTimeout(function(){ setQuantity({{count($product_data)}}) },1200)" value= @if(isset($data->no_of_cds) || ! is_nan($data->no_of_cds)) {{$data->no_of_cds}} @else {{0}} @endif>
-                                                           @if($errors->has('no_of_cds.'.$key))
-                                                          <div class="error">{{ $errors->first('no_of_cds.'.$key) }}</div>
-                                                          @endif
-                                                        </div>
-                                                         <div class="form-group">
-                                                          <label for="pwd">{{ trans('cart.ship_add') }}*:</label>
-                                                          <select class="form-control" name={{"shipping_address[".$key."]"}} id="address_data" onchange="displayAddress(this,'{{'ship-address-'.$key}}'); InsertSplitOrder({{$data->id}} , 0 , this ,{{$key}} );"> <option value ="-1">Select</option> 
-                                                          @foreach($shipping_address_data as $keysss=>$shipping_address)<option value = "{{$shipping_address->first_name." ".$shipping_address->last_name .
-                                                            
-                                                           (($shipping_address->company_name) ? ", ".$shipping_address->company_name : "" )
-                                                           
-                                                           . ", ".$shipping_address->street." ".$shipping_address->house_no.", ".$shipping_address->zip_code." ".$shipping_address->city.", ".$shipping_address->state}}" @if($shipping_address->default == 1) selected @endif>{{$shipping_address->first_name." ".$shipping_address->last_name.
-
-                                                            (($shipping_address->company_name) ? ", ".$shipping_address->company_name : "" )
-
-                                                            .", ".$shipping_address->street." ".$shipping_address->house_no.", ".$shipping_address->zip_code." ".$shipping_address->city.", ".$shipping_address->state}}</option> 
-                                                          @endforeach
-                                                          </select>
-                                                           @if($errors->has('shipping_address.'.$key))
-                                                                <div class="error">{{ $errors->first('shipping_address.'.$key) }}</div>
-                                                                @endif
-                                                        </div>
+                                                                                 @endif
 
 
+                                                                                @php $counter = $counter + 1;  @endphp
 
-                                                       {{--   <div class="form-group">
-                                                          <label for="pwd">{{ trans('cart.bill_add') }}*:</label>
-                                                          <select class="form-control" name={{"billing_address[".$key."]"}} id="address_data" onchange="displayAddress(this,'{{'bill-address-'.$key}}');"> 
-                                                            <option value ="-1">Select</option>
-                                                          @foreach($billing_address_data as $keyss=>$billing_address)
-                                                          <option value = "{{$billing_address->first_name." ".$billing_address->last_name.", Company Name: ".$billing_address->company_name.", House No: ".$billing_address->house_no.", City: ".$billing_address->city.", State: ".$billing_address->state.", Zip Code: ".$billing_address->zip_code}}" @if($billing_address->default == 1) selected @endif>{{$billing_address->first_name." ".$billing_address->last_name.", Company Name: ".$billing_address->company_name.", House No: ".$billing_address->house_no.", City: ".$billing_address->city.", State: ".$billing_address->state.", Zip Code: ".$billing_address->zip_code}}</option> 
-                                                          @endforeach
-                                                          </select>
-                                                           @if($errors->has('billing_address.'.$key))
-                                                                <div class="error">{{ $errors->first('billing_address.'.$key) }}</div>
-                                                                @endif
-                                                        </div> --}}
+                                                                              
 
-                                                        <div class="form-group">
-                                                          <label for="email">{{ trans('cart.ship_comp') }}*:</label>
-                                                          <select class="form-control" name={{"shipping_company[".$key."]"}} id="shipping_company" onchange = "InsertSplitOrder({{$data->id}} , 0 , this ,{{$key}});"> 
-                                                          <option value ="-1">Select</option>
-                                                          @foreach($shipping_company as $value)<option value = "{{$value->id}}">{{$value->delivery_service}}</option> @endforeach
-                                                          </select>
-                                                          @if($errors->has('shipping_company.'.$key))
-                                                          <div class="error">{{ $errors->first('shipping_company.'.$key) }}</div>
-                                                          @endif
-                                                        </div>
+                                                                                  </div>
+                                                                                  
 
-                                                         <button type="button"  id = {{'remove_split_order_'.$key}} onclick="RemoveSplitOrder({{$data->id}} , {{$key}});" class="remove_btn displayNone" > X </button> 
+                                                                          @endforeach                        
+
+                                                                   @endif
+                                                              @endforeach
+
+                                                              {{-- All old + New --}}
+
+                                                              @if($is_found == 0)
+
+                                                                            <div class="rv-casualBioFields" id = {{"cloneBioFields_".$key}} name = {{"cloneBioFields_".$key."_".'0'}}>
+
+                                                                                    <div class="form-group">
+                                                                                  <label for="text">{{ trans('cart.no_of_copies') }}*:</label>
+                                                                                
+                                                                                 <input type="hidden" id = "{{'sequence_'.$key}}" value="0" name={{"sequence_".$key."_0"}}>
+                                                                                  <input type="number" id="no_of_copies" min="0" onchange="InsertSplitOrder({{$data->id}} , 0, this,{{$key}}); setTimeout(function(){ setQuantity({{count($product_data)}}) },1200);" name={{"no_of_copies[".$key.'_'.'0'."]"}}  class="form-control" placeholder="{{ trans('cart.enter_here') }}" value={{$data->no_of_copies}}>
+                                                                                  @if($errors->has('no_of_copies.'.$key))
+                                                                                  <div class="error">{{ $errors->first('no_of_copies.'.$key) }}</div>
+                                                                                  @endif 
+                                                                                </div>
+                                                                                <div class="form-group">
+                                                                                  <label for="pwd">{{ trans('cart.no_of_cds') }}:</label>
+                                                                                 
+                                                                                  <input id="no_of_cds" type="number" min="0" name={{"no_of_cds[".$key.'_'.'0'."]"}} class="form-control" placeholder="0" onchange="InsertSplitOrder({{$data->id}} , 0 , this ,{{$key}}); setTimeout(function(){ setQuantity({{count($product_data)}}) },1200)" value= @if(isset($data->no_of_cds) || ! is_nan($data->no_of_cds)) {{$data->no_of_cds}} @else {{0}} @endif>
+                                                                                   @if($errors->has('no_of_cds.'.$key))
+                                                                                  <div class="error">{{ $errors->first('no_of_cds.'.$key) }}</div>
+                                                                                  @endif
+                                                                                </div>
+                                                                                 <div class="form-group">
+                                                                                  <label for="pwd">{{ trans('cart.ship_add') }}*:</label>
+                                                                                  <select class="form-control" name={{"shipping_address[".$key.'_'.'0'."]"}} id="address_data" onchange="displayAddress(this,'{{'ship-address-'.$key}}'); InsertSplitOrder({{$data->id}} , 0 , this ,{{$key}} );"> <option value ="-1">Select</option> 
+                                                                                  @foreach($shipping_address_data as $keysss=>$shipping_address)<option value = "{{$shipping_address->first_name." ".$shipping_address->last_name .
+                                                                                    
+                                                                                   (($shipping_address->company_name) ? ", ".$shipping_address->company_name : "" )
+                                                                                   
+                                                                                   . ", ".$shipping_address->street." ".$shipping_address->house_no.", ".$shipping_address->zip_code." ".$shipping_address->city.", ".$shipping_address->state}}" @if($shipping_address->default == 1) selected @endif>{{$shipping_address->first_name." ".$shipping_address->last_name.
+
+                                                                                    (($shipping_address->company_name) ? ", ".$shipping_address->company_name : "" )
+
+                                                                                    .", ".$shipping_address->street." ".$shipping_address->house_no.", ".$shipping_address->zip_code." ".$shipping_address->city.", ".$shipping_address->state}}</option> 
+                                                                                  @endforeach
+                                                                                  </select>
+                                                                                   @if($errors->has('shipping_address.'.$key.'_'.$key))
+                                                                                        <div class="error">{{ $errors->first('shipping_address.'.$key.'_'.$key) }}</div>
+                                                                                        @endif
+                                                                                </div>
 
 
-                                                          </div>
- 
-                                         @endif
-                                    
+                                                                                <div class="form-group">
+                                                                                  <label for="email">{{ trans('cart.ship_comp') }}*:</label>
+                                                                                  <select class="form-control" name={{"shipping_company[".$key.'_'.'0'."]"}} id="shipping_company" onchange = "InsertSplitOrder({{$data->id}} , 0 , this ,{{$key}});"> 
+                                                                                  <option value ="-1">Select</option>
+                                                                                  @foreach($shipping_company as $value)<option value = "{{$value->id}}">{{$value->delivery_service}}</option> @endforeach
+                                                                                  </select>
+                                                                                  @if($errors->has('shipping_company.'.$key.'_'.$key))
+                                                                                  <div class="error">{{ $errors->first('shipping_company.'.$key.'_'.$key) }}</div>
+                                                                                  @endif
+                                                                                </div>
 
-                                        <div class="add-multi-address">
-                                          <button type = "button" name="add_multi_address_click" id="{{'add_multi_address_'.$key}}" class="rv-adressesfields" onclick="splitOrder({{$data->id}} , {{$key}} , {{count($product_data)}});">Split Your Order</button>
-                                        </div>
-                                        <div class="rv-manageAddressFields">
-                                          <h4>{{ trans('cart.manage_add') }}</h4>
-                                          <div class="rv-adressesfields">
-                                           <div class="form-group">
-                                              <label for="email">{{ trans('cart.ship_add') }}*:</label>
-                                               <p id="{{'ship-address-'.$key}}" class="filled-shippingAdress">
-                                                @foreach($shipping_address_data as $keysss=>$shipping_address)
-                                                @if($shipping_address->default == 1)
-                                                  {{$shipping_address->first_name." ".$shipping_address->last_name.
+                                                                              
+            
+                                                                                 <button type="button"  id = {{'remove_split_order_'.$key}} onclick="RemoveSplitOrder({{$data->id}} , {{$key}});" class="remove_btn displayNone" > X </button> 
+                                                                               
 
-                                                    (($shipping_address->company_name) ? ", ".$shipping_address->company_name : "" )
+                                                                                  </div>  
 
-                                                  .", ".$shipping_address->street." ".$shipping_address->house_no.", ".$shipping_address->zip_code." ".$shipping_address->city.", ".$shipping_address->state}}
+
+                                                              @endif
+                                                                
+                                                    @elseif( ! isset($split_record_unique_id) || count($split_record_unique_id) == 0 )  {{"New" . $key}}
+
+                                                     
+
+                                                                      <div class="rv-casualBioFields" id = {{"cloneBioFields_".$key}} name = {{"cloneBioFields_".$key."_".'0'}}>
+
+
+                                                                      {{-- <input type="hidden" id = {{"total_cds_after_split".$key}} value="0" name={{"total_cds_after_split".$key}}>
+                                                                      <input type="hidden" id = {{"total_copies_after_split".$key}} value="0" name={{"total_copies_after_split".$key}}> --}}
+
+
+                                                                        <div class="form-group">
+                                                                      <label for="text">{{ trans('cart.no_of_copies') }}*:</label>
+                                                                     {{--  <label id="binding_price_per_product_{{$data->id}}" class = "price_per_product"></label> --}}
+                                                                     <input type="hidden" id = "{{'sequence_'.$key}}" value="0" name={{"sequence_".$key."_0"}}>
+                                                                      <input type="number" id="no_of_copies" min="0" onchange="InsertSplitOrder({{$data->id}} , 0, this,{{$key}}); setTimeout(function(){ setQuantity({{count($product_data)}}) },1200);" name={{"no_of_copies[".$key.'_'.'0'."]"}}  class="form-control" placeholder="{{ trans('cart.enter_here') }}" value={{$data->no_of_copies}}>
+                                                                      @if($errors->has('no_of_copies.'.$key))
+                                                                      <div class="error">{{ $errors->first('no_of_copies.'.$key) }}</div>
+                                                                      @endif 
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                      <label for="pwd">{{ trans('cart.no_of_cds') }}:</label>
+                                                                      {{-- <label id="cd_price_per_product_{{$data->id}}" class = "cd price_per_product">Price/qty: 2.00 € </label> --}}
+                                                                      <input id="no_of_cds" type="number" min="0" name={{"no_of_cds[".$key.'_'.'0'."]"}}  class="form-control" placeholder="0" onchange="InsertSplitOrder({{$data->id}} , 0 , this ,{{$key}}); setTimeout(function(){ setQuantity({{count($product_data)}}) },1200)" value= @if(isset($data->no_of_cds) || ! is_nan($data->no_of_cds)) {{$data->no_of_cds}} @else {{0}} @endif>
+                                                                       @if($errors->has('no_of_cds.'.$key))
+                                                                      <div class="error">{{ $errors->first('no_of_cds.'.$key) }}</div>
+                                                                      @endif
+                                                                    </div>
+                                                                     <div class="form-group">
+                                                                      <label for="pwd">{{ trans('cart.ship_add') }}*:</label>
+                                                                      <select class="form-control" name={{"shipping_address[".$key.'_'.'0'."]"}} id="address_data" onchange="displayAddress(this,'{{'ship-address-'.$key}}'); InsertSplitOrder({{$data->id}} , 0 , this ,{{$key}} );"> <option value ="-1">Select</option> 
+                                                                      @foreach($shipping_address_data as $keysss=>$shipping_address)<option value = "{{$shipping_address->first_name." ".$shipping_address->last_name .
+                                                                        
+                                                                       (($shipping_address->company_name) ? ", ".$shipping_address->company_name : "" )
+                                                                       
+                                                                       . ", ".$shipping_address->street." ".$shipping_address->house_no.", ".$shipping_address->zip_code." ".$shipping_address->city.", ".$shipping_address->state}}" @if($shipping_address->default == 1) selected @endif>{{$shipping_address->first_name." ".$shipping_address->last_name.
+
+                                                                        (($shipping_address->company_name) ? ", ".$shipping_address->company_name : "" )
+
+                                                                        .", ".$shipping_address->street." ".$shipping_address->house_no.", ".$shipping_address->zip_code." ".$shipping_address->city.", ".$shipping_address->state}}</option> 
+                                                                      @endforeach
+                                                                      </select>
+                                                                       @if($errors->has('shipping_address.'.$key.'_'.$key))
+                                                                            <div class="error">{{ $errors->first('shipping_address.'.$key.'_'.$key) }}</div>
+                                                                            @endif
+                                                                    </div>
+
+
+
+                                                                   {{--   <div class="form-group">
+                                                                      <label for="pwd">{{ trans('cart.bill_add') }}*:</label>
+                                                                      <select class="form-control" name={{"billing_address[".$key."]"}} id="address_data" onchange="displayAddress(this,'{{'bill-address-'.$key}}');"> 
+                                                                        <option value ="-1">Select</option>
+                                                                      @foreach($billing_address_data as $keyss=>$billing_address)
+                                                                      <option value = "{{$billing_address->first_name." ".$billing_address->last_name.", Company Name: ".$billing_address->company_name.", House No: ".$billing_address->house_no.", City: ".$billing_address->city.", State: ".$billing_address->state.", Zip Code: ".$billing_address->zip_code}}" @if($billing_address->default == 1) selected @endif>{{$billing_address->first_name." ".$billing_address->last_name.", Company Name: ".$billing_address->company_name.", House No: ".$billing_address->house_no.", City: ".$billing_address->city.", State: ".$billing_address->state.", Zip Code: ".$billing_address->zip_code}}</option> 
+                                                                      @endforeach
+                                                                      </select>
+                                                                       @if($errors->has('billing_address.'.$key))
+                                                                            <div class="error">{{ $errors->first('billing_address.'.$key) }}</div>
+                                                                            @endif
+                                                                    </div> --}}
+
+                                                                    <div class="form-group">
+                                                                      <label for="email">{{ trans('cart.ship_comp') }}*:</label>
+                                                                      <select class="form-control" name={{"shipping_company[".$key.'_'.'0'."]"}} id="shipping_company" onchange = "InsertSplitOrder({{$data->id}} , 0 , this ,{{$key}});"> 
+                                                                      <option value ="-1">Select</option>
+                                                                      @foreach($shipping_company as $value)<option value = "{{$value->id}}">{{$value->delivery_service}}</option> @endforeach
+                                                                      </select>
+                                                                      @if($errors->has('shipping_company.'.$key.'_'.$key))
+                                                                      <div class="error">{{ $errors->first('shipping_company.'.$key.'_'.$key) }}</div>
+                                                                      @endif
+                                                                    </div>
+
+                                                                    
+
+                                                                     <button type="button"  id = {{'remove_split_order_'.$key}} onclick="RemoveSplitOrder({{$data->id}} , {{$key}});" class="remove_btn displayNone" > X </button> 
+
+                                                                  
+
+
+                                                                      </div>   
+                                                    
+             
+                                                     @endif
+                                                
+
+                                                    <div class="add-multi-address">
+                                                      <button type = "button" name="add_multi_address_click" id="{{'add_multi_address_'.$key}}" class="rv-adressesfields" onclick="splitOrder({{$data->id}} , {{$key}} , {{count($product_data)}});">Split Your Order</button>
+                                                    </div>
+                                                    <div class="rv-manageAddressFields">
+                                                      <h4>{{ trans('cart.manage_add') }}</h4>
+                                                      <div class="rv-adressesfields">
+                                                       <div class="form-group">
+                                                          <label for="email">{{ trans('cart.ship_add') }}*:</label>
+                                                           <p id="{{'ship-address-'.$key}}" class="filled-shippingAdress">
+                                                            @foreach($shipping_address_data as $keysss=>$shipping_address)
+                                                            @if($shipping_address->default == 1)
+                                                              {{$shipping_address->first_name." ".$shipping_address->last_name.
+
+                                                                (($shipping_address->company_name) ? ", ".$shipping_address->company_name : "" )
+
+                                                              .", ".$shipping_address->street." ".$shipping_address->house_no.", ".$shipping_address->zip_code." ".$shipping_address->city.", ".$shipping_address->state}}
                                                @endif
                                                @endforeach
                                               </p>
@@ -655,7 +676,7 @@
   <script>
     $(document).ready( function () {
 
-      clearSplitOrderTable();
+      //clearSplitOrderTable();
 
        
 
