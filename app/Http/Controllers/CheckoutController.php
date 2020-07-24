@@ -1069,7 +1069,73 @@ public function calculateDeliveryCost($delivery = "", $copies = "", $cds = "", $
 }
 
 
-public function calculateDiscountAmount(){
+public function calculateDiscountAmount($code = "", $total = "", $delivery = "", $copies = "", $cds = ""){
+
+	$net_amt_after_delivery_service  = 0; $net_amt = 0; $delivery_cost_per_product = []; 
+	$total_delivery_service = 0; $delivery_cost = []; $discount_type = -1; $discount_amt = 0.0;
+
+
+	$discount = Discount::where(['code' => $code])->first(['by_price','by_percent','type']);
+	
+	// delivery discount
+	if($discount->type == 0){
+				
+		 $discount_type = 0;
+
+		$delivery_cost_per_product = self::calculateDeliveryCost($delivery, $copies, $cds, 1);
+
+
+		$delivery_cost = $delivery_cost_per_product;
+
+		$counter = 0;
+	
+		foreach($delivery_cost_per_product as $prod_key => $prod_value){
+
+			foreach($prod_value as $prod_detail_key => $prod_detail_value){  
+
+				if($discount_type == 0 ){ $counter = $counter + 1; if ($counter == 1)  $discount_amt = $prod_detail_value['shipping_cost']; }
+
+				$total_delivery_service+= $prod_detail_value['shipping_cost'];
+
+			}	
+		}  
+
+		$net_amt = $total - $discount_amt;
+
+		$net_amt_after_delivery_service = $net_amt + $total_delivery_service;
+
+
+	// single product discount
+	}elseif($discount->type == 1){
+
+		$discount_type = 1;
+
+
+	// multi product discount
+	}elseif($discount->type == 2){
+
+		$discount_type = 2;
+
+	}
+
+
+	// calculate delivery cost if discount code is not of type delivery cost 
+
+	// if($discount->by_price != "null" && ! empty($discount->by_price)){
+	// 	$discount_amt = number_format($discount->by_price,2);
+	// }else{
+	// 	$discount_amt =number_format( ($total / 100 ) * $discount->by_percent,2);
+	// }
+
+	// // discount is more then total i.e no code will be applied
+
+	// if($discount_amt > $total){ 
+	// 	$net_amt = $total - 0.00;
+	// }else{
+	// 	$net_amt = $total - $discount_amt; 
+	// }
+
+	return ['delivery_cost' => $delivery_cost, 'total_delivery_service' => $total_delivery_service, 'net_amt_after_delivery_service' => $net_amt_after_delivery_service, 'net_amt' => $net_amt, 'discount_amt'=>$discount_amt];
 
 }
 
@@ -1172,61 +1238,15 @@ if (Auth::check() && Auth::user()->name != "Guest") // if user is logged in no n
 					//handling promo code
 					if($request->input('code') != "null" && ! empty($request->input('code'))){
 
-						$discount = Discount::where(['code' => $request->input('code')])->first(['by_price','by_percent','type']);
-						
-						// delivery discount
-						if($discount->type == 0){
 
-							 $discount_type = 0;
+						$discount_details = self::calculateDiscountAmount($request->input('code'), $total, $request->input('shipping_company'),$request->input('no_of_copies'),$request->input('no_of_cds'));  
 
-							$delivery_cost_per_product = self::calculateDeliveryCost($request->input('shipping_company'),$request->input('no_of_copies'),$request->input('no_of_cds'), 1);
+						$delivery_cost = $discount_details['delivery_cost'];
+						$total_delivery_service = $discount_details['total_delivery_service'];
+						$net_amt_after_delivery_service = $discount_details['net_amt_after_delivery_service'];
+						$net_amt = $discount_details['net_amt'];
+						$discount_amt = $discount_details['discount_amt'];
 
-
-							$delivery_cost = $delivery_cost_per_product;
-
-							$counter = 0;
-						
-							foreach($delivery_cost_per_product as $prod_key => $prod_value){
-
-								foreach($prod_value as $prod_detail_key => $prod_detail_value){  
-
-									if($discount_type == 0 ){ $counter = $counter + 1; if ($counter == 1)  $discount_amt = $prod_detail_value['shipping_cost']; continue; }
-
-									$total_delivery_service+= $prod_detail_value['shipping_cost'];
-
-								}	
-							}  
-
-
-						// single product discount
-						}elseif($discount->type == 1){
-
-							$discount_type = 1;
-
-
-						// multi product discount
-						}elseif($discount->type == 2){
-
-							$discount_type = 2;
-
-						}
-
-
-						// calculate delivery cost if discount code is not of type delivery cost 
-					
-						// if($discount->by_price != "null" && ! empty($discount->by_price)){
-						// 	$discount_amt = number_format($discount->by_price,2);
-						// }else{
-						// 	$discount_amt =number_format( ($total / 100 ) * $discount->by_percent,2);
-						// }
-
-						// // discount is more then total i.e no code will be applied
-
-						// if($discount_amt > $total){ 
-						// 	$net_amt = $total - 0.00;
-						// }else{
-						// 	$net_amt = $total - $discount_amt; 
-						// }
 					}else{ 
 
 							$discount_amt = 0.0;
@@ -1241,7 +1261,6 @@ if (Auth::check() && Auth::user()->name != "Guest") // if user is logged in no n
 						
 							foreach($delivery_cost_per_product as $prod_key => $prod_value){
 
-
 								foreach($prod_value as $prod_detail_key => $prod_detail_value){
 
 									$total_delivery_service+= $prod_detail_value['shipping_cost'];
@@ -1252,12 +1271,11 @@ if (Auth::check() && Auth::user()->name != "Guest") // if user is logged in no n
 							}
 
 
-						}
-					
+							$net_amt_after_delivery_service = $net_amt + $total_delivery_service;
 
-					
-			   $net_amt_after_delivery_service = $net_amt + $total_delivery_service;
 
+					}
+					
 
 			   $order_id = $user_id.'_'.time();
 
@@ -1351,7 +1369,7 @@ if (Auth::check() && Auth::user()->name != "Guest") // if user is logged in no n
 
 				return view('/pages/front-end/cart',compact('product_data','shipping_company','billing_address_data','shipping_address_data','errors','split_order','split_record_unique_id'));
 		//return back()->with('errors', $validator->errors());
-}
+   }
 
 
 }   
