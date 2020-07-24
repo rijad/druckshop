@@ -70,6 +70,12 @@ return [
     'upload_own_cd_template' => 'Upload own CD template',
     'upload_logo_for_binding_template' => 'Upload Logo for binding template',
     'choose_your_template' => 'Choose your template',
+    'view_more' => 'View More',
+    'view_less' => 'View Less',
+    'select' => 'Select',
+    'din_A2_pages' => 'Din A2 Pages',
+    'drop_file' => 'Drop file here',
+    'example' => 'Example'
 
 ];
  

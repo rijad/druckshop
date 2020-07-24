@@ -60,13 +60,7 @@
                     <input type="radio" id="product_delivery_edit" name="type" value="product_delivery" @if($discount->type == 0){{ 'checked' }} @endif>
                     <label class="small mb-1" for="product_delivery">Delivery Product</label><br>
 
-                    <input type="radio" id="one_edit" name="type" value="one" @if($discount->type == 1){{ 'checked' }} @endif>
-                    <label class="small mb-1" for="one">Single Product</label><br>
-                        <div class="form-inline" id="single">
-                            @foreach ($binding as $key => $product)
-                            <span class="ml-4"><input type="radio" class="form-control" name="binding[]" value="{{ $product->id }}" @if($discount->product_id == $product->id){{ 'checked' }} @endif />{{ $product->title_english }}</span>
-                            @endforeach
-                        </div>
+                   
 
                     <input type="radio" id="multiple_edit" name="type" value="multiple" @if($discount->type == 2){{ 'checked' }} @endif>
                     <label class="small mb-1" for="multiple">Multiple Product</label><br>

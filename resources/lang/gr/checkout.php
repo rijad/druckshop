@@ -28,7 +28,7 @@ return [
     'upload_file' => 'Datei hochladen',
     'color_pages' => 'Farbseiten',
     'number_of_color_pages' => 'Farbige Seitenzahlen',
-    'din_A3_pages' => 'Dean A Big Bags',
+    'din_A3_pages' => 'Din A3 Seiten',
     'number_din_A3_pages' => 'Anzahl DIN A3 Seiten',
     'position_din_A3_pages' => 'Position der DIN A3-Seiten',
     'upload_din_A3_pages' => 'DIN A3-Seiten hochladen',
@@ -70,6 +70,12 @@ return [
     'upload_own_cd_template' => 'Laden Sie eine eigene CD-Vorlage hoch',
     'upload_logo_for_binding_template' => 'Laden Sie das Logo für die Bindungsvorlage hoch',
     'choose_your_template' => 'Wählen Sie Ihre Vorlage',
+    'view_more' => 'Mehr sehen',
+    'view_less' => 'Weniger anzeigen',
+    'select' => 'Wählen',
+    'din_A2_pages' => 'Din A2 Seiten',
+    'drop_file' => 'Datei hier ablegen',
+    'example' => 'Beispiel'
 
 
 

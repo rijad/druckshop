@@ -34,7 +34,7 @@
                 </div>
                 <div class="form-group">
                     <label class="small mb-1" for="from_date">From Date</label>
-                    <input type="date" id="from_date" name="from_date" value="{{ old('from_date') }}" required>
+                    <input type="date" id="from_date" name="from_date" value="{{ old('from_date') }}" required onfocusout="getDate()">
                 </div>
                 <div class="form-group">
                     <label class="small mb-1" for="to_date">To Date</label>
@@ -59,14 +59,7 @@
                     <input type="radio" id="product_delivery" name="type" value="product_delivery">
                     <label class="small mb-1" for="product_delivery">Delivery Product</label><br>
 
-                    <input type="radio" id="one" name="type" value="one">
-                    <label class="small mb-1" for="one">Single Product</label><br>
-                        <div id="single-pro" class="form-inline">
-                            @foreach ($binding as $key => $product)
-                            <span class="ml-4"><input type="radio" class="form-control" name="binding[]" value="{{ $product->id }}" />{{ $product->title_english }}</span>
-                            @endforeach
-                        </div>
-
+                    
                     <input type="radio" id="multiple" name="type" value="multiple">
                     <label class="small mb-1" for="multiple">Multiple Product</label><br>
                         <div id="many-pro" class="form-inline">
@@ -101,4 +94,10 @@
 
 </body>
 </html>
-
+<script>
+    function getDate() {
+        var x = document.getElementById("from_date").value;
+        alert(x);
+        // x + 30 = document.getElementById("to_date");
+    }
+</script>
