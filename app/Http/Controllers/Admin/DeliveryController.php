@@ -91,16 +91,18 @@ class DeliveryController extends Controller
                 foreach ($request->from as $key => $value) {
 
                     if((!empty($request['to'][$key]) || $request['to'][$key] == '0') && (!empty($request['price'][$key]) || $request['to'][$key] == '0') ){
-
+// dd($active_status);
                         $attr_data = [
 
                             'delivery_service_id' => $insert->id,
                             'ds_from' => $request['from'][$key],
                             'ds_to' => $request['to'][$key],
                             'ds_price' => $request['price'][$key],
+                            'ds_del_status' => $active_status,
                         ];
                         
                         $store_attributes = LettesOfSpine::create($attr_data);
+                        // dd($store_attributes);
                     }
                     
                 }
@@ -203,6 +205,7 @@ class DeliveryController extends Controller
                                 'ds_from' => $request['from'][$key],
                                 'ds_to' => $request['to'][$key],
                                 'ds_price' => $request['price'][$key],
+                                'ds_del_status' => $active_status,
                             ];
                             
                             $store_attributes = LettesOfSpine::create($attr_data);

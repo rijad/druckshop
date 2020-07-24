@@ -29,7 +29,7 @@
 										<option value="{{$listing->id}}" @if($listing->id == request()->id) selected @endif>{{$listing->title_english}}</option>  
 										@endif
 										@endforeach 
-									</select></p><p class="error" id="error_binding"></p> 
+									</select></p><p class="error" id="error_binding"></p>
 								</div>
 								<div class="displayBlock" id="div-no-of-copies">
 									<label>{{ trans('checkout.no_of_copies') }}*:</label>
@@ -37,15 +37,17 @@
 								</div>
 								<div class="displayBlock" id="div-page-format"> 
 									<label>{{ trans('checkout.page_format') }}*:</label>
-									<p><select class = "" onclick = "displayProductAttributes('3',this); sampleImage();" id="page-format" name="page-format" onchange="addTooltip(this); getA3A2Count(this); displayPrice('0',document.getElementById('binding').value,'','','','','','','','','','','','','','',''); " ><option value="-1">Select</option></select></p><p class="error" id="error_page_format"></p>
+									<p><select class = "" onclick = "displayProductAttributes('3',this); sampleImage();" id="page-format" name="page-format" onchange="addTooltip(this); getA3A2Count(this); displayPrice('0',document.getElementById('binding').value,'','','','','','','','','','','','','','',''); " >
+										<option value="-1">{{ trans('checkout.select') }}</option>
+									</select></p><p class="error" id="error_page_format"></p>
 								</div>
 								<div class="displayNone" id="div-cover-color">
 									<label>{{ trans('checkout.cover_color') }}*:</label> 
-									<p><select name="cover-color" class = "" onclick = "displayProductAttributes('4',this); sampleImage();" onchange="" id="cover-color"><option value="-1">Select</option></select></p><p class="error" id="error_cover_color"></p>
+									<p><select name="cover-color" class = "" onclick = "displayProductAttributes('4',this); sampleImage();" onchange="" id="cover-color"><option value="-1">{{ trans('checkout.select') }}</option></select></p><p class="error" id="error_cover_color"></p>
 								</div>
 								<div class="displayNone" id="div-cover-sheet">
 									<label>{{ trans('checkout.cover_sheet') }}*:<a href="#" data-toggle="tooltip" title="200 gm/m2 sheets" class="formToolTip">i</a></label>
-									<p><select class = "" onclick = "displayProductAttributes('5',this);uploadDisplayCoverSheet(this.id,this.value);" onchange="" id="cover-sheet" name="cover-sheet"><option onclick ="" value="-1">Select</option></select></p>
+									<p><select class = "" onclick = "displayProductAttributes('5',this);uploadDisplayCoverSheet(this.id,this.value);" onchange="" id="cover-sheet" name="cover-sheet"><option onclick ="" value="-1">{{ trans('checkout.select') }}</option></select></p>
 									<p class="error" id="error_cover_sheet">
   
 								</div> 
@@ -69,7 +71,7 @@
 
 									<div class="displayNone" id="div-back-cover">
 										<label>{{ trans('checkout.back_sheet') }}*:<div title="200 gm/m2 sheets" class="formToolTip">i</div></label>
-										<p><select class = "" onclick = "displayProductAttributes('6',this); uploadDisplayBackCover(this.id,this.value);" onchange="uploadDisplayBackCover(this.id,this.value);"  id="back-cover" name="back-cover"><option value="-1">Select</option></select></p> <p class="error" id="error_back_cover">
+										<p><select class = "" onclick = "displayProductAttributes('6',this); uploadDisplayBackCover(this.id,this.value);" onchange="uploadDisplayBackCover(this.id,this.value);"  id="back-cover" name="back-cover"><option value="-1">{{ trans('checkout.select') }}</option></select></p> <p class="error" id="error_back_cover">
 									</div>
 									
 									<p class="outside-box-heading displayNone" id="drop_file_zone_back_cover_heading">{{ trans('checkout.upload_back_sheet') }}</p>
@@ -102,7 +104,7 @@
 
 									<div class="displayNone" id="div-mirror">
 										<label>{{ trans('checkout.edge_option') }}*:</label>
-										<p><select class = "" id="mirror" name="mirror"><option value="-1">Select</option></select></p> <p class="error" id="error_mirror"></p>
+										<p><select class = "" id="mirror" name="mirror"><option value="-1">{{ trans('checkout.select') }}</option></select></p> <p class="error" id="error_mirror"></p>
 									</div>
 
 									<div class="displayBlock" id="div-paper-weight">
@@ -113,7 +115,7 @@
 
 									<div class="displayBlock" id="div-no-of-pages">
 										<label> {{ trans('checkout.no_of_pages') }}*:<a id="page-format-tooltip" href="#" data-toggle="tooltip" title="" class="formToolTip">i</a></label>
-										<p><input type = "text" class = "" name="no_of_pages" id="no-of-pages" placeholder="No of Pages"  oninput="resetPrice('no-of-pages');displayPrice('0','',this.value,'','','','','','','','','','','','','',''); displayProductAttributes('8',this); displayPrice('0',document.getElementById('binding').value,'','','','','','','','','','','','','','',''); getPrintingdata()"></p>
+										<p><input type = "text" class = "" name="no_of_pages" id="no-of-pages" placeholder="{{ trans('checkout.no_of_pages') }}"  oninput="resetPrice('no-of-pages');displayPrice('0','',this.value,'','','','','','','','','','','','','',''); displayProductAttributes('8',this); displayPrice('0',document.getElementById('binding').value,'','','','','','','','','','','','','','',''); getPrintingdata()"></p>
 										<p class="error" id="error_no_of_pages"></p>
 										<p class="error" id="error_no_of_pages_match"></p>
 									</div> 
@@ -148,7 +150,7 @@
 										<div class="displayNone" id="div-page-numbers">
 											<label>{{ trans('checkout.number_of_color_pages') }}*:<a href="#" data-toggle="tooltip" title="Page numbers of the PDF file, not of &#013; the thesis (document)" class="formToolTip">i</a></label>
 
-											<p><input type = "text" class= "" name="page_numbers" id="page-numbers" placeholder="Page Numbers" value = "" oninput = "displayPrice('0','','','','','','','','','','','',this.value,'','','',''), checkPageRange('selectfile_content','content_page_no','page-numbers')">
+											<p><input type = "text" class= "" name="page_numbers" id="page-numbers" placeholder="{{ trans('checkout.pg_no') }}" value = "" oninput = "displayPrice('0','','','','','','','','','','','',this.value,'','','',''), checkPageRange('selectfile_content','content_page_no','page-numbers')">
 												<p class="error" id="error_page_numbers"></p>
 												<p class="error" id="error_range"></p><label>{{ trans('checkout.example') }} : 3,12,15-23,37</label></p>
 										</div>
@@ -161,14 +163,14 @@
  
 											<div class="displayNone" id="div-number-of-pages">
 												<label>{{ trans('checkout.number_din_A3_pages') }}*:<a href="#" data-toggle="tooltip" title=" It is printed with the same paper type and one-sided. &#013; It is printed with the same paper type and one-sided. " class="formToolTip">i</a></label>
-												<p><input type = "text" class = "" name="number_of_pages" id="numbers-of-pages" placeholder="Number of Pages"  max="10" oninput = "displayPrice('0','','','','','','','',this.value,'','','','','','','','');">
+												<p><input type = "text" class = "" name="number_of_pages" id="numbers-of-pages" placeholder="{{ trans('checkout.no_of_pages') }}"  max="10" oninput = "displayPrice('0','','','','','','','',this.value,'','','','','','','','');">
 												</p>
-												<p id="A3_msg" class="displayNone">The maximum number of DIN A3 pages is: <span id="max-A3"></span></p>
+												<p id="A3_msg" class="displayNone">{{ trans('checkout.max_range_A3') }} <span id="max-A3"></span></p>
 												<p class="error" id="error_number_of_pages"></p>
 											</div> 
 											<div class="displayNone" id="div-pos-A3-pages">
 												<label>{{ trans('checkout.position_din_A3_pages') }}</label>
-												<p><textarea class = ""  name="pos_of_A3_pages" id="pos-of-A3-pages" placeholder="Number of Pages" ></textarea></p>
+												<p><textarea class = ""  name="pos_of_A3_pages" id="pos-of-A3-pages" placeholder="{{ trans('checkout.no_of_pages') }}" ></textarea></p>
 											</div> 
 
 											<label class="outside-box-heading displayNone" id="drop_file_din_A3_heading">{{ trans('checkout.upload_din_A3_pages') }}</label>
@@ -199,8 +201,8 @@
 												<label class="outside-box-heading displayNone" id="div-number-of-A2-pages_heading">{{ trans('checkout.number_din_A2_pages') }}</label>
 												<div class="displayNone" id="div-number-of-A2-pages">
 													<label class="inside-box-heading">{{ trans('checkout.number_din_A2_pages') }}*:<a href="#" data-toggle="tooltip" title="It is folded and glued into a bag at the end of the thesis. &#013; The maximum number of DIN A2 pages is: 3 " class="formToolTip">i</a></label>
-													<p><input type = "text" class = "" name="number_of_A2_pages" id="numbers-of-A2-pages" placeholder="Number of Pages" value = "" max="3" oninput = "displayPrice('0','','','','','','',this.value,'','','','','','','','','');"></p>
-													<p id="A2_msg" class="displayNone">The maximum number of DIN A2 pages is: <span id="max-A2"></p>
+													<p><input type = "text" class = "" name="number_of_A2_pages" id="numbers-of-A2-pages" placeholder="{{ trans('checkout.no_of_pages') }}" value = "" max="3" oninput = "displayPrice('0','','','','','','',this.value,'','','','','','','','','');"></p>
+													<p id="A2_msg" class="displayNone">{{ trans('checkout.max_range_A2') }} <span id="max-A2"></p>
 													<p class="error" id="error_number_of_A2_pages"></p>
 												</div>
 												
@@ -243,7 +245,7 @@
 
 												<div class="displayNone" id="div-template">
 													<label>{{ trans('checkout.template') }}*:<a href="#" data-toggle="tooltip" title="Data is taken from cover sheet" class="formToolTip">i</a></label>
-													<p><select name ="template" id="template" onchange="displayPopUp(this.value);"><option value="-1">Select</option><option value="Standardvorlage mit Logo">Standardvorlage mit Logo</option><option value="Standardvorlage ohne Logo">Standardvorlage ohne Logo</option><option value="Eigene Vorlage">Eigene Vorlage</option></select></p>
+													<p><select name ="template" id="template" onchange="displayPopUp(this.value);"><option value="-1">{{ trans('checkout.select') }}</option><option value="Standardvorlage mit Logo">Standardvorlage mit Logo</option><option value="Standardvorlage ohne Logo">Standardvorlage ohne Logo</option><option value="Eigene Vorlage">Eigene Vorlage</option></select></p>
 													<p class="error" id="error_template"></p>
 												</div>
 
@@ -412,7 +414,7 @@
 
 													<div class="displayNone" id="div-remarks">
 														<label>{{ trans('checkout.remarks') }}</label>
-														<p><textarea class = "" name="remarks" id="remarks" placeholder="remarks"></textarea></p>
+														<p><textarea class = "" name="remarks" id="remarks" placeholder="{{ trans('checkout.remarks') }}"></textarea></p>
 														<p class="error" id="error_remarks"></p>
 													</div>	
 
@@ -447,7 +449,7 @@
 
 													<div class="displayNone" id="div-number-of-cds">
 														<label>{{ trans('checkout.number_of_cds') }}*:</label>
-														<p><input type = "text" class = "" name="number_of_cds" id="numbers-of-cds" placeholder="Number of CDs" oninput= "displayPrice('0','','','','','','','','',this.value,'','','','','','',''); displayProductAttributes('11',this);"></p>
+														<p><input type = "text" class = "" name="number_of_cds" id="numbers-of-cds" placeholder="{{ trans('checkout.no_of_cd') }}" oninput= "displayPrice('0','','','','','','','','',this.value,'','','','','','',''); displayProductAttributes('11',this);"></p>
 														<p class="error" id="error_number_of_cds"></p>
 													</div>
 
@@ -480,7 +482,7 @@
 														<div class="displayNone" id="div-cd-template">
 															<label>{{ trans('checkout.cd_imprint') }}</label>
 
-															<p><select name="cd-template" id="cd-template" onchange="displayPopUpCD(this.value);"><option value="-1">Select</option><option value="Standardvorlage mit Logo">Standardvorlage mit Logo</option><option value="Standardvorlage ohne Logo">Standardvorlage ohne Logo</option><option value="Eigene Vorlage">Eigene Vorlage</option></select></p>
+															<p><select name="cd-template" id="cd-template" onchange="displayPopUpCD(this.value);"><option value="-1">{{ trans('checkout.select') }}</option><option value="Standardvorlage mit Logo">Standardvorlage mit Logo</option><option value="Standardvorlage ohne Logo">Standardvorlage ohne Logo</option><option value="Eigene Vorlage">Eigene Vorlage</option></select></p>
 
 														</div> 
 
@@ -564,7 +566,7 @@
 
 														<div class="displayNone" id="div-pos-cd-bag">
 															<label>{{ trans('checkout.position') }}</label>
-															<p><textarea class = ""  name="pos-cd-bag" id="pos-cd-bag" placeholder="At the end of the work inside the cover" ></textarea></p>
+															<p><textarea class = ""  name="pos-cd-bag" id="pos-cd-bag" placeholder="{{ trans('checkout.pos_cd_bag_placeh') }}" ></textarea></p>
 														</div>
 			 
 														<div class="displayBlock" id="div-data-check">
@@ -583,7 +585,7 @@
 													<div class="stepperButtons">
 														<div>
 															<button type="button" id="prevBtn" onclick="nextPrev(-1)">{{ trans('checkout.previous') }}</button>
-															<button type="button" id="nextBtn" onclick="nextPrev(1)">{{ trans('checkout.next')}}</button>
+															<button type="button" id="nextBtn" onclick="nextPrev(1)">{{ trans('checkout.next1')}}</button>
 														</div>
 													</div>
 
