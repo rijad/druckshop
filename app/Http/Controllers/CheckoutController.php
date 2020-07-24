@@ -1034,10 +1034,14 @@ public function calculateDeliveryCost($delivery = "", $copies = "", $cds = "", $
 
 		try{
 
-				$delivery_cost = LettesOfSpine::where('delivery_service_id' ,'=', $shipping_company)
+				$delivery_cost_details = LettesOfSpine::where('delivery_service_id' ,'=', $shipping_company)
 			                               ->where('ds_from','<=',$quantity)
 			                               ->where('ds_to','>=',$quantity)
-			                               ->where('ds_del_status','=','1')->first()->ds_price; 
+			                               ->where('ds_del_status','=','1')->first();   
+
+			    $delivery_cost = $delivery_cost_details->ds_price;
+			    $shipping_company = $delivery_cost_details->delivery_service_id;
+			    
 
 			}catch(Exception $e){
 
@@ -1060,7 +1064,7 @@ public function calculateDeliveryCost($delivery = "", $copies = "", $cds = "", $
 
 		// This will skipp adding of delivery cost of first order's first shipping cost (This is case of Discount Code Type 0 )
 
-		$product_shipping[$product][$sequence] = ['product' => $product, 'shipping_cost' => $delivery_cost];
+		$product_shipping[$product][$sequence] = ['product' => $product, 'shipping_cost' => $delivery_cost, 'shipping_company'=>$shipping_company];
 		
 	} 
 
@@ -1069,31 +1073,35 @@ public function calculateDeliveryCost($delivery = "", $copies = "", $cds = "", $
 }
 
 
-public function calculateDiscountAmount($code = "", $total = "", $delivery = "", $copies = "", $cds = ""){
+public function calculateDiscountAmount($code = "", $total = "", $delivery = "", $copies = "", $cds = "", $products){
 
-	$net_amt_after_delivery_service  = 0; $net_amt = 0; $delivery_cost_per_product = []; 
-	$total_delivery_service = 0; $delivery_cost = []; $discount_type = -1; $discount_amt = 0.0;
+	$net_amt_after_delivery_service  = 0; $net_amt = 0; $delivery_cost_per_product = []; $prod_ids = [];
+	$total_delivery_service = 0; $delivery_cost = []; $discount_type = -1; $discount_amt = 0.0; $prod_flag = 0;
 
 
-	$discount = Discount::where(['code' => $code])->first(['by_price','by_percent','type']);
+	$discount = Discount::where(['code' => $code])->first(['by_price','by_percent','type','product_id']);
 	
 	// delivery discount
 	if($discount->type == 0){
 				
-		 $discount_type = 0;
+		$discount_type = 0;
 
 		$delivery_cost_per_product = self::calculateDeliveryCost($delivery, $copies, $cds, 1);
 
 
-		$delivery_cost = $delivery_cost_per_product;
+		$delivery_cost = $delivery_cost_per_product;  //dd($delivery_cost_per_product);
 
 		$counter = 0;
 	
 		foreach($delivery_cost_per_product as $prod_key => $prod_value){
 
-			foreach($prod_value as $prod_detail_key => $prod_detail_value){  
+			foreach($prod_value as $prod_detail_key => $prod_detail_value){  //dd($prod_detail_value['shipping_company']);
 
-				if($discount_type == 0 ){ $counter = $counter + 1; if ($counter == 1)  $discount_amt = $prod_detail_value['shipping_cost']; }
+				if($discount_type == 0){ //dd($prod_detail_value['shipping_company']);
+					$counter = $counter + 1; 
+					 if ($counter == 1 && $prod_detail_value['shipping_company'] != 15)  
+					 	$discount_amt = $prod_detail_value['shipping_cost']; 
+					}
 
 				$total_delivery_service+= $prod_detail_value['shipping_cost'];
 
@@ -1105,35 +1113,67 @@ public function calculateDiscountAmount($code = "", $total = "", $delivery = "",
 		$net_amt_after_delivery_service = $net_amt + $total_delivery_service;
 
 
-	// single product discount
-	}elseif($discount->type == 1){
-
-		$discount_type = 1;
-
-
-	// multi product discount
+	// single / multiple product discount
 	}elseif($discount->type == 2){
 
 		$discount_type = 2;
+		$product_ids = json_decode($discount->product_id,true); 
 
+		// product ids with discount code
+		foreach($product_ids as $dis_key => $dis_value){
+
+			// product ids in cart
+			foreach($products as $prod_key => $prod_value){
+
+				if($dis_value == $prod_value->product_id){
+
+					$prod_flag = 1;
+
+				}
+
+			} 
+
+		} 
+
+		if($prod_flag == 1){
+
+				if($discount->by_price != "null" && ! empty($discount->by_price)){
+					$discount_amt = number_format($discount->by_price,2);
+				}else{
+					$discount_amt =number_format( ($total / 100 ) * $discount->by_percent,2);
+				}
+
+			// discount is more then total i.e no code will be applied
+
+				if($discount_amt > $total){ 
+					$net_amt = $total - 0.00;
+					$discount_amt = 0;
+				}else{
+					$net_amt = $total - $discount_amt; 
+				}
+		}
+
+
+		$delivery_cost_per_product = self::calculateDeliveryCost($delivery, $copies, $cds, 1);
+
+
+		$delivery_cost = $delivery_cost_per_product;  
+
+		$counter = 0;
+	
+		foreach($delivery_cost_per_product as $prod_key => $prod_value){
+
+			foreach($prod_value as $prod_detail_key => $prod_detail_value){  
+
+				$total_delivery_service+= $prod_detail_value['shipping_cost'];
+
+			}	
+		}  
+
+		$net_amt_after_delivery_service = $net_amt + $total_delivery_service;
+	
 	}
 
-
-	// calculate delivery cost if discount code is not of type delivery cost 
-
-	// if($discount->by_price != "null" && ! empty($discount->by_price)){
-	// 	$discount_amt = number_format($discount->by_price,2);
-	// }else{
-	// 	$discount_amt =number_format( ($total / 100 ) * $discount->by_percent,2);
-	// }
-
-	// // discount is more then total i.e no code will be applied
-
-	// if($discount_amt > $total){ 
-	// 	$net_amt = $total - 0.00;
-	// }else{
-	// 	$net_amt = $total - $discount_amt; 
-	// }
 
 	return ['delivery_cost' => $delivery_cost, 'total_delivery_service' => $total_delivery_service, 'net_amt_after_delivery_service' => $net_amt_after_delivery_service, 'net_amt' => $net_amt, 'discount_amt'=>$discount_amt];
 
@@ -1165,7 +1205,7 @@ if (Auth::check())
 
 if (Auth::check() && Auth::user()->name != "Guest") // if user is logged in no need to enter email
 {
-  //dd('1');
+  
 	$validator = Validator::make($request->all(), [ 
 		'no_of_copies.*'=> 'required',
 		'no_of_cds.*' => 'nullable',
@@ -1173,16 +1213,16 @@ if (Auth::check() && Auth::user()->name != "Guest") // if user is logged in no n
 		'shipping_address.*' => 'required|not_in:-1',             
 		'billing_address' => 'required',
 		'email_id' => 'nullable|email',
-		'code' => ['nullable','exists:ps_discount',new CheckCodeRule('code')],
+		'code' => ['nullable','exists:ps_discount',new CheckCodeRule('code')],        
 	], [
 		'no_of_copies.*.required' => 'No of Copies are required',
 		'shipping_company.*.not_in' => 'Shipping Company is required',
-		'shipping_address.*.not_in' => 'Shipping Address is required',
+		'shipping_address.*.not_in' => 'Shipping Address is required', 
 		//'billing_address.*.not_in' => 'Billing Address is required',
 	]); 
 
 }else if((Auth::check() && Auth::user()->name == "Guest") || ! Auth::check()){ // user not logged in have to enter email
-//dd("2");
+	
 	$validator = Validator::make($request->all(), [ 
 		'no_of_copies.*'=> 'required',
 		'no_of_cds.*' => 'nullable',
@@ -1199,7 +1239,7 @@ if (Auth::check() && Auth::user()->name != "Guest") // if user is logged in no n
 	]); 
 
 }
-
+  
 
 
 
@@ -1239,7 +1279,7 @@ if (Auth::check() && Auth::user()->name != "Guest") // if user is logged in no n
 					if($request->input('code') != "null" && ! empty($request->input('code'))){
 
 
-						$discount_details = self::calculateDiscountAmount($request->input('code'), $total, $request->input('shipping_company'),$request->input('no_of_copies'),$request->input('no_of_cds'));  
+						$discount_details = self::calculateDiscountAmount($request->input('code'), $total, $request->input('shipping_company'),$request->input('no_of_copies'),$request->input('no_of_cds'), $product_data);  
 
 						$delivery_cost = $discount_details['delivery_cost'];
 						$total_delivery_service = $discount_details['total_delivery_service'];

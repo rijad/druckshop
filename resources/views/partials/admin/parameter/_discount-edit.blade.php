@@ -95,3 +95,29 @@
 
 </body>
 </html>
+
+
+
+<script>
+
+
+    function getDate(){  
+
+        var y = document.getElementById("to_date").value;
+
+        if(y == ''){
+
+            var x = document.getElementById("from_date").value;  
+            var date = new Date(x);
+            var new_date = new Date(date.setDate(date.getDate() + 30));
+            var to_date = new_date.getFullYear().toString() + '-' + (new_date.getMonth() + 1).toString().padStart(2, 0) +'-' + new_date.getDate().toString().padStart(2, 0);
+            document.getElementById("to_date").value = to_date;
+
+        }
+    }
+
+
+    window.onload = getDate;
+
+
+</script>

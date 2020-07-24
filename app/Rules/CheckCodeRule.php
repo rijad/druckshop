@@ -4,6 +4,8 @@ namespace App\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
 use App\Discount;
+use App\OrderDetailsFinal;
+use Auth;
 
 class CheckCodeRule implements Rule
 {
@@ -25,12 +27,32 @@ class CheckCodeRule implements Rule
      * @return bool
      */
      public function passes($attribute, $value)
-    {  //dd(Discount::where(['code' => $value])->where('from_date' ,'>' ,date('Y-m-d'))->first() . date('Y-m-d') );
+     {   
+
+       if (Auth::check()){
+           $user_id = Auth::user()->id;
+       }else{
+            $user_id = Session::get('user_id');
+       }
+
+       // check if user has already used a code
+
+       if(OrderDetailsFinal::where(['user_id' => $user_id, 'promo_code' => $value])->first() != null){
+
+        return false;
+        
+       }
+
+
+       // check validity of code wrt date
+
        if(Discount::where(['code' => $value])->where('to_date' ,'<' ,date('Y-m-d'))->first() == null && Discount::where(['code' => $value])->where('from_date' ,'>' ,date('Y-m-d'))->first() == null){
    
         return true;
 
-       }if(Discount::where(['code' => $value])->whereNull('to_date')->first() != null && Discount::where(['code' => $value])->where('from_date' ,'>' ,date('Y-m-d'))->first() == null){
+       }
+
+       if(Discount::where(['code' => $value])->whereNull('to_date')->first() != null && Discount::where(['code' => $value])->where('from_date' ,'>' ,date('Y-m-d'))->first() == null){
 
          return true;
 
@@ -39,6 +61,7 @@ class CheckCodeRule implements Rule
         return false;
 
        }
+
     }
 
     /**
