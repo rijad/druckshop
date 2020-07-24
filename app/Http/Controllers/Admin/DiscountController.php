@@ -113,10 +113,6 @@ class DiscountController extends Controller
             $input['type'] = 0;
             $input['product_id'] = json_encode(['-1']);
 
-        }else if($request->input('type') == "one"){
-            $input['type'] = 1;
-            $input['product_id'] = json_encode($request->input('binding'));
-
         }else if($request->input('type') == "multiple"){
             $input['type'] = 2;
             $input['product_id'] = json_encode($request->input('product'));
@@ -222,10 +218,6 @@ class DiscountController extends Controller
             if($request->input('type') == "product_delivery"){
                 $input['type'] = 0;
                 $input['product_id'] = json_encode(['-1']);
-
-            }if($request->input('type') == "one"){
-                $input['type'] = 1;
-                $input['product_id'] = json_encode($request->input('binding'));
 
             }if($request->input('type') == "multiple"){
                 $input['type'] = 2;

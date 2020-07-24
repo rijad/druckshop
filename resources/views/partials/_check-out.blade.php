@@ -23,7 +23,7 @@
 								<div class="displayBlock">
 									<label>{{ trans('checkout.binding_title') }}*:</label>
 									<p><select class = "" name = "binding" id = "binding" onclick="" onchange="  displayPrintFields(''); resetFields(this.id,this.value);  displayProductAttributes('1',this);  sampleImage(); getCoverSetting(this.value); getPageFormatData(this.value); getEmbossingFields(this.value); ">
-										<option value = "-1">Select</option>
+										<option value = "-1">{{ trans('checkout.select') }}</option>
 										@foreach ($product_listing as $key=>$listing)
 										@if($listing->id != 8 && $listing->id != 5)
 										<option value="{{$listing->id}}" @if($listing->id == request()->id) selected @endif>{{$listing->title_english}}</option>  
@@ -54,7 +54,7 @@
 								<div id="drop_file_zone_cover_sheet" ondrop="upload_file(event,this.id)" ondragover="return false" class="displayNone">
 									<p class="inside-box-heading">{{ trans('checkout.upload_cover_sheet') }}</p>
 									<div id="drag_upload_file_cover_sheet">
-										<p>Drop file here<a href="#" data-toggle="tooltip" title="PDF" class="formToolTip">i</a></p>
+										<p>{{ trans('checkout.drop_file') }}<a href="#" data-toggle="tooltip" title="PDF" class="formToolTip">i</a></p>
 										<p>or</p>
 										<p><input type="button" value="Select File" onclick="file_explorer('drop_file_zone_cover_sheet');"></p>
 										<input class = "displayNone" type="file" name="selectfile" id="selectfile" accept="application/pdf" value = ""/>
@@ -76,7 +76,7 @@
 									<div id="drop_file_zone_back_cover" ondrop="upload_file(event,this.id)" ondragover="return false" class="displayNone">
 										<div id="drag_upload_file_back_cover">
 											<p class="inside-box-heading">{{ trans('checkout.upload_back_sheet') }}</p>
-											<p>Drop file here<a href="#" data-toggle="tooltip" title="PDF" class="formToolTip">i</a></p>
+											<p>{{ trans('checkout.drop_file') }}<a href="#" data-toggle="tooltip" title="PDF" class="formToolTip">i</a></p>
 											<p>or</p>  
 											<p><input type="button" value="Select File" onclick="file_explorer('drop_file_zone_back_cover');"></p>
 											<input class = "displayNone" type="file" name="selectfile" id="selectfile" accept="application/pdf" value = "" />
@@ -93,7 +93,7 @@
 									<div class="displayBlock">
 										<label>{{ trans('checkout.side_options') }}*:</label>
 										<p><select class = "" id = "page_options" name = "page_options" onclick=""  onchange="displayPrice('0','','',this.value,'','','','','','','','','','','','',''); displayFieldsContent(this.value);  displayProductAttributes('7',this); " >
-											<option value = "-1">Select</option>
+											<option value = "-1">{{ trans('checkout.select') }}</option>
 											@foreach ($page_options as $key=>$listing)
 											<option value="{{$listing->id}}">{{$listing->name_english}}</option>  
 											@endforeach
@@ -108,7 +108,7 @@
 									<div class="displayBlock" id="div-paper-weight">
 										<label>{{ trans('checkout.paper_weight') }}*:<a href="#" data-toggle="tooltip" title="
 											for one-sided 100 g/m² paper &#013; for two-sided 120 g/m² paper" class="formToolTip">i</a></label>
-										<p><select class = "" name="paper-weight" id="paper-weight" onchange="displayPrice('0','','','','','',this.value,'','','','','','','','','',''); getPaperWeightCount(); BasicRange('binding','paper-weight','no-of-pages');"><option value="-1">Select</option></select></p> <p class="error" id="error_paper_weight"></p>
+										<p><select class = "" name="paper-weight" id="paper-weight" onchange="displayPrice('0','','','','','',this.value,'','','','','','','','','',''); getPaperWeightCount(); BasicRange('binding','paper-weight','no-of-pages');"><option value="-1">{{ trans('checkout.select') }}</option></select></p> <p class="error" id="error_paper_weight"></p>
 									</div>  
 
 									<div class="displayBlock" id="div-no-of-pages">
@@ -122,7 +122,7 @@
 									<div id="drop_file_zone_content" ondrop="upload_file(event,this.id) " ondragover="return false" class="displayBlock">
 										<div id="drag_upload_file">
 											<p class="inside-box-heading">{{ trans('checkout.upload_thesis') }}</p>
-											<p>Drop file here<a href="#" data-toggle="tooltip" title="
+											<p>{{ trans('checkout.drop_file') }}<a href="#" data-toggle="tooltip" title="
 											PDF" class="formToolTip">i</a></p> 
 											<p>or</p>
 											<p><input class = "" type="button" value="Select File" onclick="file_explorer('drop_file_zone_content');"></p>
@@ -150,7 +150,7 @@
 
 											<p><input type = "text" class= "" name="page_numbers" id="page-numbers" placeholder="Page Numbers" value = "" oninput = "displayPrice('0','','','','','','','','','','','',this.value,'','','',''), checkPageRange('selectfile_content','content_page_no','page-numbers')">
 												<p class="error" id="error_page_numbers"></p>
-												<p class="error" id="error_range"></p><label>Example : 3,12,15-23,37</label></p>
+												<p class="error" id="error_range"></p><label>{{ trans('checkout.example') }} : 3,12,15-23,37</label></p>
 										</div>
 											<div class="displayNone" id="div-A3-pages">
 												<label class="csCheckbtn">{{ trans('checkout.din_A3_pages') }}
@@ -175,7 +175,7 @@
 											<div class="displayNone" id="drop_file_din_A3" ondrop="upload_file(event,this.id)" ondragover="return false" class="displayBlock">
 												<div id="drag_upload_file_A3" >
 													<label class="inside-box-heading displayNone">{{ trans('checkout.upload_din_A3_pages') }}</label>
-													<p>Drop file here<a href="#" data-toggle="tooltip" title="PDF" class="formToolTip">i</a></p> 
+													<p>{{ trans('checkout.drop_file') }}<a href="#" data-toggle="tooltip" title="PDF" class="formToolTip">i</a></p> 
 													<p>or</p>
 													<p><input type="button" value="Select File" onclick="file_explorer('drop_file_din_A3');"></p>
 													<input type="file" name ="selectfile" id="selectfile" accept="application/pdf">
@@ -189,7 +189,7 @@
 												<label id="A3_page_no"></label><label id="A3_del"></label></div>
 
 												<div class="displayNone" id="div-A2-pages">
-													<label class="csCheckbtn">Din A2 Pages
+													<label class="csCheckbtn">{{ trans('checkout.din_A2_pages') }}
 														<input class = "" name = "A2-pages" id = "A2-pages" type="checkbox" onchange="displayContentInput('A2_Pages'); resetPrice('A2');" >
 														<span class="checkmark"></span>
 													</label> 
@@ -208,7 +208,7 @@
 												<div class="displayNone" id="drop_file_din_A2" ondrop="upload_file(event,this.id)" ondragover="return false" class="displayBlock">
 													<div id="drag_upload_file_A2" >
 														<label class="inside-box-heading diaplayNone">{{ trans('checkout.upload_din_A2_pages') }}</label>
-														<p>Drop file here<a href="#" data-toggle="tooltip" title="PDF" class="formToolTip">i</a></p> 
+														<p>{{ trans('checkout.drop_file') }}<a href="#" data-toggle="tooltip" title="PDF" class="formToolTip">i</a></p> 
 														<p>or</p>
 														<p><input type="button" value="Select File" onclick="file_explorer('drop_file_din_A2');"></p>
 														<input type="file" name="selectfile" id="selectfile" accept="application/pdf">
@@ -230,7 +230,7 @@
 												<div class="displayNone" id="div-embossing">
 													<label>{{ trans('checkout.embossing') }}*:</label>
 													<p><select class = "" id = "embossing" name = "embossing" onchange="embossingChange(this);  displayPrice('0','','','','','','','','','','','','','','',this.value,'');">
-														<option value = "-1">Select</option>
+														<option value = "-1">{{ trans('checkout.select') }}</option>
 													</select></p> <p class="error" id="error_embossing"></p>
 												</div>
 
@@ -259,7 +259,7 @@
 												<div class="displayNone" id="upload_custom_logo" ondrop="upload_file(event,this.id)" ondragover="return false" class="displayBlock">
 													<div id="drag_upload_file_logo">
 														<p class="inside-box-heading">{{ trans('checkout.upload_logo') }}</p>
-														<p>Drop file here<a href="#" data-toggle="tooltip" title="jpeg,jpg,png" class="formToolTip">i</a></p> 
+														<p>{{ trans('checkout.drop_file') }}<a href="#" data-toggle="tooltip" title="jpeg,jpg,png" class="formToolTip">i</a></p> 
 														<p>or</p>
 														<p><input type="button" value="Select File" onclick="file_explorer('upload_custom_logo');"></p>
 														<input type="file" name ="selectfile_logo_img" id="selectfile_logo_img" accept = "image/x-png,image/gif,image/jpeg">
@@ -275,7 +275,7 @@
 														
 													<div class="displayNone" id="div-fonts">
 														<label>{{ trans('checkout.font_type') }}*:</label>
-														<p><select class = "" name="fonts" id="fonts"><option value = "-1">Select</option>
+														<p><select class = "" name="fonts" id="fonts"><option value = "-1">{{ trans('checkout.select') }}</option>
 															@foreach ($fonts as $key=>$listing)
 															<option value="{{$listing->font}}">{{$listing->font}}</option>  
 															@endforeach
@@ -284,7 +284,7 @@
 
 													<div class="displayNone" id="div-date-format">
 														<label>{{ trans('checkout.date_format') }}*:</label>
-														<p><select class = "" id="date-format" name="date-format"><option value = "-1">Select</option>
+														<p><select class = "" id="date-format" name="date-format"><option value = "-1">{{ trans('checkout.select') }}</option>
 															@foreach ($date_format as $key=>$listing)
 															<option value="{{$listing->surname}}">{{$listing->date_format}}</option>  
 															@endforeach
@@ -296,7 +296,7 @@
 													<div class="displayNone" id="upload_custom_file" ondrop="upload_file(event,this.id)" ondragover="return false" class="displayBlock">
 													<div id="drag_upload_file_file">
 														<p class="inside-box-testing">{{ trans('checkout.upload_own_binding_template') }}</p>
-														<p>Drop file here<a href="#" data-toggle="tooltip" title="The length X within 'spine X cm' is calculated by the thickness of the paper (to be set in the admin area under paper weight) times the number of sheets + 0.5 mm." class="formToolTip">i</a></p> 
+														<p>{{ trans('checkout.drop_file') }}<a href="#" data-toggle="tooltip" title="The length X within 'spine X cm' is calculated by the thickness of the paper (to be set in the admin area under paper weight) times the number of sheets + 0.5 mm." class="formToolTip">i</a></p> 
 														<p>or</p>
 														<p><input type="button" value="Select File" onclick="file_explorer('upload_custom_file');"></p>
 														<input  class="displayNone" type="file" name ="selectfile" id="selectfile" accept="application/pdf">
@@ -324,7 +324,7 @@
 
 													<div class="displayNone" id="div-fonts-spine">
 														<label>{{ trans('checkout.font_type') }}*:</label>
-														<p><select class = "" name="fonts-spine" id="fonts-spine"><option value = "-1">Select</option>
+														<p><select class = "" name="fonts-spine" id="fonts-spine"><option value = "-1">{{ trans('checkout.select') }}</option>
 															@foreach ($fonts as $key=>$listing)
 															<option value="{{$listing->font}}">{{$listing->font}}</option>  
 															@endforeach
@@ -334,7 +334,7 @@
 													<div class="displayNone" id="div-direction">
 													<label>{{ trans('checkout.direction') }}:</label>
 													<p><select class = "" id = "direction" name = "direction">
-														<option value = "-1">Select</option>
+														<option value = "-1">{{ trans('checkout.select') }}</option>
 														<option value = "Top Down">Top Down</option>
 														<option value = "Bottom Up">Bottom Up</option>
 													</select></p> <p class="error" id="error_direction"></p>
@@ -345,7 +345,7 @@
 
 													
 													<p><label id="field-1" class = "displayBlock">{{ trans('checkout.field') }} 1:</label><select class = "" id = "fields_1" name = "fields_1" onchange="section2();" class="">
-														<option value = "-1">Select</option>
+														<option value = "-1">{{ trans('checkout.select') }}</option>
 														<option value = "Name">Name</option>
 														<option value = "Title">Title</option>
 														<option value = "Date">Date</option>
@@ -354,7 +354,7 @@
 													
 													
 													<p><label id="position-1" class = "displayBlock">{{ trans('checkout.position') }} 1:</label><select class = "" id = "pos_1" name = "pos_1" onchange="section2();">
-														<option value = "-1">Select</option>
+														<option value = "-1">{{ trans('checkout.select') }}</option>
 														<option value = "Top">Top</option>
 														<option value = "Middle">Middle</option>
 														<option value = "Bottom">Bottom</option>
@@ -372,12 +372,12 @@
 
 													
 													<p><label id="field-2" class = "">{{ trans('checkout.field') }} 2:</label><select class = "" id = "fields_2" name = "fields_2" onchange="section3();">
-														<option value = "-1">Select</option>
+														<option value = "-1">{{ trans('checkout.select') }}</option>
 													</select></p>
 													
 													 
 													<p><label id="position-2" class = "">{{ trans('checkout.position') }} 2:</label><select class = "" id = "pos_2" name = "pos_2" onchange="section3();">
-														<option value = "-1">Select</option>
+														<option value = "-1">{{ trans('checkout.select') }}</option>
 													</select></p> 
 
 													<p><label id="input-2" class = "displayBlock">{{ trans('checkout.content') }} 1:</label><input type="text" id ="input_2" name = "input_2" class="displayBlock" placeholder=""></p>
@@ -393,12 +393,12 @@
 
 													
 													<p><label id="field-3" class = "">{{ trans('checkout.field') }} 3:</label><select class = "" id = "fields_3" name = "fields_3" onchange="section4();">
-														<option value = "-1">Select</option>
+														<option value = "-1">{{ trans('checkout.select') }}</option>
 													</select></p>
 													
 													
 													<p><label id="position-3" class = "">{{ trans('checkout.position') }} 3</label><select class = "" id = "pos_3" name = "pos_3" onchange="section4();">
-														<option value = "-1">Select</option>
+														<option value = "-1">{{ trans('checkout.select') }}</option>
 													</select></p> 
 
 													<p><label id="input-3" class = "displayBlock">{{ trans('checkout.content') }} 1:</label><input type="text" id ="input_3" name = "input_3" class="displayBlock" placeholder=""></p>
@@ -457,7 +457,7 @@
 														<div class="displayNone" id="upload_cd" ondrop="upload_file(event,this.id)" ondragover="return false" class="displayBlock">
 														<div id="drag_upload_file_cd">
 															<p class="inside-box-heading">{{ trans('checkout.upload_files_on_cd') }}</p>
-															<p>Drop file here</p>   
+															<p>{{ trans('checkout.drop_file') }}</p>   
 															<p>or</p>
 															<p><input type="button" value="Select File" onclick="file_explorer('upload_cd');"></p>
 															<input type="file" id="selectfile_upload_cd" name="selectfile_upload_cd" accept = "application/pdf" multiple>
@@ -493,7 +493,7 @@
 													<div class="displayNone" id="upload_custom_logo_cd" ondrop="upload_file(event,this.id)" ondragover="return false" class="displayBlock">
 														<div id="drag_upload_file_logo_custom">
 															<p class="inside-box-heading">{{ trans('checkout.upload_logo_for_cd_template') }}</p>
-															<p>Drop file here<a href="#" data-toggle="tooltip" title="jpeg,jpg,png" class="formToolTip">i</a></p> 
+															<p>{{ trans('checkout.drop_file') }}<a href="#" data-toggle="tooltip" title="jpeg,jpg,png" class="formToolTip">i</a></p> 
 															<p>or</p>
 															<p><input type="button" value="Select File" onclick=" file_explorer('upload_custom_logo_cd');"></p>
 															<input type="file" name ="selectfile_custom_logo_cd" id="selectfile_custom_logo_cd" accept="image/*">
@@ -506,7 +506,7 @@
 													<div id="upload_custom_logo_info_cd" class="displayNone"><label id="logo_file_name_cd"></label>
 													<label id="logo_page_no_cd"></label><label id="logo_del_cd"></label></div>
 												
-														 
+														
 
 														<div class="modal fade" tabindex="-1" role="dialog" id="modal-cd"> 
 														<div class="modal-dialog" role="document">
@@ -528,7 +528,7 @@
 	
 														<div class="displayNone" id="div-fonts-cd">
 														<label><p>{{ trans('checkout.font') }}</p>*:</label>
-														<p><select class = "" name="fonts-cd" id="fonts-cd"><option value = "-1">Select</option>
+														<p><select class = "" name="fonts-cd" id="fonts-cd"><option value = "-1">{{ trans('checkout.select') }}</option>
 															@foreach ($fonts as $key=>$listing)
 															<option value="{{$listing->font}}">{{$listing->font}}</option>  
 															@endforeach
@@ -540,7 +540,7 @@
 													<div class="displayNone" id="upload_cd_without_logo" ondrop="upload_file(event,this.id)" ondragover="return false" class="displayBlock">
 														<div id="drag_upload_cd_without_logo">
 															<p class="inside-box-heading">{{ trans('checkout.upload_own_cd_template') }}</p>
-															<p>Drop file here<a href="#" data-toggle="tooltip" title="jpeg,jpg,png" class="formToolTip">i</a></p> 
+															<p>{{ trans('checkout.drop_file') }}<a href="#" data-toggle="tooltip" title="jpeg,jpg,png" class="formToolTip">i</a></p> 
 															<p>or</p>
 															<p><input type="button" value="Select File" onclick=" file_explorer('upload_cd_without_logo');"></p>
 															<input type="file" name ="selectfile" id="selectfile" accept="image/x-png">
@@ -555,7 +555,7 @@
 
 														<div class="displayNone" id="div-cd-bag">
 															<label>{{ trans('checkout.cd_bag') }}*:</label>
-															<p><select class = "" name = "cd-bag" id = "cd-bag" onchange="cdBagPosition(); displayPrice('0','','','','','','','','','','',this.value,'','','','','');"><option value = "-1">Select</option>
+															<p><select class = "" name = "cd-bag" id = "cd-bag" onchange="cdBagPosition(); displayPrice('0','','','','','','','','','','',this.value,'','','','','');"><option value = "-1">{{ trans('checkout.select') }}</option>
 																@foreach ($cd_bag as $key=>$listing)
 																<option value="{{$listing->id}}" @if($listing->id == '1') selected @endif>{{$listing->bag}}</option>  
 																@endforeach
@@ -569,7 +569,7 @@
 			 
 														<div class="displayBlock" id="div-data-check">
 															<label>{{ trans('checkout.data_check') }}*:<a href="#" title="wird erklärt" data-toggle="tooltip" title="Data Check Select" class="formToolTip">i</a></label>
-															<p><select id = "data_check" name = "data_check" onchange="displayPrice('0','','','','','','','','','',this.value,'','','','','','');"><option value = "-1">Select</option>
+															<p><select id = "data_check" name = "data_check" onchange="displayPrice('0','','','','','','','','','',this.value,'','','','','','');"><option value = "-1">{{ trans('checkout.select') }}</option>
 																@foreach ($data_check as $key=>$listing)
 																<option value="{{$listing->id}}" @if($listing->id == "1") selected @endif>{{$listing->check_list}}</option>  
 																@endforeach
@@ -583,7 +583,7 @@
 													<div class="stepperButtons">
 														<div>
 															<button type="button" id="prevBtn" onclick="nextPrev(-1)">{{ trans('checkout.previous') }}</button>
-															<button type="button" id="nextBtn" onclick="nextPrev(1)">{{ trans('checkout.next') }}</button>
+															<button type="button" id="nextBtn" onclick="nextPrev(1)">{{ trans('checkout.next')}}</button>
 														</div>
 													</div>
 
@@ -605,7 +605,7 @@
 															<li class="displayNone"><p>{{ trans('checkout.embossment') }} {{ trans('checkout.per_copy') }}</p> <p class="per-copy"></p><span id="embossment"><big>0.00 €</big></span></li>
 															<li class="displayNone"><p>{{ trans('checkout.cds') }}</p><span id="cd_dvd"><big>0.00 €</big></span></li>
 															<li class="displayNone"><p>{{ trans('checkout.data_checks') }}</p><span id="data_check_price"><big>0.00 €</big></span></li>
-															<li id="toggle" class="morelink" onclick="openTray(this);"><p>View More...</p></li>
+															<li id="toggle" class="morelink" onclick="openTray(this);"><p>{{ trans('checkout.view_more') }}...</p></li>
 															<input type="hidden" name="total" id="total_price" value="">
 														</ul>
 
@@ -658,7 +658,7 @@ $(document).ready(function(){
 		
 		
 });  
- 
+
 });
 
 
@@ -668,7 +668,7 @@ $(document).ready(function(){
  	if($(elem).attr("class") == "morelink"){
  		if($(".servicePrice").find('ul').find('li').hasClass('morelink')){  
 	 		$(".servicePrice").find('ul').find('li').removeClass('morelink');
-	 		$("#toggle").addClass('lesslink').find('p').text('View Less...');
+	 		$("#toggle").addClass('lesslink').find('p').text('{{ trans('checkout.view_less') }}...');
  		}
 
 	 	if($(".servicePrice").find('ul').find('li').hasClass('displayNone')){
@@ -682,7 +682,7 @@ $(document).ready(function(){
 	 	 if($(".servicePrice").find('ul').find('li').hasClass('lesslink')){
 	 		$(".servicePrice").find('ul').find('li').removeClass('lesslink');
 	 		$("#toggle").removeClass('displayNone');
-	 		$("#toggle").addClass('morelink').text('View More..');
+	 		$("#toggle").addClass('morelink').text('{{ trans('checkout.view_more') }}..');
 	 	}
 
  	}
