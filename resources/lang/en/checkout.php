@@ -11,7 +11,7 @@ return [
     |
     */
 
-    'next' => 'Next',
+    'next1' => 'Next',
     'previous' => 'Previous',
     'binding_title' => 'Binding',
     'no_of_copies' => 'No of Copies',
@@ -75,7 +75,15 @@ return [
     'select' => 'Select',
     'din_A2_pages' => 'Din A2 Pages',
     'drop_file' => 'Drop file here',
-    'example' => 'Example'
-
+    'example' => 'Example',
+    'max_range_A3' => 'The maximum number of DIN A3 pages is:',
+    'max_range_A2' => 'The maximum number of DIN A2 pages is:',
+    'pos_cd_bag_placeh' => 'At the end of the work inside the cover',
+    'pg_no' => 'Page Numbers',
+    'no_of_cd' => 'Number of CDs',
+    'spine' => 'Refinement spine can be activated since actual number of sheets is equals or greater than the required minimum number of sheets',
+    'spine_not' => 'Refinement spine cannot be activated since actual number of sheets is less than the required minimum number of sheets',
+    'no_of_cd' => 'Number of CDs',
+    'no_of_cd' => 'Number of CDs',
 ];
  

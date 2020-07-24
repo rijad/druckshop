@@ -11,7 +11,7 @@ return [
     |
     */
 
-    'next' => 'Nächster',
+    'next1' => 'Nächster',
     'previous' => 'Bisherige',
     'binding_title' => 'Bindung',
     'no_of_copies' => 'Anzahl der Kopien',
@@ -75,8 +75,14 @@ return [
     'select' => 'Wählen',
     'din_A2_pages' => 'Din A2 Seiten',
     'drop_file' => 'Datei hier ablegen',
-    'example' => 'Beispiel'
-
+    'example' => 'Beispiel',
+    'max_range_A3' => 'Die maximale Anzahl von DIN A3-Seiten beträgt:', 
+    'max_range_A2' => 'Die maximale Anzahl von DIN A2-Seiten beträgt:', 
+    'pos_cd_bag_placeh' => 'Am Ende der Arbeit in der Abdeckung',  
+    'pg_no' => 'Seitenzahlen', 
+    'no_of_cd' => 'Anzahl der CDs',
+    'spine' => 'Der Verfeinerungsrücken kann aktiviert werden, da die tatsächliche Anzahl der Blätter gleich oder größer als die erforderliche Mindestanzahl der Blätter ist',
+    'spine_not' => 'Der Verfeinerungsrücken kann nicht aktiviert werden, da die tatsächliche Anzahl der Blätter unter der erforderlichen Mindestanzahl der Blätter liegt',
 
 
 ];

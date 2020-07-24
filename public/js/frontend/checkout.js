@@ -174,10 +174,10 @@ function getPrintingdata(){
 
 				if(parseInt(paper_weight_count) <= parseInt(no_of_pages)){ 
 					$("#embossment-spine").removeAttr('disabled');
-					$('#spine-message').html('Refinement spine can be activated since actual number of sheets is equals or greater than the required minimum number of sheets');
+					$('#spine-message').html('{{ trans("checkout.spine") }}');
 				}else{ 
 					$("#embossment-spine").attr('disabled', true);
-					$('#spine-message').html('Refinement spine cannot be activated since actual number of sheets is less than the required minimum number of sheets');
+					$('#spine-message').html('{{ trans("checkout.spine_not") }}');
 				}
 
 			}else if(data == 2){ //page 3  
@@ -188,10 +188,10 @@ function getPrintingdata(){
 
 				if(parseInt(paper_weight_count) <= parseInt(no_of_pages)){ 
 					$("#embossment-spine").removeAttr('disabled');
-					$('#spine-message').html('Refinement spine can be activated since actual number of sheets is equals or greater than the required minimum number of sheets');
+					$('#spine-message').html('{{ trans("checkout.spine") }}');
 				}else{ 
 					$("#embossment-spine").attr('disabled', true);
-					$('#spine-message').html('Refinement spine cannot be activated since actual number of sheets is less than the required minimum number of sheets');
+					$('#spine-message').html('{{ trans("checkout.spine_not") }}');
 				}
 
 			}else if(data == 3){ 
