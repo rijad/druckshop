@@ -377,6 +377,8 @@
                                 <div class="error">{{ $errors->first('billing_address.'.$key) }}</div>
                                 @endif
                         </div>
+
+                        @if (Auth::check() && Auth::user()->name != "Guest")
     
                             <h4>{{ trans('cart.dist_code') }}</h4>
                             <div class="form-group">
@@ -387,6 +389,8 @@
                               <div  class="error">{{ $errors->first('code') }}</div>
                               @endif
                             </div> 
+
+                        @endif    
                             
                             @if((Auth::check() && Auth::user()->name == "Guest") || ! Auth::check())
                             <div class="form-group">
