@@ -1478,6 +1478,7 @@ function displayPrice(status = "", binding = "", no_ofsheets = "", page_options 
 			document.getElementById('embossment').innerHTML = data['data']['embossment_price'] + "€" ;
 			document.getElementById('total').innerHTML = data['data']['total'] + "€" ;
 			document.getElementById('total_price').value = data['data']['total'];
+			document.getElementById('cd_dvd_unit_price').value = data['data']['cd_dvd_unit_price'];
 			// document.getElementById('total_unit_price').value = data['data']['total_unit_price'];
 			
 		}
@@ -1494,19 +1495,7 @@ function displayPrice(status = "", binding = "", no_ofsheets = "", page_options 
 		success: function (response){
 			data = JSON.parse(response); 
 
-			//total = data['data']['total'];
-
 			callback.call(data);
-			//console.log(response);
-			//console.log(data['data']['price_per_copy']);  cd_dvd
-			// document.getElementById('binding_price').innerHTML = data['data']['binding_price'] + "€" ;
-			// document.getElementById('printout').innerHTML = data['data']['printout'] + "€" ;
-			// document.getElementById('data_check_price').innerHTML = data['data']['data_check_price'] + "€" ;
-			// document.getElementById('cd_dvd').innerHTML = data['data']['cd_dvd'] + "€" ;
-			// document.getElementById('embossment').innerHTML = data['data']['embossment_price'] + "€" ;
-			// document.getElementById('total').innerHTML = data['data']['total'] + "€" ;
-			// document.getElementById('total_price').value = data['data']['total'];
-			// document.getElementById('total_unit_price').value = data['data']['total_unit_price'];
 			
 		}
 	}); 
@@ -2063,7 +2052,7 @@ function setQuantity(count = ""){
 
 
 	$.ajax({
-		url: base_url+'/get-attributes',  
+		url: base_url+'/get-attributes',   
 		type: 'POST', 
 		data: {'_token': $('meta[name="csrf-token"]').attr('content')},
 		success: function (response){
@@ -2079,24 +2068,28 @@ function setQuantity(count = ""){
 
 			for(var i = 0; i < count; i++){
 
-			    var m = $("[name='no_of_cds["+i+"]']"); 
+			    var m = $("[name^='no_of_cds["+i+"_']"); console.log(m);  
 			    total_cds_after_split[i] = 0;
 				m.each(function(e) { 
 
 					if(isNaN(parseInt($(this).val()))){
-						total_cds_after_split[i] += parseInt(0);
+						total_cds_after_split[i] += parseInt(0); 
 					}else{
 						total_cds_after_split[i] += parseInt($(this).val());
 					}
-					
+
 				}); 
 
 				// $("[id='total_cds_after_split"+i+"']").val(total_cds_after_split[i]);
 
-				var n = $("[name='no_of_copies["+i+"]']");
+				var n = $("[name^='no_of_copies["+i+"_']");
 				total_copies_after_split[i] = 0;
-				n.each(function(e) {	
-					total_copies_after_split[i] += parseInt($(this).val());	
+				n.each(function(e) {	   
+					if(isNaN(parseInt($(this).val()))){
+						total_copies_after_split[i] += parseInt(0); 
+					}else{
+						total_copies_after_split[i] += parseInt($(this).val());
+					}
 				});
 
 				// $("[id='total_copies_after_split"+i+"']").val(total_copies_after_split[i]);
@@ -2106,30 +2099,6 @@ function setQuantity(count = ""){
 			
 			for(var i = 0; i < data.length; i++){
 
-			 //    var m = $("[name='no_of_cds["+i+"]']"); 
-				// m.each(function(e) { alert(i +"   "+ "  cd-each" + $(this).val());
-				// 	total_cds_after_split += parseInt($(this).val());
-				// }); 
-
-				// var n = $("[name='no_of_copies["+i+"]']");
-				// n.each(function(e) {	alert(i +"   "+ "copy-each" + $(this).val() );
-				// 	total_copies_after_split += parseInt($(this).val());	
-				// });
-
-
-				// for(var i = 0; i < data.length; i++){  
-
-				// 	no_of_copies = $("[name = 'no_of_copies["+i+"]' ]").val();  alert("cp : "+no_of_copies);
-
-				// 	if($("[name = 'no_of_cds["+i+"]' ]").val() !=""){
-
-				// 		no_of_cds = $("[name = 'no_of_cds["+i+"]' ]").val();   alert("cd : "+no_of_cds);
-
-				// 	}else{
-
-				// 		no_of_cds = 0;   alert(no_of_cds);
-
-				// 	}
 				
 				if(data[i].hasOwnProperty('embossment-cover-sheet')){
 
@@ -2222,38 +2191,12 @@ function setQuantity(count = ""){
 
 
 			}
- 
-			
-
-			//Update in frontend
-
-			// var m = $("input[id='no_of_cds']");
-			// var i = 0;
-			// var no_of_cds = $("input[id='no_of_cds']").first().val();
-			// m.each(function(e) {
-
-				
-
-			// 		if(isNaN(parseInt($(this).first().val())) || parseInt($(this).first().val()) <= 0){
-
-			// 			$(this).prop("readonly", true);
-						
-			// 		}else{
-			// 			$(this).prop("readonly", false); 
-						
-			//         } 
-
-		   		
-
-		 //         i++;    
-			// });
-
 
 			
 			for(var i = 0; i < data.length; i++){  
-				if($("[name = 'no_of_cds["+i+"]' ]").val() !=""){
+				if($("[name^='no_of_cds["+i+"_']").val() !=""){
 
-					 no_of_cds_new[i] = $("[name = 'no_of_cds["+i+"]' ]").val();
+					 no_of_cds_new[i] = $("[name^= 'no_of_cds["+i+"_]' ]").val();
 
 				}else{
 

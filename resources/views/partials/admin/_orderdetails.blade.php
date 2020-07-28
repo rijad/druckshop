@@ -61,9 +61,6 @@
     </div>
     </div>    
 
-
-    {{-- <div class="card-header"><i class="fas fa-table mr-1"></i>DataTable</div> --}}
-
     <div class="card-body" class="order-attrib">
         <div class="table-responsive">
             <h1>Product Details</h1>
@@ -77,9 +74,7 @@
                             <th>Product description</th>
                             <th>No of Copies</th>
                             <th>No of CDs</th> 
-                            {{-- <th>Shipping Addresss</th> --}}
                             <th colspan = "3">Billing Address</th>
-                            {{-- <th>Shipping Company</th> --}}
                             <th>Price</th>
                         </tr>
                     </thead>
@@ -89,9 +84,7 @@
                             <td>{{ $order->attribute_desc}}</td>
                             <td>{{ $order->no_of_copies }}</td>
                             <td>{{ $order->no_of_cds }}</td>
-                           {{--  <td>{{ $order->shipping_address }}</td> --}}
                             <td colspan = "3">{{ $order->billing_address }}</td>
-                            {{-- <td>{{ $order->shipping_company }}</td> --}}
                             <td>{{ number_format($order->price_product_qty,2) }}</td>
                         </tr>
                     </thead>
@@ -127,29 +120,34 @@
                                 </td>
   
 
-                                <td colspan='3'>@if($key == "selectfile_backcover" || $key == "selectfile_coversheet" || $key == "selectfile_content" || $key == "selectfile_din_A3" || $key == "selectfile_din_A2" || $key == "selectfile_logo" || $key == "selectfile_file" || $key == "selectfile_cd" || $key == "selectfile_logo_cd" || $key == "selectfile_upload_cd_without_logo") @if($value != null ) 
+                                <td colspan='3'>
 
-                                     
+                                    @if($key == "selectfile_backcover" || $key == "selectfile_coversheet" || $key == "selectfile_content" || $key == "selectfile_din_A3" || $key == "selectfile_din_A2" || $key == "selectfile_logo" || $key == "selectfile_file" || $key == "selectfile_cd" || $key == "selectfile_logo_cd" || $key == "selectfile_upload_cd_without_logo") 
 
-                                        @if($key == "selectfile_cd") 
-                                            @foreach(explode(',', $value) as $key_file => $info) 
-                                               @if($info != "")
-                                                 <a href={{url('/').'/public/uploads/'.$info}} target="_blank" >Download File {{$key_file+1}}</a><br>
-                                               @endif  
-                                               @if($key == "selectfile_backcover" || $key == "selectfile_coversheet" || $key == "selectfile_content" || $key == "selectfile_din_A3" || $key == "selectfile_din_A2" || $key == "selectfile_logo" || $key == "selectfile_file" || $key == "selectfile_cd" || $key == "selectfile_logo_cd" || $key == "selectfile_upload_cd_without_logo" || $key == "embossment-template-name" || $key == "cd-template-name") 
-                                            
-                                            @if (Session::get('Send link for new file') == true)
+                                
 
-                                               @if($value != null )<a href="{{route('defected-order-email',['user_id'=>$order->user_id,'order_id'=>$order->order_id,'old-file-name'=>$value])}}" >Send Mail</a> 
-                                               @endif 
-                                             @endif 
+                                            @if($key == "selectfile_cd") 
+                                                @foreach(explode(',', $value) as $key_file => $info) 
+                                                       @if($info != "")
+                                                         <a href={{url('/').'/public/uploads/'.$info}} target="_blank" >Download File {{$key_file+1}}</a><br>
 
-                                               @endif
-                                            @endforeach
-                                        @else
-                                        <a href={{url('/').'/public/uploads/'.$value}} target="_blank" >Download</a>
-                                        @endif
-                                        @endif @endif
+                                                             @if($key == "selectfile_backcover" || $key == "selectfile_coversheet" || $key == "selectfile_content" || $key == "selectfile_din_A3" || $key == "selectfile_din_A2" || $key == "selectfile_logo" || $key == "selectfile_file" || $key == "selectfile_cd" || $key == "selectfile_logo_cd" || $key == "selectfile_upload_cd_without_logo" || $key == "embossment-template-name" || $key == "cd-template-name") 
+                                                        
+                                                                    @if (Session::get('Send link for new file') == true)
+
+                                                                       @if($value != null )<a href="{{route('defected-order-email',['user_id'=>$order->user_id,'order_id'=>$order->order_id,'old-file-name'=>$value])}}" >Send Mail</a> 
+                                                                       @endif 
+                                                                     @endif 
+
+                                                           @endif
+                                                       @endif  
+                                                       
+                                                @endforeach
+                                            @else
+                                            <a href={{url('/').'/public/uploads/'.$value}} target="_blank" >Download</a>
+                                            @endif
+                                       
+                                    @endif
 
                                         @if($key == "embossment-template-name") @if($value != null ) <a href={{url('/').'/public/images/templates/Binding_template/'.$value}} target="_blank" >Download</a> @endif @endif
 
@@ -161,14 +159,6 @@
 
                                          @endif
                                          <br>
-                                          @if($key == "selectfile_backcover" || $key == "selectfile_coversheet" || $key == "selectfile_content" || $key == "selectfile_din_A3" || $key == "selectfile_din_A2" || $key == "selectfile_logo" || $key == "selectfile_file" || $key == "selectfile_cd" || $key == "selectfile_logo_cd" || $key == "selectfile_upload_cd_without_logo" || $key == "embossment-template-name" || $key == "cd-template-name")
-                                                
-                                                 @if (Session::get('Send link for new file') == true)
-
-                                                     @if($value != null )<a href="{{route('defected-order-email',['user_id'=>$order->user_id,'order_id'=>$order->order_id,'old-file-name'=>$value])}}" >Send Mail</a> @endif @endif
-
-                                                 @endif
-                                   
                                 </td>   
                             </tr>
                         @endif  
