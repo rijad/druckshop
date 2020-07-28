@@ -150,9 +150,13 @@
 										<div class="displayNone" id="div-page-numbers">
 											<label>{{ trans('checkout.number_of_color_pages') }}*:<a href="#" data-toggle="tooltip" title="Page numbers of the PDF file, not of &#013; the thesis (document)" class="formToolTip">i</a></label>
 
-											<p><input type = "text" class= "" name="page_numbers" id="page-numbers" placeholder="{{ trans('checkout.pg_no') }}" value = "" oninput = "displayPrice('0','','','','','','','','','','','',this.value,'','','',''), checkPageRange('selectfile_content','content_page_no','page-numbers')">
+											<p><input type = "text" class= "" name="page_numbers" id="page-numbers" placeholder="{{ trans('checkout.pg_no') }}" value = "" oninput = "checkPageRange('selectfile_content','content_page_no','page-numbers')">
 												<p class="error" id="error_page_numbers"></p>
-												<p class="error" id="error_range"></p><label>{{ trans('checkout.example') }} : 3,12,15-23,37</label></p>
+												<p class="error" id="error_range"></p><label>{{ trans('checkout.example') }} : 3,12,15-23,37</label>
+												
+												<input type="hidden" name="colored_page_numbers" id="colored_page_numbers" value="0" onchange="displayPrice('0','','','','','','','','','','','',this.value,'','','','');">
+
+											</p>
 										</div>
 											<div class="displayNone" id="div-A3-pages">
 												<label class="csCheckbtn">{{ trans('checkout.din_A3_pages') }}
@@ -442,14 +446,14 @@
 												<div class="tab">
 													<div class="displayBlock" id="div-cd">
 														<label class="csCheckbtn">CD
-															<input class = ""  name = "cd-check" id = "cd-check" type="checkbox" onchange="displayCDFields('cd'); resetPrice('cd');">
+															<input class = ""  name = "cd-check" id = "cd-check" type="checkbox" onchange="displayCDFields('cd'); resetPrice('cd'); setTimeout(function(){displayPrice('0','','','','','','','','','','','','','','',$('#embossing').find(':selected').val(),'')},200);">
 															<span class="checkmark"></span>
 														</label>
 													</div> 
 
 													<div class="displayNone" id="div-number-of-cds">
 														<label>{{ trans('checkout.number_of_cds') }}*:</label>
-														<p><input type = "text" class = "" name="number_of_cds" id="numbers-of-cds" placeholder="{{ trans('checkout.no_of_cd') }}" oninput= "displayPrice('0','','','','','','','','',this.value,'','','','','','',''); displayProductAttributes('11',this);"></p>
+														<p><input type = "text" class = "" name="number_of_cds" id="numbers-of-cds" placeholder="{{ trans('checkout.no_of_cd') }}" oninput= "displayPrice('0','','','','','','','','',this.value,'','','','','','',''); displayProductAttributes('11',this); setTimeout(function(){displayPrice('0','','','','','','','','','','','','','','',$('#embossing').find(':selected').val(),'')},200);"></p>
 														<p class="error" id="error_number_of_cds"></p>
 													</div>
 
@@ -474,7 +478,7 @@
 
 														<div class="displayNone" id="div-cd-imprint">
 															<label class="csCheckbtn">{{ trans('checkout.cd_imprint') }}
-																<input id= "imprint" name = "imprint" class = "" type="checkbox" onchange=" displayPrice('0','','','','','','','','','','','','','','','',this.value); displayCDFields('imprint'); resetPrice('cd_imprint');">
+																<input id= "imprint" name = "imprint" class = "" type="checkbox" onchange=" displayPrice('0','','','','','','','','','','','','','','','',this.value); displayCDFields('imprint'); resetPrice('cd_imprint'); setTimeout(function(){displayPrice('0','','','','','','','','','','','','','','',$('#embossing').find(':selected').val(),'')},200);">
 																<span class="checkmark"></span>
 															</label>
 														</div>	
@@ -557,7 +561,7 @@
 
 														<div class="displayNone" id="div-cd-bag">
 															<label>{{ trans('checkout.cd_bag') }}*:</label>
-															<p><select class = "" name = "cd-bag" id = "cd-bag" onchange="cdBagPosition(); displayPrice('0','','','','','','','','','','',this.value,'','','','','');"><option value = "-1">{{ trans('checkout.select') }}</option>
+															<p><select class = "" name = "cd-bag" id = "cd-bag" onchange="cdBagPosition(); displayPrice('0','','','','','','','','','','',this.value,'','','','',''); setTimeout(function(){displayPrice('0','','','','','','','','','','','','','','',$('#embossing').find(':selected').val(),'')},500); "><option value = "-1">{{ trans('checkout.select') }}</option>
 																@foreach ($cd_bag as $key=>$listing)
 																<option value="{{$listing->id}}" @if($listing->id == '1') selected @endif>{{$listing->bag}}</option>  
 																@endforeach
@@ -571,7 +575,7 @@
 			 
 														<div class="displayBlock" id="div-data-check">
 															<label>{{ trans('checkout.data_check') }}*:<a href="#" title="wird erklärt" data-toggle="tooltip" title="Data Check Select" class="formToolTip">i</a></label>
-															<p><select id = "data_check" name = "data_check" onchange="displayPrice('0','','','','','','','','','',this.value,'','','','','','');"><option value = "-1">{{ trans('checkout.select') }}</option>
+															<p><select id = "data_check" name = "data_check" onchange="displayPrice('0','','','','','','','','','',this.value,'','','','','',''); setTimeout(function(){displayPrice('0','','','','','','','','','','','','','','',$('#embossing').find(':selected').val(),'')},200);"><option value = "-1">{{ trans('checkout.select') }}</option>
 																@foreach ($data_check as $key=>$listing)
 																<option value="{{$listing->id}}" @if($listing->id == "1") selected @endif>{{$listing->check_list}}</option>  
 																@endforeach

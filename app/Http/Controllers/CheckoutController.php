@@ -535,7 +535,7 @@ class CheckoutController extends Controller
 					}catch(\Exception $e){
 						$b_price = 0.00;
 					}
-					$colored_price_A2 = floatval($colored) * floatval($c_price);
+					$colored_price_A2 = $colored * floatval($c_price);
 					$b_w_price_A2 = $b_w * floatval($b_price);
 				}else{
 					$b_w = $sheets;
@@ -1723,7 +1723,12 @@ public function paymentPaypal(){
 // 			}
 // 			$net_amt = $order_details->total - $discount_amt;
 // }  //dd($net_amt);
+
+Session::forget('order_id');
+
+
 return view('/pages/front-end/payment_paypal',compact('product_data','order_details','net_amt'));
+
 
 } 
 
@@ -2006,6 +2011,8 @@ public function paymentPaypalSuccess(Request $request){
 
 		$request->session()->forget('user_id');
 		$request->session()->forget('order_id');  //dd("cash");
+		Session::forget('user_id');
+		Session::forget('order_id');
 
 
 	// }catch (Exception $e) {

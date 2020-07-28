@@ -2555,6 +2555,11 @@ function checkPageRange(id1 = '', id2 = '' ,value_id = ''){
      }
 
 
+    // set total no of pages in hidden field so that final price is calculated.
+    document.getElementById('colored_page_numbers').value = range;
+    $('#colored_page_numbers').trigger('onchange');
+
+
       if(range > count_of_pages){ 
      		document.getElementById('error_range').innerHTML = "Please check the range for number of pages";
      		document.getElementById('error_range').style.color = "red";
@@ -3070,7 +3075,7 @@ function resetPrice(session = ""){
 
 		
 
-	}else if(session == "cd"){
+	}else if(session == "cd"){ //alert("cd");
 
 		if($("#cd-check").is(":checked")){}else{
 
@@ -3078,16 +3083,15 @@ function resetPrice(session = ""){
 
 		displayPrice('0','','','','','','','','','','','','','','','','0');  // cd imprint
 
-		cdBagPosition(); displayPrice('0','','','','','','','','','','','0','','','','',''); // cd cover
+		cdBagPosition(); 
+
+		displayPrice('0','','','','','','','','','','','0','','','','',''); // cd cover
 
 		}
 
 		
 
-	}else if(session == "cd_imprint"){
-
-		// if($("#imprint").is(":checked")){}else{displayPrice('0','','','','','','','','','','','','','','','','0');  // cd imprint
-		//  }
+	}else if(session == "cd_imprint"){  //alert("cd-imprint");
 
 		 if($("#imprint").is(":checked")){}else{ // alert("1");
 			//$('#embossment-cover-sheet').prop("checked", false); 
@@ -3123,7 +3127,6 @@ function resetPrice(session = ""){
 
 		var value = $('#no-of-pages').val();
 
-		//displayPrice('0','',value,'','','','','','','','','','','','','','');
  
 	}else if(session == "refinement_with_spine"){
 
