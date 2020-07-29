@@ -14,11 +14,21 @@
 				</div>
 
 				<div class="productDetail col-half">
-					<H2>{{$listing->title_english}}</H2>
+					<?php $locale = session()->get('locale'); 
+							if ($locale == 'gr') { ?>
+
+							<H2>{{$listing->title_german}}</H2>
+					{!! $listing->description_german !!}
+							<?php } else { ?>
+
+							<H2>{{$listing->title_english}}</H2>
 					{!! $listing->description_english !!}
 
+							<?php } ?>
+
+
 					 <div class="productPurchase">
-				    <a href="{{ route($listing->product_page_url,['id'=>$listing->id])}}" class="btn-gray">To Order</a>
+				    <a href="{{ route($listing->product_page_url,['id'=>$listing->id])}}" class="btn-gray">{{ trans('product.to_order')}}</a>
 					 </div>
 				</div>	
 

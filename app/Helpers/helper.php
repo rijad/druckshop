@@ -9,58 +9,113 @@ if (! function_exists('returnResponse')) {
 
 function productNameById($product_id){
 	$product = \App\Product::find($product_id);
-	return $product->title_english;
-
+	$locale = session()->get('locale'); 
+		if ($locale == 'gr') {
+	return $product->title_german;
+	}else{
+		return $product->title_english;
+	}
 }
 
 function pageformatById($pageformat_id){
 	$format = \App\PageFormat::find($pageformat_id);
-	return $format->page_format;
+	$locale = session()->get('locale'); 
+		if ($locale == 'gr') {
+	return $format->name_german;
+	}else{
+		return $format->name_english;
+	}
+
 }
 
 function colorById($covercolor_id){
 	$color = \App\CoverColor::find($covercolor_id);
-	return $color->color;
+	$locale = session()->get('locale'); 
+		if ($locale == 'gr') {
+	return $color->name_german;
+	}else{
+		return $color->name_english;
+	}
 }
 
 function sheetById($coversheet_id){
 	$sheet = \App\CoverSheet::find($coversheet_id);
-	return $sheet->name_english;
+	$locale = session()->get('locale'); 
+		if ($locale == 'gr') {
+	return $sheet->name_german;
+	}else{
+		return $sheet->name_english;
+	}
 }
 
 function weightById($weight_id){
 	$weight = \App\PaperWeight::find($weight_id);
-	return $weight->paper_weight;
+	$locale = session()->get('locale'); 
+		if ($locale == 'gr') {
+	return $weight->name_german;
+	}else{
+		return $weight->name_english;
+	}
 }
 
 function backcoverById($backcover_id){
 	$backcover = \App\BackCovers::find($backcover_id);
-	return $backcover->name_english;
+	$locale = session()->get('locale'); 
+		if ($locale == 'gr') {
+	return $backcover->name_german;
+	}else{
+		return $backcover->name_english;
+	}
 }
 
 function optionsById($options_id){
-	$options = \App\PageOptions::find($options_id);  
-	return $options->page_options;  
+	$options = \App\PageOptions::find($options_id); 
+	$locale = session()->get('locale'); 
+		if ($locale == 'gr') {
+	return $options->name_german;
+	}else{
+		return $options->name_english;
+	}
 }
 
 function mirrorById($mirror_id){
 	$mirror = \App\Mirror::find($mirror_id);
-	return $mirror->mirror;
+	$locale = session()->get('locale'); 
+		if ($locale == 'gr') {
+	return $mirror->name_german;
+	}else{
+		return $mirror->name_english;
+	}
 }
 
 function bagById($bag_id){
 	$bag = \App\CdBag::find($bag_id);
-	return $bag->bag;
+	$locale = session()->get('locale'); 
+		if ($locale == 'gr') {
+	return $bag->name_german;
+	}else{
+		return $bag->name_english;
+	}
 }
 
 function listById($list_id){
 	$list = \App\DataCheck::find($list_id);
-	return $list->check_list;
+	$locale = session()->get('locale'); 
+		if ($locale == 'gr') {
+	return $list->name_german;
+	}else{
+		return $list->name_english;
+	}
 }
 
 function deliveryServiceById($list_id){
-	$list = \App\DeliveryService::find($list_id);  
-	return $list->delivery_service;
+	$list = \App\DeliveryService::find($list_id);
+	$locale = session()->get('locale'); 
+		if ($locale == 'gr') {
+	return $list->name_german;
+	}else{
+		return $list->name_english;
+	}
 }
 
 

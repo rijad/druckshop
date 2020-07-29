@@ -31,11 +31,11 @@
 
                                 @foreach($delivery_cost as $prod_key => $prod_value)
 
-                                 <p class="thisproduct_head">Delivery Service Charges {{$data->product}}</p>
+                                 <p class="thisproduct_head">{{ trans('order_detail.delivery') }}: {{$data->product}}</p>
 
                                    @foreach($prod_value as $prod_detail_key => $prod_detail_value)
 
-                                      <p class="thisproduct_head"> Splitted Order  {{$prod_detail_key + 1}}: {{number_format($prod_detail_value['shipping_cost'],2)}} €</p>
+                                      <p class="thisproduct_head"> {{ trans('order_detail.split') }}  {{$prod_detail_key + 1}}: {{number_format($prod_detail_value['shipping_cost'],2)}} €</p>
 
                                   @endforeach
 

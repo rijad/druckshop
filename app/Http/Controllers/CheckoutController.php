@@ -955,6 +955,7 @@ $total = filter_var(floatval($total), FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_
 } 
 
 public function cart(){  
+	$split_record_unique_id =[];
 
 	if (Auth::check()) 
 		{
@@ -1003,6 +1004,7 @@ public function cart(){
 		try{
 			$split_order = SplitOrderShippingAddress::where(['user_id' => $user_id, 'status' => 0])->get();
 
+			// dd($split_order);
 			foreach($split_order as $key => $value){
 
 				$split_record_unique_id[$value->unique_id][$key] = ['id' => $value->id, 'prod_sequence' => $value->prod_sequence, 'sequence' => $value->sequence, 'unique_id' => $value->unique_id, 'no_of_copies' => $value->no_of_copies, 'no_of_cds' => $value->no_of_cds, 'shipping_address' => $value->shipping_address, 'shipping_company' => $value->shipping_company];
@@ -1011,6 +1013,7 @@ public function cart(){
 
 		}catch(Exception $e){
 			$split_order =[];
+			$split_record_unique_id =[];
 		} 	//dd($split_record_unique_id);
 
 		return view('/pages/front-end/cart',compact('product_data','shipping_company','billing_address_data','shipping_address_data','split_order','split_record_unique_id'));

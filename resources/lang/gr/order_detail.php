@@ -17,5 +17,7 @@ return [
     'amount' => 'Netto-Betrag',
     'paypal' => 'Bezahlen Sie über PayPal',
     'cash' => 'Bezahlen Sie mit Bargeld',
+    'delivery' => 'Lieferservicegebühren',
+    'split' => 'Geteilte Reihenfolge'
 
 ];
