@@ -11,7 +11,7 @@
 						<div class="stepperBullets">
 							<div class="step"><span>1</span></div> 
 							<div class="step"><span>2</span></div>
-						</div>
+						</div> 
   
 						<div class="checkoutBlock col-half text-left">
 							{{-- <h1>Register:</h1> --}}
@@ -19,63 +19,71 @@
 							<!-- One "tab" for each step in the form: -->
 							<div class="tab" id="tab-fields">
 								<div class="displayBlock">
-									<label>Binding*:</label>
-									<p><select class = "" name = "binding" id = "binding" onchange="displayFields(this.value);displayProductAttributes('1',this); resetFields(this.id,this.value);" oninput="displayPrice('0',this.value,'','','','','','','','','','','','');">
-										<option value = "-1">Select</option>
+									<label>{{ trans('checkout.binding_title') }}*:</label>
+									<p><select class = "" name = "binding" id = "binding" onclick="" onchange="  displayPrintFields(''); resetFields(this.id,this.value);  displayProductAttributes('1',this);  sampleImage(); getCoverSetting(this.value); getPageFormatData(this.value); getEmbossingFields(this.value); ">
+										<option value = "-1">{{ trans('checkout.select') }}</option>
 										@foreach ($product_listing as $key=>$listing)
-											@if($listing->id == "5")
-												<option value="{{$listing->id}}" selected>{{$listing->title_english}}</option> 
-											@endif	 
-										@endforeach
+										@if($listing->id != 8 && $listing->id != 5)
+										<option value="{{$listing->id}}" @if($listing->id == request()->id) selected @endif>
+										@php $locale = session()->get('locale'); @endphp
+										@if ($locale == 'gr') 
+											{{$listing->title_german}}
+										@else
+											{{$listing->title_english}}
+										@endif
+										</option>  
+										@endif
+										@endforeach 
 									</select></p><p class="error" id="error_binding"></p>
 								</div>
 								<div class="displayBlock" id="div-no-of-copies">
-									<label>No of Copies*:</label>
-									<p><input type = "text" class = "" name="no_of_copies" id="no-of-copies" placeholder="No of Copies" oninput="displayProductAttributes('2',this);"></p><p class="error" id="error_no_of_copies"></p>
+									<label>{{ trans('checkout.no_of_copies') }}*:</label>
+									<p><input type = "text" class = "" name="no_of_copies" id="no-of-copies" placeholder="{{ trans('checkout.no_of_copies') }}" oninput=" displayProductAttributes('2',this); displayPrice('0','','','','','','','','','','','','','',this.value,'','');"></p><p class="error" id="error_no_of_copies"></p>
 								</div>
-								<div class="displayBlock" id="div-page-format">
-									<label>Page Format*:</label>
-									<p><select class = "" onclick = "displayProductAttributes('3',this);" id="page-format" name="page-format" ><option value="-1">Select</option></select></p><p class="error" id="error_page_format"></p>
+								<div class="displayBlock" id="div-page-format"> 
+									<label>{{ trans('checkout.page_format') }}*:</label>
+									<p><select class = "" onclick = "displayProductAttributes('3',this); sampleImage();" id="page-format" name="page-format" onchange="addTooltip(this); getA3A2Count(this); displayPrice('0',document.getElementById('binding').value,'','','','','','','','','','','','','','',''); " >
+										<option value="-1">{{ trans('checkout.select') }}</option>
+									</select></p><p class="error" id="error_page_format"></p>
 								</div>
 								<div class="displayNone" id="div-cover-color">
-									<label>Cover Color*:</label> 
-									<p><select name="cover-color" class = "" onclick = "displayProductAttributes('4',this);" id="cover-color"><option value="-1">Select</option></select></p><p class="error" id="error_cover_color"></p>
+									<label>{{ trans('checkout.cover_color') }}*:</label> 
+									<p><select name="cover-color" class = "" onclick = "displayProductAttributes('4',this); sampleImage();" onchange="" id="cover-color"><option value="-1">{{ trans('checkout.select') }}</option></select></p><p class="error" id="error_cover_color"></p>
 								</div>
 								<div class="displayNone" id="div-cover-sheet">
-									<label>Cover Sheet*:<a href="#" data-toggle="tooltip" title="200 gm/m2 sheets" class="formToolTip">i</a></label>
-									<p><select class = "" onclick = "displayProductAttributes('5',this);uploadDisplay(this.id,this.value);hideBindingElements('cover-sheet');" id="cover-sheet" name="cover-sheet"><option value="-1">Select</option></select></p>
+									<label>{{ trans('checkout.cover_sheet') }}*:<a href="#" data-toggle="tooltip" title="200 gm/m2 sheets" class="formToolTip">i</a></label>
+									<p><select class = "" onclick = "displayProductAttributes('5',this);uploadDisplayCoverSheet(this.id,this.value);" onchange="" id="cover-sheet" name="cover-sheet"><option onclick ="" value="-1">{{ trans('checkout.select') }}</option></select></p>
 									<p class="error" id="error_cover_sheet">
-
+  
 								</div> 
 
-								<p class="outside-box-heading">{{ trans('checkout.upload_file') }}</p>
-
+								<p class="outside-box-heading displayNone" id="drop_file_zone_cover_sheet_heading" >{{ trans('checkout.upload_cover_sheet') }}</p>
 								<div id="drop_file_zone_cover_sheet" ondrop="upload_file(event,this.id)" ondragover="return false" class="displayNone">
+									<p class="inside-box-heading">{{ trans('checkout.upload_cover_sheet') }}</p>
 									<div id="drag_upload_file_cover_sheet">
-										<p class="inside-box-heading">{{ trans('checkout.upload_file') }}</p>
-										<p>Drop file here<a href="#" data-toggle="tooltip" title="PDF" class="formToolTip">i</a></p>
+										<p>{{ trans('checkout.drop_file') }}<a href="#" data-toggle="tooltip" title="PDF" class="formToolTip">i</a></p>
 										<p>or</p>
 										<p><input type="button" value="Select File" onclick="file_explorer('drop_file_zone_cover_sheet');"></p>
-										<input class = "displayNone" type="file" name="selectfile" id="selectfile" accept="application/pdf" value = "" />
+										<input class = "displayNone" type="file" name="selectfile" id="selectfile" accept="application/pdf" value = ""/>
 										<input class = "displayNone" type="hidden" name="selectfile_coversheet" id="selectfile_coversheet" value = "" />
 									</div>
 								</div>
 								<p class="error" id="error_selectfile_coversheet"></p>
   
 								<div id="drop_file_zone_cover_sheet_info" class="displayNone"><label id="cover_sheet_file_name"></label>
-									<label id="cover_sheet_page_no"></label>
+									<label id="cover_sheet_page_no"></label>  <label id="cover_sheet_del"></label>
 									</div>
 
 									<div class="displayNone" id="div-back-cover">
-										<label>Back Sheet*:<div title="200 gm/m2 sheets" class="formToolTip">i</div></label>
-										<p><select class = "" onclick = "displayProductAttributes('6',this);uploadDisplay(this.id,this.value); hideBindingElements('back-cover');" id="back-cover" name="back-cover"><option value="-1">Select</option></select></p> <p class="error" id="error_back_cover">
+										<label>{{ trans('checkout.back_sheet') }}*:<div title="200 gm/m2 sheets" class="formToolTip">i</div></label>
+										<p><select class = "" onclick = "displayProductAttributes('6',this); uploadDisplayBackCover(this.id,this.value);" onchange="uploadDisplayBackCover(this.id,this.value);"  id="back-cover" name="back-cover"><option value="-1">{{ trans('checkout.select') }}</option></select></p> <p class="error" id="error_back_cover">
 									</div>
 									
-									<p class="outside-box-heading">{{ trans('checkout.upload_file') }}</p>
+									<p class="outside-box-heading displayNone" id="drop_file_zone_back_cover_heading">{{ trans('checkout.upload_back_sheet') }}</p>
 									<div id="drop_file_zone_back_cover" ondrop="upload_file(event,this.id)" ondragover="return false" class="displayNone">
 										<div id="drag_upload_file_back_cover">
-											<p class="inside-box-heading">{{ trans('checkout.upload_file') }}</p>
-											<p>Drop file here<a href="#" data-toggle="tooltip" title="PDF" class="formToolTip">i</a></p>
+											<p class="inside-box-heading">{{ trans('checkout.upload_back_sheet') }}</p>
+											<p>{{ trans('checkout.drop_file') }}<a href="#" data-toggle="tooltip" title="PDF" class="formToolTip">i</a></p>
 											<p>or</p>  
 											<p><input type="button" value="Select File" onclick="file_explorer('drop_file_zone_back_cover');"></p>
 											<input class = "displayNone" type="file" name="selectfile" id="selectfile" accept="application/pdf" value = "" />
@@ -90,9 +98,9 @@
 								</div> 
 								<div class="tab">
 									<div class="displayBlock">
-										<label>Side Options*:</label>
-										<p><select class = "" id = "page_options" name = "page_options" onclick="displayFieldsContent(this.value);"  onchange="displayPrice('0','','',this.value,'','','','','','','','','','');" >
-											<option value = "-1">Select</option>
+										<label>{{ trans('checkout.side_options') }}*:</label>
+										<p><select class = "" id = "page_options" name = "page_options" onclick=""  onchange="displayPrice('0','','',this.value,'','','','','','','','','','','','',''); displayFieldsContent(this.value);  displayProductAttributes('7',this); " >
+											<option value = "-1">{{ trans('checkout.select') }}</option>
 											@foreach ($page_options as $key=>$listing)
 											<option value="{{$listing->id}}">{{$listing->name_english}}</option>  
 											@endforeach
@@ -100,41 +108,43 @@
 									</div>
 
 									<div class="displayNone" id="div-mirror">
-										<label>Mirror*:</label>
-										<p><select class = "" id="mirror" name="mirror"><option value="-1">Select</option></select></p> <p class="error" id="error_mirror"></p>
+										<label>{{ trans('checkout.edge_option') }}*:</label>
+										<p><select class = "" id="mirror" name="mirror"><option value="-1">{{ trans('checkout.select') }}</option></select></p> <p class="error" id="error_mirror"></p>
 									</div>
 
 									<div class="displayBlock" id="div-paper-weight">
-										<label>Paper Weight*:<a href="#" data-toggle="tooltip" title="
+										<label>{{ trans('checkout.paper_weight') }}*:<a href="#" data-toggle="tooltip" title="
 											for one-sided 100 g/m² paper &#013; for two-sided 120 g/m² paper" class="formToolTip">i</a></label>
-										<p><select class = "" name="paper-weight" id="paper-weight" onchange="displayPrice('0','','','','','',this.value,'','','','','','','');"><option value="-1">Select</option></select></p> <p class="error" id="error_paper_weight"></p>
+										<p><select class = "" name="paper-weight" id="paper-weight" onchange="displayPrice('0','','','','','',this.value,'','','','','','','','','',''); getPaperWeightCount(); BasicRange('binding','paper-weight','no-of-pages');"><option value="-1">{{ trans('checkout.select') }}</option></select></p> <p class="error" id="error_paper_weight"></p>
 									</div>  
 
-									<div class="displayBlock" id="div-no-of-copies">
-										<label>No of Pages*:<a href="#" data-toggle="tooltip" title="
-											number of the PDF file and &#013; only number of DIN A4
-											" class="formToolTip">i</a></label>
-										<p><input type = "text" class = "" name="no_of_pages" id="no-of-pages" placeholder="No of Pages" value = "" oninput="displayPrice('0','',this.value,'','','','','','','','','','','');"></p>
+									<div class="displayBlock" id="div-no-of-pages">
+										<label> {{ trans('checkout.no_of_pages') }}*:<a id="page-format-tooltip" href="#" data-toggle="tooltip" title="" class="formToolTip">i</a></label>
+										<p><input type = "text" class = "" name="no_of_pages" id="no-of-pages" placeholder="{{ trans('checkout.no_of_pages') }}"  oninput="resetPrice('no-of-pages');displayPrice('0','',this.value,'','','','','','','','','','','','','',''); displayProductAttributes('8',this); displayPrice('0',document.getElementById('binding').value,'','','','','','','','','','','','','','',''); getPrintingdata()"></p>
 										<p class="error" id="error_no_of_pages"></p>
-									</div>
+										<p class="error" id="error_no_of_pages_match"></p>
+									</div> 
+ 									
 
-									<p class="outside-box-heading">{{ trans('checkout.upload_file') }}</p>
- 
-									<div id="drop_file_zone_content" ondrop="upload_file(event,this.id)" ondragover="return false" class="displayBlock">
+									<p class="outside-box-heading displayBlock"  id="drop_file_zone_content_heading">{{ trans('checkout.upload_thesis') }}</p>
+									<div id="drop_file_zone_content" ondrop="upload_file(event,this.id) " ondragover="return false" class="displayBlock">
 										<div id="drag_upload_file">
-											<p class="inside-box-heading">{{ trans('checkout.upload_file') }}</p>
-											<p>Drop file here<a href="#" data-toggle="tooltip" title="
+											<p class="inside-box-heading">{{ trans('checkout.upload_thesis') }}</p>
+											<p>{{ trans('checkout.drop_file') }}<a href="#" data-toggle="tooltip" title="
 											PDF" class="formToolTip">i</a></p> 
 											<p>or</p>
 											<p><input class = "" type="button" value="Select File" onclick="file_explorer('drop_file_zone_content');"></p>
-											<input type="file" name="selectfile" id="selectfile" accept="application/pdf">
+											<input type="file" name="selectfile" id="selectfile" onchange="" accept="application/pdf">
 											<input type="hidden" name="selectfile_content" id="selectfile_content">
+											<input type="hidden" name="pg_no" id="pg_no">
 										</div>
 									</div>
 									<p class="error" id="error_selectfile_content"></p>
 
 									<div id="drop_file_zone_content_info" class="displayNone"><label id="content_file_name"></label>
-										<label id="content_page_no"></label><label id="content_del"></label></div>
+										<label id="content_page_no"></label><label id="content_del"></label></div> 
+
+
 										<p></p>
 
 												</div>

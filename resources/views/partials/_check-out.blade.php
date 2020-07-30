@@ -14,7 +14,7 @@
 							<div class="step"><span>3</span></div>
 							<div class="step"><span>4</span></div> 
 						</div> 
-      
+       
 						<div class="checkoutBlock col-half text-left">
 							{{-- <h1>Register:</h1> --}} 
 
@@ -26,7 +26,14 @@
 										<option value = "-1">{{ trans('checkout.select') }}</option>
 										@foreach ($product_listing as $key=>$listing)
 										@if($listing->id != 8 && $listing->id != 5)
-										<option value="{{$listing->id}}" @if($listing->id == request()->id) selected @endif>{{$listing->title_english}}</option>  
+										<option value="{{$listing->id}}" @if($listing->id == request()->id) selected @endif>
+										@php $locale = session()->get('locale'); @endphp
+										@if ($locale == 'gr') 
+											{{$listing->title_german}}
+										@else
+											{{$listing->title_english}}
+										@endif
+										</option>  
 										@endif
 										@endforeach 
 									</select></p><p class="error" id="error_binding"></p>

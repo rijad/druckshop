@@ -14,12 +14,8 @@
                               <div class="product">
    
                                 @if(isset($product_data)) 
-                                @foreach ($product_data as $key=>$data)  {{"i am in : ". $key}}
-                                
-                                            {{-- declare flags for each product to avoid re-rendering due to split order loop --}}
-                                          
-                                              {{$variable[$key] = 0}}   {{ 'flag_start : ' .$key.'---' . $variable[$key]}}
-                
+                                @foreach ($product_data as $key=>$data) 
+
                                               <div class="product_listing">
                                                   <img src="http://druckshop.trantorglobal.com/public/images/product1.jpg" alt="" width="75px" />
                                                   <div class="product_description">
@@ -49,8 +45,6 @@
                                                                       @endphp
                                                                 
                                                                        @foreach($split_orders as $plit_order_id => $split_details)
-
-                                                                              {{"Old " .':'. $data->id .'-------'. $split_details['unique_id'] }}  
 
                                                                                   <div class="rv-casualBioFields" id = {{"cloneBioFields_".$key}} name = {{"cloneBioFields_".$key."_".'0'}}>
 
@@ -189,7 +183,7 @@
 
                                                               @endif
                                                                 
-                                                    @elseif( ! isset($split_record_unique_id) || count($split_record_unique_id) == 0 )  {{"New" . $key}}
+                                                    @elseif( ! isset($split_record_unique_id) || count($split_record_unique_id) == 0 )  
 
                                                      
 

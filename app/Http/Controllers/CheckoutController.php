@@ -59,7 +59,7 @@ class CheckoutController extends Controller
 {
 	public function sendData()  
 	{ 
-		// $back_covers = BackCovers::where('status', '1')->get();
+		// $back_covers = BackCovers::where('status', '1')->get(); 
 		$cd_bag = CdBag::where('status', '1')->get();
 		// $cover_color = CoverColor::where('status', '1')->get();
 		// $cover_sheet = CoverSheet::where('status', '1')->get();
