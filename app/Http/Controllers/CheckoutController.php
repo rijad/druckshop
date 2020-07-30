@@ -375,7 +375,12 @@ class CheckoutController extends Controller
 	public function getPrice(Request $request){ 
 
 		$binding_price = 0.00; $embosing_spine = 0.00; $embosing_cover = 0.00; $printout = 0.00; $printout_basic = 0.00; 
-		$printout_surcharge = 0.00; $cd_dvd = 0.00; $delivery_cost = 0.00; $colored_price_A2 = 0.00; $b_w_price_A2 = 0.00; $colored_price_A3 = 0.00; $b_w_price_A3 = 0.00; $colored_price_A4 = 0.00; $b_w_price_A4 = 0.00; $Price_surcharge_A2 = 0.00; $Price_surcharge_A3 = 0.00; $Price_surcharge_A4 = 0.00; $data_check_price =0.00; $no_of_copies=0.00; $price_embossing_cover = 0.00;  $price_embossing_spine = 0.00; $cd_dvd_print_price = 0.00;  $cd_dvd_cover_price = 0.00; $cd_dvd_price = 0.00;  $embossment_price = 0.00; $total = 0.00; $total_unit_price = 0.00;
+		$printout_surcharge = 0.00; $cd_dvd = 0.00; $delivery_cost = 0.00; $colored_price_A2 = 0.00; $b_w_price_A2 = 0.00; 
+		$colored_price_A3 = 0.00; $b_w_price_A3 = 0.00; $colored_price_A4 = 0.00; $b_w_price_A4 = 0.00; $Price_surcharge_A2 = 0.00; 
+		$Price_surcharge_A3 = 0.00; $Price_surcharge_A4 = 0.00; $data_check_price =0.00; $no_of_copies=0.00; 
+		$price_embossing_cover = 0.00;  $price_embossing_spine = 0.00; $cd_dvd_print_price = 0.00;  $cd_dvd_cover_price = 0.00; 
+		$cd_dvd_price = 0.00;  $embossment_price = 0.00; $total = 0.00; $total_unit_price = 0.00; $cd_dvd_unit_price = 0.00; 
+		$cd_dvd_print_unit_price = 0.00; $cd_dvd_unit_price = 0.00; $cd_dvd_cover_unit_price = 0.00;
 
 		// save values in session
 
@@ -772,9 +777,16 @@ class CheckoutController extends Controller
 					$cd_dvd_val = CdCoverPrice::where('cd_bag_id',$request->session()->get('cdCover'))->first('price')->price;
 					$cd_dvd_cover_price = $cd_dvd_val * $no_of_cds;
 					$cd_dvd_price = $no_of_cds * $cd;
+
+					$cd_dvd_cover_unit_price = $cd_dvd_val * intval(1) ;
+					$cd_dvd_unit_price = intval(1) * $cd;
+
 				}catch(\Exception $e){
 					$cd_dvd_price = 0.00;
 					$cd_dvd_cover_price = 0.00;
+
+					$cd_dvd_unit_price = 0.00;
+					$cd_dvd_cover_unit_price = 0.00;
 				}  
 
 				
@@ -787,14 +799,21 @@ class CheckoutController extends Controller
 					$cd_print = 2.00;
 					try{
 						$cd_dvd_print_price = $no_of_cds * $cd_print;
+
+						$cd_dvd_print_unit_price = intval(1) * $cd_print;
 					}catch(\Exception $e){
 						$cd_dvd_print_price = 0.00;
+						$cd_dvd_print_unit_price = 0.00;
 					}
 				}
 				
 			}
 
 			$cd_dvd = number_format(($cd_dvd_cover_price + $cd_dvd_price + $cd_dvd_print_price) ,2);
+
+			// calculate cd_dvd unit price 
+			
+			$cd_dvd_unit_price = number_format(($cd_dvd_cover_unit_price + $cd_dvd_unit_price + $cd_dvd_print_unit_price) ,2);
 
 		// price embossing   
 			//print_r("E: ".$request->session()->get('embossing_type'));
@@ -869,10 +888,10 @@ class CheckoutController extends Controller
 
 			$binding_price = number_format($binding_price,2); 
 
-			$data = compact('binding_price','printout','data_check_price','embossment_price','cd_dvd','total','total_unit_price');
+			$data = compact('binding_price','printout','data_check_price','embossment_price','cd_dvd','total','total_unit_price','cd_dvd_unit_price');
 			$response = returnResponse($data,'200','Success');
 			print_r($response); exit;
-
+ 
 		}
 
 public function saveOrder(Request $request){ 
@@ -939,6 +958,7 @@ $total = filter_var(floatval($total), FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_
 	$OrderAttributes->price_per_product=floatval($total);
 	//$OrderAttributes->price_product_qty= floatval($request->total) * $qty;
 	$OrderAttributes->price_product_qty = floatval($total) * ($request->no_of_copies);
+	$OrderAttributes->cd_dvd_unit_price=floatval($request->input('cd_dvd_unit_price'));
 	$OrderAttributes->quantity = 1; 
 	$OrderAttributes->no_of_copies = $request->no_of_copies; 
 	$OrderAttributes->no_of_cds = $request->number_of_cds;
@@ -957,10 +977,14 @@ $total = filter_var(floatval($total), FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_
 public function cart(){  
 	$split_record_unique_id =[];
 
+	$split_record_unique_id =[];
+
 	if (Auth::check()) 
 		{
 			$user_id = Auth::user()->id;
-		}else{$user_id = Session::get('user_id');} 
+		}else{
+			$user_id = Session::get('user_id');
+		} 
 
 		try{
 			$product_data = OrderAttributes::where(['status'=>'1','user_id'=>$user_id])->get();  
@@ -1244,17 +1268,15 @@ if (Auth::check() && Auth::user()->name != "Guest") // if user is logged in no n
 }
   
 
-
-
-// Check if Guest already exists (using email id)
-// get already existing or new user_id
-	if($user_id == Session::get('user_id')){
-		$user_id = self::checkGuest($request->input('email_id'));
-	// set new user id for Guest in tables
-		self::setGuestUserid($user_id);
-	}
-
 	if ($validator->passes()){  // dd("pass");
+
+				// Check if Guest already exists (using email id)
+				// get already existing or new user_id
+					if($user_id == Session::get('user_id')){
+						$user_id = self::checkGuest($request->input('email_id'));
+					// set new user id for Guest in tables
+						self::setGuestUserid($user_id);
+					}
 
 					foreach($product_data as $key=>$product_detail){
 
@@ -1395,7 +1417,7 @@ if (Auth::check() && Auth::user()->name != "Guest") // if user is logged in no n
 
 
 				try{
-					$split_order = SplitOrderShippingAddress::where(['user_id' => $user_id, 'status' => 0])->get();
+					$split_order = SplitOrderShippingAddress::where(['user_id' => session::get('user_id'), 'status' => 0])->get();
 
 					foreach($split_order as $key => $value){
 
@@ -1806,6 +1828,7 @@ public function paymentPaypalSuccess(Request $request){
 			$OrderHistory->attribute_desc= $order->attribute_desc;
 			$OrderHistory->price_per_product= $order->price_per_product;
 			$OrderHistory->price_product_qty= $order->price_product_qty;
+			$OrderHistory->cd_dvd_unit_price= $order->cd_dvd_unit_price;
 			$OrderHistory->quantity= $order->quantity; 
 			$OrderHistory->status= $order->status;
 			$OrderHistory->order_id= $OrderDetails->order_id;
@@ -1959,6 +1982,7 @@ public function paymentPaypalSuccess(Request $request){
 			$OrderHistory->attribute_desc= $order->attribute_desc;
 			$OrderHistory->price_per_product= $order->price_per_product;
 			$OrderHistory->price_product_qty= $order->price_product_qty;
+			$OrderHistory->cd_dvd_unit_price= $order->cd_dvd_unit_price;
 			$OrderHistory->quantity= $order->quantity; 
 			$OrderHistory->status= $order->status; 
 			$OrderHistory->order_id= $OrderDetails->order_id;;
@@ -2027,21 +2051,33 @@ public function paymentPaypalSuccess(Request $request){
 
 public function checkGuest($email_id = ""){
 //if user email exists return user id
-	if (User::where('email', $email_id)->exists()) {  
+	// if (User::where('email', $email_id)->exists()) {  
 
-		$user_id = User::where('email', $email_id)->first('id');
+	// 	$user_id = User::where('email', $email_id)->first('id');
 		
-		Auth::loginUsingId($user_id->id,true);
+	// 	Auth::loginUsingId($user_id->id,true);
 
-		if(Auth::check()){
-			//dd("in");
-		}else{
-			//dd("out");
-		}
-		return $user_id->id;
+	// 	if(Auth::check()){
+	// 		//dd("in");
+	// 	}else{
+	// 		//dd("out");
+	// 	}
+	// 	return $user_id->id;
 
-	}else{
-	// if user does not exist, create new user and return new user id
+	// }else{
+	// // if user does not exist, create new user and return new user id
+
+	// 	$GuestUser = new User;
+	// 	$GuestUser->name = "Guest";
+	// 	$GuestUser->email= $email_id;
+	// 	$GuestUser->save();	
+
+	// 	Auth::loginUsingId($GuestUser->id,true);
+
+	// 	return $GuestUser->id;
+	// }
+
+	//if user does not exist, create new user and return new user id
 
 		$GuestUser = new User;
 		$GuestUser->name = "Guest";
@@ -2051,7 +2087,6 @@ public function checkGuest($email_id = ""){
 		Auth::loginUsingId($GuestUser->id,true);
 
 		return $GuestUser->id;
-	}
 } 
  
 public function setGuestUserid($user_id = ""){  //dd(Session::get('user_id'));
@@ -2074,6 +2109,16 @@ public function setGuestUserid($user_id = ""){  //dd(Session::get('user_id'));
 		$data->save();
 
 	}
+
+	$update_split_order = SplitOrderShippingAddress::where(['user_id' => Session::get('user_id')])->get();
+
+		foreach ($update_split_order as $split_order_key => $split_order_value) {
+			
+			$new_user_id = $split_order_value;
+			$new_user_id->user_id = $user_id;
+			$new_user_id->save();
+
+		}
 	
 
 
