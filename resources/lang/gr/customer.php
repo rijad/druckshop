@@ -44,8 +44,8 @@ return [
 
     'add_bill_add' => 'Rechnungsadresse hinzufügen',
     'first_name' => 'Vorname',
-    'last_name' => 'Last Name',
-    'company' => 'Nachname',
+    'last_name' => 'Nachname',
+    'company' => 'Unternehmen',
     'street' => 'Straße',
     'house_no' => 'Hausnummer',
     'zip_code' => 'Postleitzahl',
@@ -56,9 +56,12 @@ return [
 
     //Shipping Address
 
+    'add_ship_add' => 'Lieferadresse hinzufügen',
     'action' => 'Aktionen',
     'sno' => 'S Nr.',
     'create' => 'Neue Adresse erstellen',
     'edit' => 'bearbeiten',
     'delete' => 'löschen',
+    'update' => 'Aktualisieren',
+    'edit_ship_add' => 'Lieferadresse bearbeiten'
 ];
