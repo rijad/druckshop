@@ -83,7 +83,7 @@ Route::get('/get-price','CheckoutController@getPrice')->name('get-price');
 Route::get('/get-relations-content','CheckoutController@getContentAttributes')->name('get-relations-content');
 Route::get('/loose-print','CheckoutController@loosePrint')->name('loose-print');
 Route::POST('/product-order','CheckoutController@saveOrder')->name('product-order');
-Route::POST('/orders-details','CheckoutController@orderDetails')->name('orders-details'); 
+Route::any('/orders-details','CheckoutController@orderDetails')->name('orders-details'); 
 
 Route::POST('/set-quantity','CheckoutController@setQuantity')->name('set-quantity'); 
 Route::POST('/insert-split-order','CheckoutController@insertSplitOrder')->name('insert-split-order'); 
@@ -136,9 +136,9 @@ Route::get('/contact','ContactController@index')->name('contact');
 
 Route::POST('/upload-file','UploadfileController@uploadFile')->name('upload-file');
 Route::POST('/remove-file','UploadfileController@removeFile')->name('remove-file');
-Route::get('/coming-soon', function () {
-    return view('coming-soon'); 
-})->name('coming-soon');
+// Route::get('/coming-soon', function () {
+//     return view('coming-soon'); 
+// })->name('coming-soon');
  
 
 // Payment
