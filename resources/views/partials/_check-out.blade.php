@@ -613,6 +613,7 @@
 															<li class="displayNone"><p>{{ trans('checkout.data_checks') }}</p><span id="data_check_price"><big>0.00 €</big></span></li>
 															<li id="toggle" class="morelink" onclick="openTray(this);"><p>{{ trans('checkout.view_more') }}...</p></li>
 															<input type="hidden" name="total" id="total_price" value="">
+															<input type="hidden" name="cd_dvd_unit_price" id="cd_dvd_unit_price" value="">
 														</ul>
 
 													</div> 
