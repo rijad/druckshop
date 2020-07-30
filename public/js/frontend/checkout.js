@@ -174,10 +174,10 @@ function getPrintingdata(){
 
 				if(parseInt(paper_weight_count) <= parseInt(no_of_pages)){ 
 					$("#embossment-spine").removeAttr('disabled');
-					$('#spine-message').html('{{ trans("checkout.spine") }}');
+					$('#spine-message').html('Refinement spine can be activated since actual number of sheets is equals or greater than the required minimum number of sheets');
 				}else{ 
 					$("#embossment-spine").attr('disabled', true);
-					$('#spine-message').html('{{ trans("checkout.spine_not") }}');
+					$('#spine-message').html('Refinement spine cannot be activated since actual number of sheets is less than the required minimum number of sheets');
 				}
 
 			}else if(data == 2){ //page 3  
@@ -188,10 +188,10 @@ function getPrintingdata(){
 
 				if(parseInt(paper_weight_count) <= parseInt(no_of_pages)){ 
 					$("#embossment-spine").removeAttr('disabled');
-					$('#spine-message').html('{{ trans("checkout.spine") }}');
+					$('#spine-message').html('Refinement spine can be activated since actual number of sheets is equals or greater than the required minimum number of sheets');
 				}else{ 
 					$("#embossment-spine").attr('disabled', true);
-					$('#spine-message').html('{{ trans("checkout.spine_not") }}');
+					$('#spine-message').html('Refinement spine cannot be activated since actual number of sheets is less than the required minimum number of sheets');
 				}
 
 			}else if(data == 3){ 
@@ -1525,7 +1525,7 @@ function displayPrice(status = "", binding = "", no_ofsheets = "", page_options 
 			}else{
 				
 			if($("#no-of-copies").val() == ""){ $("#no-of-copies").addBack().addClass('invalid'); 
-			$('#error_no_of_copies').html("{{trans('check_valid.no_of_copies')}}"); valid = false; return false;
+			$('#error_no_of_copies').html("No of copies Field is required"); valid = false; return false;
 			}else if(isNaN($("#no-of-copies").val())){
 				$("#no-of-copies").addBack().addClass('invalid'); $('#error_no_of_copies').html('Field must be Number'); valid = false; return false;
 			}else if($("#no-of-copies").val() <= 0){
