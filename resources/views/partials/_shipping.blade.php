@@ -68,61 +68,61 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button> 
-                <h4 class="modal-title">Add Shipping Address</h4>
+                <h4 class="modal-title">{{ trans('customer.add_ship_add') }}</h4>
             </div>
             <div class="modal-body">
                 <div class="cart-form-shop w-100">
                     <form method = "POST" action="{{route('shipping-address.store')}}" id = "shippingForm">
                     @csrf
                         <div class="form-group"> 
-                            <label for="text">First Name*</label>
+                            <label for="text">{{ trans('customer.first_name') }}*</label>
                             <input type="text" class="form-control" placeholder="enter here" value="{{ old('first_name') }}" name="first_name" id="first_name">
                             <p class="error" id="error_first_name"></p>
                         </div>
                         <div class="form-group">
-                          <label for="text">last Name*</label>
+                          <label for="text">{{ trans('customer.last_name') }}*</label>
                           <input type="text"  class="form-control" placeholder="enter here" value="{{ old('last_name') }}" name="last_name" id="last_name">
                            <p class="error" id="error_last_name"></p>
                         </div>
                         <div class="form-group w-100">
-                            <label for="text">Company</label>
+                            <label for="text">{{ trans('customer.company') }}</label>
                             <input type="text"  class="form-control" placeholder="enter here" value="{{ old('company_name') }}" name = "company_name" id = "company_name">
                             <p class="error" id="error_company_name"></p>
                         </div>
                         <div class="form-group">
-                            <label for="text">Street*</label>
+                            <label for="text">{{ trans('customer.street') }}*</label>
                             <input type="text"  class="form-control" placeholder="enter here" value="{{ old('street') }}" name = "street"  id = "street">
                             <p class="error" id="error_street"></p>
                         </div>
                         <div class="form-group">
-                            <label for="text">House Number*</label>
+                            <label for="text">{{ trans('customer.house_no') }}*</label>
                             <input type="text"  class="form-control" placeholder="enter here" value="{{ old('house_no') }}" name = "house_no" id = "house_no">
                             <p class="error" id="error_house_no"></p>
                         </div>
                         
                         <div class="form-group">
-                            <label for="text">Zip Code*</label>
+                            <label for="text">{{ trans('customer.zip_code') }}*</label>
                             <input type="text"  class="form-control" placeholder="Zip Code" value="{{ old('zip_code') }}" name="zip_code" id="zip_code">
                             <p class="error" id="error_zip_code"></p>
                         </div>
                         <div class="form-group">
-                            <label for="text">City*</label>
+                            <label for="text">{{ trans('customer.city') }}*</label>
                             <input type="text"  class="form-control" placeholder="enter here" value="{{ old('city') }}" name="city" id="city">
                             <p class="error" id="error_city"></p>
                         </div>
                         <div class="form-group">
-                            <label for="text">State*</label>
+                            <label for="text">{{ trans('customer.state') }}*</label>
                             <input type="text"  class="form-control" placeholder="enter here" value="{{ old('state') }}" name="state" id="state">
                             <p class="error" id="error_state"></p>
                         </div>
                         <div class="form-group">
-                            <label for="text">Addition to Adrress</label>
+                            <label for="text">{{ trans('customer.add_to_address') }}</label>
                             <input type="text"  class="form-control" placeholder="enter here" value="{{ old('addition') }}" name = "addition" id = "addition">
                             <p class="error" id="error_addition"></p>
                         </div>
 
                         <div class="text-right">
-                            <button type= "submit" class="continue_btn">Add</button>
+                            <button type= "submit" class="continue_btn">{{ trans('customer.add') }}</button>
                         </div>
                 </form>
                 </div>   
@@ -137,7 +137,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button> 
-                <h4 class="modal-title">Edit Shipping Address</h4>
+                <h4 class="modal-title">{{ trans('customer.edit_ship_add') }}</h4>
             </div>
             <div class="modal-body">
                 <div class="cart-form-shop w-100">
@@ -145,54 +145,54 @@
                     @method('PUT')
                     @csrf
                         <div class="form-group"> 
-                            <label for="text">First Name*</label>
+                            <label for="text">{{ trans('customer.first_name') }}*</label>
                             <input type="text" class="form-control" placeholder="enter here" value="{{ (isset($ship->first_name)) ? $ship->id :  '' }}" name="first_name" id="first_name">
                             <p class="error" id="error_first_name"></p>
                         </div> 
                         <div class="form-group">
-                            <label for="text">last Name*</label>
+                            <label for="text">{{ trans('customer.last_name') }}*</label>
                             <input type="text"  class="form-control" placeholder="enter here" value="{{ (isset($ship->last_name)) ? $ship->id :  ''  }}" name="last_name" id="last_name">
                             <p class="error" id="error_last_name"></p>
                         </div>
                         <div class="form-group w-100">
-                            <label for="text">Company</label>
+                            <label for="text">{{ trans('customer.company') }}</label>
                             <input type="text"  class="form-control" placeholder="enter here" value="{{ (isset($ship->company_name)) ? $ship->id :  '' }}" name = "company_name" id = "company_name">
                             <p class="error" id="error_company_name"></p>
                         </div>
                         <div class="form-group">
-                            <label for="text">Street*</label>
+                            <label for="text">{{ trans('customer.street') }}*</label>
                             <input type="text"  class="form-control" placeholder="enter here" value="{{ (isset($ship->street)) ? $ship->id :  '' }}" name = "street"  id = "street">
                             <p class="error" id="error_street"></p>
                         </div>
                         <div class="form-group">
-                            <label for="text">House Number*</label>
+                            <label for="text">{{ trans('customer.house_no') }}*</label>
                             <input type="text"  class="form-control" placeholder="enter here" value="{{ (isset($ship->house_no)) ? $ship->id :  '' }}" name = "house_no" id = "house_no">
                             <p class="error" id="error_house_no"></p>
                         </div>
                         
                         <div class="form-group">
-                            <label for="text">Zip Code*</label>
+                            <label for="text">{{ trans('customer.zip_code') }}*</label>
                             <input type="text"  class="form-control" placeholder="Zip Code" value="{{ (isset($ship->zip_code)) ? $ship->id :  '' }}" name="zip_code" id="zip_code">
                             <p class="error" id="error_zip_code"></p>
                         </div>
                         <div class="form-group">
-                            <label for="text">City*</label>
+                            <label for="text">{{ trans('customer.city') }}*</label>
                             <input type="text"  class="form-control" placeholder="enter here" value="{{ (isset($ship->city)) ? $ship->id :  '' }}" name="city" id="city">
                             <p class="error" id="error_city"></p>
                         </div>
                         <div class="form-group">
-                            <label for="text">State*</label>
+                            <label for="text">{{ trans('customer.state') }}*</label>
                             <input type="text"  class="form-control" placeholder="enter here" value="{{ (isset($ship->state)) ? $ship->id :  '' }}" name="state" id="state">
                             <p class="error" id="error_state"></p>
                         </div>
                         <div class="form-group">
-                            <label for="text">Addition to Adrress</label>
+                            <label for="text">{{ trans('customer.add_to_address') }}</label>
                             <input type="text"  class="form-control" placeholder="enter here" value="{{ (isset($ship->addition)) ? $ship->id :  '' }}" name = "addition" id = "addition">
                             <p class="error" id="error_addition"></p>
                         </div>
 
                         <div class="text-right">
-                            <button type= "submit" class="continue_btn">Update</button>
+                            <button type= "submit" class="continue_btn">{{ trans('customer.update') }}</button>
                         </div>
                 </form>
                 </div>   

@@ -56,10 +56,13 @@ return [
 
     //Shipping Address
 
+    'add_ship_add' => 'Add Shipping Address',
     'action' => 'Actions',
     'sno' => 'S No.',
     'create' => 'Create New Address',
     'edit' => 'edit',
     'delete' => 'delete',
+    'update' => 'Update',
+    'edit_ship_add' => 'Edit Shipping Address'
 
 ];
