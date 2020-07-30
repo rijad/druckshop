@@ -10,7 +10,7 @@ if (! function_exists('returnResponse')) {
 function productNameById($product_id){
 	$product = \App\Product::find($product_id);
 	$locale = session()->get('locale'); 
-		if ($locale == 'gr') {
+		if ($locale == 'gr') { 
 	return $product->title_german;
 	}else{
 		return $product->title_english;

@@ -1524,7 +1524,8 @@ function displayPrice(status = "", binding = "", no_ofsheets = "", page_options 
 				return false;
 			}else{
 				
-			if($("#no-of-copies").val() == ""){ $("#no-of-copies").addBack().addClass('invalid'); $('#error_no_of_copies').html('No of copies Field is required'); valid = false; return false;
+			if($("#no-of-copies").val() == ""){ $("#no-of-copies").addBack().addClass('invalid'); 
+			$('#error_no_of_copies').html("{{trans('check_valid.no_of_copies')}}"); valid = false; return false;
 			}else if(isNaN($("#no-of-copies").val())){
 				$("#no-of-copies").addBack().addClass('invalid'); $('#error_no_of_copies').html('Field must be Number'); valid = false; return false;
 			}else if($("#no-of-copies").val() <= 0){
