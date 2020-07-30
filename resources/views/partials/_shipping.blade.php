@@ -15,7 +15,7 @@
     
     <div class="float-right">
         <form method="GET" action="{{ route('shipping-address.create') }}">
-            <input type="button" class= "shipping-address-page-button" value="Create New Address" class="btn btn-primary" data-toggle="modal" data-target="#rv-Modal-shipping">
+            <input type="button" class= "shipping-address-page-button" value="{{ trans('customer.create') }}" class="btn btn-primary" data-toggle="modal" data-target="#rv-Modal-shipping">
         </form>
     </div>
 
@@ -24,16 +24,16 @@
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
-                        <th>S No.</th>
-                        <th>Shipping Address</th>
-                        <th>Actions</th>
+                        <th>{{ trans('customer.sno') }}</th>
+                        <th>{{ trans('customer.ship_add') }}</th>
+                        <th>{{ trans('customer.action') }}</th>
                     </tr>
                 </thead> 
                 <tfoot>
                     <tr>
-                        <th>S No.</th>
-                        <th>Shipping Address</th>
-                        <th>Actions</th> 
+                        <th>{{ trans('customer.sno') }}</th>
+                        <th>{{ trans('customer.ship_add') }}</th>
+                        <th>{{ trans('customer.action') }}</th> 
                     </tr>
                 </tfoot>
                 <tbody>
@@ -47,12 +47,12 @@
                             </td>
                             <td class="form-inline">
                                 <form method="GET" action="{{ route('shipping-address.edit' , $ship->id) }}">
-                                    <input type="button" value="edit" class="btn btn-success" data-toggle="modal" data-target="#rv-Modal-shipping-edit">
+                                    <input type="button" value="{{ trans('customer.edit') }}" class="btn btn-success" data-toggle="modal" data-target="#rv-Modal-shipping-edit">
                                 </form>
                                 <form method="POST" action="{{ route('shipping-address.destroy' , $ship->id) }}"class="ml-2">
                                     @method('DELETE')
                                     @csrf
-                                    <input type="submit" value="delete" class="btn btn-danger">
+                                    <input type="submit" value="{{ trans('customer.delete') }}" class="btn btn-danger">
                                 </form>
                             </td>
                         </tr>

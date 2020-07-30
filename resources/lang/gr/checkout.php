@@ -83,6 +83,9 @@ return [
     'no_of_cd' => 'Anzahl der CDs',
     'spine' => 'Der Verfeinerungsrücken kann aktiviert werden, da die tatsächliche Anzahl der Blätter gleich oder größer als die erforderliche Mindestanzahl der Blätter ist',
     'spine_not' => 'Der Verfeinerungsrücken kann nicht aktiviert werden, da die tatsächliche Anzahl der Blätter unter der erforderlichen Mindestanzahl der Blätter liegt',
-
+    'range' => 'Reichweite ist',
+    'min_spine' => 'Die Mindestanzahl der Blätter für den Rücken beträgt',
+    'submit' => 'einreichen',
+    'unit_binding' => 'Stückpreis pro verbindlichem Exemplar',
 
 ];

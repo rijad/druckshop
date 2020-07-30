@@ -84,6 +84,10 @@ return [
     'spine' => 'Refinement spine can be activated since actual number of sheets is equals or greater than the required minimum number of sheets',
     'spine_not' => 'Refinement spine cannot be activated since actual number of sheets is less than the required minimum number of sheets',
     'no_of_cd' => 'Number of CDs',
-    'no_of_cd' => 'Number of CDs',
+    'range' => 'Range is',
+    'min_spine' => 'Minimum Number of sheets for spine is'
+    // 'submit' => 'Submit',
+    // 'unit_binding' => 'Unit Price per binding copy',
+    
 ];
  

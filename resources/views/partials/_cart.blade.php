@@ -8,7 +8,7 @@
                       <div class="w-65">
                           <div class="left_productdetail">   
                               <div class="text-center quote_heading"> 
-                                  <p>Product list</p>
+                                  <p>{{ trans('cart.product_list') }}</p>
                               </div>  
    
                               <div class="product">
@@ -28,7 +28,7 @@
                                                   </div>
                                                   <ul class="product_price" id="product_price"> 
                                                       <li class="inputcard_quantity" style="display: none"><h6><strong>€ <span id="price_per_product_{{$data->id}}" class = "price_per_product">{{$data->price_per_product}}</span><span class="text-muted">x</span></strong></h6></li> 
-                                                      <li><button type="button" onclick="window.location='{{route('remove-item',['id'=>$data->id]) }}'" class="remove_btn" > Remove Product</button></li>
+                                                      <li><button type="button" onclick="window.location='{{route('remove-item',['id'=>$data->id]) }}'" class="remove_btn" > {{ trans('cart.remove') }}</button></li>
                                                   </ul>
                                                   <div class="rv-formCart" id = {{"appendContents".$key}}>
 
@@ -73,7 +73,7 @@
                                                                                 </div>
                                                                                  <div class="form-group">
                                                                                   <label for="pwd">{{ trans('cart.ship_add') }}*:</label>
-                                                                                  <select class="form-control" name={{"shipping_address[".$split_details['prod_sequence'].'_'.$split_details['sequence']."]"}} id="address_data" onchange="displayAddress(this,'{{'ship-address-'.$split_details['prod_sequence']}}'); InsertSplitOrder({{$data->id}} , {{$split_details['sequence']}} , this ,{{$split_details['prod_sequence']}} );"> <option value ="-1">Select</option> 
+                                                                                  <select class="form-control" name={{"shipping_address[".$split_details['prod_sequence'].'_'.$split_details['sequence']."]"}} id="address_data" onchange="displayAddress(this,'{{'ship-address-'.$split_details['prod_sequence']}}'); InsertSplitOrder({{$data->id}} , {{$split_details['sequence']}} , this ,{{$split_details['prod_sequence']}} );"> <option value ="-1">{{ trans('cart.select') }}</option> 
                                                                                   @foreach($shipping_address_data as $keysss=>$shipping_address)<option value = "{{$shipping_address->first_name." ".$shipping_address->last_name .
                                                                                     
                                                                                    (($shipping_address->company_name) ? ", ".$shipping_address->company_name : "" )
@@ -93,7 +93,7 @@
                                                                                 <div class="form-group">
                                                                                   <label for="email">{{ trans('cart.ship_comp') }}*:</label>
                                                                                   <select class="form-control" name={{"shipping_company[".$split_details['prod_sequence'].'_'.$split_details['sequence']."]"}} id="shipping_company" onchange = "InsertSplitOrder({{$data->id}} , {{$split_details['sequence']}} , this ,{{$split_details['prod_sequence']}});"> 
-                                                                                  <option value ="-1">Select</option>
+                                                                                  <option value ="-1">{{ trans('cart.select') }}</option>
                                                                                   @foreach($shipping_company as $value)<option value = "{{$value->id}}" @if($value->id == $split_details['shipping_company']) {{"selected"}} @endif>{{$value->delivery_service}}</option> 
                                                                                   @endforeach
                                                                                   </select>
@@ -150,7 +150,7 @@
                                                                                 </div>
                                                                                  <div class="form-group">
                                                                                   <label for="pwd">{{ trans('cart.ship_add') }}*:</label>
-                                                                                  <select class="form-control" name={{"shipping_address[".$key.'_'.'0'."]"}} id="address_data" onchange="displayAddress(this,'{{'ship-address-'.$key}}'); InsertSplitOrder({{$data->id}} , 0 , this ,{{$key}} );"> <option value ="-1">Select</option> 
+                                                                                  <select class="form-control" name={{"shipping_address[".$key.'_'.'0'."]"}} id="address_data" onchange="displayAddress(this,'{{'ship-address-'.$key}}'); InsertSplitOrder({{$data->id}} , 0 , this ,{{$key}} );"> <option value ="-1">{{ trans('cart.select') }}</option> 
                                                                                   @foreach($shipping_address_data as $keysss=>$shipping_address)<option value = "{{$shipping_address->first_name." ".$shipping_address->last_name .
                                                                                     
                                                                                    (($shipping_address->company_name) ? ", ".$shipping_address->company_name : "" )
@@ -171,7 +171,7 @@
                                                                                 <div class="form-group">
                                                                                   <label for="email">{{ trans('cart.ship_comp') }}*:</label>
                                                                                   <select class="form-control" name={{"shipping_company[".$key.'_'.'0'."]"}} id="shipping_company" onchange = "InsertSplitOrder({{$data->id}} , 0 , this ,{{$key}});"> 
-                                                                                  <option value ="-1">Select</option>
+                                                                                  <option value ="-1">{{ trans('cart.select') }}</option>
                                                                                   @foreach($shipping_company as $value)<option value = "{{$value->id}}">{{$value->delivery_service}}</option> @endforeach
                                                                                   </select>
                                                                                   @if($errors->has('shipping_company.'.$key.'_'.$key))
@@ -219,7 +219,7 @@
                                                                     </div>
                                                                      <div class="form-group">
                                                                       <label for="pwd">{{ trans('cart.ship_add') }}*:</label>
-                                                                      <select class="form-control" name={{"shipping_address[".$key.'_'.'0'."]"}} id="address_data" onchange="displayAddress(this,'{{'ship-address-'.$key}}'); InsertSplitOrder({{$data->id}} , 0 , this ,{{$key}} );"> <option value ="-1">Select</option> 
+                                                                      <select class="form-control" name={{"shipping_address[".$key.'_'.'0'."]"}} id="address_data" onchange="displayAddress(this,'{{'ship-address-'.$key}}'); InsertSplitOrder({{$data->id}} , 0 , this ,{{$key}} );"> <option value ="-1">{{ trans('cart.select') }}</option> 
                                                                       @foreach($shipping_address_data as $keysss=>$shipping_address)<option value = "{{$shipping_address->first_name." ".$shipping_address->last_name .
                                                                         
                                                                        (($shipping_address->company_name) ? ", ".$shipping_address->company_name : "" )
@@ -241,7 +241,7 @@
                                                                    {{--   <div class="form-group">
                                                                       <label for="pwd">{{ trans('cart.bill_add') }}*:</label>
                                                                       <select class="form-control" name={{"billing_address[".$key."]"}} id="address_data" onchange="displayAddress(this,'{{'bill-address-'.$key}}');"> 
-                                                                        <option value ="-1">Select</option>
+                                                                        <option value ="-1">{{ trans('cart.select') }}</option>
                                                                       @foreach($billing_address_data as $keyss=>$billing_address)
                                                                       <option value = "{{$billing_address->first_name." ".$billing_address->last_name.", Company Name: ".$billing_address->company_name.", House No: ".$billing_address->house_no.", City: ".$billing_address->city.", State: ".$billing_address->state.", Zip Code: ".$billing_address->zip_code}}" @if($billing_address->default == 1) selected @endif>{{$billing_address->first_name." ".$billing_address->last_name.", Company Name: ".$billing_address->company_name.", House No: ".$billing_address->house_no.", City: ".$billing_address->city.", State: ".$billing_address->state.", Zip Code: ".$billing_address->zip_code}}</option> 
                                                                       @endforeach
@@ -254,7 +254,7 @@
                                                                     <div class="form-group">
                                                                       <label for="email">{{ trans('cart.ship_comp') }}*:</label>
                                                                       <select class="form-control" name={{"shipping_company[".$key.'_'.'0'."]"}} id="shipping_company" onchange = "InsertSplitOrder({{$data->id}} , 0 , this ,{{$key}});"> 
-                                                                      <option value ="-1">Select</option>
+                                                                      <option value ="-1">{{ trans('cart.select') }}</option>
                                                                       @foreach($shipping_company as $value)<option value = "{{$value->id}}">{{$value->delivery_service}}</option> @endforeach
                                                                       </select>
                                                                       @if($errors->has('shipping_company.'.$key.'_'.$key))
@@ -276,7 +276,7 @@
                                                 
 
                                                     <div class="add-multi-address">
-                                                      <button type = "button" name="add_multi_address_click" id="{{'add_multi_address_'.$key}}" class="rv-adressesfields" onclick="splitOrder({{$data->id}} , {{$key}} , {{count($product_data)}});">Split Your Order</button>
+                                                      <button type = "button" name="add_multi_address_click" id="{{'add_multi_address_'.$key}}" class="rv-adressesfields" onclick="splitOrder({{$data->id}} , {{$key}} , {{count($product_data)}});">{{ trans('cart.split_order') }}</button>
                                                     </div>
                                                     <div class="rv-manageAddressFields">
                                                       <h4>{{ trans('cart.manage_add') }}</h4>
@@ -294,7 +294,7 @@
                                                @endif
                                                @endforeach
                                               </p>
-                                              <button type = "button" name="shipping_address_click" id="{{'shipping_address_'.$key}}" class="form-control" data-toggle="modal" data-target="#rv-Modal-shipping" data-ids = "{{$key}}" onclick="resetModal('shippingForm');">Add Shipping address</button>
+                                              <button type = "button" name="shipping_address_click" id="{{'shipping_address_'.$key}}" class="form-control" data-toggle="modal" data-target="#rv-Modal-shipping" data-ids = "{{$key}}" onclick="resetModal('shippingForm');">{{ trans('cart.add_ship_add') }}</button>
                                               
                                             </div>
                                              {{-- <div class="form-group">
@@ -306,7 +306,7 @@
                                                @endif
                                                @endforeach
                                               </p>
-                                              <button type = "button" name="billing_address_click" id="billing_address" class="form-control" data-toggle="modal" data-target="#rv-Modal-billing">Add Billing Address</button>
+                                              <button type = "button" name="billing_address_click" id="billing_address" class="form-control" data-toggle="modal" data-target="#rv-Modal-billing">{{ trans('cart.add_bill_add') }}</button>
                                                @if($errors->has('billing_address'))
                                               <div class="error">{{ $errors->first('billing_address') }}</div>
                                               @endif
@@ -329,17 +329,19 @@
                                 <p>{{ trans('cart.summary') }}</p>
                             </div>
                             <div class="summary">
-                                <h4>Items <span class="price" style="color:black"><i class="fa fa-shopping-cart"></i> <b>{{count($product_data)}}</b></span></h4>
+                                <h4>{{ trans('cart.item') }} <span class="price" style="color:black"><i class="fa fa-shopping-cart"></i> <b>{{count($product_data)}}</b></span></h4>
                                 @foreach ($product_data as $data) 
                                 <p><a href="#">{{$data->product}} </a> <span style="float: right;">{{-- € per copy --}}</span>
                                   <label id="binding_price_per_product_{{$data->id}}" class = "price_per_product"></label>
-                                  <label id="cd_price_per_product_{{$data->id}}" class = "price_per_product">Unit Price per CD : {{ number_format($data->cd_dvd_unit_price,2)}} €</label>
-                                  <label id="datacheck_price_per_product_{{$data->id}}" class = "price_per_product">Data Check Price : 1.00 €</label>
+
+                                  <label id="cd_price_per_product_{{$data->id}}" class = "price_per_product">{{ trans('cart.price_cd') }} : {{ number_format($data->cd_dvd_unit_price,2)}} €</label>
+                                  <label id="datacheck_price_per_product_{{$data->id}}" class = "price_per_product">{{ trans('cart.price_data') }} : 1.00 €</label>
+
                                   <span id = "total_price_per_item_{{$data->id}}" class="price total_price_per_item">{{$data->price_product_qty}}</span>
                                   <input type="hidden" id = "total_price_hidden" name="total_price_hidden" value="{{$data->price_product_qty}}"></p>
                                @endforeach
                                 <hr style="margin-top:20%;">
-                                <p>Total <span style="float: right;">€</span><span id ="checkout_total" class="price" style="color:black"><b>€</b></span></p>
+                                <p>{{ trans('cart.total') }} <span style="float: right;">€</span><span id ="checkout_total" class="price" style="color:black"><b>€</b></span></p>
                             </div>
                           </div>
                           <div class="rv-DiscountCheckout">
@@ -362,7 +364,7 @@
                           <div class="form-group">
 
                          {{--  <select class="form-control" name={{"billing_address"}} id="billing_address_data" > 
-                            <option value ="-1">Select</option> --}}
+                            <option value ="-1">{{ trans('cart.select') }}</option> --}}
                           @if(!empty($billing_address_data))
                           @foreach($billing_address_data as $keyss=>$billing_address)
                           @if($billing_address->default == 1)
@@ -771,8 +773,8 @@
 
     var showChar = 100;
     var ellipsestext = "..."; 
-    var moretext = "Read more";
-    var lesstext = "Read less";
+    var moretext = "{{ trans("cart.read_more") }}";
+    var lesstext = "{{ trans("cart.read_less") }}";
     $('.more').each(function() {
       var content = $(this).html();
 

@@ -71,7 +71,7 @@
 			<form action="{{ URL::to('/search')}}" method="POST">
 			@csrf
 				<div class="searchInput"> 
-					<input type="text" name="search" placeholder="Search by name ..." />	
+					<input type="text" name="search" placeholder="{{ trans('header.search')}} ..." />	
 					<button type="submit"><i class="fa fa-search"></i></button>
 				</div>
 			</form> 
@@ -120,7 +120,7 @@
 			</div>
 			@if (Auth::guard('admin')->check())
 			<div class="loginBtn my-lg-0">					    
-				<button onclick="window.location='{{route('dashboard')}}'" >Administration</button>			
+				<button onclick="window.location='{{route('dashboard')}}'" >{{ trans('header.admin')}}</button>			
 			</div>
 			@else
 			<div class="loginBtn my-lg-0">					    

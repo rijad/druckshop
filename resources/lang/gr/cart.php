@@ -36,5 +36,17 @@ return [
     'add_bill_add' => 'Rechnungsadresse hinzufügen',
     'enter_here' => 'hier eintreten',
     'change_bill_add' => 'Rechnungsadresse ändern',
+    'split_order' => 'Teilen Sie Ihre Bestellung',
+    'product_list' => 'Produktliste',
+    'remove' => 'Produkt entfernen',
+    'total' => 'Gesamt',
+    'price_cd' => 'Stückpreis pro CD',
+    'price_data' => 'Datenprüfungspreis',
+    'select' => 'Wählen',
+    'item' => 'Artikel',
+    'read_more' => 'Weiterlesen',
+    'read_less' => 'Lese weniger',
+    '' => '',
+
 
 ];

@@ -11,9 +11,19 @@
 								<img src="{{ asset('/public/images/'.$listing->image_path)}}" alt="" />
 						</a>
 						<div class="proInfo">
-							<h2>{{$listing->title_english}}</h2>
+							<?php $locale = session()->get('locale'); 
+							if ($locale == 'gr') { ?>
+
+							<h2>{{$listing->title_german}}</h2>	
+							<p>{{$listing->short_description_german}}</p>
+							<?php } else { ?>
+
+							<h2>{{$listing->title_english}}</h2>	
 							<p>{{$listing->short_description_english}}</p>
-							<a href="{{ route('product-information') }}#{{$listing->title_english}}">Read More</a>
+
+							<?php } ?>
+							
+							<a href="{{ route('product-information') }}#{{$listing->title_english}}">{{ trans('homepage.read_more')}}</a>
 						</div>
 					</div>
 				</div>
