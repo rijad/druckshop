@@ -104,7 +104,14 @@
 										<p><select class = "" id = "page_options" name = "page_options" onclick=""  onchange="displayPrice('0','','',this.value,'','','','','','','','','','','','',''); displayFieldsContent(this.value);  displayProductAttributes('7',this); " >
 											<option value = "-1">{{ trans('checkout.select') }}</option>
 											@foreach ($page_options as $key=>$listing)
-											<option value="{{$listing->id}}">{{$listing->name_english}}</option>  
+											<option value="{{$listing->id}}">
+												@php $locale = session()->get('locale'); @endphp
+													@if ($locale == 'gr') 
+														{{$listing->name_german}}
+													@else
+														{{$listing->name_english}}
+													@endif
+												</option>  
 											@endforeach
 										</select></p> <p class="error" id="error_page_options"></p>
 									</div>
@@ -256,7 +263,22 @@
 
 												<div class="displayNone" id="div-template">
 													<label>{{ trans('checkout.template') }}*:<a href="#" data-toggle="tooltip" title="Data is taken from cover sheet" class="formToolTip">i</a></label>
-													<p><select name ="template" id="template" onchange="displayPopUp(this.value);"><option value="-1">{{ trans('checkout.select') }}</option><option value="Standardvorlage mit Logo">Standardvorlage mit Logo</option><option value="Standardvorlage ohne Logo">Standardvorlage ohne Logo</option><option value="Eigene Vorlage">Eigene Vorlage</option></select></p>
+													<p><select name ="template" id="template" onchange="displayPopUp(this.value);"><option value="-1">{{ trans('checkout.select') }}</option>
+														@php $locale = session()->get('locale'); @endphp
+														@if ($locale == 'gr') 
+															<option value="Standardvorlage mit Logo">Standardvorlage mit Logo
+															</option>
+															<option value="Standardvorlage ohne Logo">Standardvorlage ohne Logo
+															</option>
+															<option value="Eigene Vorlage">Eigene Vorlage</option>
+														@else
+															<option value="Standardvorlage mit Logo">Standard template with Logo
+															</option>
+															<option value="Standardvorlage ohne Logo">Standard template without Logo
+															</option>
+															<option value="Eigene Vorlage">Own template</option>				
+															@endif
+														</select></p>
 													<p class="error" id="error_template"></p>
 												</div>
 
@@ -290,7 +312,13 @@
 														<label>{{ trans('checkout.font_type') }}*:</label>
 														<p><select class = "" name="fonts" id="fonts"><option value = "-1">{{ trans('checkout.select') }}</option>
 															@foreach ($fonts as $key=>$listing)
-															<option value="{{$listing->font}}">{{$listing->font}}</option>  
+															<option value="{{$listing->font}}">
+																@php $locale = session()->get('locale'); @endphp
+																@if ($locale == 'gr') 
+																	{{$listing->name_german}}
+																@else
+																	{{$listing->name_english}}
+																@endif</option>  
 															@endforeach
 														</select></p> <p class="error" id="error_fonts"></p>
 													</div>
@@ -299,7 +327,13 @@
 														<label>{{ trans('checkout.date_format') }}*:</label>
 														<p><select class = "" id="date-format" name="date-format"><option value = "-1">{{ trans('checkout.select') }}</option>
 															@foreach ($date_format as $key=>$listing)
-															<option value="{{$listing->surname}}">{{$listing->date_format}}</option>  
+															<option value="{{$listing->surname}}">
+																@php $locale = session()->get('locale'); @endphp
+																@if ($locale == 'gr') 
+																	{{$listing->name_german}}
+																@else
+																	{{$listing->name_english}}
+																@endif</option>  
 															@endforeach
 														</select></p> <p class="error" id="error_date_format">
 													</div>   
@@ -339,7 +373,13 @@
 														<label>{{ trans('checkout.font_type') }}*:</label>
 														<p><select class = "" name="fonts-spine" id="fonts-spine"><option value = "-1">{{ trans('checkout.select') }}</option>
 															@foreach ($fonts as $key=>$listing)
-															<option value="{{$listing->font}}">{{$listing->font}}</option>  
+															<option value="{{$listing->font}}">
+																@php $locale = session()->get('locale'); @endphp
+																@if ($locale == 'gr') 
+																	{{$listing->name_german}}
+																@else
+																	{{$listing->name_english}}
+																@endif</option>  
 															@endforeach
 														</select></p> <p class="error" id="error_fonts-spine"></p>
 													</div>
@@ -348,8 +388,14 @@
 													<label>{{ trans('checkout.direction') }}:</label>
 													<p><select class = "" id = "direction" name = "direction">
 														<option value = "-1">{{ trans('checkout.select') }}</option>
-														<option value = "Top Down">Top Down</option>
-														<option value = "Bottom Up">Bottom Up</option>
+														@php $locale = session()->get('locale'); @endphp
+														@if ($locale == 'gr') 
+															<<option value = "Top Down">von oben nach unten</option>
+															<option value = "Bottom Up">Prost</option>
+														@else
+															<option value = "Top Down">Top Down</option>
+															<option value = "Bottom Up">Bottom Up</option>		
+															@endif
 													</select></p> <p class="error" id="error_direction"></p>
 													</div>
 
@@ -359,18 +405,35 @@
 													
 													<p><label id="field-1" class = "displayBlock">{{ trans('checkout.field') }} 1:</label><select class = "" id = "fields_1" name = "fields_1" onchange="section2();" class="">
 														<option value = "-1">{{ trans('checkout.select') }}</option>
-														<option value = "Name">Name</option>
-														<option value = "Title">Title</option>
-														<option value = "Date">Date</option>
-														<option value = "Topic">Topic</option>
+														
+														@php $locale = session()->get('locale'); @endphp
+														@if ($locale == 'gr') 
+															<option value = "Name">Name</option>
+															<option value = "Title">Titel</option>
+															<option value = "Date">Datum</option>
+															<option value = "Topic">Thema</option>	
+														@else
+															<option value = "Name">Name</option>
+															<option value = "Title">Title</option>
+															<option value = "Date">Date</option>
+															<option value = "Topic">Topic</option>			
+															@endif
 													</select></p>
 													
 													
 													<p><label id="position-1" class = "displayBlock">{{ trans('checkout.position') }} 1:</label><select class = "" id = "pos_1" name = "pos_1" onchange="section2();">
 														<option value = "-1">{{ trans('checkout.select') }}</option>
-														<option value = "Top">Top</option>
-														<option value = "Middle">Middle</option>
-														<option value = "Bottom">Bottom</option>
+														
+														@php $locale = session()->get('locale'); @endphp
+														@if ($locale == 'gr') 
+															<option value = "Top">oben</option>
+															<option value = "Middle">Mitte</option>
+															<option value = "Bottom">Unterseite</option>
+														@else
+															<option value = "Top">Top</option>
+															<option value = "Middle">Middle</option>
+															<option value = "Bottom">Bottom</option>			
+															@endif
 													</select></p> 
 
 													<p><label id="input-1" class = "displayBlock">{{ trans('checkout.content') }} 1:</label><input type="text" id ="input_1" name = "input_1" class="displayBlock" placeholder=""></p>
@@ -493,7 +556,23 @@
 														<div class="displayNone" id="div-cd-template">
 															<label>{{ trans('checkout.cd_imprint') }}</label>
 
-															<p><select name="cd-template" id="cd-template" onchange="displayPopUpCD(this.value);"><option value="-1">{{ trans('checkout.select') }}</option><option value="Standardvorlage mit Logo">Standardvorlage mit Logo</option><option value="Standardvorlage ohne Logo">Standardvorlage ohne Logo</option><option value="Eigene Vorlage">Eigene Vorlage</option></select></p>
+															<p><select name="cd-template" id="cd-template" onchange="displayPopUpCD(this.value);"><option value="-1">{{ trans('checkout.select') }}</option>
+
+																@php $locale = session()->get('locale'); @endphp
+																@if ($locale == 'gr') 
+																	<option value="Standardvorlage mit Logo">Standardvorlage mit Logo
+																	</option>
+																	<option value="Standardvorlage ohne Logo">Standardvorlage ohne Logo
+																	</option>
+																	<option value="Eigene Vorlage">Eigene Vorlage</option>
+																@else
+																	<option value="Standardvorlage mit Logo">Standard template with Logo
+																	</option>
+																	<option value="Standardvorlage ohne Logo">Standard template without Logo
+																	</option>
+																	<option value="Eigene Vorlage">Own template</option>				
+																	@endif
+																</select></p>
 
 														</div> 
 
@@ -543,7 +622,13 @@
 														<label><p>{{ trans('checkout.font') }}</p>*:</label>
 														<p><select class = "" name="fonts-cd" id="fonts-cd"><option value = "-1">{{ trans('checkout.select') }}</option>
 															@foreach ($fonts as $key=>$listing)
-															<option value="{{$listing->font}}">{{$listing->font}}</option>  
+															<option value="{{$listing->font}}">
+																@php $locale = session()->get('locale'); @endphp
+																@if ($locale == 'gr') 
+																	{{$listing->name_german}}
+																@else
+																	{{$listing->name_english}}
+																@endif</option>  
 															@endforeach
 														</select></p> <p class="error" id="error_fonts_cd"></p>
 													</div>
@@ -570,7 +655,12 @@
 															<label>{{ trans('checkout.cd_bag') }}*:</label>
 															<p><select class = "" name = "cd-bag" id = "cd-bag" onchange="cdBagPosition(); displayPrice('0','','','','','','','','','','',this.value,'','','','',''); setTimeout(function(){displayPrice('0','','','','','','','','','','','','','','',$('#embossing').find(':selected').val(),'')},500); "><option value = "-1">{{ trans('checkout.select') }}</option>
 																@foreach ($cd_bag as $key=>$listing)
-																<option value="{{$listing->id}}" @if($listing->id == '1') selected @endif>{{$listing->bag}}</option>  
+																<option value="{{$listing->id}}" @if($listing->id == '1') selected @endif>@php $locale = session()->get('locale'); @endphp
+																@if ($locale == 'gr') 
+																	{{$listing->name_german}}
+																@else
+																	{{$listing->name_english}}
+																@endif</option>  
 																@endforeach
 															</select></p> <p class="error" id="error_cd_bag"> </p>
 														</div>
@@ -584,7 +674,14 @@
 															<label>{{ trans('checkout.data_check') }}*:<a href="#" title="wird erklärt" data-toggle="tooltip" title="Data Check Select" class="formToolTip">i</a></label>
 															<p><select id = "data_check" name = "data_check" onchange="displayPrice('0','','','','','','','','','',this.value,'','','','','',''); setTimeout(function(){displayPrice('0','','','','','','','','','','','','','','',$('#embossing').find(':selected').val(),'')},200);"><option value = "-1">{{ trans('checkout.select') }}</option>
 																@foreach ($data_check as $key=>$listing)
-																<option value="{{$listing->id}}" @if($listing->id == "1") selected @endif>{{$listing->check_list}}</option>  
+																<option value="{{$listing->id}}" @if($listing->id == "1") selected @endif>
+																@php $locale = session()->get('locale'); @endphp
+																@if ($locale == 'gr') 
+																	{{$listing->name_german}}
+																@else
+																	{{$listing->name_english}}
+																@endif
+																</option>  
 																@endforeach
 															</select></p> 
 															<p class="error" id="error_data_check"></p>
