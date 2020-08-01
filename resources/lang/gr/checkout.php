@@ -8,18 +8,18 @@ return [
     |--------------------------------------------------------------------------
     |
     | 
-    |
+    |  
     */
 
     'next1' => 'Nächster',
     'previous' => 'Bisherige',
-    'binding_title' => 'Bindung',
-    'no_of_copies' => 'Anzahl der Kopien',
-    'page_format' => 'Seitenformat',
-    'cover_color' => 'Farbe',
-    'cover_sheet' => 'Deckblatt',
+    'binding_title' => 'Bindung', 
+    'no_of_copies_title' => 'Anzahl der Kopien',
+    'page_format_title' => 'Seitenformat',
+    'cover_color_title' => 'Farbe',
+    'cover_sheet_title' => 'Deckblatt',
     'upload_cover_sheet' => 'Deckblatt hochladen',
-    'back_sheet' => 'Rückendeckel',
+    'back_sheet_title' => 'Rückendeckel',
     'upload_back_sheet' => 'Laden Sie das Back Sheet hoch',
     'side_options' => 'Nebenoptionen',
     'edge_option' => 'Kantenoption',
@@ -87,5 +87,28 @@ return [
     'min_spine' => 'Die Mindestanzahl der Blätter für den Rücken beträgt',
     'submit' => 'einreichen',
     'unit_binding' => 'Stückpreis pro verbindlichem Exemplar',
+    'choose_layout' => 'Wählen Sie das Layout für die Standardabdeckung ohne Logo.',
+    'choose_layout_logo' => 'Wählen Sie das Layout für die Standardabdeckung mit Logo.',
+    'file_uploaded' => 'Datei hochgeladen',
+    'confirm_msg' => 'Möchten Sie die Datei löschen?',
+
+    // validations
+
+
+    'no_of_copies' => 'Anzahl Kopien Feld ist erforderlich',
+    'number' => 'Feld muss Nummer sein',
+    'greater' => 'Feld muss größer als 0 sein',
+    'page_format' => 'Seitenformatfeld ist erforderlich',
+    'cover_color' => 'Cover Color Field ist erforderlich',
+    'back_cover' => 'Das Feld für die hintere Abdeckung ist erforderlich',
+    'required' => 'Feld ist erforderlich',
+    'page_options' => 'Das Feld Seitenoptionen ist erforderlich',
+    'paper_weight' => 'Papiergewichtsfeld ist erforderlich',
+    'this_field' => 'Dieses Feld wird benötigt',
+    'range' => 'Seiten außerhalb des Bereichs',
+    'mirror' => 'Spiegelfeld ist erforderlich',
+    'template' => 'Vorlagenfeld ist erforderlich',
+    'font' => 'Schriftfeld ist erforderlich',
+    'date_format' => 'Datumsformatfeld ist erforderlich',
 
 ];

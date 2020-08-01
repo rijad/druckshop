@@ -202,5 +202,10 @@
 });
 </script>
 
+<?php
+    $lang_text = json_encode(trans('checkout'));
+?>
+<script type="text/javascript">var lang_text = JSON.parse('<?= $lang_text ?>') </script>
+
 <script src="{{ asset('public/js/frontend/loose.js') }}" type="text/javascript" ></script>
 <script src="{{ asset('public/js/frontend/dragdrop.js') }}" type="text/javascript" ></script>								 

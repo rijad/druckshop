@@ -674,6 +674,11 @@
   <p class = "empty-cart">Your Cart is Empty.<p>
   @endif
 
+  <?php
+    $lang_text = json_encode(trans('cart'));
+   ?>
+<script type="text/javascript">var lang_text = JSON.parse('<?= $lang_text ?>') </script>
+
   <script src="{{ asset('public/js/frontend/checkout.js') }}" type="text/javascript" ></script>
   <script src="{{ asset('public/js/frontend/dragdrop.js') }}" type="text/javascript" ></script>
 
@@ -681,8 +686,6 @@
     $(document).ready( function () {
 
       //clearSplitOrderTable();
-
-       
 
        setTimeout(function(){
           var n = $("[id='no_of_copies']");
@@ -825,6 +828,9 @@
 
     }else{
 
+    var discount_valid = "{{ trans("cart.discount_success") }}";
+    var discount_invalid = "{{ trans("cart.discount_invalid") }}";
+
       $.ajax({
       url: base_url+'/get-discount-code-status', 
       type: 'GET', 
@@ -833,12 +839,12 @@
           var data = JSON.parse(response); 
            if(data == true){  //alert("T");
 
-            $('#discount-code-error').text('The Discount Code Applied Successfully');
+            $('#discount-code-error').text(discount_valid);
             $('#discount-code-error').css('color','black');
 
            }else if(data == false){  // alert("F");
             $('#discount-code-error').css('color','red');
-             $('#discount-code-error').text('The Discount Code is Invalid');
+             $('#discount-code-error').text(discount_invalid);
            }else if(data == ''){
 
             $('#discount-code-error').text('');
