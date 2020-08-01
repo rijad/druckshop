@@ -1234,7 +1234,7 @@ li.cart-relative-count {
 }
 
 .free-sample-form-rv form input[type="submit"] {
-    width: 200px !important;
+    width: auto !important;
     float: right;
     background-color: #79879a;
     color: white;
@@ -1931,6 +1931,12 @@ div#template-classic {
 #div-template-classic img#Klassik-1:hover{
 	margin-left: 10%;
 }
+
+.customer-profile-info .UserIdEdit {
+    position: static;
+    margin-bottom: 20px;
+  }
+
 
 
 /*media query starts from here*/

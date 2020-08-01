@@ -46,7 +46,9 @@ return [
     'item' => 'Artikel',
     'read_more' => 'Weiterlesen',
     'read_less' => 'Lese weniger',
-    '' => '',
+    'unit_price_binding' => 'Stückpreis pro verbindlichem Exemplar',
+    'discount_success' => 'Der Rabattcode wurde erfolgreich angewendet',
+    'discount_invalid' => 'Der Rabattcode ist ungültig',
 
 
 ];

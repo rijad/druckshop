@@ -39,21 +39,21 @@
 									</select></p><p class="error" id="error_binding"></p>
 								</div>
 								<div class="displayBlock" id="div-no-of-copies">
-									<label>{{ trans('checkout.no_of_copies') }}*:</label>
-									<p><input type = "text" class = "" name="no_of_copies" id="no-of-copies" placeholder="{{ trans('checkout.no_of_copies') }}" oninput=" displayProductAttributes('2',this); displayPrice('0','','','','','','','','','','','','','',this.value,'','');"></p><p class="error" id="error_no_of_copies"></p>
+									<label>{{ trans('checkout.no_of_copies_title') }}*:</label>
+									<p><input type = "text" class = "" name="no_of_copies" id="no-of-copies" placeholder="{{ trans('checkout.no_of_copies_title') }}" oninput=" displayProductAttributes('2',this); displayPrice('0','','','','','','','','','','','','','',this.value,'','');"></p><p class="error" id="error_no_of_copies"></p>
 								</div>
 								<div class="displayBlock" id="div-page-format"> 
-									<label>{{ trans('checkout.page_format') }}*:</label>
-									<p><select class = "" onclick = "displayProductAttributes('3',this); sampleImage();" id="page-format" name="page-format" onchange="addTooltip(this); getA3A2Count(this); displayPrice('0',document.getElementById('binding').value,'','','','','','','','','','','','','','',''); " >
-										<option value="-1">{{ trans('checkout.select') }}</option>
+									<label>{{ trans('checkout.page_format_title') }}*:</label>
+									<p><select class = "" onclick = "displayProductAttributes('3',this); sampleImage();" id="page-format" name="page-format" onchange="addTooltip(this); getA3A2Count(this); displayPrice('0',document.getElementById('binding').value,'','','','','','','','','','','','','','','');">
+										<option value = "-1">{{ trans('checkout.select') }}</option>
 									</select></p><p class="error" id="error_page_format"></p>
 								</div>
 								<div class="displayNone" id="div-cover-color">
-									<label>{{ trans('checkout.cover_color') }}*:</label> 
-									<p><select name="cover-color" class = "" onclick = "displayProductAttributes('4',this); sampleImage();" onchange="" id="cover-color"><option value="-1">{{ trans('checkout.select') }}</option></select></p><p class="error" id="error_cover_color"></p>
+									<label>{{ trans('checkout.cover_color_title') }}*:</label> 
+									<p><select name="cover-color" class = "" onclick = "displayProductAttributes('4',this); sampleImage();" onchange="" id="cover-color"><option value = "-1">{{ trans('checkout.select') }}</option></select></p><p class="error" id="error_cover_color"></p>
 								</div>
 								<div class="displayNone" id="div-cover-sheet">
-									<label>{{ trans('checkout.cover_sheet') }}*:<a href="#" data-toggle="tooltip" title="200 gm/m2 sheets" class="formToolTip">i</a></label>
+									<label>{{ trans('checkout.cover_sheet_title') }}*:<a href="#" data-toggle="tooltip" title="200 gm/m2 sheets" class="formToolTip">i</a></label>
 									<p><select class = "" onclick = "displayProductAttributes('5',this);uploadDisplayCoverSheet(this.id,this.value);" onchange="" id="cover-sheet" name="cover-sheet"><option onclick ="" value="-1">{{ trans('checkout.select') }}</option></select></p>
 									<p class="error" id="error_cover_sheet">
   
@@ -77,7 +77,7 @@
 									</div>
 
 									<div class="displayNone" id="div-back-cover">
-										<label>{{ trans('checkout.back_sheet') }}*:<div title="200 gm/m2 sheets" class="formToolTip">i</div></label>
+										<label>{{ trans('checkout.back_sheet_title') }}*:<div title="200 gm/m2 sheets" class="formToolTip">i</div></label>
 										<p><select class = "" onclick = "displayProductAttributes('6',this); uploadDisplayBackCover(this.id,this.value);" onchange="uploadDisplayBackCover(this.id,this.value);"  id="back-cover" name="back-cover"><option value="-1">{{ trans('checkout.select') }}</option></select></p> <p class="error" id="error_back_cover">
 									</div>
 									
@@ -731,11 +731,17 @@
 
 											<!-- ==================== stepper ends ================== -->
 
-										</div>
+										</div> 
 
 
 									</div><!-- content area ends -->
 								</div> 
+
+
+<?php
+    $lang_text = json_encode(trans('checkout'));
+?>
+<script type="text/javascript">var lang_text = JSON.parse('<?= $lang_text ?>') </script>
 
 <script src="{{ asset('public/js/frontend/checkout.js') }}" type="text/javascript" ></script>
 <script src="{{ asset('public/js/frontend/dragdrop.js') }}" type="text/javascript" ></script>	
