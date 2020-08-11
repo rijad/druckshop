@@ -18,6 +18,6 @@ return [
     'paypal' => 'Pay via PayPal',
     'cash' => 'Pay via Cash',
     'delivery' => 'Delivery Service Charges',
-    'split' => 'Splitted Order'
+    'split' => 'Shipping Address'
 
 ];
