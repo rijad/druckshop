@@ -35,6 +35,40 @@ class CheckCodeRule implements Rule
             $user_id = Session::get('user_id');
        }
 
+
+       // Multi Product discount - Check if discound code is valid for particular product or not
+
+       $discount = Discount::where(['code' => $code])->first(['by_price','by_percent','type','product_id']);
+       $prod_flag = 0;
+
+       if($discount->type == 2){
+
+              $product_ids = json_decode($discount->product_id,true); 
+
+              // product ids with discount code
+              foreach($product_ids as $dis_key => $dis_value){
+
+                // product ids in cart
+                foreach($products as $prod_key => $prod_value){
+
+                  if($dis_value == $prod_value->product_id){
+
+                    $prod_flag = 1;
+
+                  }
+
+                } 
+
+              } 
+
+              if($prod_flag == 0){
+                return false;
+              }else{
+                return true;
+              }
+            
+      }
+
        // check if user has already used a code
 
        if(OrderDetailsFinal::where(['user_id' => $user_id, 'promo_code' => $value])->first() != null){

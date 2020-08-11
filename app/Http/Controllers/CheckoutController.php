@@ -877,7 +877,7 @@ class CheckoutController extends Controller
 			 // print_r("--------".$embossment_price);
  
 
-			  $total_unit_price = number_format(($binding_price + $printout + $data_check_price + $embossment_price),2);
+			  $total_unit_price = number_format(($binding_price + $printout + $embossment_price),2);
 
 			 
 			  if(($binding_price + $printout + $data_check_price) > 0){ 
@@ -935,6 +935,7 @@ $qty = 1;
 if (Auth::check())
 	{
 		$user_id = Auth::user()->id;
+		Session::put('user_id', $user_id);
 //print_r($user_id);
 	}else{
 		$user_id = time();
@@ -1230,9 +1231,11 @@ if (Auth::check())
 
 	// } //dd("aa".$total); 
 
-if (Auth::check() && Auth::user()->name != "Guest") // if user is logged in no need to enter email
+if (Auth::check() && Auth::user()->name != "Guest") 
 {
-  
+	
+
+  // if user is logged in no need to enter email
 	$validator = Validator::make($request->all(), [ 
 		'no_of_copies.*'=> 'required',
 		'no_of_cds.*' => 'nullable',
@@ -1250,7 +1253,7 @@ if (Auth::check() && Auth::user()->name != "Guest") // if user is logged in no n
 
 }else if((Auth::check() && Auth::user()->name == "Guest") || ! Auth::check()){ // user not logged in have to enter email
 	
-	$validator = Validator::make($request->all(), [ 
+	$validator = Validator::make($request->all(), [   
 		'no_of_copies.*'=> 'required',
 		'no_of_cds.*' => 'nullable',
 		'shipping_company.*' => 'required|not_in:-1',
@@ -1268,7 +1271,7 @@ if (Auth::check() && Auth::user()->name != "Guest") // if user is logged in no n
 }
   
 
-	if ($validator->passes()){  // dd("pass");
+	if ($validator->passes()){  //dd("pass");
 
 				// Check if Guest already exists (using email id)
 				// get already existing or new user_id
@@ -1427,15 +1430,16 @@ if (Auth::check() && Auth::user()->name != "Guest") // if user is logged in no n
 
 				}catch(Exception $e){
 					$split_order =[];
+					$split_record_unique_id=[];
 				} 
 
 
-				$errors = $validator->errors();
+				$errors = $validator->errors();  
 
 				return view('/pages/front-end/cart',compact('product_data','shipping_company','billing_address_data','shipping_address_data','errors','split_order','split_record_unique_id'));
 		//return back()->with('errors', $validator->errors());
    }
-
+ 
 
 }   
 
@@ -1461,17 +1465,72 @@ public function getDiscountcodeStatus(Request $request){
 		return "";
 	}
 
+		if (Auth::check()){
+           $user_id = Auth::user()->id;
+        }else{
+            $user_id = Session::get('user_id');
+        }
+
+	 // Multi Product discount - Check if discound code is valid for particular product or not
+
+       $discount = Discount::where(['code' => $request->code])->first(['by_price','by_percent','type','product_id']);
+       $prod_flag = 0;
+
+       if($discount->type == 2){
+
+              $product_ids = json_decode($discount->product_id,true); 
+
+              $products = OrderAttributes::where('user_id', $user_id)->get();
+
+              // product ids with discount code
+              foreach($product_ids as $dis_key => $dis_value){
+
+                // product ids in cart
+                foreach($products as $prod_key => $prod_value){
+
+                  if($dis_value == $prod_value->product_id){
+
+                    $prod_flag = 1;
+
+                  }
+
+                } 
+
+              } 
+
+              if($prod_flag == 0){
+                return "false";
+              }else{
+                return "true";
+              }
+            
+      }
+
+       // check if user has already used a code
+
+    if(OrderDetailsFinal::where(['user_id' => $user_id, 'promo_code' => $request->code])->first() != null){
+
+        return "false";
+        
+    }
+
+    // Check discount code exist or not
 
 	if(Discount::where(['code' => $request->code])->first() == null){
 
 		return "false";
 	}
 
+
+	 // check validity of code wrt date
+
 	if(Discount::where(['code' => $request->code])->where('to_date' ,'<' ,date('Y-m-d'))->first() == null && Discount::where(['code' => $request->code])->where('from_date' ,'>' ,date('Y-m-d'))->first() == null){
    
         return "true";
 
-       }if(Discount::where(['code' => $request->code])->whereNull('to_date')->first() != null && Discount::where(['code' => $request->code])->where('from_date' ,'>' ,date('Y-m-d'))->first() == null){
+    }
+
+    if(Discount::where(['code' => $request->code])->whereNull('to_date')->first() != null && Discount::where(['code' => $request->code])->where('from_date' ,'>' ,date('Y-m-d'))->first() == null){
 
          return "true";
 
@@ -2504,6 +2563,17 @@ public static function CartCount(){
 							$input['default'] = 1;
 							$input['address_type'] = "billing";
 							$UserAddress= UserAddress::create($input);
+
+							$CustomerArea_address = $UserAddress->first_name." ".$UserAddress->last_name;
+
+							if($UserAddress->company_name != ""){
+								$CustomerArea_address .= ", ".$UserAddress->company_name.",  ".$UserAddress->street." ".$UserAddress->house_no.",  ".$UserAddress->zip_code." ".$UserAddress->city.", ".$UserAddress->state;
+							}else{
+								$CustomerArea_address .= ",  ".$UserAddress->street." ".$UserAddress->house_no.",  ".$UserAddress->zip_code." ".$UserAddress->city.", ".$UserAddress->state;
+							}
+
+				
+							print_r($CustomerArea_address);
 						}
 
 					}
