@@ -36,7 +36,7 @@ return [
     'upload_din_A2_pages' => 'Upload DIN A2 Pages',
     'embossing' => 'Embossing',
     'refinement_cover_sheet' => 'Refinement Cover Sheet',
-    'template' => 'Template',
+    'temp' => 'Template',
     'upload_logo' => 'Upload Logo',
     'font_type' => 'Font Type',
     'date_format' => 'Date Format',
@@ -51,7 +51,7 @@ return [
     'remarks' => 'Remarks',
     'number_of_cds' => 'Number of CDs',
     'cd_imprint' => 'CD Imprint',
-    'font' => 'Font',
+    'fonts' => 'Font',
     'cd_bag' => 'CD Bag', 
     'data_check' => 'Data Check',
     'cds' => 'CD Total Price',
@@ -94,6 +94,7 @@ return [
     'confirm_msg' => 'Do You Want to delete the file?',
     'embossment_yes' => 'Embossment Cover Sheet: Yes',
     'embossment_no' => 'Embossment Cover Sheet: No',
+    'paper_wt' => 'Paper Weight',
 
 
     // validations

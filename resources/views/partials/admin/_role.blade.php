@@ -23,10 +23,7 @@
                                         <th>S No.</th>
                                         <th>Name</th>
                                         <th>Role</th>
-                                        @if (Session::get('RoleMiddleware') == true)
-                                            <th>Actions</th>
-                                        @elseif (Session::get('RoleMiddleware') == false)
-                                        @endif 
+                                        <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tfoot>
@@ -34,10 +31,7 @@
                                         <th>S No.</th>
                                         <th>Name</th>
                                         <th>Role</th>
-                                        @if (Session::get('RoleMiddleware') == true)
-                                            <th>Actions</th>
-                                        @elseif (Session::get('RoleMiddleware') == false)
-                                        @endif 
+                                        <th>Actions</th>
                                     </tr>
                                 </tfoot> 
                                 
@@ -72,13 +66,9 @@
                                                             @endif
                                                         </td>
                                                     @endif
-                                                    
-                                                @if (Session::get('RoleMiddleware') == true)
                                                     <td class="form-inline">
                                                         <input type="submit" value="save" class="btn btn-success">
                                                     </td>
-                                                @elseif (Session::get('RoleMiddleware') == false)
-                                                @endif 
                                                 </form>
                                             </tr>  
                                         @endforeach

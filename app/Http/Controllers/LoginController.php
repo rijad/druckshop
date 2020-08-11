@@ -11,8 +11,14 @@ class LoginController extends Controller
 
     public function authenticate(Request $request) {
 
+      try{
 
-       $verify = User::where(['email' => $request->email])->first()->verified;  //dd( ! $verify);
+       $verify = User::where(['email' => $request->email])->first()->verified;  
+       //dd( ! $verify);
+
+      }catch (Exception $e) {
+        return redirect()->back()->with('warning', 'You need to Verify your e-mail.');
+      }
 
 
        if( ! $verify){

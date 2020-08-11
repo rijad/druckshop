@@ -122,7 +122,7 @@
 									</div>
 
 									<div class="displayBlock" id="div-paper-weight">
-										<label>{{ trans('checkout.paper_weight') }}*:<a href="#" data-toggle="tooltip" title="
+										<label>{{ trans('checkout.paper_wt') }}*:<a href="#" data-toggle="tooltip" title="
 											for one-sided 100 g/m² paper &#013; for two-sided 120 g/m² paper" class="formToolTip">i</a></label>
 										<p><select class = "" name="paper-weight" id="paper-weight" onchange="displayPrice('0','','','','','',this.value,'','','','','','','','','',''); getPaperWeightCount(); BasicRange('binding','paper-weight','no-of-pages');"><option value="-1">{{ trans('checkout.select') }}</option></select></p> <p class="error" id="error_paper_weight"></p>
 									</div>  
@@ -262,7 +262,7 @@
 												</div> 
 
 												<div class="displayNone" id="div-template">
-													<label>{{ trans('checkout.template') }}*:<a href="#" data-toggle="tooltip" title="Data is taken from cover sheet" class="formToolTip">i</a></label>
+													<label>{{ trans('checkout.temp') }}*:<a href="#" data-toggle="tooltip" title="Data is taken from cover sheet" class="formToolTip">i</a></label>
 													<p><select name ="template" id="template" onchange="displayPopUp(this.value);"><option value="-1">{{ trans('checkout.select') }}</option>
 														@php $locale = session()->get('locale'); @endphp
 														@if ($locale == 'gr') 
@@ -619,7 +619,7 @@
 													</div><!-- /.modal -->
 	
 														<div class="displayNone" id="div-fonts-cd">
-														<label><p>{{ trans('checkout.font') }}</p>*:</label>
+														<label><p>{{ trans('checkout.fonts') }}</p>*:</label>
 														<p><select class = "" name="fonts-cd" id="fonts-cd"><option value = "-1">{{ trans('checkout.select') }}</option>
 															@foreach ($fonts as $key=>$listing)
 															<option value="{{$listing->font}}">
