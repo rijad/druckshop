@@ -1065,7 +1065,7 @@ public function calculateDeliveryCost($delivery = "", $copies = "", $cds = "", $
 				$delivery_cost_details = LettesOfSpine::where('delivery_service_id' ,'=', $shipping_company)
 			                               ->where('ds_from','<=',$quantity)
 			                               ->where('ds_to','>=',$quantity)
-			                               ->where('ds_del_status','=','1')->first();   
+			                               ->where('ds_del_status','=','0')->first();   
 
 			    $delivery_cost = $delivery_cost_details->ds_price;
 			    $shipping_company = $delivery_cost_details->delivery_service_id;
@@ -1280,6 +1280,9 @@ if (Auth::check() && Auth::user()->name != "Guest")
 					// set new user id for Guest in tables
 						self::setGuestUserid($user_id);
 					}
+
+
+
 
 					foreach($product_data as $key=>$product_detail){
 
@@ -2108,7 +2111,7 @@ public function paymentPaypalSuccess(Request $request){
 
 }
 
-public function checkGuest($email_id = ""){
+public function checkGuest($email_id = ""){  
 //if user email exists return user id
 	// if (User::where('email', $email_id)->exists()) {  
 
@@ -2120,8 +2123,8 @@ public function checkGuest($email_id = ""){
 	// 		//dd("in");
 	// 	}else{
 	// 		//dd("out");
-	// 	}
-	// 	return $user_id->id;
+	// 	
+	//}// 	return $user_id->id;
 
 	// }else{
 	// // if user does not exist, create new user and return new user id

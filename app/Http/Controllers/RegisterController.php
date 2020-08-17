@@ -10,7 +10,7 @@ use Auth;
 
 use Mail;
 
-
+  
 class RegisterController extends Controller
 {
 	public function validateRegister(Request $request){ 

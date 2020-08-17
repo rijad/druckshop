@@ -2362,8 +2362,8 @@ function splitOrder(rowId = "", prodSequence = "", count = ""){
  
 
 function RemoveSplitOrder(rowId = "", prodSequence ="" ,sequenceUI = ""){
-	//alert("-------INDEX-------" + index +"****SEQ********"+sequenceUI);
-	//alert("[id = 'cloneBioFields_"+sequenceUI+"_"+(parseInt(index))+"']");
+	//alert("-------rowId-------" + rowId +"****SEQ********"+sequenceUI);
+	//alert("[id = 'cloneBioFields_"+sequenceUI+"_"+(parseInt(rowId))+"']");
 
 	// remove from database 
 	$.ajax({

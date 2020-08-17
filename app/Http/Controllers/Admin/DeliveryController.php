@@ -98,7 +98,8 @@ class DeliveryController extends Controller
                             'ds_from' => $request['from'][$key],
                             'ds_to' => $request['to'][$key],
                             'ds_price' => $request['price'][$key],
-                            'ds_del_status' => $active_status,
+                            'ds_del_status' => 0,
+                           // 'ds_del_status' => $active_status,
                         ];
                         
                         $store_attributes = LettesOfSpine::create($attr_data);
@@ -158,7 +159,7 @@ class DeliveryController extends Controller
         }
         
         if($request->input('active') == "on"){
-
+ 
             $active_status = 1;
         }else{
 
@@ -205,7 +206,8 @@ class DeliveryController extends Controller
                                 'ds_from' => $request['from'][$key],
                                 'ds_to' => $request['to'][$key],
                                 'ds_price' => $request['price'][$key],
-                                'ds_del_status' => $active_status,
+                                'ds_del_status' => 0,
+                                //'ds_del_status' => $active_status,
                             ];
                             
                             $store_attributes = LettesOfSpine::create($attr_data);

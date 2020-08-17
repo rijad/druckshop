@@ -24,14 +24,14 @@
                                     </ul>
                                 </div> 
                                 <hr>
-                                @endforeach
+                                @endforeach   
                             </div>
                              <div class="text-right pr-4 pl-4">
                                 <p class="thisproduct_head">{{ trans('order_detail.total') }}: {{number_format($total,2)}} €</p>
 
-                                @foreach($delivery_cost as $prod_key => $prod_value)
+                                @foreach($delivery_cost as $prod_key => $prod_value) {{$prod_key}}
 
-                                 <p class="thisproduct_head">{{ trans('order_detail.delivery') }}: {{$data->product}}</p>
+                                 <p class="thisproduct_head">{{ trans('order_detail.delivery') }}: {{$product_data[$prod_key]->product}}</p>
 
                                    @foreach($prod_value as $prod_detail_key => $prod_detail_value)
 

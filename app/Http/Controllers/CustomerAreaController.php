@@ -7,6 +7,7 @@ use App\OrderDetailsFinal;
 use Illuminate\Support\Facades\Validator;
 use App\CustomerArea;
 use App\ UserAddress;
+use App\SplitOrderShippingAddress;
 use Auth;
 use \Exception;
 
@@ -20,7 +21,9 @@ class CustomerAreaController extends Controller
     $OrderHistory = OrderDetailsFinal::where(['user_id'=>Auth::user()->id])
                     ->with('orderProductHistory')->orderBy('created_at','DESC')->get();
 
-		return view('/pages/front-end/customer-area',compact('OrderHistory'));
+    $splitOrderDetails = SplitOrderShippingAddress::where(['user_id'=>Auth::user()->id, 'status'=>1])->get(); //dd(Auth::user()->id);
+
+		return view('/pages/front-end/customer-area',compact('OrderHistory','splitOrderDetails'));
 	}
 
 
@@ -92,7 +95,7 @@ class CustomerAreaController extends Controller
                 // $area->shipping_address = $input['shipping_address'];
                 // $area->billing_address = $input['billing_address'];
                 $area->status = 1;
-               // $area->image =  $input['image'];
+                // $area->image =  $input['image'];
                 $area->save();
  
               }catch(\Exception $e){

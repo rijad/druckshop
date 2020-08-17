@@ -46,7 +46,7 @@
                                                                 
                                                                        @foreach($split_orders as $plit_order_id => $split_details)
 
-                                                                                  <div class="rv-casualBioFields" id = {{"cloneBioFields_".$key}} name = {{"cloneBioFields_".$key."_".'0'}}>
+                                                                                  <div class="rv-casualBioFields" id = {{"cloneBioFields_".$key}} name = {{"cloneBioFields_".$split_details['prod_sequence']."_".$split_details['sequence']}}>
 
                                                                                     <div class="form-group">
                                                                                   <label for="text">{{ trans('cart.no_of_copies') }}*:</label>
@@ -98,11 +98,11 @@
 
                                                                                  @if($counter != 0)
               
-                                                                                 <button type="button"  id = {{'remove_split_order_'.$split_details['prod_sequence']}} onclick="RemoveSplitOrder({{$data->id}} , {{$key}});" class="remove_btn displayBlock" > X </button> 
+                                                                                 <button type="button"  id = {{'remove_split_order_'.$split_details['prod_sequence']}} onclick="RemoveSplitOrder({{$data->id}} , {{$key}}, {{$split_details['sequence']}});" class="remove_btn displayBlock" > X </button> 
 
                                                                                  @else
 
-                                                                                 <button type="button"  id = {{'remove_split_order_'.$split_details['prod_sequence']}} onclick="RemoveSplitOrder({{$data->id}} , {{$key}});" class="remove_btn displayNone" > X </button> 
+                                                                                 <button type="button"  id = {{'remove_split_order_'.$split_details['prod_sequence']}} onclick="RemoveSplitOrder({{$data->id}} , {{$key}}, {{$split_details['sequence']}});" class="remove_btn displayNone" > X </button> 
 
                                                                                  @endif
 
@@ -175,7 +175,7 @@
 
                                                                               
             
-                                                                                 <button type="button"  id = {{'remove_split_order_'.$key}} onclick="RemoveSplitOrder({{$data->id}} , {{$key}});" class="remove_btn displayNone" > X </button> 
+                                                                                 <button type="button"  id = {{'remove_split_order_'.$key}} onclick="RemoveSplitOrder({{$data->id}} , {{$key}}, 0);" class="remove_btn displayNone" > X </button> 
                                                                                
 
                                                                                   </div>  
@@ -258,7 +258,7 @@
 
                                                                     
 
-                                                                     <button type="button"  id = {{'remove_split_order_'.$key}} onclick="RemoveSplitOrder({{$data->id}} , {{$key}});" class="remove_btn displayNone" > X </button> 
+                                                                     <button type="button"  id = {{'remove_split_order_'.$key}} onclick="RemoveSplitOrder({{$data->id}} , {{$key}}, 0);" class="remove_btn displayNone" > X </button> 
 
                                                                   
 
