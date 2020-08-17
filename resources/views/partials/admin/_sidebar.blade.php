@@ -29,33 +29,37 @@
                 </a>
 
                 @if(Auth::guard('admin')->user()->role == 0 || Auth::guard('admin')->user()->role == 1)
-                <a class="nav-link" href="{{ route('roles') }}"> 
-                    <div class="sb-nav-link-icon">
-                        <i class="fa fa-sliders"></i>
-                    </div>Permissions
-                </a>
+                    <a class="nav-link" href="{{ route('roles') }}"> 
+                        <div class="sb-nav-link-icon">
+                            <i class="fa fa-sliders"></i>
+                        </div>Permissions
+                    </a>
                 @endif
 
-                <a class="nav-link" href="{{ route('user-roles') }}"> 
-                    <div class="sb-nav-link-icon">
-                        <i class="fa fa-sliders"></i>
-                    </div>Roles
-                </a> 
+                @if (Session::get('RoleMiddleware') == true)
+                    <a class="nav-link" href="{{ route('user-roles') }}"> 
+                        <div class="sb-nav-link-icon">
+                            <i class="fa fa-sliders"></i>
+                        </div>Roles
+                    </a> 
+                @elseif (Session::get('RoleMiddleware') == false)
+                    <a></a>
+                @endif 
 
                 @if(Auth::guard('admin')->user()->role == 0 || Auth::guard('admin')->user()->role == 1)
-                <a class="nav-link" href="{{ route('change-password', 2) }}">
-                    <div class="sb-nav-link-icon">
-                        <i class="fa fa-key"></i>
-                    </div>Change Employee Password
-                </a>
+                    <a class="nav-link" href="{{ route('change-password', 2) }}">
+                        <div class="sb-nav-link-icon">
+                            <i class="fa fa-key"></i>
+                        </div>Change Employee Password
+                    </a>
                 @endif
 
                 @if (Session::get('Sliders') == true)
-                <a class="nav-link" href="{{ route('slider.index') }}"> 
-                    <div class="sb-nav-link-icon">
-                        <i class="fa fa-sliders"></i>
-                    </div>Sliders
-                </a>
+                    <a class="nav-link" href="{{ route('slider.index') }}"> 
+                        <div class="sb-nav-link-icon">
+                            <i class="fa fa-sliders"></i>
+                        </div>Sliders
+                    </a>
                 @elseif (Session::get('Sliders') == false)
                     <a></a>
                 @endif 

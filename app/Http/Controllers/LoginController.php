@@ -12,6 +12,7 @@ class LoginController extends Controller
     public function authenticate(Request $request) {
       $verify = 0;
 
+
        try{
 
         $data = User::where(['email' => $request->email])->first();  

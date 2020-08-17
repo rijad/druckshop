@@ -36,7 +36,7 @@ return [
     'upload_din_A2_pages' => 'DIN A2-Seiten hochladen',
     'embossing' => 'Prägung',
     'refinement_cover_sheet' => 'Verfeinerungsdeckblatt',
-    'template' => 'Vorlage',
+    'temp' => 'Vorlage',
     'upload_logo' => 'Logo hochladen',
     'font_type' => 'Schriftart',
     'date_format' => 'Datumsformat',
@@ -51,7 +51,7 @@ return [
     'remarks' => 'Bemerkungen',
     'number_of_cds' => 'Anzahl der CDs',
     'cd_imprint' => 'CD-Aufdruck',
-    'font' => 'Schriftart',
+    'fonts' => 'Schriftart',
     'cd_bag' => 'CD-Tasche',
     'per_copy' => ' pro Kopie',
     'data_check' => 'Datenprüfung',
@@ -91,6 +91,7 @@ return [
     'choose_layout_logo' => 'Wählen Sie das Layout für die Standardabdeckung mit Logo.',
     'file_uploaded' => 'Datei hochgeladen',
     'confirm_msg' => 'Möchten Sie die Datei löschen?',
+    'paper_wt' => 'Papiergewicht',
 
     // validations
 

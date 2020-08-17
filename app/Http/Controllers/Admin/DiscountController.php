@@ -62,7 +62,7 @@ class DiscountController extends Controller
             'by_discount' => 'required',
             'type' => 'required',
             'discount' => 'required',
-            'needs_code' => 'nullable',
+            // 'needs_code' => 'nullable',
             'status' => 'nullable',
         ]);
         if ($validator->fails()) {
@@ -95,11 +95,11 @@ class DiscountController extends Controller
             $input['by_percent'] = $request->input('discount');
         }
 
-        if($request->input('needs_code') == "on"){
-            $input['needs_code'] = 1;
-        }else{
-            $input['needs_code'] = 0;
-        }
+        // if($request->input('needs_code') == "on"){
+        //     $input['needs_code'] = 1;
+        // }else{
+        //     $input['needs_code'] = 0;
+        // }
 
         if($request->input('status') == "on"){
             $input['status'] = 1;
@@ -166,7 +166,7 @@ class DiscountController extends Controller
             'by_discount' => 'required',
             'discount' => 'required',
             'type' => 'nullable',
-            'needs_code' => 'nullable',
+            // 'needs_code' => 'nullable',
             'status' => 'nullable',  
         ]);
         if ($validator->fails()) {
@@ -203,11 +203,11 @@ class DiscountController extends Controller
                 $input['by_percent'] = $request->input('discount');
             }
 
-            if($request->input('needs_code') == "on"){
-                $input['needs_code'] = 1;
-            }else{
-                $input['needs_code'] = 0;
-            }
+            // if($request->input('needs_code') == "on"){
+            //     $input['needs_code'] = 1;
+            // }else{
+            //     $input['needs_code'] = 0;
+            // }
 
             if($request->input('status') == "on"){
                 $input['status'] = 1;
@@ -231,7 +231,7 @@ class DiscountController extends Controller
             $discount->name_german = $input['name_german'];
             $discount->from_date = $input['from_date'];
             $discount->to_date = $input['to_date'];
-            $discount->needs_code = $input['needs_code'];
+            // $discount->needs_code = $input['needs_code'];
             $discount->status = $input['status'];
             $discount->type = $input['type'];
             $discount->product_id = $input['product_id'];

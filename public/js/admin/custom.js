@@ -56,40 +56,68 @@ $(document).ready(function () {
 
             $("#many-pro").show();
             $("#single-pro").hide();
+            $("#price").show();
         });
     //for delivery product
         $("#product_delivery").click(function() {
 
             $("#many-pro").hide();
             $("#single-pro").hide();
+            $("#price").hide();
         });
     });
 
 //Edit Discount
     //for single product
-        $(document).ready(function() {
-            $("#one_edit").click(function() {
+        // $(document).ready(function() {
+        //     $("#one_edit").click(function() {
 
-                $("#single").show();
-                $("#many").hide();
-        });
+        //         $("#single").show();
+        //         $("#many").hide();
+        // });
     //for multiple product
-        $("#multiple_edit").click(function() {
-
-            $("#many").show();
-            $("#single").hide();
-        });
+            $(document).ready(function() {
+                if ($("#multiple_edit").is(":checked")) {
+                   // alert('hey'); 
+                   $("#many").show();
+                    $("#percent").show();
+                } else {
+                    // alert('bye');
+                    $("#many").hide();
+                    $("#percent").hide();
+                }
     //for delivery product
+            
+                if ($("#product_delivery_edit").is(":checked")) {
+                    $("#many").hide();
+                    $("#percent").hide();
+                } else {
+                    $("#many").show();
+                    $("#percent").show();
+                }
+                
+            });
+
+        $("#multiple_edit").click(function() {
+                if ($(this).is(":checked")) {
+
+                   $("#many").show();
+                    $("#percent").show();
+
+                } else {
+
+                    $("#many").hide();
+                    $("#percent").hide();
+                }
+                
+            });
         $("#product_delivery_edit").click(function() {
-
-            $("#many").hide();
-            $("#single").hide();
-        });
-
-
-        // if($('#multiple_edit').is(':checked')){
-        //     $('#many').show();
-        // }else{
-        //     $('#many').hide();
-        // }
-});
+                if ($(this).is(":checked")) {
+                    $("#many").hide();
+                    $("#percent").hide();
+                } else {
+                    $("#many").show();
+                    $("#percent").show();
+                }
+                
+            });

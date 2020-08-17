@@ -42,17 +42,6 @@
                 <label class="small mb-1" for="to_date">To Date</label>
                 <input class="form-control" type="date" id="to_date" name="to_date" value="{{ $discount->to_date }}" >
             </div>
-            <div class="form-group">
-                <input type="radio" id="by_price" name="by_discount" value="by_price" <?php echo ($discount->by_price) ? 'checked' : ''; ?>>
-                <label for="by_price">By_Price</label><br>
-                <input type="radio" id="by_percent" name="by_discount" value="by_percent" <?php echo ($discount->by_percent) ? 'checked' : ''; ?>>
-                <label for="by_percent">By_Percent</label><br>
-            </div>
-            <div class="form-group">
-                <label class="small mb-1" for="discount">Discount</label>
-                <input class="form-control" type="number" step = "0.01" name="discount" value="<?php if($discount->by_price) { echo @$discount->by_price ; } else { echo @$discount->by_percent; } ?> " required>
-                <span class="text-danger">{{ $errors->first('discount') }}</span>
-            </div>
 
             <div class="form-group">
                     <label class="small mb-1" for="type">Type</label><br>
@@ -60,23 +49,31 @@
                     <input type="radio" id="product_delivery_edit" name="type" value="product_delivery" @if($discount->type == 0){{ 'checked' }} @endif>
                     <label class="small mb-1" for="product_delivery">Delivery Product</label><br>
 
-                   
-
                     <input type="radio" id="multiple_edit" name="type" value="multiple" @if($discount->type == 2){{ 'checked' }} @endif>
-                    <label class="small mb-1" for="multiple">Multiple Product</label><br>
+                    <label class="small mb-1" for="multiple">Multiple Bindings</label><br>
                         <div class="form-inline" id="many">
                             @foreach ($binding as $key => $product)
-                            <span class="ml-4"><input type="checkbox" class="form-control" name="product[]" value="{{ $product->id }}" />{{ $product->title_english }}</span>
+                            <span class="ml-4">
+                            <input type="checkbox" class="form-control" name="product[]" value="{{ $product->id }}" <?php echo (in_array($product->id, json_decode($discount->product_id, true))) ? 'checked' : ''; ?> />{{ $product->title_english }}</span>
                             @endforeach
                         </div>
                 </div>
 
-            <div class="form-group">
-                <div class="custom-control custom-checkbox small">
-                    <input class="custom-control-input" type="checkbox" id="needs_code" name="needs_code" <?php echo ($discount->needs_code) ? 'checked' : ''; ?> >
-                    <label class="custom-control-label" for="needs_code">Needs Code</label>
+            <div id="percent">
+
+                <div class="form-group">
+                    <input type="radio" id="by_price" name="by_discount" value="by_price" <?php echo ($discount->by_price) ? 'checked' : ''; ?>>
+                    <label for="by_price">By_Price</label><br>
+                    <input type="radio" id="by_percent" name="by_discount" value="by_percent" <?php echo ($discount->by_percent) ? 'checked' : ''; ?>>
+                    <label for="by_percent">By_Percent</label><br>
+                </div>
+                <div class="form-group">
+                    <label class="small mb-1" for="discount">Discount</label>
+                    <input class="form-control" type="number" step = "0.01" name="discount" value="<?php if($discount->by_price) { echo @$discount->by_price ; } else { echo @$discount->by_percent; } ?>" required>
+                    <span class="text-danger">{{ $errors->first('discount') }}</span>
                 </div>
             </div>
+
             <div class="form-group">
                 <div class="custom-control custom-checkbox small">
                     <input class="custom-control-input" <?php echo ($discount->status) ? 'checked' : ''; ?> type="checkbox" id="status" name="status">
