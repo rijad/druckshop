@@ -10,15 +10,25 @@ class LoginController extends Controller
 {
 
     public function authenticate(Request $request) {
+      $verify = 0;
 
-      try{
 
-       $verify = User::where(['email' => $request->email])->first()->verified;  
-       //dd( ! $verify);
+       try{
 
-      }catch (Exception $e) {
-        return redirect()->back()->with('warning', 'You need to Verify your e-mail.');
-      }
+        $data = User::where(['email' => $request->email])->first();  
+
+        if($data != null){
+          $verify = $data->verified;
+        }else{
+          return redirect()->back()->with('warning', 'You need to register your account.');
+        }
+        
+
+       }catch(Exception $e){
+
+        return redirect()->back()->with('warning', 'You need to register your account.');
+       }
+
 
 
        if( ! $verify){

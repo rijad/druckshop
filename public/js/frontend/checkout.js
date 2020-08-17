@@ -7,7 +7,7 @@ function displayFields(binding){
 		if (typeof $product_attributes['page_format'] !== 'undefined' && $product_attributes['page_format'].length > 0) {
 			var len = $product_attributes['page_format'].length;
 			$("#page-format").empty();
-			$("#page-format").append("<option value='-1'>"+lang_text.select+"</option>");
+			$("#page-format").append("<option value='-1'>Select</option>");
 			for( var i = 0; i<len; i++){
 				$("#page-format").append("<option value = "+$product_attributes['page_format'][i]['id']+">"+$product_attributes['page_format'][i]['page_format']+"</option>");
 			}
@@ -18,7 +18,7 @@ function displayFields(binding){
 		document.getElementById('div-cover-color').className = "displayBlock";
 		var len = $product_attributes['cover_color'].length;
 		$("#cover-color").empty();
-		$("#cover-color").append("<option value='-1'>"+lang_text.select+"</option>");
+		$("#cover-color").append("<option value='-1'>Select</option>");
 		for( var i = 0; i<len; i++){
 			$("#cover-color").append("<option value = "+$product_attributes['cover_color'][i]['id']+">"+$product_attributes['cover_color'][i]['color']+"</option>");
 		}
@@ -32,7 +32,7 @@ function displayFields(binding){
 		document.getElementById('div-cover-sheet').className = "displayBlock";
 		var len = $product_attributes['cover_sheet'].length;
 		$("#cover-sheet").empty();
-		$("#cover-sheet").append("<option value='-1'>"+lang_text.select+"</option>");
+		$("#cover-sheet").append("<option value='-1'>Select</option>");
 		for( var i = 0; i<len; i++){
 			$("#cover-sheet").append("<option value = "+$product_attributes['cover_sheet'][i]['id']+">"+$product_attributes['cover_sheet'][i]['sheet']+"</option>");
 		} 
@@ -48,7 +48,7 @@ function displayFields(binding){
 		document.getElementById('div-back-cover').className = "displayBlock";
 		var len = $product_attributes['back_cover'].length;
 		$("#back-cover").empty();
-		$("#back-cover").append("<option value='-1'>"+lang_text.select+"</option>");
+		$("#back-cover").append("<option value='-1'>Select</option>");
 		for( var i = 0; i<len; i++){
 			$("#back-cover").append("<option value = "+$product_attributes['back_cover'][i]['id']+">"+$product_attributes['back_cover'][i]['back_cover']+"</option>");
 		}
@@ -108,7 +108,7 @@ function displayFieldsContent(page_options = ""){
 		if (typeof $content_attributes['paper_weight'] !== 'undefined' && $content_attributes['paper_weight'].length > 0) {
 			// var len = $content_attributes['paper_weight'].length;
 			// $("#paper-weight").empty();
-			// $("#paper-weight").append("<option value='-1'>'+lang_text.select+'</option>");
+			// $("#paper-weight").append("<option value='-1'>Select</option>");
 			// for( var i = 0; i<len; i++){  
 			// 	$("#paper-weight").append("<option value = "+$content_attributes['paper_weight'][i]['id']+">"+$content_attributes['paper_weight'][i]['paper_weight']+" g/m²</option>");
 			// }
@@ -137,7 +137,7 @@ function displayFieldsContent(page_options = ""){
 			var len = $content_attributes['mirror'].length;
 			document.getElementById('div-mirror').className = "displayBlock";
 			$("#mirror").empty();
-			$("#mirror").append("<option value='-1'>"+lang_text.select+"</option>");
+			$("#mirror").append("<option value='-1'>Select</option>");
 			for( var i = 0; i<len; i++){  
 				$("#mirror").append("<option value = "+$content_attributes['mirror'][i]['id'] +">"+$content_attributes['mirror'][i]['mirror']+"</option>");
 			if($content_attributes['mirror'][i]['mirror'] == 'Long edge'){
@@ -174,10 +174,10 @@ function getPrintingdata(){
 
 				if(parseInt(paper_weight_count) <= parseInt(no_of_pages)){ 
 					$("#embossment-spine").removeAttr('disabled');
-					$('#spine-message').html(lang_text.spine);
+					$('#spine-message').html('Refinement spine can be activated since actual number of sheets is equals or greater than the required minimum number of sheets');
 				}else{ 
 					$("#embossment-spine").attr('disabled', true);
-					$('#spine-message').html(lang_text.spine_not);
+					$('#spine-message').html('Refinement spine cannot be activated since actual number of sheets is less than the required minimum number of sheets');
 				}
 
 			}else if(data == 2){ //page 3  
@@ -188,10 +188,10 @@ function getPrintingdata(){
 
 				if(parseInt(paper_weight_count) <= parseInt(no_of_pages)){ 
 					$("#embossment-spine").removeAttr('disabled');
-					$('#spine-message').html(lang_text.spine);
+					$('#spine-message').html('Refinement spine can be activated since actual number of sheets is equals or greater than the required minimum number of sheets');
 				}else{ 
 					$("#embossment-spine").attr('disabled', true);
-					$('#spine-message').html(lang_text.spine_not);
+					$('#spine-message').html('Refinement spine cannot be activated since actual number of sheets is less than the required minimum number of sheets');
 				}
 
 			}else if(data == 3){ 
@@ -204,7 +204,7 @@ function getPrintingdata(){
 
 				$("#embossment-cover-sheet").attr('disabled', true);
 				$("#embossment-spine").attr('disabled', true);
-				$('#spine-message').html(lang_text.spine_not);
+				$('#spine-message').html('Refinement spine cannot be activated since actual number of sheets is less than the required minimum number of sheets');
 			}
 
 
@@ -240,13 +240,13 @@ binding = document.getElementById('binding').value;
 
 				$("#embossment-cover-sheet").attr('disabled', true);
 				$("#embossment-spine").attr('disabled', true);
-				$('#spine-message').html(lang_text.spine_not);
+				$('#spine-message').html('Refinement spine cannot be activated since actual number of sheets is less than the required minimum number of sheets');
 	
 			}else{
 
 				$("#embossment-cover-sheet").attr('disabled', true);
 				$("#embossment-spine").attr('disabled', true);
-				$('#spine-message').html(lang_text.spine_not);
+				$('#spine-message').html('Refinement spine cannot be activated since actual number of sheets is less than the required minimum number of sheets');
 			}
 
 
@@ -673,10 +673,10 @@ function section2(){
 						}).toArray();
 
 			 $("#fields_2").empty();
-			 $("#fields_2").append("<option value='-1'>"+lang_text.select+"</option>");
+			 $("#fields_2").append("<option value='-1'>Select</option>");
 
 			 $("#pos_2").empty();
-			 $("#pos_2").append("<option value='-1'>"+lang_text.select+"</option>");
+			 $("#pos_2").append("<option value='-1'>Select</option>");
 
 			 for(var i=1; i< sec_2.length; i++){ 
 
@@ -722,10 +722,10 @@ function section3(){
 						}).toArray();
 
 			 $("#fields_3").empty();
-			 $("#fields_3").append("<option value='-1'>"+lang_text.select+"</option>");
+			 $("#fields_3").append("<option value='-1'>Select</option>");
 
 			 $("#pos_3").empty();
-			 $("#pos_3").append("<option value='-1'>"+lang_text.select+"</option>");
+			 $("#pos_3").append("<option value='-1'>Select</option>");
 
 			 for(var i=1; i< sec_3.length; i++){
 
@@ -792,11 +792,11 @@ function displayPopUp(template = ""){
 		 $('#modal-logo').modal('show');
 		 //if($('#embossing'.find(":selected").val() != "-1"){
 		 	if(embossing == "Edition"){
-		 		$("#modal-body").append("<p>"+lang_text.choose_layout+"</p><br><img id='Edition-mit-Logo-1' src='"+base_url+"/public/images/templates/Binding_template/Edition-mit-Logo-1.jpg' onclick = displayImage('"+base_url+"/public/images/templates/Binding_template/Edition-mit-Logo-1.jpg','Edition-mit-Logo-1.jpg',this);> <img id='Edition-mit-Logo-2' src='"+base_url+"/public/images/templates/Binding_template/Edition-mit-Logo-2.jpg' onclick = displayImage('"+base_url+"/public/images/templates/Binding_template/Edition-mit-Logo-2.jpg','Edition-mit-Logo-2.jpg',this);> <img id='Edition-mit-Logo-3' src='"+base_url+"/public/images/templates/Binding_template/Edition-mit-Logo-3.jpg' onclick = displayImage('"+base_url+"/public/images/templates/Binding_template/Edition-mit-Logo-3.jpg','Edition-mit-Logo-3.jpg',this);> ");
+		 		$("#modal-body").append("<p>Choose layout for standard cover without logo.</p><br><img id='Edition-mit-Logo-1' src='"+base_url+"/public/images/templates/Binding_template/Edition-mit-Logo-1.jpg' onclick = displayImage('"+base_url+"/public/images/templates/Binding_template/Edition-mit-Logo-1.jpg','Edition-mit-Logo-1.jpg',this);> <img id='Edition-mit-Logo-2' src='"+base_url+"/public/images/templates/Binding_template/Edition-mit-Logo-2.jpg' onclick = displayImage('"+base_url+"/public/images/templates/Binding_template/Edition-mit-Logo-2.jpg','Edition-mit-Logo-2.jpg',this);> <img id='Edition-mit-Logo-3' src='"+base_url+"/public/images/templates/Binding_template/Edition-mit-Logo-3.jpg' onclick = displayImage('"+base_url+"/public/images/templates/Binding_template/Edition-mit-Logo-3.jpg','Edition-mit-Logo-3.jpg',this);> ");
 			 }else if(embossing == "Classic"){
 			 	
 			 }else{
-			 	$("#modal-body").append("<p>"+lang_text.choose_layout+"</p><br><img id='Edition-mit-Logo-1' src='"+base_url+"/public/images/templates/Binding_template/Edition-mit-Logo-1.jpg' onclick = displayImage('"+base_url+"/public/images/templates/Binding_template/Edition-mit-Logo-1.jpg','Edition-mit-Logo-1.jpg',this);> <img id='Edition-mit-Logo-2' src='"+base_url+"/public/images/templates/Binding_template/Edition-mit-Logo-2.jpg' onclick = displayImage('"+base_url+"/public/images/templates/Binding_template/Edition-mit-Logo-2.jpg','Edition-mit-Logo-2.jpg',this);> <img id='Edition-mit-Logo-3' src='"+base_url+"/public/images/templates/Binding_template/Edition-mit-Logo-3.jpg' onclick = displayImage('"+base_url+"/public/images/templates/Binding_template/Edition-mit-Logo-3.jpg','Edition-mit-Logo-3.jpg',this);> ");
+			 	$("#modal-body").append("<p>Choose layout for standard cover without logo.</p><br><img id='Edition-mit-Logo-1' src='"+base_url+"/public/images/templates/Binding_template/Edition-mit-Logo-1.jpg' onclick = displayImage('"+base_url+"/public/images/templates/Binding_template/Edition-mit-Logo-1.jpg','Edition-mit-Logo-1.jpg',this);> <img id='Edition-mit-Logo-2' src='"+base_url+"/public/images/templates/Binding_template/Edition-mit-Logo-2.jpg' onclick = displayImage('"+base_url+"/public/images/templates/Binding_template/Edition-mit-Logo-2.jpg','Edition-mit-Logo-2.jpg',this);> <img id='Edition-mit-Logo-3' src='"+base_url+"/public/images/templates/Binding_template/Edition-mit-Logo-3.jpg' onclick = displayImage('"+base_url+"/public/images/templates/Binding_template/Edition-mit-Logo-3.jpg','Edition-mit-Logo-3.jpg',this);> ");
 			 }
 		// }
 		 
@@ -818,11 +818,11 @@ function displayPopUp(template = ""){
 		 $('#modal-logo').modal('show');
 		// if($('#embossing'.find(":selected").val() != "-1"){
 		 	if(embossing == "Edition"){
-		 		$("#modal-body").append("<p>"+lang_text.choose_layout+"</p><br><img id='Edition-ohne-Logo-1' src='"+base_url+"/public/images/templates/Binding_template/Edition-ohne-Logo-1.jpg' onclick = displayImage('"+base_url+"/public/images/templates/Binding_template/Edition-ohne-Logo-1.jpg','Edition-ohne-Logo-1.jpg',this);> <img id='Edition-ohne-Logo-2' src='"+base_url+"/public/images/templates/Binding_template/Edition-ohne-Logo-2.jpg' onclick = displayImage('"+base_url+"/public/images/templates/Binding_template/Edition-ohne-logo-2.jpg','Edition-ohne-Logo-2.jpg',this);> <img id='Edition-ohne-Logo-3' src='"+base_url+"/public/images/templates/Binding_template/Edition-ohne-Logo-3.jpg' onclick = displayImage('"+base_url+"/public/images/templates/Binding_template/Edition-ohne-Logo-3.jpg','Edition-ohne-Logo-3.jpg',this);> ");
+		 		$("#modal-body").append("<p>Choose layout for standard cover without logo.</p><br><img id='Edition-ohne-Logo-1' src='"+base_url+"/public/images/templates/Binding_template/Edition-ohne-Logo-1.jpg' onclick = displayImage('"+base_url+"/public/images/templates/Binding_template/Edition-ohne-Logo-1.jpg','Edition-ohne-Logo-1.jpg',this);> <img id='Edition-ohne-Logo-2' src='"+base_url+"/public/images/templates/Binding_template/Edition-ohne-Logo-2.jpg' onclick = displayImage('"+base_url+"/public/images/templates/Binding_template/Edition-ohne-logo-2.jpg','Edition-ohne-Logo-2.jpg',this);> <img id='Edition-ohne-Logo-3' src='"+base_url+"/public/images/templates/Binding_template/Edition-ohne-Logo-3.jpg' onclick = displayImage('"+base_url+"/public/images/templates/Binding_template/Edition-ohne-Logo-3.jpg','Edition-ohne-Logo-3.jpg',this);> ");
 			 }else if(embossing == "Classic"){
 			 	
 			 }else{
-			 	$("#modal-body").append("<p>"+lang_text.choose_layout+"</p><br><img id='Edition-ohne-Logo-1' src='"+base_url+"/public/images/templates/Binding_template/Edition-ohne-Logo-1.jpg' onclick = displayImage('"+base_url+"/public/images/templates/Binding_template/Edition-ohne-Logo-1.jpg','Edition-ohne-Logo-1.jpg',this);> <img id='Edition-ohne-Logo-2' src='"+base_url+"/public/images/templates/Binding_template/Edition-ohne-Logo-2.jpg' onclick = displayImage('"+base_url+"/public/images/templates/Binding_template/Edition-ohne-Logo-2.jpg','Edition-ohne-Logo-2.jpg',this);> <img id='Edition-ohne-Logo-3' src='"+base_url+"/public/images/templates/Binding_template/Edition-ohne-Logo-3.jpg' onclick = displayImage('"+base_url+"/public/images/templates/Binding_template/Edition-ohne-Logo-3.jpg','Edition-ohne-Logo-3.jpg',this);> ");
+			 	$("#modal-body").append("<p>Choose layout for standard cover without logo.</p><br><img id='Edition-ohne-Logo-1' src='"+base_url+"/public/images/templates/Binding_template/Edition-ohne-Logo-1.jpg' onclick = displayImage('"+base_url+"/public/images/templates/Binding_template/Edition-ohne-Logo-1.jpg','Edition-ohne-Logo-1.jpg',this);> <img id='Edition-ohne-Logo-2' src='"+base_url+"/public/images/templates/Binding_template/Edition-ohne-Logo-2.jpg' onclick = displayImage('"+base_url+"/public/images/templates/Binding_template/Edition-ohne-Logo-2.jpg','Edition-ohne-Logo-2.jpg',this);> <img id='Edition-ohne-Logo-3' src='"+base_url+"/public/images/templates/Binding_template/Edition-ohne-Logo-3.jpg' onclick = displayImage('"+base_url+"/public/images/templates/Binding_template/Edition-ohne-Logo-3.jpg','Edition-ohne-Logo-3.jpg',this);> ");
 			 }
 		// }
 		document.getElementById('download_stylesheet').className = "displayNone";
@@ -899,7 +899,7 @@ function displayPopUpCD(template = ""){
 
 		 $('#modal-cd').modal('show'); 
 		 $("#modal-body-cd").empty();
-		$("#modal-body-cd").append("<p>"+lang_text.choose_layout_logo+"</p><br><img id='CD-mit-Logo-1' src='"+base_url+"/public/images/templates/cd_template/CD-mit-Logo-1.jpg' onclick = javascript:displayImageCd('"+base_url+"/public/images/templates/cd_template/CD-mit-Logo-1.jpg','CD-mit-Logo-1',this);> <img id='CD-mit-Logo-2' src='"+base_url+"/public/images/templates/cd_template/CD-mit-Logo-2.jpg' onclick = displayImageCd('"+base_url+"/public/images/templates/cd_template/CD-mit-Logo-2.jpg','CD-mit-Logo-2',this);>");
+		$("#modal-body-cd").append("<p>Choose layout for standard cover with logo.</p><br><img id='CD-mit-Logo-1' src='"+base_url+"/public/images/templates/cd_template/CD-mit-Logo-1.jpg' onclick = javascript:displayImageCd('"+base_url+"/public/images/templates/cd_template/CD-mit-Logo-1.jpg','CD-mit-Logo-1',this);> <img id='CD-mit-Logo-2' src='"+base_url+"/public/images/templates/cd_template/CD-mit-Logo-2.jpg' onclick = displayImageCd('"+base_url+"/public/images/templates/cd_template/CD-mit-Logo-2.jpg','CD-mit-Logo-2',this);>");
 		
 		document.getElementById('div-fonts-cd').className = "displayBlock";
 		
@@ -914,7 +914,7 @@ function displayPopUpCD(template = ""){
 
 		$('#modal-cd').modal('show');
 		$("#modal-body-cd").empty();
-		$("#modal-body-cd").append("<p>"+lang_text.choose_layout+"</p><br><img id='CD-ohne-Logo-1' src='"+base_url+"/public/images/templates/cd_template/CD-ohne-Logo-1.jpg' onclick = javascript:displayImageCd('"+base_url+"/public/images/templates/cd_template/CD-ohne-Logo-1.jpg','CD-ohne-Logo-1',this);> <img id='CD-ohne-Logo-2' src='"+base_url+"/public/images/templates/cd_template/CD-ohne-Logo-2.jpg' onclick = displayImageCd('"+base_url+"/public/images/templates/cd_template/CD-ohne-Logo-2.jpg','CD-ohne-Logo-2',this);>");
+		$("#modal-body-cd").append("<p>Choose layout for standard cover without logo.</p><br><img id='CD-ohne-Logo-1' src='"+base_url+"/public/images/templates/cd_template/CD-ohne-Logo-1.jpg' onclick = javascript:displayImageCd('"+base_url+"/public/images/templates/cd_template/CD-ohne-Logo-1.jpg','CD-ohne-Logo-1',this);> <img id='CD-ohne-Logo-2' src='"+base_url+"/public/images/templates/cd_template/CD-ohne-Logo-2.jpg' onclick = displayImageCd('"+base_url+"/public/images/templates/cd_template/CD-ohne-Logo-2.jpg','CD-ohne-Logo-2',this);>");
 		
 		document.getElementById('div-fonts-cd').className = "displayBlock";
 
@@ -1239,26 +1239,26 @@ function displayProductAttributes(field_flag = "", values = ""){
 		if($("#prodkt-attrib li[value='Binding']").length > 0)
 		{
 			//alert($("#prodkt-attrib li[value='Binding']").text());
-			$("#prodkt-attrib li[value='Binding']").text(lang_text.binding_title+": "+value);
+			$("#prodkt-attrib li[value='Binding']").text("Binding: "+value);
 		}else{
-			el.innerHTML = lang_text.binding_title+": "+value;
+			el.innerHTML = "Binding: "+value;
 			el.setAttribute("value","Binding");
 		}
 
 	}else if(field_flag == "2"){
 		if($("#prodkt-attrib li[value='No of Copies']").length > 0)
 		{
-			$("#prodkt-attrib li[value='No of Copies']").text(lang_text.no_of_copies_title+": "+values.value);
+			$("#prodkt-attrib li[value='No of Copies']").text("No of Copies: "+values.value);
 		}else{	
-		el.innerHTML = lang_text.no_of_copies_title+": "+values.value;
+		el.innerHTML = "No of Copies: "+values.value;
 		el.setAttribute("value","No of Copies");
 		}
 	}else if(field_flag == "3"){
 		if($("#prodkt-attrib li[value='Page Format']").length > 0)
 		{
-			$("#prodkt-attrib li[value='Page Format']").text(lang_text.page_format_title+": "+value);
+			$("#prodkt-attrib li[value='Page Format']").text("Page Format: "+value);
 		}else{	
-		el.innerHTML = lang_text.page_format_title+": "+value;
+		el.innerHTML = "Page Format: "+value;
 		el.setAttribute("value","Page Format");
 		}
 	}
@@ -1298,14 +1298,14 @@ function displayProductAttributes(field_flag = "", values = ""){
 	// 			el.setAttribute("value","Cover Sheet");
 	// 		}
 
-	// 	} 
+	// 	}
 		
 	// }
 	// else if(field_flag == "6"){
 	// 	if($("#prodkt-attrib li[value='Back Sheet']").length > 0)
 	// 	{
 	// 		$("#prodkt-attrib li[value='Back Sheet']").text("Back Sheet: "+value);
-	// 	}else{	 
+	// 	}else{	
 	// 	el.innerHTML = "Back Sheet: "+value;
 	// 	el.setAttribute("value","Back Sheet");
 	// 	}
@@ -1314,17 +1314,17 @@ function displayProductAttributes(field_flag = "", values = ""){
 	else if(field_flag == "7"){
 		if($("#prodkt-attrib li[value='Side Options']").length > 0)
 		{
-			$("#prodkt-attrib li[value='Side Options']").text(lang_text.side_options+": "+value);
+			$("#prodkt-attrib li[value='Side Options']").text("Side Option: "+value);
 		}else{	
-		el.innerHTML = lang_text.side_options+": "+value;
+		el.innerHTML = "Side Option: "+value;
 		el.setAttribute("value","Side Options");
 		}
 	}else if(field_flag == "8"){
 		if($("#prodkt-attrib li[value='No of Pages']").length > 0)
 		{
-			$("#prodkt-attrib li[value='No of Pages']").text(lang_text.no_of_pages+": "+values.value);
+			$("#prodkt-attrib li[value='No of Pages']").text("No of Pages: "+values.value);
 		}else{	
-		el.innerHTML = lang_text.no_of_pages+": "+values.value;
+		el.innerHTML = "No of Pages: "+values.value;
 		el.setAttribute("value","No of Pages");
 		}
 	}else if(field_flag == "9"){
@@ -1332,9 +1332,9 @@ function displayProductAttributes(field_flag = "", values = ""){
 
 			if($("#prodkt-attrib li[value='Embossment Cover Sheet']").length > 0)
 			{
-				$("#prodkt-attrib li[value='Embossment Cover Sheet']").text(lang_text.embossment_yes);
+				$("#prodkt-attrib li[value='Embossment Cover Sheet']").text("Embossment Cover Sheet: Yes");
 			}else{	
-				el.innerHTML = lang_text.embossment_yes;
+				el.innerHTML = "Embossment Cover Sheet: Yes";
 				el.setAttribute("value","Embossment Cover Sheet");
 			}
 
@@ -1342,9 +1342,9 @@ function displayProductAttributes(field_flag = "", values = ""){
 
 			if($("#prodkt-attrib li[value='Embossment Cover Sheet']").length > 0)
 			{
-				$("#prodkt-attrib li[value='Embossment Cover Sheet']").text(lang_text.embossment_no);
+				$("#prodkt-attrib li[value='Embossment Cover Sheet']").text("Embossment Cover Sheet: No");
 			}else{	
-				el.innerHTML = lang_text.embossment_no;
+				el.innerHTML = "Embossment Cover Sheet: No";
 				el.setAttribute("value","Embossment Cover Sheet");
 			}
 
@@ -1355,7 +1355,7 @@ function displayProductAttributes(field_flag = "", values = ""){
 
 			if($("#prodkt-attrib li[value='Embossment Spine']").length > 0)
 			{
-				$("#prodkt-attrib li[value='Embossment Spine']").text(lang_text.embossment_yes);
+				$("#prodkt-attrib li[value='Embossment Spine']").text("Embossment Spine: Yes");
 			}else{	
 				el.innerHTML = "Embossment Spine: Yes";
 				el.setAttribute("value","Embossment Spine");
@@ -1365,9 +1365,9 @@ function displayProductAttributes(field_flag = "", values = ""){
 
 			if($("#prodkt-attrib li[value='Embossment Spine']").length > 0)
 			{
-				$("#prodkt-attrib li[value='Embossment Spine']").text(lang_text.embossment_no);
+				$("#prodkt-attrib li[value='Embossment Spine']").text("Embossment Spine: No");
 			}else{	
-				el.innerHTML = lang_text.embossment_no;
+				el.innerHTML = "Embossment Spine: No";
 				el.setAttribute("value","Embossment Spine");
 			}
 
@@ -1377,9 +1377,9 @@ function displayProductAttributes(field_flag = "", values = ""){
 	}else if(field_flag == "11"){
 		if($("#prodkt-attrib li[value='Number of CDs']").length > 0)
 		{
-			$("#prodkt-attrib li[value='Number of CDs']").text(lang_text.no_of_cd+": "+values.value);
+			$("#prodkt-attrib li[value='Number of CDs']").text("Number of CDs: "+values.value);
 		}else{	
-		el.innerHTML = lang_text.no_of_cd+": "+values.value;
+		el.innerHTML = "Number of CDs: "+values.value;
 		el.setAttribute("value","Number of CDs");
 		}
 	} 
@@ -1510,29 +1510,26 @@ function displayPrice(status = "", binding = "", no_ofsheets = "", page_options 
 	var currentTab = 0; // Current tab is set to be the first tab (0)
 	showTab(currentTab); // Display the current tab
 
-	function getValidatedFields(tab = ""){ 
+	function getValidatedFields(tab = ""){ //alert(tab);
 
-		// const lang_text = JSON.stringify(color); 
-		// const lang_text = color;
 		var valid = true;
-  
+
 		if(tab == "1"){ 
 
 			binding = document.getElementById('binding').value;
 
 			// binding field is not selectec
 			if(binding == "-1"){
-				$('#error_binding').html(lang_text.required);
+				$('#error_binding').html('Binding Field is required');
 				return false;
 			}else{
 				
-			if($("#no-of-copies").val() == ""){ $("#no-of-copies").addBack().addClass('invalid');
-
-			$('#error_no_of_copies').html(lang_text.no_of_copies); valid = false; return false; 
+			if($("#no-of-copies").val() == ""){ $("#no-of-copies").addBack().addClass('invalid'); 
+			$('#error_no_of_copies').html("No of copies Field is required"); valid = false; return false;
 			}else if(isNaN($("#no-of-copies").val())){
-				$("#no-of-copies").addBack().addClass('invalid'); $('#error_no_of_copies').html(lang_text.number); valid = false; return false;
+				$("#no-of-copies").addBack().addClass('invalid'); $('#error_no_of_copies').html('Field must be Number'); valid = false; return false;
 			}else if($("#no-of-copies").val() <= 0){
-				$("#no-of-copies").addBack().addClass('invalid'); $('#error_no_of_copies').html(lang_text.greater); valid = false; return false;
+				$("#no-of-copies").addBack().addClass('invalid'); $('#error_no_of_copies').html('Field must be greater than 0'); valid = false; return false;
 			}
 
 			// binding field is selected
@@ -1562,28 +1559,28 @@ function displayPrice(status = "", binding = "", no_ofsheets = "", page_options 
 
 
 			if ($("#page-format").hasClass('displayBlock')) {
-				if($("#page-format").find(":selected").val() == "-1"){ $("#page-format").addClass('invalid'); $('#error_page_format').html(lang_text.page_format); valid = false; return false;}
+				if($("#page-format").find(":selected").val() == "-1"){ $("#page-format").addClass('invalid'); $('#error_page_format').html('Page Format Field is required'); valid = false; return false;}
 			}
 
 			//Get data for cover color
 			if ($("#div-cover-color").hasClass('displayBlock')) {	
-				if($("#cover-color").find(":selected").val() == "-1"){$("#cover-color").addBack().addClass('invalid'); $('#error_cover_color').html(lang_text.cover_color); valid = false; return false;}	
+				if($("#cover-color").find(":selected").val() == "-1"){$("#cover-color").addBack().addClass('invalid'); $('#error_cover_color').html('Cover Color Field is required'); valid = false; return false;}	
 			}
 
 
 			//Get data for cover sheet
 			if ($("#div-cover-sheet").hasClass('displayBlock')) {	
-				if($("#cover-sheet").find(":selected").val() == "-1"){$("#cover-sheet").addBack().addClass('invalid'); $('#error_cover_sheet').html(lang_text.cover_color); valid = false; return false;}
+				if($("#cover-sheet").find(":selected").val() == "-1"){$("#cover-sheet").addBack().addClass('invalid'); $('#error_cover_sheet').html('Cover Color Field is required'); valid = false; return false;}
 				// input type file
 
-			 if($("#drop_file_zone_cover_sheet").hasClass('displayBlock') && $("#selectfile_coversheet").val() == ""){ $("#drop_file_zone_cover_sheet").addBack().addClass('invalid'); $('#error_selectfile_coversheet').html(lang_text.required); valid = false; return false;}
+			 if($("#drop_file_zone_cover_sheet").hasClass('displayBlock') && $("#selectfile_coversheet").val() == ""){ $("#drop_file_zone_cover_sheet").addBack().addClass('invalid'); $('#error_selectfile_coversheet').html('Field is required'); valid = false; return false;}
 			}
 
 
 			//Get data for back cover
 			if ($("#div-back-cover").hasClass('displayBlock')) {	
-				if($("#back-cover").find(":selected").val() == "-1"){$("#back-cover").addBack().addClass('invalid'); $('#error_back_cover').html(lang_text.back_cover); valid = false; return false;}
-				if($("#drop_file_zone_back_cover").hasClass('displayBlock') && $("#selectfile_backcover").val() == ""){ $("#drop_file_zone_back_cover").addBack().addClass('invalid'); $('#error_selectfile_backcover').html(lang_text.required); valid = false; return false;}
+				if($("#back-cover").find(":selected").val() == "-1"){$("#back-cover").addBack().addClass('invalid'); $('#error_back_cover').html('Back Cover Field is required'); valid = false; return false;}
+				if($("#drop_file_zone_back_cover").hasClass('displayBlock') && $("#selectfile_backcover").val() == ""){ $("#drop_file_zone_back_cover").addBack().addClass('invalid'); $('#error_selectfile_backcover').html('Field is required'); valid = false; return false;}
 			}
 
 
@@ -1594,28 +1591,28 @@ function displayPrice(status = "", binding = "", no_ofsheets = "", page_options 
 			page_options = document.getElementById('page_options').value; 
 
 				if(page_options == "-1"){
-					$("#page_options").addClass('invalid'); $('#error_page_options').html(lang_text.page_options); valid = false; return false;
+					$("#page_options").addClass('invalid'); $('#error_page_options').html('Page Options Field is required'); valid = false; return false;
 				}else{
 
 					$content_attributes = getContentAttributes(page_options);
 
-					if($("#no-of-pages").val() == ""){$("#no-of-pages").addBack().addClass('invalid'); $('#error_no_of_pages').html(lang_text.required); valid = false; return false;}
+					if($("#no-of-pages").val() == ""){$("#no-of-pages").addBack().addClass('invalid'); $('#error_no_of_pages').html('Field is required'); valid = false; return false;}
 					var range = NumberOfPages('binding','paper-weight','no-of-pages');
 					
 					if(! range){$("#no-of-pages").addBack().addClass('invalid'); valid = false; return false;} //else { valid=true; return true;}
 					// Get data for paper weight
 					if (typeof $content_attributes['paper_weight'] !== 'undefined' && $content_attributes['paper_weight'].length > 0) {	
-						if($("#paper-weight").find(":selected").val() == "-1"){$("#paper-weight").addClass('invalid'); $('#error_paper_weight').html(lang_text.paper_weight);  valid = false; return false;}
+						if($("#paper-weight").find(":selected").val() == "-1"){$("#paper-weight").addClass('invalid'); $('#error_paper_weight').html('Paper Weight Field is required');  valid = false; return false;}
 					}//else{valid = true; return true;}
 
 					if(page_options == "1"){// unilaterally  
 						
 
-						 if($("#selectfile_content").val() == ""){  $("#drop_file_zone_content").addBack().addClass('invalid'); $('#error_selectfile_content').html(lang_text.required); valid = false; return false;} //else{valid = true;return true;}
+						 if($("#selectfile_content").val() == ""){  $("#drop_file_zone_content").addBack().addClass('invalid'); $('#error_selectfile_content').html('This Field is required'); valid = false; return false;} //else{valid = true;return true;}
 
 						 if($("#color-pages").is(":checked")){ //alert("chk");
 						 	// color pages check box is checked
-						 	if($("#page-numbers").val() == ""){$("#page-numbers").addBack().addClass('invalid'); $('#error_page_numbers').html(lang_text.required); valid = false; return false;} 	
+						 	if($("#page-numbers").val() == ""){$("#page-numbers").addBack().addClass('invalid'); $('#error_page_numbers').html('This Field is required'); valid = false; return false;} 	
 						 	var range1 = checkPageRange('selectfile_content','content_page_no','page-numbers');
 						 	//alert(range1);
 						 	if(!range1){$("#page-numbers").addBack().addClass('invalid'); valid = false; return false;} //else{valid = true; return true;}
@@ -1625,31 +1622,31 @@ function displayPrice(status = "", binding = "", no_ofsheets = "", page_options 
 						 	// color pages check box is checked
 
 						 	var count = parseInt(document.getElementById('max-A3').innerHTML);  
-						 	if($("#numbers-of-pages").val() == ""){$("#numbers-of-pages").addBack().addClass('invalid'); $('#error_no_of_pages').html(lang_text.required); valid = false; return false;} 
-						 	if($("#numbers-of-pages").val() > count  || $("#numbers-of-pages").val() < 1){  $("#numbers-of-pages").addBack().addClass('invalid'); $('#error_number_of_pages').html(lang_text.range); valid = false; return false;} 
-						 	if($("#selectfile_din_A3").val() == ""){  $("#drop_file_din_A3").addBack().addClass('invalid'); $('#error_selectfile_din_A3').html(lang_text.required); valid = false; return false;}
+						 	if($("#numbers-of-pages").val() == ""){$("#numbers-of-pages").addBack().addClass('invalid'); $('#error_no_of_pages').html('This Field is required'); valid = false; return false;} 
+						 	if($("#numbers-of-pages").val() > count  || $("#numbers-of-pages").val() < 1){  $("#numbers-of-pages").addBack().addClass('invalid'); $('#error_number_of_pages').html('Pages out of range'); valid = false; return false;} 
+						 	if($("#selectfile_din_A3").val() == ""){  $("#drop_file_din_A3").addBack().addClass('invalid'); $('#error_selectfile_din_A3').html('This Field is required'); valid = false; return false;}
 
 						 }
 
 						 if($("#A2-pages").is(":checked")){
 						 	// color pages check box is checked
 						 	var count = parseInt(document.getElementById('max-A2').innerHTML); 	 
-						 	if($("#numbers-of-A2-pages").val() == ""){$("#numbers-of-A2-pages").addBack().addClass('invalid'); $('#error_number_of_A2_pages').html(lang_text.required); valid = false; return false;} 
-						 	if($("#numbers-of-A2-pages").val() > count || $("#numbers-of-A2-pages").val() < 1){$("#numbers-of-A2-pages").addBack().addClass('invalid'); $('#error_number_of_A2_pages').html(lang_text.range); valid = false; return false;} 
-						 	if($("#selectfile_din_A2").val() == ""){  $("#drop_file_din_A2").addBack().addClass('invalid'); $('#error_selectfile_din_A2').html(lang_text.required); valid = false; return false;}else{valid = true;return true;}		
+						 	if($("#numbers-of-A2-pages").val() == ""){$("#numbers-of-A2-pages").addBack().addClass('invalid'); $('#error_number_of_A2_pages').html('This Field is required'); valid = false; return false;} 
+						 	if($("#numbers-of-A2-pages").val() > count || $("#numbers-of-A2-pages").val() < 1){$("#numbers-of-A2-pages").addBack().addClass('invalid'); $('#error_number_of_A2_pages').html('Pages out of range'); valid = false; return false;} 
+						 	if($("#selectfile_din_A2").val() == ""){  $("#drop_file_din_A2").addBack().addClass('invalid'); $('#error_selectfile_din_A2').html('This Field is required'); valid = false; return false;}else{valid = true;return true;}		
 
 						 } 
 
 					}else if(page_options == "2"){// both sides  
 						//alert("2");
 
-						if($("#selectfile_content").val() == ""){  $("#drop_file_zone_content").addBack().addClass('invalid'); $('#error_selectfile_content').html(lang_text.required); valid = false; return false;}//else{valid = true;return true;}
+						if($("#selectfile_content").val() == ""){  $("#drop_file_zone_content").addBack().addClass('invalid'); $('#error_selectfile_content').html('This Field is required'); valid = false; return false;}//else{valid = true;return true;}
 
-						 if($("#mirror").find(":selected").val() == "-1"){$("#mirror").addClass('invalid'); $('#error_mirror').html(lang_text.mirror); valid = false; return false;}
+						 if($("#mirror").find(":selected").val() == "-1"){$("#mirror").addClass('invalid'); $('#error_mirror').html('Mirror Field is required'); valid = false; return false;}
 
 						 if($("#color-pages").is(":checked")){ //alert("chk");
 						 	// color pages check box is checked
-						 	if($("#page-numbers").val() == ""){$("#page-numbers").addBack().addClass('invalid'); $('#error_no_of_pages').html(lang_text.required); valid = false; return false;} 	
+						 	if($("#page-numbers").val() == ""){$("#page-numbers").addBack().addClass('invalid'); $('#error_no_of_pages').html('This Field is required');valid = false; return false;} 	
 						 	var range1 = checkPageRange('selectfile_content','content_page_no','page-numbers');
 						 	if(!range1){$("#page-numbers").addBack().addClass('invalid'); valid = false; return false;}//else{valid = true; return true;}
 						 }
@@ -1659,24 +1656,24 @@ function displayPrice(status = "", binding = "", no_ofsheets = "", page_options 
 						 	var max_pages_A3 = document.getElementById('max-A3').innerHTML;   
 				
 						 	// color pages check box is checked
-						 	if($("#numbers-of-A3-pages").val() == ""){$("#numbers-of-A3-pages").addBack().addClass('invalid'); $('#error_number_of_A3_pages').html(lang_text.required); valid = false; return false;} 
-						 	if($("#numbers-of-pages").val() > max_pages_A3 || $("#numbers-of-pages").val() < 1){$("#numbers-of-pages").addBack().addClass('invalid'); $('#error_number_of_pages').html(lang_text.range); valid = false; return false;} 
-						 	if($("#selectfile_din_A3").val() == ""){ $("#drop_file_din_A3").addBack().addClass('invalid'); $('#error_selectfile_din_A3').html(lang_text.required); valid = false; return false;}//else{valid = true;return true;}	
+						 	if($("#numbers-of-A3-pages").val() == ""){$("#numbers-of-A3-pages").addBack().addClass('invalid'); $('#error_number_of_A3_pages').html('This Field is required'); valid = false; return false;} 
+						 	if($("#numbers-of-pages").val() > max_pages_A3 || $("#numbers-of-pages").val() < 1){$("#numbers-of-pages").addBack().addClass('invalid'); $('#error_number_of_pages').html('Pages out of range'); valid = false; return false;} 
+						 	if($("#selectfile_din_A3").val() == ""){ $("#drop_file_din_A3").addBack().addClass('invalid'); $('#error_selectfile_din_A3').html('This Field is required'); valid = false; return false;}//else{valid = true;return true;}	
 
 						 }
  
 						 if($("#A2-pages").is(":checked")){   //alert("in");
 						 	var max_pages_A2 = document.getElementById('max-A2').innerHTML;
 						 	// color pages check box is checked
-						 	if($("#numbers-of-A2-pages").val() == ""){$("#numbers-of-A2-pages").addBack().addClass('invalid'); $('#error_number_of_A2_pages').html(lang_text.required); valid = false; return false;}
-						 	if($("#numbers-of-A2-pages").val() > max_pages_A2 || $("#numbers-of-A2-pages").val() < 1){  $("#numbers-of-A2-pages").addBack().addClass('invalid'); $('#error_number_of_A2_pages').html(lang_text.range); valid = false; return false;} 
-						 	if($("#selectfile_din_A2").val() == ""){  $("#drop_file_din_A2").addBack().addClass('invalid'); $('#error_selectfile_din_A2').html(lang_text.required); valid = false; return false;}//else{valid = true;return true;}		
+						 	if($("#numbers-of-A2-pages").val() == ""){$("#numbers-of-A2-pages").addBack().addClass('invalid'); $('#error_number_of_A2_pages').html('This Field is required'); valid = false; return false;}
+						 	if($("#numbers-of-A2-pages").val() > max_pages_A2 || $("#numbers-of-A2-pages").val() < 1){  $("#numbers-of-A2-pages").addBack().addClass('invalid'); $('#error_number_of_A2_pages').html('Pages out of range'); valid = false; return false;} 
+						 	if($("#selectfile_din_A2").val() == ""){  $("#drop_file_din_A2").addBack().addClass('invalid'); $('#error_selectfile_din_A2').html('This Field is required'); valid = false; return false;}//else{valid = true;return true;}		
 
 						 }
 
 						// Get data for mirror
 					if (typeof $content_attributes['mirror'] !== 'undefined' && $content_attributes['mirror'].length > 0) {		
-						if($("#mirror").find(":selected").val() == "-1"){$("#mirror").addClass('invalid'); $('#error_mirror').html(lang_text.mirror); valid = false; return false;}
+						if($("#mirror").find(":selected").val() == "-1"){$("#mirror").addClass('invalid'); $('#error_mirror').html('Mirror Field is required'); valid = false; return false;}
 					}else{valid = true; return true;}
 
 					}
@@ -1691,19 +1688,19 @@ function displayPrice(status = "", binding = "", no_ofsheets = "", page_options 
 
 				if($('#div-template').hasClass("displayBlock")){ /// verify template field only if its visible
 				    if($("#template").find(":selected").val() == "-1"){  
-				      $("#template").addClass('invalid'); $('#error_template').html('lang_text.template'); valid = false; return false;
+				      $("#template").addClass('invalid'); $('#error_template').html('Template Field is required'); valid = false; return false;
 					}else if($("#template").find(":selected").val() == "Eigene Vorlage"){
-					if($("#selectfile_file").val() == ""){ $("#upload_custom_file").addBack().addClass('invalid'); $('#error_selectfile_file').html(lang_text.required); valid = false; return false;}	
+					if($("#selectfile_file").val() == ""){ $("#upload_custom_file").addBack().addClass('invalid'); $('#error_selectfile_file').html('Field is required'); valid = false; return false;}	
 					}else{ 	
 				    //fonts
 					if($("#fonts").find(":selected").val() == "-1"){
 						$("#fonts").addClass('invalid'); 
-						$('#error_fonts').html(lang_text.font); 
+						$('#error_fonts').html('Fonts Field is required'); 
 						valid = false; return false;
 					}	
 				
 					//Date Format
-					if($("#date-format").find(":selected").val() == "-1"){$("#date-format").addClass('invalid'); $('#error_date_format').html(lang_text.date_format); valid = false; return false;}	
+					if($("#date-format").find(":selected").val() == "-1"){$("#date-format").addClass('invalid'); $('#error_date_format').html('Date Format Field is required'); valid = false; return false;}	
 					//valid = true; return true; 
 					// end of tab Print Finishing
 					// start of CD Bag
@@ -1719,7 +1716,7 @@ function displayPrice(status = "", binding = "", no_ofsheets = "", page_options 
 
 				// if($("#fields_1").find(":selected").val() == "-1" || $("#pos_1").find(":selected").val() == "-1" ){
 				// 	 $("#fields_1").addClass('invalid'); 
-				// 	 $("#pos_1").addClass('invalid'); $('#error-section-1').html(lang_text.all_fields); valid = false; return false;
+				// 	 $("#pos_1").addClass('invalid'); $('#error-section-1').html('Fill all Fields in this section 1'); valid = false; return false;
 				// }
 
 			}else{
@@ -1737,14 +1734,14 @@ function displayPrice(status = "", binding = "", no_ofsheets = "", page_options 
 
 				if($("#fonts-spine").find(":selected").val() == "-1"){   
 						$("#fonts-spine").addClass('invalid'); 
-						$('#error_fonts-spine').html(lang_text.font); 
+						$('#error_fonts-spine').html('Fonts Field is required'); 
 						valid = false; return false;
 				} 
 			}
 
 				if($('#direction').val() == "-1"){
 
-					$("#direction").addClass('invalid'); $('#error_direction').html(lang_text.direction); valid = false; return false;
+					$("#direction").addClass('invalid'); $('#error_direction').html('Direction Field is required'); valid = false; return false;
 
 				}
 
@@ -1764,7 +1761,7 @@ function displayPrice(status = "", binding = "", no_ofsheets = "", page_options 
 							 	 $("#fields_1").addClass('invalid'); 
 							 }
 
-							 $('#error-section-1').html(lang_text.all_fields); valid = false; return false;
+							 $('#error-section-1').html('Fill all Fields in this section 1'); valid = false; return false;
 							 
 						} 
 				}else{
@@ -1772,14 +1769,14 @@ function displayPrice(status = "", binding = "", no_ofsheets = "", page_options 
 					if($("#fields_1").find(":selected").val() == "-1"){
 
 						 $("#fields_1").addClass('invalid');
-						 $('#error-section-1').html(lang_text.all_fields); valid = false; return false;
+						 $('#error-section-1').html('Fill all Fields in this section 1'); valid = false; return false;
 
 					}
 
 					if($("#pos_1").find(":selected").val() == "-1"){
 
 						$("#pos_1").addClass('invalid');  
-						$('#error-section-1').html(lang_text.all_fields); valid = false; return false;
+						$('#error-section-1').html('Fill all Fields in this section 1'); valid = false; return false;
 						
 					}
 
@@ -1809,7 +1806,7 @@ function displayPrice(status = "", binding = "", no_ofsheets = "", page_options 
 							$("#input_1").addClass('invalid');
 							$("#input_2").addClass('invalid'); 
 							$("#input_3").addClass('invalid');
-							$('#error_sections').html(lang_text.letters_of_spine + allowed_letters);
+							$('#error_sections').html('Letters in Spine should not exceed '+ allowed_letters);
 							 valid = false; return false;
 						}
 						else{
@@ -1835,24 +1832,24 @@ function displayPrice(status = "", binding = "", no_ofsheets = "", page_options 
 			}else if(tab == "4"){
 
 				//data check
-				if($("#data_check").find(":selected").val() == "-1"){$("#data_check").addClass('invalid'); $('error_data_check').html(lang_text.required); valid = false; return false;}	
+				if($("#data_check").find(":selected").val() == "-1"){$("#data_check").addClass('invalid'); $('error_data_check').html('Field is required'); valid = false; return false;}	
 				
 				if($("#cd-check").is(":not(:checked)")){$("#cd-check").addBack().addClass('invalid'); valid = true; return true;}
 				else{ 
 					//no. of cd 
 					
-					if($("#numbers-of-cds").val() == ""){$("#numbers-of-cds").addBack().addClass('invalid'); $('#error_number_of_cds').html(lang_text.required); valid = false; return false; }
+					if($("#numbers-of-cds").val() == ""){$("#numbers-of-cds").addBack().addClass('invalid'); $('#error_number_of_cds').html('Field is required'); valid = false; return false; }
 					// upload
-					if($("#selectfile_cd").val() == ""){ $("#upload_cd").addBack().addClass('invalid'); $('#error_number_of_cds').html(lang_text.required); valid = false; return false;}
+					if($("#selectfile_cd").val() == ""){ $("#upload_cd").addBack().addClass('invalid'); $('#error_number_of_cds').html('Field is required'); valid = false; return false;}
 										
 					if($("#cd-bag").find(":selected").val() == "-1")
 					{
-					    $("#cd-bag").addClass('invalid'); $('#error_cd_bag').html(lang_text.required); valid = false; return false;
+					    $("#cd-bag").addClass('invalid'); $('#error_cd_bag').html('Field is required'); valid = false; return false;
 					}
 
 					if($("#div-fonts-cd").hasClass("displayBlock")){  
 
-						if($("#fonts-cd").find(":selected").val() == "-1"){$("#fonts-cd").addClass('invalid');  $('#error_fonts_cd').html(lang_text.required); valid = false; return false;}	
+						if($("#fonts-cd").find(":selected").val() == "-1"){$("#fonts-cd").addClass('invalid');  $('#error_fonts_cd').html('Field is required'); valid = false; return false;}	
 
 					}	
 					else{valid = true; return true;
@@ -2004,9 +2001,9 @@ function displayPrice(status = "", binding = "", no_ofsheets = "", page_options 
 	  	document.getElementById("prevBtn").style.display = "inline";
 	  }
 	  if (n == (x.length - 1)) {
-	  	document.getElementById("nextBtn").innerHTML = lang_text.submit; 
+	  	document.getElementById("nextBtn").innerHTML = "Submit"; 
 	  } else { 
-	  	document.getElementById("nextBtn").innerHTML = lang_text.next1;
+	  	document.getElementById("nextBtn").innerHTML = "Next";
 	  }
 	  // ... and run a function that displays the correct step indicator:
 	  fixStepIndicator(n)
@@ -2215,7 +2212,7 @@ function setQuantity(count = ""){
 		    var i = 0;
 			b.each(function(e) { 
 				if( no_of_cds_new[i] == 0){
-					$(this).html(lang_text.price_cd + " : "+ 0 + " €"); 
+					$(this).html("Unit Price per CD : "+ 0 + " €"); 
 				}
 				 i++;
 		         
@@ -2224,7 +2221,7 @@ function setQuantity(count = ""){
 			var a =  $('[id^=binding_price_per_product_]');
 		    var i = 0;
 			a.each(function(e) {
-		         $(this).html(lang_text.unit_price_binding + " : "+ new_total_unit_price[i] + " €"); 
+		         $(this).html("Unit Price per binding copy : "+ new_total_unit_price[i] + " €"); 
 		         i++;
 			});
 
@@ -2318,7 +2315,7 @@ function splitOrder(rowId = "", prodSequence = "", count = ""){
 	sequence = $("[id = 'sequence_"+prodSequence+"']").last().attr('name'); 
 	split_id = sequence.split('_');  
 	prodSequence = Number(split_id[1]);  
-	uiSequence = Number(split_id[2]);  alert(uiSequence); 
+	uiSequence = Number(split_id[2]);  //alert(uiSequence); 
 
 	var no_of_cds = $("[name = 'no_of_cds["+prodSequence+"_"+(parseInt(uiSequence))+"]' ]").last().val();  
 	var no_of_copies = $("[name = 'no_of_copies["+prodSequence+"_"+(parseInt(uiSequence))+"]' ]").last().val();
@@ -2336,7 +2333,7 @@ function splitOrder(rowId = "", prodSequence = "", count = ""){
 	$(newel).insertAfter("[name = 'cloneBioFields_"+prodSequence+"_"+(parseInt(uiSequence))+"']");	
 
 	$("[id = 'cloneBioFields_"+prodSequence+"'").last().attr('name',"cloneBioFields_"+prodSequence+"_"+(parseInt(uiSequence) + 1)+"").val(parseInt(uiSequence) +1 );    
-	
+	     
 	if(Number(no_of_cds) > 0){
 
 		$("[name = 'no_of_cds["+prodSequence+"_"+(parseInt(uiSequence) + 1)+"]']").last().attr("onchange","setQuantity("+ count +"); InsertSplitOrder("+rowId+","+(parseInt(uiSequence) + 1)+",this ,"+prodSequence+")").val(parseInt(0)).attr('readonly', false);
@@ -2350,7 +2347,7 @@ function splitOrder(rowId = "", prodSequence = "", count = ""){
 
 	if(Number(no_of_copies) > 0){
 
-		$("[name = 'no_of_copies["+prodSequence+"_"+(parseInt(uiSequence) + 1)+"]']").last().attr("onchange","setQuantity("+ count +"); InsertSplitOrder("+rowId+","+(parseInt(uiSequence) + 1)+",this ,"+prodSequence+")").val(parseInt(0)).attr('readonly', false);
+		$("[name = 'no_of_copies["+prodSequence+"_"+(parseInt(uiSequence) + 1)+"]']").last().attr("onchange","setQuantity("+ count +"); InsertSplitOrder("+rowId+","+(parseInt(uiSequence) + 1)+",this ,"+prodSequence+")").val(parseInt(1)).attr('readonly', false);
 
 	}else{
 
@@ -2492,7 +2489,7 @@ function checkPageRange(id1 = '', id2 = '' ,value_id = ''){
 			     	}
 		     }else{
 		     	    range = -1; 
-		     }
+		     }  
        		}
    }
 
@@ -2503,7 +2500,13 @@ function checkPageRange(id1 = '', id2 = '' ,value_id = ''){
 
 
     // set total no of pages in hidden field so that final price is calculated.
-    document.getElementById('colored_page_numbers').value = range;
+
+    if(range < 0){
+    	document.getElementById('colored_page_numbers').value = parseInt(0);
+    }else{
+    	 document.getElementById('colored_page_numbers').value = range;
+    }
+   
     $('#colored_page_numbers').trigger('onchange');
 
 
@@ -2791,7 +2794,7 @@ function getPaperWeightCount(){
 			data: {'binding': binding,'paper_weight': paper_weight, '_token': $('meta[name="csrf-token"]').attr('content')},
 			success: function (response){  var data = JSON.parse(response); 
 
-				$("#spine-count").html(lang_text.min_spine + " "+ data);
+				$("#spine-count").html("Minimum Number of sheets for spine is "+ data);
 				$("#spine-count-hidden").val(data);
 				min_sheets  = data;  
 				callback.call(min_sheets);
@@ -2941,9 +2944,11 @@ function addAddress(address_type = "", address = "", drop_down = ""){
 
 						          $('#billing_address_data').empty(); 
 
-						          $('#billing_address_data').append('<option value="-1">'+lang_text.select+'</option><option value="'+response+'" selected>'+response+'</option>');
+						          $('#billing_address_data').append('<option value="-1">Select</option><option value="'+response+'" selected>'+response+'</option>');
 
 						          $('#address_data').append('<option value="'+response+'" selected>'+response+'</option>');
+
+						          $('#address_data').trigger('onchange');
 
 						          $('#success-msg-billing').text("Address Added Successfully.");
 						    }      
@@ -3145,7 +3150,7 @@ function getCoverSetting(binding){
 						success: function (response_color){  var data = JSON.parse(response_color); 
 
 							$('#cover-color').empty();
-							$('#cover-color').append('<option value="-1">'+lang_text.select+'</option>');
+							$('#cover-color').append('<option value="-1">Select</option>');
 
 							data.forEach(function(data) {
 								$('#cover-color').append("<option value='"+data.id+"'>"+data.color+ "</option>");
@@ -3166,7 +3171,7 @@ function getCoverSetting(binding){
 						success: function (response_cover){  var data = JSON.parse(response_cover); 
 
 							$('#cover-sheet').empty();
-							$('#cover-sheet').append('<option value="-1">'+lang_text.select+'</option>');
+							$('#cover-sheet').append('<option value="-1">Select</option>');
 
 							data.forEach(function(data) {
 								$('#cover-sheet').append("<option value='"+data.id+"'>"+data.cover+ "</option>");
@@ -3184,7 +3189,7 @@ function getCoverSetting(binding){
 						success: function (response_cover){  var data = JSON.parse(response_cover); 
 
 							$('#back-cover').empty();
-							$('#back-cover').append('<option value="-1">'+lang_text.select+'</option>');
+							$('#back-cover').append('<option value="-1">Select</option>');
 
 							data.forEach(function(data) {
 								$('#back-cover').append("<option value='"+data.id+"'>"+data.cover+ "</option>");
@@ -3213,7 +3218,7 @@ function getPageFormatData(binding = ""){
 		success: function (response_color){  var data = JSON.parse(response_color); 
 
 			$('#page-format').empty();
-			$('#page-format').append('<option value="-1">'+lang_text.select+'</option>');
+			$('#page-format').append('<option value="-1">Select</option>');
 
 			data.forEach(function(data) {
 				$('#page-format').append("<option value='"+data.id+"'>"+data.cover+ "</option>");
@@ -3233,7 +3238,7 @@ function getPaperWeight(binding = ""){
 
 
 			$('#paper-weight').empty();
-			$('#paper-weight').append('<option value="-1">'+lang_text.select+'</option>');
+			$('#paper-weight').append('<option value="-1">Select</option>');
 
 
 			data.forEach(function(data) {
@@ -3267,7 +3272,7 @@ function getEmbossingFields(binding = ''){
 		success: function (response){  var data = JSON.parse(response); 
 
 			$('#embossing').empty();
-			$('#embossing').append('<option value="-1">'+lang_text.select+'</option>');
+			$('#embossing').append('<option value="-1">Select</option>');
 
 			data.forEach(function(data) { 
 				
