@@ -29,8 +29,7 @@
                             <td>{{ $sample->order_id }}</td>
                             <td><?= ($sample->status == 1)? 'Active' : 'InActive'?></td>
                             <td>
-                                <button onclick="window.location='{{route('freesample-details' , 
-                                        ['id'=>$sample->id ]) }}'" class="remove_btn"> Details </button>
+                                <button onclick="window.location='{{route('freesample-details' ,['id'=>$sample->id ]) }}'" class="remove_btn"> Details </button>
                             </td>
                         </tr>  
                         @endforeach

@@ -172,8 +172,13 @@ Route::group(['namespace'=>'Admin', 'prefix' => 'admin'], function()
     Route::resource('/newsletter','NewsletterController');
     Route::resource('/FAQ','FAQController');
     Route::resource('/product','ProductController');
-    Route::get('/payment','PaymentController@index')->name('payment');
     Route::get('/delivery','DeliveryController@index')->name('delivery');
+
+//Payment
+    Route::get('/payment','PaymentController@index')->name('payment');
+    Route::get('/payment-edit/{id}','PaymentController@edit')->name('payment-edit');
+
+    Route::get('/payment-update/{id}','PaymentController@update')->name('payment-update');
 
 //Users
     Route::get('/users','AdminUsersController@index')->name('users');

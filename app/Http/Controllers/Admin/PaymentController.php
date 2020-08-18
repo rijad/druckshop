@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 use App\Payment;
 use App\User;
 
@@ -76,7 +77,8 @@ class PaymentController extends Controller
      */
     public function edit($id)
     {
-        //
+        $payment = Payment::find($id);
+        return view('pages.admin.paymentedit', compact('payment'));
     }
 
     /**
@@ -88,7 +90,27 @@ class PaymentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'status' => 'nullable',   
+        ]);
+        if ($validator->fails()) {
+            return redirect()->back()
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+        
+
+        if ($validator->passes()){
+            
+            $input = $request->all();
+
+            // dd($status);
+            $payment = Payment::find($id);
+            $payment->status = $request->status;
+            $payment->save();
+            
+        }
+            return redirect()->back()->with('status' , 'Updated');
     }
 
     /**
