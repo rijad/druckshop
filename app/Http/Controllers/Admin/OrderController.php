@@ -124,9 +124,19 @@ class OrderController extends Controller
             $orderhistory = [];
         }
 
-       // dd($orderhistory);
-        return view('/pages/admin/orderdetails',compact('orderhistory', 'users', 'orderstate', 'order', 'splitOrder'));
+       try{
+            $orderNetAmount = OrderDetailsFinal::where(['order_id' => $request->order_id ])
+            ->first()->net_amt;
+        }catch (Exception $e) {
+            $orderhistory = [];
+        }
+
+
+
+       //dd($orderhistory);
+        return view('/pages/admin/orderdetails',compact('orderhistory', 'users', 'orderstate', 'order', 'splitOrder','orderNetAmount'));
     }
+
 
     /**
      * Update the specified resource in storage.

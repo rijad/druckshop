@@ -85,7 +85,7 @@
                             <td>{{ $order->no_of_copies }}</td>
                             <td>{{ $order->no_of_cds }}</td>
                             <td colspan = "3">{{ $order->billing_address }}</td>
-                            <td>{{ number_format($order->price_product_qty,2) }}</td>
+                            <td>{{ number_format($orderNetAmount,2) }}</td>
                         </tr>
                     </thead>
                     <tr>
@@ -180,7 +180,7 @@
                     <tr>
                     <td> {{ $key + 1 }} </td>
                     <td> {{$details->no_of_copies}} </td>
-                    <td> {{$details->no_of_cds}}  </td>
+                    <td> @if($details->no_of_cds > 0) {{$details->no_of_cds}} @else {{'0'}} @endif</td>
                     <td  colspan = "4"> {{$details->shipping_address}}  </td>
                     <td>{{getShippingCompanyById($details->shipping_company)}}</td>
                     </tr>
