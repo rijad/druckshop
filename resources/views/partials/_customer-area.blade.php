@@ -54,7 +54,7 @@
 </section>
 @endif
  <div class="mycart customer-area-rv">
-    <div class="container">
+    <div class="container"> 
         <div class="Product_qeue">
             <div class="w-100">
                 <div class="left_productdetail"> 
@@ -64,11 +64,22 @@
                       <p>{{ trans('customer.order') }} : {{$data->order_id}}    Order date: {{DATE('M j Y',strtotime($data->created_at))}} </p>
                     </div>
                     <div class="customer-info">
-                        <p>{{ trans('customer.no_of_copies') }}: {{$data->no_of_copies}}</p>   
+                      @foreach($splitOrderDetails as $splitKey => $splitValue) 
+                        @if($data->order_id == $splitValue->unique_id)
+                        <p>{{ trans('customer.no_of_copies') }}: {{$splitValue->no_of_copies}}</p>   
+                        <p>{{ trans('customer.no_of_cds') }}: {{$splitValue->no_of_cds}}</p> 
+                        <p>{{ trans('customer.ship_add') }}: {{$splitValue->shipping_address}}</p>
+                        <hr>
+                        @else
+                        {{-- <p>{{ trans('customer.no_of_copies') }}: {{$data->no_of_copies}}</p>   
                         <p>{{ trans('customer.no_of_cds') }}: {{$data->no_of_cds}}</p> 
                         <p>{{ trans('customer.ship_add') }}: {{$data->shipping_address}}</p>
                         <p>{{ trans('customer.bill_add') }}: {{$data->billing_address}}</p>
-                    </div>    
+                        <hr> --}}
+                        @endif
+                      @endforeach
+                       <p>{{ trans('customer.bill_add') }}: {{$data->billing_address}}</p>
+                    </div>     
                     <div class="product"> 
                     	
                     	 @foreach($data->orderProductHistory as $details)

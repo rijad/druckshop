@@ -354,7 +354,7 @@
                              @if($errors->has('billing_address'))
                             <div class="error">{{ $errors->first('billing_address') }}</div>
                             @endif
-                          </div> 
+                          </div>   
                           <div class="form-group">
 
                          {{--  <select class="form-control" name={{"billing_address"}} id="billing_address_data" > 
@@ -363,11 +363,16 @@
                           @foreach($billing_address_data as $keyss=>$billing_address)
                           @if($billing_address->default == 1)
 
-                           <input type="hidden" id="billing_address_data"  name={{"billing_address"}} value = "{{$billing_address->first_name." ".$billing_address->last_name.", ".$billing_address->company_name.", ".$billing_address->street.", ".$billing_address->house_no.", ".$billing_address->zip_code.", ".$billing_address->city.", ".$billing_address->state}}">
+                           <input type="hidden" id="billing_address_hidden"  name="billing_address" value = "{{$billing_address->first_name." ".$billing_address->last_name.", ".$billing_address->company_name.", ".$billing_address->street.", ".$billing_address->house_no.", ".$billing_address->zip_code.", ".$billing_address->city.", ".$billing_address->state}}">
                           {{-- <option value = "{{$billing_address->first_name." ".$billing_address->last_name.", ".$billing_address->company_name.", ".$billing_address->street.", ".$billing_address->house_no.", ".$billing_address->zip_code.", ".$billing_address->city.", ".$billing_address->state}}" @if($billing_address->default == 1) selected @endif>{{$billing_address->first_name." ".$billing_address->last_name.", ".$billing_address->company_name.", ".$billing_address->street.", ".$billing_address->house_no.", ".$billing_address->zip_code.", ".$billing_address->city.", ".$billing_address->state}}</option>  --}}
+                          
                           @endif
                           @endforeach
+                          @else
+                          <input type="hidden" id="billing_address_hidden"  name="billing_address" value="">
                           @endif
+
+                            
                          {{--  </select> --}}
                            @if($errors->has('billing_address'))
                                 <div class="error">{{ $errors->first('billing_address.'.$key) }}</div>

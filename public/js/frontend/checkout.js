@@ -2906,7 +2906,7 @@ function addAddress(address_type = "", address = "", drop_down = ""){
 			url: base_url+'/add-address', 
 			type: 'POST', 
 			data: {'_token': $('meta[name="csrf-token"]').attr('content'),'default':default_flag,'address_type':address_type, 'first_name':first_name, 'last_name':last_name, 'company_name':company_name, 'street':street, 'city':city, 'zip_code':zip_code, 'house_no':house_no, 'addition':addition, 'state':state},
-			success: function (response){  //console.log(response);
+			success: function (response){  
 
 				if(address_type == "shipping"){ 
 
@@ -2932,7 +2932,8 @@ function addAddress(address_type = "", address = "", drop_down = ""){
       				}	
 
 				}
-				if(address_type == "billing"){    
+				if(address_type == "billing"){   
+				$("input[id=billing_address_hidden]").val(response);  
 
 			          try{
 							 $('#rv-Modal-billing').modal('hide');$('body').removeClass('modal-open');$('.modal-backdrop').remove();
@@ -2940,9 +2941,13 @@ function addAddress(address_type = "", address = "", drop_down = ""){
 
 						}finally{
 							if(response != ''){ 
+
+								  //$('#billing_address_hidden').val(response);
+								 // $("input[id=billing_address_hidden]:hidden").val(response);
+
 						          $('#bill-address-one').text(response);
 
-						          $('#billing_address_data').empty(); 
+						          $('#billing_address_data').empty();    
 
 						          $('#billing_address_data').append('<option value="-1">Select</option><option value="'+response+'" selected>'+response+'</option>');
 
