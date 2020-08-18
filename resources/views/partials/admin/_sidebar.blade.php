@@ -8,19 +8,7 @@
                     <a  href="{{ route('dashboard') }}">Dashboard</a>
                 </div>
 
-                <a class="nav-link" href="{{ route('users') }}">
-                    <div class="sb-nav-link-icon">
-                        <i class="fa fa-users"></i>
-                    </div>Admin Users
-                </a>
-
-                @if(Auth::guard('admin')->user()->role == 0)
-                <a class="nav-link" href="{{ route('change-password', 1) }}">
-                    <div class="sb-nav-link-icon">
-                        <i class="fa fa-key"></i>
-                    </div>Change Admin Password 
-                </a>
-                @endif
+                
 
                 <a class="nav-link" href="{{ route('customer.index') }}"> 
                     <div class="sb-nav-link-icon">
@@ -28,41 +16,6 @@
                     </div>Customers
                 </a>
 
-                @if(Auth::guard('admin')->user()->role == 0 || Auth::guard('admin')->user()->role == 1)
-                    <a class="nav-link" href="{{ route('roles') }}"> 
-                        <div class="sb-nav-link-icon">
-                            <i class="fa fa-sliders"></i>
-                        </div>Permissions
-                    </a>
-                @endif
-
-                @if (Session::get('RoleMiddleware') == true)
-                    <a class="nav-link" href="{{ route('user-roles') }}"> 
-                        <div class="sb-nav-link-icon">
-                            <i class="fa fa-sliders"></i>
-                        </div>Roles
-                    </a> 
-                @elseif (Session::get('RoleMiddleware') == false)
-                    <a></a>
-                @endif 
-
-                @if(Auth::guard('admin')->user()->role == 0 || Auth::guard('admin')->user()->role == 1)
-                    <a class="nav-link" href="{{ route('change-password', 2) }}">
-                        <div class="sb-nav-link-icon">
-                            <i class="fa fa-key"></i>
-                        </div>Change Employee Password
-                    </a>
-                @endif
-
-                @if (Session::get('Sliders') == true)
-                    <a class="nav-link" href="{{ route('slider.index') }}"> 
-                        <div class="sb-nav-link-icon">
-                            <i class="fa fa-sliders"></i>
-                        </div>Sliders
-                    </a>
-                @elseif (Session::get('Sliders') == false)
-                    <a></a>
-                @endif 
 
                 <!-- <a class="nav-link" href="{{ route('gallery.index') }}">
                     <div class="sb-nav-link-icon">
@@ -80,6 +33,19 @@
                     <a></a>
                 @endif 
 
+                <a class="nav-link" href="{{ route('bindingsample.index') }}">
+                    <div class="sb-nav-link-icon">
+                        <i class="fas fa-tachometer-alt"></i>
+                    </div>Binding Sample Image
+                </a>
+
+                <a class="nav-link" href="{{ route('stylesheet.index') }}">
+                    <div class="sb-nav-link-icon">
+                        <i class="fas fa-tachometer-alt"></i>
+                    </div>Style Sheet
+                </a>
+
+
                 <a class="nav-link" href="{{ route('order') }}">
                     <div class="sb-nav-link-icon">
                         <i class="fa fa-shopping-cart"></i>
@@ -96,6 +62,27 @@
                     <a></a>
                 @endif 
 
+                <a class="nav-link" href="{{ route('payment') }}">
+                    <div class="sb-nav-link-icon">
+                        <i class="fa fa-credit-card-alt"></i>
+                    </div>Payment
+                </a>
+                <a class="nav-link" href="{{ route('freesample') }}">
+                    <div class="sb-nav-link-icon">
+                        <i class="fas fa-tachometer-alt"></i>
+                    </div>Free Samples
+                </a>
+
+                 @if (Session::get('Sliders') == true)
+                    <a class="nav-link" href="{{ route('slider.index') }}"> 
+                        <div class="sb-nav-link-icon">
+                            <i class="fa fa-sliders"></i>
+                        </div>Sliders
+                    </a>
+                @elseif (Session::get('Sliders') == false)
+                    <a></a>
+                @endif 
+
                 <a class="nav-link" href="{{ route('newsletter.index') }}"> 
                     <div class="sb-nav-link-icon">
                         <i class="fa fa-sliders"></i>
@@ -107,16 +94,7 @@
                         <i class="fa fa-question-circle"></i>
                     </div>FAQ
                 </a>
-                <a class="nav-link" href="{{ route('payment') }}">
-                    <div class="sb-nav-link-icon">
-                        <i class="fa fa-credit-card-alt"></i>
-                    </div>Payment
-                </a>
-                <a class="nav-link" href="{{ route('freesample') }}">
-                    <div class="sb-nav-link-icon">
-                        <i class="fas fa-tachometer-alt"></i>
-                    </div>Free Samples
-                </a>
+                
                 <a class="nav-link" href="{{ route('about-edit') }}">
                     <div class="sb-nav-link-icon">
                         <i class="fas fa-tachometer-alt"></i>
@@ -133,17 +111,48 @@
                     <a></a>
                 @endif 
 
-                <a class="nav-link" href="{{ route('bindingsample.index') }}">
+                <a class="nav-link" href="{{ route('users') }}">
                     <div class="sb-nav-link-icon">
-                        <i class="fas fa-tachometer-alt"></i>
-                    </div>Binding Sample Image
+                        <i class="fa fa-users"></i>
+                    </div>Admin Users
                 </a>
 
-                <a class="nav-link" href="{{ route('stylesheet.index') }}">
+                @if(Auth::guard('admin')->user()->role == 0)
+                <a class="nav-link" href="{{ route('change-password', 1) }}">
                     <div class="sb-nav-link-icon">
-                        <i class="fas fa-tachometer-alt"></i>
-                    </div>Style Sheet
+                        <i class="fa fa-key"></i>
+                    </div>Change Admin Password 
                 </a>
+                @endif
+
+                @if(Auth::guard('admin')->user()->role == 0 || Auth::guard('admin')->user()->role == 1)
+                    <a class="nav-link" href="{{ route('roles') }}"> 
+                        <div class="sb-nav-link-icon">
+                            <i class="fa fa-sliders"></i>
+                        </div>Permissions
+                    </a>
+                @endif
+
+
+                @if (Session::get('RoleMiddleware') == true)
+                    <a class="nav-link" href="{{ route('user-roles') }}"> 
+                        <div class="sb-nav-link-icon">
+                            <i class="fa fa-sliders"></i>
+                        </div>Roles
+                    </a> 
+                @elseif (Session::get('RoleMiddleware') == false)
+                    <a></a>
+                @endif
+
+                @if(Auth::guard('admin')->user()->role == 0 || Auth::guard('admin')->user()->role == 1)
+                    <a class="nav-link" href="{{ route('change-password', 2) }}">
+                        <div class="sb-nav-link-icon">
+                            <i class="fa fa-key"></i>
+                        </div>Change Employee Password
+                    </a>
+                @endif
+
+                
 
             </nav>
         </div>
