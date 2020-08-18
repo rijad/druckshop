@@ -978,7 +978,7 @@ $total = filter_var(floatval($total), FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_
 public function cart(){  
 	$split_record_unique_id =[];
 
-	$split_record_unique_id =[];
+	
 
 	if (Auth::check()) 
 		{
@@ -1065,7 +1065,7 @@ public function calculateDeliveryCost($delivery = "", $copies = "", $cds = "", $
 				$delivery_cost_details = LettesOfSpine::where('delivery_service_id' ,'=', $shipping_company)
 			                               ->where('ds_from','<=',$quantity)
 			                               ->where('ds_to','>=',$quantity)
-			                               ->where('ds_del_status','=','1')->first();   
+			                               ->where('ds_del_status','=','0')->first();   
 
 			    $delivery_cost = $delivery_cost_details->ds_price;
 			    $shipping_company = $delivery_cost_details->delivery_service_id;
@@ -1271,11 +1271,11 @@ if (Auth::check() && Auth::user()->name != "Guest")
 }
   
 
-	if ($validator->passes()){  //dd("pass");
+	if ($validator->passes()){ 
 
 				// Check if Guest already exists (using email id)
 				// get already existing or new user_id
-					if($user_id == Session::get('user_id')){
+					if($user_id == Session::get('user_id')){ 
 						$user_id = self::checkGuest($request->input('email_id'));
 					// set new user id for Guest in tables
 						self::setGuestUserid($user_id);
@@ -1352,7 +1352,7 @@ if (Auth::check() && Auth::user()->name != "Guest")
 
 				$OrderDetailsvalue = new OrderDetails;
 				$OrderDetailsvalue->user_id = $user_id;
-				$OrderDetailsvalue->order_id= $order_id;
+				$OrderDetailsvalue->order_id= Session::get('order_id');
 				$OrderDetailsvalue->promo_code= $request->input('code'); 
 				$OrderDetailsvalue->email_id= $request->input('email_id');
 				$OrderDetailsvalue->total= $total;
@@ -1368,7 +1368,7 @@ if (Auth::check() && Auth::user()->name != "Guest")
 				foreach ($split_order_record as $key => $value) {
 
 					$UpdateSplitOrder = $value;
-					$UpdateSplitOrder->unique_id = $order_id;
+					$UpdateSplitOrder->unique_id = Session::get('order_id');
 					$UpdateSplitOrder->status = 1;
 					$UpdateSplitOrder->save();
 
@@ -2108,7 +2108,7 @@ public function paymentPaypalSuccess(Request $request){
 
 }
 
-public function checkGuest($email_id = ""){
+public function checkGuest($email_id = ""){  
 //if user email exists return user id
 	// if (User::where('email', $email_id)->exists()) {  
 
@@ -2120,8 +2120,8 @@ public function checkGuest($email_id = ""){
 	// 		//dd("in");
 	// 	}else{
 	// 		//dd("out");
-	// 	}
-	// 	return $user_id->id;
+	// 	
+	//}// 	return $user_id->id;
 
 	// }else{
 	// // if user does not exist, create new user and return new user id
@@ -2138,6 +2138,8 @@ public function checkGuest($email_id = ""){
 
 	//if user does not exist, create new user and return new user id
 
+	if($email_id != null){
+
 		$GuestUser = new User;
 		$GuestUser->name = "Guest";
 		$GuestUser->email= $email_id;
@@ -2146,6 +2148,12 @@ public function checkGuest($email_id = ""){
 		Auth::loginUsingId($GuestUser->id,true);
 
 		return $GuestUser->id;
+
+	}else{
+		return Session::get('user_id');
+	}
+
+		
 } 
  
 public function setGuestUserid($user_id = ""){  //dd(Session::get('user_id'));
@@ -2401,11 +2409,13 @@ public static function CartCount(){
 	if(Auth::check()) 
 		{
 			$user_id = Auth::user()->id; 
-			$cart = count(OrderAttributes::where(['status'=>'1','user_id'=>$user_id])->get());
-			return $cart;
+			
 		}else{
-			return 0;
+			$user_id = session::get('user_id'); 
 		}
+
+		$cart = count(OrderAttributes::where(['status'=>'1','user_id'=>$user_id])->get());
+		return $cart;
 	} 
 
 

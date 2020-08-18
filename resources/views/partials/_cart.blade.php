@@ -46,7 +46,7 @@
                                                                 
                                                                        @foreach($split_orders as $plit_order_id => $split_details)
 
-                                                                                  <div class="rv-casualBioFields" id = {{"cloneBioFields_".$key}} name = {{"cloneBioFields_".$key."_".'0'}}>
+                                                                                  <div class="rv-casualBioFields" id = {{"cloneBioFields_".$key}} name = {{"cloneBioFields_".$split_details['prod_sequence']."_".$split_details['sequence']}}>
 
                                                                                     <div class="form-group">
                                                                                   <label for="text">{{ trans('cart.no_of_copies') }}*:</label>
@@ -98,11 +98,11 @@
 
                                                                                  @if($counter != 0)
               
-                                                                                 <button type="button"  id = {{'remove_split_order_'.$split_details['prod_sequence']}} onclick="RemoveSplitOrder({{$data->id}} , {{$key}});" class="remove_btn displayBlock" > X </button> 
+                                                                                 <button type="button"  id = {{'remove_split_order_'.$split_details['prod_sequence']}} onclick="RemoveSplitOrder({{$data->id}} , {{$key}}, {{$split_details['sequence']}});" class="remove_btn displayBlock" > X </button> 
 
                                                                                  @else
 
-                                                                                 <button type="button"  id = {{'remove_split_order_'.$split_details['prod_sequence']}} onclick="RemoveSplitOrder({{$data->id}} , {{$key}});" class="remove_btn displayNone" > X </button> 
+                                                                                 <button type="button"  id = {{'remove_split_order_'.$split_details['prod_sequence']}} onclick="RemoveSplitOrder({{$data->id}} , {{$key}}, {{$split_details['sequence']}});" class="remove_btn displayNone" > X </button> 
 
                                                                                  @endif
 
@@ -175,7 +175,7 @@
 
                                                                               
             
-                                                                                 <button type="button"  id = {{'remove_split_order_'.$key}} onclick="RemoveSplitOrder({{$data->id}} , {{$key}});" class="remove_btn displayNone" > X </button> 
+                                                                                 <button type="button"  id = {{'remove_split_order_'.$key}} onclick="RemoveSplitOrder({{$data->id}} , {{$key}}, 0);" class="remove_btn displayNone" > X </button> 
                                                                                
 
                                                                                   </div>  
@@ -258,7 +258,7 @@
 
                                                                     
 
-                                                                     <button type="button"  id = {{'remove_split_order_'.$key}} onclick="RemoveSplitOrder({{$data->id}} , {{$key}});" class="remove_btn displayNone" > X </button> 
+                                                                     <button type="button"  id = {{'remove_split_order_'.$key}} onclick="RemoveSplitOrder({{$data->id}} , {{$key}}, 0);" class="remove_btn displayNone" > X </button> 
 
                                                                   
 
@@ -354,7 +354,7 @@
                              @if($errors->has('billing_address'))
                             <div class="error">{{ $errors->first('billing_address') }}</div>
                             @endif
-                          </div> 
+                          </div>   
                           <div class="form-group">
 
                          {{--  <select class="form-control" name={{"billing_address"}} id="billing_address_data" > 
@@ -363,11 +363,16 @@
                           @foreach($billing_address_data as $keyss=>$billing_address)
                           @if($billing_address->default == 1)
 
-                           <input type="hidden" id="billing_address_data"  name={{"billing_address"}} value = "{{$billing_address->first_name." ".$billing_address->last_name.", ".$billing_address->company_name.", ".$billing_address->street.", ".$billing_address->house_no.", ".$billing_address->zip_code.", ".$billing_address->city.", ".$billing_address->state}}">
+                           <input type="hidden" id="billing_address_hidden"  name="billing_address" value = "{{$billing_address->first_name." ".$billing_address->last_name.", ".$billing_address->company_name.", ".$billing_address->street.", ".$billing_address->house_no.", ".$billing_address->zip_code.", ".$billing_address->city.", ".$billing_address->state}}">
                           {{-- <option value = "{{$billing_address->first_name." ".$billing_address->last_name.", ".$billing_address->company_name.", ".$billing_address->street.", ".$billing_address->house_no.", ".$billing_address->zip_code.", ".$billing_address->city.", ".$billing_address->state}}" @if($billing_address->default == 1) selected @endif>{{$billing_address->first_name." ".$billing_address->last_name.", ".$billing_address->company_name.", ".$billing_address->street.", ".$billing_address->house_no.", ".$billing_address->zip_code.", ".$billing_address->city.", ".$billing_address->state}}</option>  --}}
+                          
                           @endif
                           @endforeach
+                          @else
+                          <input type="hidden" id="billing_address_hidden"  name="billing_address" value="">
                           @endif
+
+                            
                          {{--  </select> --}}
                            @if($errors->has('billing_address'))
                                 <div class="error">{{ $errors->first('billing_address.'.$key) }}</div>

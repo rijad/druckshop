@@ -24,7 +24,7 @@ class SplitOrderShippingAddress extends Model
      * @var array
      */
 
-    protected $fillable = ['unique_id','no_of_copies','no_of_cds','shipping_address','shipping_company', 'created_at', 'updated_at','deleted_at'];
+    protected $fillable = ['unique_id','user_id','prod_sequence','sequence','no_of_copies','no_of_cds','shipping_address','shipping_company', 'created_at', 'updated_at','deleted_at','status'];
 
 }
  
