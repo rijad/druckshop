@@ -12,6 +12,7 @@
                                         <th>Amount</th>
                                         <th>Order_id</th>
                                         <th>Payment Date</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tfoot>
@@ -23,6 +24,7 @@
                                         <th>Amount</th>
                                         <th>Order_id</th>
                                         <th>Payment Date</th>
+                                        <th>Action</th>
                                     </tr>
                                 </tfoot>
                                 <tbody>
@@ -36,6 +38,12 @@
                                                 <td>{{number_format($pay->amount,2)}}</td>
                                                 <td>{{ $pay->order_id }}</td>
                                                 <td>{{ changeTimeZone($pay->created_at) }}</td>
+                                                <td class="form-inline">
+                                                    <form method="GET" action="{{ route('payment-edit' , $pay->id) }}">
+                                                
+                                                    <input type="submit" value="edit" class="btn btn-success">
+                                                    </form>
+                                                </td>
                                             </tr> 
                                         @endforeach
                                     @endif
