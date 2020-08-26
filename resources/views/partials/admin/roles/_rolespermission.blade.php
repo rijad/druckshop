@@ -25,7 +25,7 @@
                                         <th>Role</th>
                                         @foreach($rows as $row)
                                             <th>{{ ($row->permission_name  == 'Send link for new file')? 'Send mail to upload file':$row->permission_name }}
-                                                </th>
+                                            </th>
                                         @endforeach
                                         <th>Actions</th>
                                     </tr>
@@ -36,7 +36,8 @@
                                         <th>Name</th>
                                         <th>Role</th>
                                         @foreach($rows as $row)
-                                            <th>{{ $row->permission_name}}</th>
+                                            <th>{{ ($row->permission_name  == 'Send link for new file')? 'Send mail to upload file':$row->permission_name }}
+                                            </th>
                                         @endforeach
                                         <th>Actions</th>
                                     </tr>

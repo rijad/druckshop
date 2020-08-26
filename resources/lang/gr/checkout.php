@@ -39,7 +39,7 @@ return [
     'temp' => 'Vorlage',
     'upload_logo' => 'Logo hochladen',
     'font_type' => 'Schriftart',
-    'date_format' => 'Datumsformat',
+    'date_for' => 'Datumsformat',
     'refinement_spine' => 'Verfeinerung Wirbelsäule',
     'direction' => 'Richtung',
     'section' => 'Sektion',

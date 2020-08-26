@@ -19,22 +19,23 @@
                 @csrf
                 <div class="form-group">
                     <label class="small mb-1" for="code">Name</label>
-                    <input class="form-control" type="text" name="code" value="{{ old('code') }}" required>
+                    <input class="form-control" type="text" name="code" value="{{ old('code') }}" >
                     <span class="text-danger">{{ $errors->first('code') }}</span>
                 </div>
                 <div class="form-group">
                     <label class="small mb-1" for="name_english">Name in English</label>
-                    <input class="form-control" type="text" name="name_english" value="{{ old('name_english') }}" required>
+                    <input class="form-control" type="text" name="name_english" value="{{ old('name_english') }}" >
                     <span class="text-danger">{{ $errors->first('name_english') }}</span>
                 </div>
                 <div class="form-group">
                     <label class="small mb-1" for="name_german">Name in German</label>
-                    <input class="form-control" type="text" name="name_german" value="{{ old('name_german') }}" required>
+                    <input class="form-control" type="text" name="name_german" value="{{ old('name_german') }}" >
                     <span class="text-danger">{{ $errors->first('name_german') }}</span>
                 </div>
                 <div class="form-group">
                     <label class="small mb-1" for="from_date">From Date</label>
-                    <input type="date" id="from_date" name="from_date" value="{{ old('from_date') }}" required onfocusout="getDate()">
+                    <input type="date" id="from_date" name="from_date" value="{{ old('from_date') }}" onfocusout="getDate()">
+                    <span class="text-danger">{{ $errors->first('from_date') }}</span>
                 </div>
                 <div class="form-group">
                     <label class="small mb-1" for="to_date">To Date</label>
@@ -54,6 +55,7 @@
                             <span class="ml-4"><input type="checkbox" class="form-control" name="product[]" value="{{ $product->id }}" />{{ $product->title_english }}</span>
                             @endforeach
                         </div>
+                    <span class="text-danger">{{ $errors->first('type') }}</span>
                 </div>
 
                 <div id="price">
@@ -66,7 +68,7 @@
 
                     <div class="form-group">
                         <label class="small mb-1" for="discount">Discount</label>
-                        <input class="form-control" type="number" step = "0.01" name="discount" value="{{ old('discount') }}" required>
+                        <input class="form-control" type="number" step = "0.01" name="discount" value="{{ old('discount') }}">
                         <span class="text-danger">{{ $errors->first('discount') }}</span>
                     </div>
                 </div>
