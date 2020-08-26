@@ -20,7 +20,7 @@
                                                   <img src="http://druckshop.trantorglobal.com/public/images/product1.jpg" alt="" width="75px" />
                                                   <div class="product_description">
                                                       <p class="thisproduct_head">{{$data->product}}</p>
-                                                      <p class="thisproduct_subhead more">{{$data->attribute_desc}}</p>
+                                                      <p id="thisproduct_subhead" class="thisproduct_subhead more">{{$data->attribute_desc}}</p>
                                                   </div>
                                                   <ul class="product_price" id="product_price"> 
                                                       <li class="inputcard_quantity" style="display: none"><h6><strong>€ <span id="price_per_product_{{$data->id}}" class = "price_per_product">{{$data->price_per_product}}</span><span class="text-muted">x</span></strong></h6></li> 
@@ -535,7 +535,7 @@
                         </div>
 
                         <div class="text-right">
-                            <button type= "submit" class="continue_btn">{{ trans('cart.add') }}</button>
+                            <button type= "submit" id="modal-button-shipping" class="continue_btn">{{ trans('cart.add') }}</button>
                         </div>
 
                         <p id = "success-msg" style="color:green;"></p>
@@ -663,7 +663,7 @@
                         </div>
 
                         <div class="text-right">
-                            <button type= "submit" class="continue_btn">{{ trans('cart.add') }}</button>
+                            <button type= "submit" id="modal-button-billing" class="continue_btn">{{ trans('cart.add') }}</button>
                         </div>
                         @endif
 
@@ -728,7 +728,7 @@
       $('#rv-Modal-shipping').on('show.bs.modal', function(e) {
         //get data-id attribute of the clicked element
         var Id = $(e.relatedTarget).data('ids');
-        $('#shippingForm').attr('action', "javascript:addAddress('shipping','ship-address-"+Id+"','shipping_address["+Id+"]')");
+        $('#shippingForm').attr('action', "javascript:addAddress('shipping','ship-address-"+Id+"','shipping_address["+Id+"]')");  $('#modal-button-shipping').prop('disabled', true);
       });
 
 

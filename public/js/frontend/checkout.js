@@ -2058,7 +2058,7 @@ function setQuantity(count = ""){
 		data: {'_token': $('meta[name="csrf-token"]').attr('content')},
 		success: function (response){
 
-			var data = JSON.parse(response);
+			var data = JSON.parse(response);  console.log(response);
 
 			var embossment_cover = ""; 	var embossment_spine = ""; 	var number_of_A2_pages = "";
 			var number_of_pages = ""; var number_of_A2_pages = ""; var paper_weight = '0';
@@ -2185,6 +2185,8 @@ function setQuantity(count = ""){
 					//data: {'sequence' : i ,'no_of_copies': no_of_copies,'no_of_cds': no_of_cds,'qty': '-1','total' : new_total[i], 'count' : count, '_token': $('meta[name="csrf-token"]').attr('content')},
 					data: {'sequence' : i ,'no_of_copies': total_copies_after_split[i],'no_of_cds': total_cds_after_split[i],'qty': '-1','total' : new_total[i], 'count' : count, '_token': $('meta[name="csrf-token"]').attr('content')},
 					success: function (response){
+
+						$('#thisproduct_subhead').text(response);
 
 						//console.log(response);
 					}
@@ -2337,22 +2339,22 @@ function splitOrder(rowId = "", prodSequence = "", count = ""){
 	if(Number(no_of_cds) > 0){
 
 		$("[name = 'no_of_cds["+prodSequence+"_"+(parseInt(uiSequence) + 1)+"]']").last().attr("onchange","setQuantity("+ count +"); InsertSplitOrder("+rowId+","+(parseInt(uiSequence) + 1)+",this ,"+prodSequence+")").val(parseInt(0)).attr('readonly', false);
-
+		$("[name = 'no_of_cds["+prodSequence+"_"+(parseInt(uiSequence) + 1)+"]']").last().trigger('onchange');
 	}else{
 
 		$("[name = 'no_of_cds["+prodSequence+"_"+(parseInt(uiSequence) + 1)+"]']").last().attr("onchange","setQuantity("+ count +"); InsertSplitOrder("+rowId+","+(parseInt(uiSequence) + 1)+",this ,"+prodSequence+")").val(parseInt(0)).attr('readonly', true);
-
+		$("[name = 'no_of_cds["+prodSequence+"_"+(parseInt(uiSequence) + 1)+"]']").last().trigger('onchange');
 	}
 
 
 	if(Number(no_of_copies) > 0){
 
 		$("[name = 'no_of_copies["+prodSequence+"_"+(parseInt(uiSequence) + 1)+"]']").last().attr("onchange","setQuantity("+ count +"); InsertSplitOrder("+rowId+","+(parseInt(uiSequence) + 1)+",this ,"+prodSequence+")").val(parseInt(1)).attr('readonly', false);
-
+		$("[name = 'no_of_copies["+prodSequence+"_"+(parseInt(uiSequence) + 1)+"]']").last().trigger('onchange');
 	}else{
 
 		$("[name = 'no_of_copies["+prodSequence+"_"+(parseInt(uiSequence) + 1)+"]']").last().attr("onchange","setQuantity("+ count +"); InsertSplitOrder("+rowId+","+(parseInt(uiSequence) + 1)+",this ,"+prodSequence+")").val(parseInt(0)).attr('readonly', true);
-
+		$("[name = 'no_of_copies["+prodSequence+"_"+(parseInt(uiSequence) + 1)+"]']").last().trigger('onchange');
 	}
 
 	
@@ -2912,6 +2914,7 @@ function addAddress(address_type = "", address = "", drop_down = ""){
 
 					try{
 						$('#rv-Modal-shipping').modal('hide'); $('body').removeClass('modal-open');$('.modal-backdrop').remove();
+
 					}catch(e){ 
 
 					}finally {
@@ -2926,6 +2929,7 @@ function addAddress(address_type = "", address = "", drop_down = ""){
 								$("[id='"+address+"']").empty();
 								$("[id='"+address+"']").text(response);
 
+								$('#modal-button-shipping').prop('disabled', true);
 								$('#success-msg').text("Address Added Successfully.");
 						
 						}
@@ -2937,6 +2941,7 @@ function addAddress(address_type = "", address = "", drop_down = ""){
 
 			          try{
 							 $('#rv-Modal-billing').modal('hide');$('body').removeClass('modal-open');$('.modal-backdrop').remove();
+							 
 						}catch(e){ 
 
 						}finally{
@@ -2964,6 +2969,7 @@ function addAddress(address_type = "", address = "", drop_down = ""){
 			}
 		}); 
 } 
+
 
 function addTooltip(value){
 

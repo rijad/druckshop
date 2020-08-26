@@ -1677,7 +1677,7 @@ public function setQuantity(Request $request){
 		// exit;
 
 
-		print_r("Quantity Updated");
+		print_r($product_details);
 
 	}
 
