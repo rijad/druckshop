@@ -2069,14 +2069,19 @@ function setQuantity(count = ""){
 
 			for(var i = 0; i < count; i++){
 
-			    var m = $("[name^='no_of_cds["+i+"_']"); console.log(m);  
+			    var m = $("[name^='no_of_cds["+i+"_']");  
 			    total_cds_after_split[i] = 0;
 				m.each(function(e) { 
 
 					if(isNaN(parseInt($(this).val()))){
-						total_cds_after_split[i] += parseInt(0); 
+						total_cds_after_split[i] += parseInt(0);
+						//$(this).attr('readonly', true); 
+					}else if(parseInt($(this).val()) == 0){
+						total_cds_after_split[i] += parseInt($(this).val());
+						//$(this).attr('readonly', false);
 					}else{
 						total_cds_after_split[i] += parseInt($(this).val());
+						//$(this).attr('readonly', false);
 					}
 
 				}); 
@@ -2088,8 +2093,13 @@ function setQuantity(count = ""){
 				n.each(function(e) {	   
 					if(isNaN(parseInt($(this).val()))){
 						total_copies_after_split[i] += parseInt(0); 
+						//$(this).attr('readonly', true);
+					}else if(parseInt($(this).val()) == 0){
+						total_copies_after_split[i] += parseInt($(this).val());
+						//$(this).attr('readonly', false);
 					}else{
 						total_copies_after_split[i] += parseInt($(this).val());
+						//$(this).attr('readonly', false);
 					}
 				});
 
@@ -2314,6 +2324,8 @@ function splitOrder(rowId = "", prodSequence = "", count = ""){
 
 	var sequence = "";  var split_order_button = ""; var split_id=""; var index = "";
 
+
+
 	sequence = $("[id = 'sequence_"+prodSequence+"']").last().attr('name'); 
 	split_id = sequence.split('_');  
 	prodSequence = Number(split_id[1]);  
@@ -2322,61 +2334,70 @@ function splitOrder(rowId = "", prodSequence = "", count = ""){
 	var no_of_cds = $("[name = 'no_of_cds["+prodSequence+"_"+(parseInt(uiSequence))+"]' ]").last().val();  
 	var no_of_copies = $("[name = 'no_of_copies["+prodSequence+"_"+(parseInt(uiSequence))+"]' ]").last().val();
 
-	//alert(split_id + "--------------" + index +"************"+uiSequence);  
+			if(parseInt(no_of_cds) >= 1 || parseInt(no_of_copies) >=1 ){
 
-	var newel = $("[name = 'cloneBioFields_"+prodSequence+"_"+(parseInt(uiSequence))+"']").last().clone(true);
-	$(newel).find("[name = 'no_of_cds["+prodSequence+"_"+(parseInt(uiSequence))+"]' ]").last().attr("onchange","InsertSplitOrder("+rowId+","+(parseInt(uiSequence) + 1)+",this ,"+prodSequence+")").attr('name',"no_of_cds["+prodSequence+"_"+(parseInt(uiSequence) + 1)+"]" ).val(parseInt(0));  
-	$(newel).find("[name = 'no_of_copies["+prodSequence+"_"+(parseInt(uiSequence))+"]' ]").last().attr("onchange","InsertSplitOrder("+rowId+","+(parseInt(uiSequence)+ 1)+",this ,"+prodSequence+")").attr('name',"no_of_copies["+prodSequence+"_"+(parseInt(uiSequence) + 1)+"]" ).val(parseInt(0));
-	$(newel).find("[name = 'shipping_address["+prodSequence+"_"+(parseInt(uiSequence))+"]' ]").last().attr("onchange","InsertSplitOrder("+rowId+","+(parseInt(uiSequence)+ 1)+",this ,"+prodSequence+")").attr('name',"shipping_address["+prodSequence+"_"+(parseInt(uiSequence) + 1)+"]" ).val(parseInt(-1));
-	$(newel).find("[name = 'shipping_company["+prodSequence+"_"+(parseInt(uiSequence))+"]']").last().attr("onchange","InsertSplitOrder("+rowId+","+(parseInt(uiSequence)+ 1)+",this ,"+prodSequence+")").attr('name',"shipping_company["+prodSequence+"_"+(parseInt(uiSequence) + 1 )+"]" ).val(parseInt(-1));
-	$(newel).find("[id = 'remove_split_order_"+prodSequence+"' ]").last().removeClass().attr("class","remove_btn displayBlock").attr("onclick","RemoveSplitOrder("+rowId+","+prodSequence+","+(parseInt(uiSequence) + 1)+")");
-	$(newel).find("[id = 'sequence_"+prodSequence+"']").last().attr('name',"sequence_"+prodSequence+"_"+(parseInt(uiSequence) + 1)+"").val(parseInt(uiSequence) + 1);  
-	
-	$(newel).insertAfter("[name = 'cloneBioFields_"+prodSequence+"_"+(parseInt(uiSequence))+"']");	
+			//alert(split_id + "--------------" + index +"************"+uiSequence);  
 
-	$("[id = 'cloneBioFields_"+prodSequence+"'").last().attr('name',"cloneBioFields_"+prodSequence+"_"+(parseInt(uiSequence) + 1)+"").val(parseInt(uiSequence) +1 );    
-	     
-	if(Number(no_of_cds) > 0){
+			var newel = $("[name = 'cloneBioFields_"+prodSequence+"_"+(parseInt(uiSequence))+"']").last().clone(true);
+			$(newel).find("[name = 'no_of_cds["+prodSequence+"_"+(parseInt(uiSequence))+"]' ]").last().attr("onchange","InsertSplitOrder("+rowId+","+(parseInt(uiSequence) + 1)+",this ,"+prodSequence+")").attr('name',"no_of_cds["+prodSequence+"_"+(parseInt(uiSequence) + 1)+"]" ).val(parseInt(0));  
+			$(newel).find("[name = 'no_of_copies["+prodSequence+"_"+(parseInt(uiSequence))+"]' ]").last().attr("onchange","InsertSplitOrder("+rowId+","+(parseInt(uiSequence)+ 1)+",this ,"+prodSequence+")").attr('name',"no_of_copies["+prodSequence+"_"+(parseInt(uiSequence) + 1)+"]" ).val(parseInt(0));
+			$(newel).find("[name = 'shipping_address["+prodSequence+"_"+(parseInt(uiSequence))+"]' ]").last().attr("onchange","InsertSplitOrder("+rowId+","+(parseInt(uiSequence)+ 1)+",this ,"+prodSequence+")").attr('name',"shipping_address["+prodSequence+"_"+(parseInt(uiSequence) + 1)+"]" ).val(parseInt(-1));
+			$(newel).find("[name = 'shipping_company["+prodSequence+"_"+(parseInt(uiSequence))+"]']").last().attr("onchange","InsertSplitOrder("+rowId+","+(parseInt(uiSequence)+ 1)+",this ,"+prodSequence+")").attr('name',"shipping_company["+prodSequence+"_"+(parseInt(uiSequence) + 1 )+"]" ).val(parseInt(-1));
+			$(newel).find("[id = 'remove_split_order_"+prodSequence+"' ]").last().removeClass().attr("class","remove_btn displayBlock").attr("onclick","RemoveSplitOrder("+rowId+","+prodSequence+","+(parseInt(uiSequence) + 1)+")");
+			$(newel).find("[id = 'sequence_"+prodSequence+"']").last().attr('name',"sequence_"+prodSequence+"_"+(parseInt(uiSequence) + 1)+"").val(parseInt(uiSequence) + 1);  
+			
+			$(newel).insertAfter("[name = 'cloneBioFields_"+prodSequence+"_"+(parseInt(uiSequence))+"']");	
 
-		$("[name = 'no_of_cds["+prodSequence+"_"+(parseInt(uiSequence) + 1)+"]']").last().attr("onchange","setQuantity("+ count +"); InsertSplitOrder("+rowId+","+(parseInt(uiSequence) + 1)+",this ,"+prodSequence+")").val(parseInt(0)).attr('readonly', false);
-		$("[name = 'no_of_cds["+prodSequence+"_"+(parseInt(uiSequence) + 1)+"]']").last().trigger('onchange');
-	}else{
+			$("[id = 'cloneBioFields_"+prodSequence+"'").last().attr('name',"cloneBioFields_"+prodSequence+"_"+(parseInt(uiSequence) + 1)+"").val(parseInt(uiSequence) +1 );    
+			     
+			if(Number(no_of_cds) > 0){
 
-		$("[name = 'no_of_cds["+prodSequence+"_"+(parseInt(uiSequence) + 1)+"]']").last().attr("onchange","setQuantity("+ count +"); InsertSplitOrder("+rowId+","+(parseInt(uiSequence) + 1)+",this ,"+prodSequence+")").val(parseInt(0)).attr('readonly', true);
-		$("[name = 'no_of_cds["+prodSequence+"_"+(parseInt(uiSequence) + 1)+"]']").last().trigger('onchange');
-	}
+				$("[name = 'no_of_cds["+prodSequence+"_"+(parseInt(uiSequence) + 1)+"]']").last().attr("onchange","setQuantity("+ count +"); InsertSplitOrder("+rowId+","+(parseInt(uiSequence) + 1)+",this ,"+prodSequence+")").val(parseInt(0)).attr('readonly', false);
+				$("[name = 'no_of_cds["+prodSequence+"_"+(parseInt(uiSequence) + 1)+"]']").last().trigger('onchange');
+			}else{
+				$("[name = 'no_of_cds[sequence_"+prodSequence+"']").last().attr('readonly', true);
+				$("[name = 'no_of_cds["+prodSequence+"_"+(parseInt(uiSequence) + 1)+"]']").last().attr("onchange","setQuantity("+ count +"); InsertSplitOrder("+rowId+","+(parseInt(uiSequence) + 1)+",this ,"+prodSequence+")").val(parseInt(0)).attr('readonly', true);
+				$("[name = 'no_of_cds["+prodSequence+"_"+(parseInt(uiSequence) + 1)+"]']").last().trigger('onchange');
+			}
 
 
-	if(Number(no_of_copies) > 0){
+			if(Number(no_of_copies) > 0){
 
-		$("[name = 'no_of_copies["+prodSequence+"_"+(parseInt(uiSequence) + 1)+"]']").last().attr("onchange","setQuantity("+ count +"); InsertSplitOrder("+rowId+","+(parseInt(uiSequence) + 1)+",this ,"+prodSequence+")").val(parseInt(1)).attr('readonly', false);
-		$("[name = 'no_of_copies["+prodSequence+"_"+(parseInt(uiSequence) + 1)+"]']").last().trigger('onchange');
-	}else{
+				$("[name = 'no_of_copies["+prodSequence+"_"+(parseInt(uiSequence) + 1)+"]']").last().attr("onchange","setQuantity("+ count +"); InsertSplitOrder("+rowId+","+(parseInt(uiSequence) + 1)+",this ,"+prodSequence+")").val(parseInt(1)).attr('readonly', false);
+				$("[name = 'no_of_copies["+prodSequence+"_"+(parseInt(uiSequence) + 1)+"]']").last().trigger('onchange');
+			}else{
+				$("[name = 'no_of_copies["+prodSequence+"_"+(parseInt(uiSequence) + 1)+"]']").last().attr("onchange","setQuantity("+ count +"); InsertSplitOrder("+rowId+","+(parseInt(uiSequence) + 1)+",this ,"+prodSequence+")").val(parseInt(0)).attr('readonly', true);
+				$("[name = 'no_of_copies["+prodSequence+"_"+(parseInt(uiSequence) + 1)+"]']").last().trigger('onchange');
+			}
 
-		$("[name = 'no_of_copies["+prodSequence+"_"+(parseInt(uiSequence) + 1)+"]']").last().attr("onchange","setQuantity("+ count +"); InsertSplitOrder("+rowId+","+(parseInt(uiSequence) + 1)+",this ,"+prodSequence+")").val(parseInt(0)).attr('readonly', true);
-		$("[name = 'no_of_copies["+prodSequence+"_"+(parseInt(uiSequence) + 1)+"]']").last().trigger('onchange');
-	}
+			$("[name = 'no_of_cds["+prodSequence+"_"+(parseInt(uiSequence) + 1)+"]']").trigger('onchange');
+			$("[name = 'no_of_copies["+prodSequence+"_"+(parseInt(uiSequence) + 1)+"]']").trigger('onchange');
+			
+			//$("[name = 'no_of_copies["+prodSequence+"_"+(parseInt(uiSequence) + 1)+"]']").last().attr("onchange","setQuantity("+ count +"); InsertSplitOrder("+rowId+","+(parseInt(uiSequence)+ 1)+",this ,"+prodSequence+")").val(parseInt(0));
+		}else{
 
-	
-	//$("[name = 'no_of_copies["+prodSequence+"_"+(parseInt(uiSequence) + 1)+"]']").last().attr("onchange","setQuantity("+ count +"); InsertSplitOrder("+rowId+","+(parseInt(uiSequence)+ 1)+",this ,"+prodSequence+")").val(parseInt(0));
+			$("#order-alerts").append("<div class='alert alert-danger'><strong>Warning!</strong> You Can Not Split this order, value of No of Copies or no of Cds should be equal or greater then 1.</div>");
+		}
 }
 
  
 
 function RemoveSplitOrder(rowId = "", prodSequence ="" ,sequenceUI = ""){
-	//alert("-------rowId-------" + rowId +"****SEQ********"+sequenceUI);
-	//alert("[id = 'cloneBioFields_"+sequenceUI+"_"+(parseInt(rowId))+"']");
+	
 
 	// remove from database 
 	$.ajax({
-		url: base_url+'/remove-split-order',  
+		url: base_url+'/remove-split-order',   
 		type: 'POST', 
 		data: {'sequence':sequenceUI,'rowId': rowId,'_token': $('meta[name="csrf-token"]').attr('content')},
 		success: function (response){
+		$("[name = 'no_of_cds["+prodSequence+"_"+(parseInt(sequenceUI))+"]']").val(0).trigger('onchange');
+		$("[name = 'no_of_copies["+prodSequence+"_"+(parseInt(sequenceUI) )+"]']").val(0).trigger('onchange');
 		$("[name = 'cloneBioFields_"+prodSequence+"_"+(parseInt(sequenceUI))+"']").remove(); 
 		}
 	}); 
-
+		$("[name = 'no_of_cds["+prodSequence+"_"+(parseInt(sequenceUI))+"]']").val(0).trigger('onchange');
+		$("[name = 'no_of_copies["+prodSequence+"_"+(parseInt(sequenceUI) )+"]']").val(0).trigger('onchange');
 		$("[name = 'cloneBioFields_"+prodSequence+"_"+(parseInt(sequenceUI))+"']").remove(); 
 }
 

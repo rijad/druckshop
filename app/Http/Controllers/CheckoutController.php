@@ -1237,7 +1237,7 @@ if (Auth::check() && Auth::user()->name != "Guest")
 
   // if user is logged in no need to enter email
 	$validator = Validator::make($request->all(), [ 
-		'no_of_copies.*'=> 'required',
+		'no_of_copies.*'=> 'required|not_in:0',
 		'no_of_cds.*' => 'nullable',
 		'shipping_company.*' => 'required|not_in:-1',
 		'shipping_address.*' => 'required|not_in:-1',             
@@ -1254,7 +1254,7 @@ if (Auth::check() && Auth::user()->name != "Guest")
 }else if((Auth::check() && Auth::user()->name == "Guest") || ! Auth::check()){ // user not logged in have to enter email
 	
 	$validator = Validator::make($request->all(), [   
-		'no_of_copies.*'=> 'required',
+		'no_of_copies.*'=> 'required|not_in:0',
 		'no_of_cds.*' => 'nullable',
 		'shipping_company.*' => 'required|not_in:-1',
 		'shipping_address.*' => 'required|not_in:-1',             
@@ -1384,7 +1384,7 @@ if (Auth::check() && Auth::user()->name != "Guest")
 
 }else{//dd("faiil"); 
 
-//dd($validator->errors());
+dd($validator->errors());
 
 			try{
 					$billing_address_data = UserAddress::where(['address_type'=>'billing','user_id'=>$user_id, 'default'=>'1'])->limit('1')->get();
@@ -1764,6 +1764,8 @@ public function setQuantity(Request $request){
     print_r($request->input());
 
     	$record = SplitOrderShippingAddress::where(['unique_id' => $request->input('rowId') , 'sequence' => $request->input('sequence') ])->delete();
+
+
     }
 
 

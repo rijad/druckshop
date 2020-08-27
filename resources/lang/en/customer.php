@@ -33,7 +33,7 @@ return [
     'request' => 'Return Requested',
     'decline' => 'Return Declined',
     'approve' => 'Return Approved',
-    'total' => 'Total Amount',
+    'total' => 'Total Amount (Including Delivery Charges)',
     'req_return' => 'Please Fill in Details to Request a Return',
     'describe' => 'Describe Reason of Return',
     'upload' => 'Upload Product Image',
