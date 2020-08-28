@@ -39,7 +39,7 @@ return [
     'temp' => 'Template',
     'upload_logo' => 'Upload Logo',
     'font_type' => 'Font Type',
-    'date_format' => 'Date Format',
+    'date_for' => 'Date Format',
     'refinement_spine' => 'Refinement Spine',
     'direction' => 'Direction',
     'section' => 'Section',

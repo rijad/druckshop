@@ -324,7 +324,7 @@
 													</div>
 
 													<div class="displayNone" id="div-date-format">
-														<label>{{ trans('checkout.date_format') }}*:</label>
+														<label>{{ trans('checkout.date_for') }}*:</label>
 														<p><select class = "" id="date-format" name="date-format"><option value = "-1">{{ trans('checkout.select') }}</option>
 															@foreach ($date_format as $key=>$listing)
 															<option value="{{$listing->surname}}">

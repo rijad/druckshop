@@ -60,7 +60,7 @@ class DiscountController extends Controller
             'from_date' => 'required|date',
             'to_date' => 'nullable|date',
             'by_discount' => 'required',
-            'type' => 'required',
+            'type' => 'required|in:product_delivery,multiple',
             'discount' => 'required',
             // 'needs_code' => 'nullable',
             'status' => 'nullable',
@@ -165,7 +165,7 @@ class DiscountController extends Controller
             'to_date' => 'nullable|date',
             'by_discount' => 'required',
             'discount' => 'required',
-            'type' => 'nullable',
+            'type' => 'required|in:product_delivery,multiple',
             // 'needs_code' => 'nullable',
             'status' => 'nullable',  
         ]);
