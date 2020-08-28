@@ -33,7 +33,7 @@ return [
     'request' => 'Rückgabe angefordert',
     'decline' => 'Rückgabe abgelehnt',
     'approve' => 'Rückgabe genehmigt',
-    'total' => 'Gesamtmenge',
+    'total' => 'Gesamtbetrag (einschließlich Versandkosten)',
     'req_return' => 'Bitte geben Sie Details ein, um eine Rücksendung anzufordern',
     'describe' => 'Beschreiben Sie den Grund der Rückgabe',
     'upload' => 'Produktbild hochladen',

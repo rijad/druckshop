@@ -116,6 +116,8 @@ return [
     'uploaded' => 'The :attribute failed to upload.',
     'url' => 'The :attribute format is invalid.',
     'uuid' => 'The :attribute must be a valid UUID.',
+     'split_msg' => 'You Can Not Split this order, value of No of Copies or no of Cds should be equal or greater then 1.',
+    'Warning' => 'Warning!',
 
     /*
     |--------------------------------------------------------------------------

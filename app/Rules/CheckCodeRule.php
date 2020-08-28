@@ -5,6 +5,7 @@ namespace App\Rules;
 use Illuminate\Contracts\Validation\Rule;
 use App\Discount;
 use App\OrderDetailsFinal;
+use App\OrderAttributes;
 use Auth;
 
 class CheckCodeRule implements Rule
@@ -38,12 +39,14 @@ class CheckCodeRule implements Rule
 
        // Multi Product discount - Check if discound code is valid for particular product or not
 
-       $discount = Discount::where(['code' => $code])->first(['by_price','by_percent','type','product_id']);
+       $discount = Discount::where(['code' => $value])->first(['by_price','by_percent','type','product_id']);
        $prod_flag = 0;
+
 
        if($discount->type == 2){
 
               $product_ids = json_decode($discount->product_id,true); 
+              $products = OrderAttributes::where('user_id', $user_id)->get();
 
               // product ids with discount code
               foreach($product_ids as $dis_key => $dis_value){

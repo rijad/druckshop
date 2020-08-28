@@ -1237,7 +1237,7 @@ if (Auth::check() && Auth::user()->name != "Guest")
 
   // if user is logged in no need to enter email
 	$validator = Validator::make($request->all(), [ 
-		'no_of_copies.*'=> 'required',
+		'no_of_copies.*'=> 'required|not_in:0',
 		'no_of_cds.*' => 'nullable',
 		'shipping_company.*' => 'required|not_in:-1',
 		'shipping_address.*' => 'required|not_in:-1',             
@@ -1254,7 +1254,7 @@ if (Auth::check() && Auth::user()->name != "Guest")
 }else if((Auth::check() && Auth::user()->name == "Guest") || ! Auth::check()){ // user not logged in have to enter email
 	
 	$validator = Validator::make($request->all(), [   
-		'no_of_copies.*'=> 'required',
+		'no_of_copies.*'=> 'required|not_in:0',
 		'no_of_cds.*' => 'nullable',
 		'shipping_company.*' => 'required|not_in:-1',
 		'shipping_address.*' => 'required|not_in:-1',             
@@ -1384,7 +1384,16 @@ if (Auth::check() && Auth::user()->name != "Guest")
 
 }else{//dd("faiil"); 
 
+
 //dd($validator->errors());
+
+			$split_record_unique_id=[];
+
+				try{
+					$product_data = OrderAttributes::where(['status'=>'1','user_id'=>$user_id])->get();  
+				}catch(Exception $e){
+					$product_data = [];
+				}
 
 			try{
 					$billing_address_data = UserAddress::where(['address_type'=>'billing','user_id'=>$user_id, 'default'=>'1'])->limit('1')->get();
@@ -1417,10 +1426,8 @@ if (Auth::check() && Auth::user()->name != "Guest")
 					$shipping_company =[];
 				} 
 
-
-
 				try{
-					$split_order = SplitOrderShippingAddress::where(['user_id' => session::get('user_id'), 'status' => 0])->get();
+					$split_order = SplitOrderShippingAddress::where(['user_id' => $user_id, 'status' => 0])->get();
 
 					foreach($split_order as $key => $value){
 
@@ -1433,11 +1440,13 @@ if (Auth::check() && Auth::user()->name != "Guest")
 					$split_record_unique_id=[];
 				} 
 
-
-				$errors = $validator->errors();  
+  
+				$errors = $validator->errors(); 
 
 				return view('/pages/front-end/cart',compact('product_data','shipping_company','billing_address_data','shipping_address_data','errors','split_order','split_record_unique_id'));
 		//return back()->with('errors', $validator->errors());
+		//return back()->with($product_data,$shipping_company,$billing_address_data,$shipping_address_data,$errors,
+			//$split_order, $split_record_unique_id);
    }
  
 
@@ -1677,7 +1686,7 @@ public function setQuantity(Request $request){
 		// exit;
 
 
-		print_r("Quantity Updated");
+		print_r($product_details);
 
 	}
 
@@ -1764,6 +1773,8 @@ public function setQuantity(Request $request){
     print_r($request->input());
 
     	$record = SplitOrderShippingAddress::where(['unique_id' => $request->input('rowId') , 'sequence' => $request->input('sequence') ])->delete();
+
+
     }
 
 

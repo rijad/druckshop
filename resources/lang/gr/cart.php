@@ -49,6 +49,8 @@ return [
     'unit_price_binding' => 'Stückpreis pro verbindlichem Exemplar',
     'discount_success' => 'Der Rabattcode wurde erfolgreich angewendet',
     'discount_invalid' => 'Der Rabattcode ist ungültig',
+    'split_msg' => 'Sie können diese Reihenfolge nicht aufteilen. Der Wert für Anzahl der Kopien oder Anzahl der CDs sollte gleich oder größer als 1 sein.',
+    'Warning' => 'Warnung!',
 
 
 ];

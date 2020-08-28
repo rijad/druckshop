@@ -101,7 +101,7 @@
                         @endforeach
                         
                         <div class="text-right quote_heading">
-                        	<p class="total-amount-rv"><b>{{ trans('customer.total') }}: {{$data->total}} €<b></p>
+                        	<p class="total-amount-rv"><b>{{ trans('customer.total') }}: {{$data->net_amt}} €<b></p>
                     	  </div>
                         <div class="text-left repeat-cancel-order">
                           <p> @if(isset($data->admin_response)) {{ "Comments: " . $data->admin_response}} @endif</p>
