@@ -47,7 +47,7 @@
                     <label class="small mb-1" for="type">Type</label><br>
 
                     <input type="radio" id="product_delivery_edit" name="type" value="product_delivery" @if($discount->type == 0){{ 'checked' }} @endif>
-                    <label class="small mb-1" for="product_delivery">Delivery Product</label><br>
+                    <label class="small mb-1" for="product_delivery">Free Shipping for First Address</label><br>
 
                     <input type="radio" id="multiple_edit" name="type" value="multiple" @if($discount->type == 2){{ 'checked' }} @endif>
                     <label class="small mb-1" for="multiple">Multiple Bindings</label><br>

@@ -292,7 +292,7 @@
                                                @endif
                                                @endforeach
                                               </p>
-                                              <button type = "button" name="shipping_address_click" id="{{'shipping_address_'.$key}}" class="form-control" data-toggle="modal" data-target="#rv-Modal-shipping" data-ids = "{{$key}}" onclick="resetModal('shippingForm');">{{ trans('cart.add_ship_add') }}</button>
+                                              <button type = "button" name="shipping_address_click" id="{{'shipping_address_'.$key}}" class="form-control" data-toggle="modal" data-target="#rv-Modal-shipping" data-ids = "{{$key}}" onclick="resetModal('shippingForm'); enableFormButton();">{{ trans('cart.add_ship_add') }}</button>
                                               
                                             </div>
                                              {{-- <div class="form-group">
@@ -732,7 +732,7 @@
       $('#rv-Modal-shipping').on('show.bs.modal', function(e) {
         //get data-id attribute of the clicked element
         var Id = $(e.relatedTarget).data('ids');
-        $('#shippingForm').attr('action', "javascript:addAddress('shipping','ship-address-"+Id+"','shipping_address["+Id+"]')");  $('#modal-button-shipping').prop('disabled', true);
+        $('#shippingForm').attr('action', "javascript:addAddress('shipping','ship-address-"+Id+"','shipping_address["+Id+"]')"); $('#modal-button-shipping').prop('disabled', false);
       });
 
 
@@ -752,6 +752,13 @@
 
     });
 
+     $('#rv-Modal-shipping').on('show.bs.modal', function(e) {
+        $('#modal-button-shipping').prop('disabled', false);
+      });
+
+function enableFormButton(){
+  $('#modal-button-shipping').prop('disabled', false);
+}
 
   function resetModal(form = ""){
 

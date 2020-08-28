@@ -45,7 +45,7 @@
                     <label class="small mb-1" for="type">Type</label><br>
 
                     <input type="radio" id="product_delivery" name="type" value="product_delivery">
-                    <label class="small mb-1" for="product_delivery">Delivery Product</label><br>
+                    <label class="small mb-1" for="product_delivery">Free Shipping for First Address</label><br>
                     
                     <input type="radio" id="multiple" name="type" value="multiple">
                     <label class="small mb-1" for="multiple">Multiple Bindings</label><br>

@@ -1384,7 +1384,16 @@ if (Auth::check() && Auth::user()->name != "Guest")
 
 }else{//dd("faiil"); 
 
-dd($validator->errors());
+
+//dd($validator->errors());
+
+			$split_record_unique_id=[];
+
+				try{
+					$product_data = OrderAttributes::where(['status'=>'1','user_id'=>$user_id])->get();  
+				}catch(Exception $e){
+					$product_data = [];
+				}
 
 			try{
 					$billing_address_data = UserAddress::where(['address_type'=>'billing','user_id'=>$user_id, 'default'=>'1'])->limit('1')->get();
@@ -1417,10 +1426,8 @@ dd($validator->errors());
 					$shipping_company =[];
 				} 
 
-
-
 				try{
-					$split_order = SplitOrderShippingAddress::where(['user_id' => session::get('user_id'), 'status' => 0])->get();
+					$split_order = SplitOrderShippingAddress::where(['user_id' => $user_id, 'status' => 0])->get();
 
 					foreach($split_order as $key => $value){
 
@@ -1433,11 +1440,13 @@ dd($validator->errors());
 					$split_record_unique_id=[];
 				} 
 
-
-				$errors = $validator->errors();  
+  
+				$errors = $validator->errors(); 
 
 				return view('/pages/front-end/cart',compact('product_data','shipping_company','billing_address_data','shipping_address_data','errors','split_order','split_record_unique_id'));
 		//return back()->with('errors', $validator->errors());
+		//return back()->with($product_data,$shipping_company,$billing_address_data,$shipping_address_data,$errors,
+			//$split_order, $split_record_unique_id);
    }
  
 
