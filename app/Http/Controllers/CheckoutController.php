@@ -1155,7 +1155,25 @@ public function calculateDiscountAmount($code = "", $total = "", $delivery = "",
 
 				if($dis_value == $prod_value->product_id){
 
-					$prod_flag = 1;
+					// $prod_flag = 1;
+
+					if($discount->by_price != "null" && ! empty($discount->by_price)){
+					$discount_amt = number_format($discount->by_price,2);
+					}else{ 
+					$prod_discount = $prod_value->price_product_qty;
+					// discounted product price
+					$discount_amt +=number_format( ($prod_discount / 100 ) * $discount->by_percent,2);
+					// In case of discount by %, % amt of discount is calculated on a product price on which discount is aplicable, not on whole order.
+					}
+
+					// discount is more then total i.e no code will be applied
+
+					if($discount_amt > $total){ 
+						$net_amt = $total - 0.00;
+						$discount_amt = 0;
+					}else{
+						$net_amt = $total - $discount_amt; 
+					}
 
 				}
 
@@ -1163,23 +1181,24 @@ public function calculateDiscountAmount($code = "", $total = "", $delivery = "",
 
 		} 
 
-		if($prod_flag == 1){
+		// if($prod_flag == 1){
 
-				if($discount->by_price != "null" && ! empty($discount->by_price)){
-					$discount_amt = number_format($discount->by_price,2);
-				}else{
-					$discount_amt =number_format( ($total / 100 ) * $discount->by_percent,2);
-				}
+		// 		if($discount->by_price != "null" && ! empty($discount->by_price)){
+		// 			$discount_amt = number_format($discount->by_price,2);
+		// 		}else{ 
+		// 			$discount_amt =number_format( ($prod_discount / 100 ) * $discount->by_percent,2);
+		// 			// In case of discount by %, % amt of discount is calculated on a product price on which discount is aplicable, not on whole order.
+		// 		}
 
-			// discount is more then total i.e no code will be applied
+		// 	// discount is more then total i.e no code will be applied
 
-				if($discount_amt > $total){ 
-					$net_amt = $total - 0.00;
-					$discount_amt = 0;
-				}else{
-					$net_amt = $total - $discount_amt; 
-				}
-		}
+		// 		if($discount_amt > $total){ 
+		// 			$net_amt = $total - 0.00;
+		// 			$discount_amt = 0;
+		// 		}else{
+		// 			$net_amt = $total - $discount_amt; 
+		// 		}
+		// }
 
 
 		$delivery_cost_per_product = self::calculateDeliveryCost($delivery, $copies, $cds, 1);
@@ -1481,8 +1500,9 @@ public function getDiscountcodeStatus(Request $request){
         }
 
 	 // Multi Product discount - Check if discound code is valid for particular product or not
-
+       try{
        $discount = Discount::where(['code' => $request->code])->first(['by_price','by_percent','type','product_id']);
+
        $prod_flag = 0;
 
        if($discount->type == 2){
@@ -1514,6 +1534,11 @@ public function getDiscountcodeStatus(Request $request){
               }
             
       }
+
+   }catch(Exception $e){
+   		return "false";
+   }
+       
 
        // check if user has already used a code
 
@@ -1770,10 +1795,8 @@ public function setQuantity(Request $request){
 
     public function removeSplitOrder(Request $request){
 
-    print_r($request->input());
-
-    	$record = SplitOrderShippingAddress::where(['unique_id' => $request->input('rowId') , 'sequence' => $request->input('sequence') ])->delete();
-
+    	$record = SplitOrderShippingAddress::where(['unique_id' => $request->input('rowId') , 'sequence' => $request->input('sequence'),'prod_sequence'=>$request->input('prod_sequence') ])->delete();
+		print_r($record);
 
     }
 

@@ -2377,7 +2377,7 @@ function splitOrder(rowId = "", prodSequence = "", count = ""){
 			
 			//$("[name = 'no_of_copies["+prodSequence+"_"+(parseInt(uiSequence) + 1)+"]']").last().attr("onchange","setQuantity("+ count +"); InsertSplitOrder("+rowId+","+(parseInt(uiSequence)+ 1)+",this ,"+prodSequence+")").val(parseInt(0));
 		}else{
-
+			$("#order-alerts").empty();
 			$("#order-alerts").append("<div class='alert alert-danger'><strong>"+lang_text.Warning+"</strong>"+lang_text.split_msg+"</div>");
 		}
 }
@@ -2386,21 +2386,26 @@ function splitOrder(rowId = "", prodSequence = "", count = ""){
 
 function RemoveSplitOrder(rowId = "", prodSequence ="" ,sequenceUI = ""){
 	
-
+	$("[name = 'no_of_cds["+prodSequence+"_"+(parseInt(sequenceUI))+"]']").val(0).trigger('onchange');
+	$("[name = 'no_of_copies["+prodSequence+"_"+(parseInt(sequenceUI) )+"]']").val(0).trigger('onchange');
 	// remove from database 
-	$.ajax({
-		url: base_url+'/remove-split-order',   
-		type: 'POST', 
-		data: {'sequence':sequenceUI,'rowId': rowId,'_token': $('meta[name="csrf-token"]').attr('content')},
-		success: function (response){
-		$("[name = 'no_of_cds["+prodSequence+"_"+(parseInt(sequenceUI))+"]']").val(0).trigger('onchange');
-		$("[name = 'no_of_copies["+prodSequence+"_"+(parseInt(sequenceUI) )+"]']").val(0).trigger('onchange');
-		$("[name = 'cloneBioFields_"+prodSequence+"_"+(parseInt(sequenceUI))+"']").remove(); 
-		}
-	}); 
-		$("[name = 'no_of_cds["+prodSequence+"_"+(parseInt(sequenceUI))+"]']").val(0).trigger('onchange');
-		$("[name = 'no_of_copies["+prodSequence+"_"+(parseInt(sequenceUI) )+"]']").val(0).trigger('onchange');
-		$("[name = 'cloneBioFields_"+prodSequence+"_"+(parseInt(sequenceUI))+"']").remove(); 
+	setTimeout(function(){
+		$.ajax({
+			url: base_url+'/remove-split-order',   
+			type: 'POST', 
+			data: {'prod_sequence':prodSequence,'sequence':sequenceUI,'rowId': rowId,'_token': $('meta[name="csrf-token"]').attr('content')},
+			success: function (response){
+			// $("[name = 'no_of_cds["+prodSequence+"_"+(parseInt(sequenceUI))+"]']").val(0).trigger('onchange');
+			// $("[name = 'no_of_copies["+prodSequence+"_"+(parseInt(sequenceUI) )+"]']").val(0).trigger('onchange');
+			
+				$("[name = 'cloneBioFields_"+prodSequence+"_"+(parseInt(sequenceUI))+"']").remove();
+			}
+		}); 
+
+	},1200); 
+		// $("[name = 'no_of_cds["+prodSequence+"_"+(parseInt(sequenceUI))+"]']").val(0).trigger('onchange');
+		// $("[name = 'no_of_copies["+prodSequence+"_"+(parseInt(sequenceUI) )+"]']").val(0).trigger('onchange');
+		// $("[name = 'cloneBioFields_"+prodSequence+"_"+(parseInt(sequenceUI))+"']").remove(); 
 }
 
 

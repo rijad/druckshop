@@ -389,9 +389,9 @@
                             <div class="form-group">
                               <label for="email">{{ trans('cart.dist_detail') }}:</label>
                               <input type="text" name="code" id="code" class="form-control" placeholder="{{ trans('cart.enter_here') }}" oninput="discountCode(this);">
-                              <p id = "discount-code-error"></p>
+                             {{--  <p id = "discount-code-error">{{ $errors->first('code') }}</p> --}}
                               @if($errors->has('code'))
-                              <div  class="error">{{ $errors->first('code') }}</div>
+                              <p class="error" id = "discount-code-error">{{ $errors->first('code') }}</p>
                               @endif
                             </div> 
 
@@ -834,7 +834,7 @@ function enableFormButton(){
   }
 
 
-  function discountCode(code = ""){
+  function discountCode(code = ""){  
 
     var code = ($(code).val()).trim();  
 
@@ -854,12 +854,13 @@ function enableFormButton(){
       success: function (response){
           var data = JSON.parse(response); 
            if(data == true){  //alert("T");
-
+            $('#discount-code-error').empty();
             $('#discount-code-error').text(discount_valid);
             $('#discount-code-error').css('color','black');
 
            }else if(data == false){  // alert("F");
-            $('#discount-code-error').css('color','red');
+             $('#discount-code-error').empty();
+             $('#discount-code-error').css('color','red');
              $('#discount-code-error').text(discount_invalid);
            }else if(data == ''){
 

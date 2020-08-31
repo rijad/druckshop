@@ -49,6 +49,6 @@ return [
     'unit_price_binding' => 'Unit Price per binding copy',
     'discount_success' => 'The Discount Code Applied Successfully',
     'discount_invalid' => 'The Discount Code is Invalid',
-    'split_msg' => 'Sie können diese Reihenfolge nicht aufteilen. Der Wert für Anzahl der Kopien oder Anzahl der CDs sollte gleich oder größer als 1 sein.',
+    'split_msg' => 'You cannot split this order. The number of copies or number of CDs should be equal to or greater than 1.',
     'Warning' => 'Warnung!',
 ];

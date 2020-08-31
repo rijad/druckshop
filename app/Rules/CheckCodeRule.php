@@ -38,10 +38,13 @@ class CheckCodeRule implements Rule
 
 
        // Multi Product discount - Check if discound code is valid for particular product or not
-
+       try{
        $discount = Discount::where(['code' => $value])->first(['by_price','by_percent','type','product_id']);
-       $prod_flag = 0;
+       $prod_flag = 0;  
 
+       if($discount == null){
+        return;
+       }
 
        if($discount->type == 2){
 
@@ -71,6 +74,11 @@ class CheckCodeRule implements Rule
               }
             
       }
+     }catch(Exception $e){
+        return false;
+     }
+
+       
 
        // check if user has already used a code
 
