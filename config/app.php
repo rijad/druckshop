@@ -67,8 +67,10 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    //'timezone' => 'Europe/Berlin',
 
+     'timezone' => 'Europe/Busingen',
+ 
     /*
     |--------------------------------------------------------------------------
     | Application Locale Configuration

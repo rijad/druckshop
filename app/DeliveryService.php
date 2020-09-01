@@ -19,7 +19,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class DeliveryService extends Model
 {
-    /**
+    /**  
      * The table associated with the model.
      * 
      * @var string
@@ -36,7 +36,8 @@ class DeliveryService extends Model
     /**
      * @var array
      */
-    protected $fillable = ['delivery_service', 'surname', 'name_english', 'name_german', 'status', 'weight_per_sheet', 'min_sheets_for_spine', 'created_at', 'modified_at'];
+    protected $fillable = ['delivery_service', 'surname', 'name_english', 'name_german', 
+    'status', 'weight_per_sheet', 'min_sheets_for_spine', 'shipment_tracking_link', 'active_status', 'created_at', 'updated_at', 'deleted_at'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

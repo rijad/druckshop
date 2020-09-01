@@ -1,0 +1,309 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
+use App\User;
+use App\OrderDetailsFinal;
+use App\UsersAdmin;
+use App\OrderState;
+use App\OrderHistory;
+use App\SplitOrderShippingAddress;
+
+use Auth;
+use Mail;
+
+class OrderController extends Controller
+{
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct() {
+
+        $this->middleware('auth:admin');
+    }
+    
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $order = OrderDetailsFinal::orderBy('id','DESC')->get();
+        return view('/pages/admin/order',compact('order'));
+        // return view('pages.admin.index',compact('order'));
+    }
+
+    public static function users($id)  
+    {
+        $user = UsersAdmin::where(['id' => $id])->first();
+        //dd($user);
+
+        if(! empty($user->name)){
+            return $user->name;
+        }else{
+            return "";
+        }
+    } 
+    
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        //
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Request $request, $id)
+    {
+        try{
+            $users = UsersAdmin::where('status', '1')->get();
+        }catch (Exception $e) {
+            $users = [];
+        }
+        
+        try{
+            $orderstate = OrderState::where('status', '1')->get();
+        }catch (Exception $e) {
+            $orderstate = [];
+        }
+
+        try{
+            $order = OrderDetailsFinal::where('order_id', $id)->first();
+        }catch (Exception $e) {
+            $order = [];
+        }
+
+        try{
+            $splitOrder = SplitOrderShippingAddress::where(['unique_id' => $id , 'status' => 1])->get();
+        }catch (Exception $e) {
+            $splitOrder = [];
+        }
+
+        try{
+            $orderhistory = OrderDetailsFinal::with('orderProductHistory')
+            ->where(['order_id' => $request->order_id ])
+            ->first();
+        }catch (Exception $e) {
+            $orderhistory = [];
+        }
+
+       try{
+            $orderNetAmount = OrderDetailsFinal::where(['order_id' => $request->order_id ])
+            ->first()->net_amt;
+        }catch (Exception $e) {
+            $orderhistory = [];
+        }
+
+
+
+       //dd($orderhistory);
+        return view('/pages/admin/orderdetails',compact('orderhistory', 'users', 'orderstate', 'order', 'splitOrder','orderNetAmount'));
+    }
+
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    { 
+        // dd($request->all());
+        $order = OrderDetailsFinal::find($id);
+
+        $validator = Validator::make($request->all(), [
+            'state' => 'required',
+            'priority' => 'required',
+            'assigned_to' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return redirect()->back()
+            ->withErrors($validator)
+            ->withInput();
+        }
+        $order->state = $request->state;
+        $order->priority = $request->priority;
+        $order->assigned_to = $request->assigned_to;
+        $order->save();
+
+        $order = OrderDetailsFinal::find($id);  //dd($order->order_id);
+
+        $orderDetails = OrderHistory::where(['order_id' => $order->order_id])->get()->toArray(); //dd($orderDetails);
+
+        $data = User::where(['id' => $order->user_id])->first();
+
+            if (!empty($data) && !empty($orderDetails)) {   //dd($data);
+
+                $user_data = [ 
+
+                    'name' => @$data->name,
+                    'email' => @$data->email,
+                    'order_id' => $order->order_id,
+                    'base_url' => \URL::to('/'),
+                    'logo_url' => \URL::to('/'). '/public/images/logo.png',
+                    'order_history' => $orderDetails,
+                    'order_state' => $request->state,
+                    'subject' => 'Druckshop - Order '.$request->state
+                ];
+
+                try {
+
+                    $sent = Mail::send('emails.state_change_order', $user_data, function($message) use ($user_data) {
+
+                        $message->to($user_data['email'], $user_data['name'])->subject($user_data['subject']);
+                        $message->from(env('MAIL_USERNAME'), env('MAIL_FROM_NAME'));
+                    });
+
+                } catch (Exception $e) {
+
+                //Avoid error 
+
+                }
+            }    
+
+
+        return redirect()->back()->with('status' , 'Updated');
+
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        //
+    }
+
+    public function sendDefectedOrderEmail(Request $request, $user_id = '', $order_id = '', $old_file_name = ''){
+
+        if (!empty($order_id) && !empty($old_file_name) && !empty($user_id)) {
+
+            $data = User::where(['id' => $user_id])->first();
+
+            $url = url("/defectfile/".$order_id."/".$old_file_name);
+
+            if (!empty($data)) {
+
+                $user_data = [
+
+                    'name' => @$data->name,
+                    'email' => @$data->email,
+                    'order_id' => $order_id,
+                    'action_url' => @$url,
+                    'base_url' => \URL::to('/'),
+                    'logo_url' => \URL::to('/'). '/public/images/logo.png',
+                ];
+
+                try {
+
+                    $sent = Mail::send('emails.defect_file', $user_data, function($message) use ($user_data) {
+
+                        $message->to($user_data['email'], $user_data['name'])->subject('Druckshop - Defect File');
+                        $message->from(env('MAIL_USERNAME'), env('MAIL_FROM_NAME'));
+                    });
+
+                    return redirect()->back()->with('status' , 'Mail Sent !!');
+
+                } catch (Exception $e) {
+
+                //Avoid error 
+
+                }
+
+
+            }
+            
+        }
+
+        return redirect()->back()->with('error' , 'Something went wrong, Please try again !!');
+    }
+
+
+
+     public function trackingNumberSendMail(Request $request) {
+
+        if ($request) {
+
+            $data = $data = User::where(['id' => $request->user])->first();
+            $url = $request->tracking_link;
+
+            if (!empty($data)) {
+
+                $user_data = [
+
+                    'name' => @$data->name,
+                    'email' => $data->email,
+                    'description' => @$request->description,
+                    'order_id' => @$request->order_id,
+                    'action_url' => @$url,
+                    'base_url' => \URL::to('/'),
+                    'logo_url' => \URL::to('/'). '/public/images/logo.png',
+                ];
+
+                try { 
+
+                    $sent = Mail::send('emails.tracking_link', $user_data, function($message) use ($user_data) {
+
+                        $message->to(@$user_data['email'], $user_data['name'])->subject('Druckshop - Order Tracking');
+                        $message->from(env('MAIL_USERNAME'), env('MAIL_FROM_NAME'));
+                    });
+
+                     return redirect()->back()->with('status' , 'Mail Sent !!');
+
+                } catch (Exception $e) {
+
+                //Avoid error 
+
+                }               
+            }
+        }
+
+         return redirect()->back()->with('error' , 'Something went wrong, Please try again !!');
+
+    }
+
+
+
+}

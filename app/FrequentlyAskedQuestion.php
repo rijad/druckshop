@@ -33,6 +33,7 @@ class FrequentlyAskedQuestion extends Model
     /**
      * @var array
      */
-    protected $fillable = ['title_english', 'title_german', 'text_english', 'text_german', 'status', 'created_at', 'modified_at'];
+    protected $fillable = ['title_english', 'title_german', 'text_english', 'text_german', 
+    'status', 'created_at', 'updated_at', 'deleted_at'];
 
 }

@@ -2,11 +2,15 @@
 
 namespace App;
 
+use App\Notifications\ResetPasswordNotification;
+
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable
+
+
+class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;
 
@@ -15,7 +19,7 @@ class User extends Authenticatable
      * 
      * @var string
      */
-    protected $table = 'users';
+    protected $table = 'users'; 
 
     /**
      * The "type" of the auto-incrementing ID.
@@ -24,7 +28,7 @@ class User extends Authenticatable
      */
     
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'verified'
     ]; 
 
     /**
@@ -69,5 +73,27 @@ class User extends Authenticatable
     public function psShippingAddresses()
     {
         return $this->hasMany('App\PsShippingAddress', 'order_id');
+    }
+
+    public function psOrderAttributes()
+    {
+        return $this->belongsToMany('App\OrderAttributes');
+    }
+
+
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new ResetPasswordNotification($token));
+    }
+
+    public function customer()
+    {
+        return $this->hasOne('App\CustomerArea', 'user_id'); 
+    }
+
+
+    public function verifyUser()
+    {
+        return $this->hasOne('App\VerifyUser');
     }
 }

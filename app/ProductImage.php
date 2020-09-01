@@ -13,25 +13,25 @@ use Illuminate\Database\Eloquent\Model;
  * @property PsProduct $psProduct
  */
 class ProductImage extends Model
-{
+{ 
     /**
      * The table associated with the model.
      * 
-     * @var string
+     * @var string 
      */
     protected $table = 'ps_product_image';
 
     /**
-     * The "type" of the auto-incrementing ID.
+     * The "type" of the auto-incrementing ID. 
      * 
      * @var string
      */
-    protected $keyType = 'integer';
+    protected $keyType = 'integer'; 
 
     /**
-     * @var array
+     * @var array 
      */
-    protected $fillable = ['product_id', 'image_path', 'created_at', 'modified_at'];
+    protected $fillable = ['product_id', 'image_path', 'created_at', 'updated_at', 'deleted_at'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $order_date
  * @property integer $payment_id
  * @property int $amount
- * @property boolean $status
+ * @property boolean $status 
  * @property string $priority
  * @property string $assigned_to
  * @property string $transaction_id
@@ -45,7 +45,9 @@ class Order extends Model
     /**
      * @var array
      */
-    protected $fillable = ['user_id', 'product_id', 'surname', 'order_number', 'ship_date', 'shipper_id', 'order_date', 'payment_id', 'amount', 'status', 'priority', 'assigned_to', 'transaction_id', 'created_at', 'modified_at'];
+    protected $fillable = ['user_id', 'product_id', 'surname', 'order_number', 'ship_date', 
+    'shipper_id', 'order_date', 'payment_id', 'amount', 'status', 'priority', 'assigned_to', 
+    'transaction_id', 'created_at', 'updated_at', 'deleted_at'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

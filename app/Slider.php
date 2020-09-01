@@ -19,7 +19,7 @@ class Slider extends Model
      * 
      * @var string
      */
-    protected $table = 'ps_slider';
+    protected $table = 'ps_slider'; 
 
     /**
      * The "type" of the auto-incrementing ID.
@@ -31,6 +31,9 @@ class Slider extends Model
     /**
      * @var array
      */
-    protected $fillable = ['image_path', 'is_active', 'is_slide', 'created_at', 'modified_at'];
+
+    protected $fillable = ['redirect_url','title_size','title_color','content_german','content_english','title_german','title_english','image_path', 'is_active', 'is_slide', 'created_at', 'updated_at','deleted_at'];
+
+
 
 }

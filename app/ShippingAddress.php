@@ -39,7 +39,8 @@ class ShippingAddress extends Model
     /**
      * @var array
      */
-    protected $fillable = ['order_id', 'user_id', 'house_no', 'street_address', 'city', 'state', 'postal_code', 'country', 'same_as_billing', 'created_at', 'modified_at'];
+    protected $fillable = ['order_id', 'user_id', 'house_no', 'street_address', 'city', 'state', 
+    'postal_code', 'country', 'same_as_billing', 'created_at', 'updated_at', 'deleted_at'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

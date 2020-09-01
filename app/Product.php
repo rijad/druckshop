@@ -34,7 +34,9 @@ class Product extends Model
     /**
      * @var array
      */
-    protected $fillable = ['name', 'short_description', 'description', 'created_at', 'modified_at'];
+    protected $fillable = ['name', 'title_english', 'title_german', 'cover_weight', 
+    'short_description_english', 'short_description_german', 'description_english', 'product_page_url',
+    'description_german', 'created_at', 'updated_at', 'deleted_at'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -43,7 +45,7 @@ class Product extends Model
     {
         return $this->hasMany('App\PsOrder', 'product_id');
     }
- 
+  
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -57,7 +59,7 @@ class Product extends Model
      */
     public function psProductImages()
     {
-        return $this->hasMany('App\PsProductImage', 'product_id');
+        return $this->hasMany('App\ProductImage', 'product_id');
     }
  
 

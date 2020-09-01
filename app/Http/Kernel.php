@@ -19,6 +19,7 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
+        // \Illuminate\Auth\Middleware\Permissions::class,
     ];
 
     /**
@@ -35,6 +36,8 @@ class Kernel extends HttpKernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            \App\Http\Middleware\Localization::class,
+            // \Illuminate\Auth\Middleware\Permissions::class,
         ],
 
         'api' => [
@@ -43,7 +46,7 @@ class Kernel extends HttpKernel
         ],
     ];
 
-    /**
+    /** 
      * The application's route middleware.
      *
      * These middleware may be assigned to groups or used individually.
@@ -60,6 +63,15 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        'permissions' => \App\Http\Middleware\Permissions::class,
+        'orderaccess' => \App\Http\Middleware\OrderAccessMiddleware::class,
+        'orderfiles' => \App\Http\Middleware\OrderFiles::class,
+        'sliders' => \App\Http\Middleware\Sliders::class,
+        'parameter' => \App\Http\Middleware\Parameter::class,
+        'latest' => \App\Http\Middleware\Latest::class,
+        'returnorders' => \App\Http\Middleware\ReturnOrders::class,
+        'roles' => \App\Http\Middleware\RoleMiddleware::class,
+
     ];
 
     /**

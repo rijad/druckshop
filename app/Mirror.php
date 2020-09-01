@@ -23,7 +23,8 @@ class Mirror extends Model
     /**
      * @var array
      */
-    protected $fillable = ['mirror', 'surname', 'name_english', 'name_german','status', 'created_at', 'modified_at'];
+    protected $fillable = ['mirror', 'surname', 'name_english', 'name_german','status', 
+    'created_at', 'updated_at', 'deleted_at'];
 
     public function psPageOption()
     {
