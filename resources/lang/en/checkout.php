@@ -95,6 +95,7 @@ return [
     'embossment_yes' => 'Embossment Cover Sheet: Yes',
     'embossment_no' => 'Embossment Cover Sheet: No',
     'paper_wt' => 'Paper Weight',
+    'select_file' => 'Select File',
 
 
     // validations
