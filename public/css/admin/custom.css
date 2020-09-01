@@ -361,6 +361,11 @@ div#many-pro span.ml-4 {
     vertical-align: middle;
 }
 
+/* styles added 01/09/2020 V */
+div#many.form-inline span, div#many-pro.form-inline span {
+    display: inline-block;
+}
+ 
 
 @media only screen and (max-width: 767px){
 #single span.ml-4 input.form-control {

@@ -63,31 +63,16 @@
                     <div class="text-center quote_heading">
                       <p>{{ trans('customer.order') }} : {{$data->order_id}}    Order date: {{DATE('M j Y',strtotime($data->created_at))}} </p>
                     </div>
-                    <div class="customer-info">
-                      @foreach($splitOrderDetails as $splitKey => $splitValue) 
-                        @if($data->order_id == $splitValue->unique_id)
-                        <p>{{ trans('customer.no_of_copies') }}: {{$splitValue->no_of_copies}}</p>   
-                        <p>{{ trans('customer.no_of_cds') }}: {{$splitValue->no_of_cds}}</p> 
-                        <p>{{ trans('customer.ship_add') }}: {{$splitValue->shipping_address}}</p>
-                        <hr>
-                        @else
-                        {{-- <p>{{ trans('customer.no_of_copies') }}: {{$data->no_of_copies}}</p>   
-                        <p>{{ trans('customer.no_of_cds') }}: {{$data->no_of_cds}}</p> 
-                        <p>{{ trans('customer.ship_add') }}: {{$data->shipping_address}}</p>
-                        <p>{{ trans('customer.bill_add') }}: {{$data->billing_address}}</p>
-                        <hr> --}}
-                        @endif
-                      @endforeach
-                       <p>{{ trans('customer.bill_add') }}: {{$data->billing_address}}</p>
-                    </div>     
+
                     <div class="product"> 
                     	
-                    	 @foreach($data->orderProductHistory as $details)
+                    	 @foreach($data->orderProductHistory as $key=>$details)
                     	 
                         <div class="product_listing">  
-                            <img src="images/product_frame.png" alt="" width="100px">
+
+                          <img src="images/product_frame.png" alt="" width="100px">
                             <div class="product_description">
-                                <p class="thisproduct_head">{{$details->product}}</p>
+                                <p class="thisproduct_head">{{productNameByName($details->product)}}</p>
                                 <p class="thisproduct_subhead">{{$details->attribute_desc}}</p>
                             </div>
                             <ul class="product_price">
@@ -95,8 +80,22 @@
                                     <strong>{{$details->price_product_qty}}€</strong></h6>
                                 </li>
                             </ul>
+
+                            	
+                            <div class="customer-info binding-details"> 
+                              @foreach($splitOrderDetails as $splitKey => $splitValue) 
+                                @if($data->order_id == $splitValue->unique_id && $splitValue->prod_sequence == $key)
+                                <h6 class="no-cps">{{ trans('customer.no_of_copies') }}: {{$splitValue->no_of_copies}}</h6>   
+                                <h6 class="no-cds"><h6>{{ trans('customer.no_of_cds') }}: {{$splitValue->no_of_cds}}</h6> 
+                                <h6 class="ship-add">{{ trans('customer.ship_add') }}: {{$splitValue->shipping_address}}</h6>
+                                <hr>
+                                @endif
+                              @endforeach
+                                   <p class="bill-add">{{ trans('customer.bill_add') }}: {{$data->billing_address}}</p>
+                            </div> 
+                            
                         </div>  
-                        <hr> 
+                        <hr> <hr> 
                        
                         @endforeach
                         

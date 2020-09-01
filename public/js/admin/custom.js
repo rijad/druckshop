@@ -51,12 +51,18 @@ $(document).ready(function () {
                 $("#single-pro").show();
                 $("#many-pro").hide();
         });
+
+            $("#many").hide();
+            $("#percent").hide();
+            $("#price").hide();
+            $("[name='discount']").hide();
     //for multiple product
         $("#multiple").click(function() {
 
             $("#many-pro").show();
             $("#single-pro").hide();
             $("#price").show();
+            $("[name='discount']").show();
         });
     //for delivery product
         $("#product_delivery").click(function() {
@@ -64,6 +70,7 @@ $(document).ready(function () {
             $("#many-pro").hide();
             $("#single-pro").hide();
             $("#price").hide();
+            $("[name='discount']").hide();
         });
     });
 
@@ -76,15 +83,23 @@ $(document).ready(function () {
         //         $("#many").hide();
         // });
     //for multiple product
-            $(document).ready(function() {
-                if ($("#multiple_edit").is(":checked")) {
-                   // alert('hey'); 
-                   $("#many").show();
-                    $("#percent").show();
-                } else {
-                    // alert('bye');
+            $(document).ready(function() {  
                     $("#many").hide();
                     $("#percent").hide();
+                    $("#price").hide();
+                     $("[name='discount']").hide();
+                if ($("#multiple_edit").is(":checked")) {
+                  
+                    $("#many").show();
+                    $("#percent").show();
+                    $("#price").show();
+                    $("[name='discount']").show();
+                } else {
+                    
+                    $("#many").hide();
+                    $("#percent").hide();
+                    $("#price").hide();
+                    $("[name='discount']").hide();
                 }
     //for delivery product
             
@@ -101,13 +116,17 @@ $(document).ready(function () {
         $("#multiple_edit").click(function() {
                 if ($(this).is(":checked")) {
 
-                   $("#many").show();
+                    $("#many").show();
                     $("#percent").show();
+                    $("#price").show();
+                    $("[name='discount']").show();
 
                 } else {
 
-                    $("#many").hide();
-                    $("#percent").hide();
+                     $("#many").show();
+                    $("#percent").show();
+                    $("#price").show();
+                    $("[name='discount']").show();
                 }
                 
             });

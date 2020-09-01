@@ -17,6 +17,16 @@ function productNameById($product_id){
 	}
 }
 
+function productNameByName($product_name){
+	$product = \App\Product::where(['title_english' => $product_name])->first();
+	$locale = session()->get('locale'); 
+		if ($locale == 'gr') { 
+	return $product->title_german;
+	}else{
+		return $product->title_english;
+	}
+}
+
 function pageformatById($pageformat_id){
 	$format = \App\PageFormat::find($pageformat_id);
 	$locale = session()->get('locale'); 
