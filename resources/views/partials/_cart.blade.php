@@ -390,9 +390,9 @@
                               <label for="email">{{ trans('cart.dist_detail') }}:</label>
                               <input type="text" name="code" id="code" class="form-control" placeholder="{{ trans('cart.enter_here') }}" oninput="discountCode(this);">
                              {{--  <p id = "discount-code-error">{{ $errors->first('code') }}</p> --}}
-                              @if($errors->has('code'))
-                              <p class="error" id = "discount-code-error">{{ $errors->first('code') }}</p>
-                              @endif
+                             
+                              <p class="error" id = "discount-code-error"> @if($errors->has('code')){{ $errors->first('code') }} @endif</p>
+                             
                             </div> 
 
                         @endif    

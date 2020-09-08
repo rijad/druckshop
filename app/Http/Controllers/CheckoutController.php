@@ -1155,20 +1155,41 @@ public function calculateDiscountAmount($code = "", $total = "", $delivery = "",
 
 				if($dis_value == $prod_value->product_id){
 
-					// $prod_flag = 1;
+					// $prod_flag = 1;  
 
 					if($discount->by_price != "null" && ! empty($discount->by_price)){
-					$discount_amt = number_format($discount->by_price,2);
+
+						$discount_amt += number_format($discount->by_price,2);  
+
+						if($discount_amt > $prod_value->price_product_qty){ 
+							$net_amt = $total - 0.00;
+							$discount_amt = 0;
+						}else{
+
+							$net_amt = $total - $discount_amt; 
+						}
+					
 					}else{ 
+
 					$prod_discount = $prod_value->price_product_qty;
+
 					// discounted product price
-					$discount_amt +=number_format( ($prod_discount / 100 ) * $discount->by_percent,2);
+					$dis_amt = number_format( ($prod_discount / 100 ) * $discount->by_percent,2);
 					// In case of discount by %, % amt of discount is calculated on a product price on which discount is aplicable, not on whole order.
+
+						if($dis_amt > $prod_value->price_product_qty){ 
+							$net_amt = $total - 0.00;
+							$discount_amt = 0;
+						}else{
+							$discount_amt +=number_format( ($prod_discount / 100 ) * $discount->by_percent,2);
+							$net_amt = $total - $discount_amt; 
+						}
+
 					}
 
 					// discount is more then total i.e no code will be applied
 
-					if($discount_amt > $total){ 
+					if($discount_amt > $prod_value->price_product_qty){ 
 						$net_amt = $total - 0.00;
 						$discount_amt = 0;
 					}else{
@@ -1499,48 +1520,8 @@ public function getDiscountcodeStatus(Request $request){
             $user_id = Session::get('user_id');
         }
 
-	 // Multi Product discount - Check if discound code is valid for particular product or not
-       try{
-       $discount = Discount::where(['code' => $request->code])->first(['by_price','by_percent','type','product_id']);
 
-       $prod_flag = 0;
-
-       if($discount->type == 2){
-
-              $product_ids = json_decode($discount->product_id,true); 
-
-              $products = OrderAttributes::where('user_id', $user_id)->get();
-
-              // product ids with discount code
-              foreach($product_ids as $dis_key => $dis_value){
-
-                // product ids in cart
-                foreach($products as $prod_key => $prod_value){
-
-                  if($dis_value == $prod_value->product_id){
-
-                    $prod_flag = 1;
-
-                  }
-
-                } 
-
-              } 
-
-              if($prod_flag == 0){
-                return "false";
-              }else{
-                return "true";
-              }
-            
-      }
-
-   }catch(Exception $e){
-   		return "false";
-   }
-       
-
-       // check if user has already used a code
+        // check if user has already used a code
 
     if(OrderDetailsFinal::where(['user_id' => $user_id, 'promo_code' => $request->code])->first() != null){
 
@@ -1560,19 +1541,145 @@ public function getDiscountcodeStatus(Request $request){
 
 	if(Discount::where(['code' => $request->code])->where('to_date' ,'<' ,date('Y-m-d'))->first() == null && Discount::where(['code' => $request->code])->where('from_date' ,'>' ,date('Y-m-d'))->first() == null){
    
-        return "true";
+        // Multi Product discount - Check if discound code is valid for particular product or not
+       try{
+       $discount = Discount::where(['code' => $request->code])->first(['by_price','by_percent','type','product_id']);
+
+       $prod_flag = 0;
+
+       if($discount->type == 2){
+
+              $product_ids = json_decode($discount->product_id,true); 
+              $products = OrderAttributes::where('user_id', $user_id)->get();
+
+              // product ids with discount code
+              foreach($product_ids as $dis_key => $dis_value){
+
+                // product ids in cart
+                foreach($products as $prod_key => $prod_value){  
+
+                  if($dis_value == $prod_value->product_id){  
+
+                    if($discount->by_price != "null" && ! empty($discount->by_price)){ 
+
+                      $discount_amt = number_format($discount->by_price,2);  
+
+                      if($discount_amt > $prod_value->price_product_qty){ 
+                        $prod_flag = 0;  
+                      }else{
+
+                        $prod_flag = 1;  
+                      }
+                    
+                    }else{ 
+
+                    $prod_discount = $prod_value->price_product_qty;
+
+                    // discounted product price
+                    $dis_amt = number_format( ($prod_discount / 100 ) * $discount->by_percent,2);
+                    // In case of discount by %, % amt of discount is calculated on a product price on which discount is aplicable, not on whole order.
+
+                      if($dis_amt > $prod_value->price_product_qty){ 
+                        $prod_flag = 0;  
+                      }else{
+                       $prod_flag = 1;  
+                      }
+
+                    }
+
+                  }
+
+                } 
+
+              } 
+
+              if($prod_flag == 0){ 
+                return "false"; 
+              }else{
+                return "true";
+              }
+            
+      }
+     }catch(Exception $e){
+        return "false";
+     }
 
     }
 
     if(Discount::where(['code' => $request->code])->whereNull('to_date')->first() != null && Discount::where(['code' => $request->code])->where('from_date' ,'>' ,date('Y-m-d'))->first() == null){
 
-         return "true";
+        // Multi Product discount - Check if discound code is valid for particular product or not
+       try{
+       $discount = Discount::where(['code' => $request->code])->first(['by_price','by_percent','type','product_id']);
+
+       $prod_flag = 0;
+
+       if($discount->type == 2){
+
+              $product_ids = json_decode($discount->product_id,true); 
+              $products = OrderAttributes::where('user_id', $user_id)->get();
+
+              // product ids with discount code
+              foreach($product_ids as $dis_key => $dis_value){
+
+                // product ids in cart
+                foreach($products as $prod_key => $prod_value){
+
+                  if($dis_value == $prod_value->product_id){
+
+                    if($discount->by_price != "null" && ! empty($discount->by_price)){
+
+                      $discount_amt = number_format($discount->by_price,2);  
+
+                      if($discount_amt > $prod_value->price_product_qty){ 
+                        $prod_flag = 0;
+                      }else{
+
+                        $prod_flag = 1;
+                      }
+                    
+                    }else{ 
+
+                    $prod_discount = $prod_value->price_product_qty;
+
+                    // discounted product price
+                    $dis_amt = number_format( ($prod_discount / 100 ) * $discount->by_percent,2);
+                    // In case of discount by %, % amt of discount is calculated on a product price on which discount is aplicable, not on whole order.
+
+                      if($dis_amt > $prod_value->price_product_qty){ 
+                        $prod_flag = 0;
+                      }else{
+                       $prod_flag = 1;
+                      }
+
+                    }
+
+                  }
+
+                } 
+
+              } 
+
+              if($prod_flag == 0){ 
+                return "false"; 
+              }else{
+                return "true";
+              }
+            
+      }
+     }catch(Exception $e){
+        return "false";
+     }
 
        }else{
 
         return "false";
 
        }
+
+	 
+
+       
  
 }
 

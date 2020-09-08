@@ -639,7 +639,7 @@
 														<div id="drag_upload_cd_without_logo">
 															<p class="inside-box-heading">{{ trans('checkout.upload_own_cd_template') }}</p>
 															<p>{{ trans('checkout.drop_file') }}<a href="#" data-toggle="tooltip" title="jpeg,jpg,png" class="formToolTip">i</a></p> 
-															<p>or</p>
+															<p>or</p>    
 															<p><input type="button" value="{{ trans('checkout.select_file') }}" onclick=" file_explorer('upload_cd_without_logo');"></p>
 															<input type="file" name ="selectfile" id="selectfile" accept="image/x-png">
  
