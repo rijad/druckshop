@@ -96,6 +96,10 @@ return [
     'embossment_no' => 'Embossment Cover Sheet: No',
     'paper_wt' => 'Paper Weight',
     'select_file' => 'Select File',
+    'or' => 'or',
+    'file_name' => 'File Name',
+    'no_of_pages' => 'No of Pages',
+    'range_is' => 'Range is',
 
 
     // validations

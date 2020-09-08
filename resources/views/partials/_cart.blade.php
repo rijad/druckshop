@@ -24,8 +24,19 @@
                                                   <img src="http://druckshop.trantorglobal.com/public/images/product1.jpg" alt="" width="75px" />
                                                   <div class="product_description">
                                                       <p class="thisproduct_head">{{$data->product}}</p>
-                                                      <p id="thisproduct_subhead" class="thisproduct_subhead more">{{$data->attribute_desc}}</p>
-                                                  </div>
+                                                      <p id="thisproduct_subhead" class="thisproduct_subhead more">{{$data->attribute_desc}} 
+
+                                                      	{{-- @php
+                                                      		
+                                                      		$tr = new GoogleTranslate(); // Translates to 'en' from auto-detected language by default
+															$tr->setSource('en'); // Translate from English
+															//$tr->setSource(); // Detect language automatically
+															$tr->setTarget('gr'); // Translate to Georgian
+															echo $tr->translate($data->attribute_desc);
+													    @endphp --}}
+
+                                                      </p>
+                                                  </div>    
                                                   <ul class="product_price" id="product_price"> 
                                                       <li class="inputcard_quantity" style="display: none"><h6><strong>€ <span id="price_per_product_{{$data->id}}" class = "price_per_product">{{$data->price_per_product}}</span><span class="text-muted">x</span></strong></h6></li> 
                                                       <li><button type="button" onclick="window.location='{{route('remove-item',['id'=>$data->id]) }}'" class="remove_btn" > {{ trans('cart.remove') }}</button></li>
@@ -64,7 +75,7 @@
                                                                                 <div class="form-group">
                                                                                   <label for="pwd">{{ trans('cart.no_of_cds') }}:</label>
 
-                                                                                  <input id="no_of_cds" type="number" min="0" name={{"no_of_cds[".$split_details['prod_sequence'].'_'.$split_details['sequence']."]"}} class="form-control" placeholder="0" onchange="InsertSplitOrder({{$data->id}} , {{$split_details['sequence']}} , this ,{{$split_details['prod_sequence']}}); setTimeout(function(){ setQuantity({{count($product_data)}}) },2000)" value= @if(isset($data->no_of_cds) || ! is_nan($data->no_of_cds)) {{$split_details['no_of_cds']}} @else {{0}} @endif @if($split_details['no_of_cds'] <=0) {{"readonly"}}  @endif>
+                                                                                  <input id="no_of_cds" type="number" min="0" name={{"no_of_cds[".$split_details['prod_sequence'].'_'.$split_details['sequence']."]"}} class="form-control" placeholder="0" onchange="InsertSplitOrder({{$data->id}} , {{$split_details['sequence']}} , this ,{{$split_details['prod_sequence']}}); setTimeout(function(){ setQuantity({{count($product_data)}}) },2000)" value= "@if(isset($data->no_of_cds) || ! is_nan($data->no_of_cds)) {{$split_details['no_of_cds']}} @else {{0}} @endif" @if($split_details['no_of_cds'] <=0) {{"readonly"}}  @endif>
                                                                                    @if($errors->has('no_of_cds.'.$split_details['prod_sequence']))
                                                                                   <div class="error">{{ $errors->first('no_of_cds.'.$split_details['prod_sequence']) }}</div>
                                                                                   @endif
@@ -141,7 +152,7 @@
                                                                                 <div class="form-group">
                                                                                   <label for="pwd">{{ trans('cart.no_of_cds') }}:</label>
                                                                                  
-                                                                                  <input id="no_of_cds" type="number" min="0" name={{"no_of_cds[".$key.'_'.'0'."]"}} class="form-control" placeholder="0" onchange="InsertSplitOrder({{$data->id}} , 0 , this ,{{$key}}); setTimeout(function(){ setQuantity({{count($product_data)}}) },2000)" value= @if(isset($data->no_of_cds) || ! is_nan($data->no_of_cds)) {{$data->no_of_cds}} @else {{0}} @endif @if($data->no_of_cds <=0) {{"readonly"}}  @endif>
+                                                                                  <input id="no_of_cds" type="number" min="0" name={{"no_of_cds[".$key.'_'.'0'."]"}} class="form-control" placeholder="0" onchange="InsertSplitOrder({{$data->id}} , 0 , this ,{{$key}}); setTimeout(function(){ setQuantity({{count($product_data)}}) },2000)" value="@if(isset($data->no_of_cds) || ! is_nan($data->no_of_cds)) {{$data->no_of_cds}} @else {{0}} @endif" @if($data->no_of_cds <=0) {{"readonly"}}  @endif>
                                                                                    @if($errors->has('no_of_cds.'.$key))
                                                                                   <div class="error">{{ $errors->first('no_of_cds.'.$key) }}</div>
                                                                                   @endif
@@ -210,7 +221,7 @@
                                                                     <div class="form-group">
                                                                       <label for="pwd">{{ trans('cart.no_of_cds') }}:</label>
                                                                       {{-- <label id="cd_price_per_product_{{$data->id}}" class = "cd price_per_product">Price/qty: 2.00 € </label> --}}
-                                                                      <input id="no_of_cds" type="number" min="0" name={{"no_of_cds[".$key.'_'.'0'."]"}}  class="form-control" placeholder="0" onchange="InsertSplitOrder({{$data->id}} , 0 , this ,{{$key}}); setTimeout(function(){ setQuantity({{count($product_data)}}) },2000)" value= @if(isset($data->no_of_cds) || ! is_nan($data->no_of_cds)) {{$data->no_of_cds}} @else {{0}} @endif @if($data->no_of_cds <=0) {{"readonly"}}  @endif>
+                                                                      <input id="no_of_cds" type="number" min="0" name={{"no_of_cds[".$key.'_'.'0'."]"}}  class="form-control" placeholder="0" onchange="InsertSplitOrder({{$data->id}} , 0 , this ,{{$key}}); setTimeout(function(){ setQuantity({{count($product_data)}}) },2000)" value= "@if(isset($data->no_of_cds) || ! is_nan($data->no_of_cds)) {{$data->no_of_cds}} @else {{0}} @endif" @if($data->no_of_cds <=0) {{"readonly"}}  @endif>
                                                                        @if($errors->has('no_of_cds.'.$key))
                                                                       <div class="error">{{ $errors->first('no_of_cds.'.$key) }}</div>
                                                                       @endif

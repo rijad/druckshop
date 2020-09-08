@@ -12,7 +12,7 @@ return [
     */
 
     'no_of_copies' => 'Anzahl der Kopien',
-    'no_of_cds' => 'Nr. Von CDS',
+    'no_of_cds' => 'Anzahl der CDs',
     'ship_add' => 'Lieferanschrift',
     'bill_add' => 'Rechnungsadresse',
     'ship_comp' => 'Versandunternehmen',
@@ -46,7 +46,7 @@ return [
     'item' => 'Artikel',
     'read_more' => 'Weiterlesen',
     'read_less' => 'Lese weniger',
-    'unit_price_binding' => 'Stückpreis pro verbindlichem Exemplar',
+    'unit_price_binding' => 'Stückpries pro Bindung',
     'discount_success' => 'Der Rabattcode wurde erfolgreich angewendet',
     'discount_invalid' => 'Der Rabattcode ist ungültig',
     'split_msg' => 'Sie können diese Reihenfolge nicht aufteilen. Der Wert für Anzahl der Kopien oder Anzahl der CDs sollte gleich oder größer als 1 sein.',
