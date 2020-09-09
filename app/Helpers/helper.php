@@ -200,10 +200,27 @@ function customer($id)
         }
 	} 
 
+function getEmbossingTypeById($id){
+
+	$list = \App\ArtList::find($id);
+
+	return $list->name_english;  
+
+}
+
 function getEmbossingById($id){
 
 	$list = \App\ArtList::find($id);
-	return $list->name_english;  
+
+	$locale = session()->get('locale'); 
+
+	if ($locale == 'gr') {
+	return $list->name_german;
+	}else{
+		return $list->name_english;
+	}
+
+	//return $list->name_english;  
 
 } 
 

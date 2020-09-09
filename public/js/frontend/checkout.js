@@ -133,6 +133,8 @@ function displayFieldsContent(page_options = ""){
 
 		}else{}
 
+
+
 		// Get data for mirror
 		if (typeof $content_attributes['mirror'] !== 'undefined' && $content_attributes['mirror'].length > 0) {
 			var len = $content_attributes['mirror'].length;
@@ -140,10 +142,19 @@ function displayFieldsContent(page_options = ""){
 			$("#mirror").empty();
 			$("#mirror").append("<option value='-1'>"+lang_text.select+"</option>");
 			for( var i = 0; i<len; i++){  
-				$("#mirror").append("<option value = "+$content_attributes['mirror'][i]['id'] +">"+$content_attributes['mirror'][i]['mirror']+"</option>");
-			if($content_attributes['mirror'][i]['mirror'] == 'Long edge'){
-				$("#mirror").val($content_attributes['mirror'][i]['id']);
-		} 
+				var mirror = "";
+
+				if($content_attributes['mirror'][i].hasOwnProperty('name_german')){
+					mirror = $content_attributes['mirror'][i]['name_german'];
+				}else{
+					mirror = $content_attributes['mirror'][i]['name_english'];
+				}
+
+				$("#mirror").append("<option value = "+$content_attributes['mirror'][i]['id'] +">"+mirror+"</option>");
+				
+				if($content_attributes['mirror'][i]['name_english'] == 'Long edge' || $content_attributes['mirror'][i]['name_german'] == 'Lange Kante'){
+					$("#mirror").val($content_attributes['mirror'][i]['id']);
+				} 
 			}
 
 		}else{
@@ -2578,7 +2589,7 @@ function BasicRange(binding = "", weight = "", no_pages=""){
 			var max  = parseInt(data['max_sheets']);
 			var no_of_pages = document.getElementById('pg_no').value; // no of pages of uploaded file
 			document.getElementById('error_no_of_pages').style.color = "#000000";
-			document.getElementById('error_no_of_pages').innerHTML = "Range is "+ min + " - " + max ;
+			document.getElementById('error_no_of_pages').innerHTML = lang_text.range_is +" "+ min + " - " + max ;
 			
 		}
 	}); 
@@ -2617,7 +2628,7 @@ function BasicRange(binding = "", weight = "", no_pages=""){
 			if(value < min || value > max){ 
 
 				document.getElementById('error_no_of_pages').style.color = "red";
-				document.getElementById('error_no_of_pages').innerHTML = "Range is "+ min + " - " + max ;
+				document.getElementById('error_no_of_pages').innerHTML = lang_text.range_is +" "+ min + " - " + max ;
 				status = false;
 			}
 
@@ -3315,7 +3326,7 @@ function getEmbossingFields(binding = ''){
 
 			data.forEach(function(data) { 
 				
-				$('#embossing').append("<option value='"+data.embossment_type+"'>"+data.embossment_type+ "</option>");
+				$('#embossing').append("<option value='"+data.embossment_type+"'>"+data.embossing+ "</option>");
 			})
 
 			

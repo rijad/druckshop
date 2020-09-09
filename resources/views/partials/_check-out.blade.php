@@ -64,7 +64,7 @@
 									<p class="inside-box-heading">{{ trans('checkout.upload_cover_sheet') }}</p>
 									<div id="drag_upload_file_cover_sheet">
 										<p>{{ trans('checkout.drop_file') }}<a href="#" data-toggle="tooltip" title="PDF" class="formToolTip">i</a></p>
-										<p>or</p>
+										<p>{{ trans('checkout.or') }}</p>
 										<p><input type="button" value="{{ trans('checkout.select_file') }}" onclick="file_explorer('drop_file_zone_cover_sheet');"></p>
 										<input class = "displayNone" type="file" name="selectfile" id="selectfile" accept="application/pdf" value = ""/>
 										<input class = "displayNone" type="hidden" name="selectfile_coversheet" id="selectfile_coversheet" value = "" />
@@ -86,7 +86,7 @@
 										<div id="drag_upload_file_back_cover">
 											<p class="inside-box-heading">{{ trans('checkout.upload_back_sheet') }}</p>
 											<p>{{ trans('checkout.drop_file') }}<a href="#" data-toggle="tooltip" title="PDF" class="formToolTip">i</a></p>
-											<p>or</p>  
+											<p>{{ trans('checkout.or') }}</p>  
 											<p><input type="button" value="{{ trans('checkout.select_file') }}" onclick="file_explorer('drop_file_zone_back_cover');"></p>
 											<input class = "displayNone" type="file" name="selectfile" id="selectfile" accept="application/pdf" value = "" />
 											<input class = "displayNone" type="hidden" name="selectfile_backcover" id="selectfile_backcover" value = "" />
@@ -140,7 +140,7 @@
 											<p class="inside-box-heading">{{ trans('checkout.upload_thesis') }}</p>
 											<p>{{ trans('checkout.drop_file') }}<a href="#" data-toggle="tooltip" title="
 											PDF" class="formToolTip">i</a></p> 
-											<p>or</p>
+											<p>{{ trans('checkout.or') }}</p>
 											<p><input class = "" type="button" value="{{ trans('checkout.select_file') }}" onclick="file_explorer('drop_file_zone_content');"></p>
 											<input type="file" name="selectfile" id="selectfile" onchange="" accept="application/pdf">
 											<input type="hidden" name="selectfile_content" id="selectfile_content">
@@ -196,7 +196,7 @@
 												<div id="drag_upload_file_A3" >
 													<label class="inside-box-heading displayNone">{{ trans('checkout.upload_din_A3_pages') }}</label>
 													<p>{{ trans('checkout.drop_file') }}<a href="#" data-toggle="tooltip" title="PDF" class="formToolTip">i</a></p> 
-													<p>or</p>
+													<p>{{ trans('checkout.or') }}</p>
 													<p><input type="button" value="{{ trans('checkout.select_file') }}" onclick="file_explorer('drop_file_din_A3');"></p>
 													<input type="file" name ="selectfile" id="selectfile" accept="application/pdf">
 													<input type="hidden" name="selectfile_din_A3" id="selectfile_din_A3">
@@ -229,7 +229,7 @@
 													<div id="drag_upload_file_A2" >
 														<label class="inside-box-heading diaplayNone">{{ trans('checkout.upload_din_A2_pages') }}</label>
 														<p>{{ trans('checkout.drop_file') }}<a href="#" data-toggle="tooltip" title="PDF" class="formToolTip">i</a></p> 
-														<p>or</p>
+														<p>{{ trans('checkout.or') }}</p>
 														<p><input type="button" value="{{ trans('checkout.select_file') }}" onclick="file_explorer('drop_file_din_A2');"></p>
 														<input type="file" name="selectfile" id="selectfile" accept="application/pdf">
 
@@ -295,7 +295,7 @@
 													<div id="drag_upload_file_logo">
 														<p class="inside-box-heading">{{ trans('checkout.upload_logo') }}</p>
 														<p>{{ trans('checkout.drop_file') }}<a href="#" data-toggle="tooltip" title="jpeg,jpg,png" class="formToolTip">i</a></p> 
-														<p>or</p>
+														<p>{{ trans('checkout.or') }}</p>
 														<p><input type="button" value="{{ trans('checkout.select_file') }}" onclick="file_explorer('upload_custom_logo');"></p>
 														<input type="file" name ="selectfile_logo_img" id="selectfile_logo_img" accept = "image/x-png,image/gif,image/jpeg">
 
@@ -344,7 +344,7 @@
 													<div id="drag_upload_file_file">
 														<p class="inside-box-testing">{{ trans('checkout.upload_own_binding_template') }}</p>
 														<p>{{ trans('checkout.drop_file') }}<a href="#" data-toggle="tooltip" title="The length X within 'spine X cm' is calculated by the thickness of the paper (to be set in the admin area under paper weight) times the number of sheets + 0.5 mm." class="formToolTip">i</a></p> 
-														<p>or</p>
+														<p>{{ trans('checkout.or') }}</p>
 														<p><input type="button" value="{{ trans('checkout.select_file') }}" onclick="file_explorer('upload_custom_file');"></p>
 														<input  class="displayNone" type="file" name ="selectfile" id="selectfile" accept="application/pdf">
 
@@ -534,7 +534,7 @@
 														<div id="drag_upload_file_cd">
 															<p class="inside-box-heading">{{ trans('checkout.upload_files_on_cd') }}</p>
 															<p>{{ trans('checkout.drop_file') }}</p>   
-															<p>or</p>
+															<p>{{ trans('checkout.or') }}</p>
 															<p><input type="button" value="{{ trans('checkout.select_file') }}" onclick="file_explorer('upload_cd');"></p>
 															<input type="file" id="selectfile_upload_cd" name="selectfile_upload_cd" accept = "application/pdf" multiple>
 															<input type="hidden" id="selectfile_cd" name="selectfile_cd">
@@ -586,7 +586,7 @@
 														<div id="drag_upload_file_logo_custom">
 															<p class="inside-box-heading">{{ trans('checkout.upload_logo_for_cd_template') }}</p>
 															<p>{{ trans('checkout.drop_file') }}<a href="#" data-toggle="tooltip" title="jpeg,jpg,png" class="formToolTip">i</a></p> 
-															<p>or</p>
+															<p>{{ trans('checkout.or') }}</p>
 															<p><input type="button" value="{{ trans('checkout.select_file') }}" onclick=" file_explorer('upload_custom_logo_cd');"></p>
 															<input type="file" name ="selectfile_custom_logo_cd" id="selectfile_custom_logo_cd" accept="image/*">
  
@@ -639,7 +639,7 @@
 														<div id="drag_upload_cd_without_logo">
 															<p class="inside-box-heading">{{ trans('checkout.upload_own_cd_template') }}</p>
 															<p>{{ trans('checkout.drop_file') }}<a href="#" data-toggle="tooltip" title="jpeg,jpg,png" class="formToolTip">i</a></p> 
-															<p>or</p>    
+															<p>{{ trans('checkout.or') }}</p>    
 															<p><input type="button" value="{{ trans('checkout.select_file') }}" onclick=" file_explorer('upload_cd_without_logo');"></p>
 															<input type="file" name ="selectfile" id="selectfile" accept="image/x-png">
  

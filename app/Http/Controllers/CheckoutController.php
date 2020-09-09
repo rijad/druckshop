@@ -49,6 +49,8 @@ use \Exception;
 use Auth;
 use Session; 
 use App\Rules\CheckCodeRule;
+//use Stichoza\GoogleTranslate\GoogleTranslate;
+
 
 
 use Mail;
@@ -260,7 +262,16 @@ class CheckoutController extends Controller
 
 	public function getMirror($id = "", $call_by = 'self'){
 		try{
-			$mirror = PageOptions::find($id)->psMirror()->get(['mirror','ps_mirror.id']);
+			//$mirror = PageOptions::find($id)->psMirror()->get(['mirror','ps_mirror.id']);
+			$locale = session()->get('locale');
+
+			if ($locale == 'gr'){ 
+				$mirror = PageOptions::find($id)->psMirror()->get(['name_german','ps_mirror.id']);
+			}else{
+				$mirror = PageOptions::find($id)->psMirror()->get(['name_english','ps_mirror.id']);
+			}
+			
+
 			if($call_by == 'self') { 
 				return $mirror;
 			} else {
@@ -914,7 +925,9 @@ $product = Product::where('id', $request->input('binding'))->first()->title_engl
 
 // }
 
-$product_details = "";
+
+$product_details_german="";
+$product_details = ""; 
  
 foreach($request->input() as $key => $value){
 
@@ -926,6 +939,11 @@ foreach($request->input() as $key => $value){
 	// make scentence for product details
 		// $product_details .= $key ." ".$attribute_value." ,";
 		$product_details .= $attribute_value." ,";
+
+		$attribute_value_german = self::makeOrderDetailsGerman($key,$value);
+	// make scentence for product details
+		// $product_details .= $key ." ".$attribute_value." ,";
+		$product_details_german .= $attribute_value_german." ,";
 	}
 
 } 
@@ -956,6 +974,8 @@ $total = filter_var(floatval($total), FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_
 	$OrderAttributes->product_id = $request->input('binding');
 	$OrderAttributes->quantity= $qty; 
 	$OrderAttributes->attribute_desc= $product_details;
+	$OrderAttributes->attribute_desc_german= $product_details_german;
+
 	$OrderAttributes->price_per_product=floatval($total);
 	//$OrderAttributes->price_product_qty= floatval($request->total) * $qty;
 	$OrderAttributes->price_product_qty = floatval($total) * ($request->no_of_copies);
@@ -989,8 +1009,10 @@ public function cart(){
 
 		try{
 			$product_data = OrderAttributes::where(['status'=>'1','user_id'=>$user_id])->get();  
+			
 		}catch(Exception $e){
 			$product_data = [];
+			$order_desc=[];
 		}
 //dd($product_data);
 
@@ -1265,6 +1287,7 @@ if (Auth::check())
 	}
 //dd($user_id);
 	$product_data = OrderAttributes::where('user_id', $user_id)->get();
+	
 	// foreach($product_data as $value){
 
 	// 	$total += $value->price_product_qty; 
@@ -1431,8 +1454,10 @@ if (Auth::check() && Auth::user()->name != "Guest")
 
 				try{
 					$product_data = OrderAttributes::where(['status'=>'1','user_id'=>$user_id])->get();  
+					
 				}catch(Exception $e){
 					$product_data = [];
+					
 				}
 
 			try{
@@ -1738,7 +1763,8 @@ public function setQuantity(Request $request){
 	$no_of_cds = $request->input('no_of_cds');
 	$total_new = $request->input('total');
 	$sequence = $request->input('sequence');
-	$product_details = "";
+ 	$product_details_german = "";
+	$product_details = ""; 
 
 	if (Auth::check())
 	{
@@ -1779,24 +1805,48 @@ public function setQuantity(Request $request){
 
     	if(!is_null($value) && $value != "-1" && $key != "_token" && $key != "selectfile" && $str_arr[0] != "selectfile" && $key != "total" && $key != "embossment-template-name" && $key != "cd-template-name"){
 
+    		$locale = session()->get('locale');
+
     		if($key == "no_of_copies"){
 
-    		$attribute_value = self::makeOrderDetails($key, $no_of_copies);
+			
+				$attribute_value_german = self::makeOrderDetailsGerman($key, $no_of_copies);
+			
+				$attribute_value = self::makeOrderDetails($key, $no_of_copies);
+			
+
+    		
 
     		}elseif($key == "number_of_cds"){
 
-	    		$attribute_value = self::makeOrderDetails($key,$no_of_cds);
+    			
+				$attribute_value_german = self::makeOrderDetailsGerman($key,$no_of_cds);
+				
+				$attribute_value = self::makeOrderDetails($key,$no_of_cds);
+				
+
+	    		
 
 	    	}elseif($key == "total"){
 
-	    		$attribute_value = self::makeOrderDetails($key,$total_new);
+	    		
+				$attribute_value_german = self::makeOrderDetailsGerman($key,$total_new);
+				
+				$attribute_value = self::makeOrderDetails($key,$total_new);
+				
 
 	    	}else{
-	    		$attribute_value = self::makeOrderDetails($key,$value);
+
+	    		
+				$attribute_value_german = self::makeOrderDetailsGerman($key,$value);
+				
+				$attribute_value = self::makeOrderDetails($key,$value);
+				
 	    	}
 
 			// make scentence for product details
 			$product_details .= $attribute_value." ,";
+			$product_details_german .= $attribute_value_german." ,";
 		}
 
     }    
@@ -1813,6 +1863,7 @@ public function setQuantity(Request $request){
 			$update_data->no_of_cds = $no_of_cds;
 			$update_data->attribute = json_encode($attributes); 
 			$update_data->attribute_desc = $product_details;
+			$update_data->attribute_desc_german= $product_details_german;
 			$update_data->save();
 
 		// exit;
@@ -2026,6 +2077,7 @@ public function paymentPaypalSuccess(Request $request){
 			$OrderHistory->product_id =$order->product_id;
 			$OrderHistory->quantity= $order->quantity;
 			$OrderHistory->attribute_desc= $order->attribute_desc;
+			$OrderHistory->attribute_desc_german= $order->attribute_desc_german;
 			$OrderHistory->price_per_product= $order->price_per_product;
 			$OrderHistory->price_product_qty= $order->price_product_qty;
 			$OrderHistory->cd_dvd_unit_price= $order->cd_dvd_unit_price;
@@ -2180,6 +2232,7 @@ public function paymentPaypalSuccess(Request $request){
 			$OrderHistory->product_id =$order->product_id;
 			$OrderHistory->quantity= $order->quantity;
 			$OrderHistory->attribute_desc= $order->attribute_desc;
+			$OrderHistory->attribute_desc_german= $order->attribute_desc_german;
 			$OrderHistory->price_per_product= $order->price_per_product;
 			$OrderHistory->price_product_qty= $order->price_product_qty;
 			$OrderHistory->cd_dvd_unit_price= $order->cd_dvd_unit_price;
@@ -2541,6 +2594,216 @@ public function makeOrderDetails($model = "", $attribute=""){
 	}
 
 	return "are ".$attribute;
+
+}
+
+public function makeOrderDetailsGerman($model = "", $attribute=""){   
+
+	$id = intval($attribute);  //dd($id);
+
+	if($model == "binding"){
+		$attribute = Product::where(['id' => $id])->first();  
+		return "Bindung ist ".$attribute->title_german;
+	}
+
+	if($model == "page-format"){
+		$attribute = PageFormat::where(['id' => $id])->first();
+		return "Seitenformat ist ".$attribute->name_german;
+	}
+
+	if($model == "cover-color"){
+		$attribute = CoverColor::where(['id' => $id])->first();
+		return "Titelfarbe ist ".$attribute->name_german;
+	}
+
+	if($model == "cover-sheet"){
+		$attribute = CoverSheet::where(['id' => $id])->first();
+		return "Deckblatt ist ".$attribute->name_german;
+	}
+
+	if($model == "back-cover"){
+		$attribute = BackCovers::where(['id' => $id])->first();
+		return "Rückseite ist ".$attribute->name_german;
+	}
+
+	if($model == "page_options"){
+		$attribute = PageOptions::where(['id' => $id])->first();
+		return "Seitenoption ist ".$attribute->name_german;
+	}
+
+	if($model == "paper-weight"){
+		$attribute = PaperWeight::where(['id' => $id])->first();
+		return "Papiergewicht ist ".$attribute->name_german . " g/m²";
+	}
+
+	if($model == "mirror"){
+		$attribute = Mirror::where(['id' => $id])->first();
+		return "Spiegeltyp ist ".$attribute->name_german;
+	}
+
+	if($model == "fonts"){
+		return "Schriftart ist ".$attribute;
+	}
+
+	if($model == "date-format"){
+		return "Datumsformat ist ".$attribute;
+	}
+
+	if($model == "cd-bag"){
+		$attribute = CdBag::where(['id' => $id])->first();
+		return "CD-Tasche ist ".$attribute->name_german;
+	}
+
+	if($model == "data_check"){
+		$attribute = DataCheck::where(['id' => $id])->first();
+		return "Datenprüfung ist ".$attribute->name_german;
+	}
+
+	if($model == "no_of_copies"){
+		return "Anzahl der Kopien sind ".$attribute;
+	}
+
+	if($model == "no_of_pages"){
+		return "Anzahl der Seiten sind ".$attribute;
+	}
+
+	if($model == "pg_no"){
+		return "Keine der Seiten in der hochgeladenen Arbeit sind ".$attribute;
+	}
+
+	if($model == "color-pages"){
+		return "Farbseite ist ".$attribute;
+	}
+
+	if($model == "page_numbers"){
+		return "Keine farbigen Seiten sind ".$attribute;
+	}
+
+	if($model == "A3-pages"){
+		return "A3-Seite ist ".$attribute;
+	}
+
+	if($model == "number_of_pages"){
+		return "Keine der A3-Seiten sind ".$attribute;
+	}
+
+	if($model == "pos_of_A3_pages"){
+		return "Pos von A3 Seiten sind ".$attribute;
+	}
+
+	if($model == "A2-pages"){
+		return "A2-Seite ist ".$attribute;
+	}
+
+	if($model == "number_of_A2_pages"){
+		return "Keine der A2-Seiten sind ".$attribute;
+	}
+
+	if($model == "embossing"){
+		return "Prägen ist ".$attribute;
+	}
+
+	if($model == "embossment-cover-sheet"){
+		return "Präge-Deckblatt ist ".$attribute;
+	}
+
+	if($model == "template"){
+		return "Bindungsvorlage ist ".$attribute;
+	}
+
+	if($model == "embossment-template-name"){
+		return "Name der Prägevorlage ist ".$attribute;
+	}
+
+	if($model == "embossment-spine"){
+		return "Präge-Wirbelsäule ist ".$attribute;
+	}
+
+	if($model == "spine-count-hidden"){
+		return "Wirbelsäulenzahl ist ".$attribute;
+	}
+
+	if($model == "fonts-spine"){
+		return "Font Spine ist ".$attribute;
+	}
+
+	if($model == "direction"){
+		return "Richtung ist ".$attribute;
+	}
+
+	if($model == "fields_1"){
+		return "Feld 1 ist ".$attribute;
+	}
+
+	if($model == "pos_1"){
+		return "Pos 1 ist ".$attribute;
+	}
+
+	if($model == "input_1"){
+		return "Eingang 1 ist ".$attribute;
+	}
+
+	if($model == "fields_2"){
+		return "Feld 2 ist ".$attribute;
+	}
+
+	if($model == "pos_2"){
+		return "Pos 2 ist ".$attribute;
+	}
+
+	if($model == "input_2"){
+		return "Eingang 2 ist ".$attribute;
+	}
+
+	if($model == "fields_3"){
+		return "Feld 3 ist ".$attribute;
+	}
+
+	if($model == "pos_3"){
+		return "Pos 3 ist ".$attribute;
+	}
+
+	if($model == "input_3"){
+		return "Eingang 3 ist ".$attribute;
+	}
+
+	if($model == "remarks"){
+		return "Bemerkungen sind ".$attribute;
+	}
+
+	if($model == "cd-check"){
+		return "CD-Check ist ".$attribute;
+	}
+
+	if($model == "number_of_cds"){
+		return "Keine CDs sind ".$attribute;
+	}
+
+	if($model == "imprint"){
+		return "Impressum ist ".$attribute;
+	}
+
+	if($model == "cd-template"){
+		return "CD-Vorlage ist ".$attribute;
+	}
+
+	if($model == "cd-template-name"){
+		return "Der Name der CD-Vorlage lautet ".$attribute;
+	}
+
+	if($model == "fonts-cd"){
+		return "Fonts-CD ist ".$attribute;
+	}
+
+	if($model == "pos-cd-bag"){
+		return "Pos von CD-Bag ist ".$attribute;
+	}
+
+	if($model == "total"){
+		return "Insgesamt ist ".$attribute;
+	}
+
+	return "sind ".$attribute;
 
 }
 
@@ -2941,23 +3204,39 @@ public static function CartCount(){
 
 	public function getEmbossingFields(Request $request){
 
-		$embossing_list = [];
+		$embossing_list = []; $classic_count = 0; $edition_count = 0;
 
-		try{ 
+		try{  
 
 		$refinementType = ProductPrintFinishing::where(['product_id' => $request->binding_type, 'status' => '1'])->first()->id;
 
+		
+
 		$embossing_list_data =  ProductPrintFinishingArtList::where(['ps_product_pf_id' => $refinementType])->get();
+
+		
 
 		foreach($embossing_list_data as $key=>$value){
 
-			$embossing_list[$key] = ['eid' => $value->ps_art_list_id, 'embossment_type' => getEmbossingById($value->ps_art_list_id)];
+			if(getEmbossingTypeById($value->ps_art_list_id) == 'Classic'){
+				if($classic_count == 0){
+					$embossing_list[$key] = ['eid' => $value->ps_art_list_id, 'embossment_type' => getEmbossingTypeById($value->ps_art_list_id), 'embossing' => getEmbossingById($value->ps_art_list_id)];
+				}
+				$classic_count = 1;
+			}else{
+				if($edition_count == 0){
+					$embossing_list[$key] = ['eid' => $value->ps_art_list_id, 'embossment_type' => getEmbossingTypeById($value->ps_art_list_id), 'embossing' => getEmbossingById($value->ps_art_list_id)];
+				}
+				$edition_count = 1;
+			}
+
+			//$embossing_list[$key] = ['eid' => $value->ps_art_list_id, 'embossment_type' => getEmbossingTypeById($value->ps_art_list_id), 'embossing' => getEmbossingById($value->ps_art_list_id)];
 		}
 
 	}catch(Exception $e){
 
 		print_r($e->getMessage());
-		$embossing_list = ['eid' => '', 'embossment_type' => ''];
+		$embossing_list = ['eid' => '', 'embossment_type' => '',  'embossing' => ''];
 	}
 
 		print_r(json_encode($embossing_list));

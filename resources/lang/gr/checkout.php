@@ -93,6 +93,10 @@ return [
     'confirm_msg' => 'Möchten Sie die Datei löschen?',
     'paper_wt' => 'Papiergewicht',
     'select_file' => 'Datei auswählen',
+    'or' => 'oder',
+    'file_name' => 'Dateiname',
+    'no_of_pages' => 'Anzahl der Seiten',
+    'range_is' => 'Bereich liegt zwischen',
 
     // validations
 
