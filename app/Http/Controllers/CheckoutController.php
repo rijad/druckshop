@@ -925,7 +925,9 @@ $product = Product::where('id', $request->input('binding'))->first()->title_engl
 
 // }
 
-$product_details = "";
+
+$product_details_german="";
+$product_details = ""; 
  
 foreach($request->input() as $key => $value){
 
@@ -1761,7 +1763,8 @@ public function setQuantity(Request $request){
 	$no_of_cds = $request->input('no_of_cds');
 	$total_new = $request->input('total');
 	$sequence = $request->input('sequence');
-	$product_details = "";
+ 	$product_details_german = "";
+	$product_details = ""; 
 
 	if (Auth::check())
 	{
@@ -2600,207 +2603,207 @@ public function makeOrderDetailsGerman($model = "", $attribute=""){
 
 	if($model == "binding"){
 		$attribute = Product::where(['id' => $id])->first();  
-		return "Binding is ".$attribute->title_german;
+		return "Bindung ist ".$attribute->title_german;
 	}
 
 	if($model == "page-format"){
 		$attribute = PageFormat::where(['id' => $id])->first();
-		return "Page Format is ".$attribute->name_german;
+		return "Seitenformat ist ".$attribute->name_german;
 	}
 
 	if($model == "cover-color"){
 		$attribute = CoverColor::where(['id' => $id])->first();
-		return "Cover Color is ".$attribute->name_german;
+		return "Titelfarbe ist ".$attribute->name_german;
 	}
 
 	if($model == "cover-sheet"){
 		$attribute = CoverSheet::where(['id' => $id])->first();
-		return "Cover Sheet is ".$attribute->name_german;
+		return "Deckblatt ist ".$attribute->name_german;
 	}
 
 	if($model == "back-cover"){
 		$attribute = BackCovers::where(['id' => $id])->first();
-		return "Back Cover is ".$attribute->name_german;
+		return "Rückseite ist ".$attribute->name_german;
 	}
 
 	if($model == "page_options"){
 		$attribute = PageOptions::where(['id' => $id])->first();
-		return "Page Option is ".$attribute->name_german;
+		return "Seitenoption ist ".$attribute->name_german;
 	}
 
 	if($model == "paper-weight"){
 		$attribute = PaperWeight::where(['id' => $id])->first();
-		return "Paper Weight is ".$attribute->name_german . " g/m²";
+		return "Papiergewicht ist ".$attribute->name_german . " g/m²";
 	}
 
 	if($model == "mirror"){
 		$attribute = Mirror::where(['id' => $id])->first();
-		return "Mirror type is ".$attribute->name_german;
+		return "Spiegeltyp ist ".$attribute->name_german;
 	}
 
 	if($model == "fonts"){
-		return "Font is ".$attribute;
+		return "Schriftart ist ".$attribute;
 	}
 
 	if($model == "date-format"){
-		return "Date Format is ".$attribute;
+		return "Datumsformat ist ".$attribute;
 	}
 
 	if($model == "cd-bag"){
 		$attribute = CdBag::where(['id' => $id])->first();
-		return "Cd Bag is ".$attribute->name_german;
+		return "CD-Tasche ist ".$attribute->name_german;
 	}
 
 	if($model == "data_check"){
 		$attribute = DataCheck::where(['id' => $id])->first();
-		return "Data Check is ".$attribute->name_german;
+		return "Datenprüfung ist ".$attribute->name_german;
 	}
 
 	if($model == "no_of_copies"){
-		return "No.of Copies are ".$attribute;
+		return "Anzahl der Kopien sind ".$attribute;
 	}
 
 	if($model == "no_of_pages"){
-		return "No.of Pages are ".$attribute;
+		return "Anzahl der Seiten sind ".$attribute;
 	}
 
 	if($model == "pg_no"){
-		return "No of Pages in uploaded thesis are ".$attribute;
+		return "Keine der Seiten in der hochgeladenen Arbeit sind ".$attribute;
 	}
 
 	if($model == "color-pages"){
-		return "Color-Page is ".$attribute;
+		return "Farbseite ist ".$attribute;
 	}
 
 	if($model == "page_numbers"){
-		return "No of colored pages are ".$attribute;
+		return "Keine farbigen Seiten sind ".$attribute;
 	}
 
 	if($model == "A3-pages"){
-		return "A3-page is ".$attribute;
+		return "A3-Seite ist ".$attribute;
 	}
 
 	if($model == "number_of_pages"){
-		return "No of A3 Pages are ".$attribute;
+		return "Keine der A3-Seiten sind ".$attribute;
 	}
 
 	if($model == "pos_of_A3_pages"){
-		return "Pos of A3 pages are ".$attribute;
+		return "Pos von A3 Seiten sind ".$attribute;
 	}
 
 	if($model == "A2-pages"){
-		return "A2-page is ".$attribute;
+		return "A2-Seite ist ".$attribute;
 	}
 
 	if($model == "number_of_A2_pages"){
-		return "No of A2 pages are ".$attribute;
+		return "Keine der A2-Seiten sind ".$attribute;
 	}
 
 	if($model == "embossing"){
-		return "Embossing is ".$attribute;
+		return "Prägen ist ".$attribute;
 	}
 
 	if($model == "embossment-cover-sheet"){
-		return "Embossment-cover-sheet is ".$attribute;
+		return "Präge-Deckblatt ist ".$attribute;
 	}
 
 	if($model == "template"){
-		return "Binding template is ".$attribute;
+		return "Bindungsvorlage ist ".$attribute;
 	}
 
 	if($model == "embossment-template-name"){
-		return "Embossment template name is ".$attribute;
+		return "Name der Prägevorlage ist ".$attribute;
 	}
 
 	if($model == "embossment-spine"){
-		return "Embossment-Spine is ".$attribute;
+		return "Präge-Wirbelsäule ist ".$attribute;
 	}
 
 	if($model == "spine-count-hidden"){
-		return "Spine Count is ".$attribute;
+		return "Wirbelsäulenzahl ist ".$attribute;
 	}
 
 	if($model == "fonts-spine"){
-		return "Font Spine is ".$attribute;
+		return "Font Spine ist ".$attribute;
 	}
 
 	if($model == "direction"){
-		return "Direction is ".$attribute;
+		return "Richtung ist ".$attribute;
 	}
 
 	if($model == "fields_1"){
-		return "Field 1 is ".$attribute;
+		return "Feld 1 ist ".$attribute;
 	}
 
 	if($model == "pos_1"){
-		return "Pos 1 is ".$attribute;
+		return "Pos 1 ist ".$attribute;
 	}
 
 	if($model == "input_1"){
-		return "Input 1 is ".$attribute;
+		return "Eingang 1 ist ".$attribute;
 	}
 
 	if($model == "fields_2"){
-		return "Field 2 is ".$attribute;
+		return "Feld 2 ist ".$attribute;
 	}
 
 	if($model == "pos_2"){
-		return "Pos 2 is ".$attribute;
+		return "Pos 2 ist ".$attribute;
 	}
 
 	if($model == "input_2"){
-		return "Input 2 is ".$attribute;
+		return "Eingang 2 ist ".$attribute;
 	}
 
 	if($model == "fields_3"){
-		return "Field 3 is ".$attribute;
+		return "Feld 3 ist ".$attribute;
 	}
 
 	if($model == "pos_3"){
-		return "Pos 3 is ".$attribute;
+		return "Pos 3 ist ".$attribute;
 	}
 
 	if($model == "input_3"){
-		return "Input 3 is ".$attribute;
+		return "Eingang 3 ist ".$attribute;
 	}
 
 	if($model == "remarks"){
-		return "Remarks are ".$attribute;
+		return "Bemerkungen sind ".$attribute;
 	}
 
 	if($model == "cd-check"){
-		return "Cd-check is ".$attribute;
+		return "CD-Check ist ".$attribute;
 	}
 
 	if($model == "number_of_cds"){
-		return "No of cds are ".$attribute;
+		return "Keine CDs sind ".$attribute;
 	}
 
 	if($model == "imprint"){
-		return "Imprint is ".$attribute;
+		return "Impressum ist ".$attribute;
 	}
 
 	if($model == "cd-template"){
-		return "Cd Template is ".$attribute;
+		return "CD-Vorlage ist ".$attribute;
 	}
 
 	if($model == "cd-template-name"){
-		return "Cd template name is ".$attribute;
+		return "Der Name der CD-Vorlage lautet ".$attribute;
 	}
 
 	if($model == "fonts-cd"){
-		return "Fonts-cd is ".$attribute;
+		return "Fonts-CD ist ".$attribute;
 	}
 
 	if($model == "pos-cd-bag"){
-		return "Pos of cd-bag is ".$attribute;
+		return "Pos von CD-Bag ist ".$attribute;
 	}
 
 	if($model == "total"){
-		return "Total is ".$attribute;
+		return "Insgesamt ist ".$attribute;
 	}
 
-	return "are ".$attribute;
+	return "sind ".$attribute;
 
 }
 

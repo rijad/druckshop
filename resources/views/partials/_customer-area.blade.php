@@ -73,7 +73,18 @@
                           <img src="images/product_frame.png" alt="" width="100px">
                             <div class="product_description">
                                 <p class="thisproduct_head">{{productNameByName($details->product)}}</p>
-                                <p class="thisproduct_subhead">{{$details->attribute_desc}}</p>
+                                
+
+                                  @php
+                                      $locale = session()->get('locale');
+
+                                      if ($locale == 'gr')
+                                        echo ' <p class="thisproduct_subhead">'.$details->attribute_desc_german.'</p>' ;
+                                      else
+                                         echo ' <p class="thisproduct_subhead">'.$details->attribute_desc.'</p>' ;
+                                      
+
+                                    @endphp
                             </div>
                             <ul class="product_price">
                                 <li class="inputcard_quantity"><h6>

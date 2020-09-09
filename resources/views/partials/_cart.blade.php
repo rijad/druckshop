@@ -24,18 +24,18 @@
                                                   <img src="http://druckshop.trantorglobal.com/public/images/product1.jpg" alt="" width="75px" />
                                                   <div class="product_description">
                                                       <p class="thisproduct_head">{{$data->product}}</p>
-                                                      <p id="thisproduct_subhead" class="thisproduct_subhead more">{{$data->attribute_desc}} 
+                                                      
+                                                     @php
+                                                        $locale = session()->get('locale');
 
-                                                      	{{-- @php
-                                                      		
-                                                      		$tr = new GoogleTranslate(); // Translates to 'en' from auto-detected language by default
-															$tr->setSource('en'); // Translate from English
-															//$tr->setSource(); // Detect language automatically
-															$tr->setTarget('gr'); // Translate to Georgian
-															echo $tr->translate($data->attribute_desc);
-													    @endphp --}}
-
-                                                      </p>
+                                                        if ($locale == 'gr')
+                                                          echo '<p id="thisproduct_subhead" class="thisproduct_subhead more">'.$data->attribute_desc_german.'</p>' ;
+                                                        else
+                                                          echo '<p id="thisproduct_subhead" class="thisproduct_subhead more">'.$data->attribute_desc.'</p>';
+                                                        
+      
+                                                      @endphp
+                                                      
                                                   </div>    
                                                   <ul class="product_price" id="product_price"> 
                                                       <li class="inputcard_quantity" style="display: none"><h6><strong>€ <span id="price_per_product_{{$data->id}}" class = "price_per_product">{{$data->price_per_product}}</span><span class="text-muted">x</span></strong></h6></li> 
