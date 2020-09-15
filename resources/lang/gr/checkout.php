@@ -98,6 +98,18 @@ return [
     'no_of_pages' => 'Anzahl der Seiten',
     'range_is' => 'Bereich liegt zwischen',
 
+    // Tooltips
+
+    'color_pages_tooltip' => 'Seitenzahlen der PDF-Datei, nicht der Arbeit (Dokument)',
+    'din_A3_pages_tooltip' => 'Es wird mit der gleichen Papiersorte und einseitig gedruckt. Es wird mit der gleichen Papiersorte und einseitig gedruckt. ',
+    'din_A2_pages_tooltip' => 'Es wird am Ende der Arbeit gefaltet und in eine Tasche geklebt. Die maximale Anzahl von DIN A2-Seiten beträgt: 3  ',
+     'paper_weight_tooltip' => 'für einseitiges 100 g / m² Papier und für zweiseitiges 120 g / m² Papier',
+    'no_of_pages_tooltip' => 'Nummer der PDF-Datei und nur Nummer von ',
+    'cover_sheet_title_tooltip' => '200 g / m² Blätter',
+    'embossing_template_tooltip' => 'Die Daten stammen aus dem Deckblatt',
+    'own_binding_template_tooltip' => 'Die Länge X innerhalb von Rücken X cm wird durch die Dicke des Papiers (im Verwaltungsbereich unter Papiergewicht einzustellen) multipliziert mit der Anzahl der Blätter + 0,5 mm berechnet.',
+    'refinement_spine_tooltip' =>'Die Daten stammen aus dem Deckblatt',
+
     // validations
 
 

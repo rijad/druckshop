@@ -11,7 +11,7 @@
 						<div class="stepperBullets">
 							<div class="step"><span>1</span></div> 
 							<div class="step"><span>2</span></div>
-						</div> 
+						</div>  
   
 						<div class="checkoutBlock col-half text-left">
 							{{-- <h1>Register:</h1> --}}
@@ -51,7 +51,7 @@
 									<p><select name="cover-color" class = "" onclick = "displayProductAttributes('4',this); sampleImage();" onchange="" id="cover-color"><option value="-1">{{ trans('checkout.select') }}</option></select></p><p class="error" id="error_cover_color"></p>
 								</div>
 								<div class="displayNone" id="div-cover-sheet">
-									<label>{{ trans('checkout.cover_sheet') }}*:<a href="#" data-toggle="tooltip" title="200 gm/m2 sheets" class="formToolTip">i</a></label>
+									<label>{{ trans('checkout.cover_sheet') }}*:<a href="#" data-toggle="tooltip" title="{{trans('checkout.cover_sheet_title_tooltip')}}" class="formToolTip">i</a></label>
 									<p><select class = "" onclick = "displayProductAttributes('5',this);uploadDisplayCoverSheet(this.id,this.value);" onchange="" id="cover-sheet" name="cover-sheet"><option onclick ="" value="-1">{{ trans('checkout.select') }}</option></select></p>
 									<p class="error" id="error_cover_sheet">
   
@@ -75,7 +75,7 @@
 									</div>
 
 									<div class="displayNone" id="div-back-cover">
-										<label>{{ trans('checkout.back_sheet') }}*:<div title="200 gm/m2 sheets" class="formToolTip">i</div></label>
+										<label>{{ trans('checkout.back_sheet') }}*:<div title="{{trans('checkout.cover_sheet_title_tooltip')}}"" class="formToolTip">i</div></label>
 										<p><select class = "" onclick = "displayProductAttributes('6',this); uploadDisplayBackCover(this.id,this.value);" onchange="uploadDisplayBackCover(this.id,this.value);"  id="back-cover" name="back-cover"><option value="-1">{{ trans('checkout.select') }}</option></select></p> <p class="error" id="error_back_cover">
 									</div>
 									
@@ -114,7 +114,7 @@
 
 									<div class="displayBlock" id="div-paper-weight">
 										<label>{{ trans('checkout.paper_weight') }}*:<a href="#" data-toggle="tooltip" title="
-											for one-sided 100 g/m² paper &#013; for two-sided 120 g/m² paper" class="formToolTip">i</a></label>
+											{{trans('checkout.paper_weight_tooltip')}}" class="formToolTip">i</a></label>
 										<p><select class = "" name="paper-weight" id="paper-weight" onchange="displayPrice('0','','','','','',this.value,'','','','','','','','','',''); getPaperWeightCount(); BasicRange('binding','paper-weight','no-of-pages');"><option value="-1">{{ trans('checkout.select') }}</option></select></p> <p class="error" id="error_paper_weight"></p>
 									</div>  
 

@@ -53,7 +53,7 @@
 									<p><select name="cover-color" class = "" onclick = "displayProductAttributes('4',this); sampleImage();" onchange="" id="cover-color"><option value = "-1">{{ trans('checkout.select') }}</option></select></p><p class="error" id="error_cover_color"></p>
 								</div>
 								<div class="displayNone" id="div-cover-sheet">
-									<label>{{ trans('checkout.cover_sheet_title') }}*:<a href="#" data-toggle="tooltip" title="200 gm/m2 sheets" class="formToolTip">i</a></label>
+									<label>{{ trans('checkout.cover_sheet_title') }}*:<a href="#" data-toggle="tooltip" title="{{trans('checkout.cover_sheet_title_tooltip')}}" class="formToolTip">i</a></label>
 									<p><select class = "" onclick = "displayProductAttributes('5',this);uploadDisplayCoverSheet(this.id,this.value);" onchange="" id="cover-sheet" name="cover-sheet"><option onclick ="" value="-1">{{ trans('checkout.select') }}</option></select></p>
 									<p class="error" id="error_cover_sheet">
   
@@ -77,7 +77,7 @@
 									</div>
 
 									<div class="displayNone" id="div-back-cover">
-										<label>{{ trans('checkout.back_sheet_title') }}*:<div title="200 gm/m2 sheets" class="formToolTip">i</div></label>
+										<label>{{ trans('checkout.back_sheet_title') }}*:<div title="{{trans('checkout.cover_sheet_title_tooltip')}}"" class="formToolTip">i</div></label>
 										<p><select class = "" onclick = "displayProductAttributes('6',this); uploadDisplayBackCover(this.id,this.value);" onchange="uploadDisplayBackCover(this.id,this.value);"  id="back-cover" name="back-cover"><option value="-1">{{ trans('checkout.select') }}</option></select></p> <p class="error" id="error_back_cover">
 									</div>
 									
@@ -123,7 +123,7 @@
 
 									<div class="displayBlock" id="div-paper-weight">
 										<label>{{ trans('checkout.paper_wt') }}*:<a href="#" data-toggle="tooltip" title="
-											for one-sided 100 g/m² paper &#013; for two-sided 120 g/m² paper" class="formToolTip">i</a></label>
+											{{trans('checkout.paper_weight_tooltip')}}" class="formToolTip">i</a></label>
 										<p><select class = "" name="paper-weight" id="paper-weight" onchange="displayPrice('0','','','','','',this.value,'','','','','','','','','',''); getPaperWeightCount(); BasicRange('binding','paper-weight','no-of-pages');"><option value="-1">{{ trans('checkout.select') }}</option></select></p> <p class="error" id="error_paper_weight"></p>
 									</div>  
 
@@ -162,7 +162,7 @@
 										</div>
 
 										<div class="displayNone" id="div-page-numbers">
-											<label>{{ trans('checkout.number_of_color_pages') }}*:<a href="#" data-toggle="tooltip" title="Page numbers of the PDF file, not of &#013; the thesis (document)" class="formToolTip">i</a></label>
+											<label>{{ trans('checkout.number_of_color_pages') }}*:<a href="#" data-toggle="tooltip" title="{{ trans('checkout.color_pages_tooltip') }}" class="formToolTip">i</a></label>
 
 											<p><input type = "text" class= "" name="page_numbers" id="page-numbers" placeholder="{{ trans('checkout.pg_no') }}" value = "" oninput = "checkPageRange('selectfile_content','content_page_no','page-numbers')">
 												<p class="error" id="error_page_numbers"></p>
@@ -180,7 +180,7 @@
 											</div>  
  
 											<div class="displayNone" id="div-number-of-pages">
-												<label>{{ trans('checkout.number_din_A3_pages') }}*:<a href="#" data-toggle="tooltip" title=" It is printed with the same paper type and one-sided. &#013; It is printed with the same paper type and one-sided. " class="formToolTip">i</a></label>
+												<label>{{ trans('checkout.number_din_A3_pages') }}*:<a href="#" data-toggle="tooltip" title="{{trans('checkout.din_A3_pages_tooltip')}}" class="formToolTip">i</a></label>
 												<p><input type = "text" class = "" name="number_of_pages" id="numbers-of-pages" placeholder="{{ trans('checkout.no_of_pages') }}"  max="10" oninput = "displayPrice('0','','','','','','','',this.value,'','','','','','','','');">
 												</p>
 												<p id="A3_msg" class="displayNone">{{ trans('checkout.max_range_A3') }} <span id="max-A3"></span></p>
@@ -218,7 +218,7 @@
 
 												<label class="outside-box-heading displayNone" id="div-number-of-A2-pages_heading">{{ trans('checkout.number_din_A2_pages') }}</label>
 												<div class="displayNone" id="div-number-of-A2-pages">
-													<label class="inside-box-heading">{{ trans('checkout.number_din_A2_pages') }}*:<a href="#" data-toggle="tooltip" title="It is folded and glued into a bag at the end of the thesis. &#013; The maximum number of DIN A2 pages is: 3 " class="formToolTip">i</a></label>
+													<label class="inside-box-heading">{{ trans('checkout.number_din_A2_pages') }}*:<a href="#" data-toggle="tooltip" title="{{ trans('checkout.din_A2_pages_tooltip') }}" class="formToolTip">i</a></label>
 													<p><input type = "text" class = "" name="number_of_A2_pages" id="numbers-of-A2-pages" placeholder="{{ trans('checkout.no_of_pages') }}" value = "" max="3" oninput = "displayPrice('0','','','','','','',this.value,'','','','','','','','','');"></p>
 													<p id="A2_msg" class="displayNone">{{ trans('checkout.max_range_A2') }} <span id="max-A2"></p>
 													<p class="error" id="error_number_of_A2_pages"></p>
@@ -262,7 +262,7 @@
 												</div> 
 
 												<div class="displayNone" id="div-template">
-													<label>{{ trans('checkout.temp') }}*:<a href="#" data-toggle="tooltip" title="Data is taken from cover sheet" class="formToolTip">i</a></label>
+													<label>{{ trans('checkout.temp') }}*:<a href="#" data-toggle="tooltip" title="{{trans('checkout.embossing_template_tooltip')}}" class="formToolTip">i</a></label>
 													<p><select name ="template" id="template" onchange="displayPopUp(this.value);"><option value="-1">{{ trans('checkout.select') }}</option>
 														@php $locale = session()->get('locale'); @endphp
 														@if ($locale == 'gr') 
@@ -343,7 +343,7 @@
 													<div class="displayNone" id="upload_custom_file" ondrop="upload_file(event,this.id)" ondragover="return false" class="displayBlock">
 													<div id="drag_upload_file_file">
 														<p class="inside-box-testing">{{ trans('checkout.upload_own_binding_template') }}</p>
-														<p>{{ trans('checkout.drop_file') }}<a href="#" data-toggle="tooltip" title="The length X within 'spine X cm' is calculated by the thickness of the paper (to be set in the admin area under paper weight) times the number of sheets + 0.5 mm." class="formToolTip">i</a></p> 
+														<p>{{ trans('checkout.drop_file') }}<a href="#" data-toggle="tooltip" title="{{trans('checkout.own_binding_template_tooltip')}}" class="formToolTip">i</a></p> 
 														<p>{{ trans('checkout.or') }}</p>
 														<p><input type="button" value="{{ trans('checkout.select_file') }}" onclick="file_explorer('upload_custom_file');"></p>
 														<input  class="displayNone" type="file" name ="selectfile" id="selectfile" accept="application/pdf">
@@ -358,7 +358,7 @@
 												<label class = "displayNone" id="download_stylesheet"> <a href={{url('/').'/public/style_sheet/stylesheet.pdf'}} target="_blank" >Link for sample style sheet</a></label>
  
 													<div class="displayBlock" id="div-embossment-spine">
-														<label class="csCheckbtn">{{ trans('checkout.refinement_spine') }}<a href="#" data-toggle="tooltip" title="Data is taken from cover sheet" id="spine-title" class="displayNone formToolTip">i</a>
+														<label class="csCheckbtn">{{ trans('checkout.refinement_spine') }}<a href="#" data-toggle="tooltip" title="{{trans('checkout.refinement_spine_tooltip')}}" id="spine-title" class="displayNone formToolTip">i</a>
 															<input class = "" type="checkbox" id = "embossment-spine" name = "embossment-spine" onchange = " displayPrice('0','','','','','1','','','','','','','','','','','');  setTimeout(function(){displayProductAttributes('10',this)},200); setTimeout(function(){displayPrintFields('Embossment_spine')},300);  setTimeout(function(){resetPrice('refinement_with_spine')},500); setTimeout(function(){displayPrice('0','','','','','','','','','','','','','','',$('#embossing').find(':selected').val(),'')},1000);" disabled>
 															<span class="checkmark"></span>
 														</label>
