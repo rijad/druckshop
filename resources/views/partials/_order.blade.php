@@ -14,8 +14,15 @@
                                 <div class="product_listing">
                                     <img src="images/product_frame.png" alt="" width="100px">
                                     <div class="product_description">
-                                        <p class="thisproduct_head">{{$data->product}}</p>
-                                        <p class="thisproduct_subhead more">{{$data->attribute_desc}}</p>
+                                        <p class="thisproduct_head">{{productNameByName($data->product) }}</p>
+                                         @php
+                                              $locale = session()->get('locale');   
+
+                                              if ($locale == 'gr')
+                                                echo '<p class="thisproduct_subhead more">'.$data->attribute_desc_german.'</p>' ;
+                                              elseif($locale == 'en')
+                                                echo '<p class="thisproduct_subhead more">'.$data->attribute_desc.'</p>';
+                                        @endphp
                                     </div>
                                     <ul class="product_price">
                                         <li class="inputcard_quantity"><h6><strong>{{number_format($data->price_product_qty,2)}}€</strong></h6>
@@ -65,8 +72,8 @@
 $(document).ready(function() {
   var showChar = 100;
   var ellipsestext = "...";
-  var moretext = "Read more";
-  var lesstext = "Read less";
+  var moretext = "{{ trans("cart.read_more") }}";
+    var lesstext = "{{ trans("cart.read_less") }}";
   $('.more').each(function() {
     var content = $(this).html();
 

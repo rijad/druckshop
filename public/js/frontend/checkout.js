@@ -2071,7 +2071,7 @@ function setQuantity(count = ""){
 		data: {'_token': $('meta[name="csrf-token"]').attr('content')},
 		success: function (response){
 
-			var data = JSON.parse(response);  console.log(response);
+			var data = JSON.parse(response);  
 
 			var embossment_cover = ""; 	var embossment_spine = ""; 	var number_of_A2_pages = "";
 			var number_of_pages = ""; var number_of_A2_pages = ""; var paper_weight = '0';
@@ -2086,20 +2086,22 @@ function setQuantity(count = ""){
 			    total_cds_after_split[i] = 0;
 				m.each(function(e) { 
 
+					console.log($(this).val());
+
 					if(isNaN(parseInt($(this).val()))){
 						total_cds_after_split[i] += parseInt(0);
-						//$(this).attr('readonly', true); 
+						
 					}else if(parseInt($(this).val()) == 0){
 						total_cds_after_split[i] += parseInt($(this).val());
-						//$(this).attr('readonly', false);
+						
 					}else{
 						total_cds_after_split[i] += parseInt($(this).val());
-						//$(this).attr('readonly', false);
+						
 					}
 
 				}); 
 
-				// $("[id='total_cds_after_split"+i+"']").val(total_cds_after_split[i]);
+				
 
 				var n = $("[name^='no_of_copies["+i+"_']");
 				total_copies_after_split[i] = 0;
@@ -3012,7 +3014,7 @@ function addAddress(address_type = "", address = "", drop_down = ""){
 
 function addTooltip(value){
 
-	document.getElementById("page-format-tooltip").title = "number of the PDF file and only number of "+ value.options[value.selectedIndex].text;
+	document.getElementById("page-format-tooltip").title =  "" + lang_text.no_of_pages_tooltip + value.options[value.selectedIndex].text;
 
 }
 

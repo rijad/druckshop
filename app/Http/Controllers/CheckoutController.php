@@ -911,7 +911,7 @@ public function saveOrder(Request $request){
 //dd(Auth::user()->id);   
 //dd($request->input()); 
 
-$product_attribute = json_encode($request->input());
+$product_attribute = json_encode($request->input());  
 
 $product = Product::where('id', $request->input('binding'))->first()->title_english;
 
@@ -1868,8 +1868,13 @@ public function setQuantity(Request $request){
 
 		// exit;
 
+		$locale = session()->get('locale');
 
-		print_r($product_details);
+			if ($locale == 'gr'){ 
+				print_r($product_details_german);
+			}else{
+				print_r($product_details);
+			}
 
 	}
 
@@ -1898,7 +1903,7 @@ public function setQuantity(Request $request){
     		$new_record = new SplitOrderShippingAddress;
     		$new_record->prod_sequence = $request->input('prod_sequence');
     		$new_record->no_of_copies = $request->input('no_of_copies');
-    		$new_record->no_of_cds = $request->input('no_of_cds');
+    		$new_record->no_of_cds = $request->input('no_of_cds') == "  " ? 0 : $request->input('no_of_cds');
     		$new_record->shipping_address = $request->input('shipping_address');
     		$new_record->shipping_company = $request->input('shipping_company');
     		$new_record->unique_id = $request->input('rowId');
@@ -1919,7 +1924,7 @@ public function setQuantity(Request $request){
     		}
 
     		if($request->input('no_of_cds') != ""){
-    			$update_record->no_of_cds = $request->input('no_of_cds');
+    			$update_record->no_of_cds = $request->input('no_of_cds') == "  " ? 0 : $request->input('no_of_cds');
     		}
 
     		if($request->input('shipping_address') != ""){
