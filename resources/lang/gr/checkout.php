@@ -81,10 +81,10 @@ return [
     'pos_cd_bag_placeh' => 'Am Ende der Arbeit in der Abdeckung',  
     'pg_no' => 'Seitenzahlen', 
     'no_of_cd' => 'Anzahl der CDs',
-    'spine' => 'Der Verfeinerungsrücken kann aktiviert werden, da die tatsächliche Anzahl der Blätter gleich oder größer als die erforderliche Mindestanzahl der Blätter ist',
+    'spine' => 'Die Verfeinerung Buchrücken kann aktiviert werden, da die tatsächliche Anzahl der Blätter gleich oder größer als die erforderliche Mindestanzahl der Blätter ist',
     'spine_not' => 'Der Verfeinerungsrücken kann nicht aktiviert werden, da die tatsächliche Anzahl der Blätter unter der erforderlichen Mindestanzahl der Blätter liegt',
     'range' => 'Reichweite ist',
-    'min_spine' => 'Die Mindestanzahl der Blätter für den Rücken beträgt',
+    'min_spine' => 'Die Mindestanzahl der Blätter für den Buchrücken beträgt', 
     'submit' => 'einreichen',
     'unit_binding' => 'Stückpreis pro verbindlichem Exemplar',
     'choose_layout' => 'Wählen Sie das Layout für die Standardabdeckung ohne Logo.',
@@ -93,6 +93,22 @@ return [
     'confirm_msg' => 'Möchten Sie die Datei löschen?',
     'paper_wt' => 'Papiergewicht',
     'select_file' => 'Datei auswählen',
+    'or' => 'oder',
+    'file_name' => 'Dateiname',
+    'no_of_pages' => 'Anzahl der Seiten',
+    'range_is' => 'Bereich liegt zwischen',
+
+    // Tooltips
+
+    'color_pages_tooltip' => 'Seitenzahlen der PDF-Datei, nicht der Arbeit (Dokument)',
+    'din_A3_pages_tooltip' => 'Es wird mit der gleichen Papiersorte und einseitig gedruckt. Es wird mit der gleichen Papiersorte und einseitig gedruckt. ',
+    'din_A2_pages_tooltip' => 'Es wird am Ende der Arbeit gefaltet und in eine Tasche geklebt. Die maximale Anzahl von DIN A2-Seiten beträgt: 3  ',
+     'paper_weight_tooltip' => 'für einseitiges 100 g / m² Papier und für zweiseitiges 120 g / m² Papier',
+    'no_of_pages_tooltip' => 'Nummer der PDF-Datei und nur Nummer von ',
+    'cover_sheet_title_tooltip' => '200 g / m² Blätter',
+    'embossing_template_tooltip' => 'Die Daten stammen aus dem Deckblatt',
+    'own_binding_template_tooltip' => 'Die Länge X innerhalb von Rücken X cm wird durch die Dicke des Papiers (im Verwaltungsbereich unter Papiergewicht einzustellen) multipliziert mit der Anzahl der Blätter + 0,5 mm berechnet.',
+    'refinement_spine_tooltip' =>'Die Daten stammen aus dem Deckblatt',
 
     // validations
 

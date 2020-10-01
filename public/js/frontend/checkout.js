@@ -133,6 +133,8 @@ function displayFieldsContent(page_options = ""){
 
 		}else{}
 
+
+
 		// Get data for mirror
 		if (typeof $content_attributes['mirror'] !== 'undefined' && $content_attributes['mirror'].length > 0) {
 			var len = $content_attributes['mirror'].length;
@@ -140,10 +142,19 @@ function displayFieldsContent(page_options = ""){
 			$("#mirror").empty();
 			$("#mirror").append("<option value='-1'>"+lang_text.select+"</option>");
 			for( var i = 0; i<len; i++){  
-				$("#mirror").append("<option value = "+$content_attributes['mirror'][i]['id'] +">"+$content_attributes['mirror'][i]['mirror']+"</option>");
-			if($content_attributes['mirror'][i]['mirror'] == 'Long edge'){
-				$("#mirror").val($content_attributes['mirror'][i]['id']);
-		} 
+				var mirror = "";
+
+				if($content_attributes['mirror'][i].hasOwnProperty('name_german')){
+					mirror = $content_attributes['mirror'][i]['name_german'];
+				}else{
+					mirror = $content_attributes['mirror'][i]['name_english'];
+				}
+
+				$("#mirror").append("<option value = "+$content_attributes['mirror'][i]['id'] +">"+mirror+"</option>");
+				
+				if($content_attributes['mirror'][i]['name_english'] == 'Long edge' || $content_attributes['mirror'][i]['name_german'] == 'Lange Kante'){
+					$("#mirror").val($content_attributes['mirror'][i]['id']);
+				} 
 			}
 
 		}else{
@@ -2060,7 +2071,7 @@ function setQuantity(count = ""){
 		data: {'_token': $('meta[name="csrf-token"]').attr('content')},
 		success: function (response){
 
-			var data = JSON.parse(response);  console.log(response);
+			var data = JSON.parse(response);  
 
 			var embossment_cover = ""; 	var embossment_spine = ""; 	var number_of_A2_pages = "";
 			var number_of_pages = ""; var number_of_A2_pages = ""; var paper_weight = '0';
@@ -2075,20 +2086,22 @@ function setQuantity(count = ""){
 			    total_cds_after_split[i] = 0;
 				m.each(function(e) { 
 
+					console.log($(this).val());
+
 					if(isNaN(parseInt($(this).val()))){
 						total_cds_after_split[i] += parseInt(0);
-						//$(this).attr('readonly', true); 
+						
 					}else if(parseInt($(this).val()) == 0){
 						total_cds_after_split[i] += parseInt($(this).val());
-						//$(this).attr('readonly', false);
+						
 					}else{
 						total_cds_after_split[i] += parseInt($(this).val());
-						//$(this).attr('readonly', false);
+						
 					}
 
 				}); 
 
-				// $("[id='total_cds_after_split"+i+"']").val(total_cds_after_split[i]);
+				
 
 				var n = $("[name^='no_of_copies["+i+"_']");
 				total_copies_after_split[i] = 0;
@@ -2578,7 +2591,7 @@ function BasicRange(binding = "", weight = "", no_pages=""){
 			var max  = parseInt(data['max_sheets']);
 			var no_of_pages = document.getElementById('pg_no').value; // no of pages of uploaded file
 			document.getElementById('error_no_of_pages').style.color = "#000000";
-			document.getElementById('error_no_of_pages').innerHTML = "Range is "+ min + " - " + max ;
+			document.getElementById('error_no_of_pages').innerHTML = lang_text.range_is +" "+ min + " - " + max ;
 			
 		}
 	}); 
@@ -2617,7 +2630,7 @@ function BasicRange(binding = "", weight = "", no_pages=""){
 			if(value < min || value > max){ 
 
 				document.getElementById('error_no_of_pages').style.color = "red";
-				document.getElementById('error_no_of_pages').innerHTML = "Range is "+ min + " - " + max ;
+				document.getElementById('error_no_of_pages').innerHTML = lang_text.range_is +" "+ min + " - " + max ;
 				status = false;
 			}
 
@@ -3001,7 +3014,7 @@ function addAddress(address_type = "", address = "", drop_down = ""){
 
 function addTooltip(value){
 
-	document.getElementById("page-format-tooltip").title = "number of the PDF file and only number of "+ value.options[value.selectedIndex].text;
+	document.getElementById("page-format-tooltip").title =  "" + lang_text.no_of_pages_tooltip + value.options[value.selectedIndex].text;
 
 }
 
@@ -3315,7 +3328,7 @@ function getEmbossingFields(binding = ''){
 
 			data.forEach(function(data) { 
 				
-				$('#embossing').append("<option value='"+data.embossment_type+"'>"+data.embossment_type+ "</option>");
+				$('#embossing').append("<option value='"+data.embossment_type+"'>"+data.embossing+ "</option>");
 			})
 
 			

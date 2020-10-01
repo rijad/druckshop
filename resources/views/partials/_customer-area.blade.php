@@ -73,7 +73,18 @@
                           <img src="images/product_frame.png" alt="" width="100px">
                             <div class="product_description">
                                 <p class="thisproduct_head">{{productNameByName($details->product)}}</p>
-                                <p class="thisproduct_subhead">{{$details->attribute_desc}}</p>
+                                
+
+                                  @php
+                                      $locale = session()->get('locale');
+
+                                      if ($locale == 'gr')
+                                        echo ' <p class="thisproduct_subhead">'.$details->attribute_desc_german.'</p>' ;
+                                      else
+                                         echo ' <p class="thisproduct_subhead">'.$details->attribute_desc.'</p>' ;
+                                      
+
+                                    @endphp
                             </div>
                             <ul class="product_price">
                                 <li class="inputcard_quantity"><h6>
@@ -81,16 +92,17 @@
                                 </li>
                             </ul>
 
-                            <div class="customer-info">
+                            	
+                            <div class="customer-info binding-details"> 
                               @foreach($splitOrderDetails as $splitKey => $splitValue) 
                                 @if($data->order_id == $splitValue->unique_id && $splitValue->prod_sequence == $key)
-                                <p>{{ trans('customer.no_of_copies') }}: {{$splitValue->no_of_copies}}</p>   
-                                <p>{{ trans('customer.no_of_cds') }}: {{$splitValue->no_of_cds}}</p> 
-                                <p>{{ trans('customer.ship_add') }}: {{$splitValue->shipping_address}}</p>
+                                <h6 class="no-cps">{{ trans('customer.no_of_copies') }}: {{$splitValue->no_of_copies}}</h6>   
+                                <h6 class="no-cds"><h6>{{ trans('customer.no_of_cds') }}: {{$splitValue->no_of_cds}}</h6> 
+                                <h6 class="ship-add">{{ trans('customer.ship_add') }}: {{$splitValue->shipping_address}}</h6>
                                 <hr>
                                 @endif
                               @endforeach
-                                   <p>{{ trans('customer.bill_add') }}: {{$data->billing_address}}</p>
+                                   <p class="bill-add">{{ trans('customer.bill_add') }}: {{$data->billing_address}}</p>
                             </div> 
                             
                         </div>  

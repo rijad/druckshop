@@ -96,6 +96,22 @@ return [
     'embossment_no' => 'Embossment Cover Sheet: No',
     'paper_wt' => 'Paper Weight',
     'select_file' => 'Select File',
+    'or' => 'or',
+    'file_name' => 'File Name',
+    'no_of_pages' => 'No of Pages',
+    'range_is' => 'Range is',
+
+    // Tooltips
+
+    'color_pages_tooltip' => 'Page numbers of the PDF file, not of the thesis (document)',
+    'din_A3_pages_tooltip' => 'It is printed with the same paper type and one-sided. It is printed with the same paper type and one-sided. ',
+    'din_A2_pages_tooltip' => 'It is folded and glued into a bag at the end of the thesis. The maximum number of DIN A2 pages is: 3  ',
+    'paper_weight_tooltip' => 'for one-sided 100 g/m² paper and for two-sided 120 g/m² paper',
+    'no_of_pages_tooltip' => 'number of the PDF file and only number of ',
+    'cover_sheet_title_tooltip' => '200 gm/m2 sheets',
+    'embossing_template_tooltip' => 'Data is taken from cover sheet',
+    'own_binding_template_tooltip' => 'The length X within spine X cm is calculated by the thickness of the paper (to be set in the admin area under paper weight) times the number of sheets + 0.5 mm.',
+    'refinement_spine_tooltip' =>'Data is taken from cover sheet',
 
 
     // validations
